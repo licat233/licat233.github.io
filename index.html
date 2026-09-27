@@ -1,54 +1,469 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="EAO — Enterprise AI Office. An open-source, self-hosted system for bringing AI into real company departments, knowledge, tools and governance.">
-<meta name="theme-color" content="#ffffff">
-<title>EAO — Enterprise AI Office</title>
-<style>
-:root{--ink:#111716;--muted:#61706d;--line:#dce5e3;--soft:#f4f8f7;--brand:#08cfc4;--brand2:#006d68;--max:1180px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff;line-height:1.6}
-a{color:inherit;text-decoration:none}.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
-nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);z-index:20}
-.navin{display:flex;align-items:center;justify-content:space-between;width:min(var(--max),calc(100% - 40px));margin:auto}.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.03em}.mark{width:32px;height:32px;border:2px solid var(--ink);display:grid;place-items:center;font-size:11px;font-weight:900}.links{display:flex;gap:28px;align-items:center;font-size:14px}.links a:hover{color:var(--brand2)}.gh{border:1px solid var(--ink);padding:8px 14px;font-weight:650}
-.hero{padding:112px 0 96px;border-bottom:1px solid var(--line)}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.16em;color:var(--brand2);font-weight:750;margin-bottom:22px}.hero h1{font-size:clamp(52px,8vw,100px);line-height:.94;letter-spacing:-.065em;margin:0;max-width:1000px}.hero h1 span{color:var(--brand2)}.lead{font-size:clamp(19px,2.2vw,27px);line-height:1.42;color:#34413f;max-width:790px;margin:34px 0 36px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{padding:13px 19px;border:1px solid var(--ink);font-weight:700;font-size:14px}.btn.primary{background:var(--ink);color:#fff}.btn:hover{transform:translateY(-1px)}.proof{margin-top:76px;padding-top:24px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.proof b{display:block;font-size:15px}.proof span{font-size:13px;color:var(--muted)}
-section{padding:92px 0;border-bottom:1px solid var(--line)}.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:var(--brand2);font-weight:800}.section-title{font-size:clamp(34px,5vw,60px);letter-spacing:-.045em;line-height:1.04;margin:13px 0 22px;max-width:880px}.intro{font-size:20px;color:var(--muted);max-width:790px}
-.flow{margin-top:56px;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--line)}.flow div{padding:28px 14px;border-right:1px solid var(--line);min-height:120px}.flow div:last-child{border:0}.flow b{display:block;font-size:12px;color:var(--brand2);margin-bottom:12px}.flow strong{font-size:15px}
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:50px}.compare>div{background:#fff;padding:42px}.compare .eao{background:var(--soft)}.compare h3{font-size:23px;margin:0 0 30px}.steps{font-size:18px;line-height:2.1}.arrow{color:var(--brand2);padding:0 8px}
-.capabilities{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:52px}.cap{padding:34px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:235px}.num{font-size:12px;color:var(--brand2);font-weight:800}.cap h3{font-size:21px;margin:34px 0 10px}.cap p{margin:0;color:var(--muted);font-size:15px}
-.arch{margin-top:52px;border:1px solid var(--line);padding:42px;background:var(--soft)}.arch-row{display:grid;grid-template-columns:170px 1fr;gap:28px;padding:20px 0;border-bottom:1px solid #d7e1df}.arch-row:last-child{border:0}.arch-row b{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--brand2)}.chips{display:flex;gap:10px;flex-wrap:wrap}.chip{background:#fff;border:1px solid #ccd8d5;padding:7px 11px;font-size:13px}
-.principle{font-size:clamp(30px,5vw,58px);line-height:1.14;letter-spacing:-.04em;max-width:970px;margin:44px 0}.principle em{font-style:normal;color:var(--brand2)}
-.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}.rule{border-top:2px solid var(--ink);padding-top:18px}.rule h3{margin:0 0 8px;font-size:18px}.rule p{margin:0;color:var(--muted);font-size:14px}
-.reference{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:start}.terminal{background:#111716;color:#dff6f3;padding:30px;font:13px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto}.terminal .c{color:#70d8d0}
-.cta{padding:110px 0}.cta h2{font-size:clamp(45px,7vw,86px);letter-spacing:-.06em;line-height:.98;margin:0 0 28px;max-width:900px}.cta p{font-size:20px;color:var(--muted);max-width:650px}
-footer{padding:32px 0 50px}.foot{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:13px}
-@media(max-width:800px){.links a:not(.gh){display:none}.hero{padding:78px 0 70px}.proof{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}.flow div{border-bottom:1px solid var(--line)}.compare,.reference{grid-template-columns:1fr}.capabilities{grid-template-columns:1fr}.rules{grid-template-columns:1fr}.arch-row{grid-template-columns:1fr;gap:8px}.section-title{font-size:38px}section{padding:70px 0}.foot{flex-direction:column}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>licat home</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --space: 1rem;
+            --bg: #09090b;
+            --fg: #e3e3e3;
+            --surface-1: #101012;
+            --surface-2: #27272a;
+            --surface-3: #52525b;
+            --ease-out: cubic-bezier(0.5, 1, 0.89, 1);
+            --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        height,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: grid;
+            color: var(--fg);
+            background: var(--bg);
+            padding: var(--space);
+            min-height: 100vh;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(var(--count, 1), 1fr);
+            gap: var(--space);
+            margin: auto;
+            inline-size: min(var(--max, 15rem), 100%);
+
+            @media (min-width: 25rem) {
+                --count: 2;
+                --max: 30rem;
+            }
+
+            @media (min-width: 45rem) {
+                --count: 4;
+                --max: 60rem;
+            }
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-areas: "card";
+            place-items: center;
+            aspect-ratio: 4/5;
+            border: 1px solid var(--surface-2);
+            isolation: isolate;
+            transition: border-color 200ms var(--ease-out);
+            user-select: none;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at bottom left,
+                        transparent 55%,
+                        var(--surface-1));
+                pointer-events: none;
+                box-shadow: var(--bg) -0.5cqi 0.5cqi 2.5cqi inset;
+                transition: opacity 900ms var(--ease-out);
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                margin: auto;
+                aspect-ratio: 1;
+                background: radial-gradient(circle, var(--bg), transparent 65%);
+                opacity: 0;
+                transition: opacity 800ms var(--ease-out);
+            }
+
+            >* {
+                grid-area: card;
+            }
+
+            svg {
+                position: relative;
+                z-index: 1;
+                width: 30%;
+                height: auto;
+                color: var(--surface-3);
+                transition: 300ms var(--ease-out);
+                transition-property: color, scale;
+            }
+
+            button {
+                opacity: 0;
+            }
+
+            &:focus-within {
+                outline: 5px auto Highlight;
+                outline: 5px auto -webkit-focus-ring-color;
+            }
+
+            &:where(:hover, :focus-within) {
+                border-color: var(--active-color, var(--fg));
+                transition: border-color 800ms var(--ease-in-out);
+            }
+
+            &:where(:hover, :focus-within) svg {
+                color: var(--active-color, var(--fg));
+                scale: 1.1;
+                transition: 300ms var(--ease-in-out);
+            }
+
+            &:where(:hover, :focus-within)::before {
+                opacity: 0;
+            }
+
+            &:where(:hover, :focus-within)::after {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<nav><div class="navin"><a class="brand" href="#"><span class="mark">EAO</span> Enterprise AI Office</a><div class="links"><a href="#idea">Concept</a><a href="#capabilities">Capabilities</a><a href="#architecture">Architecture</a><a href="#principles">Principles</a><a class="gh" href="https://github.com/licat233/Enterprise-AI-Office">GitHub ↗</a></div></div></nav>
-<main>
-<header class="hero"><div class="wrap"><div class="eyebrow">Open-source · Self-hosted · Enterprise AI</div><h1>AI belongs inside the <span>organization.</span></h1><p class="lead">EAO — Enterprise AI Office — turns mature AI infrastructure into a governed company system: departments, assistants, knowledge, tools, files, actions and operational boundaries.</p><div class="actions"><a class="btn primary" href="https://github.com/licat233/Enterprise-AI-Office">View on GitHub ↗</a><a class="btn" href="#idea">Explore EAO ↓</a></div><div class="proof"><div><b>Department-aware</b><span>Profiles, roles and boundaries</span></div><div><b>Knowledge-grounded</b><span>RAG, Wiki, Ledger and Archive</span></div><div><b>Agentic</b><span>Tools and real work execution</span></div><div><b>Governed</b><span>Least privilege, recovery, acceptance</span></div></div></div></header>
-<section id="idea"><div class="wrap"><div class="kicker">01 / The idea</div><h2 class="section-title">Not another chatbot. An AI operating layer for the company.</h2><p class="intro">EAO does not try to replace mature RAG engines, Agent frameworks, web clients or business systems. It connects them through a reproducible enterprise architecture with clear authority, knowledge and execution boundaries.</p><div class="flow"><div><b>01</b><strong>Company</strong></div><div><b>02</b><strong>Departments</strong></div><div><b>03</b><strong>Assistants</strong></div><div><b>04</b><strong>Knowledge</strong></div><div><b>05</b><strong>Tools</strong></div><div><b>06</b><strong>Actions</strong></div><div><b>07</b><strong>Governance</strong></div></div>
-<div class="compare"><div><h3>Traditional AI</h3><div class="steps">Employee <span class="arrow">→</span> Chatbot <span class="arrow">→</span> Answer</div><p>Useful conversation, but usually detached from organizational structure, company knowledge and governed execution.</p></div><div class="eao"><h3>Enterprise AI Office</h3><div class="steps">Employee <span class="arrow">→</span> Department Assistant <span class="arrow">→</span> Company Knowledge <span class="arrow">→</span> Agent + Tools <span class="arrow">→</span> Work</div><p>AI becomes part of how the organization finds information, reasons, acts and preserves operational boundaries.</p></div></div></div></section>
-<section id="capabilities"><div class="wrap"><div class="kicker">02 / Capabilities</div><h2 class="section-title">A small set of capabilities that form a complete office.</h2><div class="capabilities">
-<div class="cap"><span class="num">01</span><h3>Department AI</h3><p>Specialized Hermes Profiles give departments distinct assistants, tools, knowledge scope and least-privilege execution boundaries.</p></div>
-<div class="cap"><span class="num">02</span><h3>Enterprise Knowledge</h3><p>WeKnora Document/RAG grounds factual retrieval; Native Wiki holds reusable synthesized business knowledge.</p></div>
-<div class="cap"><span class="num">03</span><h3>Work History</h3><p>EAO Ledger records bounded event, work and content history without turning general memory into a second source of truth.</p></div>
-<div class="cap"><span class="num">04</span><h3>Company Files</h3><p>Catalog-first Enterprise Archive discovers external files efficiently while authorized query-time reading preserves access boundaries.</p></div>
-<div class="cap"><span class="num">05</span><h3>Agentic Execution</h3><p>Hermes Agent connects assistants to approved tools and actions, with bounded execution visibility instead of exposing hidden chain-of-thought.</p></div>
-<div class="cap"><span class="num">06</span><h3>Operational Governance</h3><p>Control Plane, Boundary Principles, health checks, upgrades, rollback, recovery and acceptance evidence keep the system maintainable.</p></div>
-</div></div></section>
-<section id="architecture"><div class="wrap"><div class="kicker">03 / Architecture</div><h2 class="section-title">Upstream first. Thin integration. Clear ownership.</h2><p class="intro">EAO deliberately builds around mature projects instead of forking them. The project owns system design, deployment contracts, governance boundaries and the thin adapters needed to make the stack operate as one enterprise system.</p><div class="arch">
-<div class="arch-row"><b>Employee surface</b><div class="chips"><span class="chip">Open WebUI</span><span class="chip">EAO PWA</span><span class="chip">Identity / RBAC</span></div></div>
-<div class="arch-row"><b>Agent runtime</b><div class="chips"><span class="chip">Hermes Agent</span><span class="chip">Profiles</span><span class="chip">Skills</span><span class="chip">ToolScout</span></div></div>
-<div class="arch-row"><b>Knowledge</b><div class="chips"><span class="chip">WeKnora RAG</span><span class="chip">Native Wiki</span><span class="chip">EAO Ledger</span><span class="chip">Enterprise Archive</span></div></div>
-<div class="arch-row"><b>Infrastructure</b><div class="chips"><span class="chip">Ollama</span><span class="chip">PostgreSQL</span><span class="chip">NAS / SMB</span><span class="chip">Docker / OrbStack</span></div></div>
-<div class="arch-row"><b>Operations</b><div class="chips"><span class="chip">Control Plane</span><span class="chip">Health Checks</span><span class="chip">Upgrade / Rollback</span><span class="chip">Acceptance Tests</span></div></div>
-</div></div></section>
-<section id="principles"><div class="wrap"><div class="kicker">04 / Design principles</div><div class="principle">Use the <em>lightest sufficient execution path.</em> Complexity must earn its place.</div><div class="rules"><div class="rule"><h3>Human identity ≠ Agent identity</h3><p>People, Agent Profiles and provider credentials remain separate authority domains.</p></div><div class="rule"><h3>Knowledge ≠ Memory ≠ History</h3><p>RAG, Wiki, Ledger, Archive and optional Agent memory have different jobs and sources of truth.</p></div><div class="rule"><h3>Capability before infrastructure</h3><p>Reuse upstream capability first; add custom infrastructure only when a real gap remains.</p></div><div class="rule"><h3>Simple work stays simple</h3><p>Kanban and multi-Agent delegation are fallback capabilities, not mandatory ceremony for every task.</p></div><div class="rule"><h3>Changes remain bounded</h3><p>Workspace, task, Agent, change and authority boundaries constrain blast radius without adding a heavy workflow engine.</p></div><div class="rule"><h3>Production is evidence</h3><p>Health, recovery, access and acceptance checks distinguish a working demo from an operable enterprise deployment.</p></div></div></div></section>
-<section><div class="wrap reference"><div><div class="kicker">05 / Reference implementation</div><h2 class="section-title">Built from a real deployment, designed to be reusable.</h2><p class="intro">ARMOR is the first reference implementation. Company-specific configuration and lessons stay separated from the generic EAO blueprint so another organization can reproduce the architecture without inheriting ARMOR's private configuration.</p></div><div class="terminal"><span class="c">$ eao concept</span><br>Company → Departments → Assistants<br>→ Knowledge → Tools → Actions<br>→ Governance<br><br><span class="c">$ eao readiness</span><br>CORE READY<br>CONFIGURED READY<br>PRODUCTION READY<br><br><span class="c">$ eao philosophy</span><br>upstream first<br>least privilege<br>thin adapters<br>recoverable changes<br>lightest sufficient path</div></div></section>
-<section class="cta"><div class="wrap"><div class="kicker">Enterprise AI Office</div><h2>Build AI around your company — not the other way around.</h2><p>Open source, self-hosted and designed around real organizational boundaries. Explore the blueprint, architecture and deployment contracts on GitHub.</p><div class="actions" style="margin-top:32px"><a class="btn primary" href="https://github.com/licat233/Enterprise-AI-Office">Explore the repository ↗</a><a class="btn" href="https://github.com/licat233/Enterprise-AI-Office/blob/main/DEPLOY.md">Deployment guide ↗</a></div></div></section>
-</main>
-<footer><div class="wrap foot"><span>EAO · Enterprise AI Office</span><span>Apache-2.0 · Open source · Self-hosted</span></div></footer>
-</body></html>
+    <main>
+        <div class="card">
+            <pixel-canvas></pixel-canvas>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
+                <a xlink:href="/armor/index.html" target="_blank">
+                <text x="128" y="128" fill="gray" text-anchor="middle" font-size="50">ARMOR</text>
+                </a>
+            </svg>
+            <button>Layout</buton>
+        </div>
+
+        <div class="card" style="--active-color: #e0f2fe">
+            <pixel-canvas data-gap="10" data-speed="25" data-colors="#e0f2fe, #7dd3fc, #0ea5e9"></pixel-canvas>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
+                <a xlink:href="/lottery-calculate/index.html" target="_blank">
+                <text x="128" y="128" fill="gray" text-anchor="middle" font-size="50">彩票购买</text>
+            </a>
+            </svg>
+            <button>Code</buton>
+        </div>
+
+        <div class="card" style="--active-color: #08e1d4">
+            <pixel-canvas data-gap="7" data-speed="30" data-colors="#08e1d4, #6eeee7, #d7fffc"></pixel-canvas>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
+                <a xlink:href="/eao/" aria-label="Enterprise AI Office">
+                    <text x="128" y="118" fill="currentcolor" text-anchor="middle" font-size="58" font-weight="700">EAO</text>
+                    <text x="128" y="150" fill="currentcolor" text-anchor="middle" font-size="16">AI OFFICE</text>
+                </a>
+            </svg>
+            <button>EAO</button>
+        </div>
+
+        <div class="card" style="--active-color: #fef08a">
+            <pixel-canvas data-gap="3" data-speed="20" data-colors="#fef08a, #fde047, #eab308"></pixel-canvas>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
+                <path
+                    d="M180,146H158V110h22a34,34,0,1,0-34-34V98H110V76a34,34,0,1,0-34,34H98v36H76a34,34,0,1,0,34,34V158h36v22a34,34,0,1,0,34-34ZM158,76a22,22,0,1,1,22,22H158ZM54,76a22,22,0,0,1,44,0V98H76A22,22,0,0,1,54,76ZM98,180a22,22,0,1,1-22-22H98Zm12-70h36v36H110Zm70,92a22,22,0,0,1-22-22V158h22a22,22,0,0,1,0,44Z">
+                </path>
+            </svg>
+            <button>Command</buton>
+        </div>
+
+        <div class="card" style="--active-color: #fecdd3">
+            <pixel-canvas data-gap="6" data-speed="80" data-colors="#fecdd3, #fda4af, #e11d48"
+                data-no-focus></pixel-canvas>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
+                <path
+                    d="M222,67.34a33.81,33.81,0,0,0-10.64-24.25C198.12,30.56,176.68,31,163.54,44.18L142.82,65l-.63-.63a22,22,0,0,0-31.11,0l-9,9a14,14,0,0,0,0,19.81l3.47,3.47L53.14,149.1a37.81,37.81,0,0,0-9.84,36.73l-8.31,19a11.68,11.68,0,0,0,2.46,13A13.91,13.91,0,0,0,47.32,222,14.15,14.15,0,0,0,53,220.82L71,212.92a37.92,37.92,0,0,0,35.84-10.07l52.44-52.46,3.47,3.48a14,14,0,0,0,19.8,0l9-9a22.06,22.06,0,0,0,0-31.13l-.66-.65L212,91.85A33.76,33.76,0,0,0,222,67.34Zm-123.61,127a26,26,0,0,1-26,6.47,6,6,0,0,0-4.17.24l-20,8.75a2,2,0,0,1-2.09-.31l9.12-20.9a5.94,5.94,0,0,0,.19-4.31A25.91,25.91,0,0,1,56,166h70.78ZM138.78,154H65.24l48.83-48.84,36.76,36.78Zm64.77-70.59L178.17,108.9a6,6,0,0,0,0,8.47l4.88,4.89a10,10,0,0,1,0,14.15l-9,9a2,2,0,0,1-2.82,0l-60.69-60.7a2,2,0,0,1,0-2.83l9-9a10,10,0,0,1,14.14,0l4.89,4.89a6,6,0,0,0,4.24,1.75h0a6,6,0,0,0,4.25-1.77L172,52.66c8.57-8.58,22.51-9,31.07-.85a22,22,0,0,1,.44,31.57Z">
+                </path>
+            </svg>
+            <button>Dropper</buton>
+        </div>
+    </main>
+    <script>
+        class Pixel {
+            constructor(canvas, context, x, y, color, speed, delay) {
+                this.width = canvas.width;
+                this.height = canvas.height;
+                this.ctx = context;
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.speed = this.getRandomValue(0.1, 0.9) * speed;
+                this.size = 0;
+                this.sizeStep = Math.random() * 0.4;
+                this.minSize = 0.5;
+                this.maxSizeInteger = 2;
+                this.maxSize = this.getRandomValue(this.minSize, this.maxSizeInteger);
+                this.delay = delay;
+                this.counter = 0;
+                this.counterStep = Math.random() * 4 + (this.width + this.height) * 0.01;
+                this.isIdle = false;
+                this.isReverse = false;
+                this.isShimmer = false;
+            }
+
+            getRandomValue(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            draw() {
+                const centerOffset = this.maxSizeInteger * 0.5 - this.size * 0.5;
+
+                this.ctx.fillStyle = this.color;
+                this.ctx.fillRect(
+                    this.x + centerOffset,
+                    this.y + centerOffset,
+                    this.size,
+                    this.size
+                );
+            }
+
+            appear() {
+                this.isIdle = false;
+
+                if (this.counter <= this.delay) {
+                    this.counter += this.counterStep;
+                    return;
+                }
+
+                if (this.size >= this.maxSize) {
+                    this.isShimmer = true;
+                }
+
+                if (this.isShimmer) {
+                    this.shimmer();
+                } else {
+                    this.size += this.sizeStep;
+                }
+
+                this.draw();
+            }
+
+            disappear() {
+                this.isShimmer = false;
+                this.counter = 0;
+
+                if (this.size <= 0) {
+                    this.isIdle = true;
+                    return;
+                } else {
+                    this.size -= 0.1;
+                }
+
+                this.draw();
+            }
+
+            shimmer() {
+                if (this.size >= this.maxSize) {
+                    this.isReverse = true;
+                } else if (this.size <= this.minSize) {
+                    this.isReverse = false;
+                }
+
+                if (this.isReverse) {
+                    this.size -= this.speed;
+                } else {
+                    this.size += this.speed;
+                }
+            }
+        }
+
+        class PixelCanvas extends HTMLElement {
+            static register(tag = "pixel-canvas") {
+                if ("customElements" in window) {
+                    customElements.define(tag, this);
+                }
+            }
+
+            static css = `
+              :host {
+                display: grid;
+                inline-size: 100%;
+                block-size: 100%;
+                overflow: hidden;
+              }
+            `;
+
+            get colors() {
+                return this.dataset.colors?.split(",") || ["#f8fafc", "#f1f5f9", "#cbd5e1"];
+            }
+
+            get gap() {
+                const value = this.dataset.gap || 5;
+                const min = 4;
+                const max = 50;
+
+                if (value <= min) {
+                    return min;
+                } else if (value >= max) {
+                    return max;
+                } else {
+                    return parseInt(value);
+                }
+            }
+
+            get speed() {
+                const value = this.dataset.speed || 35;
+                const min = 0;
+                const max = 100;
+                const throttle = 0.001;
+
+                if (value <= min || this.reducedMotion) {
+                    return min;
+                } else if (value >= max) {
+                    return max * throttle;
+                } else {
+                    return parseInt(value) * throttle;
+                }
+            }
+
+            get noFocus() {
+                return this.hasAttribute("data-no-focus");
+            }
+
+            connectedCallback() {
+                const canvas = document.createElement("canvas");
+                const sheet = new CSSStyleSheet();
+
+                this._parent = this.parentNode;
+                this.shadowroot = this.attachShadow({ mode: "open" });
+
+                sheet.replaceSync(PixelCanvas.css);
+
+                this.shadowroot.adoptedStyleSheets = [sheet];
+                this.shadowroot.append(canvas);
+                this.canvas = this.shadowroot.querySelector("canvas");
+                this.ctx = this.canvas.getContext("2d");
+                this.timeInterval = 1000 / 60;
+                this.timePrevious = performance.now();
+                this.reducedMotion = window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                ).matches;
+
+                this.init();
+                this.resizeObserver = new ResizeObserver(() => this.init());
+                this.resizeObserver.observe(this);
+
+                this._parent.addEventListener("mouseenter", this);
+                this._parent.addEventListener("mouseleave", this);
+
+                if (!this.noFocus) {
+                    this._parent.addEventListener("focusin", this);
+                    this._parent.addEventListener("focusout", this);
+                }
+            }
+
+            disconnectedCallback() {
+                this.resizeObserver.disconnect();
+                this._parent.removeEventListener("mouseenter", this);
+                this._parent.removeEventListener("mouseleave", this);
+
+                if (!this.noFocus) {
+                    this._parent.removeEventListener("focusin", this);
+                    this._parent.removeEventListener("focusout", this);
+                }
+
+                delete this._parent;
+            }
+
+            handleEvent(event) {
+                this[`on${event.type}`](event);
+            }
+
+            onmouseenter() {
+                this.handleAnimation("appear");
+            }
+
+            onmouseleave() {
+                this.handleAnimation("disappear");
+            }
+
+            onfocusin(e) {
+                if (e.currentTarget.contains(e.relatedTarget)) return;
+                this.handleAnimation("appear");
+            }
+
+            onfocusout(e) {
+                if (e.currentTarget.contains(e.relatedTarget)) return;
+                this.handleAnimation("disappear");
+            }
+
+            handleAnimation(name) {
+                cancelAnimationFrame(this.animation);
+                this.animation = this.animate(name);
+            }
+
+            init() {
+                const rect = this.getBoundingClientRect();
+                const width = Math.floor(rect.width);
+                const height = Math.floor(rect.height);
+
+                this.pixels = [];
+                this.canvas.width = width;
+                this.canvas.height = height;
+                this.canvas.style.width = `${width}px`;
+                this.canvas.style.height = `${height}px`;
+                this.createPixels();
+            }
+
+            getDistanceToCanvasCenter(x, y) {
+                const dx = x - this.canvas.width / 2;
+                const dy = y - this.canvas.height / 2;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                return distance;
+            }
+
+            createPixels() {
+                for (let x = 0; x < this.canvas.width; x += this.gap) {
+                    for (let y = 0; y < this.canvas.height; y += this.gap) {
+                        const color = this.colors[
+                            Math.floor(Math.random() * this.colors.length)
+                        ];
+                        const delay = this.reducedMotion
+                            ? 0
+                            : this.getDistanceToCanvasCenter(x, y);
+
+                        this.pixels.push(
+                            new Pixel(this.canvas, this.ctx, x, y, color, this.speed, delay)
+                        );
+                    }
+                }
+            }
+
+            animate(fnName) {
+                this.animation = requestAnimationFrame(() => this.animate(fnName));
+
+                const timeNow = performance.now();
+                const timePassed = timeNow - this.timePrevious;
+
+                if (timePassed < this.timeInterval) return;
+
+                this.timePrevious = timeNow - (timePassed % this.timeInterval);
+
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                for (let i = 0; i < this.pixels.length; i++) {
+                    this.pixels[i][fnName]();
+                }
+
+                if (this.pixels.every((pixel) => pixel.isIdle)) {
+                    cancelAnimationFrame(this.animation);
+                }
+            }
+        }
+
+        PixelCanvas.register();
+
+    </script>
+</body>
+
+</html>
