@@ -1,469 +1,673 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>licat home</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        :root {
-            --space: 1rem;
-            --bg: #09090b;
-            --fg: #e3e3e3;
-            --surface-1: #101012;
-            --surface-2: #27272a;
-            --surface-3: #52525b;
-            --ease-out: cubic-bezier(0.5, 1, 0.89, 1);
-            --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="Licat — developer building practical AI systems, developer tools and automation.">
+  <meta property="og:title" content="Licat — Builder & Developer">
+  <meta property="og:description" content="Practical AI systems, developer tools and automation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://licat233.github.io/">
+  <title>Licat — Builder & Developer</title>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --panel: #ebe7de;
+      --panel-strong: #dfd9ce;
+      --text: #171918;
+      --muted: #686a67;
+      --line: #c9c4b9;
+      --accent: #155eef;
+      --accent-soft: #dfe8ff;
+      --eao: #008f87;
+      --max: 1180px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111315;
+        --panel: #181b1d;
+        --panel-strong: #202427;
+        --text: #f1f0eb;
+        --muted: #a7aaa7;
+        --line: #34383a;
+        --accent: #7ca7ff;
+        --accent-soft: #17213a;
+        --eao: #20d7ca;
+      }
+    }
 
-        height,
-        body {
-            height: 100%;
-        }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        body {
-            display: grid;
-            color: var(--fg);
-            background: var(--bg);
-            padding: var(--space);
-            min-height: 100vh;
-        }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
 
-        main {
-            display: grid;
-            grid-template-columns: repeat(var(--count, 1), 1fr);
-            gap: var(--space);
-            margin: auto;
-            inline-size: min(var(--max, 15rem), 100%);
+    .shell { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
 
-            @media (min-width: 25rem) {
-                --count: 2;
-                --max: 30rem;
-            }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
 
-            @media (min-width: 45rem) {
-                --count: 4;
-                --max: 60rem;
-            }
-        }
+    nav {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
 
-        .card {
-            position: relative;
-            overflow: hidden;
-            display: grid;
-            grid-template-areas: "card";
-            place-items: center;
-            aspect-ratio: 4/5;
-            border: 1px solid var(--surface-2);
-            isolation: isolate;
-            transition: border-color 200ms var(--ease-out);
-            user-select: none;
+    .brand {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
 
-            &::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: radial-gradient(circle at bottom left,
-                        transparent 55%,
-                        var(--surface-1));
-                pointer-events: none;
-                box-shadow: var(--bg) -0.5cqi 0.5cqi 2.5cqi inset;
-                transition: opacity 900ms var(--ease-out);
-            }
+    .brand span { color: var(--accent); }
 
-            &::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                margin: auto;
-                aspect-ratio: 1;
-                background: radial-gradient(circle, var(--bg), transparent 65%);
-                opacity: 0;
-                transition: opacity 800ms var(--ease-out);
-            }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+    }
 
-            >* {
-                grid-area: card;
-            }
+    .nav-link { color: var(--muted); }
+    .nav-link:hover { color: var(--text); }
 
-            svg {
-                position: relative;
-                z-index: 1;
-                width: 30%;
-                height: auto;
-                color: var(--surface-3);
-                transition: 300ms var(--ease-out);
-                transition-property: color, scale;
-            }
+    .lang-toggle {
+      display: flex;
+      border: 1px solid var(--line);
+      padding: 2px;
+      gap: 2px;
+    }
 
-            button {
-                opacity: 0;
-            }
+    .lang-toggle button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: 700 11px/1 var(--mono);
+      padding: 7px 9px;
+      cursor: pointer;
+    }
 
-            &:focus-within {
-                outline: 5px auto Highlight;
-                outline: 5px auto -webkit-focus-ring-color;
-            }
+    html[data-lang="zh"] .lang-toggle [data-set-lang="zh"],
+    html[data-lang="en"] .lang-toggle [data-set-lang="en"] {
+      color: var(--bg);
+      background: var(--text);
+    }
 
-            &:where(:hover, :focus-within) {
-                border-color: var(--active-color, var(--fg));
-                transition: border-color 800ms var(--ease-in-out);
-            }
+    [data-en] { display: none; }
+    html[data-lang="en"] [data-en] { display: initial; }
+    html[data-lang="en"] [data-zh] { display: none; }
 
-            &:where(:hover, :focus-within) svg {
-                color: var(--active-color, var(--fg));
-                scale: 1.1;
-                transition: 300ms var(--ease-in-out);
-            }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 64px;
+      padding: 112px 0 88px;
+      border-bottom: 1px solid var(--line);
+    }
 
-            &:where(:hover, :focus-within)::before {
-                opacity: 0;
-            }
+    .eyebrow {
+      margin: 0 0 22px;
+      font: 700 12px/1.4 var(--mono);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-            &:where(:hover, :focus-within)::after {
-                opacity: 1;
-            }
-        }
-    </style>
+    h1 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(48px, 8vw, 104px);
+      line-height: .94;
+      letter-spacing: -.065em;
+      font-weight: 780;
+    }
+
+    h1 em {
+      display: block;
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .lead {
+      margin: 34px 0 0;
+      max-width: 730px;
+      color: var(--muted);
+      font-size: clamp(18px, 2.2vw, 24px);
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      font: 700 12px/1 var(--mono);
+      letter-spacing: .02em;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: var(--text);
+      background: var(--panel);
+    }
+
+    .button.primary {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .hero-side {
+      align-self: end;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    .side-label {
+      font: 700 11px/1.4 var(--mono);
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .current {
+      display: block;
+      margin-top: 14px;
+      padding: 18px 0 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .current strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .current span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .current b { color: var(--eao); }
+
+    section { padding: 84px 0; border-bottom: 1px solid var(--line); }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 44px;
+      margin-bottom: 42px;
+    }
+
+    .section-index {
+      font: 700 12px/1.4 var(--mono);
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.03;
+      letter-spacing: -.04em;
+      max-width: 820px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-left: 264px;
+    }
+
+    .about-grid p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .project {
+      min-height: 260px;
+      padding: 26px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      transition: background .18s ease;
+    }
+
+    .project:nth-child(odd) { border-right: 1px solid var(--line); }
+    .project:hover { background: var(--panel); }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .project-no {
+      font: 700 11px/1 var(--mono);
+      color: var(--muted);
+    }
+
+    .project-arrow {
+      font: 500 24px/1 var(--mono);
+      color: var(--muted);
+      transition: transform .18s ease, color .18s ease;
+    }
+
+    .project:hover .project-arrow {
+      transform: translate(3px,-3px);
+      color: var(--text);
+    }
+
+    .project h3 {
+      margin: 46px 0 12px;
+      font-size: 27px;
+      line-height: 1.08;
+      letter-spacing: -.025em;
+    }
+
+    .project p {
+      margin: 0;
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 22px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      padding: 5px 8px;
+      font: 700 10px/1 var(--mono);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .project.eao .project-no,
+    .project.eao h3 { color: var(--eao); }
+
+    .timeline {
+      margin-left: 264px;
+      border-top: 1px solid var(--line);
+    }
+
+    .phase {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .phase-year {
+      font: 700 12px/1.5 var(--mono);
+      color: var(--muted);
+    }
+
+    .phase h3 { margin: 0 0 8px; font-size: 20px; }
+    .phase p { margin: 0; color: var(--muted); max-width: 720px; }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .principle {
+      background: var(--bg);
+      padding: 28px;
+      min-height: 180px;
+    }
+
+    .principle b {
+      font: 700 11px/1.4 var(--mono);
+      color: var(--accent);
+      letter-spacing: .08em;
+    }
+
+    .principle h3 { margin: 26px 0 10px; font-size: 20px; }
+    .principle p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .closing {
+      padding: 92px 0 110px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: end;
+    }
+
+    .closing h2 { max-width: 760px; }
+    .closing p { color: var(--muted); max-width: 650px; margin: 18px 0 0; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0 34px;
+      color: var(--muted);
+      font: 500 11px/1.6 var(--mono);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 850px) {
+      .shell { width: min(100% - 28px, var(--max)); }
+      .hero { grid-template-columns: 1fr; gap: 52px; padding: 84px 0 64px; }
+      .section-head { grid-template-columns: 1fr; gap: 14px; }
+      .about-grid, .timeline { margin-left: 0; }
+      .projects { grid-template-columns: 1fr; }
+      .project:nth-child(odd) { border-right: 0; }
+      .principles { grid-template-columns: 1fr; }
+      .closing { grid-template-columns: 1fr; }
+      .nav-link.desktop { display: none; }
+    }
+
+    @media (max-width: 560px) {
+      nav { min-height: 58px; }
+      .nav-right { gap: 10px; }
+      .hero { padding-top: 64px; }
+      h1 { font-size: clamp(48px, 18vw, 76px); }
+      .lead { font-size: 18px; }
+      section { padding: 64px 0; }
+      .about-grid { grid-template-columns: 1fr; }
+      .phase { grid-template-columns: 1fr; gap: 8px; }
+      .project { padding: 22px 18px; min-height: 245px; }
+      .closing { padding: 70px 0 82px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
 </head>
-
 <body>
-    <main>
-        <div class="card">
-            <pixel-canvas></pixel-canvas>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
-                <a xlink:href="/armor/index.html" target="_blank">
-                <text x="128" y="128" fill="gray" text-anchor="middle" font-size="50">ARMOR</text>
-                </a>
-            </svg>
-            <button>Layout</buton>
+  <header>
+    <nav class="shell" aria-label="Primary navigation">
+      <a class="brand" href="/">LICAT<span>/</span>233</a>
+      <div class="nav-right">
+        <a class="nav-link desktop" href="#projects"><span data-zh>项目</span><span data-en>Projects</span></a>
+        <a class="nav-link desktop" href="#path"><span data-zh>轨迹</span><span data-en>Path</span></a>
+        <a class="nav-link" href="https://github.com/licat233" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <div class="lang-toggle" aria-label="Language">
+          <button type="button" data-set-lang="zh">中</button>
+          <button type="button" data-set-lang="en">EN</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="shell">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Developer · Systems · AI</p>
+          <h1>
+            <span data-zh>把复杂问题</span><span data-en>Build systems</span>
+            <em><span data-zh>做成系统。</span><span data-en>that last.</span></em>
+          </h1>
+          <p class="lead">
+            <span data-zh>我是 Licat。我的项目从 Go 后端与开发工具，延伸到 macOS 实用程序、AI Agent 与企业 AI 系统。比起堆功能，我更在意它能否真正运行、维护、复用。</span>
+            <span data-en>I'm Licat. My work spans Go backend tooling, macOS utilities, AI agents and enterprise AI systems. I care less about feature count and more about whether a system can run, survive and be reused.</span>
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects"><span data-zh>查看项目</span><span data-en>View projects</span> ↓</a>
+            <a class="button" href="/eao/"><span>EAO</span> ↗</a>
+            <a class="button" href="https://github.com/licat233" target="_blank" rel="noreferrer">GitHub ↗</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="side-label"><span data-zh>当前重点</span><span data-en>Current focus</span></div>
+          <a class="current" href="/eao/">
+            <strong>Enterprise AI Office <b>↗</b></strong>
+            <span data-zh>自托管企业 AI 工作空间：知识、Agent、工具、权限与工作流。</span>
+            <span data-en>Self-hosted enterprise AI workspace across knowledge, agents, tools, permissions and workflows.</span>
+          </a>
+          <a class="current" href="https://github.com/licat233/toolscout" target="_blank" rel="noreferrer">
+            <strong>ToolScout ↗</strong>
+            <span data-zh>让 AI Agent 优先发现成熟工具，而不是重复造临时脚本。</span>
+            <span data-en>Helping AI agents discover mature tools before reimplementing commodity operations.</span>
+          </a>
+        </aside>
+      </div>
+
+      <section id="about">
+        <div class="section-head">
+          <div class="section-index">01 / <span data-zh>关于</span><span data-en>About</span></div>
+          <h2><span data-zh>从“能做出来”继续追问：能否长期稳定地用？</span><span data-en>Beyond “can it work?” — can it keep working?</span></h2>
+        </div>
+        <div class="about-grid">
+          <p>
+            <span data-zh>早期项目集中在 Go、微服务、代码生成、数据抓取与 Web 工具；后来逐步转向 macOS 自动化与开发者体验。现在，大部分精力放在 AI Agent、知识系统和企业工作流。</span>
+            <span data-en>Earlier work focused on Go, microservices, code generation, crawling and web tools; later it expanded into macOS automation and developer experience. Today, most of my effort goes into AI agents, knowledge systems and enterprise workflows.</span>
+          </p>
+          <p>
+            <span data-zh>我偏好轻量、边界清晰、可回滚的工程方案。一个项目是否值得保留，不只看它是否有趣，也看它是否解决真实问题、是否降低长期维护成本。</span>
+            <span data-en>I prefer lightweight engineering with clear boundaries and rollback paths. A project earns its place not only by being interesting, but by solving a real problem and reducing long-term maintenance cost.</span>
+          </p>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-head">
+          <div class="section-index">02 / <span data-zh>精选项目</span><span data-en>Selected work</span></div>
+          <h2><span data-zh>公开项目与正在构建的系统。</span><span data-en>Public projects and systems in progress.</span></h2>
         </div>
 
-        <div class="card" style="--active-color: #e0f2fe">
-            <pixel-canvas data-gap="10" data-speed="25" data-colors="#e0f2fe, #7dd3fc, #0ea5e9"></pixel-canvas>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
-                <a xlink:href="/lottery-calculate/index.html" target="_blank">
-                <text x="128" y="128" fill="gray" text-anchor="middle" font-size="50">彩票购买</text>
-            </a>
-            </svg>
-            <button>Code</buton>
+        <div class="projects">
+          <a class="project eao" href="/eao/">
+            <div class="project-top"><span class="project-no">01 / SYSTEM</span><span class="project-arrow">↗</span></div>
+            <h3>Enterprise AI Office</h3>
+            <p><span data-zh>面向企业真实工作的自托管 AI Office。把知识、Agent、RBAC、自动化和工具放在一个可治理的系统边界里。</span><span data-en>A self-hosted AI office for real enterprise work, bringing knowledge, agents, RBAC, automation and tools into a governed system boundary.</span></p>
+            <div class="tags"><span class="tag">Enterprise AI</span><span class="tag">Agents</span><span class="tag">RAG</span></div>
+          </a>
+
+          <a class="project" href="https://github.com/licat233/toolscout" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">02 / OPEN SOURCE</span><span class="project-arrow">↗</span></div>
+            <h3>ToolScout</h3>
+            <p><span data-zh>Rust CLI / MCP + Skill 规则层。让 Agent 在写临时代码之前，先发现本机已经存在的成熟工具与历史经验。</span><span data-en>Rust CLI/MCP plus a skill rule layer that helps agents find mature local tools and prior experience before writing incidental code.</span></p>
+            <div class="tags"><span class="tag">Rust</span><span class="tag">MCP</span><span class="tag">Agent Tools</span></div>
+          </a>
+
+          <a class="project" href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">03 / MACOS</span><span class="project-arrow">↗</span></div>
+            <h3>GreenRAM</h3>
+            <p><span data-zh>macOS 菜单栏内存管理工具。基于 Memory Pressure、Swap 与应用后台状态，在明确规则下处理可安全退出的应用。</span><span data-en>A macOS menu bar utility that uses Memory Pressure, Swap and background state to safely quit eligible apps under explicit rules.</span></p>
+            <div class="tags"><span class="tag">Swift</span><span class="tag">macOS</span><span class="tag">Utility</span></div>
+          </a>
+
+          <a class="project" href="https://github.com/licat233/cn-llm-query" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">04 / AI SKILL</span><span class="project-arrow">↗</span></div>
+            <h3>cn-llm-query</h3>
+            <p><span data-zh>面向 Agent 的国内主流大模型查询 Skill，覆盖模型信息、场景选择、调用代码和可扩展数据。</span><span data-en>An agent skill for querying major Chinese LLMs, covering model information, scenario selection, API code generation and extensible data.</span></p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">LLM</span><span class="tag">Skill</span></div>
+          </a>
+
+          <a class="project" href="https://github.com/licat233/genzero" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">05 / DEV TOOL</span><span class="project-arrow">↗</span></div>
+            <h3>genzero</h3>
+            <p><span data-zh>基于 MySQL 为 go-zero 生成 API、Proto、Model 与服务代码，把重复的后端脚手架工作自动化。</span><span data-en>A Go developer tool that generates go-zero API, Proto, Model and service code from MySQL, automating repetitive backend scaffolding.</span></p>
+            <div class="tags"><span class="tag">Go</span><span class="tag">go-zero</span><span class="tag">Codegen</span></div>
+          </a>
+
+          <a class="project" href="https://github.com/licat233/WebOnlineStatistic" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">06 / WEB</span><span class="project-arrow">↗</span></div>
+            <h3>WebOnlineStatistic</h3>
+            <p><span data-zh>一个精简的 Web 在线人数实时统计服务，是早期面向实时 Web 场景的小型系统实践。</span><span data-en>A compact real-time web online-user statistics service — an earlier experiment in small, focused realtime systems.</span></p>
+            <div class="tags"><span class="tag">Web</span><span class="tag">Realtime</span><span class="tag">Service</span></div>
+          </a>
+
+          <a class="project" href="https://github.com/licat233/goss" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">07 / AUTOMATION</span><span class="project-arrow">↗</span></div>
+            <h3>goss</h3>
+            <p><span data-zh>把指定资源上传到 OSS 并同步更新引用链接的 Go 工具，目标很简单：减少内容发布流程里的机械操作。</span><span data-en>A Go utility for uploading assets to OSS and updating references, built to remove repetitive steps from publishing workflows.</span></p>
+            <div class="tags"><span class="tag">Go</span><span class="tag">OSS</span><span class="tag">Automation</span></div>
+          </a>
+
+          <a class="project" href="https://github.com/licat233/product-assets" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">08 / DATA</span><span class="project-arrow">↗</span></div>
+            <h3>product-assets</h3>
+            <p><span data-zh>产品事实与权威参考素材的 Source of Truth，让网站、AI 与内容工作流引用同一套产品依据。</span><span data-en>A source-of-truth repository for product facts and authoritative reference assets shared across websites, AI and content workflows.</span></p>
+            <div class="tags"><span class="tag">Source of Truth</span><span class="tag">Content</span><span class="tag">Data</span></div>
+          </a>
         </div>
+      </section>
 
-        <div class="card" style="--active-color: #08e1d4">
-            <pixel-canvas data-gap="7" data-speed="30" data-colors="#08e1d4, #6eeee7, #d7fffc"></pixel-canvas>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
-                <a xlink:href="/eao/" aria-label="Enterprise AI Office">
-                    <text x="128" y="118" fill="currentcolor" text-anchor="middle" font-size="58" font-weight="700">EAO</text>
-                    <text x="128" y="150" fill="currentcolor" text-anchor="middle" font-size="16">AI OFFICE</text>
-                </a>
-            </svg>
-            <button>EAO</button>
+      <section id="path">
+        <div class="section-head">
+          <div class="section-index">03 / <span data-zh>开发轨迹</span><span data-en>Trajectory</span></div>
+          <h2><span data-zh>项目方向在变化，但一直围绕同一件事：减少重复与摩擦。</span><span data-en>The domains changed; the theme stayed the same: remove repetition and friction.</span></h2>
         </div>
-
-        <div class="card" style="--active-color: #fef08a">
-            <pixel-canvas data-gap="3" data-speed="20" data-colors="#fef08a, #fde047, #eab308"></pixel-canvas>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
-                <path
-                    d="M180,146H158V110h22a34,34,0,1,0-34-34V98H110V76a34,34,0,1,0-34,34H98v36H76a34,34,0,1,0,34,34V158h36v22a34,34,0,1,0,34-34ZM158,76a22,22,0,1,1,22,22H158ZM54,76a22,22,0,0,1,44,0V98H76A22,22,0,0,1,54,76ZM98,180a22,22,0,1,1-22-22H98Zm12-70h36v36H110Zm70,92a22,22,0,0,1-22-22V158h22a22,22,0,0,1,0,44Z">
-                </path>
-            </svg>
-            <button>Command</buton>
+        <div class="timeline">
+          <div class="phase">
+            <div class="phase-year">2026 → NOW</div>
+            <div>
+              <h3><span data-zh>AI Agent 与企业 AI 系统</span><span data-en>AI agents & enterprise AI systems</span></h3>
+              <p><span data-zh>从单个 Skill、Agent 工具与模型查询，逐渐走向企业级知识、权限、工作流、可维护部署与完整系统边界。</span><span data-en>From individual skills, agent tools and model lookup toward enterprise knowledge, permissions, workflows, maintainable deployment and full system boundaries.</span></p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-year">2023 — 2024</div>
+            <div>
+              <h3><span data-zh>开发者工具与自动化</span><span data-en>Developer tools & automation</span></h3>
+              <p><span data-zh>代码生成、资源处理、升级工具、加密与自动化脚本，把常见重复工作压缩成更短的操作路径。</span><span data-en>Code generation, asset handling, upgrade tools, encryption and automation scripts that compress repetitive work into shorter paths.</span></p>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-year">2019 — 2022</div>
+            <div>
+              <h3><span data-zh>Go、Web 与后端系统</span><span data-en>Go, web & backend systems</span></h3>
+              <p><span data-zh>从 Gin、WebSocket、Redis、爬虫到微服务与小型业务系统，逐步形成偏向后端与系统工程的技术基础。</span><span data-en>From Gin, WebSocket, Redis and crawlers to microservices and small business systems, forming a backend- and systems-oriented foundation.</span></p>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="card" style="--active-color: #fecdd3">
-            <pixel-canvas data-gap="6" data-speed="80" data-colors="#fecdd3, #fda4af, #e11d48"
-                data-no-focus></pixel-canvas>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentcolor" viewBox="0 0 256 256">
-                <path
-                    d="M222,67.34a33.81,33.81,0,0,0-10.64-24.25C198.12,30.56,176.68,31,163.54,44.18L142.82,65l-.63-.63a22,22,0,0,0-31.11,0l-9,9a14,14,0,0,0,0,19.81l3.47,3.47L53.14,149.1a37.81,37.81,0,0,0-9.84,36.73l-8.31,19a11.68,11.68,0,0,0,2.46,13A13.91,13.91,0,0,0,47.32,222,14.15,14.15,0,0,0,53,220.82L71,212.92a37.92,37.92,0,0,0,35.84-10.07l52.44-52.46,3.47,3.48a14,14,0,0,0,19.8,0l9-9a22.06,22.06,0,0,0,0-31.13l-.66-.65L212,91.85A33.76,33.76,0,0,0,222,67.34Zm-123.61,127a26,26,0,0,1-26,6.47,6,6,0,0,0-4.17.24l-20,8.75a2,2,0,0,1-2.09-.31l9.12-20.9a5.94,5.94,0,0,0,.19-4.31A25.91,25.91,0,0,1,56,166h70.78ZM138.78,154H65.24l48.83-48.84,36.76,36.78Zm64.77-70.59L178.17,108.9a6,6,0,0,0,0,8.47l4.88,4.89a10,10,0,0,1,0,14.15l-9,9a2,2,0,0,1-2.82,0l-60.69-60.7a2,2,0,0,1,0-2.83l9-9a10,10,0,0,1,14.14,0l4.89,4.89a6,6,0,0,0,4.24,1.75h0a6,6,0,0,0,4.25-1.77L172,52.66c8.57-8.58,22.51-9,31.07-.85a22,22,0,0,1,.44,31.57Z">
-                </path>
-            </svg>
-            <button>Dropper</buton>
+      <section id="principles">
+        <div class="section-head">
+          <div class="section-index">04 / <span data-zh>方法</span><span data-en>Method</span></div>
+          <h2><span data-zh>我偏好的工程方式。</span><span data-en>How I prefer to build.</span></h2>
         </div>
-    </main>
-    <script>
-        class Pixel {
-            constructor(canvas, context, x, y, color, speed, delay) {
-                this.width = canvas.width;
-                this.height = canvas.height;
-                this.ctx = context;
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.speed = this.getRandomValue(0.1, 0.9) * speed;
-                this.size = 0;
-                this.sizeStep = Math.random() * 0.4;
-                this.minSize = 0.5;
-                this.maxSizeInteger = 2;
-                this.maxSize = this.getRandomValue(this.minSize, this.maxSizeInteger);
-                this.delay = delay;
-                this.counter = 0;
-                this.counterStep = Math.random() * 4 + (this.width + this.height) * 0.01;
-                this.isIdle = false;
-                this.isReverse = false;
-                this.isShimmer = false;
-            }
+        <div class="principles">
+          <div class="principle">
+            <b>01 / USEFUL</b>
+            <h3><span data-zh>先解决真实问题</span><span data-en>Start with a real problem</span></h3>
+            <p><span data-zh>工具不是为了“看起来先进”，而是为了减少成本、错误、等待或重复劳动。</span><span data-en>Tools are not there to look advanced; they should reduce cost, mistakes, waiting or repetitive work.</span></p>
+          </div>
+          <div class="principle">
+            <b>02 / SMALLER</b>
+            <h3><span data-zh>优先最小充分方案</span><span data-en>Prefer the lightest sufficient path</span></h3>
+            <p><span data-zh>能用一个清晰组件解决的问题，不引入第二套平台；能复用成熟能力，就不重新造轮子。</span><span data-en>If one clear component solves it, don't add a second platform. Reuse mature capability before rebuilding it.</span></p>
+          </div>
+          <div class="principle">
+            <b>03 / DURABLE</b>
+            <h3><span data-zh>把维护当成产品的一部分</span><span data-en>Treat maintenance as product work</span></h3>
+            <p><span data-zh>部署、升级、回滚、权限、文档和故障恢复，不是开发完成后的附属工作。</span><span data-en>Deployment, upgrades, rollback, permissions, documentation and recovery are part of the product, not afterthoughts.</span></p>
+          </div>
+        </div>
+      </section>
 
-            getRandomValue(min, max) {
-                return Math.random() * (max - min) + min;
-            }
+      <div class="closing">
+        <div>
+          <div class="section-index">05 / GITHUB</div>
+          <h2><span data-zh>更多实验、工具和旧项目都在 GitHub。</span><span data-en>More experiments, tools and older work live on GitHub.</span></h2>
+          <p><span data-zh>这里展示的是代表性的公开项目，而不是把所有仓库变成一张清单。</span><span data-en>This page highlights representative public work instead of turning every repository into a directory.</span></p>
+        </div>
+        <a class="button primary" href="https://github.com/licat233?tab=repositories" target="_blank" rel="noreferrer">
+          <span data-zh>浏览全部公开仓库</span><span data-en>Browse public repos</span> ↗
+        </a>
+      </div>
+    </div>
+  </main>
 
-            draw() {
-                const centerOffset = this.maxSizeInteger * 0.5 - this.size * 0.5;
+  <footer>
+    <div class="shell footer-row">
+      <span>© <span id="year"></span> Licat / licat233</span>
+      <span><span data-zh>纯 HTML · CSS · JS，托管于 GitHub Pages</span><span data-en>Plain HTML · CSS · JS on GitHub Pages</span></span>
+    </div>
+  </footer>
 
-                this.ctx.fillStyle = this.color;
-                this.ctx.fillRect(
-                    this.x + centerOffset,
-                    this.y + centerOffset,
-                    this.size,
-                    this.size
-                );
-            }
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var saved = localStorage.getItem("licat-lang");
+      var preferred = saved || (navigator.language && navigator.language.toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
 
-            appear() {
-                this.isIdle = false;
+      function setLang(lang) {
+        root.setAttribute("data-lang", lang);
+        root.setAttribute("lang", lang === "zh" ? "zh-CN" : "en");
+        localStorage.setItem("licat-lang", lang);
+      }
 
-                if (this.counter <= this.delay) {
-                    this.counter += this.counterStep;
-                    return;
-                }
+      setLang(preferred === "zh" ? "zh" : "en");
+      document.querySelectorAll("[data-set-lang]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          setLang(button.getAttribute("data-set-lang"));
+        });
+      });
 
-                if (this.size >= this.maxSize) {
-                    this.isShimmer = true;
-                }
-
-                if (this.isShimmer) {
-                    this.shimmer();
-                } else {
-                    this.size += this.sizeStep;
-                }
-
-                this.draw();
-            }
-
-            disappear() {
-                this.isShimmer = false;
-                this.counter = 0;
-
-                if (this.size <= 0) {
-                    this.isIdle = true;
-                    return;
-                } else {
-                    this.size -= 0.1;
-                }
-
-                this.draw();
-            }
-
-            shimmer() {
-                if (this.size >= this.maxSize) {
-                    this.isReverse = true;
-                } else if (this.size <= this.minSize) {
-                    this.isReverse = false;
-                }
-
-                if (this.isReverse) {
-                    this.size -= this.speed;
-                } else {
-                    this.size += this.speed;
-                }
-            }
-        }
-
-        class PixelCanvas extends HTMLElement {
-            static register(tag = "pixel-canvas") {
-                if ("customElements" in window) {
-                    customElements.define(tag, this);
-                }
-            }
-
-            static css = `
-              :host {
-                display: grid;
-                inline-size: 100%;
-                block-size: 100%;
-                overflow: hidden;
-              }
-            `;
-
-            get colors() {
-                return this.dataset.colors?.split(",") || ["#f8fafc", "#f1f5f9", "#cbd5e1"];
-            }
-
-            get gap() {
-                const value = this.dataset.gap || 5;
-                const min = 4;
-                const max = 50;
-
-                if (value <= min) {
-                    return min;
-                } else if (value >= max) {
-                    return max;
-                } else {
-                    return parseInt(value);
-                }
-            }
-
-            get speed() {
-                const value = this.dataset.speed || 35;
-                const min = 0;
-                const max = 100;
-                const throttle = 0.001;
-
-                if (value <= min || this.reducedMotion) {
-                    return min;
-                } else if (value >= max) {
-                    return max * throttle;
-                } else {
-                    return parseInt(value) * throttle;
-                }
-            }
-
-            get noFocus() {
-                return this.hasAttribute("data-no-focus");
-            }
-
-            connectedCallback() {
-                const canvas = document.createElement("canvas");
-                const sheet = new CSSStyleSheet();
-
-                this._parent = this.parentNode;
-                this.shadowroot = this.attachShadow({ mode: "open" });
-
-                sheet.replaceSync(PixelCanvas.css);
-
-                this.shadowroot.adoptedStyleSheets = [sheet];
-                this.shadowroot.append(canvas);
-                this.canvas = this.shadowroot.querySelector("canvas");
-                this.ctx = this.canvas.getContext("2d");
-                this.timeInterval = 1000 / 60;
-                this.timePrevious = performance.now();
-                this.reducedMotion = window.matchMedia(
-                    "(prefers-reduced-motion: reduce)"
-                ).matches;
-
-                this.init();
-                this.resizeObserver = new ResizeObserver(() => this.init());
-                this.resizeObserver.observe(this);
-
-                this._parent.addEventListener("mouseenter", this);
-                this._parent.addEventListener("mouseleave", this);
-
-                if (!this.noFocus) {
-                    this._parent.addEventListener("focusin", this);
-                    this._parent.addEventListener("focusout", this);
-                }
-            }
-
-            disconnectedCallback() {
-                this.resizeObserver.disconnect();
-                this._parent.removeEventListener("mouseenter", this);
-                this._parent.removeEventListener("mouseleave", this);
-
-                if (!this.noFocus) {
-                    this._parent.removeEventListener("focusin", this);
-                    this._parent.removeEventListener("focusout", this);
-                }
-
-                delete this._parent;
-            }
-
-            handleEvent(event) {
-                this[`on${event.type}`](event);
-            }
-
-            onmouseenter() {
-                this.handleAnimation("appear");
-            }
-
-            onmouseleave() {
-                this.handleAnimation("disappear");
-            }
-
-            onfocusin(e) {
-                if (e.currentTarget.contains(e.relatedTarget)) return;
-                this.handleAnimation("appear");
-            }
-
-            onfocusout(e) {
-                if (e.currentTarget.contains(e.relatedTarget)) return;
-                this.handleAnimation("disappear");
-            }
-
-            handleAnimation(name) {
-                cancelAnimationFrame(this.animation);
-                this.animation = this.animate(name);
-            }
-
-            init() {
-                const rect = this.getBoundingClientRect();
-                const width = Math.floor(rect.width);
-                const height = Math.floor(rect.height);
-
-                this.pixels = [];
-                this.canvas.width = width;
-                this.canvas.height = height;
-                this.canvas.style.width = `${width}px`;
-                this.canvas.style.height = `${height}px`;
-                this.createPixels();
-            }
-
-            getDistanceToCanvasCenter(x, y) {
-                const dx = x - this.canvas.width / 2;
-                const dy = y - this.canvas.height / 2;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                return distance;
-            }
-
-            createPixels() {
-                for (let x = 0; x < this.canvas.width; x += this.gap) {
-                    for (let y = 0; y < this.canvas.height; y += this.gap) {
-                        const color = this.colors[
-                            Math.floor(Math.random() * this.colors.length)
-                        ];
-                        const delay = this.reducedMotion
-                            ? 0
-                            : this.getDistanceToCanvasCenter(x, y);
-
-                        this.pixels.push(
-                            new Pixel(this.canvas, this.ctx, x, y, color, this.speed, delay)
-                        );
-                    }
-                }
-            }
-
-            animate(fnName) {
-                this.animation = requestAnimationFrame(() => this.animate(fnName));
-
-                const timeNow = performance.now();
-                const timePassed = timeNow - this.timePrevious;
-
-                if (timePassed < this.timeInterval) return;
-
-                this.timePrevious = timeNow - (timePassed % this.timeInterval);
-
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-                for (let i = 0; i < this.pixels.length; i++) {
-                    this.pixels[i][fnName]();
-                }
-
-                if (this.pixels.every((pixel) => pixel.isIdle)) {
-                    cancelAnimationFrame(this.animation);
-                }
-            }
-        }
-
-        PixelCanvas.register();
-
-    </script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    }());
+  </script>
 </body>
-
 </html>
