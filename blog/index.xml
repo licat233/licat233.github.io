@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Licat&#39;s blog</title>
+    <link>http://licat233.github.io/</link>
+    <description>Recent content on Licat&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+	<atom:link href="http://licat233.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FirstArticle</title>
+      <link>http://licat233.github.io/firstarticle/</link>
+      <pubDate>Thu, 25 Jun 2020 17:40:53 +0800</pubDate>
+      
+      <guid>http://licat233.github.io/firstarticle/</guid>
+      <description>十大经典排序算法动画与解析，看我就够了！（配代码完全版）  欢迎关注 公众号 五分钟学算法，一起学习一起交流进步！
+ 排序算法是《数据结构与算法》中最基本的算法之一。
+排序算法可以分为内部排序和外部排序。
+内部排序是数据记录在内存中进行排序。
+而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。
+常见的内部排序算法有：插入排序、希尔排序、选择排序、冒泡排序、归并排序、快速排序、堆排序、基数排序等。
+用一张图概括：
+关于时间复杂度：  平方阶 (O(n2)) 排序 各类简单排序：直接插入、直接选择和冒泡排序。 线性对数阶 (O(nlog2n)) 排序 快速排序、堆排序和归并排序； O(n1+§)) 排序，§ 是介于 0 和 1 之间的常数。 希尔排序 线性阶 (O(n)) 排序 基数排序，此外还有桶、箱排序。  关于稳定性：   稳定的排序算法：冒泡排序、插入排序、归并排序和基数排序。
+  不是稳定的排序算法：选择排序、快速排序、希尔排序、堆排序。
+  1. 冒泡排序 1.1 算法步骤   比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+  对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。
+  针对所有的元素重复以上的步骤，除了最后一个。
+  持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
+  1.2 动画演示 1.3 参考代码 // Java 代码实现 public class BubbleSort implements IArraySort { @Override public int[] sort(int[] sourceArray) throws Exception { // 对 arr 进行拷贝，不改变参数内容 int[] arr = Arrays.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://licat233.github.io/about/</link>
+      <pubDate>Thu, 25 Jun 2020 17:30:31 +0800</pubDate>
+      
+      <guid>http://licat233.github.io/about/</guid>
+      <description>十大经典排序算法动画与解析，看我就够了！（配代码完全版）  欢迎关注 公众号 五分钟学算法，一起学习一起交流进步！
+ 排序算法是《数据结构与算法》中最基本的算法之一。
+排序算法可以分为内部排序和外部排序。
+内部排序是数据记录在内存中进行排序。
+而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。
+常见的内部排序算法有：插入排序、希尔排序、选择排序、冒泡排序、归并排序、快速排序、堆排序、基数排序等。
+用一张图概括：
+关于时间复杂度：  平方阶 (O(n2)) 排序 各类简单排序：直接插入、直接选择和冒泡排序。 线性对数阶 (O(nlog2n)) 排序 快速排序、堆排序和归并排序； O(n1+§)) 排序，§ 是介于 0 和 1 之间的常数。 希尔排序 线性阶 (O(n)) 排序 基数排序，此外还有桶、箱排序。  关于稳定性：   稳定的排序算法：冒泡排序、插入排序、归并排序和基数排序。
+  不是稳定的排序算法：选择排序、快速排序、希尔排序、堆排序。
+  1. 冒泡排序 1.1 算法步骤   比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+  对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。
+  针对所有的元素重复以上的步骤，除了最后一个。
+  持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
+  1.2 动画演示 1.3 参考代码 // Java 代码实现 public class BubbleSort implements IArraySort { @Override public int[] sort(int[] sourceArray) throws Exception { // 对 arr 进行拷贝，不改变参数内容 int[] arr = Arrays.</description>
+    </item>
+    
+  </channel>
+</rss>
