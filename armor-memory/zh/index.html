@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN" data-project="memory">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>armor-memory — Licat / 233</title>
+<meta name="description" content="一个投入较深的工程项目，探索 Codex、Claude Code 与 Hermes Agent 如何共享同一套路由纪律、同一个持久业务记忆 Vault，以及显式、只读的知识质量检查。">
+<link rel="canonical" href="https://licat233.github.io/armor-memory/zh/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/armor-memory/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/armor-memory/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/zh/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>共享记忆架构</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">亮点</a><a href="#details">细节</a><a href="#use">使用</a><a href="#notes">说明</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/armor-memory/">EN</a>
+      <a class="repo-btn" href="https://github.com/licat233/armor-memory" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="MEMORY / ROUTER">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">DEEP BUILD · MULTI-AGENT · ARCHITECTURE</p>
+      <h1>一次确定性的多 Agent <em>共享记忆架构实践。</em></h1>
+      <p class="lede">一个投入较深的工程项目，探索 Codex、Claude Code 与 Hermes Agent 如何共享同一套路由纪律、同一个持久业务记忆 Vault，以及显式、只读的知识质量检查。</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">了解项目 ↓</a>
+        <a class="btn" href="https://github.com/licat233/armor-memory" target="_blank" rel="noreferrer">查看源码 ↗</a>
+      </div>
+      <div class="meta-row"><span>Python</span><span>★ 1</span><span>Multi-agent memory</span><span>历史工程项目</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="flow">
+<div class="flow-node"><b>Codex / Claude Code / Hermes Agent</b><span>多个 Agent，共用一份记忆契约</span></div>
+<div class="flow-arrow">↓</div>
+<div class="flow-node"><b>Shared Skill</b><span>行为规则与路由纪律</span></div>
+<div class="flow-arrow">↓</div>
+<div class="flow-node"><b>Router + 显式诊断</b><span>确定性目的地 · 只读知识质量检查</span></div>
+<div class="flow-arrow">↓</div>
+<div class="flow-node"><b>Durable Vault</b><span>业务记忆与架构代码分离</span></div>
+</div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / 核心思路</p><h2>记忆系统不应该制造生命周期官僚流程。</h2></div><p class="section-note">这套架构希望路由足够确定，同时避免把“Active → Completed 搬文件”“重复确认已经授权的决定”等工作长期甩给人类。</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>稳定路由</h3><p>由对象类型决定位置；目录表达的是运营用途，而不是生命周期状态。</p></article>
+<article class="card"><b class="num">02</b><h3>Skill 与存储分离</h3><p>Skill 控制行为和路由，Vault 保存持久业务记忆；派生工具不能变成第二个权威数据源。</p></article>
+<article class="card"><b class="num">03</b><h3>降低人类成本</h3><p>确定性的路由、元数据维护和例行操作尽量由 Agent 完成，把人的注意力留给真实的歧义、权限与风险判断。</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / 架构层次</p><h2>尽量少的明确层。</h2></div><p class="section-note">仓库保存的是架构、Router、测试和维护工具，本身并不保存实时业务记忆。</p></div><div class="table">
+<div class="table-row"><b>Shared Skill</b><span>定义多个 Agent 共用的记忆行为和路由纪律。</span></div>
+<div class="table-row"><b>Router</b><span>当持久写入的目的地尚不明确时，先确定一个可重复、确定性的路径。</span></div>
+<div class="table-row"><b>知识质量</b><span>只读检查 authority、provenance 与可能的重复标题问题。</span></div>
+<div class="table-row"><b>Vault</b><span>持久业务记忆存储，与代码、架构和诊断工具保持分离。</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / 工程经验</p><h2>不要把“记忆”做成第二套操作系统。</h2></div><p class="section-note">项目后期主动移除了迁移专用工具和过时架构副本，让 Git 历史承担历史记录，而不是让旧规则继续和当前规则并排存在。</p></div><div class="cards">
+<article class="card wide"><h3>项目位置生命周期中立</h3><p>具名项目长期留在同一个稳定位置；Draft、Review、Published、Retired 等状态，不要求源文件不断搬目录。</p></article>
+<article class="card wide"><h3>显式维护</h3><p>正常记忆任务不自动检查仓库版本，也不静默自更新。架构升级由操作者明确发起。</p></article>
+</div></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>这个项目现在如何定位</h3><p>这里把 armor-memory 作为一个独立工程作品展示。当前 EAO 的企业知识架构已经演进，不再把 armor-memory / armor-vault 作为权威知识层；但这个仓库仍然值得保留，因为它记录了一段深入的多 Agent 记忆架构实践和不少仍然有价值的设计经验。</p></div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>Licat 的精选项目 · 原始项目内容以 GitHub 仓库为准。</span>
+  <div><a href="/zh/">返回个人主页</a> · <a href="https://github.com/licat233/armor-memory" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
