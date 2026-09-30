@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" data-project="writing">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>ai-writing-audit — Licat / 233</title>
+<meta name="description" content="A source-traceable local skill for detecting AI-style writing risk and guiding full-article repair. It combines deterministic scanning with an agent-led editorial workflow without claiming authorship probability.">
+<link rel="canonical" href="https://licat233.github.io/ai-writing-audit/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/ai-writing-audit/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/ai-writing-audit/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/en/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>AI writing audit skill</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">Highlights</a><a href="#details">Details</a><a href="#use">Use</a><a href="#notes">Notes</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/ai-writing-audit/zh/">中文</a>
+      <a class="repo-btn" href="https://github.com/licat233/ai-writing-audit" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="WRITE / AUDIT">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">ACTIVE SKILL · PYTHON · MIT</p>
+      <h1>Audit writing patterns. <em>Preserve the facts.</em></h1>
+      <p class="lede">A source-traceable local skill for detecting AI-style writing risk and guiding full-article repair. It combines deterministic scanning with an agent-led editorial workflow without claiming authorship probability.</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">Explore project ↓</a>
+        <a class="btn" href="https://github.com/licat233/ai-writing-audit" target="_blank" rel="noreferrer">View source ↗</a>
+      </div>
+      <div class="meta-row"><span>Python 3.9+</span><span>MIT</span><span>Codex · Claude Code · Hermes</span><span>v0.4.0</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="flow">
+<div class="score-card"><div><strong>1. Deterministic audit</strong><small>Local rules · protected text · stable finding IDs</small></div><span class="score-pill">detect</span></div>
+<div class="flow-arrow">↓</div>
+<div class="score-card"><div><strong>2. Editorial diagnosis</strong><small>Structure · specificity · evidence · repetition</small></div><span class="score-pill">risk</span></div>
+<div class="flow-arrow">↓</div>
+<div class="score-card"><div><strong>3. Agent-led repair</strong><small>Full rewrite when explicitly requested</small></div><span class="score-pill">repair</span></div>
+<div class="flow-arrow">↓</div>
+<div class="score-card"><div><strong>4. Post-repair audit</strong><small>Re-scan and report unresolved fact gaps</small></div><span class="score-pill">verify</span></div>
+</div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / WHAT IT DOES</p><h2>Risk signals, not authorship guesses.</h2></div><p class="section-note">The tool measures patterns that can make writing feel formulaic or AI-generated. It explicitly does not output an “AI probability” and does not claim to know who wrote the text.</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>Deterministic scan</h3><p>The CLI audits locally and records stable findings, input SHA-256 and a ruleset/config fingerprint.</p></article>
+<article class="card"><b class="num">02</b><h3>Fact-preserving repair</h3><p>When the user asks for a full polish, the Agent rebuilds the article while preserving supplied facts, protected text and factual limits.</p></article>
+<article class="card"><b class="num">03</b><h3>Tool-agnostic Skill</h3><p>The same SKILL.md is designed for Codex, Claude Code and Hermes Agent without requiring an MCP server or provider-specific API.</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / COMPOSITION</p><h2>Traceable ideas, deliberately integrated.</h2></div><p class="section-note">A project counts as an active component only when its ideas or rules are actually integrated. Merely reviewed repositories are not presented as part of the skill.</p></div><div class="table">
+<div class="table-row"><b>avoid-ai-writing</b><span>v3.23.1 · workflow/detector reference and core pattern provenance</span></div>
+<div class="table-row"><b>humanizer</b><span>v2.9.1 · pattern taxonomy and selected language / structure rules</span></div>
+<div class="table-row"><b>no-ai-slop</b><span>Locked main snapshot · sentence-level patterns, minimum-effective-edit and voice-preservation gates</span></div>
+<div class="table-row"><b>Native layer</b><span>ai-writing-audit 0.4.0 · Chinese, B2B marketing, SEO/GEO, deterministic scoring and repair policy</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / USE</p><h2>Run the scanner locally.</h2></div><p class="section-note">The CLI implements detect mode. Full repair is intentionally an Agent workflow rather than a fake CLI mode that silently behaves like detection.</p></div>
+<pre class="code"><span class="accent">python3</span> scripts/audit.py article.md \
+  --mode detect \
+  --language auto \
+  --profile general \
+  --format markdown</pre>
+<div class="note">Protected content includes quotations, code, tables, YAML front matter, HTML attributes, legal text and attributed third-party text. Findings may be reported there, but repair rules must not rewrite it casually.</div></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>General by design</h3><p>Company-specific brand facts, product constraints, legal policies and private editorial rules do not belong in this public skill. Those are intentionally left to downstream integrations or private overlays.</p></div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>A featured Licat project · The GitHub repository remains the source of truth.</span>
+  <div><a href="/en/">Back to portfolio</a> · <a href="https://github.com/licat233/ai-writing-audit" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
