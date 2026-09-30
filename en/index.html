@@ -18,6 +18,16 @@
   <title>Licat — Builder & Developer</title>
   <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
   <link rel="alternate icon" href="/favicon.ico">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("licat-theme");
+        if (saved === "light" || saved === "dark") {
+          document.documentElement.dataset.theme = saved;
+        }
+      } catch (_) {}
+    })();
+  </script>
   <link rel="stylesheet" href="/assets/portfolio.css">
 </head>
 <body>
@@ -29,13 +39,20 @@
       </a>
 
       <div class="nav-links">
-        <a class="nav-pill active" href="#top"><span></span>Home</a>
-        <a class="nav-pill" href="#projects"><span></span>Projects</a>
-        <a class="nav-pill" href="#journey"><span></span>Journey</a>
-        <a class="nav-pill" href="#principles"><span></span>Principles</a>
+        <span class="nav-indicator" aria-hidden="true"></span>
+        <a class="nav-pill active" data-nav-target="top" href="#top"><span></span>Home</a>
+        <a class="nav-pill" data-nav-target="projects" href="#projects"><span></span>Projects</a>
+        <a class="nav-pill" data-nav-target="journey" href="#journey"><span></span>Journey</a>
+        <a class="nav-pill" data-nav-target="principles" href="#principles"><span></span>Principles</a>
       </div>
 
       <div class="nav-actions">
+        <button class="theme-toggle" type="button" aria-label="Toggle light and dark mode" aria-pressed="false">
+          <span class="theme-toggle-track" aria-hidden="true">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
         <div class="lang" aria-label="Language">
           <a href="/zh/">中</a>
           <a href="/en/" aria-current="page">EN</a>
