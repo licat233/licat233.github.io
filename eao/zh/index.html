@@ -1,6 +1,9 @@
 <!doctype html><html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="EAO 是一套面向真实企业工作的开源 AI 办公系统，把企业知识、文件和获准工具连接到各部门的 AI Assistant。"><meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light dark"><meta name="description" content="EAO 是一套面向真实企业工作的开源 AI 办公系统，把企业知识、文件和获准工具连接到各部门的 AI Assistant。"><meta name="theme-color" content="#f7f9f8" id="eao-theme-color">
+<script>
+(()=>{try{const saved=localStorage.getItem("eao-theme");const dark=window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(saved==="light"||saved==="dark")?saved:(dark?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
 <link rel="icon" href="../eao-logo.svg" type="image/svg+xml"><title>EAO — 企业 AI 办公系统</title>
 <style>
 :root{--ink:#111716;--muted:#61706d;--line:#dce5e3;--soft:#f5f8f7;--brand:#08cfc4;--brand2:#006d68;--max:1180px}
@@ -31,7 +34,14 @@ section{padding:82px 0;border-bottom:1px solid var(--line)}.section-title{font-s
 .faq{background:#fff}.faq-head{max-width:860px}.faq-groups{display:grid;gap:34px;margin-top:42px}.faq-group h3{margin:0 0 12px;font-size:14px;letter-spacing:.03em;color:var(--brand2)}.faq-list{border-top:1px solid var(--line)}.faq-item{border-bottom:1px solid var(--line)}.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 2px;font-weight:750;font-size:17px}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:"+";flex:0 0 auto;font-size:24px;line-height:1;color:var(--brand2);font-weight:500}.faq-item[open] summary::after{content:"−"}.faq-answer{padding:0 46px 21px 2px;color:var(--muted);font-size:15px;max-width:940px}.faq-answer p{margin:0}.faq-item summary:hover{color:var(--brand2)}
 @media(max-width:600px){.faq-groups{gap:28px;margin-top:30px}.faq-item summary{font-size:16px;padding:17px 0;gap:16px}.faq-answer{padding:0 26px 18px 0;font-size:14px}}
 </style><link rel="stylesheet" href="../assets/eao-redesign.css"></head><body class="eao-v2">
-<nav><div class="navin"><a class="brand" href="../"><img class="brand-logo" src="../eao-logo.svg" alt="EAO logo">Enterprise AI Office</a><div class="links"><a href="#pain">企业痛点</a><a href="#value">价值</a><a href="#work">工作方式</a><a href="#departments">部门</a><a href="#control">控制与实践</a><span class="lang-current">中文</span><a class="lang" href="../">EN</a><a class="gh" href="https://github.com/licat233/Enterprise-AI-Office">GitHub ↗</a></div></div></nav>
+<nav><div class="navin">
+<a class="brand" href="../"><img class="brand-logo" src="../eao-logo.svg" alt="EAO logo">Enterprise AI Office</a>
+<div class="nav-sections" aria-label="页面章节"><span class="nav-indicator" aria-hidden="true"></span><a class="nav-section-link is-active" data-nav-target="pain" href="#pain">企业痛点</a><a class="nav-section-link" data-nav-target="value" href="#value">价值</a><a class="nav-section-link" data-nav-target="work" href="#work">工作方式</a><a class="nav-section-link" data-nav-target="departments" href="#departments">部门</a><a class="nav-section-link" data-nav-target="control" href="#control">控制与实践</a></div>
+<div class="nav-tools">
+<button class="theme-toggle" type="button" aria-label="切换昼夜模式" aria-pressed="false"><span class="theme-toggle-track" aria-hidden="true"><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span></button>
+<span class="lang-current">中文</span><a class="lang" href="../">EN</a><a class="gh" href="https://github.com/licat233/Enterprise-AI-Office">GitHub ↗</a>
+</div>
+</div></nav>
 <main>
 <header class="hero"><div class="wrap"><div class="hero-grid"><div><div class="eyebrow">开源 · 系统可自托管 · 模型可选择</div><h1>AI 应该进入<span>企业日常工作</span>。</h1><p class="lead">EAO 把企业知识、文件和获准工具连接到部门 AI Assistant，让员工少花时间找资料、重复整理，多花时间完成真正的工作。</p><div class="actions"><a class="btn primary" href="#pain">看看 EAO 能改变什么 ↓</a><a class="btn" href="https://github.com/licat233/Enterprise-AI-Office">查看开源项目 ↗</a></div><div class="meta"><span>更快找到企业信息</span><span>减少重复整理</span><span>复用组织知识</span><span>在企业边界内使用 AI</span></div></div>
 <div class="hero-visual"><img class="hero-shot" src="../assets/eao-window-zh.webp" alt="EAO Operations Assistant 实际界面，展示员工日常使用的简洁工作入口。" decoding="async" fetchpriority="high"><div class="visual-caption">员工看到的是一个简单工作入口，而不是背后的技术栈。</div></div>
