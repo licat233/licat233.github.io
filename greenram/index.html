@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" data-project="greenram">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>GreenRAM — Licat / 233</title>
+<meta name="description" content="A macOS menu bar app that watches native Memory Pressure, Swap and process risk, then asks eligible long-idle background apps to quit under explicit rules while protecting the apps that should stay running.">
+<link rel="canonical" href="https://licat233.github.io/greenram/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/greenram/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/greenram/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/en/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>macOS memory utility</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">Highlights</a><a href="#details">Details</a><a href="#use">Use</a><a href="#notes">Notes</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/greenram/zh/">中文</a>
+      <a class="repo-btn" href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="RAM / PRESSURE">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">PRODUCT · SWIFT · MACOS</p>
+      <h1>Memory cleanup with <em>rules you can explain.</em></h1>
+      <p class="lede">A macOS menu bar app that watches native Memory Pressure, Swap and process risk, then asks eligible long-idle background apps to quit under explicit rules while protecting the apps that should stay running.</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">Explore project ↓</a>
+        <a class="btn" href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer">View source ↗</a>
+      </div>
+      <div class="meta-row"><span>Swift</span><span>macOS 13+</span><span>Universal 2</span><span>6 UI languages</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="app-shot"><figure><img src="https://raw.githubusercontent.com/licat233/greenram/main/docs/screenshots/menu.png" alt="GreenRAM menu screenshot"></figure><figure><img src="https://raw.githubusercontent.com/licat233/greenram/main/docs/screenshots/settings.png" alt="GreenRAM settings screenshot"></figure></div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / PRODUCT IDEA</p><h2>High RAM usage is not automatically a problem.</h2></div><p class="section-note">GreenRAM prioritizes native macOS Memory Pressure, then considers Swap and process risk. Cached Files are shown separately as reclaimable memory so a high percentage alone does not trigger a false warning.</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>Native pressure first</h3><p>Menu-bar health status starts with macOS Memory Pressure rather than treating raw RAM percentage as the decision.</p></article>
+<article class="card"><b class="num">02</b><h3>Safe quit requests</h3><p>Cleanup asks selected background apps to quit normally. It does not claim to “clear Swap” or kill the current frontmost app.</p></article>
+<article class="card"><b class="num">03</b><h3>Multi-process accounting</h3><p>Browsers, Electron apps, Xcode helpers and similar trees are accounted for as application memory rather than isolated helper processes.</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / CLEANUP POLICY</p><h2>Three groups, three different rules.</h2></div><p class="section-note">Eligibility is based on explicit categories, background time and memory decisions — not vague app-name heuristics.</p></div><div class="table">
+<div class="table-row"><b>Whitelist</b><span>Protected apps are never quit. GreenRAM itself and the current frontmost app are also always excluded.</span></div>
+<div class="table-row"><b>Auto-Quit Apps</b><span>Small utilities can be configured to quit after a non-frontmost timeout only; RAM and Swap do not participate.</span></div>
+<div class="table-row"><b>Ordinary apps</b><span>After the background-time threshold, cleanup still requires either a MemoryDecisionEngine decision or that app's own memory limit.</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / RUN IT</p><h2>Build locally with SwiftPM.</h2></div><p class="section-note">Release packages are Universal 2 for Apple Silicon and Intel. The current personal-use archive is ad-hoc signed and not Apple-notarized.</p></div>
+<pre class="code"><span class="accent">swift build</span> -c release
+
+<span class="accent">swift run</span> GreenRAM</pre>
+<div class="note">On first launch of the current personal-use build, Gatekeeper quarantine may need to be removed manually after copying GreenRAM.app to /Applications. A future public distribution should use Developer ID signing and Apple notarization.</div></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>What GreenRAM deliberately never quits</h3><p>GreenRAM itself, the current frontmost app, whitelisted apps, background apps that have not reached their timeout, and ordinary apps while the decision engine reports healthy and the app remains below its own memory limit.</p></div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>A featured Licat project · The GitHub repository remains the source of truth.</span>
+  <div><a href="/en/">Back to portfolio</a> · <a href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
