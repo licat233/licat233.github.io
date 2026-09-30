@@ -1001,3 +1001,19 @@ html[lang="zh-CN"] .eao-v2 .kicker{
   }
 }
 
+:root[data-theme="dark"] .eao-v2 .btn{
+  color:#e6f4f1;
+  border-color:rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  box-shadow:0 8px 22px rgba(0,0,0,.16);
+}
+:root[data-theme="dark"] .eao-v2 .btn:hover{
+  border-color:rgba(23,216,205,.30);
+  background:rgba(255,255,255,.10);
+}
+:root[data-theme="dark"] .eao-v2 .btn.primary{
+  color:#0d201e;
+  border-color:#dffbf7;
+  background:#dffbf7;
+}
+
