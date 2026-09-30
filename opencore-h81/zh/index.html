@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN" data-project="opencore">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>OpenCore · Haswell H81 — Licat / 233</title>
+<meta name="description" content="围绕 4 代 Haswell i3 / i5、Intel H81、HD4400–HD4600 核显和 ALC662 声卡制作的精简 OpenCore EFI。项目强调稳定、体积小，以及删掉不必要的补丁和设置。">
+<link rel="canonical" href="https://licat233.github.io/opencore-h81/zh/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/opencore-h81/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/opencore-h81/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/zh/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>OpenCore · Haswell H81</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">亮点</a><a href="#details">细节</a><a href="#use">使用</a><a href="#notes">说明</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/opencore-h81/">EN</a>
+      <a class="repo-btn" href="https://github.com/licat233/EFI-OpenCore-i3-i5-haswell-cpu-h81-alc662-HD4600" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="EFI / H81">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">MOST STARRED · OPENCORE · HASWELL</p>
+      <h1>为一台具体电脑，<em>把 EFI 做到足够精简。</em></h1>
+      <p class="lede">围绕 4 代 Haswell i3 / i5、Intel H81、HD4400–HD4600 核显和 ALC662 声卡制作的精简 OpenCore EFI。项目强调稳定、体积小，以及删掉不必要的补丁和设置。</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">了解项目 ↓</a>
+        <a class="btn" href="https://github.com/licat233/EFI-OpenCore-i3-i5-haswell-cpu-h81-alc662-HD4600" target="_blank" rel="noreferrer">查看源码 ↗</a>
+      </div>
+      <div class="meta-row"><span>Shell</span><span>★ 26 · Fork 5</span><span>EFI 约 3 MB</span><span>Last push · 2023-02-02</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="terminal"><span class="dim">目标硬件</span><br><strong>Haswell i3 / i5</strong><br>Intel H81 芯片组<br>HD4400 → HD4600<br>ALC662 声卡<br><br><span class="dim">仓库内配置</span><br><span class="accent">OpenCore 0.6.9</span> · High Sierra → Big Sur<br><span class="accent">OpenCore 0.8.1</span> · Monterey<br><br><span class="ok">✓ 精简配置</span><br><span class="ok">✓ 追求启动速度与稳定</span><br><span class="warn">! 使用前必须修改 PlatformInfo</span></div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / 项目思路</p><h2>EFI 不是越多越好。</h2></div><p class="section-note">README 里最明确的一条原则，就是 OpenCore 不应该靠不断堆补丁和驱动来获得“完整感”，稳定比盲目追新更重要。</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>尽量精简</h3><p>README 记录这套 EFI 被精简到约 3 MB，移除了不必要的补丁和设置。</p></article>
+<article class="card"><b class="num">02</b><h3>明确面向硬件</h3><p>目标就是 Haswell i3/i5、H81、HD4400–HD4600、ALC662，不把它包装成万能 EFI。</p></article>
+<article class="card"><b class="num">03</b><h3>稳定优先</h3><p>项目明确提出：OpenCore 不是版本越新越好，能稳定使用时没有必要为了升级而升级。</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / 参考配置</p><h2>它最初运行在哪台机器上。</h2></div><p class="section-note">以下是仓库作者实际使用的硬件，不代表所有 H81 机器都完全相同。</p></div><div class="table">
+<div class="table-row"><b>CPU</b><span>Intel Core i5-4590，3.3 GHz 四核</span></div>
+<div class="table-row"><b>显卡</b><span>Intel HD4600 + NVIDIA Quadro K600</span></div>
+<div class="table-row"><b>主板</b><span>Intel H81 · 七彩虹 C.H81M V22</span></div>
+<div class="table-row"><b>内存</b><span>16 GB DDR3 1600 MHz</span></div>
+<div class="table-row"><b>Wi‑Fi / 蓝牙</b><span>BCM94360CD / Fenvi T919</span></div>
+<div class="table-row"><b>声卡</b><span>ALC662</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / 使用</p><h2>按自己的系统和硬件匹配。</h2></div><p class="section-note">仓库针对不同 macOS 世代保留了不同 EFI 目录，安装阶段和正常使用也区分 debug / product 配置。</p></div><div class="cards">
+<article class="card wide"><h3>启动前</h3><p>必须修改 PlatformInfo。Intel Wi‑Fi / 蓝牙、USB 3.0 等是否需要额外补丁，取决于具体硬件。</p></article>
+<article class="card wide"><h3>已知限制</h3><p>README 记录作者办公电脑长期使用时，除 iMessage 外其它功能正常。</p></article>
+</div><div class="note">仓库主要记录 High Sierra 到 Monterey 时期的配置；2023 年 README 中 Ventura 仍标记为“开发中”。因此更适合把它视为一份特定硬件的历史 EFI 工程，而不是今天所有 macOS 的通用安装指南。</div></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>为什么它仍然是精选项目</h3><p>创建本页面时，它仍然是我公开仓库中 Star 最多的项目：26 Star、5 Fork。更重要的是，它保留了一种至今仍适用的工程直觉：删掉没必要的东西，针对真实机器优化，稳定以后不要为了折腾而继续折腾。</p></div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>Licat 的精选项目 · 原始项目内容以 GitHub 仓库为准。</span>
+  <div><a href="/zh/">返回个人主页</a> · <a href="https://github.com/licat233/EFI-OpenCore-i3-i5-haswell-cpu-h81-alc662-HD4600" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
