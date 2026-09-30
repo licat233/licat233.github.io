@@ -122,14 +122,14 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     const hero=gsap.timeline({defaults:{duration:.72,ease:'power2.out'}});
     hero
-      .from('nav .brand',{autoAlpha:0,y:-10,duration:.45})
-      .from('nav .links',{autoAlpha:0,y:-10,duration:.45},'<.06')
-      .from('.hero .eyebrow',{autoAlpha:0,y:14},'-=.18')
-      .from('.hero h1',{autoAlpha:0,y:24,duration:.82},'-=.42')
-      .from('.hero .lead',{autoAlpha:0,y:18},'-=.48')
-      .from('.hero .actions .btn',{autoAlpha:0,y:12,stagger:.08,duration:.5},'-=.42')
-      .from('.hero .meta span',{autoAlpha:0,y:10,stagger:.055,duration:.42},'-=.28')
-      .from('.hero-visual',{autoAlpha:0,x:isDesktop?28:0,y:isDesktop?0:18,scale:.985,duration:.88},'-=.78');
+      .from('nav .brand',{y:-10,duration:.45})
+      .from('nav .links',{y:-10,duration:.45},'<.06')
+      .from('.hero .eyebrow',{y:14},'-=.18')
+      .from('.hero h1',{y:24,duration:.82},'-=.42')
+      .from('.hero .lead',{y:18},'-=.48')
+      .from('.hero .actions .btn',{y:12,stagger:.08,duration:.5},'-=.42')
+      .from('.hero .meta span',{y:10,stagger:.055,duration:.42},'-=.28')
+      .from('.hero-visual',{x:isDesktop?28:0,y:isDesktop?0:18,scale:.985,duration:.88},'-=.78');
 
     if(isDesktop){
       gsap.to('.hero-visual',{
