@@ -1,0 +1,208 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="EAO is an open-source enterprise AI office system that connects company knowledge, files and approved tools to department AI assistants."><meta name="theme-color" content="#ffffff">
+<link rel="icon" href="eao-logo.svg" type="image/svg+xml"><title>EAO — Enterprise AI Office</title>
+<style>
+:root{--ink:#111716;--muted:#61706d;--line:#dce5e3;--soft:#f5f8f7;--brand:#08cfc4;--brand2:#006d68;--max:1180px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff;line-height:1.6}a{color:inherit;text-decoration:none}.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
+nav{height:72px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);z-index:20}.navin{height:100%;display:flex;align-items:center;justify-content:space-between;gap:22px;width:min(var(--max),calc(100% - 40px));margin:auto}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em;white-space:nowrap}.brand-logo{width:36px;height:36px}.links{display:flex;gap:20px;align-items:center;font-size:13px}.links a:hover{color:var(--brand2)}.lang,.lang-current{font-weight:800}.lang{color:var(--brand2)}.lang-current{color:var(--muted)}.gh{border:1px solid var(--ink);padding:7px 12px;font-weight:700}
+.hero{padding:94px 0 76px;border-bottom:1px solid var(--line)}.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:54px;align-items:center}.eyebrow,.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--brand2);font-weight:800}.hero h1{font-size:clamp(50px,6.5vw,88px);line-height:.98;letter-spacing:-.06em;margin:18px 0 26px}.hero h1 span{color:var(--brand2)}.lead{font-size:clamp(19px,2vw,25px);line-height:1.5;color:#34413f;max-width:760px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}.btn{padding:12px 17px;border:1px solid var(--ink);font-weight:750;font-size:14px}.btn.primary{background:var(--ink);color:#fff}.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.hero-visual{border:1px solid var(--line);background:#f7faf9;padding:18px}.product-shell{background:#fff;border:1px solid #d7e1df;box-shadow:0 18px 50px rgba(17,23,22,.08)}.product-topbar{height:42px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 13px;font-size:10px;color:var(--muted)}.product-dots{display:flex;gap:5px}.product-dots i{width:7px;height:7px;border-radius:50%;background:#d2dcda}.product-topbar b{font-size:10px;color:var(--ink);letter-spacing:.04em}.product-body{display:grid;grid-template-columns:108px 1fr 132px;min-height:320px}.product-side{border-right:1px solid var(--line);padding:13px 9px;background:#fbfcfc}.product-side strong,.product-context strong{display:block;font-size:9px;color:var(--muted);letter-spacing:.08em;margin:3px 6px 10px}.product-item{font-size:10px;padding:7px 8px;margin-bottom:3px}.product-item.active{background:#e9f8f6;color:var(--brand2);font-weight:800}.product-main{padding:17px}.product-main .mini{font-size:9px;color:var(--brand2);font-weight:800;letter-spacing:.08em}.product-main h4{margin:6px 0 14px;font-size:15px}.bubble{border:1px solid var(--line);padding:10px 11px;font-size:10px;line-height:1.5;margin-bottom:9px}.bubble.user{margin-left:30px;background:#f7faf9}.bubble.ai{background:#fff}.taskbar{display:grid;grid-template-columns:1fr auto;gap:7px;align-items:center;margin-top:10px;padding:9px 10px;background:#111716;color:#fff;font-size:9px}.taskbar span:last-child{color:#86eee8;font-weight:800}.product-context{border-left:1px solid var(--line);padding:13px 9px;background:#fbfcfc}.ctx{border:1px solid var(--line);background:#fff;padding:8px;margin-bottom:7px}.ctx b{display:block;font-size:9px}.ctx span{font-size:8px;color:var(--muted)}.product-status{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:8px;color:var(--muted)}.product-status i{width:7px;height:7px;border-radius:50%;background:var(--brand)}.hero-shot{display:block;width:100%;height:auto;background:#fff;border:1px solid #d7e1df}.visual-caption{font-size:11px;color:var(--brand2);font-weight:750;margin-top:12px}
+section{padding:82px 0;border-bottom:1px solid var(--line)}.section-title{font-size:clamp(34px,4.6vw,57px);line-height:1.07;letter-spacing:-.045em;margin:12px 0 18px;max-width:980px}.intro{font-size:18px;color:var(--muted);max-width:850px}
+.pain-grid,.value-grid,.dept-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:38px}.pain-card,.value-card,.dept-card{padding:27px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.pain-card h3,.value-card h3,.dept-card h3{margin:0 0 9px;font-size:20px}.pain-card p,.value-card p,.dept-card p{margin:0;color:var(--muted);font-size:15px}.value-card b{display:block;color:var(--brand2);font-size:11px;margin-bottom:18px}
+.compare-work{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:38px}.work-col{border:1px solid var(--line);padding:28px}.work-col.after{background:#f2fbfa;border-color:#b9e7e2}.work-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.work-head h3{margin:0;font-size:22px}.work-head span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.work-col.after .work-head span{color:var(--brand2);font-weight:800}.work-col ol{margin:0;padding-left:22px}.work-col li{padding:10px 0;border-bottom:1px solid var(--line);color:#35423f}.work-col li:last-child{border-bottom:0}.work-note{margin-top:22px;padding:17px 19px;background:var(--soft);border-left:3px solid var(--brand2);color:#40504d}
+.control-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:38px}.control-card{border-top:2px solid var(--ink);padding-top:15px}.control-card h3{font-size:16px;margin:0 0 7px}.control-card p{font-size:14px;color:var(--muted);margin:0}.note{margin-top:28px;padding:17px 19px;background:var(--soft);border-left:3px solid var(--brand2);color:#40504d}
+.real{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;margin-top:48px;padding-top:42px;border-top:1px solid var(--line)}.real h3{font-size:31px;line-height:1.15;margin:8px 0 14px}.real p{color:var(--muted);font-size:16px}.real-items{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-left:1px solid var(--line)}.real-items span{padding:17px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px}
+.tech{background:var(--soft)}.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:#fff;margin-top:34px}.tech-grid div{padding:20px;border-right:1px solid var(--line)}.tech-grid div:last-child{border-right:0}.tech-grid b{display:block;color:var(--brand2);font-size:12px;margin-bottom:7px}.tech-grid span{font-size:13px;color:var(--muted)}
+.cta{padding:90px 0}.cta h2{font-size:clamp(42px,5.5vw,72px);line-height:1.02;letter-spacing:-.05em;margin:12px 0 20px;max-width:980px}.cta p{font-size:18px;color:var(--muted);max-width:760px}footer{padding:28px 0 42px}.foot{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:12px}
+@media(max-width:900px){.links a:not(.gh):not(.lang){display:none}.hero-grid,.compare-work,.real{grid-template-columns:1fr}.control-grid{grid-template-columns:1fr 1fr}.tech-grid{grid-template-columns:1fr 1fr}.tech-grid div:nth-child(2){border-right:0}.tech-grid div{border-bottom:1px solid var(--line)}}
+@media(max-width:600px){.wrap,.navin{width:min(var(--max),calc(100% - 28px))}.navin{gap:8px}.brand{font-size:14px}.brand-logo{width:30px;height:30px}.links{gap:8px;font-size:12px}.lang-current{display:none}.gh{display:none}.hero{padding:66px 0 56px}.hero h1{font-size:44px}.lead{font-size:18px}.meta{grid-template-columns:1fr}.product-body{grid-template-columns:82px 1fr}.product-context{display:none}.product-topbar>span{display:none}.product-topbar b{font-size:9px}.product-side{padding:10px 5px}.product-item{padding:6px 5px;font-size:9px}.product-main{padding:13px 10px}.bubble.user{margin-left:14px}.pain-grid,.value-grid,.dept-grid,.control-grid,.tech-grid{grid-template-columns:1fr}.tech-grid div{border-right:0}.real-items{grid-template-columns:1fr}.section-title{font-size:35px}section{padding:62px 0}.cta{padding:72px 0}.cta h2{font-size:42px}.foot{flex-direction:column}}
+.contrast-card{margin-top:34px;border:1px solid var(--line);background:var(--soft);padding:18px}
+.contrast-card img{display:block;width:min(100%,960px);height:auto;margin:auto}
+@media(max-width:600px){.contrast-card{padding:8px;margin-top:26px}}
+.story-visual{margin:32px 0 0;border:1px solid var(--line);background:var(--soft);padding:14px}
+.story-visual img{display:block;width:100%;height:auto;margin:auto}
+.visual-story{background:#fbfcfc}
+@media(max-width:600px){.story-visual{padding:7px;margin-top:24px}}
+
+.lazy-image{opacity:0;transition:opacity .22s ease}
+.lazy-image.is-loaded{opacity:1}
+
+.faq{background:#fff}.faq-head{max-width:860px}.faq-groups{display:grid;gap:34px;margin-top:42px}.faq-group h3{margin:0 0 12px;font-size:14px;letter-spacing:.03em;color:var(--brand2)}.faq-list{border-top:1px solid var(--line)}.faq-item{border-bottom:1px solid var(--line)}.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 2px;font-weight:750;font-size:17px}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:"+";flex:0 0 auto;font-size:24px;line-height:1;color:var(--brand2);font-weight:500}.faq-item[open] summary::after{content:"−"}.faq-answer{padding:0 46px 21px 2px;color:var(--muted);font-size:15px;max-width:940px}.faq-answer p{margin:0}.faq-item summary:hover{color:var(--brand2)}
+@media(max-width:600px){.faq-groups{gap:28px;margin-top:30px}.faq-item summary{font-size:16px;padding:17px 0;gap:16px}.faq-answer{padding:0 26px 18px 0;font-size:14px}}
+</style></head><body>
+<nav><div class="navin"><a class="brand" href="#"><img class="brand-logo" src="eao-logo.svg" alt="EAO logo">Enterprise AI Office</a><div class="links"><a href="#pain">Problems</a><a href="#value">Value</a><a href="#work">How it works</a><a href="#departments">Departments</a><a href="#control">Control & proof</a><span class="lang-current">EN</span><a class="lang" href="zh/">中文</a><a class="gh" href="https://github.com/licat233/Enterprise-AI-Office">GitHub ↗</a></div></div></nav>
+<main>
+<header class="hero"><div class="wrap"><div class="hero-grid"><div><div class="eyebrow">Open source · Self-hosted system · Flexible models</div><h1>Bring AI into <span>everyday company work.</span></h1><p class="lead">EAO connects company knowledge, files and approved tools to department AI assistants, so employees spend less time finding information and repeating work — and more time getting work done.</p><div class="actions"><a class="btn primary" href="#pain">See what changes with EAO ↓</a><a class="btn" href="https://github.com/licat233/Enterprise-AI-Office">Explore the open-source project ↗</a></div><div class="meta"><span>Find company information faster</span><span>Reduce repetitive prep</span><span>Reuse organizational knowledge</span><span>Use AI within company boundaries</span></div></div>
+<div class="hero-visual"><img class="hero-shot" src="assets/eao-window-en.webp" alt="Actual EAO Operations Assistant interface showing the simple work surface employees use." decoding="async" fetchpriority="high"><div class="visual-caption">Employees see a simple work surface — not the infrastructure behind it.</div></div>
+</div></div></header>
+
+<section id="pain"><div class="wrap"><div class="kicker">01 / Where company work gets stuck</div><h2 class="section-title">Companies rarely lack knowledge. Work gets stuck finding information, asking around and preparing it for use.</h2><p class="intro">Most companies already have files, policies, product information and years of experience. The problem is that this context is scattered across systems, folders and people — and generic AI cannot use what it cannot reach.</p><div class="pain-grid"><div class="pain-card"><h3>Information is scattered</h3><p>Specifications, quotations, policies and historical files live across shared drives, documents, wikis and personal folders.</p></div><div class="pain-card"><h3>AI does not know the company</h3><p>Generic AI may be capable, but it does not automatically know your products, rules, history or ways of working.</p></div><div class="pain-card"><h3>Too much repetitive preparation</h3><p>Employees repeatedly search, collect, reformat and prepare the same kinds of information.</p></div><div class="pain-card"><h3>Knowledge depends on people</h3><p>Important experience often lives with a few long-tenured employees, so others have to keep asking.</p></div></div></div></section>
+
+<section class="contrast-visual" id="contrast"><div class="wrap"><div class="kicker">Visual contrast</div><h2 class="section-title">From clutter to clarity.</h2><p class="intro">Many companies do not lack information — employees simply spend too much time finding it, asking for it and preparing it. EAO connects company knowledge, files and tools into one usable work surface.</p><div class="contrast-card"><img class="lazy-image" alt="A comparison between traditional office work and working with EAO: chaotic manual work on the left, clean organized AI-assisted work on the right" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="assets/from-clutter-to-clarity-with-eao-en.webp" loading="lazy" decoding="async" width="1200" height="675"></div></div></section>
+
+<section id="value"><div class="wrap"><div class="kicker">02 / What changes with EAO</div><h2 class="section-title">Not another chatbot. Less friction between people and company information.</h2><div class="value-grid"><div class="value-card"><b>01</b><h3>Find company information faster</h3><p>Give employees work-relevant context from company knowledge and files.</p></div><div class="value-card"><b>02</b><h3>Reduce repeated searching and preparation</h3><p>Reuse common information and historical context instead of rebuilding it every time.</p></div><div class="value-card"><b>03</b><h3>Let AI work with company context</h3><p>Replies, analysis and drafts can incorporate company-owned information rather than generic model knowledge alone.</p></div><div class="value-card"><b>04</b><h3>Move from answers toward work</h3><p>When permissions allow, AI can use files and tools to help move a task forward instead of only explaining what to do.</p></div></div></div></section>
+
+<section class="visual-story" id="knowledge-story"><div class="wrap"><div class="kicker">Organizational knowledge</div><h2 class="section-title">Knowledge should stay with the company — not only with a few people.</h2><p class="intro">EAO helps turn policies, history and prior cases into reusable context, so experienced employees are interrupted less and the organization can reuse what it already knows.</p><div class="story-visual"><img class="lazy-image" alt="Knowledge reuse comparison: employees repeatedly interrupt a veteran colleague versus using EAO to access reusable company knowledge." src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="assets/knowledge-en.webp" loading="lazy" decoding="async" width="1200" height="675"></div></div></section>
+
+<section id="work"><div class="wrap"><div class="kicker">03 / A real work pattern</div><h2 class="section-title">When a customer asks a product question, Sales should not start by hunting for files.</h2><div class="story-visual"><img class="lazy-image" alt="Sales workflow comparison: traditional file hunting versus EAO using product knowledge, specifications and prior quotations to prepare a reply." src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="assets/work-en.webp" loading="lazy" decoding="async" width="1200" height="675"></div><div class="compare-work"><div class="work-col"><div class="work-head"><h3>Traditional workflow</h3><span>common today</span></div><ol><li>Guess where the information might be</li><li>Search specifications and shared folders</li><li>Ask the colleague who knows the product</li><li>Find prior quotations or similar orders</li><li>Manually assemble the customer reply</li></ol></div><div class="work-col after"><div class="work-head"><h3>With EAO</h3><span>EAO</span></div><ol><li>Ask the Sales Assistant</li><li>EAO checks company product knowledge</li><li>Read approved specification files and history</li><li>Prepare a reply draft with company context</li><li>Sales reviews and sends</li></ol></div></div><div class="work-note">EAO is not designed to remove people from the process. It is designed to take on the searching, context gathering and repetitive preparation that slows them down.</div></div></section>
+
+<section id="departments"><div class="wrap"><div class="kicker">04 / Department use</div><h2 class="section-title">Different departments have different work. They should not all receive the same generic AI.</h2><div class="story-visual"><img class="lazy-image" alt="Different departments use EAO with different knowledge and work context." src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="assets/departments-en.webp" loading="lazy" decoding="async" width="1200" height="675"></div><div class="dept-grid"><div class="dept-card"><h3>Sales</h3><p>Spend less time finding product information, prior quotations and reply context, leaving more time for customers.</p></div><div class="dept-card"><h3>Procurement</h3><p>Assist with BOM review, supplier information, historical purchasing context and cost preparation instead of starting from zero.</p></div><div class="dept-card"><h3>Marketing</h3><p>Reuse brand knowledge, prior content and research material instead of repeating the same discovery work.</p></div><div class="dept-card"><h3>Finance</h3><p>Find authorized policies, files and finance knowledge faster while preserving department access boundaries.</p></div><div class="dept-card"><h3>Operations</h3><p>Retrieve internal procedures, documents and prior practices, reducing recurring information preparation.</p></div><div class="dept-card"><h3>Management</h3><p>Access authorized cross-department information and prepare material for reviews, decisions and management communication.</p></div></div></div></section>
+
+<section id="control"><div class="wrap"><div class="kicker">05 / Why a company can stay in control</div><h2 class="section-title">AI can enter the company without taking control away from the company.</h2><div class="story-visual"><img class="lazy-image" alt="EAO company control layer limits AI by department boundaries, approved tools, access scope and human review." src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="assets/control-en.webp" loading="lazy" decoding="async" width="1200" height="675"></div><div class="control-grid"><div class="control-card"><h3>Self-hosted system</h3><p>The EAO application stack can run on infrastructure controlled by the organization.</p></div><div class="control-card"><h3>Department boundaries</h3><p>Different departments can have different knowledge, file and tool scopes.</p></div><div class="control-card"><h3>Tools are explicitly approved</h3><p>What an Agent can do depends on the tools and permissions the organization makes available.</p></div><div class="control-card"><h3>Human review where it matters</h3><p>Work that requires judgment or formal submission can keep employees in the confirmation loop.</p></div></div><div class="note">External data handling still depends on the model providers and integrations selected by the organization. Self-hosting the EAO application does not automatically mean every model request stays local.</div><div class="real"><div><div class="kicker">Real-company reference</div><h3>EAO grew out of a real company environment, not a theoretical diagram.</h3><p>ARMOR is the first EAO reference implementation. The blueprint is built around real departments, company knowledge, NAS files, browser/PWA access and day-to-day operational needs, while reusable EAO components remain separate from company-private configuration and data.</p></div><div class="real-items"><span>Department-specific assistants</span><span>Enterprise RAG + Wiki</span><span>NAS / company files</span><span>Browser + PWA</span><span>Tool and access boundaries</span><span>Health and recovery operations</span></div></div></div></section>
+
+<section class="tech" id="technical"><div class="wrap"><div class="kicker">For technical teams</div><h2 class="section-title">Business users do not need to understand this layer. Technical teams can inspect it.</h2><p class="intro">EAO prefers mature upstream projects and thin integration, organizing the employee surface, Agent runtime, company knowledge and infrastructure into one enterprise operating model.</p><div class="tech-grid"><div><b>Employee access</b><span>Open WebUI / EAO PWA / Identity</span></div><div><b>AI & Agent</b><span>Hermes Agent / Profiles / Skills</span></div><div><b>Knowledge & files</b><span>WeKnora / Native Wiki / Ledger / Archive</span></div><div><b>Infrastructure</b><span>Ollama / PostgreSQL / NAS / Operations</span></div></div></div></section>
+
+<section class="faq" id="faq"><div class="wrap"><div class="faq-head"><div class="kicker">Frequently asked questions</div><h2 class="section-title">Questions companies usually ask before bringing AI into daily work.</h2><p class="intro">EAO is designed to fit around an existing organization rather than force the organization to rebuild around AI.</p></div><div class="faq-groups">
+
+<div class="faq-group"><h3>About EAO</h3><div class="faq-list">
+<details class="faq-item"><summary>How is EAO different from simply giving employees ChatGPT?</summary><div class="faq-answer"><p>EAO is not just another chat window. It organizes department assistants around company knowledge, files, approved tools and access boundaries so AI can work with company context rather than only general model knowledge.</p></div></details>
+<details class="faq-item"><summary>Is EAO only for answering questions?</summary><div class="faq-answer"><p>No. Depending on the tools and permissions a company enables, EAO can also help search, analyze, prepare drafts, work with files and move parts of a task forward while keeping people in the loop where needed.</p></div></details>
+<details class="faq-item"><summary>Does every department use the same AI assistant?</summary><div class="faq-answer"><p>Not necessarily. Sales, Procurement, Operations, Finance and Management can use different assistants with different knowledge, files, tools and access scopes.</p></div></details>
+<details class="faq-item"><summary>Is EAO a concept project or something already used in a real company?</summary><div class="faq-answer"><p>EAO grew out of real company operations. ARMOR is the first reference implementation, while reusable EAO components remain separate from company-private configuration and data.</p></div></details>
+</div></div>
+
+<div class="faq-group"><h3>Already using Feishu / existing systems?</h3><div class="faq-list">
+<details class="faq-item"><summary>We already have a Feishu Bot. Do we still need EAO?</summary><div class="faq-answer"><p>A Feishu Bot can be a useful interaction channel, but EAO addresses a broader problem: how AI works with departments, company knowledge, files, tools and permissions. The two can coexist rather than replace each other.</p></div></details>
+<details class="faq-item"><summary>Will EAO replace Feishu?</summary><div class="faq-answer"><p>No. EAO is designed to work around systems a company already uses. Feishu can continue to handle communication, collaboration and business processes, while EAO adds an AI work layer around existing company assets.</p></div></details>
+<details class="faq-item"><summary>Do we have to migrate our Feishu knowledge base and files into a new system?</summary><div class="faq-answer"><p>Not necessarily. Where configured, the knowledge layer can synchronize supported Feishu knowledge and drive sources, so companies can continue maintaining information in existing systems instead of moving everything just for EAO.</p></div></details>
+<details class="faq-item"><summary>Can we keep using NAS, shared drives, wikis and existing business systems?</summary><div class="faq-answer"><p>Yes. One of EAO's core ideas is: keep your systems and add AI around them. Existing storage, knowledge sources and business tools can remain part of the company environment.</p></div></details>
+</div></div>
+
+<div class="faq-group"><h3>Data, permissions and deployment</h3><div class="faq-list">
+<details class="faq-item"><summary>Will all company data be sent to an external AI provider?</summary><div class="faq-answer"><p>That depends on the model providers and integrations the company chooses. The EAO application can be self-hosted, but self-hosting alone does not mean every model request automatically stays local.</p></div></details>
+<details class="faq-item"><summary>Can different departments be kept inside different access boundaries?</summary><div class="faq-answer"><p>EAO is designed to support different department scopes for knowledge, files and tools. The actual boundary still depends on how the organization configures permissions and integrations.</p></div></details>
+<details class="faq-item"><summary>Do we have to use a local AI model?</summary><div class="faq-answer"><p>No. EAO can be organized around local or external model providers. A company can choose according to capability, cost, latency and data-handling requirements.</p></div></details>
+<details class="faq-item"><summary>Do we have to deploy everything at once?</summary><div class="faq-answer"><p>No. EAO is better introduced around a real business problem first. A company can start with one department or one workflow and expand only when additional capability is useful.</p></div></details>
+</div></div>
+
+</div></div></section>
+
+<section class="cta"><div class="wrap"><div class="kicker">Start with EAO</div><h2>Start with one real company problem — not a large AI platform.</h2><p>If EAO matches the problems your company is trying to solve, continue with the work model and open-source implementation. Technical teams can inspect the repository and deployment guide directly.</p><div class="actions"><a class="btn primary" href="#work">Review the work example ↑</a><a class="btn" href="https://github.com/licat233/Enterprise-AI-Office/blob/main/DEPLOY.md">Deployment guide ↗</a><a class="btn" href="https://github.com/licat233/Enterprise-AI-Office">GitHub ↗</a></div></div></section>
+</main><footer><div class="wrap foot"><span>EAO · Enterprise AI Office</span><span>Apache-2.0 · Open source · Self-hosted system · Flexible models</span></div></footer>
+<script>
+(function(){
+  const images=document.querySelectorAll('img[data-src]');
+  const loadImage=(img)=>{
+    if(!img.dataset.src)return;
+    img.addEventListener('load',()=>img.classList.add('is-loaded'),{once:true});
+    img.src=img.dataset.src;
+    img.removeAttribute('data-src');
+  };
+  if(!('IntersectionObserver' in window)){
+    images.forEach(loadImage);
+    return;
+  }
+  const observer=new IntersectionObserver((entries,obs)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      loadImage(entry.target);
+      obs.unobserve(entry.target);
+    });
+  },{rootMargin:'300px 0px'});
+  images.forEach(img=>observer.observe(img));
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  if(!window.gsap||!window.ScrollTrigger)return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  const mm=gsap.matchMedia();
+
+  mm.add({
+    reduceMotion:'(prefers-reduced-motion: reduce)',
+    isDesktop:'(min-width: 901px)',
+    isMobile:'(max-width: 900px)'
+  },(context)=>{
+    const {reduceMotion,isDesktop}=context.conditions;
+    if(reduceMotion)return;
+
+    const hero=gsap.timeline({defaults:{duration:.72,ease:'power2.out'}});
+    hero
+      .from('nav .brand',{y:-10,duration:.45})
+      .from('nav .links',{y:-10,duration:.45},'<.06')
+      .from('.hero .eyebrow',{y:14},'-=.18')
+      .from('.hero h1',{y:24,duration:.82},'-=.42')
+      .from('.hero .lead',{y:18},'-=.48')
+      .from('.hero .actions .btn',{y:12,stagger:.08,duration:.5},'-=.42')
+      .from('.hero .meta span',{y:10,stagger:.055,duration:.42},'-=.28')
+      .from('.hero-visual',{x:isDesktop?28:0,y:isDesktop?0:18,scale:.985,duration:.88},'-=.78');
+
+    if(isDesktop){
+      gsap.to('.hero-visual',{
+        y:-16,
+        ease:'none',
+        scrollTrigger:{
+          trigger:'.hero',
+          start:'top top',
+          end:'bottom top',
+          scrub:.8
+        }
+      });
+    }
+
+    gsap.utils.toArray('main section').forEach((section)=>{
+      const intro=section.querySelectorAll('.kicker,.section-title,.intro');
+      if(!intro.length)return;
+      gsap.from(intro,{
+        y:22,
+        duration:.68,
+        stagger:.08,
+        ease:'power2.out',
+        scrollTrigger:{
+          trigger:section,
+          start:'top 82%',
+          once:true
+        }
+      });
+    });
+
+    const revealTargets='.contrast-card,.story-visual,.compare-work,.real';
+    ScrollTrigger.batch(revealTargets,{
+      start:'top 86%',
+      once:true,
+      onEnter:(batch)=>gsap.from(batch,{
+        y:24,
+        scale:.992,
+        duration:.7,
+        stagger:.08,
+        ease:'power2.out',
+        overwrite:'auto'
+      })
+    });
+
+    const cardTargets='.pain-card,.value-card,.dept-card,.control-card,.tech-grid>div,.faq-group';
+    ScrollTrigger.batch(cardTargets,{
+      start:'top 88%',
+      once:true,
+      interval:.08,
+      batchMax:6,
+      onEnter:(batch)=>gsap.from(batch,{
+        y:18,
+        duration:.56,
+        stagger:.065,
+        ease:'power2.out',
+        overwrite:'auto'
+      })
+    });
+
+    document.querySelectorAll('.faq-item').forEach((item)=>{
+      item.addEventListener('toggle',()=>{
+        if(!item.open)return;
+        const answer=item.querySelector('.faq-answer');
+        if(!answer)return;
+        gsap.fromTo(answer,
+          {y:-6},
+          {y:0,duration:.28,ease:'power2.out',clearProps:'transform'}
+        );
+      });
+    });
+
+    window.addEventListener('load',()=>ScrollTrigger.refresh(),{once:true});
+  });
+});
+</script>
+</body></html>
