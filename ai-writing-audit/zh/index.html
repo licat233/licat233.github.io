@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN" data-project="writing">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>ai-writing-audit — Licat / 233</title>
+<meta name="description" content="一个来源可追溯的本地 Skill，用于检测 AI 风格写作风险，并指导整篇文章的修复。它把确定性扫描与 Agent 编辑工作流组合起来，但不把风险分数包装成“AI 创作概率”。">
+<link rel="canonical" href="https://licat233.github.io/ai-writing-audit/zh/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/ai-writing-audit/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/ai-writing-audit/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/zh/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>AI 写作审阅 Skill</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">亮点</a><a href="#details">细节</a><a href="#use">使用</a><a href="#notes">说明</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/ai-writing-audit/">EN</a>
+      <a class="repo-btn" href="https://github.com/licat233/ai-writing-audit" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="WRITE / AUDIT">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">ACTIVE SKILL · PYTHON · MIT</p>
+      <h1>审阅写作模式，<em>但不牺牲事实。</em></h1>
+      <p class="lede">一个来源可追溯的本地 Skill，用于检测 AI 风格写作风险，并指导整篇文章的修复。它把确定性扫描与 Agent 编辑工作流组合起来，但不把风险分数包装成“AI 创作概率”。</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">了解项目 ↓</a>
+        <a class="btn" href="https://github.com/licat233/ai-writing-audit" target="_blank" rel="noreferrer">查看源码 ↗</a>
+      </div>
+      <div class="meta-row"><span>Python 3.9+</span><span>MIT</span><span>Codex · Claude Code · Hermes</span><span>v0.4.0</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="flow">
+<div class="score-card"><div><strong>1. 确定性审阅</strong><small>本地规则 · 保护文本 · 稳定 finding ID</small></div><span class="score-pill">detect</span></div>
+<div class="flow-arrow">↓</div>
+<div class="score-card"><div><strong>2. 编辑诊断</strong><small>结构 · 具体度 · 证据 · 重复</small></div><span class="score-pill">risk</span></div>
+<div class="flow-arrow">↓</div>
+<div class="score-card"><div><strong>3. Agent 全文修复</strong><small>仅在用户明确要求时改写完整文章</small></div><span class="score-pill">repair</span></div>
+<div class="flow-arrow">↓</div>
+<div class="score-card"><div><strong>4. 修复后复检</strong><small>重新扫描并列出仍缺失的事实</small></div><span class="score-pill">verify</span></div>
+</div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / 它做什么</p><h2>判断风险信号，不猜作者身份。</h2></div><p class="section-note">这个工具测量的是容易让文本显得公式化或“像 AI”的写作模式；它明确不输出 AI 概率，也不声称能判断文章是谁写的。</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>确定性扫描</h3><p>CLI 在本地执行审阅，并记录稳定 finding、输入 SHA-256，以及规则集 / 配置指纹。</p></article>
+<article class="card"><b class="num">02</b><h3>保留事实的修复</h3><p>用户要求全文润色时，Agent 重建文章结构，同时保护已有事实、受保护文本和事实边界。</p></article>
+<article class="card"><b class="num">03</b><h3>Agent 无关</h3><p>同一份 SKILL.md 面向 Codex、Claude Code 与 Hermes Agent，不要求额外 MCP 服务或厂商 API。</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / 组成与来源</p><h2>只有真正吸收的规则，才算组成部分。</h2></div><p class="section-note">项目被 review 过并不等于成为当前 Skill 的一部分；只有实际集成进规则或工作流的来源，才进入 Active Composition。</p></div><div class="table">
+<div class="table-row"><b>avoid-ai-writing</b><span>v3.23.1 · 工作流 / detector 参考与核心模式来源</span></div>
+<div class="table-row"><b>humanizer</b><span>v2.9.1 · 模式分类与部分语言 / 结构规则</span></div>
+<div class="table-row"><b>no-ai-slop</b><span>锁定 main 快照 · 句子级模式、最小有效编辑、声音保留 gate</span></div>
+<div class="table-row"><b>Native layer</b><span>ai-writing-audit 0.4.0 · 中文、B2B、SEO/GEO、确定性评分与原生修复策略</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / 使用</p><h2>扫描在本地完成。</h2></div><p class="section-note">CLI 只真正实现 detect；全文 repair 是 Agent 工作流，而不是让一个未实现的 CLI 模式假装已经修复文章。</p></div>
+<pre class="code"><span class="accent">python3</span> scripts/audit.py article.md \
+  --mode detect \
+  --language auto \
+  --profile general \
+  --format markdown</pre>
+<div class="note">引用、代码、表格、YAML front matter、HTML 属性、法律文本和归属明确的第三方文本都属于保护内容。可以报告其中的问题，但不能为了“去 AI 味”随意改写。</div></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>它被刻意做成通用 Skill</h3><p>公司专属事实、品牌规范、产品限制、法律规则和私有编辑政策不应该写死在这个公开项目里；这些内容应由下游集成或私有 overlay 提供。</p></div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>Licat 的精选项目 · 原始项目内容以 GitHub 仓库为准。</span>
+  <div><a href="/zh/">返回个人主页</a> · <a href="https://github.com/licat233/ai-writing-audit" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
