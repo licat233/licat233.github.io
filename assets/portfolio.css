@@ -63,8 +63,13 @@ a:focus-visible { outline: 3px solid rgba(22,133,181,.28); outline-offset: 4px; 
 .nav-links a:hover { color: var(--accent-dark); }
 .nav-links a:hover::after { left: 0; right: 0; }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
-.github-link { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 650; }
-.github-mark { width: 18px; height: 18px; display: inline-block; }
+.github-link {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 9px;
+  border-radius: 9px; font-size: 14px; font-weight: 700; color: #314a5c;
+  transition: color .16s ease, background .16s ease;
+}
+.github-link:hover { color: #0f6f98; background: #edf6fa; }
+.github-mark { width: 18px; height: 18px; display: block; flex: 0 0 auto; }
 .lang {
   display: inline-flex; padding: 3px; background: #edf3f6; border-radius: 11px;
   font: 700 12px/1 var(--sans);
@@ -159,7 +164,7 @@ a:focus-visible { outline: 3px solid rgba(22,133,181,.28); outline-offset: 4px; 
   margin: 0; font-family: var(--serif); font-size: clamp(36px,4.3vw,56px);
   line-height: 1.05; letter-spacing: -.03em;
 }
-.section-note { max-width: 420px; color: #7b8d99; text-align: right; font-size: 14px; }
+.section-note { max-width: 440px; color: #687d8b; text-align: right; font-size: 14px; }
 
 .projects { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 18px; }
 .project {
@@ -172,8 +177,9 @@ a:focus-visible { outline: 3px solid rgba(22,133,181,.28); outline-offset: 4px; 
 .project-top { display: flex; justify-content: space-between; align-items: start; }
 .project-icon {
   width: 46px; height: 46px; display: grid; place-items: center; border-radius: 12px;
-  font: 800 13px/1 var(--mono); letter-spacing: -.02em; color: #126d96; background: #e9f5fa;
+  color: #126d96; background: #e9f5fa;
 }
+.project-icon svg { width: 23px; height: 23px; display: block; }
 .project:nth-child(4n+2) .project-icon { color: #6f715e; background: #f1f1ec; }
 .project:nth-child(4n+3) .project-icon { color: #0f6f91; background: #e4f4fb; }
 .project:nth-child(4n+4) .project-icon { color: #985739; background: #fbefe9; }
@@ -183,12 +189,12 @@ a:focus-visible { outline: 3px solid rgba(22,133,181,.28); outline-offset: 4px; 
 .project:nth-child(8) .project-icon { color: #176f9c; background: #e6f3fb; }
 .project-arrow { color: #9aabb6; font-size: 19px; }
 .project h3 { margin: 24px 0 10px; font-size: 18px; line-height: 1.25; letter-spacing: -.02em; }
-.project p { margin: 0; color: #6d7f8b; font-size: 13px; line-height: 1.72; }
+.project p { margin: 0; color: #627684; font-size: 14px; line-height: 1.72; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
-.tag { padding: 4px 7px; border-radius: 6px; color: #43728a; background: #edf6fa; font-size: 10px; font-weight: 700; }
+.tag { padding: 4px 7px; border-radius: 6px; color: #3f7189; background: #edf6fa; font-size: 10.5px; font-weight: 700; }
 .project-meta {
   margin-top: auto; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 7px 12px;
-  color: #8a99a3; font: 650 10px/1.4 var(--mono);
+  color: #728591; font: 650 11px/1.45 var(--mono);
 }
 .project-meta span + span::before { content: "•"; margin-right: 12px; color: #c3ced4; }
 
