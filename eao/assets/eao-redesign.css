@@ -172,12 +172,20 @@ body.eao-v2::before{
 .eao-v2 .kicker{
   position:relative;
   z-index:2;
-  display:block;
-  width:max-content;
+  display:inline-flex;
+  align-items:center;
+  width:auto;
   max-width:100%;
-  margin:0 0 22px;
-  line-height:1.45;
+  min-height:30px;
+  margin:0 0 24px;
+  padding:6px 10px;
+  border:1px solid rgba(8,122,116,.14);
+  border-radius:999px;
+  background:rgba(223,247,244,.58);
+  color:var(--eao-brand-dark);
+  line-height:1.2;
   font-weight:800;
+  letter-spacing:.08em;
 }
 .eao-v2 .hero .eyebrow{
   display:inline-flex;
@@ -477,7 +485,11 @@ html[lang="zh-CN"] .eao-v2 .section-title{
     radial-gradient(circle at 88% 10%,rgba(8,207,196,.19),transparent 26%),
     linear-gradient(135deg,#123d39,#0d2e2b 64%,#092622);
 }
-.eao-v2 .tech .kicker{color:#73e7df}
+.eao-v2 .tech .kicker{
+  color:#8ceae4;
+  border-color:rgba(140,234,228,.18);
+  background:rgba(115,231,223,.08);
+}
 .eao-v2 .tech .section-title{color:#fff}
 .eao-v2 .tech .intro{color:#b8cfcb}
 .eao-v2 .tech-grid{
@@ -596,7 +608,13 @@ html[lang="zh-CN"] .eao-v2 .cta h2{
   .eao-v2 .lead{font-size:17px}
   .eao-v2 .meta{grid-template-columns:1fr;gap:8px}
   .eao-v2 main>section:not(.hero){padding:76px 0}
-  .eao-v2 .kicker{margin-bottom:16px;font-size:10px;line-height:1.5}
+  .eao-v2 .kicker{
+    min-height:28px;
+    margin-bottom:18px;
+    padding:5px 9px;
+    font-size:10px;
+    line-height:1.2;
+  }
   .eao-v2 .section-title{
     margin-bottom:18px;
     font-size:clamp(32px,9.2vw,42px);
@@ -650,5 +668,6 @@ html[lang="zh-CN"] .eao-v2 .cta h2{
 }
 
 html[lang="zh-CN"] .eao-v2 .kicker{
-  letter-spacing:.10em;
+  letter-spacing:.06em;
+  text-transform:none;
 }
