@@ -27,6 +27,9 @@ section{padding:82px 0;border-bottom:1px solid var(--line)}.section-title{font-s
 
 .lazy-image{opacity:0;transition:opacity .22s ease}
 .lazy-image.is-loaded{opacity:1}
+
+.faq{background:#fff}.faq-head{max-width:860px}.faq-groups{display:grid;gap:34px;margin-top:42px}.faq-group h3{margin:0 0 12px;font-size:14px;letter-spacing:.03em;color:var(--brand2)}.faq-list{border-top:1px solid var(--line)}.faq-item{border-bottom:1px solid var(--line)}.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 2px;font-weight:750;font-size:17px}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:"+";flex:0 0 auto;font-size:24px;line-height:1;color:var(--brand2);font-weight:500}.faq-item[open] summary::after{content:"−"}.faq-answer{padding:0 46px 21px 2px;color:var(--muted);font-size:15px;max-width:940px}.faq-answer p{margin:0}.faq-item summary:hover{color:var(--brand2)}
+@media(max-width:600px){.faq-groups{gap:28px;margin-top:30px}.faq-item summary{font-size:16px;padding:17px 0;gap:16px}.faq-answer{padding:0 26px 18px 0;font-size:14px}}
 </style></head><body>
 <nav><div class="navin"><a class="brand" href="../"><img class="brand-logo" src="../eao-logo.svg" alt="EAO logo">Enterprise AI Office</a><div class="links"><a href="#pain">企业痛点</a><a href="#value">价值</a><a href="#work">工作方式</a><a href="#departments">部门</a><a href="#control">控制与实践</a><span class="lang-current">中文</span><a class="lang" href="../">EN</a><a class="gh" href="https://github.com/licat233/Enterprise-AI-Office">GitHub ↗</a></div></div></nav>
 <main>
@@ -49,6 +52,31 @@ section{padding:82px 0;border-bottom:1px solid var(--line)}.section-title{font-s
 <section id="control"><div class="wrap"><div class="kicker">05 / 企业为什么敢用</div><h2 class="section-title">AI 可以进入企业，但控制权仍然属于企业。</h2><div class="story-visual"><img class="lazy-image" alt="EAO 企业控制层通过部门边界、工具授权、访问范围和人工确认约束 AI 的工作范围。" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="../assets/control-zh.webp" loading="lazy" decoding="async" width="1200" height="675"></div><div class="control-grid"><div class="control-card"><h3>系统可自托管</h3><p>EAO 应用栈可以运行在企业自己的基础设施中。</p></div><div class="control-card"><h3>部门边界可区分</h3><p>不同部门可以拥有不同的知识、文件和工具范围。</p></div><div class="control-card"><h3>工具需要明确授权</h3><p>Agent 能做什么，取决于企业显式开放的工具和权限。</p></div><div class="control-card"><h3>关键动作保留人工确认</h3><p>对于需要判断或正式提交的工作，可以让员工继续处于确认环节。</p></div></div><div class="note">外部数据如何处理，仍取决于企业选择的模型供应商和集成方式。系统自托管并不自动等于所有模型请求都留在本地。</div><div class="real"><div><div class="kicker">真实企业参考</div><h3>EAO 不是纸面架构，它来自真实企业环境。</h3><p>ARMOR 是 EAO 的首个参考实现。当前蓝图围绕真实部门、企业知识、NAS 文件、浏览器/PWA 访问和日常运行维护构建；可复用部分与企业私有配置和数据保持分离。</p></div><div class="real-items"><span>部门专属 Assistant</span><span>企业 RAG + Wiki</span><span>NAS / 企业文件</span><span>浏览器 + PWA</span><span>工具与权限边界</span><span>健康检查与恢复机制</span></div></div></div></section>
 
 <section class="tech" id="technical"><div class="wrap"><div class="kicker">给技术团队</div><h2 class="section-title">业务人员不需要理解这些，但技术团队可以继续检查实现。</h2><p class="intro">EAO 优先复用成熟上游项目，并用薄集成把员工入口、Agent、企业知识与基础设施组织在一起。</p><div class="tech-grid"><div><b>员工入口</b><span>Open WebUI / EAO PWA / Identity</span></div><div><b>AI 与 Agent</b><span>Hermes Agent / Profiles / Skills</span></div><div><b>知识与文件</b><span>WeKnora / Native Wiki / Ledger / Archive</span></div><div><b>基础设施</b><span>Ollama / PostgreSQL / NAS / Operations</span></div></div></div></section>
+
+<section class="faq" id="faq"><div class="wrap"><div class="faq-head"><div class="kicker">常见问题</div><h2 class="section-title">企业在让 AI 进入日常工作之前，通常会问这些问题。</h2><p class="intro">EAO 的方向不是让企业围绕 AI 重建，而是尽量适应企业已经存在的组织、知识和系统。</p></div><div class="faq-groups">
+
+<div class="faq-group"><h3>关于 EAO</h3><div class="faq-list">
+<details class="faq-item"><summary>EAO 和直接给员工使用 ChatGPT 有什么区别？</summary><div class="faq-answer"><p>EAO 不是多一个聊天窗口。它围绕部门，把企业知识、文件、获准工具和访问边界组织给不同 Assistant 使用，让 AI 能结合企业自己的上下文工作，而不只是依赖通用模型知识。</p></div></details>
+<details class="faq-item"><summary>EAO 只能回答问题吗？</summary><div class="faq-answer"><p>不只是。根据企业开放的工具和权限，EAO 还可以辅助查询、分析、准备草稿、处理文件，并把部分任务继续往前推进；需要判断或正式提交的环节仍可以保留人工确认。</p></div></details>
+<details class="faq-item"><summary>每个部门都使用同一个 AI Assistant 吗？</summary><div class="faq-answer"><p>不一定。销售、采购、运营、财务和管理层可以使用不同的 Assistant，并拥有不同的知识、文件、工具和访问范围。</p></div></details>
+<details class="faq-item"><summary>EAO 是概念项目，还是已经在真实企业运行？</summary><div class="faq-answer"><p>EAO 来自真实企业环境的持续使用和迭代。ARMOR 是首个参考实现，同时可复用的 EAO 组件与企业私有配置和数据保持分离。</p></div></details>
+</div></div>
+
+<div class="faq-group"><h3>已经在使用飞书或其它企业系统？</h3><div class="faq-list">
+<details class="faq-item"><summary>我们已经有飞书 Bot，还有必要使用 EAO 吗？</summary><div class="faq-answer"><p>飞书 Bot 可以是一个很好用的交互入口，但 EAO 解决的是更大的问题：AI 如何与部门、企业知识、文件、工具和权限一起工作。两者可以共存，并不需要二选一。</p></div></details>
+<details class="faq-item"><summary>EAO 会取代飞书吗？</summary><div class="faq-answer"><p>不会。EAO 的设计目标不是替换企业已有的协作系统。飞书可以继续承担沟通、协作和业务流程，EAO 则围绕这些既有资产增加企业 AI 工作能力。</p></div></details>
+<details class="faq-item"><summary>飞书里的知识库、云盘和资料需要重新迁移吗？</summary><div class="faq-answer"><p>不一定需要迁移。在完成相应配置后，知识层可以同步支持的飞书知识和云盘数据源，让企业继续在原来的系统里维护资料，而不是为了使用 EAO 再搬一次家。</p></div></details>
+<details class="faq-item"><summary>NAS、共享盘、Wiki 和现有业务系统还能继续使用吗？</summary><div class="faq-answer"><p>可以。EAO 的一个核心思路就是：保留现有系统，在它们周围增加 AI。企业已有的存储、知识来源和业务工具仍然可以继续存在。</p></div></details>
+</div></div>
+
+<div class="faq-group"><h3>数据、权限与部署</h3><div class="faq-list">
+<details class="faq-item"><summary>公司的资料会不会全部发送给外部 AI？</summary><div class="faq-answer"><p>这取决于企业选择的模型供应商和集成方式。EAO 应用本身可以自托管，但系统自托管并不自动意味着所有模型请求都会留在本地。</p></div></details>
+<details class="faq-item"><summary>不同部门可以保持不同的访问边界吗？</summary><div class="faq-answer"><p>EAO 的设计支持为不同部门区分知识、文件和工具范围。实际边界仍取决于企业如何配置权限和集成。</p></div></details>
+<details class="faq-item"><summary>必须使用本地大模型吗？</summary><div class="faq-answer"><p>不必须。EAO 可以围绕本地模型或外部模型供应商组织，企业可以根据能力、成本、延迟和数据要求进行选择。</p></div></details>
+<details class="faq-item"><summary>是不是必须一次把整套 EAO 都部署完？</summary><div class="faq-answer"><p>不需要。更合适的方式是先从一个真实业务问题、一个部门或一个工作场景开始，只有在确实有价值时再逐步增加能力。</p></div></details>
+</div></div>
+
+</div></div></section>
 
 <section class="cta"><div class="wrap"><div class="kicker">开始了解 EAO</div><h2>先从一个真实企业问题开始，而不是先建一套庞大的 AI 平台。</h2><p>如果 EAO 的方向与您的企业问题相似，可以继续查看工作方式和开源实现；技术团队则可以直接检查 GitHub 与部署文档。</p><div class="actions"><a class="btn primary" href="#work">回看工作场景 ↑</a><a class="btn" href="https://github.com/licat233/Enterprise-AI-Office/blob/main/DEPLOY.md">部署文档 ↗</a><a class="btn" href="https://github.com/licat233/Enterprise-AI-Office">GitHub ↗</a></div></div></section>
 </main><footer><div class="wrap foot"><span>EAO · Enterprise AI Office</span><span>Apache-2.0 · 开源 · 系统可自托管 · 模型可选择</span></div></footer>
