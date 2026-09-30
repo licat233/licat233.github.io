@@ -368,6 +368,23 @@
       font-size: 15px;
     }
 
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px 16px;
+      margin-top: 18px;
+      color: var(--muted);
+      font: 700 10px/1.4 var(--mono);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .project-meta span + span::before {
+      content: "·";
+      margin-right: 16px;
+      color: var(--line);
+    }
+
     .tags {
       display: flex;
       flex-wrap: wrap;
@@ -550,74 +567,72 @@
         <div class="about-grid">
           <p>
             
-            <span>Earlier work focused on Go, microservices, code generation, crawling and web tools; later it expanded into macOS automation and developer experience. Today, most of my effort goes into AI agents, knowledge systems and enterprise workflows.</span>
-          </p>
-          <p>
-            
-            <span>I prefer lightweight engineering with clear boundaries and rollback paths. A project earns its place not only by being interesting, but by solving a real problem and reducing long-term maintenance cost.</span>
-          </p>
-        </div>
-      </section>
-
-      <section id="projects">
+            <span>Earlier work focused on Go, microservices, code generation, crawling and web tools; later it expanded into macOS automation and developer experience. Today, most of my effort goes into AI agents, knowledge sys<section id="projects">
         <div class="section-head">
           <div class="section-index">02 / <span>Selected work</span></div>
-          <h2><span>Public projects and systems in progress.</span></h2>
+          <h2><span>Popular, actively maintained, deeply built, or independently creative.</span></h2>
         </div>
 
         <div class="projects">
           <a class="project eao" href="/eao/">
-            <div class="project-top"><span class="project-no">01 / SYSTEM</span><span class="project-arrow">↗</span></div>
+            <div class="project-top"><span class="project-no">01 / FLAGSHIP</span><span class="project-arrow">↗</span></div>
             <h3>Enterprise AI Office</h3>
-            <p><span>A self-hosted AI office for real enterprise work, bringing knowledge, agents, RBAC, automation and tools into a governed system boundary.</span></p>
+            <p><span>My current flagship: a self-hosted AI office for real enterprise work, combining knowledge, agents, permissions, automation and tools into a maintainable operating system.</span></p>
+            <div class="project-meta"><span>Python</span><span>Last push · 2026-09-29</span></div>
             <div class="tags"><span class="tag">Enterprise AI</span><span class="tag">Agents</span><span class="tag">RAG</span></div>
           </a>
 
+          <a class="project" href="https://github.com/licat233/EFI-OpenCore-i3-i5-haswell-cpu-h81-alc662-HD4600" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">02 / MOST STARRED</span><span class="project-arrow">↗</span></div>
+            <h3>OpenCore · Haswell H81</h3>
+            <p><span>A minimal OpenCore EFI maintained for i3/i5 Haswell, H81, HD4600 and ALC662 — currently the public project with the strongest external GitHub signal.</span></p>
+            <div class="project-meta"><span>★ 26 · Fork 5</span><span>Shell · Last push 2023-02-02</span></div>
+            <div class="tags"><span class="tag">OpenCore</span><span class="tag">Hackintosh</span><span class="tag">EFI</span></div>
+          </a>
+
           <a class="project" href="/toolscout/en/">
-            <div class="project-top"><span class="project-no">02 / OPEN SOURCE</span><span class="project-arrow">↗</span></div>
+            <div class="project-top"><span class="project-no">03 / CURRENT</span><span class="project-arrow">↗</span></div>
             <h3>ToolScout</h3>
-            <p><span>Rust CLI/MCP plus a skill rule layer that helps agents find mature local tools and prior experience before writing incidental code.</span></p>
+            <p><span>Rust CLI/MCP plus a skill rule layer that helps AI agents discover mature tools and prior experience before writing incidental code.</span></p>
+            <div class="project-meta"><span>Rust</span><span>Last push · 2026-09-22</span></div>
             <div class="tags"><span class="tag">Rust</span><span class="tag">MCP</span><span class="tag">Agent Tools</span></div>
           </a>
 
+          <a class="project" href="https://github.com/licat233/armor-memory" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">04 / DEEP BUILD</span><span class="project-arrow">↗</span></div>
+            <h3>armor-memory</h3>
+            <p><span>A deterministic shared-memory architecture explored for Codex, Claude Code and Hermes Agent, representing a substantial multi-agent memory engineering effort.</span></p>
+            <div class="project-meta"><span>★ 1 · Python</span><span>Last push · 2026-09-05</span></div>
+            <div class="tags"><span class="tag">Agent Memory</span><span class="tag">Multi-Agent</span><span class="tag">Architecture</span></div>
+          </a>
+
+          <a class="project" href="/lottery-calculate/" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">05 / CREATIVE</span><span class="project-arrow">↗</span></div>
+            <h3>lottery-calculate</h3>
+            <p><span>An interactive tool that turns lottery combinations, cost and return into a computable model. Its lasting value is the idea, modeling and product thinking rather than a specific stack.</span></p>
+            <div class="project-meta"><span>★ 1 · TypeScript</span><span>Last push · 2023-02-02</span></div>
+            <div class="tags"><span class="tag">Creative</span><span class="tag">Modeling</span><span class="tag">Web App</span></div>
+          </a>
+
           <a class="project" href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">03 / MACOS</span><span class="project-arrow">↗</span></div>
+            <div class="project-top"><span class="project-no">06 / PRODUCT</span><span class="project-arrow">↗</span></div>
             <h3>GreenRAM</h3>
             <p><span>A macOS menu bar utility that uses Memory Pressure, Swap and background state to safely quit eligible apps under explicit rules.</span></p>
+            <div class="project-meta"><span>Swift</span><span>Last push · 2026-08-07</span></div>
             <div class="tags"><span class="tag">Swift</span><span class="tag">macOS</span><span class="tag">Utility</span></div>
           </a>
 
-          <a class="project" href="https://github.com/licat233/cn-llm-query" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">04 / AI SKILL</span><span class="project-arrow">↗</span></div>
-            <h3>cn-llm-query</h3>
-            <p><span>An agent skill for querying major Chinese LLMs, covering model information, scenario selection, API code generation and extensible data.</span></p>
-            <div class="tags"><span class="tag">Python</span><span class="tag">LLM</span><span class="tag">Skill</span></div>
+          <a class="project" href="https://github.com/licat233/disable-macos-auto-updates" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">07 / UTILITY</span><span class="project-arrow">↗</span></div>
+            <h3>disable-macos-auto-updates</h3>
+            <p><span>A lightweight utility for safely disabling and restoring automatic macOS system updates — focused, low-dependency, and intentionally practical.</span></p>
+            <div class="project-meta"><span>Shell</span><span>Last push · 2026-09-01</span></div>
+            <div class="tags"><span class="tag">macOS</span><span class="tag">Shell</span><span class="tag">Utility</span></div>
           </a>
+        </div>
+      </section>
 
-          <a class="project" href="https://github.com/licat233/genzero" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">05 / DEV TOOL</span><span class="project-arrow">↗</span></div>
-            <h3>genzero</h3>
-            <p><span>A Go developer tool that generates go-zero API, Proto, Model and service code from MySQL, automating repetitive backend scaffolding.</span></p>
-            <div class="tags"><span class="tag">Go</span><span class="tag">go-zero</span><span class="tag">Codegen</span></div>
-          </a>
-
-          <a class="project" href="https://github.com/licat233/WebOnlineStatistic" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">06 / WEB</span><span class="project-arrow">↗</span></div>
-            <h3>WebOnlineStatistic</h3>
-            <p><span>A compact real-time web online-user statistics service — an earlier experiment in small, focused realtime systems.</span></p>
-            <div class="tags"><span class="tag">Web</span><span class="tag">Realtime</span><span class="tag">Service</span></div>
-          </a>
-
-          <a class="project" href="https://github.com/licat233/goss" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">07 / AUTOMATION</span><span class="project-arrow">↗</span></div>
-            <h3>goss</h3>
-            <p><span>A Go utility for uploading assets to OSS and updating references, built to remove repetitive steps from publishing workflows.</span></p>
-            <div class="tags"><span class="tag">Go</span><span class="tag">OSS</span><span class="tag">Automation</span></div>
-          </a>
-
-          <a class="project" href="https://github.com/licat233/product-assets" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">08 / DATA</span><span class="project-arrow">↗</span></div>
-            <h3>product-assets</h3>
+      </h3>
             <p><span>A source-of-truth repository for product facts and authoritative reference assets shared across websites, AI and content workflows.</span></p>
             <div class="tags"><span class="tag">Source of Truth</span><span class="tag">Content</span><span class="tag">Data</span></div>
           </a>
