@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-project="memory">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>armor-memory — Licat / 233</title>
+<meta name="description" content="A substantial engineering project that explored how Codex, Claude Code and Hermes Agent could share one routing discipline, one durable business-memory vault and explicit read-only quality checks.">
+<link rel="canonical" href="https://licat233.github.io/armor-memory/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/armor-memory/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/armor-memory/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/en/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>Shared memory architecture</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">Highlights</a><a href="#details">Details</a><a href="#use">Use</a><a href="#notes">Notes</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/armor-memory/zh/">中文</a>
+      <a class="repo-btn" href="https://github.com/licat233/armor-memory" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="MEMORY / ROUTER">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">DEEP BUILD · MULTI-AGENT · ARCHITECTURE</p>
+      <h1>A deterministic memory <em>architecture experiment.</em></h1>
+      <p class="lede">A substantial engineering project that explored how Codex, Claude Code and Hermes Agent could share one routing discipline, one durable business-memory vault and explicit read-only quality checks.</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">Explore project ↓</a>
+        <a class="btn" href="https://github.com/licat233/armor-memory" target="_blank" rel="noreferrer">View source ↗</a>
+      </div>
+      <div class="meta-row"><span>Python</span><span>★ 1</span><span>Multi-agent memory</span><span>Historical engineering project</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="flow">
+<div class="flow-node"><b>Codex / Claude Code / Hermes Agent</b><span>Multiple agents, one memory contract</span></div>
+<div class="flow-arrow">↓</div>
+<div class="flow-node"><b>Shared Skill</b><span>Behavior and routing discipline</span></div>
+<div class="flow-arrow">↓</div>
+<div class="flow-node"><b>Router + explicit diagnostics</b><span>Deterministic destinations · read-only quality checks</span></div>
+<div class="flow-arrow">↓</div>
+<div class="flow-node"><b>Durable Vault</b><span>Business memory remains separate from architecture code</span></div>
+</div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / CORE IDEAS</p><h2>Memory without lifecycle bureaucracy.</h2></div><p class="section-note">The architecture tried to keep routing deterministic while avoiding recurring human chores such as moving projects between Active and Completed folders or repeatedly approving decisions already made.</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>Stable routing</h3><p>Object type determines location. Directory structure represents operational purpose rather than lifecycle state.</p></article>
+<article class="card"><b class="num">02</b><h3>Skill vs. storage</h3><p>The Skill controls behavior and routing; the durable Vault stores business memory. Derived tools are not allowed to become a second source of truth.</p></article>
+<article class="card"><b class="num">03</b><h3>Human-cost policy</h3><p>Routine routing, metadata and deterministic maintenance should be handled by the Agent, reserving human attention for real ambiguity, authority and risk.</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / ARCHITECTURE</p><h2>A small set of explicit layers.</h2></div><p class="section-note">The repository stores architecture, router code, tests and maintenance tooling — not live business memory itself.</p></div><div class="table">
+<div class="table-row"><b>Shared Skill</b><span>Defines memory behavior and routing discipline across supported agents.</span></div>
+<div class="table-row"><b>Router</b><span>Resolves deterministic destination paths before persistent writes when the destination is not already explicit.</span></div>
+<div class="table-row"><b>Knowledge quality</b><span>Read-only checks for authority, provenance and possible duplicate-title issues.</span></div>
+<div class="table-row"><b>Vault</b><span>The durable business-memory store, deliberately separated from code and diagnostics.</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / ENGINEERING LESSON</p><h2>Do not turn memory into a second operating system.</h2></div><p class="section-note">The project progressively removed migration-only tooling and superseded architecture copies from the active tree, relying on Git history instead of keeping old rules beside current rules.</p></div><div class="cards">
+<article class="card wide"><h3>Lifecycle-neutral projects</h3><p>Named project work stays in one stable project home. Draft, review, publication or retirement status does not require moving the source between root folders.</p></article>
+<article class="card wide"><h3>Explicit maintenance</h3><p>No silent self-update or automatic repository-version checking during normal memory work. Updates are initiated deliberately.</p></article>
+</div></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>Project status in this portfolio</h3><p>This page presents armor-memory as a standalone engineering artifact. The current EAO knowledge architecture has moved on and does not use armor-memory / armor-vault as its authority. The repository remains featured because it represents a deep multi-agent memory design effort and several useful architecture lessons.</p></div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>A featured Licat project · The GitHub repository remains the source of truth.</span>
+  <div><a href="/en/">Back to portfolio</a> · <a href="https://github.com/licat233/armor-memory" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
