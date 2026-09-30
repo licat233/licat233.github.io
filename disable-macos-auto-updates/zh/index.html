@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN" data-project="updates">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>关闭 macOS 自动更新 — Licat / 233</title>
+<meta name="description" content="一个可恢复、幂等的 shell 方案，用于关闭 macOS 自动系统更新检查、下载和安装，同时保留通过系统设置或 softwareupdate 手动维护系统的能力。">
+<link rel="canonical" href="https://licat233.github.io/disable-macos-auto-updates/zh/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/disable-macos-auto-updates/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/disable-macos-auto-updates/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/zh/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>macOS 更新控制</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">亮点</a><a href="#details">细节</a><a href="#use">使用</a><a href="#notes">说明</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/disable-macos-auto-updates/">EN</a>
+      <a class="repo-btn" href="https://github.com/licat233/disable-macos-auto-updates" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="UPDATE / CONTROL">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">UTILITY · SHELL · MIT</p>
+      <h1>关闭自动更新，<em>但一定要留好退路。</em></h1>
+      <p class="lede">一个可恢复、幂等的 shell 方案，用于关闭 macOS 自动系统更新检查、下载和安装，同时保留通过系统设置或 softwareupdate 手动维护系统的能力。</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">了解项目 ↓</a>
+        <a class="btn" href="https://github.com/licat233/disable-macos-auto-updates" target="_blank" rel="noreferrer">查看源码 ↗</a>
+      </div>
+      <div class="meta-row"><span>Shell</span><span>MIT</span><span>可恢复</span><span>手动更新仍可用</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="terminal"><span class="dim">$</span> <strong>./disable-macos-updates.sh</strong><br><br><span class="accent">→</span> softwareupdate --schedule off<br><span class="accent">→</span> 备份 SoftwareUpdate 偏好设置<br><span class="accent">→</span> 5 个自动更新键设为 0<br><span class="accent">→</span> 可选关闭 Dock 更新角标<br><span class="accent">→</span> 验证结果<br><br><span class="ok">✓ 验证失败自动回滚</span><br><br><span class="dim">$</span> <strong>./restore-macos-updates.sh</strong><br><span class="ok">✓ 恢复备份 / 正常更新计划</span></div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / 设计</p><h2>关闭自动策略，但不要破坏手动维护。</h2></div><p class="section-note">脚本不会停用 softwareupdated，也不会修改 Apple 更新服务器地址，因此仍可使用“系统设置”或 softwareupdate 手动更新。</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>可恢复</h3><p>修改前备份相关偏好设置，并提供配套 restore 脚本恢复自动更新行为。</p></article>
+<article class="card"><b class="num">02</b><h3>幂等</h3><p>项目目标不是只在“干净系统”上运行一次，而是允许重复执行而不依赖脆弱的初始状态。</p></article>
+<article class="card"><b class="num">03</b><h3>验证与回滚</h3><p>disable 脚本会检查最终值；验证失败时自动回滚，而不是把系统留在半修改状态。</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / 修改内容</p><h2>一个计划开关，加五个更新偏好值。</h2></div><p class="section-note">Dock 中“系统设置”的更新角标属于可选项，可以通过参数保留。</p></div><div class="table">
+<div class="table-row"><b>Schedule</b><span>softwareupdate --schedule off</span></div>
+<div class="table-row"><b>AutomaticCheckEnabled</b><span>关闭</span></div>
+<div class="table-row"><b>AutomaticDownload</b><span>关闭</span></div>
+<div class="table-row"><b>AutomaticallyInstallMacOSUpdates</b><span>关闭</span></div>
+<div class="table-row"><b>ConfigDataInstall</b><span>关闭</span></div>
+<div class="table-row"><b>CriticalUpdateInstall</b><span>关闭</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / 使用</p><h2>一个脚本关闭，一个脚本恢复。</h2></div><p class="section-note">脚本通过 sudo 请求管理员权限；脚本本身不包含密码，也不需要联网。</p></div>
+<pre class="code"><span class="accent">chmod +x</span> disable-macos-updates.sh restore-macos-updates.sh
+<span class="accent">./disable-macos-updates.sh</span>
+
+# 保留系统设置 Dock 角标
+./disable-macos-updates.sh --keep-dock-badge
+
+# 恢复自动更新
+<span class="accent">./restore-macos-updates.sh</span></pre></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>必须明确的安全代价</h3><p>关闭自动更新也会关闭配置数据更新和关键安全更新的自动安装，这会增加系统长期暴露在已知漏洞下的风险。仓库明确建议定期手动检查并安装更新。</p></div><div class="note">README 将方案定位为面向 Catalina 及更新版本设计，并明确写了 macOS 13 Ventura 与 macOS 14 Sonoma。Apple 后续可能调整更新机制，因此新系统上使用前仍应检查脚本输出。</div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>Licat 的精选项目 · 原始项目内容以 GitHub 仓库为准。</span>
+  <div><a href="/zh/">返回个人主页</a> · <a href="https://github.com/licat233/disable-macos-auto-updates" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
