@@ -36,6 +36,9 @@
     const commit = () => {
       root.dataset.theme = theme;
       root.style.colorScheme = theme;
+      document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+        meta.setAttribute("content", theme === "dark" ? "#101416" : "#f2f7fa");
+      });
       if (persist) {
         try {
           localStorage.setItem("licat-theme", theme);
