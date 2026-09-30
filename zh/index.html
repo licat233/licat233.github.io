@@ -368,6 +368,23 @@
       font-size: 15px;
     }
 
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px 16px;
+      margin-top: 18px;
+      color: var(--muted);
+      font: 700 10px/1.4 var(--mono);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .project-meta span + span::before {
+      content: "·";
+      margin-right: 16px;
+      color: var(--line);
+    }
+
     .tags {
       display: flex;
       flex-wrap: wrap;
@@ -546,77 +563,72 @@
         <div class="section-head">
           <div class="section-index">01 / <span>关于</span></div>
           <h2><span>从“能做出来”继续追问：能否长期稳定地用？</span></h2>
-        </div>
-        <div class="about-grid">
-          <p>
-            <span>早期项目集中在 Go、微服务、代码生成、数据抓取与 Web 工具；后来逐步转向 macOS 自动化与开发者体验。现在，大部分精力放在 AI Agent、知识系统和企业工作流。</span>
-            
-          </p>
-          <p>
-            <span>我偏好轻量、边界清晰、可回滚的工程方案。一个项目是否值得保留，不只看它是否有趣，也看它是否解决真实问题、是否降低长期维护成本。</span>
-            
-          </p>
-        </div>
-      </section>
-
-      <section id="projects">
+        </d<section id="projects">
         <div class="section-head">
           <div class="section-index">02 / <span>精选项目</span></div>
-          <h2><span>公开项目与正在构建的系统。</span></h2>
+          <h2><span>受欢迎、持续维护、投入深入，或有独立创意的项目。</span></h2>
         </div>
 
         <div class="projects">
           <a class="project eao" href="/eao/">
-            <div class="project-top"><span class="project-no">01 / SYSTEM</span><span class="project-arrow">↗</span></div>
+            <div class="project-top"><span class="project-no">01 / FLAGSHIP</span><span class="project-arrow">↗</span></div>
             <h3>Enterprise AI Office</h3>
-            <p><span>面向企业真实工作的自托管 AI Office。把知识、Agent、RBAC、自动化和工具放在一个可治理的系统边界里。</span></p>
+            <p><span>当前旗舰项目。面向企业真实工作的自托管 AI Office，把知识、Agent、权限、自动化和工具整合进一个可长期维护的工作系统。</span></p>
+            <div class="project-meta"><span>Python</span><span>Last push · 2026-09-29</span></div>
             <div class="tags"><span class="tag">Enterprise AI</span><span class="tag">Agents</span><span class="tag">RAG</span></div>
           </a>
 
+          <a class="project" href="https://github.com/licat233/EFI-OpenCore-i3-i5-haswell-cpu-h81-alc662-HD4600" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">02 / MOST STARRED</span><span class="project-arrow">↗</span></div>
+            <h3>OpenCore · Haswell H81</h3>
+            <p><span>为 i3 / i5 Haswell、H81、HD4600、ALC662 配置维护的精简 OpenCore EFI，是目前 GitHub 上获得外部认可最多的公开项目。</span></p>
+            <div class="project-meta"><span>★ 26 · Fork 5</span><span>Shell · Last push 2023-02-02</span></div>
+            <div class="tags"><span class="tag">OpenCore</span><span class="tag">Hackintosh</span><span class="tag">EFI</span></div>
+          </a>
+
           <a class="project" href="/toolscout/zh/">
-            <div class="project-top"><span class="project-no">02 / OPEN SOURCE</span><span class="project-arrow">↗</span></div>
+            <div class="project-top"><span class="project-no">03 / CURRENT</span><span class="project-arrow">↗</span></div>
             <h3>ToolScout</h3>
-            <p><span>Rust CLI / MCP + Skill 规则层。让 Agent 在写临时代码之前，先发现本机已经存在的成熟工具与历史经验。</span></p>
+            <p><span>Rust CLI / MCP + Skill 规则层。让 AI Agent 在写临时代码之前，先发现成熟工具和已有经验，减少重复造轮子。</span></p>
+            <div class="project-meta"><span>Rust</span><span>Last push · 2026-09-22</span></div>
             <div class="tags"><span class="tag">Rust</span><span class="tag">MCP</span><span class="tag">Agent Tools</span></div>
           </a>
 
+          <a class="project" href="https://github.com/licat233/armor-memory" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">04 / DEEP BUILD</span><span class="project-arrow">↗</span></div>
+            <h3>armor-memory</h3>
+            <p><span>为 Codex、Claude Code 与 Hermes Agent 探索的确定性共享记忆架构。它记录了一段投入很深的多 Agent 记忆工程实践。</span></p>
+            <div class="project-meta"><span>★ 1 · Python</span><span>Last push · 2026-09-05</span></div>
+            <div class="tags"><span class="tag">Agent Memory</span><span class="tag">Multi-Agent</span><span class="tag">Architecture</span></div>
+          </a>
+
+          <a class="project" href="/lottery-calculate/" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">05 / CREATIVE</span><span class="project-arrow">↗</span></div>
+            <h3>lottery-calculate</h3>
+            <p><span>把彩票购买中的组合、投入与收益问题抽象成可交互的计算工具。技术会变化，但它更重要的价值在于创意、建模与产品化。</span></p>
+            <div class="project-meta"><span>★ 1 · TypeScript</span><span>Last push · 2023-02-02</span></div>
+            <div class="tags"><span class="tag">Creative</span><span class="tag">Modeling</span><span class="tag">Web App</span></div>
+          </a>
+
           <a class="project" href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">03 / MACOS</span><span class="project-arrow">↗</span></div>
+            <div class="project-top"><span class="project-no">06 / PRODUCT</span><span class="project-arrow">↗</span></div>
             <h3>GreenRAM</h3>
             <p><span>macOS 菜单栏内存管理工具。基于 Memory Pressure、Swap 与应用后台状态，在明确规则下处理可安全退出的应用。</span></p>
+            <div class="project-meta"><span>Swift</span><span>Last push · 2026-08-07</span></div>
             <div class="tags"><span class="tag">Swift</span><span class="tag">macOS</span><span class="tag">Utility</span></div>
           </a>
 
-          <a class="project" href="https://github.com/licat233/cn-llm-query" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">04 / AI SKILL</span><span class="project-arrow">↗</span></div>
-            <h3>cn-llm-query</h3>
-            <p><span>面向 Agent 的国内主流大模型查询 Skill，覆盖模型信息、场景选择、调用代码和可扩展数据。</span></p>
-            <div class="tags"><span class="tag">Python</span><span class="tag">LLM</span><span class="tag">Skill</span></div>
+          <a class="project" href="https://github.com/licat233/disable-macos-auto-updates" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">07 / UTILITY</span><span class="project-arrow">↗</span></div>
+            <h3>disable-macos-auto-updates</h3>
+            <p><span>用于安全关闭并恢复 macOS 自动系统更新的轻量工具。目标明确、依赖很少，也代表了偏实用主义的工具开发方式。</span></p>
+            <div class="project-meta"><span>Shell</span><span>Last push · 2026-09-01</span></div>
+            <div class="tags"><span class="tag">macOS</span><span class="tag">Shell</span><span class="tag">Utility</span></div>
           </a>
+        </div>
+      </section>
 
-          <a class="project" href="https://github.com/licat233/genzero" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">05 / DEV TOOL</span><span class="project-arrow">↗</span></div>
-            <h3>genzero</h3>
-            <p><span>基于 MySQL 为 go-zero 生成 API、Proto、Model 与服务代码，把重复的后端脚手架工作自动化。</span></p>
-            <div class="tags"><span class="tag">Go</span><span class="tag">go-zero</span><span class="tag">Codegen</span></div>
-          </a>
-
-          <a class="project" href="https://github.com/licat233/WebOnlineStatistic" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">06 / WEB</span><span class="project-arrow">↗</span></div>
-            <h3>WebOnlineStatistic</h3>
-            <p><span>一个精简的 Web 在线人数实时统计服务，是早期面向实时 Web 场景的小型系统实践。</span></p>
-            <div class="tags"><span class="tag">Web</span><span class="tag">Realtime</span><span class="tag">Service</span></div>
-          </a>
-
-          <a class="project" href="https://github.com/licat233/goss" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">07 / AUTOMATION</span><span class="project-arrow">↗</span></div>
-            <h3>goss</h3>
-            <p><span>把指定资源上传到 OSS 并同步更新引用链接的 Go 工具，目标很简单：减少内容发布流程里的机械操作。</span></p>
-            <div class="tags"><span class="tag">Go</span><span class="tag">OSS</span><span class="tag">Automation</span></div>
-          </a>
-
-          <a class="project" href="https://github.com/licat233/product-assets" target="_blank" rel="noreferrer">
-            <div class="project-top"><span class="project-no">08 / DATA</span><span class="project-arrow">↗</span></div>
+      /span><span class="project-arrow">↗</span></div>
             <h3>product-assets</h3>
             <p><span>产品事实与权威参考素材的 Source of Truth，让网站、AI 与内容工作流引用同一套产品依据。</span></p>
             <div class="tags"><span class="tag">Source of Truth</span><span class="tag">Content</span><span class="tag">Data</span></div>
