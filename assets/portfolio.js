@@ -1,9 +1,221 @@
 (() => {
-  if (!window.gsap) return;
+  const root = document.documentElement;
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
+  /* ───────────────────────── Theme */
+  const themeToggle = document.querySelector(".theme-toggle");
+
+  const getStoredTheme = () => {
+    try {
+      const value = localStorage.getItem("licat-theme");
+      return value === "light" || value === "dark" ? value : null;
+    } catch (_) {
+      return null;
+    }
+  };
+
+  const currentTheme = () =>
+    root.dataset.theme === "dark" ? "dark" : "light";
+
+  const updateThemeButton = () => {
+    if (!themeToggle) return;
+    const dark = currentTheme() === "dark";
+    const zh = root.lang.toLowerCase().startsWith("zh");
+    themeToggle.setAttribute("aria-pressed", String(dark));
+    themeToggle.setAttribute(
+      "aria-label",
+      zh
+        ? (dark ? "切换到昼间模式" : "切换到夜间模式")
+        : (dark ? "Switch to light mode" : "Switch to dark mode")
+    );
+    themeToggle.title = themeToggle.getAttribute("aria-label");
+  };
+
+  const applyTheme = (theme, { persist = false, animate = false } = {}) => {
+    const commit = () => {
+      root.dataset.theme = theme;
+      root.style.colorScheme = theme;
+      if (persist) {
+        try {
+          localStorage.setItem("licat-theme", theme);
+        } catch (_) {}
+      }
+      updateThemeButton();
+    };
+
+    if (
+      animate &&
+      !reducedMotionQuery.matches &&
+      typeof document.startViewTransition === "function"
+    ) {
+      document.startViewTransition(commit);
+    } else {
+      commit();
+    }
+
+    if (animate && window.gsap && themeToggle && !reducedMotionQuery.matches) {
+      window.gsap.fromTo(
+        themeToggle.querySelector(".theme-toggle-track"),
+        { rotation: -24, scale: 0.82 },
+        { rotation: 0, scale: 1, duration: 0.48, ease: "back.out(1.8)" }
+      );
+    }
+  };
+
+  updateThemeButton();
+
+  themeToggle?.addEventListener("click", () => {
+    const next = currentTheme() === "dark" ? "light" : "dark";
+    applyTheme(next, { persist: true, animate: true });
+  });
+
+  const onSystemThemeChange = (event) => {
+    if (getStoredTheme()) return;
+    applyTheme(event.matches ? "dark" : "light", { persist: false, animate: true });
+  };
+
+  if (systemThemeQuery.addEventListener) {
+    systemThemeQuery.addEventListener("change", onSystemThemeChange);
+  } else if (systemThemeQuery.addListener) {
+    systemThemeQuery.addListener(onSystemThemeChange);
+  }
+
+  /* ───────────────────────── Navigation indicator + snap */
+  const navLinks = document.querySelector(".nav-links");
+  const navPills = Array.from(document.querySelectorAll(".nav-pill"));
+
+  const getNavTarget = (pill) => {
+    const id = pill?.dataset.navTarget;
+    if (id === "top") return document.querySelector(".hero-wrap");
+    return id ? document.getElementById(id) : null;
+  };
+
+  const centerNavPill = (pill, smooth = true) => {
+    if (!navLinks || !pill || navLinks.scrollWidth <= navLinks.clientWidth + 2) return;
+    const left =
+      pill.offsetLeft -
+      (navLinks.clientWidth - pill.offsetWidth) / 2;
+    navLinks.scrollTo({
+      left: Math.max(0, left),
+      behavior: smooth && !reducedMotionQuery.matches ? "smooth" : "auto"
+    });
+  };
+
+  const moveNavIndicator = (pill, { instant = false, center = false } = {}) => {
+    if (!navLinks || !pill) return;
+
+    if (instant) navLinks.classList.add("nav-instant");
+
+    navLinks.style.setProperty("--nav-indicator-x", `${pill.offsetLeft}px`);
+    navLinks.style.setProperty("--nav-indicator-w", `${pill.offsetWidth}px`);
+    navLinks.classList.add("nav-ready");
+
+    if (center) centerNavPill(pill, !instant);
+
+    if (instant) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => navLinks.classList.remove("nav-instant"));
+      });
+    }
+  };
+
+  const setActiveNav = (pill, options = {}) => {
+    if (!pill) return;
+    navPills.forEach((item) => {
+      const active = item === pill;
+      item.classList.toggle("active", active);
+      if (active) item.setAttribute("aria-current", "page");
+      else item.removeAttribute("aria-current");
+    });
+    moveNavIndicator(pill, options);
+  };
+
+  navPills.forEach((pill) => {
+    pill.addEventListener("click", (event) => {
+      const target = getNavTarget(pill);
+      if (!target) return;
+
+      event.preventDefault();
+      setActiveNav(pill, { center: true });
+
+      if (pill.dataset.navTarget === "top") {
+        window.scrollTo({
+          top: 0,
+          behavior: reducedMotionQuery.matches ? "auto" : "smooth"
+        });
+      } else {
+        target.scrollIntoView({
+          behavior: reducedMotionQuery.matches ? "auto" : "smooth",
+          block: "start"
+        });
+      }
+
+      const hash = pill.getAttribute("href");
+      if (hash && history.replaceState) {
+        history.replaceState(null, "", hash);
+      }
+    });
+  });
+
+  const activeAtLoad =
+    navPills.find((pill) => pill.classList.contains("active")) || navPills[0];
+
+  requestAnimationFrame(() => {
+    moveNavIndicator(activeAtLoad, { instant: true, center: true });
+  });
+
+  let resizeFrame = 0;
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => {
+      const active = navPills.find((pill) => pill.classList.contains("active"));
+      moveNavIndicator(active || navPills[0], { instant: true, center: false });
+    });
+  });
+
+  /* ───────────────────────── GSAP */
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
-  if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+  if (gsap && ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Navigation follows the section currently crossing the visual focus line.
+    navPills.forEach((pill) => {
+      const target = getNavTarget(pill);
+      if (!target) return;
+
+      ScrollTrigger.create({
+        trigger: target,
+        start: "top 46%",
+        end: "bottom 46%",
+        onEnter: () => setActiveNav(pill, { center: true }),
+        onEnterBack: () => setActiveNav(pill, { center: true })
+      });
+    });
+  } else if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const pill = navPills.find(
+          (item) => getNavTarget(item) === visible.target
+        );
+        setActiveNav(pill, { center: true });
+      },
+      { rootMargin: "-28% 0px -58% 0px", threshold: [0, 0.1, 0.25, 0.5] }
+    );
+
+    navPills.forEach((pill) => {
+      const target = getNavTarget(pill);
+      if (target) observer.observe(target);
+    });
+  }
+
+  if (!gsap) return;
 
   const mm = gsap.matchMedia();
 
@@ -25,7 +237,6 @@
         return;
       }
 
-      // Initial states: different objects enter in different ways.
       gsap.set(".site-header", { y: -22, autoAlpha: 0 });
       gsap.set(".system-flow", { x: 150, autoAlpha: 0 });
       gsap.set(".flow-glow", { autoAlpha: 0 });
@@ -92,7 +303,6 @@
           "-=.32"
         );
 
-      // Ambient motion lives on child layers so it doesn't fight scroll transforms.
       gsap.to(".system-flow svg", {
         y: -13,
         rotation: -0.7,
@@ -248,7 +458,6 @@
       }
 
       if (finePointer) {
-        // Mouse parallax: quickTo reuses tweens instead of creating one per mouse event.
         const flowX = gsap.quickTo(".system-flow", "x", { duration: 1.15, ease: "power3.out" });
         const ghostX = gsap.quickTo(".hero-ghost", "x", { duration: 1.3, ease: "power3.out" });
         const sceneX = gsap.quickTo(".hero-scene", "x", { duration: 1.2, ease: "power3.out" });
@@ -317,16 +526,6 @@
         }
       }
 
-      const navPills = document.querySelectorAll(".nav-pill");
-      navPills.forEach((pill) => {
-        const click = () => {
-          navPills.forEach((item) => item.classList.remove("active"));
-          pill.classList.add("active");
-        };
-        pill.addEventListener("click", click);
-        cleanups.push(() => pill.removeEventListener("click", click));
-      });
-
       return () => cleanups.forEach((fn) => fn());
     }
   );
@@ -334,6 +533,8 @@
   window.addEventListener(
     "load",
     () => {
+      const active = navPills.find((pill) => pill.classList.contains("active")) || navPills[0];
+      moveNavIndicator(active, { instant: true, center: false });
       if (ScrollTrigger) ScrollTrigger.refresh();
     },
     { once: true }
