@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN" data-project="greenram">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>GreenRAM — Licat / 233</title>
+<meta name="description" content="一个 macOS 菜单栏 App。它观察原生 Memory Pressure、Swap 与进程风险，在明确规则下请求长期闲置、且符合条件的后台 App 正常退出，同时保护不应该退出的 App。">
+<link rel="canonical" href="https://licat233.github.io/greenram/zh/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/greenram/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/greenram/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/zh/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>macOS 内存工具</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">亮点</a><a href="#details">细节</a><a href="#use">使用</a><a href="#notes">说明</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/greenram/">EN</a>
+      <a class="repo-btn" href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="RAM / PRESSURE">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">PRODUCT · SWIFT · MACOS</p>
+      <h1>内存清理也应该有<em>说得清楚的规则。</em></h1>
+      <p class="lede">一个 macOS 菜单栏 App。它观察原生 Memory Pressure、Swap 与进程风险，在明确规则下请求长期闲置、且符合条件的后台 App 正常退出，同时保护不应该退出的 App。</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">了解项目 ↓</a>
+        <a class="btn" href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer">查看源码 ↗</a>
+      </div>
+      <div class="meta-row"><span>Swift</span><span>macOS 13+</span><span>Universal 2</span><span>6 种界面语言</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="app-shot"><figure><img src="https://raw.githubusercontent.com/licat233/greenram/main/docs/screenshots/menu.png" alt="GreenRAM 菜单截图"></figure><figure><img src="https://raw.githubusercontent.com/licat233/greenram/main/docs/screenshots/settings.png" alt="GreenRAM 设置截图"></figure></div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / 产品思路</p><h2>RAM 占用高，不等于系统真的有问题。</h2></div><p class="section-note">GreenRAM 先看 macOS 原生 Memory Pressure，再结合 Swap 与进程风险。Cached Files 单独作为可回收内存展示，不会因为“RAM 百分比高”就误报警。</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>原生压力优先</h3><p>菜单栏健康状态优先基于 Memory Pressure，而不是把 RAM 使用率直接当作清理依据。</p></article>
+<article class="card"><b class="num">02</b><h3>请求正常退出</h3><p>清理是请求符合条件的后台 App 正常退出；不宣称“清空 Swap”，也不会动当前前台 App。</p></article>
+<article class="card"><b class="num">03</b><h3>多进程内存统计</h3><p>浏览器、Electron App、Xcode helper 等进程树，会按应用维度统计，而不是把 helper 当成完全独立的风险进程。</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / 清理策略</p><h2>三组 App，三套规则。</h2></div><p class="section-note">是否可清理来自明确分类、后台时间和内存判断，而不是模糊的 App 名称关键词。</p></div><div class="table">
+<div class="table-row"><b>白名单</b><span>被保护的 App 永远不会退出；GreenRAM 自己和当前前台 App 也始终排除。</span></div>
+<div class="table-row"><b>自动退出 App</b><span>适合随用随走的小工具；只看非前台超时，RAM、Swap 与 Memory Pressure 不参与。</span></div>
+<div class="table-row"><b>普通 App</b><span>达到后台超时后，仍需要 MemoryDecisionEngine 允许清理，或者该 App 超过自己的内存上限。</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / 运行</p><h2>使用 SwiftPM 本地构建。</h2></div><p class="section-note">发布包是 Universal 2，同时支持 Apple Silicon 和 Intel。当前个人使用版是 ad-hoc 签名，并未经过 Apple notarization。</p></div>
+<pre class="code"><span class="accent">swift build</span> -c release
+
+<span class="accent">swift run</span> GreenRAM</pre>
+<div class="note">当前个人使用版复制到 /Applications 后，首次启动可能需要手动移除 Gatekeeper quarantine。未来正式公开分发更适合使用 Developer ID 签名和 Apple notarization。</div></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>GreenRAM 明确不会退出这些对象</h3><p>GreenRAM 自己、当前前台 App、白名单 App、还没达到后台时间阈值的 App，以及 MemoryDecisionEngine 判定健康且没有超过自身内存上限的普通 App。</p></div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>Licat 的精选项目 · 原始项目内容以 GitHub 仓库为准。</span>
+  <div><a href="/zh/">返回个人主页</a> · <a href="https://github.com/licat233/greenram" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
