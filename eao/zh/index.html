@@ -148,7 +148,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       const intro=section.querySelectorAll('.kicker,.section-title,.intro');
       if(!intro.length)return;
       gsap.from(intro,{
-        autoAlpha:0,
         y:22,
         duration:.68,
         stagger:.08,
@@ -166,7 +165,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       start:'top 86%',
       once:true,
       onEnter:(batch)=>gsap.from(batch,{
-        autoAlpha:0,
         y:24,
         scale:.992,
         duration:.7,
@@ -183,7 +181,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       interval:.08,
       batchMax:6,
       onEnter:(batch)=>gsap.from(batch,{
-        autoAlpha:0,
         y:18,
         duration:.56,
         stagger:.065,
@@ -198,8 +195,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         const answer=item.querySelector('.faq-answer');
         if(!answer)return;
         gsap.fromTo(answer,
-          {autoAlpha:0,y:-6},
-          {autoAlpha:1,y:0,duration:.28,ease:'power2.out',clearProps:'opacity,visibility,transform'}
+          {y:-6},
+          {y:0,duration:.28,ease:'power2.out',clearProps:'transform'}
         );
       });
     });
