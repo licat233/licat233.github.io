@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-project="opencore">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>OpenCore · Haswell H81 — Licat / 233</title>
+<meta name="description" content="A compact OpenCore EFI built around 4th-generation Haswell i3/i5 systems with Intel H81, HD4400–HD4600 graphics and ALC662 audio. The repository emphasizes stability, small size and removing unnecessary patches.">
+<link rel="canonical" href="https://licat233.github.io/opencore-h81/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/opencore-h81/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/opencore-h81/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/en/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>OpenCore · Haswell H81</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">Highlights</a><a href="#details">Details</a><a href="#use">Use</a><a href="#notes">Notes</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/opencore-h81/zh/">中文</a>
+      <a class="repo-btn" href="https://github.com/licat233/EFI-OpenCore-i3-i5-haswell-cpu-h81-alc662-HD4600" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="EFI / H81">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">MOST STARRED · OPENCORE · HASWELL</p>
+      <h1>A minimal EFI for <em>a very specific machine.</em></h1>
+      <p class="lede">A compact OpenCore EFI built around 4th-generation Haswell i3/i5 systems with Intel H81, HD4400–HD4600 graphics and ALC662 audio. The repository emphasizes stability, small size and removing unnecessary patches.</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">Explore project ↓</a>
+        <a class="btn" href="https://github.com/licat233/EFI-OpenCore-i3-i5-haswell-cpu-h81-alc662-HD4600" target="_blank" rel="noreferrer">View source ↗</a>
+      </div>
+      <div class="meta-row"><span>Shell</span><span>★ 26 · Fork 5</span><span>~3 MB EFI</span><span>Last push · 2023-02-02</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="terminal"><span class="dim">machine / target</span><br><strong>Haswell i3 / i5</strong><br>Intel H81 chipset<br>HD4400 → HD4600<br>ALC662 audio<br><br><span class="dim">repository builds</span><br><span class="accent">OpenCore 0.6.9</span> · High Sierra → Big Sur<br><span class="accent">OpenCore 0.8.1</span> · Monterey<br><br><span class="ok">✓ minimal configuration</span><br><span class="ok">✓ fast boot focus</span><br><span class="warn">! modify PlatformInfo before use</span></div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / PROJECT IDEA</p><h2>Less EFI, fewer moving parts.</h2></div><p class="section-note">The repository's own rule of thumb is simple: OpenCore does not get better by accumulating more patches and drivers. Stability matters more than chasing every new release.</p></div><div class="cards">
+  <article class="card"><b class="num">01</b><h3>Small by design</h3><p>The README describes the EFI as reduced to roughly 3 MB by removing unnecessary patches and settings.</p></article>
+  <article class="card"><b class="num">02</b><h3>Hardware-specific</h3><p>Built around Haswell i3/i5, H81, HD4400–HD4600 and ALC662 rather than pretending to be a universal EFI.</p></article>
+  <article class="card"><b class="num">03</b><h3>Stability first</h3><p>The project explicitly argues that a working, stable OpenCore version is more useful than upgrading merely because a newer release exists.</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / REFERENCE MACHINE</p><h2>The configuration it was built around.</h2></div><p class="section-note">These values are the repository author's machine, not a promise that every H81 system is identical.</p></div><div class="table">
+<div class="table-row"><b>CPU</b><span>Intel Core i5-4590, 3.3 GHz quad-core</span></div>
+<div class="table-row"><b>Graphics</b><span>Intel HD4600 + NVIDIA Quadro K600</span></div>
+<div class="table-row"><b>Motherboard</b><span>Intel H81 chipset · Colorful C.H81M V22</span></div>
+<div class="table-row"><b>Memory</b><span>16 GB DDR3 1600 MHz</span></div>
+<div class="table-row"><b>Wi‑Fi / Bluetooth</b><span>BCM94360CD / Fenvi T919</span></div>
+<div class="table-row"><b>Audio</b><span>ALC662</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / USE</p><h2>Match the EFI to the system.</h2></div><p class="section-note">The repository carries separate EFI directories for different macOS generations. Installation notes also distinguish debug and production configuration files.</p></div><div class="cards">
+<article class="card wide"><h3>Before booting</h3><p>Modify PlatformInfo for your own machine. Intel Wi‑Fi/Bluetooth and USB 3.0 may require additional patching depending on hardware.</p></article>
+<article class="card wide"><h3>Known limitation</h3><p>The README states that everything was working on the author's office computer except iMessage.</p></article>
+</div><div class="note">The repository documents High Sierra through Monterey-era configurations. Its Ventura entry was still marked “under development” in the 2023 README, so treat it as a historical hardware-specific EFI project rather than current universal macOS guidance.</div></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>Why it remains featured</h3><p>It is the most-starred public project in this portfolio: 26 stars and 5 forks at the time this page was created. More importantly, it captures a practical engineering instinct that still holds up — remove what is unnecessary, optimize for the actual machine, and stop changing a stable system without a reason.</p></div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>A featured Licat project · The GitHub repository remains the source of truth.</span>
+  <div><a href="/en/">Back to portfolio</a> · <a href="https://github.com/licat233/EFI-OpenCore-i3-i5-haswell-cpu-h81-alc662-HD4600" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
