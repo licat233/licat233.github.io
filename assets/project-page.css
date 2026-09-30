@@ -123,6 +123,7 @@ button{font:inherit}
 .eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 18px;color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
 .eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
 .hero h1{max-width:720px;margin:0;font-size:clamp(58px,6.8vw,100px);line-height:.91;letter-spacing:-.065em}
+html[lang="zh-CN"] .hero h1{font-size:clamp(54px,6.2vw,88px);line-height:.95;letter-spacing:-.048em}
 .hero h1 em{display:block;color:var(--accent);font-style:normal}
 .lede{max-width:710px;margin:25px 0 0;color:var(--muted);font-size:clamp(18px,1.55vw,22px);line-height:1.62}
 .actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}
@@ -199,10 +200,16 @@ button{font:inherit}
   .project-nav{top:9px;width:calc(100% - 18px);border-radius:15px}
   .nav-row{min-height:58px;padding:7px 8px 7px 10px;gap:8px}
   .brand-text{display:none}.brand img{width:34px;height:34px}
-  .repo-btn span{display:none}.repo-btn{width:38px;padding:0;justify-content:center}
+  .repo-btn{display:none}
   .hero{padding:108px 0 60px}
   .hero::before{top:26%;font-size:145px}
   .hero h1{font-size:clamp(48px,14vw,66px)}
+  html[lang="zh-CN"] .hero h1{
+    font-size:clamp(43px,12.4vw,56px);
+    line-height:.96;
+    letter-spacing:-.035em;
+    overflow-wrap:anywhere;
+  }
   .lede{font-size:17px}
   .visual{min-height:350px;border-radius:20px}
   .visual-inner{padding:18px}.terminal{min-height:310px;padding:17px;font-size:10.5px}
