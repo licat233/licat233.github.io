@@ -1017,3 +1017,143 @@ html[lang="zh-CN"] .eao-v2 .kicker{
   background:#dffbf7;
 }
 
+
+
+/* ==========================================================================
+   EAO Animated Icon Background
+   Inspired by the uploaded diagonal icon-row demo, reworked with EAO symbols.
+   ========================================================================== */
+
+body.eao-v2{
+  position:relative;
+  isolation:isolate;
+}
+
+.eao-v2>.eao-motion-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+  opacity:.22;
+  contain:layout paint style;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.94) 0%,rgba(0,0,0,.78) 64%,rgba(0,0,0,.42) 100%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.94) 0%,rgba(0,0,0,.78) 64%,rgba(0,0,0,.42) 100%);
+}
+
+.eao-v2>.eao-motion-bg+.site-header,
+.eao-v2>nav,
+.eao-v2>main,
+.eao-v2>footer{
+  position:relative;
+  z-index:1;
+}
+
+.eao-motion-stage{
+  position:absolute;
+  left:-34vw;
+  top:-28vh;
+  width:168vw;
+  height:158vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+  gap:20px;
+  transform:rotate(-18deg) scale(1.04);
+  transform-origin:center;
+}
+
+.eao-motion-row{
+  position:relative;
+  flex:0 0 84px;
+  width:100%;
+  overflow:hidden;
+  opacity:.62;
+}
+
+.eao-motion-row::before{
+  content:"";
+  position:absolute;
+  inset:0 -1040px 0 0;
+  background-image:url("eao-icon-strip.svg");
+  background-repeat:repeat-x;
+  background-position:left center;
+  background-size:1040px 84px;
+  transform:translate3d(0,0,0);
+  will-change:transform;
+  animation:eao-icon-row-left 86s linear infinite;
+}
+
+.eao-motion-row:nth-child(even)::before{
+  transform:translate3d(-1040px,0,0);
+  animation-name:eao-icon-row-right;
+  animation-duration:94s;
+}
+
+.eao-motion-row:nth-child(3n)::before{animation-duration:104s}
+.eao-motion-row:nth-child(4n)::before{animation-duration:78s}
+.eao-motion-row:nth-child(2){opacity:.48}
+.eao-motion-row:nth-child(4){opacity:.54}
+.eao-motion-row:nth-child(6){opacity:.44}
+
+@keyframes eao-icon-row-left{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-1040px,0,0)}
+}
+
+@keyframes eao-icon-row-right{
+  from{transform:translate3d(-1040px,0,0)}
+  to{transform:translate3d(0,0,0)}
+}
+
+/* Keep content readable: stronger fade beneath major visual surfaces. */
+.eao-v2 .hero,
+.eao-v2 main>section{
+  isolation:isolate;
+}
+.eao-v2 .hero::marker{display:none}
+
+:root[data-theme="dark"] .eao-v2>.eao-motion-bg{
+  opacity:.25;
+  filter:brightness(1.35) saturate(1.05);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.90) 0%,rgba(0,0,0,.72) 68%,rgba(0,0,0,.38) 100%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.90) 0%,rgba(0,0,0,.72) 68%,rgba(0,0,0,.38) 100%);
+}
+
+@media(max-width:1040px){
+  .eao-motion-stage{
+    left:-62vw;
+    width:224vw;
+    top:-18vh;
+    height:144vh;
+    transform:rotate(-20deg) scale(1.02);
+  }
+  .eao-v2>.eao-motion-bg{opacity:.18}
+}
+
+@media(max-width:700px){
+  .eao-v2>.eao-motion-bg{opacity:.14}
+  .eao-motion-stage{
+    left:-110vw;
+    width:330vw;
+    top:-10vh;
+    height:126vh;
+    gap:9px;
+    transform:rotate(-23deg);
+  }
+  .eao-motion-row{flex-basis:72px}
+  .eao-motion-row::before{
+    background-size:892px 72px;
+    right:-892px;
+  }
+  .eao-motion-row:nth-child(6),
+  .eao-motion-row:nth-child(7){display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .eao-motion-row::before{
+    animation:none!important;
+    transform:translate3d(0,0,0)!important;
+  }
+}
+
