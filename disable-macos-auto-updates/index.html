@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" data-project="updates">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Disable macOS Auto Updates — Licat / 233</title>
+<meta name="description" content="A reversible, idempotent shell-based approach for disabling automatic macOS system update checks, downloads and installations while keeping manual update capability available.">
+<link rel="canonical" href="https://licat233.github.io/disable-macos-auto-updates/">
+<link rel="alternate" hreflang="en" href="https://licat233.github.io/disable-macos-auto-updates/">
+<link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/disable-macos-auto-updates/zh/">
+<link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+<script>
+(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+</script>
+<link rel="stylesheet" href="/assets/project-page.css">
+</head>
+<body>
+<header class="project-nav">
+  <div class="nav-row">
+    <a class="brand" href="/en/">
+      <img src="/assets/licat-logo.svg" alt="">
+      <span class="brand-text"><strong>LICAT / 233</strong><small>macOS update control</small></span>
+    </a>
+    <div class="nav-links"><a href="#highlights" class="is-active">Highlights</a><a href="#details">Details</a><a href="#use">Use</a><a href="#notes">Notes</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme" aria-pressed="false">
+<svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</button>
+      <a class="lang-btn" href="/disable-macos-auto-updates/zh/">中文</a>
+      <a class="repo-btn" href="https://github.com/licat233/disable-macos-auto-updates" target="_blank" rel="noreferrer"><span>GitHub</span><b>↗</b></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" data-ghost="UPDATE / CONTROL">
+  <div class="shell hero-grid">
+    <div>
+      <p class="eyebrow">UTILITY · SHELL · MIT</p>
+      <h1>Disable automatic updates. <em>Keep a way back.</em></h1>
+      <p class="lede">A reversible, idempotent shell-based approach for disabling automatic macOS system update checks, downloads and installations while keeping manual update capability available.</p>
+      <div class="actions">
+        <a class="btn primary" href="#highlights">Explore project ↓</a>
+        <a class="btn" href="https://github.com/licat233/disable-macos-auto-updates" target="_blank" rel="noreferrer">View source ↗</a>
+      </div>
+      <div class="meta-row"><span>Shell</span><span>MIT</span><span>Reversible</span><span>Manual updates stay available</span></div>
+    </div>
+    <div class="visual"><div class="visual-inner"><div class="terminal"><span class="dim">$</span> <strong>./disable-macos-updates.sh</strong><br><br><span class="accent">→</span> softwareupdate --schedule off<br><span class="accent">→</span> backup SoftwareUpdate preferences<br><span class="accent">→</span> set five automatic-update keys to 0<br><span class="accent">→</span> optionally hide the Dock badge<br><span class="accent">→</span> verify resulting state<br><br><span class="ok">✓ rollback on verification failure</span><br><br><span class="dim">$</span> <strong>./restore-macos-updates.sh</strong><br><span class="ok">✓ restore from backup / normal schedule</span></div></div></div>
+  </div>
+</section>
+<section class="section" id="highlights"><div class="shell"><div class="section-head"><div><p class="kicker">01 / DESIGN</p><h2>Control the policy without breaking manual maintenance.</h2></div><p class="section-note">The scripts do not disable the softwareupdated daemon or redirect Apple's update server, so System Settings and the softwareupdate command remain available for manual maintenance.</p></div><div class="cards">
+<article class="card"><b class="num">01</b><h3>Reversible</h3><p>Relevant preference files are backed up before modification, and a companion restore script returns automatic update behavior.</p></article>
+<article class="card"><b class="num">02</b><h3>Idempotent</h3><p>The project is designed to be safe to run again rather than assuming a pristine state every time.</p></article>
+<article class="card"><b class="num">03</b><h3>Verification + rollback</h3><p>The disable script checks the resulting values and automatically rolls back when verification fails.</p></article>
+</div></div></section>
+<section class="section" id="details"><div class="shell"><div class="section-head"><div><p class="kicker">02 / WHAT CHANGES</p><h2>Five update preferences plus the schedule.</h2></div><p class="section-note">The Dock badge change is optional and can be preserved with a flag.</p></div><div class="table">
+<div class="table-row"><b>Schedule</b><span>softwareupdate --schedule off</span></div>
+<div class="table-row"><b>AutomaticCheckEnabled</b><span>Disabled</span></div>
+<div class="table-row"><b>AutomaticDownload</b><span>Disabled</span></div>
+<div class="table-row"><b>AutomaticallyInstallMacOSUpdates</b><span>Disabled</span></div>
+<div class="table-row"><b>ConfigDataInstall</b><span>Disabled</span></div>
+<div class="table-row"><b>CriticalUpdateInstall</b><span>Disabled</span></div>
+</div></div></section>
+<section class="section" id="use"><div class="shell"><div class="section-head"><div><p class="kicker">03 / USE</p><h2>One script to disable, one to restore.</h2></div><p class="section-note">The scripts request administrator privileges through sudo. They contain no password and do not require network access.</p></div>
+<pre class="code"><span class="accent">chmod +x</span> disable-macos-updates.sh restore-macos-updates.sh
+<span class="accent">./disable-macos-updates.sh</span>
+
+# keep the System Settings Dock badge
+./disable-macos-updates.sh --keep-dock-badge
+
+# restore automatic updates
+<span class="accent">./restore-macos-updates.sh</span></pre></div></section>
+<section class="section" id="notes"><div class="shell"><div class="callout"><h3>Security trade-off</h3><p>Disabling automatic updates also disables automatic configuration-data and critical-security-update installation. That increases long-term exposure to known vulnerabilities. The repository recommends checking and installing updates manually on a regular schedule.</p></div><div class="note">The README describes the approach as designed for macOS Catalina and newer, with explicit support noted for macOS 13 Ventura and macOS 14 Sonoma. Apple may change update policy in future releases, so script output should be reviewed before relying on it.</div></div></section>
+</main>
+
+<footer class="footer"><div class="shell footer-row">
+  <span>A featured Licat project · The GitHub repository remains the source of truth.</span>
+  <div><a href="/en/">Back to portfolio</a> · <a href="https://github.com/licat233/disable-macos-auto-updates" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</div></footer>
+<script src="/assets/project-page.js"></script>
+</body>
+</html>
