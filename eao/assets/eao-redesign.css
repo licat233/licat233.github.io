@@ -169,6 +169,16 @@ body.eao-v2::before{
   font-size:11px;
   letter-spacing:.16em;
 }
+.eao-v2 .kicker{
+  position:relative;
+  z-index:2;
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:0 0 22px;
+  line-height:1.45;
+  font-weight:800;
+}
 .eao-v2 .hero .eyebrow{
   display:inline-flex;
   align-items:center;
@@ -292,12 +302,22 @@ body.eao-v2::before{
   border-bottom:1px solid var(--eao-line);
 }
 .eao-v2 .section-title{
+  position:relative;
+  z-index:1;
   max-width:1050px;
-  margin:10px 0 20px;
-  font-size:clamp(40px,5.2vw,68px);
-  line-height:1.02;
-  letter-spacing:-.052em;
+  margin:0 0 22px;
+  font-size:clamp(38px,4.8vw,64px);
+  line-height:1.08;
+  letter-spacing:-.045em;
   font-weight:790;
+}
+
+/* Chinese editorial headings need reading rhythm, not poster-scale typography. */
+html[lang="zh-CN"] .eao-v2 .section-title{
+  max-width:980px;
+  font-size:clamp(36px,4.1vw,54px);
+  line-height:1.16;
+  letter-spacing:-.035em;
 }
 .eao-v2 .intro{
   max-width:900px;
@@ -518,10 +538,19 @@ body.eao-v2::before{
 }
 .eao-v2 .cta .wrap{position:relative;z-index:1}
 .eao-v2 .cta h2{
+  position:relative;
+  z-index:1;
   max-width:1050px;
-  font-size:clamp(48px,6.4vw,84px);
-  line-height:.98;
-  letter-spacing:-.06em;
+  margin:0 0 22px;
+  font-size:clamp(46px,5.8vw,76px);
+  line-height:1.04;
+  letter-spacing:-.05em;
+}
+html[lang="zh-CN"] .eao-v2 .cta h2{
+  max-width:980px;
+  font-size:clamp(40px,4.8vw,64px);
+  line-height:1.12;
+  letter-spacing:-.04em;
 }
 .eao-v2 .cta p{color:var(--eao-muted)}
 
@@ -567,7 +596,18 @@ body.eao-v2::before{
   .eao-v2 .lead{font-size:17px}
   .eao-v2 .meta{grid-template-columns:1fr;gap:8px}
   .eao-v2 main>section:not(.hero){padding:76px 0}
-  .eao-v2 .section-title{font-size:clamp(36px,11vw,48px)}
+  .eao-v2 .kicker{margin-bottom:16px;font-size:10px;line-height:1.5}
+  .eao-v2 .section-title{
+    margin-bottom:18px;
+    font-size:clamp(32px,9.2vw,42px);
+    line-height:1.12;
+    letter-spacing:-.035em;
+  }
+  html[lang="zh-CN"] .eao-v2 .section-title{
+    font-size:clamp(30px,8.6vw,40px);
+    line-height:1.18;
+    letter-spacing:-.025em;
+  }
   .eao-v2 .pain-grid,.eao-v2 .value-grid{grid-template-columns:1fr}
   .eao-v2 .pain-card:nth-child(n),.eao-v2 .value-card:nth-child(n){grid-column:1}
   .eao-v2 .pain-card,.eao-v2 .value-card{min-height:190px;padding:24px}
@@ -587,7 +627,15 @@ body.eao-v2::before{
   .eao-v2 .faq-group{padding-left:15px;padding-right:0}
   .eao-v2 .faq-item summary{font-size:16px}
   .eao-v2 .cta{padding:84px 0 82px}
-  .eao-v2 .cta h2{font-size:clamp(42px,12vw,58px)}
+  .eao-v2 .cta h2{
+    margin-bottom:18px;
+    font-size:clamp(36px,10vw,50px);
+    line-height:1.08;
+  }
+  html[lang="zh-CN"] .eao-v2 .cta h2{
+    font-size:clamp(34px,9.2vw,46px);
+    line-height:1.16;
+  }
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -599,4 +647,8 @@ body.eao-v2::before{
   .eao-v2 nav,.eao-v2 .pain-card,.eao-v2 .value-card,.eao-v2 .visual-caption{
     background:rgba(255,255,255,.95)
   }
+}
+
+html[lang="zh-CN"] .eao-v2 .kicker{
+  letter-spacing:.10em;
 }
