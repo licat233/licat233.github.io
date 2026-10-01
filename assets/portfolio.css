@@ -327,7 +327,7 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
 .system-flow {
   position: absolute;
   z-index: 4;
-  top: -4vh;
+  top: 4vh;
   right: -9vw;
   width: min(1980px, 118vw);
   height: min(780px, 68vh);
@@ -971,7 +971,7 @@ html[lang="zh-CN"] .hero-title {
   .hero-inline-note { width: 215px; }
   .hero-badge { left: 58%; top: 61%; }
   .system-flow {
-    top: -3vh;
+    top: 2vh;
     right: -32vw;
     width: 146vw;
     height: 62vh;
@@ -1017,7 +1017,7 @@ html[lang="zh-CN"] .hero-title {
   }
 
   .system-flow {
-    top: -18px;
+    top: 8px;
     right: -470px;
     width: 1120px;
     height: 470px;
