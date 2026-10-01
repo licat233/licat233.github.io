@@ -327,20 +327,36 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
 .system-flow {
   position: absolute;
   z-index: 4;
-  top: -15vh;
-  right: -12vw;
-  width: min(1700px, 112vw);
-  height: min(820px, 72vh);
+  top: -17vh;
+  right: -9vw;
+  width: min(1980px, 118vw);
+  height: min(780px, 68vh);
   pointer-events: none;
-  filter: drop-shadow(0 34px 55px rgba(15,107,161,.14));
+  filter: drop-shadow(0 28px 50px rgba(43,125,167,.10));
   will-change: transform;
 }
-.system-flow svg { width: 100%; height: 100%; overflow: visible; }
-.system-flow path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.flow-shadow { stroke: rgba(7,77,118,.10); stroke-width: 118; }
-.flow-main { stroke-width: 82; }
-.flow-highlight { stroke-width: 10; opacity: .46; }
-.flow-thread { stroke: rgba(255,255,255,.56); stroke-width: 2; opacity: .64; }
+.system-flow svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.flow-ribbon-shadow,
+.flow-ribbon-back,
+.flow-ribbon-main,
+.flow-ribbon-front {
+  stroke: none;
+}
+.flow-ribbon-shadow { opacity: .82; }
+.flow-ribbon-back { opacity: .88; }
+.flow-ribbon-main { opacity: .95; }
+.flow-ribbon-front { opacity: .72; }
+.flow-rim {
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
 
 .flow-glow {
   position: absolute;
@@ -868,6 +884,15 @@ html[lang="zh-CN"] .hero-title {
 :root[data-theme="dark"] .lang { background: rgba(255,255,255,.08); }
 :root[data-theme="dark"] .lang a[aria-current="page"] { background: #f5f5f7; color:#111; }
 :root[data-theme="dark"] .hero-ghost { -webkit-text-stroke-color: rgba(255,255,255,.055); }
+:root[data-theme="dark"] .system-flow {
+  opacity: .72;
+  filter: drop-shadow(0 24px 44px rgba(0,0,0,.20));
+}
+:root[data-theme="dark"] .flow-ribbon-shadow { opacity: .46; }
+:root[data-theme="dark"] .flow-ribbon-back { opacity: .64; }
+:root[data-theme="dark"] .flow-ribbon-main { opacity: .78; }
+:root[data-theme="dark"] .flow-ribbon-front { opacity: .56; }
+:root[data-theme="dark"] .flow-rim { opacity: .34; }
 :root[data-theme="dark"] .hero-wrap {
   background:
     radial-gradient(circle at 14% 22%, rgba(20,36,45,.58), transparent 32%),
@@ -945,7 +970,12 @@ html[lang="zh-CN"] .hero-title {
   html[lang="zh-CN"] .hero-title { font-size: clamp(82px, 11vw, 124px); }
   .hero-inline-note { width: 215px; }
   .hero-badge { left: 58%; top: 61%; }
-  .system-flow { right: -28vw; width: 132vw; }
+  .system-flow {
+    top: -12vh;
+    right: -32vw;
+    width: 146vw;
+    height: 62vh;
+  }
   .hero-scene { left: 43%; opacity: .62; }
   .project:nth-child(n) { grid-column: span 6; }
 }
@@ -987,10 +1017,10 @@ html[lang="zh-CN"] .hero-title {
   }
 
   .system-flow {
-    top: -82px;
-    right: -410px;
-    width: 1050px;
-    height: 560px;
+    top: -70px;
+    right: -470px;
+    width: 1120px;
+    height: 470px;
     opacity: .88;
   }
   .flow-glow-a { width:430px; height:430px; right:-130px; top:-40px; }
