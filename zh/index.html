@@ -74,24 +74,102 @@
       <div class="flow-glow flow-glow-b" aria-hidden="true"></div>
 
       <div class="system-flow" aria-hidden="true">
-        <svg viewBox="0 0 1500 720" preserveAspectRatio="none">
+        <svg viewBox="0 0 1800 660" preserveAspectRatio="none">
           <defs>
-            <linearGradient id="licat-flow-zh" x1="0%" y1="20%" x2="100%" y2="80%">
-              <stop offset="0%" stop-color="#66d7ff"/>
-              <stop offset="42%" stop-color="#0b8fd3"/>
-              <stop offset="72%" stop-color="#08bfa9"/>
-              <stop offset="100%" stop-color="#ffcf52"/>
+            <linearGradient id="flow-blue-zh" x1="0%" y1="62%" x2="100%" y2="22%">
+              <stop offset="0%" stop-color="#45b8f1" stop-opacity=".76"/>
+              <stop offset="34%" stop-color="#168fd5" stop-opacity=".93"/>
+              <stop offset="67%" stop-color="#28c8df" stop-opacity=".82"/>
+              <stop offset="100%" stop-color="#69e0e0" stop-opacity=".62"/>
             </linearGradient>
-            <linearGradient id="licat-shine-zh" x1="0%" x2="100%">
+            <linearGradient id="flow-cyan-zh" x1="0%" y1="70%" x2="100%" y2="18%">
+              <stop offset="0%" stop-color="#9fe8f8" stop-opacity=".34"/>
+              <stop offset="38%" stop-color="#5bd7ed" stop-opacity=".58"/>
+              <stop offset="72%" stop-color="#31d5cf" stop-opacity=".76"/>
+              <stop offset="100%" stop-color="#86eee3" stop-opacity=".50"/>
+            </linearGradient>
+            <linearGradient id="flow-light-zh" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-              <stop offset="48%" stop-color="#ffffff"/>
+              <stop offset="28%" stop-color="#ffffff" stop-opacity=".74"/>
+              <stop offset="72%" stop-color="#e8ffff" stop-opacity=".82"/>
               <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
             </linearGradient>
+            <linearGradient id="flow-shadow-zh" x1="0%" y1="50%" x2="100%" y2="20%">
+              <stop offset="0%" stop-color="#8ab8d1" stop-opacity=".12"/>
+              <stop offset="52%" stop-color="#6ba5c4" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#84cfda" stop-opacity=".08"/>
+            </linearGradient>
           </defs>
-          <path class="flow-shadow" d="M1580,55 C1280,8 1190,185 1010,220 C820,257 760,110 590,145 C430,178 452,360 288,390 C120,421 62,307 -110,350"/>
-          <path class="flow-main" d="M1580,55 C1280,8 1190,185 1010,220 C820,257 760,110 590,145 C430,178 452,360 288,390 C120,421 62,307 -110,350" stroke="url(#licat-flow-zh)"/>
-          <path class="flow-highlight" d="M1570,35 C1270,2 1192,168 1010,205 C825,242 760,95 590,131 C430,165 450,345 286,376 C120,407 60,293 -110,336" stroke="url(#licat-shine-zh)"/>
-          <path class="flow-thread" d="M1500,145 C1230,120 1130,290 940,300 C770,308 720,216 562,245 C430,270 405,440 240,457"/>
+
+          <path class="flow-ribbon-shadow"
+            d="M-150 242
+               C120 306 284 388 458 332
+               C620 280 672 56 864 28
+               C1068 -2 1134 132 1352 116
+               C1530 104 1636 6 1880 -30
+               L1880 82
+               C1654 116 1546 214 1362 224
+               C1134 238 1044 102 876 130
+               C690 162 654 372 474 432
+               C276 498 86 404 -150 340 Z"
+            fill="url(#flow-shadow-zh)"/>
+
+          <path class="flow-ribbon-back"
+            d="M-160 198
+               C96 256 290 334 446 290
+               C624 240 674 24 864 0
+               C1060 -24 1140 94 1342 84
+               C1528 76 1662 -8 1880 -30
+               L1880 34
+               C1650 62 1532 150 1346 164
+               C1134 178 1058 62 872 88
+               C690 112 646 320 462 372
+               C286 420 84 334 -160 278 Z"
+            fill="url(#flow-cyan-zh)"/>
+
+          <path class="flow-ribbon-main"
+            d="M-160 226
+               C94 286 282 362 446 314
+               C610 266 682 76 856 42
+               C1056 2 1146 118 1344 108
+               C1530 98 1648 26 1880 -12
+               L1880 64
+               C1658 102 1540 184 1352 192
+               C1136 202 1058 88 872 122
+               C700 154 650 342 470 394
+               C286 448 86 366 -160 306 Z"
+            fill="url(#flow-blue-zh)"/>
+
+          <path class="flow-ribbon-front"
+            d="M-148 266
+               C100 326 286 394 460 348
+               C616 306 688 138 850 98
+               C1048 48 1140 152 1348 148
+               C1536 144 1668 72 1886 40
+               L1886 88
+               C1662 124 1542 198 1358 208
+               C1138 220 1060 112 878 150
+               C714 184 656 360 478 412
+               C290 466 86 388 -148 330 Z"
+            fill="url(#flow-cyan-zh)"
+            opacity=".72"/>
+
+          <path class="flow-rim flow-rim-a"
+            d="M-130 220
+               C112 276 288 348 446 302
+               C612 254 680 76 858 42
+               C1056 2 1148 116 1344 106
+               C1534 98 1652 28 1870 -6"
+            stroke="url(#flow-light-zh)"/>
+
+          <path class="flow-rim flow-rim-b"
+            d="M-118 322
+               C112 374 294 430 462 388
+               C622 348 696 176 856 136
+               C1046 88 1140 184 1346 180
+               C1530 178 1654 114 1860 82"
+            stroke="url(#flow-light-zh)"
+            opacity=".58"/>
         </svg>
       </div>
 
