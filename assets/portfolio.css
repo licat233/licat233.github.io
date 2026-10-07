@@ -13,6 +13,26 @@
   --nav-active-fg: #ffffff;
   --max: 1240px;
 
+  /* Licat semantic scale — backed by Open Props 1.7.23 */
+  --space-1: var(--size-1);
+  --space-2: var(--size-2);
+  --space-3: var(--size-3);
+  --space-4: var(--size-4);
+  --space-5: var(--size-5);
+  --space-6: var(--size-6);
+  --space-7: var(--size-7);
+  --space-8: var(--size-8);
+  --space-9: var(--size-9);
+  --space-10: var(--size-10);
+
+  --radius-control: var(--radius-2);
+  --radius-card: var(--radius-3);
+  --radius-panel: var(--radius-4);
+  --radius-round: var(--radius-round);
+
+  --ease-ui: var(--ease-3);
+  --ease-emphasized: var(--ease-5);
+
   --apple-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   --apple-glass-blur: 24px;
   --apple-glass-saturate: 180%;
