@@ -461,16 +461,17 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
   position: relative;
   z-index: 6;
   margin: 0;
-  max-width: min(1240px, 92vw);
+  max-width: min(1180px, 90vw);
   color: var(--text);
-  font-size: clamp(82px, 8.85vw, 146px);
+  font-size: clamp(72px, 7.45vw, 124px);
   font-weight: 840;
-  line-height: .86;
-  letter-spacing: -.07em;
+  line-height: .90;
+  letter-spacing: -.062em;
 }
 html[lang="zh-CN"] .hero-title {
-  font-size: clamp(92px, 10.2vw, 164px);
-  letter-spacing: -.078em;
+  font-size: clamp(78px, 8.4vw, 136px);
+  line-height: .92;
+  letter-spacing: -.06em;
 }
 .hero-line {
   display: flex;
@@ -966,8 +967,8 @@ html[lang="zh-CN"] .hero-title {
     min-height: 100dvh;
     padding-top: clamp(156px, 17vh, 188px);
   }
-  .hero-title { font-size: clamp(72px, 9.6vw, 108px); }
-  html[lang="zh-CN"] .hero-title { font-size: clamp(82px, 11vw, 124px); }
+  .hero-title { font-size: clamp(64px, 8.4vw, 96px); }
+  html[lang="zh-CN"] .hero-title { font-size: clamp(70px, 9.3vw, 108px); }
   .hero-inline-note { width: 215px; }
   .hero-badge { left: 58%; top: 61%; }
   .system-flow {
@@ -1048,11 +1049,15 @@ html[lang="zh-CN"] .hero-title {
   }
 
   .eyebrow { margin-bottom:18px; font-size:9px; }
-  .hero-title,
+  .hero-title {
+    max-width: 100%;
+    font-size: clamp(50px, 14.8vw, 72px);
+    line-height:.92;
+  }
   html[lang="zh-CN"] .hero-title {
     max-width: 100%;
-    font-size: clamp(56px, 16.5vw, 82px);
-    line-height:.90;
+    font-size: clamp(52px, 15.2vw, 74px);
+    line-height:.94;
   }
   .hero-line { gap:8px; }
   .hero-line-mixed { margin:5px 0; }
@@ -1095,8 +1100,8 @@ html[lang="zh-CN"] .hero-title {
   .hero {
     padding-top: 150px;
   }
-  .hero-title,
-  html[lang="zh-CN"] .hero-title { font-size: clamp(52px, 16vw, 70px); }
+  .hero-title { font-size: clamp(46px, 14.2vw, 64px); }
+  html[lang="zh-CN"] .hero-title { font-size: clamp(48px, 14.6vw, 66px); }
   .hero-paren { font-size:.62em; }
   .hero-logo-token { width:42px; height:42px; }
   .hero-signal { min-height:38px; padding:0 9px; }
