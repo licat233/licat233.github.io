@@ -11,7 +11,7 @@
   --teal: #0cb9a5;
   --yellow: #f2c84b;
   --nav-active-fg: #ffffff;
-  --max: 1240px;
+  --max: 77.5rem;
 
   /* Licat semantic scale — backed by Open Props 1.7.23 */
   --space-1: var(--size-1);
@@ -78,7 +78,7 @@ body::before {
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
-.shell { width: min(var(--max), calc(100% - 42px)); margin: 0 auto; }
+.shell { width: min(var(--max), calc(100% - 2.625rem)); margin: 0 auto; }
 
 /* Apple material: kept as material, not composition */
 .apple-glass-base {
@@ -968,18 +968,18 @@ html[lang="zh-CN"] .hero-title {
 
 /* Responsive */
 @media (max-width: 1050px) {
-  .site-header { border-radius: 28px; }
+  .site-header { border-radius: 1.75rem; }
   .nav {
     grid-template-columns: 1fr auto;
-    row-gap: 3px;
-    padding-bottom: 9px;
+    row-gap: .1875rem;
+    padding-bottom: .5625rem;
   }
   .nav-links {
     grid-column: 1 / -1;
     grid-row: 2;
     justify-content: flex-start;
     width: 100%;
-    padding: 3px;
+    padding: .1875rem;
   }
 
   .hero {
@@ -1002,28 +1002,28 @@ html[lang="zh-CN"] .hero-title {
 }
 
 @media (max-width: 760px) {
-  .shell { width:min(var(--max),calc(100% - 28px)); }
+  .shell { width:min(var(--max),calc(100% - 1.75rem)); }
 
   .site-header {
     position: fixed;
-    top: 10px;
-    width: calc(100% - 20px);
+    top: .625rem;
+    width: calc(100% - 1.25rem);
     margin: 0 auto;
-    border-radius: 24px;
+    border-radius: 1.5rem;
   }
-  .nav { min-height:62px; padding:7px 8px 9px 11px; row-gap: 4px; }
-  .brand img { width:34px; height:34px; }
+  .nav { min-height:3.875rem; padding:.4375rem .5rem .5625rem .6875rem; row-gap: var(--space-1); }
+  .brand img { width:2.125rem; height:2.125rem; }
   .nav-links {
-    margin-top: 2px;
-    padding-inline: 3px;
+    margin-top: .125rem;
+    padding-inline: .1875rem;
     scroll-padding-inline: 34%;
   }
-  .nav-pill { padding: 9px 13px; font-size: 12px; }
-  .theme-toggle { width:38px; height:38px; flex-basis:38px; }
-  .theme-toggle-track,.theme-icon { width:17px; height:17px; }
+  .nav-pill { padding: .5625rem .8125rem; font-size: .75rem; }
+  .theme-toggle { width:2.375rem; height:2.375rem; flex-basis:2.375rem; }
+  .theme-toggle-track,.theme-icon { width:1.0625rem; height:1.0625rem; }
   .github-cta span,.github-mark { display:none; }
-  .github-cta { padding:4px; background:transparent; box-shadow:none; }
-  .lang a { min-width:30px; padding:7px; }
+  .github-cta { padding:var(--space-1); background:transparent; box-shadow:none; }
+  .lang a { min-width:1.875rem; padding:.4375rem; }
 
   .hero-wrap {
     min-height: 100svh;
@@ -1101,17 +1101,17 @@ html[lang="zh-CN"] .hero-title {
   }
   .hero-resources { max-width:100%; }
 
-  .section { padding:68px 0; }
-  .section-head { align-items:start; flex-direction:column; gap:15px; }
+  .section { padding:4.25rem 0; }
+  .section-head { align-items:start; flex-direction:column; gap:.9375rem; }
   .section-note { text-align:left; }
   .projects { grid-template-columns:1fr; }
-  .project:nth-child(n) { grid-column:1; min-height:275px; }
+  .project:nth-child(n) { grid-column:1; min-height:17.1875rem; }
   .timeline { grid-template-columns:1fr; gap:0; }
-  .timeline::before { top:17px; bottom:30px; left:17px; right:auto; width:1px; height:auto; }
-  .phase { padding:0 0 38px 58px; }
-  .phase-dot { top:-4px; }
+  .timeline::before { top:1.0625rem; bottom:1.875rem; left:1.0625rem; right:auto; width:1px; height:auto; }
+  .phase { padding:0 0 2.375rem 3.625rem; }
+  .phase-dot { top:-.25rem; }
   .principles { grid-template-columns:1fr; }
-  .footer-row { min-height:0; padding:30px 0; grid-template-columns:1fr; gap:20px; }
+  .footer-row { min-height:0; padding:1.875rem 0; grid-template-columns:1fr; gap:var(--space-4); }
   .footer-note { justify-self:start; text-align:left; }
 }
 
@@ -1132,7 +1132,7 @@ html[lang="zh-CN"] .hero-title {
 
 #projects,
 #journey,
-#principles { scroll-margin-top: 150px; }
+#principles { scroll-margin-top: 9.375rem; }
 
 @supports (animation-timeline: view(inline)) {
   @media (max-width: 1050px) {
