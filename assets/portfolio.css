@@ -28,7 +28,7 @@
   --radius-control: var(--radius-2);
   --radius-card: var(--radius-3);
   --radius-panel: var(--radius-4);
-  --radius-round: var(--radius-round);
+  --radius-pill: var(--radius-round);
 
   --ease-ui: var(--ease-3);
   --ease-emphasized: var(--ease-5);
@@ -101,7 +101,7 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
   z-index: 80;
   width: min(var(--max), calc(100% - 2.625rem));
   margin: 0 auto;
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
 }
 .site-header .shell { width: 100%; }
 .nav {
@@ -157,7 +157,7 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
   left: 0;
   width: var(--nav-indicator-w);
   height: calc(100% - .375rem);
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
   background: var(--text);
   box-shadow:
     0 6px 18px rgba(0,0,0,.10),
@@ -183,7 +183,7 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
   align-items: center;
   gap: .4375rem;
   padding: .625rem .9375rem;
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
   color: var(--text-2);
   background: transparent;
   font-size: .8125rem;
@@ -266,13 +266,13 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
 .lang {
   display: inline-flex;
   padding: .1875rem;
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
   background: rgba(255,255,255,.50);
 }
 .lang a {
   min-width: 2.125rem;
   padding: var(--space-2) .5625rem;
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
   color: var(--muted);
   text-align: center;
   font-size: .6875rem;
@@ -284,7 +284,7 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
   align-items: center;
   gap: var(--space-2);
   padding: .3125rem .3125rem .3125rem .875rem;
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
   background: rgba(255,255,255,.78);
   box-shadow: 0 4px 14px rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,.88);
   font-size: .8125rem;
@@ -536,7 +536,7 @@ html[lang="zh-CN"] .hero-title {
   align-items: center;
   min-height: clamp(2.875rem, 4vw, 4rem);
   padding: 0 1.125rem;
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
   color: #fff;
   background: linear-gradient(135deg, #0a85c4, #0aa897);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.32), 0 18px 30px rgba(0,119,200,.16);
@@ -590,7 +590,7 @@ html[lang="zh-CN"] .hero-title {
   gap: 1.375rem;
   padding: var(--space-2) var(--space-2) var(--space-2) 1.25rem;
   border: 1px solid rgba(255,255,255,.74);
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
   background: rgba(255,255,255,.58);
   box-shadow: 0 8px 24px rgba(24,65,87,.07), inset 0 1px 0 rgba(255,255,255,.8);
   backdrop-filter: blur(18px) saturate(180%);
@@ -737,7 +737,7 @@ html[lang="zh-CN"] .hero-title {
 .tags { display: flex; flex-wrap: wrap; gap: .375rem; margin-top: 1.1875rem; }
 .tag {
   padding: .3125rem var(--space-2);
-  border-radius: var(--radius-round);
+  border-radius: var(--radius-pill);
   color: #3f7189;
   background: rgba(235,247,251,.68);
   border: 1px solid rgba(255,255,255,.50);
