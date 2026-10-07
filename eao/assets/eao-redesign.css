@@ -127,7 +127,7 @@ body.eao-v2::before{
   min-height:100dvh;
   display:flex;
   align-items:center;
-  padding:132px 0 80px;
+  padding:112px 0 56px;
   overflow:hidden;
   border-bottom:0;
 }
