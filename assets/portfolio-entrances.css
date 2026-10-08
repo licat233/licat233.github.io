@@ -1,0 +1,17 @@
+/* Portfolio entrance choreography. Derived from approved /demo/ version.
+   Only the original grid geometry participates; animation uses transforms
+   and opacity and must not create scroll height. */
+#projects { overflow-x: clip; overflow-y: visible; }
+#projects .section-head { position: relative; z-index: 2; }
+.projects { perspective: 1300px; }
+.section-head { perspective: 1400px; }
+.section-head h2 { transform-style: preserve-3d; }
+.principles { perspective: 1100px; position: relative; }
+/* Clip 3D folding edges on narrow viewports, not vertical scroll. */
+#principles, .site-footer { overflow-x: clip; }
+.timeline { position: relative; }
+.section-head { overflow-x: clip; overflow-y: visible; }
+.section-head h2 { transform-origin: 50% 50%; }
+@media (prefers-reduced-motion: reduce) {
+  #projects .project { opacity: 1 !important; visibility: visible !important; transform: none !important; }
+}
