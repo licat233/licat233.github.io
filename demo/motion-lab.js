@@ -13,9 +13,15 @@
     block: "start"
   });
 
+  // Replay remains functional on mobile, with reduced motion, and without GSAP.
+  let activeScene = null;
+  replay?.addEventListener("click", () => {
+    jumpToScene();
+    activeScene?.restart();
+  });
+
   // Browsing must always work without the animation engine or on reduced motion.
   if (!gsap || !ScrollTrigger || reduced.matches) {
-    replay?.addEventListener("click", jumpToScene);
     document.documentElement.dataset.motionLabState = "static";
     return;
   }
@@ -78,6 +84,7 @@
     scene.to(second, { autoAlpha: 0, y: -8, duration: .21 }, 1.47);
     scene.to(third, { autoAlpha: 1, y: 0, duration: .36, ease: "power2.out" }, 1.65);
     scene.to(meter, { scaleX: 1, duration: 2.06, ease: "none" }, 0);
+    activeScene = scene;
 
     // No pin, no forced extra scroll, and no 0.7s catch-up lag.
     // The page scrolls normally; the animation runs when the story becomes visible.
@@ -89,10 +96,8 @@
       onLeaveBack: () => scene.reverse()
     });
 
-    const onReplay = () => { jumpToScene(); scene.restart(); };
-    replay?.addEventListener("click", onReplay);
     return () => {
-      replay?.removeEventListener("click", onReplay);
+      activeScene = null;
       trigger.kill();
       scene.kill();
       gsap.set(
