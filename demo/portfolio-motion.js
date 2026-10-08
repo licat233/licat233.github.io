@@ -330,9 +330,10 @@
           }, .46);
         }
 
-        // Apple-style pacing: animation *duration* in scrub mode is the scroll
-        // distance, not the tween's seconds. Keep the first motion in view,
-        // give it ample scroll travel, and leave a stable end-state interval.
+        // A scrubbed animation is constrained by the space in which its target
+        // is VISIBLE, not merely the page's maxScroll value. Finish each
+        // element near the middle of the viewport, well before it scrolls
+        // behind the fixed header. Reserve the last 15% for a settled view.
         const visibleScrollRange = (
           position, startRatio, travelFactor, reserve = 35
         ) => {
@@ -396,7 +397,7 @@
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: head,
-              ...createRange(head, .76, desktop ? .57 : .54),
+              ...createRange(head, .87, desktop ? .40 : .39),
               scrub: true,
               invalidateOnRefresh: true
             }
@@ -467,8 +468,8 @@
                 trigger: grid,
                 ...groupRange(
                   grid, group[0],
-                  rowIndex === 0 ? .78 : .75,
-                  desktop ? .70 : .67
+                  rowIndex === 0 ? .90 : .89,
+                  desktop ? .53 : .51
                 ),
                 scrub: true, // frame-accurate, NO 0.7s catch-up delay
                 invalidateOnRefresh: true,
@@ -483,7 +484,18 @@
               const spin = (cardIndex % 2 ? 1 : -1) * (desktop ? 13 : 8);
 
               const x = () => directionX * (window.innerWidth + card.offsetWidth + 80);
-              const y = () => directionY * (window.innerHeight + card.offsetHeight + 50);
+              const y = () => {
+                const distance = window.innerHeight + card.offsetHeight + 50;
+                if (directionY <= 0) return directionY * distance;
+                // A card positioned BELOW the page body increases document
+                // scrollHeight before it flies in. That invalidates all end-of-
+                // page scroll boundaries when its transform later returns to 0.
+                // Keep the offscreen start INSIDE the document's real height.
+                const naturalBottom = absTop(grid) + card.offsetTop + card.offsetHeight;
+                const bodyBottom = document.body.offsetHeight;
+                const available = Math.max(0, bodyBottom - naturalBottom - 110);
+                return Math.min(distance, available);
+              };
               const begin = withinRow * .10;
               // 60%+ of the scene is a legible approach from beyond the edge.
               tl.fromTo(card, {
@@ -536,7 +548,7 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: timelineGrid,
-                ...groupRange(timelineGrid, group[0], .74, desktop ? .46 : .45),
+                ...groupRange(timelineGrid, group[0], .88, desktop ? .44 : .43),
                 scrub: true,
                 invalidateOnRefresh: true
               }
@@ -578,7 +590,7 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: principlesGrid,
-                ...groupRange(principlesGrid, group[0], .75, desktop ? .59 : .55),
+                ...groupRange(principlesGrid, group[0], .89, desktop ? .47 : .46),
                 scrub: true,
                 invalidateOnRefresh: true
               }

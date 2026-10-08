@@ -1,26 +1,34 @@
-# Licat GSAP Motion Lab — Scroll-paced scenes
+# Licat — GSAP reversible motion, visibility-bound pacing
 
-Only /demo/ changes; original / and /zh/ /en/ remain unchanged.
+Scope: /demo/ only. Production /zh/ and /en/ are not modified.
 
-Pacing inspired by studying Apple product pages and GSAP official ScrollTrigger
-guidance. **Not** a copy of Apple's private animation system.
+Fix for the long-travel and false-scroll-height regressions:
 
-Reversible scroll choreography with no pin, scroll lock or delayed scrub:
+A scroll trigger reaching 100% by maxScroll is not enough. The content must
+settle WHILE IT IS IN THE VIEWPORT, instead of after it crosses the sticky
+header. This demo ties each entrance's start/end to the element's natural
+(untransformed) top position.
 
-- Section headings: ~0.54–0.57 viewport-height travel (around 486–513px
-  on a 900px screen). SplitText uses masked, staggered character transforms.
-- Project cards: 0.67–0.70 viewport-height travel (about 600–630px on 900px),
-  starting with card top in the visible lower viewport.
-  Flight (68 timeline units) → precision settling (22) → held final frame
-  (15% of full scroll range), still completely reversible.
-- Journey milestones: ~0.45–0.46 viewport-height travel.
-- Principles: ~0.55–0.59 viewport-height travel.
-- Footer: shorter ~0.17 viewport-height travel, with a completed final state.
-- Section titles, milestones, principles and footer also hold their final
-  arrangement for the last 15% of their scroll ranges.
+- Section headings: begin near 87% viewport height, settle near 47%.
+- Projects: retain eight distinct offscreen directional flights. Begin around
+  89-90% viewport height, settle near 37-38%.
+- Journey milestones: begin near 88%, settle near 44%.
+- Principles: begin near 89%, settle near 42-43%.
+- For bottom-origin flights, cap the offscreen displacement to the stable
+  document body height. Previously the last project inflated scrollHeight by
+  145px on a tall tablet viewport, so ScrollTrigger computed a false maximum
+  and failed to complete the last Principles animation.
+- The footer uses its own short visible range.
+- The last 15% of each scrub timeline holds the finished state; scrolling
+  upward reverses the same path.
+- Modest footer-internal breathing room (~8–10rem instead of >14rem) suffices
+  for the last section. No pin, scroll lock, external dependencies, or layout
+  changes to the original Bento cards.
 
-A modest amount of *footer-internal* bottom breathing room gives the final
-principles enough natural scroll distance to complete on desktop and mobile.
-This is not a separate spacer section and does not fix/pin any content.
-All scene boundaries are clamped to real maximum scroll distance. CSS grid
-geometry never changes, and reduced-motion keeps all content static.
+At a 900px viewport, project flights now span ~477px, not ~630px. This is
+intentional: a longer duration with no pin or extended physical section can
+make the animation invisible or hide finished content beneath the nav.
+
+Responsive breakpoints, keyboard-accessible content and reduced-motion behavior
+are preserved. Validate target visibility at both start and end, not only
+ScrollTrigger's progress=1 and total page scroll reachability.
