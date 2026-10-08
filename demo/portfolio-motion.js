@@ -307,129 +307,179 @@
           "-=.32"
         );
 
-      /* /demo/: scene-specific entrances, not continuous scroll/pointer effects.
-         SplitText is an official GSAP plugin and is applied only to section h2s.
-         Each visible element animates once; there is no pinning, scrub, or timeline
-         waiting for the user's scroll to catch up. */
+      /* GSAP Creative Motion Showcase
+         Official patterns: Flip stacked-to-grid, SplitText masked typography,
+         MorphSVG path morph. One-shot entrances, never pin/scrub. */
       if (ScrollTrigger) {
-        const splitPlugin = window.SplitText;
-        if (splitPlugin) gsap.registerPlugin(splitPlugin);
+        const Split = window.SplitText;
+        const Flip = window.Flip;
+        const Morph = window.MorphSVGPlugin;
+        if (Split) gsap.registerPlugin(Split);
+        if (Flip) gsap.registerPlugin(Flip);
+        if (Morph) gsap.registerPlugin(Morph);
 
-        gsap.utils.toArray(".section-head").forEach((head) => {
-          const label = head.querySelector(".kicker");
+        // GSAP's MorphSVG interpolates SVG path points, not opacity or CSS transforms.
+        // The hero ribbon first grows from a thin line into its actual curved silhouette.
+        const ribbon = document.querySelector(".flow-ribbon-main");
+        if (Morph && ribbon) {
+          const finalShape = ribbon.getAttribute("d");
+          const lineShape =
+            "M-160 256 C270 257 590 253 858 250 C1200 248 1500 250 1880 250 " +
+            "L1880 255 C1510 255 1210 255 858 255 C580 255 265 260 -160 262 Z";
+          gsap.set(ribbon, { morphSVG: lineShape });
+          intro.to(ribbon, {
+            morphSVG: finalShape, duration: 1.7, ease: "expo.inOut"
+          }, .46);
+        }
+
+        // SplitText creates actual per-character masks. Characters peel out of
+        // three-dimensional space, then SplitText restores the original semantic DOM.
+        gsap.utils.toArray(".section-head").forEach((head, sectionIndex) => {
           const title = head.querySelector("h2");
+          const eyebrow = head.querySelector(".kicker");
           const note = head.querySelector(".section-note");
           if (!title) return;
-
           let split = null;
-          if (splitPlugin) {
-            // Few characters, one-off. Masked char reveal avoids font-heavy effects.
-            split = splitPlugin.create(title, { type: "chars", mask: "chars" });
-            cleanups.push(() => split?.revert());
-          }
+          cleanups.push(() => { if (split) split.revert(); });
           ScrollTrigger.create({
             trigger: head,
-            start: "top 86%",
+            start: "top 84%",
             once: true,
             onEnter: () => {
               const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-              if (label) tl.fromTo(label,
-                { y: -14, autoAlpha: 0 },
-                { y: 0, autoAlpha: 1, duration: .48, clearProps: "all" }, 0);
-              if (split) {
-                tl.fromTo(split.chars,
-                  { yPercent: 112, rotationX: -22, opacity: 0 },
+              tl.fromTo(eyebrow,
+                { x: -38, autoAlpha: 0 },
+                { x: 0, autoAlpha: 1, duration: .55, clearProps: "all" }, 0);
+              if (Split) {
+                split = Split.create(title, { type: "chars", mask: "chars" });
+                const chars = split.chars;
+                tl.fromTo(chars,
                   {
-                    yPercent: 0, rotationX: 0, opacity: 1, duration: .78,
-                    stagger: .025, ease: "power4.out",
-                    onComplete: () => { split.revert(); split = null; }
-                  }, .08);
+                    yPercent: (i) => i % 2 ? -155 : 165,
+                    rotationX: (i) => i % 2 ? 85 : -85,
+                    rotationY: (i) => i % 2 ? -42 : 42,
+                    scale: .64, opacity: 0
+                  },
+                  {
+                    yPercent: 0, rotationX: 0, rotationY: 0, scale: 1, opacity: 1,
+                    ease: "expo.out", duration: 1.12,
+                    stagger: { each: .042, from: sectionIndex % 2 ? "end" : "start" },
+                    onComplete: () => { split?.revert(); split = null; }
+                  }, .09);
               } else {
-                tl.fromTo(title, { y: 35, autoAlpha: 0, rotationX: -8 },
-                  { y: 0, autoAlpha: 1, rotationX: 0, duration: .77, clearProps: "all" }, .09);
+                tl.fromTo(title,
+                  { y: 85, rotationX: -75, autoAlpha: 0 },
+                  { y: 0, rotationX: 0, autoAlpha: 1, duration: 1.0, clearProps: "all" }, .09);
               }
               if (note) tl.fromTo(note,
-                { x: 32, autoAlpha: 0 },
-                { x: 0, autoAlpha: 1, duration: .68, clearProps: "all" }, .24);
+                { x: 55, autoAlpha: 0, clipPath: "inset(0 100% 0 0)" },
+                { x: 0, autoAlpha: 1, clipPath: "inset(0 0% 0 0)",
+                  duration: .8, ease: "power3.inOut",
+                  clearProps: "transform,opacity,visibility,clipPath" }, .38);
             }
           });
         });
 
-        const projectMoves = [
-          { y: 65, scale: .88, rotationX: 12 },
-          { x: 82, y: 12, rotation: 2.6, scale: .95 },
-          { x: -85, y: 15, rotation: -2.8, scale: .95 },
-          { y: 72, rotationX: -17, scale: .94 },
-          { y: 58, scale: .90, rotation: -2 },
-          { x: 72, rotationY: 12, scale: .94 },
-          { x: -72, rotationY: -12, scale: .94 },
-          { y: 62, scale: .88, rotationX: 13 }
-        ];
-        gsap.utils.toArray(".project").forEach((card, index) => {
-          const title = card.querySelector("h3");
-          const icon = card.querySelector(".project-icon");
+        const allCards = gsap.utils.toArray(".projects .project");
+        const grid = document.querySelector(".projects");
+        const enterCards = (cards) => cards.forEach((card, index) => {
           ScrollTrigger.create({
             trigger: card, start: "top 90%", once: true,
             onEnter: () => {
-              const from = projectMoves[index % projectMoves.length];
-              const tl = gsap.timeline();
-              tl.fromTo(card, { ...from, autoAlpha: 0 },
+              const fromLeft = index % 2 === 0;
+              gsap.fromTo(card,
                 {
-                  x: 0, y: 0, scale: 1, rotation: 0,
-                  rotationX: 0, rotationY: 0, autoAlpha: 1,
-                  duration: .86, ease: "power3.out",
-                  clearProps: "transform,opacity,visibility"
-                }, 0);
-              if (title) tl.fromTo(title,
-                { y: 18, autoAlpha: 0 },
-                { y: 0, autoAlpha: 1, duration: .48, ease: "power2.out",
-                  clearProps: "transform,opacity,visibility" }, .16);
-              if (icon) tl.fromTo(icon,
-                { scale: .64, rotation: -22, autoAlpha: .4 },
-                { scale: 1, rotation: 0, autoAlpha: 1, duration: .67,
-                  ease: "back.out(1.5)", clearProps: "transform,opacity,visibility" }, .18);
+                  autoAlpha: 0,
+                  clipPath: fromLeft ? "inset(0 100% 0 0 round 24px)" : "inset(0 0 0 100% round 24px)",
+                  x: fromLeft ? -85 : 85,
+                  rotationY: fromLeft ? -24 : 24,
+                  scale: .86,
+                  transformOrigin: fromLeft ? "0% 50%" : "100% 50%"
+                },
+                {
+                  autoAlpha: 1, clipPath: "inset(0 0 0 0 round 24px)",
+                  x: 0, rotationY: 0, scale: 1,
+                  duration: 1.02, ease: "power4.out",
+                  clearProps: "all"
+                });
             }
           });
         });
+        if (grid && allCards.length > 2 && Flip && desktop) {
+          const first = allCards.slice(0, 2);
+          // Reserve final geometry before the first two cards form a physical
+          // stack. The section height therefore never collapses or traps scroll.
+          grid.style.minHeight = grid.offsetHeight + "px";
+          grid.classList.add("creative-stack");
 
+          ScrollTrigger.create({
+            trigger: grid, start: "top 76%", once: true,
+            onEnter: () => {
+              const state = Flip.getState(first);
+              grid.classList.remove("creative-stack");
+              const play = Flip.from(state, {
+                absolute: true, scale: true, duration: 1.28,
+                ease: "expo.inOut", stagger: .12,
+                onComplete: () => {
+                  grid.style.minHeight = "";
+                  gsap.set(first, {clearProps: "transform,width,height,position,top,left,zIndex"});
+                }
+              });
+              // Enter subsequent cards only when they themselves are visible.
+              enterCards(allCards.slice(2));
+              ScrollTrigger.refresh();
+            }
+          });
+          cleanups.push(() => { grid.classList.remove("creative-stack"); grid.style.minHeight = ""; });
+        } else {
+          enterCards(allCards);
+        }
+
+        // Clip masks create a wipe in the development timeline; the milestone
+        // marker snaps into position with a real elastic ease.
         gsap.utils.toArray(".phase").forEach((phase, index) => {
           const dot = phase.querySelector(".phase-dot");
           ScrollTrigger.create({
             trigger: phase, start: "top 86%", once: true,
             onEnter: () => {
-              const tl = gsap.timeline();
-              tl.fromTo(phase,
-                { y: 44, opacity: 0, scale: .96 },
-                { y: 0, opacity: 1, scale: 1, duration: .8,
-                  ease: "power3.out", clearProps: "transform,opacity" }, 0);
-              if (dot) tl.fromTo(dot,
-                { scale: .2, rotation: -50 },
-                { scale: 1, rotation: 0, duration: .7,
-                  ease: "back.out(1.6)", clearProps: "transform" }, .1);
+              gsap.fromTo(phase,
+                {
+                  clipPath: index % 2 ? "inset(0 0 100% 0)" : "inset(100% 0 0 0)",
+                  y: index % 2 ? -45 : 45, autoAlpha: 0
+                },
+                {
+                  clipPath: "inset(0% 0 0% 0)", y: 0, autoAlpha: 1,
+                  duration: 1.0, ease: "power3.inOut",
+                  clearProps: "all"
+                });
+              if (dot) gsap.fromTo(dot, {rotation: -105, scale: .15},
+                { rotation: 0, scale: 1, duration: 1.1, ease: "elastic.out(1,0.55)",
+                  clearProps: "transform", delay: .16 });
             }
           });
         });
 
-        gsap.utils.toArray(".principle").forEach((card, index) => {
+        // Three-dimensional folding uses GSAP's transform pipeline instead of
+        // costly CSS filters or WebGL. Each card opens once, then is static.
+        gsap.utils.toArray(".principle").forEach((card, i) => {
           ScrollTrigger.create({
-            trigger: card, start: "top 90%", once: true,
+            trigger: card, start: "top 88%", once: true,
             onEnter: () => {
               gsap.fromTo(card,
-                { y: 44, scale: .89, rotationY: index % 2 ? 13 : -13, autoAlpha: 0 },
-                { y: 0, scale: 1, rotationY: 0, autoAlpha: 1,
-                  duration: .9, ease: "back.out(1.32)",
-                  clearProps: "transform,opacity,visibility" });
+                {
+                  transformPerspective: 1000,
+                  transformOrigin: i % 2 ? "100% 50%" : "0% 50%",
+                  rotationY: i % 2 ? 82 : -82,
+                  scale: .76, autoAlpha: 0
+                },
+                {
+                  rotationY: 0, scale: 1, autoAlpha: 1,
+                  duration: 1.18, ease: "back.out(1.3)",
+                  clearProps: "all"
+                });
             }
           });
         });
-
-        const footer = document.querySelector(".footer-row");
-        if (footer) {
-          gsap.fromTo(footer, { y: 32, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, duration: .85, ease: "power3.out",
-              clearProps: "transform,opacity,visibility",
-              scrollTrigger: { trigger: footer, start: "top 90%", once: true } });
-        }
       }
 
       return () => cleanups.forEach((fn) => fn());

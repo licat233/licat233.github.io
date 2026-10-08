@@ -1,18 +1,16 @@
-# Licat / Entrance Motion Lab
+# Licat — GSAP Creative Motion Showcase
 
-This demo is intentionally isolated at /demo/. The original personal homepage remains unchanged.
+Isolated experiment under /demo/. /en/, /zh/ and shared /assets/ are untouched.
 
-Reference: GSAP 3.15 core, ScrollTrigger and official SplitText for masked heading reveal.
-The Hero intro is retained from the original site, but all continuous mouse-follow,
-tilt and scroll-scrub motion is removed in the experimental copy.
+Official GSAP reference methods:
+- Flip stacked-to-grid: https://codepen.io/GreenSock/pen/mdNodOZ
+- SplitText masks: https://gsap.com/docs/v3/Plugins/SplitText/
+- MorphSVG path interpolation: https://gsap.com/docs/v3/Plugins/MorphSVGPlugin/
 
-Entrance patterns:
-- Section titles: staggered SplitText masked glyph reveal (reverted after entrance)
-- Projects: distinct 3D lift, lateral slide, depth and scale entrances
-- Journey: waypoint / dot arrivals
-- Principles: subtle 3D spring-in
-- Footer: low-distance rise
+Choreography: the existing Hero gains a real SVG ribbon morph, headings unfold
+via masked character rotations, the first two project cards flip from a physical
+deck into the real Bento grid, remaining cards arrive via directional clipping,
+journey stages unmask, and principles fold into view.
 
-Each entrance runs once without locking scroll. Animation uses transforms and
-opacity only; prefers-reduced-motion displays all content statically. No photos,
-WebGL, Swiper, custom scroll drivers, or additional frameworks.
+No scroll pins, smooth-scrolling hijacks, perpetual loops, GPU particle canvases,
+or autoplay 3D scenes. prefers-reduced-motion keeps static content accessible.
