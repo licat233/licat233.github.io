@@ -2251,3 +2251,86 @@ body.eao-v2::before{opacity:.08;background:radial-gradient(circle at 1px 1px,rgb
 @media(forced-colors:active) {
   .eao-v2 :is(#departments .dept-card,#control .control-card) .eao-category-icon {color:CanvasText;}
 }
+
+/* Legacy workflow: a period-era UI specimen displayed inside the existing
+   Quartz Glass card.  The glass frame remains part of the page design system.
+   Decoration is static and aria-hidden; the actual workflow stays semantic HTML. */
+.eao-v2 #work .compare-work .before .legacy-frame{
+  display:flex; flex-direction:column; flex:1 1 auto; min-width:0;
+  border:1px solid #98968F; border-radius:.125rem; padding:.125rem;
+  background:#E1DDD4;
+  box-shadow:inset 1px 1px 0 #F8F5EE,inset -1px -1px 0 #B5AEA2;
+  font-family:Tahoma,Verdana,Arial,sans-serif;
+}
+.eao-v2 #work .compare-work .before .legacy-titlebar{
+  display:flex; align-items:center; justify-content:space-between;
+  min-height:2rem; gap:.5rem; padding:.25rem .5625rem;
+  background:linear-gradient(90deg,#747970,#959990);
+  color:#FFFFFF; font-size:.75rem; font-weight:700;
+  line-height:1.25; letter-spacing:0;
+}
+.eao-v2 #work .compare-work .before .legacy-controls{
+  flex:none; color:#F5F5EF; font-family:Tahoma,Verdana,Arial,sans-serif;
+  font-size:.75rem; font-weight:400; white-space:nowrap; letter-spacing:.2em;
+  opacity:.8;
+}
+.eao-v2 #work .compare-work .before .legacy-frame ol{
+  display:grid; grid-template-rows:repeat(5,minmax(4rem,auto));
+  gap:0; flex:1 1 auto; margin:0; padding:0; list-style:none;
+  background:#E4E0D7;
+}
+.eao-v2 #work .compare-work .before .legacy-frame ol::before{content:none}
+.eao-v2 #work .compare-work .before .legacy-frame li{
+  min-height:4rem; padding:.5rem .5rem; gap:.5625rem;
+  border:0; border-bottom:1px solid #B9B3A9;
+  border-radius:0; box-shadow:inset 0 1px 0 rgba(255,255,255,.65);
+  color:#484941; background:transparent;
+  font-size:clamp(.8125rem,.86vw,.9375rem); line-height:1.45;
+  font-weight:400; letter-spacing:0;
+}
+.eao-v2 #work .compare-work .before .legacy-frame li:last-child{border-bottom:0}
+.eao-v2 #work .compare-work .before .legacy-frame li::before{
+  flex:0 0 1.625rem; width:1.625rem; height:1.625rem; inset:auto;
+  border:1px solid #A29C91; border-radius:.125rem;
+  background:#D1CCC0; color:#49483F; font-size:.75rem; font-weight:700;
+  box-shadow:inset 1px 1px 0 #F7F4ED,inset -1px -1px 0 #B6AFA3;
+}
+.eao-v2 #work .compare-work .before .legacy-frame .work-step-icon{
+  flex:0 0 1.875rem; width:1.875rem; height:1.875rem;
+  border:1px solid #AAA59B; border-radius:.125rem;
+  background:linear-gradient(#EEEBE5,#D5D0C6); color:#555951;
+  box-shadow:inset 1px 1px 0 #FFFFFF,inset -1px -1px 0 #C0BAAF;
+}
+.eao-v2 #work .compare-work .before .legacy-frame .work-step-icon svg{
+  width:1.0625rem; height:1.0625rem; stroke-width:1.75;
+}
+.eao-v2 #work .compare-work .before .legacy-frame .work-step-text{
+  min-width:0; overflow-wrap:anywhere; color:#484941;
+}
+/* The illustrated old UI remains light even within the dark glass gallery.
+   Isolate all period UI tones from generic dark-mode list/icon overrides. */
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before .legacy-frame li,
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before .legacy-frame .work-step-text{color:#484941}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before .legacy-frame li::before{
+  background:#D1CCC0; border-color:#A29C91; color:#49483F;
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before .legacy-frame .work-step-icon{
+  background:linear-gradient(#EEEBE5,#D5D0C6); border-color:#AAA59B; color:#555951;
+}
+@media(max-width:700px){
+  .eao-v2 #work .compare-work .before .legacy-frame li{padding:.5625rem .375rem;gap:.5rem;font-size:.875rem}
+}
+@media(max-width:380px){
+  .eao-v2 #work .compare-work .before .legacy-frame li::before{flex-basis:1.375rem;width:1.375rem;height:1.375rem}
+  .eao-v2 #work .compare-work .before .legacy-frame .work-step-icon{flex-basis:1.625rem;width:1.625rem;height:1.625rem}
+}
+@media(forced-colors:active){
+  .eao-v2 #work .compare-work .before .legacy-frame,
+  .eao-v2 #work .compare-work .before .legacy-titlebar,
+  .eao-v2 #work .compare-work .before .legacy-frame li,
+  .eao-v2 #work .compare-work .before .legacy-frame li::before,
+  .eao-v2 #work .compare-work .before .legacy-frame .work-step-icon{
+    background:Canvas; color:CanvasText; border-color:CanvasText; box-shadow:none;
+  }
+  .eao-v2 #work .compare-work .before .legacy-frame .work-step-text{color:CanvasText}
+}
