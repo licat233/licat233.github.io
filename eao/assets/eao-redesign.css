@@ -465,82 +465,56 @@ html[lang="zh-CN"] .eao-v2 .section-title{
   color:#40514e;
 }
 
-/* Departments */
+/* Departments — informational content, not interactive tiles */
 .eao-v2 .dept-grid{
   display:grid;
   grid-template-columns:repeat(12,minmax(0,1fr));
-  gap:var(--eao-space-md);
+  gap:var(--eao-space-sm);
   margin-top:var(--eao-space-2xl);
   border:0;
 }
 .eao-v2 .dept-card{
-  position:relative;
   grid-column:span 4;
-  min-height:13rem;
-  padding:var(--eao-space-xl);
-  overflow:hidden;
-  border:1px solid rgba(8,122,116,.12);
-  border-radius:var(--eao-radius-card);
-  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(247,252,251,.68));
-  box-shadow:var(--eao-shadow-soft),inset 0 1px 0 rgba(255,255,255,.78);
-  transition:
-    transform .18s var(--eao-ease-ui),
-    border-color .18s var(--eao-ease-ui),
-    box-shadow .18s var(--eao-ease-ui);
+  min-width:0;
+  padding:var(--eao-space-lg);
+  border:1px solid var(--eao-line);
+  border-radius:var(--eao-radius-compact);
+  background:var(--eao-paper);
+  box-shadow:none;
 }
 .eao-v2 .dept-card:nth-child(n+4){grid-column:span 6}
-.eao-v2 .dept-card::before{
-  content:"";
-  position:absolute;
-  inset:0 auto 0 0;
-  width:.1875rem;
-  background:linear-gradient(180deg,var(--eao-brand),rgba(8,122,116,.22));
-  opacity:.72;
-}
-.eao-v2 .dept-card:hover{
-  transform:translateY(-.1875rem);
-  border-color:rgba(8,122,116,.24);
-  box-shadow:var(--eao-shadow),inset 0 1px 0 rgba(255,255,255,.86);
-}
 .eao-v2 .dept-card h3{
   margin:0;
   color:var(--eao-ink);
-  font-size:1.375rem;
-  line-height:1.2;
-  letter-spacing:-.02em;
+  font-size:1.125rem;
+  line-height:1.3;
+  letter-spacing:-.015em;
 }
 .eao-v2 .dept-card p{font-size:.875rem;line-height:1.7}
 .eao-v2 .dept-card ul{
-  margin:1rem 0 0;
-  padding:0;
-  list-style:none;
+  margin:var(--eao-space-sm) 0 0;
+  padding-left:1.125rem;
+  list-style:disc;
   color:var(--eao-muted);
   font-size:.875rem;
   line-height:1.55;
 }
 .eao-v2 .dept-card li{
-  position:relative;
-  margin:.5rem 0;
-  padding-left:1rem;
+  margin:.375rem 0;
+  padding-left:0;
 }
-.eao-v2 .dept-card li::before{
-  content:"";
-  position:absolute;
-  top:.62em;
-  left:0;
-  width:.3125rem;
-  height:.3125rem;
-  border-radius:var(--eao-radius-pill);
-  background:var(--eao-brand-dark);
-}
+.eao-v2 .dept-card li::marker{color:var(--eao-muted)}
 .eao-v2 #departments>.wrap>.note{
-  margin-top:var(--eao-space-md);
-  padding:1rem 1.25rem;
-  border:1px solid rgba(8,122,116,.12);
-  border-left:.1875rem solid var(--eao-brand);
-  border-radius:var(--eao-radius-control);
-  background:linear-gradient(90deg,rgba(223,247,244,.72),rgba(255,255,255,.52));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.68);
+  margin-top:var(--eao-space-lg);
+  padding:var(--eao-space-sm) 0 0;
+  border:0;
+  border-top:1px solid var(--eao-line);
+  border-radius:0;
+  background:none;
+  box-shadow:none;
+  color:var(--eao-muted);
+  font-size:.8125rem;
+  line-height:1.6;
 }
 
 /* Control + reference implementation */
@@ -997,11 +971,15 @@ html[lang="zh-CN"] .eao-v2 .kicker{
 
 :root[data-theme="dark"] .eao-v2 .pain-card,
 :root[data-theme="dark"] .eao-v2 .value-card,
-:root[data-theme="dark"] .eao-v2 .dept-card,
 :root[data-theme="dark"] .eao-v2 .work-col{
   border-color:rgba(255,255,255,.09);
   background:rgba(255,255,255,.045);
   box-shadow:0 12px 36px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.04);
+}
+:root[data-theme="dark"] .eao-v2 .dept-card{
+  border-color:var(--eao-line);
+  background:var(--eao-paper);
+  box-shadow:none;
 }
 :root[data-theme="dark"] .eao-v2 .work-col.after{
   border-color:rgba(23,216,205,.22);
@@ -1013,6 +991,13 @@ html[lang="zh-CN"] .eao-v2 .kicker{
   border-color:rgba(23,216,205,.18);
   border-left-color:#41dcd3;
   background:rgba(23,216,205,.08);
+}
+:root[data-theme="dark"] .eao-v2 #departments>.wrap>.note{
+  color:var(--eao-muted);
+  border:0;
+  border-top:1px solid var(--eao-line);
+  background:none;
+  box-shadow:none;
 }
 :root[data-theme="dark"] .eao-v2 .real{
   border-color:rgba(23,216,205,.15);
