@@ -16,6 +16,25 @@
   --eao-shadow:0 24px 70px rgba(19,52,48,.10);
   --eao-shadow-soft:0 12px 36px rgba(19,52,48,.07);
   --eao-max:1280px;
+
+  /* EAO semantic scale — backed by the repository-level Open Props 1.7.23 subset. */
+  --eao-space-2xs:var(--size-1);
+  --eao-space-xs:var(--size-2);
+  --eao-space-sm:.75rem;
+  --eao-space-md:var(--size-3);
+  --eao-space-lg:var(--size-5);
+  --eao-space-xl:var(--size-7);
+  --eao-space-2xl:var(--size-8);
+  --eao-space-3xl:var(--size-9);
+  --eao-space-4xl:var(--size-10);
+
+  --eao-radius-compact:var(--radius-2);
+  --eao-radius-media:var(--radius-3);
+  --eao-radius-panel:var(--radius-4);
+  --eao-radius-pill:var(--radius-round);
+
+  --eao-ease-ui:var(--ease-3);
+  --eao-ease-emphasized:var(--ease-5);
 }
 
 *{box-sizing:border-box}
