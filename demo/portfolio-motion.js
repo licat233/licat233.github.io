@@ -330,6 +330,34 @@
           }, .46);
         }
 
+        // Place the animation where the visitor can SEE it: rather than
+        // beginning as an item barely touches the bottom of the screen,
+        // start after it moves into the lower-middle viewport. Clamp the
+        // finishing position to the maximum achievable scroll offset, so
+        // the last row can always finish before the document ends.
+        const visibleScrollRange = (position, startRatio, endRatio, minimum = 110, reserve = 40) => {
+          // Spare a little scroll distance for font/layout stabilization after
+          // refresh; end-of-page cards must be fully settled at the bottom.
+          const limit = Math.max(1, ScrollTrigger.maxScroll(window) - reserve);
+          const desiredStart = Math.max(0, position - window.innerHeight * startRatio);
+          const desiredEnd = Math.max(0, position - window.innerHeight * endRatio);
+          const end = Math.min(limit, Math.max(0, desiredEnd));
+          const start = Math.max(0, Math.min(desiredStart, end - minimum));
+          return [start, Math.max(start + 1, end)];
+        };
+        const absTop = (element) => element.getBoundingClientRect().top + window.scrollY;
+        const createRange = (element, startRatio, endRatio, min, reserve = 40) => {
+          // Refresh-safe numbers: element itself is not moved by its own tween.
+          const r = () => visibleScrollRange(absTop(element), startRatio, endRatio, min, reserve);
+          return { start: () => r()[0], end: () => r()[1] };
+        };
+        const groupRange = (parent, child, startRatio, endRatio, min) => {
+          const r = () => visibleScrollRange(
+            absTop(parent) + child.offsetTop, startRatio, endRatio, min
+          );
+          return { start: () => r()[0], end: () => r()[1] };
+        };
+
         // Persistent SplitText masks permit genuine reverse play. Do not revert
         // the split after forward completion: the reverse needs those chars.
         gsap.utils.toArray(".section-head").forEach((head, sectionIndex) => {
@@ -355,8 +383,7 @@
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: head,
-              start: "top 96%",
-              end: "top 54%",
+              ...createRange(head, .73, .34, 180),
               scrub: true,
               invalidateOnRefresh: true
             }
@@ -364,7 +391,7 @@
 
           if (eyebrow) tl.fromTo(eyebrow,
             { x: desktop ? -38 : -18, autoAlpha: 0 },
-            { x: 0, autoAlpha: 1, duration: .48, ease: "power2.out" }, 0);
+            { x: 0, autoAlpha: 1, duration: .62, ease: "power1.inOut" }, 0);
 
           if (split) {
             tl.fromTo(split.chars,
@@ -378,13 +405,13 @@
               {
                 yPercent: 0, rotationX: 0, rotationY: 0,
                 scale: 1, autoAlpha: 1,
-                duration: 1, ease: "power3.out",
+                duration: 1.12, ease: "power1.inOut",
                 stagger: { each: .035, from: sectionIndex % 2 ? "end" : "start" }
               }, .10);
           } else {
             tl.fromTo(title, { y: 60, rotationX: -48, autoAlpha: 0 },
               { y: 0, rotationX: 0, autoAlpha: 1, duration: 1,
-                ease: "power3.out" }, .10);
+                ease: "power1.inOut" }, .10);
           }
 
           if (note) tl.fromTo(note,
@@ -395,7 +422,7 @@
             {
               x: 0, autoAlpha: 1,
               clipPath: "inset(0 0 0 0)",
-              duration: .9, ease: "power2.inOut"
+              duration: .9, ease: "power1.inOut"
             }, .26);
         });
 
@@ -482,8 +509,7 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: timelineGrid,
-                start: () => "top+=" + group[0].offsetTop + " 93%",
-                end: () => "top+=" + group[0].offsetTop + " 52%",
+                ...groupRange(timelineGrid, group[0], .72, .33, 170),
                 scrub: true,
                 invalidateOnRefresh: true
               }
@@ -491,7 +517,7 @@
             group.forEach((phase, withinRow) => {
               const ordinal = index + withinRow;
               const marker = phase.querySelector(".phase-dot");
-              const at = withinRow * .18;
+              const at = withinRow * .1;
               tl.fromTo(phase,
                 {
                   clipPath: ordinal % 2
@@ -524,8 +550,7 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: principlesGrid,
-                start: () => "top+=" + group[0].offsetTop + " 93%",
-                end: () => "top+=" + group[0].offsetTop + " 48%",
+                ...groupRange(principlesGrid, group[0], .72, .34, 170),
                 scrub: true,
                 invalidateOnRefresh: true
               }
@@ -541,8 +566,8 @@
                 },
                 {
                   rotationY: 0, scale: 1, autoAlpha: 1,
-                  duration: 1, ease: "power3.out"
-                }, withinRow * .16);
+                  duration: 1.18, ease: "power1.inOut"
+                }, withinRow * .1);
             });
           }
         }
@@ -559,8 +584,9 @@
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: footer,
-              start: "top 112%",
-              end: "top 92%",
+              // Footer has little available scroll space: use a shorter,
+              // reachable range but only AFTER its top enters the viewport.
+              ...createRange(footer, .96, .84, 70, 20),
               scrub: true,
               invalidateOnRefresh: true
             }
@@ -569,7 +595,7 @@
             tl.fromTo(part,
               { y: 38, rotationX: -24, autoAlpha: 0 },
               { y: 0, rotationX: 0, autoAlpha: 1,
-                duration: .75, ease: "power2.out" }, index * .14);
+                duration: .75, ease: "power1.inOut" }, index * .14);
           });
         }
       }
