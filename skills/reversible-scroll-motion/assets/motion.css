@@ -1,0 +1,46 @@
+/* Portable demonstration styles. NOT a visual theme for production sites. */
+:root { color-scheme: light; --ink: #17232c; --muted: #5a6c7a; --edge: #dce4eb; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #f3f7fa; color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+a { color: inherit; }
+a:focus-visible { outline: 3px solid #397bc6; outline-offset: 4px; }
+.site-header { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; min-height: 68px; padding: 1rem max(1rem, calc((100% - 1100px)/2)); background: rgba(255,255,255,.94); border-bottom: 1px solid var(--edge); backdrop-filter: blur(12px); }
+.site-header nav { display:flex; gap:1.2rem; flex-wrap:wrap; }
+.hero { min-height: 90vh; display: grid; place-content: center; padding: 5rem 1.25rem; text-align: center; background: linear-gradient(140deg,#eef9ff,#f9f4eb); }
+.hero h1 { font-size: clamp(3rem, 10vw, 7.5rem); letter-spacing: -.075em; line-height: 1.05; margin: 0; }
+.hero p { color:var(--muted); font-size:clamp(1rem,2vw,1.3rem); }
+.shell { width: min(1100px, calc(100% - 2rem)); margin-inline:auto; }
+.motion-section { padding-block: 6rem; overflow-x: clip; overflow-y: visible; }
+.motion-section > .shell > h2 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.06; margin: .15rem 0 1rem; letter-spacing: -.06em; }
+.eyebrow { font-size: .7rem; letter-spacing: .18em; font-weight: 800; text-transform: uppercase; color: #367dc1; }
+.section-intro { max-width: 53ch; color: var(--muted); }
+.motion-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap:1rem; perspective: 1300px; }
+.motion-grid .item, .principles .item, .timeline .item { padding: 1.5rem; border: 1px solid var(--edge); background: #fff; border-radius: .6rem; }
+.motion-grid .item { min-height: 245px; display:flex; flex-direction:column; justify-content:space-between; }
+.motion-grid .item:nth-child(3n) { background: #e4f1fc; }
+.item h3 { font-size: 1.5rem; line-height: 1.15; letter-spacing: -.04em; margin: 0; }
+.item p { margin-bottom: 0; color: var(--muted); }
+.timeline, .principles { display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap:1rem; perspective: 1100px; }
+.timeline .item, .principles .item { min-height: 190px; }
+.timeline .step { color:#247cbf; font-weight:900; font-size:.8rem; }
+.motion-footer { background:#e6edf2; overflow-x:clip; border-top:1px solid var(--edge); }
+.motion-footer .shell { display:flex; min-height: 132px; align-items:center; justify-content:space-between; gap:1.5rem; flex-wrap:wrap; }
+.motion-footer a { text-decoration:underline; }
+@media (max-width: 760px) {
+  .site-header { gap:.75rem; }
+  .site-header nav {gap:.7rem; font-size:.8rem;}
+  .hero { min-height: 78vh; }
+  .motion-section { padding-block: 4rem; }
+  .motion-grid, .timeline, .principles { grid-template-columns: minmax(0,1fr); }
+  .motion-grid .item { min-height: 205px; }
+  .motion-footer .shell { padding-block:1.5rem; }
+}
+/* Never hide content by default, even when GSAP or CDNs fail. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  [data-motion-item], [data-motion-heading] {
+    opacity: 1 !important; visibility: visible !important;
+    transform: none !important; clip-path: none !important;
+  }
+}
