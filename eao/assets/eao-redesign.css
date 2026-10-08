@@ -1487,3 +1487,221 @@ html[lang="zh-CN"] .eao-v2 .kicker{
     -webkit-backdrop-filter:none;
   }
 }
+
+/* EAO color environment / third pass, October 2026.
+   Sea-glass teal + soft warm daylight. Colors live BEHIND surfaces,
+   not on top of photography or text. CSS only, no moving gradients. */
+:root {
+  --eao-daylight:#f7faf6;
+  --eao-mint-field:#b9ebdb;
+  --eao-sea-field:#93dac9;
+  --eao-sunlight:#ffe7bd;
+  --glass-surface:rgba(255,255,255,.35);
+  --glass-surface-subtle:rgba(255,255,255,.25);
+  --glass-surface-strong:rgba(252,255,251,.63);
+  --glass-border:rgba(255,255,255,.79);
+  --glass-edge:rgba(37,125,110,.27);
+  --glass-shadow:0 18px 46px rgba(21,88,75,.13),0 4px 12px rgba(20,84,75,.055);
+  --glass-shadow-raised:0 27px 59px rgba(21,88,75,.17),0 7px 17px rgba(20,84,75,.08);
+}
+body.eao-v2 {
+  background:
+    radial-gradient(ellipse 47rem 56rem at 94% 3%,rgba(36,195,166,.23),transparent 79%),
+    radial-gradient(ellipse 35rem 40rem at 3% 28%,rgba(255,224,180,.21),transparent 78%),
+    linear-gradient(180deg,#edf9f3,#f4f9f6 48%,#e8f7f1);
+}
+.eao-v2 .hero {
+  background:
+    radial-gradient(ellipse 51% 84% at 94% 44%,rgba(11,178,161,.35),transparent 78%),
+    radial-gradient(ellipse 41% 70% at 1% 12%,rgba(255,215,161,.42),transparent 76%),
+    linear-gradient(124deg,#edf9f0 0%,#e6f8f2 47%,#c5ece0 100%);
+}
+.eao-v2 .hero::after {
+  background:radial-gradient(circle,rgba(14,191,165,.24),rgba(20,175,151,.075) 48%,transparent 72%);
+}
+/* Three distinctly lit environments instead of one continuous white page.
+   The teal forms a brand signature; honey daylight keeps the site human. */
+.eao-v2 #work {
+  background:
+    radial-gradient(ellipse 48% 64% at 3% 75%,rgba(255,217,162,.59),transparent 78%),
+    radial-gradient(ellipse 42% 70% at 96% 15%,rgba(65,190,158,.32),transparent 77%),
+    linear-gradient(135deg,#f9f9ef 0%,#e9f7ee 56%,#e7f5ef 100%);
+}
+.eao-v2 #departments {
+  background:
+    radial-gradient(ellipse 54% 59% at 94% 65%,rgba(55,184,149,.36),transparent 80%),
+    radial-gradient(ellipse 43% 47% at 2% 12%,rgba(255,246,210,.69),transparent 78%),
+    linear-gradient(120deg,#d8f4e6 0%,#c7eedf 48%,#b4e5d4 100%);
+}
+.eao-v2 #value {
+  background:
+    radial-gradient(ellipse 47% 54% at 5% 82%,rgba(242,203,152,.46),transparent 80%),
+    radial-gradient(ellipse 48% 62% at 95% 15%,rgba(110,203,178,.32),transparent 79%),
+    linear-gradient(138deg,#f9f5eb 0%,#eaf3eb 53%,#dcefe5 100%);
+}
+.eao-v2 #knowledge-story {
+  background:
+    radial-gradient(ellipse 44% 68% at 95% 55%,rgba(64,180,154,.30),transparent 78%),
+    radial-gradient(ellipse 39% 54% at 4% 18%,rgba(255,230,188,.35),transparent 80%),
+    linear-gradient(145deg,#e8f4ec,#dff4e9 59%,#e9f7ef);
+}
+.eao-v2 #control {
+  background:
+    radial-gradient(ellipse 58% 48% at 88% 78%,rgba(34,171,151,.37),transparent 79%),
+    radial-gradient(ellipse 40% 50% at 7% 15%,rgba(255,226,188,.39),transparent 78%),
+    linear-gradient(133deg,#e5f6ed 0%,#d0efe4 65%,#bee7d9 100%);
+}
+.eao-v2 #faq {
+  background:
+    radial-gradient(ellipse 50% 62% at 90% 28%,rgba(65,186,154,.23),transparent 78%),
+    radial-gradient(ellipse 38% 48% at 5% 82%,rgba(252,210,155,.34),transparent 80%),
+    linear-gradient(130deg,#f6f8f0,#edf7f1 65%,#e0f5eb);
+}
+.eao-v2 .cta {
+  background:
+    radial-gradient(ellipse 56% 115% at 94% 55%,rgba(20,164,139,.37),transparent 75%),
+    radial-gradient(ellipse 46% 80% at 6% 7%,rgba(255,231,175,.44),transparent 78%),
+    linear-gradient(115deg,#e8fae9 0%,#c9eee0 60%,#b0e3d2 100%);
+}
+.eao-v2 footer {
+  background:linear-gradient(120deg,#eaf5ef,#dff1e9);
+  border-color:rgba(61,150,128,.15);
+}
+.eao-v2 main>section:not(.hero) {border-bottom-color:rgba(59,134,117,.15)}
+/* Existing ambient highlights respond to the actual backdrop color.
+   No new DOM, transforms or animations on department cards. */
+.eao-v2 :is(#work,#departments,#value,#control,.faq)::before {
+  background:
+    radial-gradient(ellipse 35rem 24rem at 96% 43%,rgba(255,255,255,.29),transparent 82%),
+    radial-gradient(ellipse 29rem 22rem at 7% 78%,rgba(255,255,255,.23),transparent 83%);
+}
+.eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real) {
+  border-color:var(--glass-border);
+  background:
+    linear-gradient(137deg,rgba(255,255,255,.44),rgba(255,255,255,.11) 25%,transparent 48%),
+    linear-gradient(315deg,rgba(40,161,139,.10),transparent 42%),
+    var(--glass-surface);
+  box-shadow:var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.97),inset 1px 0 0 rgba(255,255,255,.40),inset 0 -1px 0 var(--glass-edge);
+}
+.eao-v2 .work-col.after {
+  background:linear-gradient(137deg,rgba(219,255,245,.72),transparent 57%),linear-gradient(315deg,rgba(44,173,148,.12),transparent 50%),var(--glass-surface);
+}
+.eao-v2 .real {
+  background:linear-gradient(135deg,rgba(230,255,245,.54),transparent 62%),var(--glass-surface);
+}
+.eao-v2 .faq-item {
+  border-color:rgba(255,255,255,.88);
+  background:linear-gradient(156deg,rgba(255,255,255,.44),transparent 61%),var(--glass-surface-subtle);
+  box-shadow:0 10px 26px rgba(27,99,81,.09),inset 0 1px 0 rgba(255,255,255,.96),inset 0 -1px 0 rgba(39,132,110,.18);
+}
+.eao-v2 .faq-item[open] {background:linear-gradient(156deg,rgba(255,255,255,.46),transparent 61%),var(--glass-surface-strong)}
+.eao-v2 nav {
+  background:linear-gradient(140deg,rgba(255,255,255,.38),transparent 51%),rgba(245,255,251,.54);
+  border-color:rgba(255,255,255,.80);
+  box-shadow:0 16px 42px rgba(26,97,84,.18),inset 0 1px 0 #fff,inset 0 -1px 0 rgba(37,129,110,.20);
+}
+/* Buttons remain distinctly actionable over the colorful environment. */
+.eao-v2 .btn:not(.primary) {
+  background:linear-gradient(155deg,rgba(255,255,255,.60),rgba(255,255,255,.07)),rgba(255,255,255,.31);
+}
+.eao-v2 .btn.primary {
+  border-color:rgba(8,84,69,.75);
+  background:linear-gradient(150deg,rgba(28,158,129,.67),rgba(12,61,57,.16) 72%),#0c3d39;
+}
+.eao-v2 .kicker {
+  background:linear-gradient(150deg,rgba(255,255,255,.55),transparent),rgba(148,225,198,.36);
+}
+/* Keep the low-lit chapter sophisticated, not a bright full-page teal wash. */
+:root[data-theme="dark"] body.eao-v2 {
+  background:linear-gradient(180deg,#101b18 0%,#0c1916 57%,#152922 100%);
+}
+:root[data-theme="dark"] .eao-v2 .hero {
+  background:radial-gradient(ellipse 56% 76% at 91% 44%,rgba(14,116,98,.27),transparent 77%),radial-gradient(ellipse 41% 57% at 2% 17%,rgba(126,110,63,.11),transparent 78%),linear-gradient(125deg,#112421,#142e28,#0e2521);
+}
+:root[data-theme="dark"] .eao-v2 #work {
+  background:radial-gradient(ellipse 49% 67% at 3% 74%,rgba(144,119,75,.12),transparent 79%),linear-gradient(135deg,#101c1a,#162722);
+}
+:root[data-theme="dark"] .eao-v2 #departments {
+  background:radial-gradient(ellipse 57% 72% at 89% 58%,rgba(16,127,109,.25),transparent 80%),linear-gradient(135deg,#122823,#15392f);
+}
+:root[data-theme="dark"] .eao-v2 #value {
+  background:radial-gradient(ellipse 54% 69% at 2% 78%,rgba(125,103,69,.12),transparent 80%),linear-gradient(125deg,#1b2420,#142b24);
+}
+:root[data-theme="dark"] .eao-v2 #knowledge-story {
+  background:radial-gradient(ellipse 56% 69% at 90% 55%,rgba(14,124,103,.19),transparent 79%),linear-gradient(130deg,#152a23,#112b24);
+}
+:root[data-theme="dark"] .eao-v2 #control {
+  background:radial-gradient(ellipse 56% 67% at 88% 72%,rgba(12,128,110,.25),transparent 81%),linear-gradient(135deg,#132a24,#17372e);
+}
+:root[data-theme="dark"] .eao-v2 #faq {
+  background:radial-gradient(ellipse 56% 68% at 92% 33%,rgba(10,122,104,.17),transparent 80%),linear-gradient(140deg,#121f1c,#172e27);
+}
+:root[data-theme="dark"] .eao-v2 .cta {
+  background:radial-gradient(ellipse 57% 76% at 91% 45%,rgba(15,134,111,.28),transparent 79%),linear-gradient(128deg,#15392e,#154a3d);
+}
+:root[data-theme="dark"] .eao-v2 footer {background:#101f1b}
+:root[data-theme="dark"] .eao-v2 nav{
+  border-color:rgba(214,255,244,.22);
+  background:linear-gradient(150deg,rgba(126,206,184,.11),transparent 54%),rgba(23,48,42,.74);
+  box-shadow:0 18px 50px rgba(0,0,0,.39),inset 0 1px 0 rgba(222,255,247,.22);
+}
+:root[data-theme="dark"] .eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real) {
+  background:linear-gradient(148deg,rgba(142,222,191,.12),transparent 51%),var(--glass-surface);
+}
+:root[data-theme="dark"] .eao-v2 .work-col.after {background:linear-gradient(142deg,rgba(32,145,115,.21),transparent 60%),var(--glass-surface)}
+:root[data-theme="dark"] .eao-v2 .faq-item {background:linear-gradient(140deg,rgba(90,185,154,.095),transparent 68%),var(--glass-surface-subtle)}
+:root[data-theme="dark"] .eao-v2 .faq-item[open]{background:var(--glass-surface-strong)}
+/* Accessibility takes precedence over the palette artwork. */
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+  .eao-v2 :is(nav,.dept-card,.pain-card,.value-card,.work-col,.control-card,.real,.faq-item){
+    background:var(--glass-surface-strong);
+  }
+}
+@media(forced-colors:active){
+  .eao-v2 :is(nav,.dept-card,.pain-card,.value-card,.work-col,.control-card,.real,.faq-item){
+    background:Canvas;
+    border-color:CanvasText;
+    box-shadow:none;
+  }
+}
+
+/* These safeguards follow all palette overrides in cascade order. */
+@media (prefers-reduced-transparency: reduce),(prefers-contrast: more) {
+  :root {
+    --glass-surface:#f8fcf9;
+    --glass-surface-subtle:#fbfdfb;
+    --glass-surface-strong:#ffffff;
+  }
+  :root[data-theme="dark"] {
+    --glass-surface:#1c3029;
+    --glass-surface-subtle:#1c3029;
+    --glass-surface-strong:#233b32;
+  }
+  .eao-v2 :is(nav,.dept-card,.pain-card,.value-card,.work-col,.control-card,.real,.faq-item,.visual-caption) {
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:var(--glass-surface-strong);
+  }
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  :root {
+    --glass-surface:rgba(252,255,252,.95);
+    --glass-surface-subtle:rgba(250,253,251,.95);
+    --glass-surface-strong:rgba(255,255,255,.98);
+  }
+  :root[data-theme="dark"] {
+    --glass-surface:#1e312a;
+    --glass-surface-subtle:#1e312a;
+    --glass-surface-strong:#253b32;
+  }
+}
+
+/* Architecture note is readable against the deliberately deep teal band. */
+.eao-v2 .tech .note,
+:root[data-theme="dark"] .eao-v2 .tech .note {
+  color:#d5f0e9;
+  border-color:rgba(159,231,211,.29);
+  border-left-color:#69dfc5;
+  background:rgba(163,226,208,.12);
+  box-shadow:inset 0 1px 0 rgba(226,255,247,.10);
+}
