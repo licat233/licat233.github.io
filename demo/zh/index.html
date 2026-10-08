@@ -35,7 +35,8 @@
   </script>
   <link rel="stylesheet" href="/assets/vendor/open-props/open-props-core-1.7.23.min.css">
   <link rel="stylesheet" href="/assets/portfolio.css">
-  <link rel="stylesheet" href="/demo/motion-lab.css?v=20261008b">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12.1.4/swiper-bundle.min.css">
+  <link rel="stylesheet" href="/demo/swiper-portfolio.css?v=1">
 </head>
 <body>
   <header class="site-header apple-glass-base apple-glass-ultra-thin">
@@ -224,37 +225,6 @@
     </section>
 
 
-    <section class="lab-story" aria-label="从想法到系统">
-      <div class="lab-pin">
-        <div class="shell lab-story-inner">
-          <div class="lab-story-copy">
-            <p class="kicker">FROM SIGNAL TO SYSTEM / 01</p>
-            <h2 class="lab-story-title">把零散的想法，<em>组织成系统。</em></h2>
-            <div class="lab-reading">
-              <p class="lab-state-1">从真正的问题出发。工具、知识和想法，最初只是零散的线索。</p>
-              <p class="lab-state-2" aria-hidden="true">找到它们之间的关系，建立可组合、可复用的工作方式。</p>
-              <p class="lab-state-3" aria-hidden="true">让复杂性留在系统里，把清晰和效率交到使用者手中。</p>
-            </div>
-            <div class="lab-meter" aria-hidden="true"><span class="lab-meter-fill"></span></div>
-            <div class="lab-marks" aria-hidden="true"><b>01</b><span>—</span><span>02</span><span>—</span><span>03</span><span> / SYSTEM</span></div>
-          </div>
-          <div class="lab-canvas" aria-hidden="true">
-            <svg class="lab-network" viewBox="0 0 600 500" preserveAspectRatio="none">
-              <path class="lab-network-path" d="M148 132 C246 96 338 110 449 127"/>
-              <path class="lab-network-path" d="M148 132 C190 260 128 338 148 369"/>
-              <path class="lab-network-path" d="M449 127 C485 232 402 312 449 369"/>
-              <path class="lab-network-path" d="M148 369 C258 395 340 375 449 369"/>
-            </svg>
-            <div class="lab-tile lab-tile-a"><small>01 / INTENT</small><span class="lab-tile-icon">↗</span><strong>理解问题</strong></div>
-            <div class="lab-tile lab-tile-b"><small>02 / TOOLS</small><span class="lab-tile-icon">⌘</span><strong>发现工具</strong></div>
-            <div class="lab-tile lab-tile-c"><small>03 / KNOWLEDGE</small><span class="lab-tile-icon">◇</span><strong>整理知识</strong></div>
-            <div class="lab-tile lab-tile-d"><small>04 / ACTION</small><span class="lab-tile-icon">→</span><strong>构建流程</strong></div>
-            <div class="lab-core"><img src="/assets/licat-logo.svg" alt=""><strong>变成系统。</strong><small>BUILT TO WORK · BUILT TO LAST</small></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="projects">
       <div class="shell">
         <div class="section-head">
@@ -403,12 +373,9 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
   <script src="/assets/portfolio.js"></script>
-  <script src="/demo/motion-lab.js?v=20261008b"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12.1.4/swiper-bundle.min.js"></script>
+  <script src="/demo/swiper-portfolio.js?v=1"></script>
 
-  <aside class="lab-controls" aria-label="动效实验对照">
-    <span class="lab-mark">MOTION STUDY</span>
-    <a class="lab-compare" href="/zh/" target="_blank" rel="noopener">查看原版 ↗</a>
-    <button type="button" id="lab-replay" aria-label="回到动效演示开始处">重看演示 ↺</button>
-  </aside>
+  <aside class="demo-compare" aria-label="动效对照"><span>动效对照</span><a href="/zh/" target="_blank" rel="noopener">查看原版 ↗</a></aside>
 </body>
 </html>
