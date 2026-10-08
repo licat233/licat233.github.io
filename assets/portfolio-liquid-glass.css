@@ -172,3 +172,117 @@
 @media (prefers-reduced-motion: reduce) {
   .liquid-demo { transition: none; }
 }
+
+/* Navigation: convex glass selection.
+ * Keep the existing JS indicator geometry and spring-like slide transition;
+ * only replace the former opaque black/white active material.
+ */
+.site-header .nav-links .nav-indicator {
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, .82);
+  background:
+    linear-gradient(160deg,
+      rgba(255, 255, 255, .72) 0%,
+      rgba(255, 255, 255, .37) 41%,
+      rgba(231, 246, 252, .18) 76%,
+      rgba(255, 255, 255, .33) 100%);
+  box-shadow:
+    0 4px 12px rgba(30, 78, 101, .15),
+    0 1px 3px rgba(30, 78, 101, .075),
+    inset 0 1px 0 rgba(255, 255, 255, .98),
+    inset 0 -1px 0 rgba(74, 125, 152, .17);
+  -webkit-backdrop-filter: blur(12px) saturate(155%);
+  backdrop-filter: blur(12px) saturate(155%);
+}
+.site-header .nav-links .nav-indicator::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, .58), transparent 50%),
+    linear-gradient(0deg, rgba(255, 255, 255, .12), transparent 48%);
+  pointer-events: none;
+}
+.site-header .nav-links .nav-indicator::after {
+  content: "";
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .92), transparent);
+  pointer-events: none;
+}
+.site-header .nav-pill.active {
+  color: #173240;
+  font-weight: 730;
+}
+.site-header .nav-pill.active > span {
+  background: #168aab;
+  box-shadow: 0 0 0 2px rgba(22, 138, 171, .12);
+  opacity: 1;
+}
+/* The selected item must still read as selected before nav JS initializes. */
+.site-header .nav-links:not(.nav-ready) .nav-pill.active {
+  background: rgba(255, 255, 255, .52);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7);
+}
+:root[data-theme="dark"] .site-header .nav-links .nav-indicator {
+  border-color: rgba(227, 244, 255, .39);
+  background:
+    linear-gradient(153deg,
+      rgba(213, 237, 249, .26) 0%,
+      rgba(133, 180, 205, .13) 48%,
+      rgba(129, 174, 193, .08) 78%,
+      rgba(195, 231, 245, .13) 100%);
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, .22),
+    inset 0 1px 0 rgba(247, 254, 255, .40),
+    inset 0 -1px 0 rgba(0, 0, 0, .28);
+}
+:root[data-theme="dark"] .site-header .nav-links .nav-indicator::before {
+  background: linear-gradient(150deg, rgba(237, 250, 255, .21), transparent 58%);
+}
+:root[data-theme="dark"] .site-header .nav-pill.active { color: #f1fbff; }
+:root[data-theme="dark"] .site-header .nav-pill.active > span {
+  background: #68cadb;
+  box-shadow: 0 0 0 2px rgba(104, 202, 219, .12);
+}
+:root[data-theme="dark"] .site-header .nav-links:not(.nav-ready) .nav-pill.active {
+  background: rgba(194, 227, 242, .18);
+  box-shadow: inset 0 0 0 1px rgba(227, 244, 255, .26);
+}
+/* Accessibility overrides retain the same contrast and forced-color semantics. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .site-header .nav-links .nav-indicator {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: #f5f9fc;
+    border-color: #526b7d;
+    box-shadow: none;
+  }
+  :root[data-theme="dark"] .site-header .nav-links .nav-indicator {
+    background: #263a45;
+    border-color: #c6e1f0;
+    box-shadow: none;
+  }
+  .site-header .nav-links .nav-indicator::before,
+  .site-header .nav-links .nav-indicator::after { display: none; }
+}
+@media (forced-colors: active) {
+  .site-header .nav-links .nav-indicator {
+    background: Highlight;
+    border-color: Highlight;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .site-header .nav-pill.active { color: HighlightText; }
+  .site-header .nav-pill.active > span { background: HighlightText; box-shadow: none; }
+  .site-header .nav-links:not(.nav-ready) .nav-pill.active {
+    background: Highlight;
+    box-shadow: none;
+  }
+}
