@@ -643,7 +643,7 @@ html[lang="zh-CN"] .eao-v2 .cta h2{
 @media(max-width:1040px){
   .eao-v2 nav{width:calc(100% - 1.75rem)}
   .eao-v2 .links>a:not(.gh):not(.lang),.eao-v2 .lang-current{display:none}
-  .eao-v2 .hero{min-height:auto;padding:8.25rem 0 5.25rem}
+  .eao-v2 .hero{min-height:auto;padding:9.25rem 0 5.25rem}
   .eao-v2 .hero-grid{grid-template-columns:minmax(0,1fr);gap:2.875rem}
   .eao-v2 .hero-grid>*{min-width:0}
   .eao-v2 .hero-visual{width:100%;margin:0;transform:none}
@@ -662,7 +662,7 @@ html[lang="zh-CN"] .eao-v2 .cta h2{
   .eao-v2 .links{gap:.3125rem;flex:0 0 auto}
   .eao-v2 .lang{display:inline-flex!important;padding:.4375rem var(--eao-space-xs);white-space:nowrap}
   .eao-v2 .gh{display:none}
-  .eao-v2 .hero{padding:7rem 0 4.125rem}
+  .eao-v2 .hero{padding:8.75rem 0 4.125rem}
   .eao-v2 .hero::before{top:24%;font-size:150px}
   .eao-v2 .hero h1{
     max-width:100%;
@@ -1083,23 +1083,23 @@ html[lang="zh-CN"] .eao-v2 .kicker{
    Specular rim + restrained translucency; refraction is implied at edges.
    Optical shaders are intentionally excluded from content surfaces. */
 :root{
-  --glass-surface:rgba(252,255,254,.62);
-  --glass-surface-subtle:rgba(250,255,253,.43);
-  --glass-surface-strong:rgba(251,255,254,.82);
-  --glass-border:rgba(255,255,255,.83);
-  --glass-edge:rgba(66,124,114,.17);
-  --glass-highlight:rgba(255,255,255,.96);
-  --glass-shadow:0 17px 48px rgba(16,58,53,.085),0 4px 12px rgba(16,58,53,.038);
-  --glass-shadow-raised:0 25px 60px rgba(16,58,53,.13),0 6px 18px rgba(16,58,53,.06);
+  --glass-surface:rgba(251,255,253,.48);
+  --glass-surface-subtle:rgba(248,255,251,.30);
+  --glass-surface-strong:rgba(251,255,254,.73);
+  --glass-border:rgba(131,189,178,.40);
+  --glass-edge:rgba(58,120,110,.19);
+  --glass-highlight:rgba(255,255,255,.97);
+  --glass-shadow:0 18px 40px rgba(18,69,62,.105),0 3px 10px rgba(18,69,62,.045);
+  --glass-shadow-raised:0 24px 55px rgba(18,69,62,.15),0 5px 15px rgba(18,69,62,.065);
   --glass-blur:blur(15px) saturate(130%);
   --glass-radius:var(--eao-radius-card);
   --glass-transition:.26s cubic-bezier(.16,1,.3,1);
 }
 :root[data-theme="dark"]{
-  --glass-surface:rgba(29,46,43,.73);
-  --glass-surface-subtle:rgba(27,43,41,.58);
-  --glass-surface-strong:rgba(34,52,48,.88);
-  --glass-border:rgba(218,255,250,.17);
+  --glass-surface:rgba(29,46,43,.65);
+  --glass-surface-subtle:rgba(27,43,41,.46);
+  --glass-surface-strong:rgba(34,52,48,.84);
+  --glass-border:rgba(218,255,250,.22);
   --glass-edge:rgba(128,236,223,.17);
   --glass-highlight:rgba(228,255,249,.22);
   --glass-shadow:0 18px 52px rgba(0,0,0,.26),0 5px 18px rgba(0,0,0,.10);
@@ -1363,3 +1363,127 @@ html[lang="zh-CN"] .eao-v2 .kicker{
 
 /* Keep screenshot color/detail unchanged in both modes. */
 :root[data-theme="dark"] .eao-v2 .hero-shot{filter:none}
+
+/* Second-pass material polish: add a backdrop for translucency to reveal.
+   All light is stationary, no pointer tracking or layout transforms. */
+.eao-v2 :is(#work,#departments,#value,#control,.faq){isolation:isolate}
+.eao-v2 :is(#work,#departments,#value,#control,.faq)::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse 36rem 27rem at 92% 48%,rgba(17,188,176,.105),transparent 74%),
+    radial-gradient(ellipse 30rem 24rem at 4% 79%,rgba(93,188,173,.085),transparent 76%);
+}
+.eao-v2 :is(#work,#departments,#value,#control,.faq)>.wrap{position:relative;z-index:1}
+/* The rim follows one consistent top-left light source. Never blur text. */
+.eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real){
+  position:relative;
+  background:
+    linear-gradient(138deg,rgba(255,255,255,.52) 0%,rgba(255,255,255,.14) 19%,transparent 47%),
+    linear-gradient(316deg,rgba(12,166,149,.07),transparent 39%),
+    var(--glass-surface);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 var(--glass-highlight),
+    inset 1px 0 0 rgba(255,255,255,.49),
+    inset 0 -1px 0 var(--glass-edge);
+}
+.eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real)::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(116deg,rgba(255,255,255,.22),transparent 29%);
+  box-shadow:inset 0 1px 0 var(--glass-highlight),inset 0 -1px 0 rgba(32,96,85,.08);
+}
+/* Preserve all card content and the numbered watermark above the pane. */
+.eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real)>*{position:relative;z-index:1}
+.eao-v2 .dept-card:hover{
+  border-color:rgba(49,138,126,.43);
+  box-shadow:var(--glass-shadow-raised),inset 0 1px 0 var(--glass-highlight),inset 1px 0 0 rgba(255,255,255,.6);
+}
+.eao-v2 .work-col.after{
+  background:
+    linear-gradient(137deg,rgba(222,255,249,.66),transparent 53%),
+    linear-gradient(316deg,rgba(12,167,147,.10),transparent 48%),
+    var(--glass-surface);
+}
+/* Small FAQ panes have a clear outline and a restrained specular cap. */
+.eao-v2 .faq-item{
+  position:relative;
+  border-color:var(--glass-border);
+  background:
+    linear-gradient(158deg,rgba(255,255,255,.55),transparent 54%),
+    var(--glass-surface-subtle);
+  box-shadow:0 8px 24px rgba(18,69,62,.06),inset 0 1px 0 var(--glass-highlight),inset 0 -1px 0 var(--glass-edge);
+}
+.eao-v2 .faq-item[open]{
+  background:linear-gradient(153deg,rgba(255,255,255,.43),transparent 62%),var(--glass-surface-strong);
+}
+/* Media is not refracted. The optical suggestion stays strictly on the frame. */
+.eao-v2 :is(.hero-shot,.story-visual,.contrast-card){
+  box-shadow:var(--glass-shadow-raised),0 0 0 1px rgba(113,173,162,.12),inset 0 1px 0 var(--glass-highlight);
+}
+.eao-v2 .hero-visual::after{
+  border-color:rgba(255,255,255,.86);
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,.91),inset -1px -1px 0 rgba(53,127,118,.16),0 0 26px rgba(18,126,116,.08);
+}
+/* Glass should reflect the actual backdrop instead of sitting as opaque milk. */
+.eao-v2 nav{
+  background:
+    linear-gradient(138deg,rgba(255,255,255,.35),transparent 40%),
+    var(--glass-surface-strong);
+  box-shadow:0 17px 43px rgba(20,61,56,.13),0 2px 7px rgba(20,61,56,.045),inset 0 1px 0 var(--glass-highlight),inset 0 -1px 0 var(--glass-edge);
+}
+/* Night materials use the same geometry with much weaker interior lighting. */
+:root[data-theme="dark"] .eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real){
+  background:
+    linear-gradient(143deg,rgba(133,218,201,.115),transparent 40%),
+    linear-gradient(315deg,rgba(30,129,116,.055),transparent 45%),
+    var(--glass-surface);
+  box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight),inset 0 -1px 0 var(--glass-edge);
+}
+:root[data-theme="dark"] .eao-v2 .work-col.after{
+  background:linear-gradient(140deg,rgba(20,160,143,.19),transparent 65%),var(--glass-surface);
+}
+:root[data-theme="dark"] .eao-v2 .real{
+  background:linear-gradient(135deg,rgba(23,216,205,.11),transparent 68%),var(--glass-surface);
+}
+:root[data-theme="dark"] .eao-v2 .faq-item{
+  border-color:var(--glass-border);
+  background:linear-gradient(145deg,rgba(109,191,180,.075),transparent 58%),var(--glass-surface-subtle);
+}
+:root[data-theme="dark"] .eao-v2 .faq-item[open]{background:var(--glass-surface-strong)}
+:root[data-theme="dark"] .eao-v2 :is(#work,#departments,#value,#control,.faq)::before{
+  background:radial-gradient(ellipse 34rem 25rem at 88% 45%,rgba(23,216,205,.055),transparent 76%);
+}
+:root[data-theme="dark"] .eao-v2 nav{
+  background:linear-gradient(145deg,rgba(125,212,194,.12),transparent 52%),var(--glass-surface-strong);
+  box-shadow:0 18px 47px rgba(0,0,0,.37),inset 0 1px 0 var(--glass-highlight);
+}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+  .eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real,.faq-item,nav){
+    background:var(--glass-surface-strong);
+  }
+}
+@media(forced-colors:active){
+  .eao-v2 :is(#work,#departments,#value,#control,.faq)::before,
+  .eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real)::before{display:none}
+}
+
+/* Maintain legible secondary navigation on dark tinted glass. */
+:root[data-theme="dark"] .eao-v2 .nav-section-link:not(.is-active){color:#d6e5e1}
+
+@media(forced-colors:active){
+  .eao-v2 :is(nav,.btn,.theme-toggle,.dept-card,.pain-card,.value-card,.work-col,.control-card,.real,.faq-item){
+    background:Canvas;
+    border:1px solid CanvasText;
+    box-shadow:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+}
