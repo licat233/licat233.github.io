@@ -89,8 +89,8 @@
     // No pin, no forced extra scroll, and no 0.7s catch-up lag.
     // The page scrolls normally; the animation runs when the story becomes visible.
     const trigger = ScrollTrigger.create({
-      trigger: story,
-      start: "top 74%",
+      trigger: story.querySelector(".lab-canvas"),
+      start: "top 56%",
       onEnter: () => scene.play(),
       onEnterBack: () => scene.play(),
       onLeaveBack: () => scene.reverse()
