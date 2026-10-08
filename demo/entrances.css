@@ -6,7 +6,10 @@
 .projects { perspective: 1300px; }
 .section-head { perspective: 1400px; }
 .section-head h2 { transform-style: preserve-3d; }
-.principles { perspective: 1100px; }
+.principles { perspective: 1100px; position: relative; }
+.timeline { position: relative; }
+.section-head { overflow-x: clip; overflow-y: visible; }
+.section-head h2 { transform-origin: 50% 50%; }
 .demo-comparison {
   position: fixed; z-index: 111;
   left: max(.75rem, env(safe-area-inset-left));

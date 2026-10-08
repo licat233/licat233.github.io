@@ -309,7 +309,7 @@
 
       /* GSAP Creative Motion Showcase
          Official patterns: directional off-screen flights, SplitText masks,
-         MorphSVG path morph. One-shot entrances, never pin/scrub. */
+         MorphSVG path morph. All scroll entrances reversible; no pin. */
       if (ScrollTrigger) {
         const Split = window.SplitText;
         const Morph = window.MorphSVGPlugin;
@@ -330,52 +330,73 @@
           }, .46);
         }
 
-        // SplitText creates actual per-character masks. Characters peel out of
-        // three-dimensional space, then SplitText restores the original semantic DOM.
+        // Persistent SplitText masks permit genuine reverse play. Do not revert
+        // the split after forward completion: the reverse needs those chars.
         gsap.utils.toArray(".section-head").forEach((head, sectionIndex) => {
           const title = head.querySelector("h2");
           const eyebrow = head.querySelector(".kicker");
           const note = head.querySelector(".section-note");
           if (!title) return;
+
           let split = null;
-          cleanups.push(() => { if (split) split.revert(); });
-          ScrollTrigger.create({
-            trigger: head,
-            start: "top 84%",
-            once: true,
-            onEnter: () => {
-              const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-              tl.fromTo(eyebrow,
-                { x: -38, autoAlpha: 0 },
-                { x: 0, autoAlpha: 1, duration: .55, clearProps: "all" }, 0);
-              if (Split) {
-                split = Split.create(title, { type: "chars", mask: "chars" });
-                const chars = split.chars;
-                tl.fromTo(chars,
-                  {
-                    yPercent: (i) => i % 2 ? -155 : 165,
-                    rotationX: (i) => i % 2 ? 85 : -85,
-                    rotationY: (i) => i % 2 ? -42 : 42,
-                    scale: .64, opacity: 0
-                  },
-                  {
-                    yPercent: 0, rotationX: 0, rotationY: 0, scale: 1, opacity: 1,
-                    ease: "expo.out", duration: 1.12,
-                    stagger: { each: .042, from: sectionIndex % 2 ? "end" : "start" },
-                    onComplete: () => { split?.revert(); split = null; }
-                  }, .09);
-              } else {
-                tl.fromTo(title,
-                  { y: 85, rotationX: -75, autoAlpha: 0 },
-                  { y: 0, rotationX: 0, autoAlpha: 1, duration: 1.0, clearProps: "all" }, .09);
-              }
-              if (note) tl.fromTo(note,
-                { x: 55, autoAlpha: 0, clipPath: "inset(0 100% 0 0)" },
-                { x: 0, autoAlpha: 1, clipPath: "inset(0 0% 0 0)",
-                  duration: .8, ease: "power3.inOut",
-                  clearProps: "transform,opacity,visibility,clipPath" }, .38);
+          if (Split) {
+            split = Split.create(title, { type: "chars", mask: "chars" });
+            // A staggered tween initializes characters only when each sub-tween
+            // begins. Pre-set every glyph to avoid a partial flash at 0%.
+            gsap.set(split.chars, {
+              yPercent: i => i % 2 ? -125 : 135,
+              rotationX: i => i % 2 ? 72 : -72,
+              rotationY: i => i % 2 ? -30 : 30,
+              scale: .76, autoAlpha: 0
+            });
+            cleanups.push(() => split.revert());
+          }
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: head,
+              start: "top 96%",
+              end: "top 54%",
+              scrub: true,
+              invalidateOnRefresh: true
             }
           });
+
+          if (eyebrow) tl.fromTo(eyebrow,
+            { x: desktop ? -38 : -18, autoAlpha: 0 },
+            { x: 0, autoAlpha: 1, duration: .48, ease: "power2.out" }, 0);
+
+          if (split) {
+            tl.fromTo(split.chars,
+              {
+                yPercent: i => i % 2 ? -125 : 135,
+                rotationX: i => i % 2 ? 72 : -72,
+                rotationY: i => i % 2 ? -30 : 30,
+                scale: .76,
+                autoAlpha: 0
+              },
+              {
+                yPercent: 0, rotationX: 0, rotationY: 0,
+                scale: 1, autoAlpha: 1,
+                duration: 1, ease: "power3.out",
+                stagger: { each: .035, from: sectionIndex % 2 ? "end" : "start" }
+              }, .10);
+          } else {
+            tl.fromTo(title, { y: 60, rotationX: -48, autoAlpha: 0 },
+              { y: 0, rotationX: 0, autoAlpha: 1, duration: 1,
+                ease: "power3.out" }, .10);
+          }
+
+          if (note) tl.fromTo(note,
+            {
+              x: desktop ? 44 : 18, autoAlpha: 0,
+              clipPath: "inset(0 100% 0 0)"
+            },
+            {
+              x: 0, autoAlpha: 1,
+              clipPath: "inset(0 0 0 0)",
+              duration: .9, ease: "power2.inOut"
+            }, .26);
         });
 
         // A true reversible entrance. A scroll range controls each card's GSAP
@@ -450,51 +471,107 @@
           });
         }
 
-        // Clip masks create a wipe in the development timeline; the milestone
-        // marker snaps into position with a real elastic ease.
-        gsap.utils.toArray(".phase").forEach((phase, index) => {
-          const dot = phase.querySelector(".phase-dot");
-          ScrollTrigger.create({
-            trigger: phase, start: "top 86%", once: true,
-            onEnter: () => {
-              gsap.fromTo(phase,
+        // Reversible timeline milestones: clipping and node rotation move with
+        // scroll position. Offset is measured in the stable, untransformed grid.
+        const timelineGrid = document.querySelector(".timeline");
+        const phases = gsap.utils.toArray(".timeline .phase");
+        if (timelineGrid && phases.length) {
+          const groupSize = desktop ? phases.length : 1;
+          for (let index = 0; index < phases.length; index += groupSize) {
+            const group = phases.slice(index, index + groupSize);
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: timelineGrid,
+                start: () => "top+=" + group[0].offsetTop + " 93%",
+                end: () => "top+=" + group[0].offsetTop + " 52%",
+                scrub: true,
+                invalidateOnRefresh: true
+              }
+            });
+            group.forEach((phase, withinRow) => {
+              const ordinal = index + withinRow;
+              const marker = phase.querySelector(".phase-dot");
+              const at = withinRow * .18;
+              tl.fromTo(phase,
                 {
-                  clipPath: index % 2 ? "inset(0 0 100% 0)" : "inset(100% 0 0 0)",
-                  y: index % 2 ? -45 : 45, autoAlpha: 0
+                  clipPath: ordinal % 2
+                    ? "inset(0 0 100% 0)"
+                    : "inset(100% 0 0 0)",
+                  y: ordinal % 2 ? -42 : 42,
+                  autoAlpha: 0
                 },
                 {
-                  clipPath: "inset(0% 0 0% 0)", y: 0, autoAlpha: 1,
-                  duration: 1.0, ease: "power3.inOut",
-                  clearProps: "all"
-                });
-              if (dot) gsap.fromTo(dot, {rotation: -105, scale: .15},
-                { rotation: 0, scale: 1, duration: 1.1, ease: "elastic.out(1,0.55)",
-                  clearProps: "transform", delay: .16 });
-            }
-          });
-        });
+                  clipPath: "inset(0 0 0 0)",
+                  y: 0, autoAlpha: 1,
+                  duration: .9, ease: "power2.inOut"
+                }, at);
+              if (marker) tl.fromTo(marker,
+                { rotation: -100, scale: .24 },
+                { rotation: 0, scale: 1, duration: .75,
+                  ease: "back.out(1.5)" }, at + .17);
+            });
+          }
+        }
 
-        // Three-dimensional folding uses GSAP's transform pipeline instead of
-        // costly CSS filters or WebGL. Each card opens once, then is static.
-        gsap.utils.toArray(".principle").forEach((card, i) => {
-          ScrollTrigger.create({
-            trigger: card, start: "top 88%", once: true,
-            onEnter: () => {
-              gsap.fromTo(card,
+        // The three principles fold in AND unfold out when direction reverses.
+        // The parent grid stays static so scroll trigger positions don't drift.
+        const principlesGrid = document.querySelector(".principles");
+        const principles = gsap.utils.toArray(".principles .principle");
+        if (principlesGrid && principles.length) {
+          const groupSize = desktop ? principles.length : 1;
+          for (let index = 0; index < principles.length; index += groupSize) {
+            const group = principles.slice(index, index + groupSize);
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: principlesGrid,
+                start: () => "top+=" + group[0].offsetTop + " 93%",
+                end: () => "top+=" + group[0].offsetTop + " 48%",
+                scrub: true,
+                invalidateOnRefresh: true
+              }
+            });
+            group.forEach((card, withinRow) => {
+              const ordinal = index + withinRow;
+              tl.fromTo(card,
                 {
-                  transformPerspective: 1000,
-                  transformOrigin: i % 2 ? "100% 50%" : "0% 50%",
-                  rotationY: i % 2 ? 82 : -82,
-                  scale: .76, autoAlpha: 0
+                  transformPerspective: 1100,
+                  transformOrigin: ordinal % 2 ? "100% 50%" : "0% 50%",
+                  rotationY: ordinal % 2 ? 78 : -78,
+                  scale: .78, autoAlpha: 0
                 },
                 {
                   rotationY: 0, scale: 1, autoAlpha: 1,
-                  duration: 1.18, ease: "back.out(1.3)",
-                  clearProps: "all"
-                });
+                  duration: 1, ease: "power3.out"
+                }, withinRow * .16);
+            });
+          }
+        }
+
+        // The small footer also participates, while its links remain clickable
+        // once in view. The short range is reachable near the bottom of the page.
+        const footer = document.querySelector(".site-footer");
+        const footerParts = [
+          footer?.querySelector(".footer-brand"),
+          footer?.querySelector(".footer-links"),
+          footer?.querySelector(".footer-note")
+        ].filter(Boolean);
+        if (footer && footerParts.length) {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: footer,
+              start: "top 112%",
+              end: "top 92%",
+              scrub: true,
+              invalidateOnRefresh: true
             }
           });
-        });
+          footerParts.forEach((part, index) => {
+            tl.fromTo(part,
+              { y: 38, rotationX: -24, autoAlpha: 0 },
+              { y: 0, rotationX: 0, autoAlpha: 1,
+                duration: .75, ease: "power2.out" }, index * .14);
+          });
+        }
       }
 
       return () => cleanups.forEach((fn) => fn());
