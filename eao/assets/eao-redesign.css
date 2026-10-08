@@ -636,6 +636,11 @@ html[lang="zh-CN"] .eao-v2 .cta h2{
 .eao-v2 .foot{gap:1.25rem;color:#7b8986;font-size:.75rem}
 
 /* Motion helpers */
+/* Preserve illustration geometry while transparent GIF placeholders lazy-load.
+   Without a fixed ratio, a 1px placeholder expands to a square before the
+   16:9 artwork arrives, shifting downstream ScrollTrigger positions. */
+.eao-v2 .story-visual img.lazy-image{aspect-ratio:16 / 9;object-fit:cover}
+.eao-v2 .work-cartoon img.lazy-image{aspect-ratio:2 / 1}
 .eao-v2 .hero-visual,.eao-v2 .story-visual,.eao-v2 .contrast-card{will-change:transform}
 .eao-v2 .lazy-image{transition:opacity .28s ease}
 
