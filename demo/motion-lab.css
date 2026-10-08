@@ -34,10 +34,15 @@ html[data-motion-lab] .brand { cursor: pointer; }
 .lab-story-copy .kicker { margin-bottom: 1.25rem; }
 .lab-story-title {
   max-width: 11ch; margin: 0 0 1.5rem;
-  font-size: clamp(2.75rem, 5.5vw, 5.5rem); font-weight: 780;
+  font-size: clamp(2.625rem, 4.4vw, 4.5rem); font-weight: 780;
   letter-spacing: -.065em; line-height: 1.05;
 }
 .lab-story-title em { display: block; color: var(--blue); font-style: normal; }
+html[lang="zh-CN"] .lab-story-title {
+  max-width: none;
+  font-size: clamp(2.25rem, 3.5vw, 3.5rem);
+  white-space: nowrap;
+}
 .lab-reading { min-height: 6.5rem; position: relative; max-width: 23rem; }
 .lab-reading p {
   position: absolute; inset: 0 auto auto 0; margin: 0;
