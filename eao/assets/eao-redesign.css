@@ -427,6 +427,11 @@ html[lang="zh-CN"] .eao-v2 .section-title{
   max-width:none;
   margin:0;
 }
+.eao-v2 .work-cartoon img{
+  aspect-ratio:2 / 1;
+  object-fit:cover;
+  object-position:top;
+}
 
 /* Work comparison */
 .eao-v2 .compare-work{
