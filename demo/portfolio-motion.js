@@ -330,32 +330,45 @@
           }, .46);
         }
 
-        // Place the animation where the visitor can SEE it: rather than
-        // beginning as an item barely touches the bottom of the screen,
-        // start after it moves into the lower-middle viewport. Clamp the
-        // finishing position to the maximum achievable scroll offset, so
-        // the last row can always finish before the document ends.
-        const visibleScrollRange = (position, startRatio, endRatio, minimum = 110, reserve = 40) => {
-          // Spare a little scroll distance for font/layout stabilization after
-          // refresh; end-of-page cards must be fully settled at the bottom.
-          const limit = Math.max(1, ScrollTrigger.maxScroll(window) - reserve);
-          const desiredStart = Math.max(0, position - window.innerHeight * startRatio);
-          const desiredEnd = Math.max(0, position - window.innerHeight * endRatio);
-          const end = Math.min(limit, Math.max(0, desiredEnd));
-          const start = Math.max(0, Math.min(desiredStart, end - minimum));
+        // Apple-style pacing: animation *duration* in scrub mode is the scroll
+        // distance, not the tween's seconds. Keep the first motion in view,
+        // give it ample scroll travel, and leave a stable end-state interval.
+        const visibleScrollRange = (
+          position, startRatio, travelFactor, reserve = 35
+        ) => {
+          const max = Math.max(1, ScrollTrigger.maxScroll(window) - reserve);
+          const travel = Math.round(window.innerHeight * travelFactor);
+          const preferredStart = Math.max(0, position - window.innerHeight * startRatio);
+          const end = Math.min(max, preferredStart + travel);
+          // Near the page end, move the beginning slightly earlier rather than
+          // squeezing a long reveal into the last 100px of scrolling.
+          const start = Math.max(0, Math.min(preferredStart, end - travel));
           return [start, Math.max(start + 1, end)];
         };
-        const absTop = (element) => element.getBoundingClientRect().top + window.scrollY;
-        const createRange = (element, startRatio, endRatio, min, reserve = 40) => {
-          // Refresh-safe numbers: element itself is not moved by its own tween.
-          const r = () => visibleScrollRange(absTop(element), startRatio, endRatio, min, reserve);
-          return { start: () => r()[0], end: () => r()[1] };
-        };
-        const groupRange = (parent, child, startRatio, endRatio, min) => {
-          const r = () => visibleScrollRange(
-            absTop(parent) + child.offsetTop, startRatio, endRatio, min
+        const absTop = element => element.getBoundingClientRect().top + window.scrollY;
+        const createRange = (element, startRatio, travelFactor, reserve = 35) => {
+          const range = () => visibleScrollRange(
+            absTop(element), startRatio, travelFactor, reserve
           );
-          return { start: () => r()[0], end: () => r()[1] };
+          return { start: () => range()[0], end: () => range()[1] };
+        };
+        const groupRange = (parent, child, startRatio, travelFactor, reserve = 35) => {
+          const range = () => visibleScrollRange(
+            absTop(parent) + child.offsetTop, startRatio, travelFactor, reserve
+          );
+          return { start: () => range()[0], end: () => range()[1] };
+        };
+        // An empty numerical tween holds the finished visual state for the
+        // final 15% of scroll progress. It reverses naturally when scrolling up.
+        const appendHold = (timeline, fraction = .15) => {
+          const live = timeline.duration();
+          if (live > 0) {
+            timeline.to({ settled: 0 }, {
+              settled: 1,
+              duration: live * fraction / (1 - fraction),
+              ease: "none"
+            }, ">");
+          }
         };
 
         // Persistent SplitText masks permit genuine reverse play. Do not revert
@@ -383,7 +396,7 @@
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: head,
-              ...createRange(head, .73, .34, 180),
+              ...createRange(head, .76, desktop ? .57 : .54),
               scrub: true,
               invalidateOnRefresh: true
             }
@@ -424,6 +437,7 @@
               clipPath: "inset(0 0 0 0)",
               duration: .9, ease: "power1.inOut"
             }, .26);
+          appendHold(tl);
         });
 
         // A true reversible entrance. A scroll range controls each card's GSAP
@@ -451,10 +465,11 @@
                 // Trigger the stable grid, not an animated card. offsetTop
                 // is the actual row position inside the untransformed grid.
                 trigger: grid,
-                start: () => "top+=" + group[0].offsetTop +
-                  (rowIndex === 0 ? " 89%" : " 72%"),
-                end: () => "top+=" + group[0].offsetTop +
-                  (rowIndex === 0 ? " 43%" : " 38%"),
+                ...groupRange(
+                  grid, group[0],
+                  rowIndex === 0 ? .78 : .75,
+                  desktop ? .70 : .67
+                ),
                 scrub: true, // frame-accurate, NO 0.7s catch-up delay
                 invalidateOnRefresh: true,
                 fastScrollEnd: false
@@ -467,24 +482,36 @@
                 flightDirections[cardIndex % flightDirections.length];
               const spin = (cardIndex % 2 ? 1 : -1) * (desktop ? 13 : 8);
 
+              const x = () => directionX * (window.innerWidth + card.offsetWidth + 80);
+              const y = () => directionY * (window.innerHeight + card.offsetHeight + 50);
+              const begin = withinRow * .10;
+              // 60%+ of the scene is a legible approach from beyond the edge.
               tl.fromTo(card, {
-                x: () => directionX * (window.innerWidth + card.offsetWidth + 80),
-                y: () => directionY * (window.innerHeight + card.offsetHeight + 50),
-                rotation: spin,
+                x, y, rotation: spin,
                 scale: desktop ? .72 : .84,
                 autoAlpha: 0,
                 force3D: true,
                 transformOrigin: "50% 50%"
               }, {
-                x: 0, y: 0, rotation: 0, scale: 1,
+                x: () => x() * .07,
+                y: () => y() * .07,
+                rotation: spin * .13,
+                scale: .96,
                 autoAlpha: 1,
-                duration: 1,
-                ease: "power2.out",
+                duration: .68,
+                ease: "power1.inOut",
                 immediateRender: true
-              }, withinRow * .16);
+              }, begin);
+              // A separate short settling movement, not a sudden hard stop.
+              tl.to(card, {
+                x: 0, y: 0, rotation: 0, scale: 1,
+                duration: .22, ease: "power2.out"
+              }, begin + .68);
             });
 
-            // Never clear transforms on completion; reverse uses the same tween.
+            // Last ~15% is a stable composition before the next row.
+            // Keep transforms for a perfect reverse on upward scroll.
+            appendHold(tl);
             rowTimelines.push(tl);
           }
           cleanups.push(() => {
@@ -509,7 +536,7 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: timelineGrid,
-                ...groupRange(timelineGrid, group[0], .72, .33, 170),
+                ...groupRange(timelineGrid, group[0], .74, desktop ? .46 : .45),
                 scrub: true,
                 invalidateOnRefresh: true
               }
@@ -536,6 +563,7 @@
                 { rotation: 0, scale: 1, duration: .75,
                   ease: "back.out(1.5)" }, at + .17);
             });
+            appendHold(tl);
           }
         }
 
@@ -550,7 +578,7 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: principlesGrid,
-                ...groupRange(principlesGrid, group[0], .72, .34, 170),
+                ...groupRange(principlesGrid, group[0], .75, desktop ? .59 : .55),
                 scrub: true,
                 invalidateOnRefresh: true
               }
@@ -569,6 +597,7 @@
                   duration: 1.18, ease: "power1.inOut"
                 }, withinRow * .1);
             });
+            appendHold(tl);
           }
         }
 
@@ -586,7 +615,7 @@
               trigger: footer,
               // Footer has little available scroll space: use a shorter,
               // reachable range but only AFTER its top enters the viewport.
-              ...createRange(footer, .96, .84, 70, 20),
+              ...createRange(footer, .94, .17, 20),
               scrub: true,
               invalidateOnRefresh: true
             }
@@ -597,6 +626,7 @@
               { y: 0, rotationX: 0, autoAlpha: 1,
                 duration: .75, ease: "power1.inOut" }, index * .14);
           });
+          appendHold(tl);
         }
       }
 

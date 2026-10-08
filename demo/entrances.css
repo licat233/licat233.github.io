@@ -7,6 +7,11 @@
 .section-head { perspective: 1400px; }
 .section-head h2 { transform-style: preserve-3d; }
 .principles { perspective: 1100px; position: relative; }
+/* Clip 3D folding edges on narrow viewports, not vertical scroll. */
+#principles, .site-footer { overflow-x: clip; }
+/* Extra breathing room belongs to the footer itself, not a pinned/spacer scene.
+   It lets the final Principles card complete its ~500px scroll passage. */
+.site-footer { padding-block-end: clamp(14rem, 35vh, 21rem); }
 .timeline { position: relative; }
 .section-head { overflow-x: clip; overflow-y: visible; }
 .section-head h2 { transform-origin: 50% 50%; }

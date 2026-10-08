@@ -1,21 +1,26 @@
-# Licat / Reversible GSAP Motion Lab
+# Licat GSAP Motion Lab — Scroll-paced scenes
 
-An experiment isolated to /demo/. The original homepages are unchanged.
+Only /demo/ changes; original / and /zh/ /en/ remain unchanged.
 
-All scroll-driven entrances remain reversible using GSAP ScrollTrigger with
-scrub:true (no catch-up delay), no pin or scroll lock.
+Pacing inspired by studying Apple product pages and GSAP official ScrollTrigger
+guidance. **Not** a copy of Apple's private animation system.
 
-**Viewport choreography:**
-- Section titles wait until their top is around 73% of viewport height, then
-  spread character-mask motion through the middle of the screen.
-- Journey and Principles begin around 72%, not at 93% (barely entering).
-- Less front-loaded easing makes the movement visible throughout the passage.
-- Bottom-of-document ranges are clamped to the actual maximum scroll position,
-  so the final Principles row finishes rather than remaining half folded.
-- Footer has a shorter custom range (96% to 84%), since it has very little
-  scroll room at the bottom; its small entrance remains bidirectional.
-- Project cards keep the previously approved eight-direction reversible flight.
+Reversible scroll choreography with no pin, scroll lock or delayed scrub:
 
-The page does not change layout, add spacer scroll sections, or force the user
-to wait for animations. Responsive mobile breakpoints and reduced motion remain
-supported. Hero stays a one-time page-load introduction by design.
+- Section headings: ~0.54–0.57 viewport-height travel (around 486–513px
+  on a 900px screen). SplitText uses masked, staggered character transforms.
+- Project cards: 0.67–0.70 viewport-height travel (about 600–630px on 900px),
+  starting with card top in the visible lower viewport.
+  Flight (68 timeline units) → precision settling (22) → held final frame
+  (15% of full scroll range), still completely reversible.
+- Journey milestones: ~0.45–0.46 viewport-height travel.
+- Principles: ~0.55–0.59 viewport-height travel.
+- Footer: shorter ~0.17 viewport-height travel, with a completed final state.
+- Section titles, milestones, principles and footer also hold their final
+  arrangement for the last 15% of their scroll ranges.
+
+A modest amount of *footer-internal* bottom breathing room gives the final
+principles enough natural scroll distance to complete on desktop and mobile.
+This is not a separate spacer section and does not fix/pin any content.
+All scene boundaries are clamped to real maximum scroll distance. CSS grid
+geometry never changes, and reduced-motion keeps all content static.
