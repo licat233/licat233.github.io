@@ -90,7 +90,7 @@
     // The page scrolls normally; the animation runs when the story becomes visible.
     const trigger = ScrollTrigger.create({
       trigger: story.querySelector(".lab-canvas"),
-      start: "top 56%",
+      start: "top 35%",
       onEnter: () => scene.play(),
       onEnterBack: () => scene.play(),
       onLeaveBack: () => scene.reverse()
