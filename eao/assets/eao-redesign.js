@@ -279,27 +279,6 @@
       });
     }
 
-    if (ScrollTrigger) {
-      ScrollTrigger.batch(".dept-card", {
-        start: "top 90%",
-        once: true,
-        onEnter: (batch) => {
-          gsap.fromTo(
-            batch,
-            { y: 22, autoAlpha: 0 },
-            {
-              y: 0,
-              autoAlpha: 1,
-              duration: 0.56,
-              stagger: 0.07,
-              ease: "power3.out",
-              clearProps: "opacity,visibility"
-            }
-          );
-        }
-      });
-    }
-
     window.addEventListener(
       "load",
       () => {
