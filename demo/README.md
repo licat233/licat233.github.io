@@ -1,20 +1,18 @@
-# Licat Motion Study — GSAP Cursor-Tracking Preview
+# Licat / Entrance Motion Lab
 
-Scope: `/demo/` only. Production homepages `/zh/`, `/en/` and shared `/assets/` are unchanged.
+This demo is intentionally isolated at /demo/. The original personal homepage remains unchanged.
 
-Reference implementation:
-- GSAP Demo Hub: https://demos.gsap.com/demo/cursor-tracking-image-preview/
-- Official GreenSock CodePen source: https://codepen.io/GreenSock/pen/PwqrzeG
-- GSAP quickTo reference: https://gsap.com/docs/v3/GSAP/gsap.quickTo/
+Reference: GSAP 3.15 core, ScrollTrigger and official SplitText for masked heading reveal.
+The Hero intro is retained from the original site, but all continuous mouse-follow,
+tilt and scroll-scrub motion is removed in the experimental copy.
 
-The demo uses the official per-item quickTo + paused fade pattern.
-It does not install another framework, pin scroll, force scroll smoothing, or use 3D/WebGL effects.
+Entrance patterns:
+- Section titles: staggered SplitText masked glyph reveal (reverted after entrance)
+- Projects: distinct 3D lift, lateral slide, depth and scale entrances
+- Journey: waypoint / dot arrivals
+- Principles: subtle 3D spring-in
+- Footer: low-distance rise
 
-- Desktop with a fine pointer: hovering a project row shows a screenshot following the pointer.
-- Touch or reduced-motion: screenshots remain in normal document flow with no pointer animation.
-- All project titles, destinations, and primary descriptions come from the existing portfolio.
-- 16 screenshots in `previews/` were captured from public pages already hosted by this GitHub Pages site, in zh/en where available.
-- GSAP and Open Props come from the site's existing shared resources; the new script/style stay inside `demo/`.
-- If JavaScript or GSAP fails, the projects and static previews remain readable.
-
-Keep screenshots current when project websites change. The demo is deliberately not linked from the production homepage.
+Each entrance runs once without locking scroll. Animation uses transforms and
+opacity only; prefers-reduced-motion displays all content statically. No photos,
+WebGL, Swiper, custom scroll drivers, or additional frameworks.

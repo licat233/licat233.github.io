@@ -1,0 +1,25 @@
+/* Entrance study: production structure and visual language remain intact.
+   GSAP animates compositor-friendly transform/opacity only, once per section.
+   No permanent will-change promotions and no page-level scroll trapping. */
+.projects { perspective: 1100px; }
+.project, .principle { will-change: auto; }
+.section-head h2 { transform-style: preserve-3d; }
+.section-head .kicker { transform-origin: left center; }
+.demo-comparison {
+  position: fixed; z-index: 111;
+  left: max(.75rem, env(safe-area-inset-left));
+  bottom: max(.75rem, env(safe-area-inset-bottom));
+  display: flex; align-items: center; gap: .6rem; padding: .6rem .75rem;
+  background: var(--apple-glass-bg-thick);
+  border: 1px solid var(--line); border-radius: .7rem;
+  box-shadow: var(--apple-glass-shadow);
+  color: var(--text);
+  font: 650 .72rem/1.35 var(--apple-font-family);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.demo-comparison small { font-size: .6rem; font-weight: 700; letter-spacing: .055em; color: var(--muted); }
+.demo-comparison a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .project, .principle, .section-head h2 { transform: none !important; }
+}
