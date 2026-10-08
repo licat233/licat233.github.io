@@ -1809,30 +1809,41 @@ body.eao-v2::before{opacity:.08;background:radial-gradient(circle at 1px 1px,rgb
   padding:clamp(1.25rem,2.25vw,1.875rem);
 }
 .eao-v2 #work .compare-work .work-col.before{
-  border:1px solid #CBD5DE;
-  border-radius:.875rem;
-  background:linear-gradient(160deg,#F1F3F5,#E9EDF1);
-  box-shadow:0 4px 13px rgba(26,43,59,.035);
-  -webkit-backdrop-filter:none;
-  backdrop-filter:none;
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:var(--glass-radius);
+  /* Cool, quieter frosted glass; background stays partially visible. */
+  background:
+    linear-gradient(137deg,rgba(255,255,255,.47),rgba(255,255,255,.14) 38%,transparent 67%),
+    linear-gradient(316deg,rgba(111,146,188,.105),transparent 52%),
+    rgba(228,237,248,.29);
+  box-shadow:
+    0 15px 37px rgba(38,69,105,.072),0 3px 9px rgba(38,69,105,.035),
+    inset 0 1px 0 rgba(255,255,255,.92),
+    inset 1px 0 0 rgba(255,255,255,.55),
+    inset 0 -1px 0 rgba(92,128,168,.15);
+  -webkit-backdrop-filter:blur(16px) saturate(116%);
+  backdrop-filter:blur(16px) saturate(116%);
 }
 .eao-v2 #work .compare-work .work-col.before::before{
-  background:none;
-  box-shadow:none;
+  background:linear-gradient(118deg,rgba(255,255,255,.30),transparent 33%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.82);
 }
 .eao-v2 #work .compare-work .work-col.after{
   isolation:isolate;
-  border:1px solid rgba(38,160,152,.43);
+  border:1px solid rgba(255,255,255,.93);
   border-radius:1.375rem;
+  /* Clearer featured glass, lightly refracting the shared environment. */
   background:
-    linear-gradient(141deg,rgba(238,255,252,.87),rgba(255,255,255,.29) 47%,transparent 78%),
-    linear-gradient(315deg,rgba(62,193,180,.15),transparent 45%),
-    var(--glass-surface-strong);
+    linear-gradient(139deg,rgba(255,255,255,.60),rgba(255,255,255,.16) 38%,transparent 68%),
+    linear-gradient(315deg,rgba(24,192,179,.145),transparent 54%),
+    rgba(227,253,248,.38);
   box-shadow:
-    0 20px 46px rgba(8,92,93,.115),
-    0 4px 13px rgba(18,68,76,.045),
-    inset 0 1px 0 rgba(255,255,255,.94),
-    inset 1px 0 0 rgba(255,255,255,.72);
+    0 22px 48px rgba(12,87,90,.115),0 5px 13px rgba(21,77,91,.052),
+    inset 0 1px 0 rgba(255,255,255,.98),
+    inset 1px 0 0 rgba(255,255,255,.77),
+    inset 0 -1px 0 rgba(21,154,142,.23);
+  -webkit-backdrop-filter:blur(20px) saturate(132%);
+  backdrop-filter:blur(20px) saturate(132%);
 }
 .eao-v2 #work .compare-work .work-col.after::after{
   content:"";
@@ -1842,7 +1853,7 @@ body.eao-v2::before{opacity:.08;background:radial-gradient(circle at 1px 1px,rgb
   right:1.375rem;
   height:3px;
   border-radius:0 0 .5rem .5rem;
-  background:linear-gradient(90deg,transparent,rgba(0,176,165,.78) 38%,rgba(8,225,212,.62) 70%,transparent);
+  background:linear-gradient(90deg,transparent,rgba(0,155,147,.56) 39%,rgba(8,190,176,.48) 70%,transparent);
   pointer-events:none;
 }
 .eao-v2 #work .compare-work .work-col.after::before{
@@ -1972,9 +1983,18 @@ body.eao-v2::before{opacity:.08;background:radial-gradient(circle at 1px 1px,rgb
 /* For dark mode, keep the traditional pane neutral and the EAO pane
    recognizably teal without sacrificing legibility. */
 :root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.before{
-  border-color:rgba(179,193,207,.15);
-  background:linear-gradient(150deg,#202D3A,#202B36);
-  box-shadow:0 6px 18px rgba(0,0,0,.11);
+  border-color:rgba(218,235,252,.22);
+  background:
+    linear-gradient(141deg,rgba(173,196,220,.13),rgba(173,196,220,.035) 46%,transparent 73%),
+    linear-gradient(316deg,rgba(100,139,185,.09),transparent 51%),
+    rgba(29,43,60,.48);
+  box-shadow:
+    0 16px 38px rgba(0,0,0,.19),inset 0 1px 0 rgba(231,243,255,.22),
+    inset 0 -1px 0 rgba(103,147,191,.13);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.before::before{
+  background:linear-gradient(118deg,rgba(226,244,255,.10),transparent 33%);
+  box-shadow:inset 0 1px 0 rgba(231,246,255,.18);
 }
 :root[data-theme="dark"] .eao-v2 #work .compare-work .before h3{color:#DAE2E9}
 :root[data-theme="dark"] .eao-v2 #work .compare-work .before li{
@@ -1989,12 +2009,15 @@ body.eao-v2::before{opacity:.08;background:radial-gradient(circle at 1px 1px,rgb
 }
 :root[data-theme="dark"] .eao-v2 #work .compare-work .before .work-context{color:#A2B0BF}
 :root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.after{
-  border-color:rgba(87,215,205,.39);
+  border-color:rgba(169,240,232,.38);
   background:
-    linear-gradient(148deg,rgba(37,126,125,.22),transparent 56%),
-    linear-gradient(316deg,rgba(13,121,112,.12),transparent 52%),
-    rgba(24,48,54,.73);
-  box-shadow:0 18px 42px rgba(0,0,0,.25),inset 0 1px 0 rgba(188,245,237,.17);
+    linear-gradient(141deg,rgba(115,215,209,.18),rgba(115,215,209,.055) 42%,transparent 74%),
+    linear-gradient(316deg,rgba(25,170,159,.15),transparent 56%),
+    rgba(22,53,63,.53);
+  box-shadow:
+    0 20px 46px rgba(0,0,0,.25),inset 0 1px 0 rgba(213,255,249,.28),
+    inset 1px 0 0 rgba(185,250,242,.12),
+    inset 0 -1px 0 rgba(96,211,199,.19);
 }
 :root[data-theme="dark"] .eao-v2 #work .compare-work .after h3{color:#E4F8F5}
 :root[data-theme="dark"] .eao-v2 #work .compare-work .after .work-mode{
