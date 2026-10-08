@@ -2200,3 +2200,31 @@ body.eao-v2::before{opacity:.08;background:radial-gradient(circle at 1px 1px,rgb
   .eao-v2 #work .compare-work .after li:last-child {background:Canvas;outline:1px solid CanvasText;}
   .eao-v2 #work .work-note {background:Canvas;border:1px solid CanvasText;}
 }
+
+/* Department and control category icons — first-round adoption (2026-10-09). */
+.eao-v2 .eao-category-sprite {
+  position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;
+}
+.eao-v2 #departments .dept-card h3,
+.eao-v2 #control .control-card h3 {
+  display:flex;align-items:center;gap:.625rem;min-width:0;
+}
+.eao-v2 :is(#departments .dept-card,#control .control-card) .eao-category-icon {
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 1.375rem;width:1.375rem;height:1.375rem;
+  color:#007B76;
+}
+.eao-v2 :is(#departments .dept-card,#control .control-card) .eao-category-icon svg {
+  display:block;width:1.375rem;height:1.375rem;
+  fill:none;stroke:currentColor;stroke-width:1.75;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.eao-v2 :is(#departments .dept-card,#control .control-card) .eao-category-label {
+  min-width:0;overflow-wrap:break-word;
+}
+:root[data-theme="dark"] .eao-v2 :is(#departments .dept-card,#control .control-card) .eao-category-icon {
+  color:#91E7DE;
+}
+@media(forced-colors:active) {
+  .eao-v2 :is(#departments .dept-card,#control .control-card) .eao-category-icon {color:CanvasText;}
+}
