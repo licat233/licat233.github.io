@@ -378,9 +378,9 @@
           });
         });
 
-        // Cards never leave their real Bento grid cells. Each entrance uses only
-        // composited transforms and opacity, so there is no Flip layout jump.
-        // Eight distinct screen-edge trajectories, landing in the existing layout.
+        // A true reversible entrance. A scroll range controls each card's GSAP
+        // timeline in BOTH directions: scroll down -> fly in; scroll up -> fly out.
+        // No pin, smooth-scroll hijack, lagged scrub, layout mutation, or once:true.
         const allCards = gsap.utils.toArray(".projects .project");
         const grid = document.querySelector(".projects");
         const flightDirections = [
@@ -391,72 +391,62 @@
         ];
         if (grid && allCards.length) {
           const rowSize = desktop ? 2 : 1;
-          const groups = [];
-          for (let index = 0; index < allCards.length; index += rowSize) {
-            groups.push(allCards.slice(index, index + rowSize));
-          }
-
-          // Prepare visibility only: no large transforms before a flight starts,
-          // avoiding unwanted layout/scroll widths and card flash on load.
+          const rowTimelines = [];
           gsap.set(allCards, { autoAlpha: 0 });
-          const revealed = new Set();
 
-          const flyFromViewportEdge = (card, cardIndex) => {
-            const box = card.getBoundingClientRect();
-            const pad = desktop ? 110 : 35;
-            const [dirX, dirY] = flightDirections[cardIndex % flightDirections.length];
-            const dx = dirX < 0 ? -(box.right + pad)
-                     : dirX > 0 ? window.innerWidth - box.left + pad
-                     : 0;
-            const dy = dirY < 0 ? -(box.bottom + pad)
-                     : dirY > 0 ? window.innerHeight - box.top + pad
-                     : 0;
-            return { x: dx, y: dy };
-          };
-
-          groups.forEach((group, rowIndex) => {
-            const anchor = group[0];
-            let started = false;
-            const begin = () => {
-              if (started) return;
-              started = true;
-              const timeline = gsap.timeline({
-                onComplete: () => {
-                  // Return to ordinary CSS hover and focus behavior after landing.
-                  gsap.set(group, { clearProps: "transform,opacity,visibility,transformOrigin,willChange" });
-                }
-              });
-              group.forEach((card, withinRow) => {
-                if (revealed.has(card)) return;
-                revealed.add(card);
-                const index = allCards.indexOf(card);
-                const from = flyFromViewportEdge(card, index);
-                const spin = (index % 2 ? 1 : -1) * (desktop ? 13 : 8);
-                timeline.fromTo(card,
-                  {
-                    ...from, rotation: spin, scale: desktop ? .72 : .84,
-                    autoAlpha: 0, force3D: true, transformOrigin: "50% 50%"
-                  },
-                  {
-                    x: 0, y: 0, rotation: 0, scale: 1, autoAlpha: 1,
-                    duration: desktop ? 1.22 : .94,
-                    ease: "back.out(1.08)",
-                    overwrite: "auto"
-                  }, withinRow * .19);
-              });
-            };
-            ScrollTrigger.create({
-              trigger: anchor,
-              start: rowIndex === 0 ? "top 88%" : "top 64%",
-              once: true,
-              onEnter: begin,
-              onEnterBack: begin
+          for (let index = 0; index < allCards.length; index += rowSize) {
+            const group = allCards.slice(index, index + rowSize);
+            const rowIndex = index / rowSize;
+            const tl = gsap.timeline({
+              defaults: { ease: "power2.out" },
+              scrollTrigger: {
+                // Trigger the stable grid, not an animated card. offsetTop
+                // is the actual row position inside the untransformed grid.
+                trigger: grid,
+                start: () => "top+=" + group[0].offsetTop +
+                  (rowIndex === 0 ? " 89%" : " 72%"),
+                end: () => "top+=" + group[0].offsetTop +
+                  (rowIndex === 0 ? " 43%" : " 38%"),
+                scrub: true, // frame-accurate, NO 0.7s catch-up delay
+                invalidateOnRefresh: true,
+                fastScrollEnd: false
+              }
             });
-          });
 
+            group.forEach((card, withinRow) => {
+              const cardIndex = index + withinRow;
+              const [directionX, directionY] =
+                flightDirections[cardIndex % flightDirections.length];
+              const spin = (cardIndex % 2 ? 1 : -1) * (desktop ? 13 : 8);
+
+              tl.fromTo(card, {
+                x: () => directionX * (window.innerWidth + card.offsetWidth + 80),
+                y: () => directionY * (window.innerHeight + card.offsetHeight + 50),
+                rotation: spin,
+                scale: desktop ? .72 : .84,
+                autoAlpha: 0,
+                force3D: true,
+                transformOrigin: "50% 50%"
+              }, {
+                x: 0, y: 0, rotation: 0, scale: 1,
+                autoAlpha: 1,
+                duration: 1,
+                ease: "power2.out",
+                immediateRender: true
+              }, withinRow * .16);
+            });
+
+            // Never clear transforms on completion; reverse uses the same tween.
+            rowTimelines.push(tl);
+          }
           cleanups.push(() => {
-            gsap.killTweensOf(allCards);
-            gsap.set(allCards, { clearProps: "transform,opacity,visibility,transformOrigin,willChange" });
+            rowTimelines.forEach(tl => {
+              tl.scrollTrigger?.kill();
+              tl.kill();
+            });
+            gsap.set(allCards, {
+              clearProps: "transform,opacity,visibility,transformOrigin,willChange"
+            });
           });
         }
 

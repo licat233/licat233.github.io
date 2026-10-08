@@ -1,15 +1,13 @@
-# Licat / Creative Entrance Lab
+# Licat / Bidirectional Flying Card Entrances
 
-The experimental /demo/ pages preserve the original Bento grid and site content.
-The production /en/ and /zh/ remain unchanged.
+Isolated experiment in /demo/; production homepage is unchanged.
 
-GSAP SplitText provides heading masks, MorphSVG drives the Hero ribbon,
-and the projects use an eight-direction, off-viewport flying entrance:
+GSAP ScrollTrigger now maps each card row's progress directly to scroll position.
+Scrolling downward flies cards from distinct viewport edges into the original
+Bento grid; scrolling upward retraces the exact path. Downward repeats it.
+The second card in desktop rows is staggered; mobile has one card per row.
 
-NW / NE / SW / SE / W / E / N / S.
-
-Each pair of cards (one card per mobile row) animates only as its row becomes
-visible. Staggered flights land in final CSS grid cells. No GSAP Flip, layout
-mutation, pin, scrub, scroll hijacking, permanent animation loop, or WebGL.
-Animation is transform/opacity-only, cleared after landing, with responsive
-and reduced-motion fallbacks.
+No pin, scroll-lock, delayed scrub, Flip, layout mutation, or once-only logic.
+This is reversible scroll-position control, not a wheel event listener.
+Each row has a short scroll range and uses transform/opacity only. GSAP
+invalidateOnRefresh recomputes offsets on resize. Reduced motion is static.
