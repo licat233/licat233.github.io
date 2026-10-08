@@ -9,9 +9,6 @@
 .principles { perspective: 1100px; position: relative; }
 /* Clip 3D folding edges on narrow viewports, not vertical scroll. */
 #principles, .site-footer { overflow-x: clip; }
-/* Small footer breathing room makes the final mobile cards reachable without
-   extending the page with a large empty tail. No pin/spacer section. */
-.site-footer { padding-block-end: clamp(8rem, 16vh, 10rem); }
 .timeline { position: relative; }
 .section-head { overflow-x: clip; overflow-y: visible; }
 .section-head h2 { transform-origin: 50% 50%; }

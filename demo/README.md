@@ -17,3 +17,8 @@ scrub position. The latch resets after fully reversing and leaving the viewport.
 At initial load the timeout also handles restored deep-link positions. Reduced
 motion skips these effects and timers. Cleanups remove listeners and timers.
 No new service, library, pinned scroll, or layout mutation.
+
+## Footer spacing
+The experimental oversized footer padding was removed. The footer now uses
+its natural height; scroll-idle scene completion provides visibility without
+adding artificial blank space or a scroll spacer.
