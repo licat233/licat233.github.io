@@ -1,32 +1,12 @@
-/* GSAP Creative Motion Showcase – demo scope only.
-   The physical cards assemble with GSAP Flip; avoid height jumps by reserving
-   the final grid height in JS. There is no page pin or forced scrolling. */
+/* GSAP Creative Motion Showcase, isolated to /demo/.
+   Cards keep their final grid geometry; only transforms/opacity fly in.
+   Clip off-viewport horizontal travel without introducing a scroll container. */
+#projects { overflow-x: clip; overflow-y: visible; }
+#projects .section-head { position: relative; z-index: 2; }
 .projects { perspective: 1300px; }
 .section-head { perspective: 1400px; }
 .section-head h2 { transform-style: preserve-3d; }
 .principles { perspective: 1100px; }
-.projects.creative-stack { position: relative; }
-.projects.creative-stack > .project:nth-child(1),
-.projects.creative-stack > .project:nth-child(2) {
-  position: absolute;
-  top: 0;
-  left: calc(50% - min(19vw, 230px));
-  width: min(40vw, 460px);
-  height: min(27vw, 315px);
-  min-height: 0;
-  grid-column: auto;
-}
-.projects.creative-stack > .project:nth-child(1) {
-  transform: translate(-2.25rem, .25rem) rotate(-11deg) scale(.84);
-  z-index: 3;
-}
-.projects.creative-stack > .project:nth-child(2) {
-  transform: translate(2rem, .35rem) rotate(9deg) scale(.86);
-  z-index: 4;
-}
-.projects.creative-stack > .project:nth-child(n+3) {
-  visibility: hidden;
-}
 .demo-comparison {
   position: fixed; z-index: 111;
   left: max(.75rem, env(safe-area-inset-left));
@@ -42,14 +22,7 @@
 }
 .demo-comparison small {font-size:.6rem;font-weight:700;letter-spacing:.055em;color:var(--muted)}
 .demo-comparison a:focus-visible {outline:2px solid var(--blue);outline-offset:3px}
-@media (max-width:760px) {
-  .projects.creative-stack > .project:nth-child(n) {
-    position:relative; top:auto;left:auto;width:auto;height:auto;
-    visibility:visible;transform:none;
-  }
-}
+
 @media (prefers-reduced-motion: reduce) {
-  .projects.creative-stack > .project:nth-child(n) {
-    position:relative;top:auto;left:auto;width:auto;height:auto;visibility:visible;transform:none;
-  }
+  #projects .project { opacity: 1 !important; visibility: visible !important; transform: none !important; }
 }

@@ -1,16 +1,15 @@
-# Licat — GSAP Creative Motion Showcase
+# Licat / Creative Entrance Lab
 
-Isolated experiment under /demo/. /en/, /zh/ and shared /assets/ are untouched.
+The experimental /demo/ pages preserve the original Bento grid and site content.
+The production /en/ and /zh/ remain unchanged.
 
-Official GSAP reference methods:
-- Flip stacked-to-grid: https://codepen.io/GreenSock/pen/mdNodOZ
-- SplitText masks: https://gsap.com/docs/v3/Plugins/SplitText/
-- MorphSVG path interpolation: https://gsap.com/docs/v3/Plugins/MorphSVGPlugin/
+GSAP SplitText provides heading masks, MorphSVG drives the Hero ribbon,
+and the projects use an eight-direction, off-viewport flying entrance:
 
-Choreography: the existing Hero gains a real SVG ribbon morph, headings unfold
-via masked character rotations, the first two project cards flip from a physical
-deck into the real Bento grid, remaining cards arrive via directional clipping,
-journey stages unmask, and principles fold into view.
+NW / NE / SW / SE / W / E / N / S.
 
-No scroll pins, smooth-scrolling hijacks, perpetual loops, GPU particle canvases,
-or autoplay 3D scenes. prefers-reduced-motion keeps static content accessible.
+Each pair of cards (one card per mobile row) animates only as its row becomes
+visible. Staggered flights land in final CSS grid cells. No GSAP Flip, layout
+mutation, pin, scrub, scroll hijacking, permanent animation loop, or WebGL.
+Animation is transform/opacity-only, cleared after landing, with responsive
+and reduced-motion fallbacks.

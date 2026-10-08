@@ -308,14 +308,12 @@
         );
 
       /* GSAP Creative Motion Showcase
-         Official patterns: Flip stacked-to-grid, SplitText masked typography,
+         Official patterns: directional off-screen flights, SplitText masks,
          MorphSVG path morph. One-shot entrances, never pin/scrub. */
       if (ScrollTrigger) {
         const Split = window.SplitText;
-        const Flip = window.Flip;
         const Morph = window.MorphSVGPlugin;
         if (Split) gsap.registerPlugin(Split);
-        if (Flip) gsap.registerPlugin(Flip);
         if (Morph) gsap.registerPlugin(Morph);
 
         // GSAP's MorphSVG interpolates SVG path points, not opacity or CSS transforms.
@@ -380,59 +378,86 @@
           });
         });
 
+        // Cards never leave their real Bento grid cells. Each entrance uses only
+        // composited transforms and opacity, so there is no Flip layout jump.
+        // Eight distinct screen-edge trajectories, landing in the existing layout.
         const allCards = gsap.utils.toArray(".projects .project");
         const grid = document.querySelector(".projects");
-        const enterCards = (cards) => cards.forEach((card, index) => {
-          ScrollTrigger.create({
-            trigger: card, start: "top 90%", once: true,
-            onEnter: () => {
-              const fromLeft = index % 2 === 0;
-              gsap.fromTo(card,
-                {
-                  autoAlpha: 0,
-                  clipPath: fromLeft ? "inset(0 100% 0 0 round 24px)" : "inset(0 0 0 100% round 24px)",
-                  x: fromLeft ? -85 : 85,
-                  rotationY: fromLeft ? -24 : 24,
-                  scale: .86,
-                  transformOrigin: fromLeft ? "0% 50%" : "100% 50%"
-                },
-                {
-                  autoAlpha: 1, clipPath: "inset(0 0 0 0 round 24px)",
-                  x: 0, rotationY: 0, scale: 1,
-                  duration: 1.02, ease: "power4.out",
-                  clearProps: "all"
-                });
-            }
-          });
-        });
-        if (grid && allCards.length > 2 && Flip && desktop) {
-          const first = allCards.slice(0, 2);
-          // Reserve final geometry before the first two cards form a physical
-          // stack. The section height therefore never collapses or traps scroll.
-          grid.style.minHeight = grid.offsetHeight + "px";
-          grid.classList.add("creative-stack");
+        const flightDirections = [
+          [-1, -1], [1, -1],   // northwest, northeast
+          [-1, 1],  [1, 1],    // southwest, southeast
+          [-1, 0],  [1, 0],    // west, east
+          [0, -1],  [0, 1]    // north, south
+        ];
+        if (grid && allCards.length) {
+          const rowSize = desktop ? 2 : 1;
+          const groups = [];
+          for (let index = 0; index < allCards.length; index += rowSize) {
+            groups.push(allCards.slice(index, index + rowSize));
+          }
 
-          ScrollTrigger.create({
-            trigger: grid, start: "top 76%", once: true,
-            onEnter: () => {
-              const state = Flip.getState(first);
-              grid.classList.remove("creative-stack");
-              const play = Flip.from(state, {
-                absolute: true, scale: true, duration: 1.28,
-                ease: "expo.inOut", stagger: .12,
+          // Prepare visibility only: no large transforms before a flight starts,
+          // avoiding unwanted layout/scroll widths and card flash on load.
+          gsap.set(allCards, { autoAlpha: 0 });
+          const revealed = new Set();
+
+          const flyFromViewportEdge = (card, cardIndex) => {
+            const box = card.getBoundingClientRect();
+            const pad = desktop ? 110 : 35;
+            const [dirX, dirY] = flightDirections[cardIndex % flightDirections.length];
+            const dx = dirX < 0 ? -(box.right + pad)
+                     : dirX > 0 ? window.innerWidth - box.left + pad
+                     : 0;
+            const dy = dirY < 0 ? -(box.bottom + pad)
+                     : dirY > 0 ? window.innerHeight - box.top + pad
+                     : 0;
+            return { x: dx, y: dy };
+          };
+
+          groups.forEach((group, rowIndex) => {
+            const anchor = group[0];
+            let started = false;
+            const begin = () => {
+              if (started) return;
+              started = true;
+              const timeline = gsap.timeline({
                 onComplete: () => {
-                  grid.style.minHeight = "";
-                  gsap.set(first, {clearProps: "transform,width,height,position,top,left,zIndex"});
+                  // Return to ordinary CSS hover and focus behavior after landing.
+                  gsap.set(group, { clearProps: "transform,opacity,visibility,transformOrigin,willChange" });
                 }
               });
-              // Enter subsequent cards only when they themselves are visible.
-              enterCards(allCards.slice(2));
-              ScrollTrigger.refresh();
-            }
+              group.forEach((card, withinRow) => {
+                if (revealed.has(card)) return;
+                revealed.add(card);
+                const index = allCards.indexOf(card);
+                const from = flyFromViewportEdge(card, index);
+                const spin = (index % 2 ? 1 : -1) * (desktop ? 13 : 8);
+                timeline.fromTo(card,
+                  {
+                    ...from, rotation: spin, scale: desktop ? .72 : .84,
+                    autoAlpha: 0, force3D: true, transformOrigin: "50% 50%"
+                  },
+                  {
+                    x: 0, y: 0, rotation: 0, scale: 1, autoAlpha: 1,
+                    duration: desktop ? 1.22 : .94,
+                    ease: "back.out(1.08)",
+                    overwrite: "auto"
+                  }, withinRow * .19);
+              });
+            };
+            ScrollTrigger.create({
+              trigger: anchor,
+              start: rowIndex === 0 ? "top 88%" : "top 64%",
+              once: true,
+              onEnter: begin,
+              onEnterBack: begin
+            });
           });
-          cleanups.push(() => { grid.classList.remove("creative-stack"); grid.style.minHeight = ""; });
-        } else {
-          enterCards(allCards);
+
+          cleanups.push(() => {
+            gsap.killTweensOf(allCards);
+            gsap.set(allCards, { clearProps: "transform,opacity,visibility,transformOrigin,willChange" });
+          });
         }
 
         // Clip masks create a wipe in the development timeline; the milestone
