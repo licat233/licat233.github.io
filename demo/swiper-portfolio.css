@@ -2,7 +2,7 @@
    Swiper owns all 3D transforms/gesture easing; no handcrafted motion timelines. */
 .demo-projects.swiper {
   display: block;
-  overflow: visible;
+  overflow: hidden;
   padding: 1.5rem 0 2.25rem;
   margin: -1.5rem 0 0;
   isolation: isolate;
