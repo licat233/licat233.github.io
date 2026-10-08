@@ -1796,3 +1796,260 @@ body.eao-v2::before{opacity:.08;background:radial-gradient(circle at 1px 1px,rgb
   .eao-v2 .lang-switch .lang-current{background:Highlight;color:HighlightText;border-color:Highlight}
   .eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real)::before{display:none}
 }
+
+/* Work-mode contrast — traditional chat workflow vs EAO.
+   Isolated to #work to preserve the Quartz Glass system elsewhere.
+   No shifted grid geometry, overlays on copy, or additional motion. */
+.eao-v2 #work .compare-work{
+  gap:1rem;
+  align-items:stretch;
+}
+.eao-v2 #work .compare-work .work-col{
+  min-width:0;
+  padding:clamp(1.25rem,2.25vw,1.875rem);
+}
+.eao-v2 #work .compare-work .work-col.before{
+  border:1px solid #CBD5DE;
+  border-radius:.875rem;
+  background:linear-gradient(160deg,#F1F3F5,#E9EDF1);
+  box-shadow:0 4px 13px rgba(26,43,59,.035);
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+.eao-v2 #work .compare-work .work-col.before::before{
+  background:none;
+  box-shadow:none;
+}
+.eao-v2 #work .compare-work .work-col.after{
+  isolation:isolate;
+  border:1px solid rgba(38,160,152,.43);
+  border-radius:1.375rem;
+  background:
+    linear-gradient(141deg,rgba(238,255,252,.87),rgba(255,255,255,.29) 47%,transparent 78%),
+    linear-gradient(315deg,rgba(62,193,180,.15),transparent 45%),
+    var(--glass-surface-strong);
+  box-shadow:
+    0 20px 46px rgba(8,92,93,.115),
+    0 4px 13px rgba(18,68,76,.045),
+    inset 0 1px 0 rgba(255,255,255,.94),
+    inset 1px 0 0 rgba(255,255,255,.72);
+}
+.eao-v2 #work .compare-work .work-col.after::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:1.375rem;
+  right:1.375rem;
+  height:3px;
+  border-radius:0 0 .5rem .5rem;
+  background:linear-gradient(90deg,transparent,rgba(0,176,165,.78) 38%,rgba(8,225,212,.62) 70%,transparent);
+  pointer-events:none;
+}
+.eao-v2 #work .compare-work .work-col.after::before{
+  background:linear-gradient(117deg,rgba(255,255,255,.34),transparent 33%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.90);
+}
+.eao-v2 #work .compare-work .work-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:1rem;
+  margin-bottom:1.375rem;
+}
+.eao-v2 #work .compare-work .work-heading{
+  min-width:0;
+  flex:1 1 auto;
+}
+.eao-v2 #work .compare-work .work-heading h3{
+  margin:.625rem 0 0;
+  font-size:clamp(1.25rem,2vw,1.5rem);
+  line-height:1.3;
+  letter-spacing:-.025em;
+}
+.eao-v2 #work .compare-work .work-mode{
+  display:inline-flex;
+  min-height:1.4375rem;
+  align-items:center;
+  padding:.1875rem .5625rem;
+  border:1px solid rgba(114,132,151,.22);
+  border-radius:.375rem;
+  background:rgba(116,133,151,.08);
+  color:#647181;
+  font-size:.6875rem;
+  font-weight:750;
+  letter-spacing:.035em;
+  line-height:1.2;
+}
+.eao-v2 #work .compare-work .after .work-mode{
+  border-color:rgba(0,143,134,.23);
+  background:rgba(0,169,157,.105);
+  color:#006B65;
+}
+.eao-v2 #work .compare-work .work-context{
+  flex:0 1 13rem;
+  min-width:0;
+  max-width:43%;
+  margin-top:.1875rem;
+  color:#788492;
+  font-size:.75rem;
+  line-height:1.45;
+  text-align:right;
+}
+.eao-v2 #work .compare-work .after .work-context{
+  color:#00766F;
+  font-weight:650;
+}
+.eao-v2 #work .compare-work .before h3{color:#344254}
+.eao-v2 #work .compare-work .before ol{
+  margin:0;
+  padding-left:1.375rem;
+}
+.eao-v2 #work .compare-work .before li{
+  padding:.875rem 0;
+  border-bottom:1px solid rgba(91,108,123,.14);
+  color:#596773;
+  font-size:.9375rem;
+  line-height:1.65;
+}
+.eao-v2 #work .compare-work .before li::marker{color:#8996A2}
+.eao-v2 #work .compare-work li:last-child{border-bottom:0}
+.eao-v2 #work .compare-work .after h3{color:#13383A}
+.eao-v2 #work .compare-work .after ol{
+  margin:0;
+  padding:0;
+  list-style:none;
+  counter-reset:work-step;
+}
+.eao-v2 #work .compare-work .after li{
+  position:relative;
+  min-height:3.6875rem;
+  padding:.875rem 0 .875rem 2.75rem;
+  border-bottom:1px solid rgba(17,119,110,.13);
+  color:#294A4B;
+  font-size:.9375rem;
+  font-weight:500;
+  line-height:1.65;
+  counter-increment:work-step;
+}
+.eao-v2 #work .compare-work .after li::before{
+  content:counter(work-step,decimal-leading-zero);
+  position:absolute;
+  top:.8125rem;
+  left:0;
+  display:grid;
+  place-items:center;
+  width:1.875rem;
+  height:1.875rem;
+  border:1px solid rgba(14,142,130,.24);
+  border-radius:.5625rem;
+  background:rgba(49,188,174,.115);
+  color:#007C75;
+  font-size:.6875rem;
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.015em;
+}
+.eao-v2 #work .compare-work .after li::after{
+  content:"";
+  position:absolute;
+  left:.90625rem;
+  top:2.8125rem;
+  bottom:-.75rem;
+  width:1px;
+  background:rgba(10,142,131,.19);
+}
+.eao-v2 #work .compare-work .after li:last-child{
+  border-bottom:0;
+  color:#006E69;
+  font-weight:650;
+}
+.eao-v2 #work .compare-work .after li:last-child::before{
+  border-color:#008F86;
+  background:#007F78;
+  color:#fff;
+}
+.eao-v2 #work .compare-work .after li:last-child::after{display:none}
+/* For dark mode, keep the traditional pane neutral and the EAO pane
+   recognizably teal without sacrificing legibility. */
+:root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.before{
+  border-color:rgba(179,193,207,.15);
+  background:linear-gradient(150deg,#202D3A,#202B36);
+  box-shadow:0 6px 18px rgba(0,0,0,.11);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before h3{color:#DAE2E9}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before li{
+  border-color:rgba(185,198,207,.12);
+  color:#B3C0CC;
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before li::marker{color:#94A4B3}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before .work-mode{
+  color:#B6C3CF;
+  border-color:rgba(188,202,216,.19);
+  background:rgba(188,202,216,.07);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .before .work-context{color:#A2B0BF}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.after{
+  border-color:rgba(87,215,205,.39);
+  background:
+    linear-gradient(148deg,rgba(37,126,125,.22),transparent 56%),
+    linear-gradient(316deg,rgba(13,121,112,.12),transparent 52%),
+    rgba(24,48,54,.73);
+  box-shadow:0 18px 42px rgba(0,0,0,.25),inset 0 1px 0 rgba(188,245,237,.17);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after h3{color:#E4F8F5}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after .work-mode{
+  color:#93EAE0;
+  border-color:rgba(116,225,215,.27);
+  background:rgba(30,196,179,.14);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after .work-context{color:#9BDDD4}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after li{
+  color:#D2E9E6;
+  border-color:rgba(121,220,208,.14);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after li::before{
+  color:#96ECE1;
+  border-color:rgba(110,228,214,.25);
+  background:rgba(34,175,161,.17);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after li::after{background:rgba(98,218,207,.22)}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after li:last-child{color:#A2F3E8}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after li:last-child::before{
+  color:#062B2B;
+  background:#80E3D7;
+}
+/* Narrow headers wrap without forcing cards wider than the viewport. */
+@media(max-width:780px){
+  .eao-v2 #work .compare-work .work-head{gap:.75rem}
+  .eao-v2 #work .compare-work .work-context{
+    flex-basis:10rem;
+    max-width:45%;
+    font-size:.6875rem;
+  }
+}
+@media(max-width:420px){
+  .eao-v2 #work .compare-work .work-head{display:block}
+  .eao-v2 #work .compare-work .work-context{
+    display:block;
+    margin-top:.625rem;
+    max-width:none;
+    text-align:left;
+  }
+}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+  .eao-v2 #work .compare-work .work-col.before{background:#ECEFF2}
+  .eao-v2 #work .compare-work .work-col.after{background:#F0FBF9}
+  :root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.before{background:#23313D}
+  :root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.after{background:#183D40}
+}
+@media(forced-colors:active){
+  .eao-v2 #work .compare-work .work-col.before,
+  .eao-v2 #work .compare-work .work-col.after{
+    background:Canvas;
+    border:1px solid CanvasText;
+    box-shadow:none;
+  }
+  .eao-v2 #work .compare-work .work-col.after::after{display:none}
+  .eao-v2 #work .compare-work :is(h3,li,.work-mode,.work-context){color:CanvasText}
+  .eao-v2 #work .compare-work .after li::before{background:Canvas;color:CanvasText;border:1px solid CanvasText}
+}
