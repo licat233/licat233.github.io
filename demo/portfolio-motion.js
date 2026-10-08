@@ -372,6 +372,91 @@
           }
         };
 
+        // Visibility first. Scrub cannot finish when someone stops scrolling.
+        // An idle timeout settles content that's actually visible; when scrolling
+        // resumes, its new scroll anchor yields a continuous reverse trajectory.
+        const idleScenes = [];
+        const sceneByTrigger = new WeakMap();
+        let idleRevealTimer = null;
+        let idleSceneActive = true;
+        const sceneVisible = (scene) => {
+          const top = scene.top();
+          const bottom = top + scene.height();
+          const nav = document.querySelector(".site-header");
+          const navBottom = nav ? nav.getBoundingClientRect().bottom : 0;
+          // A footer rarely reaches the viewport center; an element visible
+          // near the bottom must still be readable when scrolling stops.
+          const threshold = scene.timeline.scrollTrigger?.trigger
+            .classList.contains("site-footer") ? .985 : .94;
+          return top < window.innerHeight * threshold &&
+                 bottom > Math.max(navBottom + 32, window.innerHeight * .14);
+        };
+        const clampProgress = gsap.utils.clamp(0, 1);
+        const synchronizeScene = (trigger) => {
+          const scene = sceneByTrigger.get(trigger);
+          if (!scene || !scene.latched) return;
+          if (scene.idleTween) {
+            scene.baseProgress = scene.timeline.progress();
+            scene.latchY = window.scrollY;
+            scene.idleTween.kill();
+            scene.idleTween = null;
+          }
+          const travel = Math.max(1, trigger.end - trigger.start);
+          const progress = clampProgress(
+            scene.baseProgress + (window.scrollY - scene.latchY) / travel
+          );
+          scene.timeline.progress(progress);
+          // An early idle completion may need more upward travel than the
+          // page has available (e.g. the first row settled at scrollY=400).
+          // Once its natural slot has left the viewport, reset fully instead
+          // of leaving a ghosted card at 8% progress at the top of the page.
+          if (window.scrollY < trigger.start && !sceneVisible(scene)) {
+            scene.timeline.progress(0);
+            scene.latched = false;
+          }
+        };
+        const registerIdleScene = (timeline, top, height) => {
+          const scene = {
+            timeline, top, height,
+            latched: false, latchY: 0, baseProgress: 0,
+            idleTween: null
+          };
+          idleScenes.push(scene);
+          sceneByTrigger.set(timeline.scrollTrigger, scene);
+        };
+        const settleVisibleScenes = () => {
+          idleRevealTimer = null;
+          idleScenes.forEach((scene) => {
+            const trigger = scene.timeline.scrollTrigger;
+            if (!trigger || scene.latched || !sceneVisible(scene) ||
+                scene.timeline.progress() >= .999) return;
+            scene.latched = true;
+            scene.latchY = window.scrollY;
+            scene.baseProgress = 1;
+            scene.idleTween = gsap.to(scene.timeline, {
+              progress: 1, duration: .6, ease: "power2.out",
+              overwrite: "auto",
+              onComplete: () => { scene.idleTween = null; }
+            });
+          });
+        };
+        const onScrollIdleCheck = () => {
+          idleScenes.forEach((scene) => {
+            if (scene.latched && scene.timeline.scrollTrigger) {
+              synchronizeScene(scene.timeline.scrollTrigger);
+            }
+          });
+          if (idleRevealTimer !== null) window.clearTimeout(idleRevealTimer);
+          idleRevealTimer = window.setTimeout(settleVisibleScenes, 480);
+        };
+        window.addEventListener("scroll", onScrollIdleCheck, { passive: true });
+        cleanups.push(() => {
+          window.removeEventListener("scroll", onScrollIdleCheck);
+          if (idleRevealTimer !== null) window.clearTimeout(idleRevealTimer);
+          idleSceneActive = false;
+          idleScenes.forEach(scene => scene.idleTween?.kill());
+        });
+
         // Persistent SplitText masks permit genuine reverse play. Do not revert
         // the split after forward completion: the reverse needs those chars.
         gsap.utils.toArray(".section-head").forEach((head, sectionIndex) => {
@@ -399,6 +484,7 @@
               trigger: head,
               ...createRange(head, .87, desktop ? .40 : .39),
               scrub: true,
+              onUpdate: synchronizeScene,
               invalidateOnRefresh: true
             }
           });
@@ -439,6 +525,9 @@
               duration: .9, ease: "power1.inOut"
             }, .26);
           appendHold(tl);
+          registerIdleScene(tl,
+            () => absTop(head) - window.scrollY,
+            () => head.offsetHeight);
         });
 
         // A true reversible entrance. A scroll range controls each card's GSAP
@@ -472,6 +561,7 @@
                   desktop ? .53 : .51
                 ),
                 scrub: true, // frame-accurate, NO 0.7s catch-up delay
+                onUpdate: synchronizeScene,
                 invalidateOnRefresh: true,
                 fastScrollEnd: false
               }
@@ -524,6 +614,9 @@
             // Last ~15% is a stable composition before the next row.
             // Keep transforms for a perfect reverse on upward scroll.
             appendHold(tl);
+            registerIdleScene(tl,
+              () => absTop(grid) + group[0].offsetTop - window.scrollY,
+              () => group[0].offsetHeight);
             rowTimelines.push(tl);
           }
           cleanups.push(() => {
@@ -550,6 +643,7 @@
                 trigger: timelineGrid,
                 ...groupRange(timelineGrid, group[0], .88, desktop ? .44 : .43),
                 scrub: true,
+              onUpdate: synchronizeScene,
                 invalidateOnRefresh: true
               }
             });
@@ -576,6 +670,9 @@
                   ease: "back.out(1.5)" }, at + .17);
             });
             appendHold(tl);
+            registerIdleScene(tl,
+              () => absTop(timelineGrid) + group[0].offsetTop - window.scrollY,
+              () => group[0].offsetHeight);
           }
         }
 
@@ -592,6 +689,7 @@
                 trigger: principlesGrid,
                 ...groupRange(principlesGrid, group[0], .89, desktop ? .47 : .46),
                 scrub: true,
+              onUpdate: synchronizeScene,
                 invalidateOnRefresh: true
               }
             });
@@ -610,6 +708,9 @@
                 }, withinRow * .1);
             });
             appendHold(tl);
+            registerIdleScene(tl,
+              () => absTop(principlesGrid) + group[0].offsetTop - window.scrollY,
+              () => group[0].offsetHeight);
           }
         }
 
@@ -629,6 +730,7 @@
               // reachable range but only AFTER its top enters the viewport.
               ...createRange(footer, .94, .17, 20),
               scrub: true,
+              onUpdate: synchronizeScene,
               invalidateOnRefresh: true
             }
           });
@@ -639,7 +741,17 @@
                 duration: .75, ease: "power1.inOut" }, index * .14);
           });
           appendHold(tl);
+          registerIdleScene(tl,
+            () => absTop(footer) - window.scrollY,
+            () => footer.offsetHeight);
         }
+        // Cover restored positions when no wheel event occurred after loading.
+        // Schedule only while this responsive animation context is alive.
+        requestAnimationFrame(() => {
+          if (idleSceneActive && idleRevealTimer === null) {
+            idleRevealTimer = window.setTimeout(settleVisibleScenes, 480);
+          }
+        });
       }
 
       return () => cleanups.forEach((fn) => fn());
