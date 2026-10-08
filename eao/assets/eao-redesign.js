@@ -163,11 +163,9 @@
         event.preventDefault();
         setActive(link, { center: true });
 
-        const top = window.scrollY + item.target.getBoundingClientRect().top -
-          (document.querySelector("nav")?.offsetHeight || 0) - 24;
-        window.scrollTo({
-          top: Math.max(0, top),
-          behavior: reduceMotionQuery.matches ? "auto" : "smooth"
+        item.target.scrollIntoView({
+          behavior: reduceMotionQuery.matches ? "auto" : "smooth",
+          block: "start"
         });
 
         const hash = link.getAttribute("href");
@@ -196,6 +194,7 @@
 
     const gsap = window.gsap;
     const ScrollTrigger = window.ScrollTrigger;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
 
     if (gsap && ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
@@ -227,72 +226,68 @@
       sections.forEach(({ target }) => observer.observe(target));
     }
 
-    /* ───────────────────────── Reading progress (nonblocking) */
-    const nav = document.querySelector("nav");
-    let progressFrame = 0;
-    const updateProgress = () => {
-      const maximum = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      const percent = Math.min(100, Math.max(0, window.scrollY / maximum * 100));
-      nav?.style.setProperty("--scroll-progress", `${percent.toFixed(2)}%`);
-    };
-    const scheduleProgress = () => {
-      if (progressFrame) return;
-      progressFrame = requestAnimationFrame(() => {
-        progressFrame = 0;
-        updateProgress();
-      });
-    };
-    window.addEventListener("scroll", scheduleProgress, { passive: true });
-    window.addEventListener("resize", scheduleProgress);
-    requestAnimationFrame(updateProgress);
+    /* ───────────────────────── Existing GSAP presentation */
+    if (!gsap || reduceMotionQuery.matches) return;
 
-    /* ───────────────────────── One purposeful motion system
-       Never animate the grid items themselves: transforms can cause misaligned
-       department cards, especially with responsive layouts. */
-    if (gsap && ScrollTrigger && !reduceMotionQuery.matches) {
-      const heroItems = [
-        document.querySelector(".hero h1"),
-        document.querySelector(".hero .lead"),
-        document.querySelector(".hero .actions")
-      ].filter(Boolean);
-      if (heroItems.length) {
-        gsap.fromTo(heroItems,
-          { autoAlpha: 0, y: 18 },
-          {
-            autoAlpha: 1, y: 0, duration: .72, stagger: .095,
-            ease: "power2.out", clearProps: "all"
-          }
-        );
-      }
-      gsap.utils.toArray("main section").forEach((section) => {
-        const elements = [
-          section.querySelector(".kicker"),
-          section.querySelector(".section-title")
-        ].filter(Boolean);
-        if (!elements.length) return;
-        gsap.fromTo(elements,
-          { autoAlpha: 0, y: 18 },
-          {
-            autoAlpha: 1, y: 0, duration: .7,
-            stagger: .08, ease: "power2.out", clearProps: "all",
-            scrollTrigger: { trigger: section, start: "top 84%", once: true }
-          }
-        );
+    const heroVisual = document.querySelector(".hero-visual");
+    const heroShot = document.querySelector(".hero-shot");
+
+    if (finePointer && heroVisual) {
+      const rotateX = gsap.quickTo(heroVisual, "rotationX", {
+        duration: 0.55,
+        ease: "power3.out"
       });
-      gsap.utils.toArray(".story-visual").forEach((element) => {
-        gsap.fromTo(element, { y: 16 }, {
-          y: 0, duration: .8, ease: "power2.out",
-          clearProps: "transform",
-          scrollTrigger: { trigger: element, start: "top 90%", once: true }
-        });
+      const rotateY = gsap.quickTo(heroVisual, "rotationY", {
+        duration: 0.55,
+        ease: "power3.out"
+      });
+      const yTo = gsap.quickTo(heroVisual, "y", {
+        duration: 0.55,
+        ease: "power3.out"
+      });
+
+      const move = (event) => {
+        const rect = heroVisual.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width - 0.5;
+        const py = (event.clientY - rect.top) / rect.height - 0.5;
+        rotateX(py * -2.2);
+        rotateY(px * 3.2 - 5);
+        yTo(-4);
+      };
+
+      const leave = () => {
+        rotateX(1.5);
+        rotateY(-5);
+        yTo(0);
+      };
+
+      heroVisual.addEventListener("pointermove", move);
+      heroVisual.addEventListener("pointerleave", leave);
+    }
+
+    if (ScrollTrigger && heroShot) {
+      gsap.to(heroShot, {
+        yPercent: 4,
+        scale: 1.02,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.05
+        }
       });
     }
 
-    window.addEventListener("load", () => {
-      const active = navLinks.find((link) => link.classList.contains("is-active")) || navLinks[0];
-      moveIndicator(active, { instant: true });
-      updateProgress();
-      if (ScrollTrigger) ScrollTrigger.refresh();
-    }, { once: true });
+    window.addEventListener(
+      "load",
+      () => {
+        const active =
+          navLinks.find((link) => link.classList.contains("is-active")) || navLinks[0];
+        moveIndicator(active, { instant: true });
+        if (ScrollTrigger) ScrollTrigger.refresh();
+      },
+      { once: true }
+    );
   });
 })();
