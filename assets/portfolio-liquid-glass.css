@@ -1,0 +1,174 @@
+/*
+ * Portfolio liquid glass adaptation of Witters Amand's "Liquid Glass Apple"
+ * https://codepen.io/wprod/pen/raVpwJL (MIT)
+ *
+ * Each material is composed from three independent layers:
+ * backdrop refraction, translucent tint, and an optical edge highlight.
+ * Content, motion and layout remain owned by portfolio.css.
+ */
+:root {
+  --lg-demo-overlay: rgba(246, 252, 255, .19);
+  --lg-demo-reflection: rgba(255, 255, 255, .32);
+  --lg-demo-rim: rgba(255, 255, 255, .94);
+  --lg-demo-depth: rgba(32, 79, 108, .16);
+}
+:root[data-theme="dark"] {
+  --lg-demo-overlay: rgba(32, 44, 53, .29);
+  --lg-demo-reflection: rgba(225, 244, 255, .075);
+  --lg-demo-rim: rgba(231, 248, 255, .40);
+  --lg-demo-depth: rgba(0, 0, 0, .37);
+}
+
+/* Remove the original opaque card wash so background can pass through the glass. */
+.liquid-demo {
+  isolation: isolate;
+  background: transparent;
+  border-color: rgba(255, 255, 255, .68);
+  box-shadow:
+    0 11px 30px var(--lg-demo-depth),
+    0 2px 9px rgba(24, 64, 89, .045),
+    inset 0 1px 0 var(--lg-demo-rim);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+:root[data-theme="dark"] .liquid-demo { border-color: rgba(225, 243, 255, .24); }
+
+/* Three explicit layers, matching the demo's glass-filter, overlay, specular. */
+.liquid-demo > .lg-glass-filter,
+.liquid-demo > .lg-glass-overlay,
+.liquid-demo > .lg-glass-specular {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.liquid-demo > .lg-glass-filter {
+  z-index: 0;
+  -webkit-backdrop-filter: blur(8px) saturate(142%) brightness(1.055);
+  backdrop-filter: blur(8px) saturate(142%) brightness(1.055);
+}
+.liquid-demo > .lg-glass-overlay {
+  z-index: 1;
+  background:
+    linear-gradient(130deg, var(--lg-demo-reflection), transparent 53%),
+    var(--lg-demo-overlay);
+}
+.liquid-demo > .lg-glass-specular {
+  z-index: 2;
+  box-shadow:
+    inset 1px 1px 0 var(--lg-demo-rim),
+    inset -1px -1px 0 rgba(255, 255, 255, .16),
+    inset 0 0 8px rgba(255, 255, 255, .21),
+    inset 0 -12px 19px -20px rgba(41, 101, 130, .24);
+}
+:root[data-theme="dark"] .liquid-demo > .lg-glass-specular {
+  box-shadow:
+    inset 1px 1px 0 var(--lg-demo-rim),
+    inset -1px -1px 0 rgba(0, 0, 0, .47),
+    inset 0 0 7px rgba(221, 244, 255, .10);
+}
+
+/* Optical edge refraction is deliberately restricted to compact, reusable controls.
+ * Broad bento panels keep standard blur to avoid large filtered repaint areas. */
+@supports (filter: url("#portfolioLensFilter")) {
+  .liquid-demo.site-header > .lg-glass-filter,
+  .liquid-demo.github-cta > .lg-glass-filter,
+  .liquid-demo.theme-toggle > .lg-glass-filter,
+  .liquid-demo.lang > .lg-glass-filter,
+  .liquid-demo.hero-cta:not(.hero-cta-dark) > .lg-glass-filter {
+    filter: url("#portfolioLensFilter");
+  }
+}
+
+/* Original semantic children always float above all three optical layers. */
+:root[data-theme="dark"] .liquid-demo:not(.hero-cta-dark) { background: transparent; }
+.site-header.liquid-demo {
+  overflow: hidden;
+}
+.site-header.liquid-demo > .nav,
+.site-footer.liquid-demo > .footer-row,
+.project.liquid-demo > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular),
+.principle.liquid-demo > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular) {
+  z-index: 3;
+}
+.site-header.liquid-demo > .nav,
+.site-footer.liquid-demo > .footer-row { position: relative; }
+.project.liquid-demo > .lg-glass-filter,
+.project.liquid-demo > .lg-glass-overlay,
+.project.liquid-demo > .lg-glass-specular {
+  position: absolute; /* override existing .project > * position rule */
+}
+.project.liquid-demo::after { z-index: 2; }
+.project.liquid-demo > .lg-glass-filter { -webkit-backdrop-filter: blur(11px) saturate(135%); backdrop-filter: blur(11px) saturate(135%); }
+.project.liquid-demo > .lg-glass-overlay { background: linear-gradient(145deg, var(--lg-demo-reflection), transparent 64%), var(--lg-demo-overlay); }
+.project.liquid-demo::before { z-index: 2; }
+.principle.liquid-demo {
+  overflow: hidden;
+  transition: box-shadow .25s ease, border-color .25s ease;
+}
+.principle.liquid-demo > .lg-glass-filter { -webkit-backdrop-filter: blur(10px) saturate(130%); backdrop-filter: blur(10px) saturate(130%); }
+.principle.liquid-demo > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular) { position: relative; z-index: 3; }
+.principle.liquid-demo > .principle-icon,
+.principle.liquid-demo > .principle-no { position: absolute; }
+.site-footer.liquid-demo { border-left: 0; border-right: 0; border-bottom: 0; }
+
+/* Keep nav and action hit targets intact; the optic layers are passive. */
+.liquid-demo.github-cta,
+.liquid-demo.theme-toggle,
+.liquid-demo.lang,
+.liquid-demo.hero-cta:not(.hero-cta-dark) {
+  position: relative;
+  overflow: hidden;
+}
+.liquid-demo.github-cta > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular),
+.liquid-demo.theme-toggle > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular),
+.liquid-demo.lang > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular),
+.liquid-demo.hero-cta:not(.hero-cta-dark) > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular) {
+  position: relative;
+  z-index: 3;
+}
+.liquid-demo.github-cta:hover,
+.liquid-demo.hero-cta:not(.hero-cta-dark):hover,
+.liquid-demo.theme-toggle:hover {
+  box-shadow: 0 15px 30px var(--lg-demo-depth), inset 0 1px 0 var(--lg-demo-rim);
+}
+.liquid-demo.github-cta:active,
+.liquid-demo.hero-cta:not(.hero-cta-dark):active,
+.liquid-demo.theme-toggle:active { transform: scale(.985); }
+
+/* Small screens: avoid stacked background sampling across many cards. */
+@media (max-width: 760px) {
+  .project.liquid-demo > .lg-glass-filter,
+  .principle.liquid-demo > .lg-glass-filter {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(249, 252, 255, .65);
+  }
+  :root[data-theme="dark"] .project.liquid-demo > .lg-glass-filter,
+  :root[data-theme="dark"] .principle.liquid-demo > .lg-glass-filter { background: rgba(27, 39, 48, .67); }
+  .liquid-demo.site-header > .lg-glass-filter { filter: none; }
+}
+/* Fully opaque fallbacks when backdrop sampling is not supported. */
+@supports not ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
+  .liquid-demo > .lg-glass-filter { filter: none; }
+  .liquid-demo > .lg-glass-overlay { background: rgba(248, 252, 255, .96); }
+  :root[data-theme="dark"] .liquid-demo > .lg-glass-overlay { background: rgba(31, 43, 52, .96); }
+}
+/* Respect system preferences and keep text readable in high-contrast modes. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .liquid-demo > .lg-glass-filter { filter: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .liquid-demo > .lg-glass-overlay { background: #f5f9fc; }
+  :root[data-theme="dark"] .liquid-demo > .lg-glass-overlay { background: #202d35; }
+  .liquid-demo > .lg-glass-specular { box-shadow: none; }
+  .liquid-demo { border-color: #8497a4; }
+}
+@media (forced-colors: active) {
+  .liquid-demo > .lg-glass-filter,
+  .liquid-demo > .lg-glass-overlay,
+  .liquid-demo > .lg-glass-specular { display: none; }
+  .liquid-demo { background: Canvas; border-color: CanvasText; box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .liquid-demo { transition: none; }
+}
