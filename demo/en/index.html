@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en" data-motion-lab="true">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex,follow">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2f7fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111416" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="Licat — developer building practical AI systems, developer tools and automation.">
+  <meta property="og:title" content="Licat — Builder & Developer">
+  <meta property="og:description" content="Building practical systems for real problems.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://licat233.github.io/en/">
+  <link rel="canonical" href="https://licat233.github.io/en/">
+  <link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/zh/">
+  <link rel="alternate" hreflang="en" href="https://licat233.github.io/en/">
+  <link rel="alternate" hreflang="x-default" href="https://licat233.github.io/">
+  <title>Licat — Builder & Developer</title>
+  <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/favicon.ico">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("licat-theme");
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : (systemDark ? "dark" : "light");
+      } catch (_) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/vendor/open-props/open-props-core-1.7.23.min.css">
+  <link rel="stylesheet" href="/assets/portfolio.css">
+  <link rel="stylesheet" href="/demo/motion-lab.css">
+</head>
+<body>
+  <header class="site-header apple-glass-base apple-glass-ultra-thin">
+    <nav class="shell nav" aria-label="Primary navigation">
+      <a class="brand" href="/demo/en/">
+        <img src="/assets/licat-logo.svg" alt="">
+        <span><strong>LICAT</strong><small>/ 233</small></span>
+      </a>
+
+      <div class="nav-links">
+        <span class="nav-indicator" aria-hidden="true"></span>
+        <a class="nav-pill active" data-nav-target="top" href="#top"><span></span>Home</a>
+        <a class="nav-pill" data-nav-target="projects" href="#projects"><span></span>Projects</a>
+        <a class="nav-pill" data-nav-target="journey" href="#journey"><span></span>Journey</a>
+        <a class="nav-pill" data-nav-target="principles" href="#principles"><span></span>Principles</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" type="button" aria-label="Toggle light and dark mode" aria-pressed="false">
+          <span class="theme-toggle-track" aria-hidden="true">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+        <div class="lang" aria-label="Language">
+          <a href="/demo/zh/">中</a>
+          <a href="/demo/en/" aria-current="page">EN</a>
+        </div>
+        <a class="github-cta" href="https://github.com/licat233" target="_blank" rel="noreferrer">
+          <svg class="github-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7C5.73.7.75 5.68.75 11.95c0 5.01 3.25 9.26 7.76 10.76.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.15.68-3.81-1.34-3.81-1.34-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.96.1-.74.4-1.25.73-1.54-2.52-.29-5.17-1.26-5.17-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.46.11-2.99 0 0 .95-.3 3.11 1.16a10.8 10.8 0 0 1 5.66 0c2.16-1.46 3.11-1.16 3.11-1.16.61 1.53.23 2.7.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.04.77 2.09 0 1.51-.01 2.73-.01 3.1 0 .3.21.65.79.54 4.5-1.5 7.75-5.75 7.75-10.76C23.25 5.68 18.27.7 12 .7Z"/></svg><span>GitHub</span><b>↗</b>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero-wrap">
+      <div class="flow-glow flow-glow-a" aria-hidden="true"></div>
+      <div class="flow-glow flow-glow-b" aria-hidden="true"></div>
+
+      <div class="system-flow" aria-hidden="true">
+        <svg viewBox="0 0 1800 660" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="flow-blue-en" x1="0%" y1="62%" x2="100%" y2="22%">
+              <stop offset="0%" stop-color="#45b8f1" stop-opacity=".76"/>
+              <stop offset="34%" stop-color="#168fd5" stop-opacity=".93"/>
+              <stop offset="67%" stop-color="#28c8df" stop-opacity=".82"/>
+              <stop offset="100%" stop-color="#69e0e0" stop-opacity=".62"/>
+            </linearGradient>
+            <linearGradient id="flow-cyan-en" x1="0%" y1="70%" x2="100%" y2="18%">
+              <stop offset="0%" stop-color="#9fe8f8" stop-opacity=".34"/>
+              <stop offset="38%" stop-color="#5bd7ed" stop-opacity=".58"/>
+              <stop offset="72%" stop-color="#31d5cf" stop-opacity=".76"/>
+              <stop offset="100%" stop-color="#86eee3" stop-opacity=".50"/>
+            </linearGradient>
+            <linearGradient id="flow-light-en" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="28%" stop-color="#ffffff" stop-opacity=".74"/>
+              <stop offset="72%" stop-color="#e8ffff" stop-opacity=".82"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="flow-shadow-en" x1="0%" y1="50%" x2="100%" y2="20%">
+              <stop offset="0%" stop-color="#8ab8d1" stop-opacity=".12"/>
+              <stop offset="52%" stop-color="#6ba5c4" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#84cfda" stop-opacity=".08"/>
+            </linearGradient>
+          </defs>
+
+          <path class="flow-ribbon-shadow"
+            d="M-150 242
+               C120 306 284 388 458 332
+               C620 280 672 56 864 28
+               C1068 -2 1134 132 1352 116
+               C1530 104 1636 6 1880 -30
+               L1880 82
+               C1654 116 1546 214 1362 224
+               C1134 238 1044 102 876 130
+               C690 162 654 372 474 432
+               C276 498 86 404 -150 340 Z"
+            fill="url(#flow-shadow-en)"/>
+
+          <path class="flow-ribbon-back"
+            d="M-160 198
+               C96 256 290 334 446 290
+               C624 240 674 24 864 0
+               C1060 -24 1140 94 1342 84
+               C1528 76 1662 -8 1880 -30
+               L1880 34
+               C1650 62 1532 150 1346 164
+               C1134 178 1058 62 872 88
+               C690 112 646 320 462 372
+               C286 420 84 334 -160 278 Z"
+            fill="url(#flow-cyan-en)"/>
+
+          <path class="flow-ribbon-main"
+            d="M-160 226
+               C94 286 282 362 446 314
+               C610 266 682 76 856 42
+               C1056 2 1146 118 1344 108
+               C1530 98 1648 26 1880 -12
+               L1880 64
+               C1658 102 1540 184 1352 192
+               C1136 202 1058 88 872 122
+               C700 154 650 342 470 394
+               C286 448 86 366 -160 306 Z"
+            fill="url(#flow-blue-en)"/>
+
+          <path class="flow-ribbon-front"
+            d="M-148 266
+               C100 326 286 394 460 348
+               C616 306 688 138 850 98
+               C1048 48 1140 152 1348 148
+               C1536 144 1668 72 1886 40
+               L1886 88
+               C1662 124 1542 198 1358 208
+               C1138 220 1060 112 878 150
+               C714 184 656 360 478 412
+               C290 466 86 388 -148 330 Z"
+            fill="url(#flow-cyan-en)"
+            opacity=".72"/>
+
+          <path class="flow-rim flow-rim-a"
+            d="M-130 220
+               C112 276 288 348 446 302
+               C612 254 680 76 858 42
+               C1056 2 1148 116 1344 106
+               C1534 98 1652 28 1870 -6"
+            stroke="url(#flow-light-en)"/>
+
+          <path class="flow-rim flow-rim-b"
+            d="M-118 322
+               C112 374 294 430 462 388
+               C622 348 696 176 856 136
+               C1046 88 1140 184 1346 180
+               C1530 178 1654 114 1860 82"
+            stroke="url(#flow-light-en)"
+            opacity=".58"/>
+        </svg>
+      </div>
+
+      <div class="hero-ghost" aria-hidden="true">LICAT&nbsp;/&nbsp;SYSTEMS</div>
+
+      <figure class="hero-scene" aria-hidden="true">
+        <img src="/assets/licat-hero.webp" alt="">
+      </figure>
+
+      <div class="shell hero">
+        <p class="eyebrow">BUILD SYSTEMS · REAL PROBLEMS · 2026</p>
+
+        <h1 class="hero-title">
+          <span class="hero-line"><span class="hero-word">BUILD SYSTEMS</span></span>
+          <span class="hero-line hero-line-mixed">
+            <span class="hero-inline-note">From developer tools and automation to AI agents and enterprise systems — compressing recurring friction into shorter paths.</span>
+            <span class="hero-paren">(</span>
+            <span class="hero-logo-token"><img src="/assets/licat-logo.svg" alt=""></span>
+            <span class="hero-signal">AI / SYSTEM</span>
+            <span class="hero-paren">)</span>
+            <span class="hero-word">FOR REAL</span>
+          </span>
+          <span class="hero-line"><span class="hero-word hero-accent">PROBLEMS.</span></span>
+        </h1>
+
+        <div class="hero-badge" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <path id="ring-en" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/>
+            </defs>
+            <text><textPath href="#ring-en">BUILD · SYSTEMS · REAL PROBLEMS · </textPath></text>
+          </svg>
+          <span><img src="/assets/licat-logo.svg" alt=""></span>
+        </div>
+
+        <div class="hero-bottom">
+          <div class="hero-actions">
+            <a class="hero-cta hero-cta-dark" href="#projects">View projects <b>↘</b></a>
+            <a class="hero-cta" href="/eao/">EAO <b>↗</b></a>
+          </div>
+
+          <div class="hero-resources" aria-label="Current focus">
+            <a class="hero-resource active" href="/eao/"><span>Flagship</span><strong>Enterprise AI Office</strong><b>↗</b></a>
+            <a class="hero-resource" href="/toolscout/en/"><span>Agent tools</span><strong>ToolScout</strong><b>↗</b></a>
+            <a class="hero-resource" href="/ai-writing-audit/"><span>Active</span><strong>ai-writing-audit</strong><b>↗</b></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="lab-story" aria-label="From ideas to systems">
+      <div class="lab-pin">
+        <div class="shell lab-story-inner">
+          <div class="lab-story-copy">
+            <p class="kicker">FROM SIGNAL TO SYSTEM / 01</p>
+            <h2 class="lab-story-title">Make sense of the scattered.<em>Build what lasts.</em></h2>
+            <div class="lab-reading">
+              <p class="lab-state-1">Good systems start with real problems. Tools, knowledge, and ideas begin as separate signals.</p>
+              <p class="lab-state-2" aria-hidden="true">Find the connections. Shape a workflow that can be composed, reused, and maintained.</p>
+              <p class="lab-state-3" aria-hidden="true">Keep the complexity in the system — give people clarity and momentum.</p>
+            </div>
+            <div class="lab-meter" aria-hidden="true"><span class="lab-meter-fill"></span></div>
+            <div class="lab-marks" aria-hidden="true"><b>01</b><span>—</span><span>02</span><span>—</span><span>03</span><span> / SYSTEM</span></div>
+          </div>
+          <div class="lab-canvas" aria-hidden="true">
+            <svg class="lab-network" viewBox="0 0 600 500" preserveAspectRatio="none">
+              <path class="lab-network-path" d="M148 132 C246 96 338 110 449 127"/>
+              <path class="lab-network-path" d="M148 132 C190 260 128 338 148 369"/>
+              <path class="lab-network-path" d="M449 127 C485 232 402 312 449 369"/>
+              <path class="lab-network-path" d="M148 369 C258 395 340 375 449 369"/>
+            </svg>
+            <div class="lab-tile lab-tile-a"><small>01 / INTENT</small><span class="lab-tile-icon">↗</span><strong>Frame the problem</strong></div>
+            <div class="lab-tile lab-tile-b"><small>02 / TOOLS</small><span class="lab-tile-icon">⌘</span><strong>Find the tools</strong></div>
+            <div class="lab-tile lab-tile-c"><small>03 / KNOWLEDGE</small><span class="lab-tile-icon">◇</span><strong>Connect knowledge</strong></div>
+            <div class="lab-tile lab-tile-d"><small>04 / ACTION</small><span class="lab-tile-icon">→</span><strong>Shape the workflow</strong></div>
+            <div class="lab-core"><img src="/assets/licat-logo.svg" alt=""><strong>One working system.</strong><small>BUILT TO WORK · BUILT TO LAST</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="kicker">FEATURED PROJECTS</p>
+            <h2>Featured Projects</h2>
+          </div>
+          <p class="section-note">Not a repository dump — these are projects with external signal, active maintenance, deep investment or a distinct idea.</p>
+        </div>
+        <div class="projects">
+          <a class="project apple-glass-base apple-glass-regular" href="/eao/">
+              <div class="project-top"><span class="project-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4-8 4-8-4 8-4Zm-8 9 8 4 8-4M4 17l8 4 8-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="project-arrow">↗</span></div>
+              <h3>Enterprise AI Office</h3>
+              <p>My current flagship: a self-hosted AI office that brings knowledge, agents, permissions, automation and enterprise tools into one maintainable system.</p>
+              <div class="tags"><span class="tag">Enterprise AI</span><span class="tag">Agents</span><span class="tag">RAG</span></div>
+              <div class="project-meta"><span>Python</span><span>Last push · 2026-09-29</span></div>
+            </a>
+<a class="project apple-glass-base apple-glass-regular" href="/opencore-h81/">
+              <div class="project-top"><span class="project-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9.5h5v5h-5zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="project-arrow">↗</span></div>
+              <h3>OpenCore · Haswell H81</h3>
+              <p>A minimal OpenCore EFI for Haswell + H81 + HD4600 + ALC662, and currently the public project with the strongest external GitHub signal.</p>
+              <div class="tags"><span class="tag">OpenCore</span><span class="tag">Hackintosh</span><span class="tag">EFI</span></div>
+              <div class="project-meta"><span>Shell</span><span>★ 26 · Fork 5</span><span>Last push · 2023-02-02</span></div>
+            </a>
+<a class="project apple-glass-base apple-glass-regular" href="/toolscout/en/">
+              <div class="project-top"><span class="project-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="m15 15 5 5M10.5 8v5M8 10.5h5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span><span class="project-arrow">↗</span></div>
+              <h3>ToolScout</h3>
+              <p>Rust CLI/MCP plus a skill rule layer that helps AI agents discover mature tools and prior experience before writing incidental code.</p>
+              <div class="tags"><span class="tag">Rust</span><span class="tag">MCP</span><span class="tag">Agent Tools</span></div>
+              <div class="project-meta"><span>Rust</span><span>Last push · 2026-09-22</span></div>
+            </a>
+<a class="project apple-glass-base apple-glass-regular" href="/ai-writing-audit/">
+              <div class="project-top"><span class="project-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 19 3.2-.7L18.7 7.8a2.1 2.1 0 0 0-3-3L5.2 15.3 5 19Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m13.8 6.7 3.5 3.5M4 21h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="project-arrow">↗</span></div>
+              <h3>ai-writing-audit</h3>
+              <p>A general-purpose AI-writing audit and full-polish skill with traceable provenance, mature upstream methods, and native Chinese, B2B and SEO/GEO rules.</p>
+              <div class="tags"><span class="tag">AI Writing</span><span class="tag">Skill</span><span class="tag">Editorial</span></div>
+              <div class="project-meta"><span>Python</span><span>Last push · 2026-09-30</span></div>
+            </a>
+<a class="project apple-glass-base apple-glass-regular" href="/armor-memory/">
+              <div class="project-top"><span class="project-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.7 9.1 11 15M15.3 9.1 13 15M9 8h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="project-arrow">↗</span></div>
+              <h3>armor-memory</h3>
+              <p>A deterministic shared-memory architecture explored for Codex, Claude Code and Hermes Agent, representing a substantial multi-agent memory engineering effort.</p>
+              <div class="tags"><span class="tag">Agent Memory</span><span class="tag">Multi-Agent</span><span class="tag">Architecture</span></div>
+              <div class="project-meta"><span>Python</span><span>★ 1</span><span>Last push · 2026-09-05</span></div>
+            </a>
+<a class="project apple-glass-base apple-glass-regular" href="/lottery-calculate/">
+              <div class="project-top"><span class="project-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 7h8M8 11h1M12 11h1M16 11h1M8 15h1M12 15h1M16 15h1M8 18h1M12 18h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="project-arrow">↗</span></div>
+              <h3>lottery-calculate</h3>
+              <p>An interactive tool that turns lottery combinations, cost and return into a computable model. Its lasting value is the idea, modeling and product thinking.</p>
+              <div class="tags"><span class="tag">Creative</span><span class="tag">Modeling</span><span class="tag">Web App</span></div>
+              <div class="project-meta"><span>TypeScript</span><span>★ 1</span><span>Last push · 2023-02-02</span></div>
+            </a>
+<a class="project apple-glass-base apple-glass-regular" href="/greenram/">
+              <div class="project-top"><span class="project-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 10v4M10 10v4M14 10v4M18 10v4M6 17v3M10 17v3M14 17v3M18 17v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="project-arrow">↗</span></div>
+              <h3>GreenRAM</h3>
+              <p>A macOS menu bar utility that uses Memory Pressure, Swap and background state to safely quit eligible apps under explicit rules.</p>
+              <div class="tags"><span class="tag">Swift</span><span class="tag">macOS</span><span class="tag">Utility</span></div>
+              <div class="project-meta"><span>Swift</span><span>Last push · 2026-08-07</span></div>
+            </a>
+<a class="project apple-glass-base apple-glass-regular" href="/disable-macos-auto-updates/">
+              <div class="project-top"><span class="project-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 7v4h-4M5 17v-4h4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.2 11A6.5 6.5 0 0 0 7 6.7L5 9M5.8 13A6.5 6.5 0 0 0 17 17.3l2-2.3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span><span class="project-arrow">↗</span></div>
+              <h3>disable-macos-auto-updates</h3>
+              <p>A lightweight utility for safely disabling and restoring automatic macOS system updates — focused, low-dependency and intentionally practical.</p>
+              <div class="tags"><span class="tag">macOS</span><span class="tag">Shell</span><span class="tag">Utility</span></div>
+              <div class="project-meta"><span>Shell</span><span>Last push · 2026-09-01</span></div>
+            </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section journey" id="journey">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="kicker">JOURNEY</p>
+            <h2>Development Journey</h2>
+          </div>
+          <p class="section-note">The direction changes; the through-line stays the same: reduce repetition, friction and unnecessary complexity.</p>
+        </div>
+        <div class="timeline">
+          <article class="phase">
+            <div class="phase-dot">01</div>
+            <time>2019 — 2022</time>
+            <h3>Go / Web / Backend Systems</h3>
+            <p>From Gin, WebSocket, Redis and crawling to microservices and small business systems — the backend and systems foundation.</p>
+          </article>
+          <article class="phase">
+            <div class="phase-dot">02</div>
+            <time>2023 — 2024</time>
+            <h3>Developer Tools / Automation</h3>
+            <p>Code generation, asset processing, upgrade tools and automation scripts that compress repetitive workflows.</p>
+          </article>
+          <article class="phase">
+            <div class="phase-dot">03</div>
+            <time>2026 → NOW</time>
+            <h3>AI Agents / Enterprise AI Systems</h3>
+            <p>From skills, agent tools and knowledge systems toward permissions, workflows, maintainable deployment and complete enterprise AI systems.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="principles">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="kicker">PRINCIPLES</p>
+            <h2>How I Build</h2>
+          </div>
+          <p class="section-note">Technology is a means. A good system should make the work simpler, not make people adapt to the system.</p>
+        </div>
+        <div class="principles">
+          <article class="principle apple-glass-base apple-glass-regular">
+            <span class="principle-icon">◎</span><span class="principle-no">01</span>
+            <h3>Real Problems</h3>
+            <p>Start from an actual need or friction point, not from a technology looking for a problem.</p>
+          </article>
+          <article class="principle apple-glass-base apple-glass-regular">
+            <span class="principle-icon">◇</span><span class="principle-no">02</span>
+            <h3>Smallest Sufficient Solution</h3>
+            <p>Reuse mature capabilities when possible; if a smaller solution is enough, don't introduce a larger system.</p>
+          </article>
+          <article class="principle apple-glass-base apple-glass-regular">
+            <span class="principle-icon">↻</span><span class="principle-no">03</span>
+            <h3>Maintainability</h3>
+            <p>Deployment, upgrades, rollback and long-term maintenance are part of the product, not afterthoughts.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer apple-glass-base apple-glass-ultra-thin">
+    <div class="shell footer-row">
+      <div class="footer-brand">
+        <img src="/assets/licat-logo.svg" alt="">
+        <div><strong>LICAT / 233</strong><small>Turn complex problems into systems.</small></div>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/licat233" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href="#projects">Projects</a>
+      </div>
+      <div class="footer-note">Better tools, more effective work, and a more self-directed life.</div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+  <script src="/assets/portfolio.js"></script>
+  <script src="/demo/motion-lab.js"></script>
+
+  <aside class="lab-controls" aria-label="Motion demo comparison">
+    <span class="lab-mark">MOTION STUDY</span>
+    <a class="lab-compare" href="/en/" target="_blank" rel="noopener">Original ↗</a>
+    <button type="button" id="lab-replay" aria-label="Return to the motion scene">Replay scene ↺</button>
+  </aside>
+</body>
+</html>
