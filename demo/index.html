@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <meta name="color-scheme" content="light dark">
+  <title>Licat — Motion Study</title>
+  <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+  <script>
+    (() => {
+      const lang = (navigator.language || "").toLowerCase();
+      location.replace(lang.startsWith("zh") ? "/demo/zh/" : "/demo/en/");
+    })();
+  </script>
+  <style>
+    body { min-height:100svh; display:grid; place-items:center; margin:0; padding:2rem; font:1rem system-ui,sans-serif; background:#eaf0f2; color:#17242b; }
+    main { text-align:center; }
+    a { color:#006aa1; margin:0 .75rem; }
+  </style>
+</head>
+<body>
+  <main><p>Licat / Motion Study</p><p><a href="/demo/zh/">中文</a><a href="/demo/en/">English</a></p></main>
+</body>
+</html>
