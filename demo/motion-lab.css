@@ -45,7 +45,7 @@ html[data-motion-lab] .brand { cursor: pointer; }
 }
 .lab-reading .lab-state-2, .lab-reading .lab-state-3 { opacity: 0; }
 .lab-meter { width: min(16rem,80%); height:2px; background:var(--line); overflow:hidden; margin: 1.5rem 0 .85rem; }
-.lab-meter-fill { display:block; width:100%; height:100%; background:var(--blue); transform:scaleX(0); transform-origin:left center; }
+.lab-meter-fill { display:block; width:100%; height:100%; background:var(--blue); transform:scaleX(1); transform-origin:left center; }
 .lab-marks { display:flex; align-items:center; gap:.8rem; color:var(--muted); font-size:.625rem; letter-spacing:.09em; }
 .lab-marks b { color:var(--text); font-weight:750; }
 .lab-marks span { opacity:.56; }
@@ -78,15 +78,15 @@ html[data-motion-lab] .brand { cursor: pointer; }
 .lab-tile-c { left:5%; top:60%; }
 .lab-tile-d { left:54%; top:60%; }
 .lab-core {
-  position:absolute; z-index:3; left:23%; top:30%; width:54%; height:40%;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.85rem;
+  position:absolute; z-index:3; left:29%; top:39%; width:42%; height:22%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.28rem;
   border:1px solid rgba(20,123,165,.2); border-radius:1.125rem;
   background:linear-gradient(155deg,rgba(237,248,251,.95),rgba(210,235,239,.95));
   box-shadow:0 2rem 4rem rgba(20,92,125,.15), inset 0 1px 0 rgba(255,255,255,.85);
-  visibility:hidden; opacity:0;
+  visibility:visible; opacity:1;
 }
-.lab-core img { width:clamp(3.25rem,6vw,5.5rem); height:auto; }
-.lab-core strong { font-size:clamp(1.2rem,2.2vw,2rem); font-weight:800; letter-spacing:-.055em; }
+.lab-core img { width:clamp(2rem,4vw,3.75rem); height:auto; }
+.lab-core strong { font-size:clamp(.95rem,1.7vw,1.5rem); font-weight:800; letter-spacing:-.055em; text-align:center; line-height:1.12; }
 .lab-core small { color:#356277; font-size:clamp(.55rem,.8vw,.75rem); letter-spacing:.1em; font-weight:750; }
 .lab-timeline-rail {
   display:block; position:absolute; z-index:1; pointer-events:none;
@@ -120,6 +120,10 @@ html[data-motion-lab] .brand { cursor: pointer; }
   .lab-tile small { font-size:.55rem; }
   .lab-tile strong { font-size:clamp(.85rem,3vw,1.25rem); }
   .lab-tile .lab-tile-icon { font-size:.875rem; }
+  .lab-core { padding:.25rem; }
+  .lab-core img { display:none; }
+  .lab-core strong { font-size:clamp(.8rem,3vw,1rem); }
+  .lab-core small { font-size:.425rem; letter-spacing:.025em; text-align:center; }
   .lab-timeline-rail { left:1.0625rem; right:auto; top:1.0625rem; bottom:1.875rem; width:2px; height:auto; transform:scaleY(0); transform-origin:center top; }
 }
 @media (max-width: 390px) {
