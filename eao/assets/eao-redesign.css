@@ -2053,3 +2053,33 @@ body.eao-v2::before{opacity:.08;background:radial-gradient(circle at 1px 1px,rgb
   .eao-v2 #work .compare-work :is(h3,li,.work-mode,.work-context){color:CanvasText}
   .eao-v2 #work .compare-work .after li::before{background:Canvas;color:CanvasText;border:1px solid CanvasText}
 }
+
+
+/* EAO hero: transparent dual-device product render (2026-10-08) */
+.eao-v2 .hero-visual--devices {
+  width:min(54rem,60vw);
+  max-width:none;
+  margin:0 -7vw 0 0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  transform:none;
+}
+.eao-v2 .hero-visual--devices::before,
+.eao-v2 .hero-visual--devices::after { content:none; }
+.eao-v2 .hero-devices-image {
+  display:block;
+  width:100%;
+  max-width:none;
+  height:auto;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  object-fit:contain;
+}
+@media (max-width:1040px) {
+  .eao-v2 .hero-visual--devices {width:100%;margin:0;}
+}
