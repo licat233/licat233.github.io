@@ -1078,3 +1078,288 @@ html[lang="zh-CN"] .eao-v2 .kicker{
   animation-timing-function:cubic-bezier(.16,1,.3,1);
 }
 
+
+/* EAO Liquid Glass material layer — presentation-only, no layout rewrites.
+   Specular rim + restrained translucency; refraction is implied at edges.
+   Optical shaders are intentionally excluded from content surfaces. */
+:root{
+  --glass-surface:rgba(252,255,254,.62);
+  --glass-surface-subtle:rgba(250,255,253,.43);
+  --glass-surface-strong:rgba(251,255,254,.82);
+  --glass-border:rgba(255,255,255,.83);
+  --glass-edge:rgba(66,124,114,.17);
+  --glass-highlight:rgba(255,255,255,.96);
+  --glass-shadow:0 17px 48px rgba(16,58,53,.085),0 4px 12px rgba(16,58,53,.038);
+  --glass-shadow-raised:0 25px 60px rgba(16,58,53,.13),0 6px 18px rgba(16,58,53,.06);
+  --glass-blur:blur(15px) saturate(130%);
+  --glass-radius:var(--eao-radius-card);
+  --glass-transition:.26s cubic-bezier(.16,1,.3,1);
+}
+:root[data-theme="dark"]{
+  --glass-surface:rgba(29,46,43,.73);
+  --glass-surface-subtle:rgba(27,43,41,.58);
+  --glass-surface-strong:rgba(34,52,48,.88);
+  --glass-border:rgba(218,255,250,.17);
+  --glass-edge:rgba(128,236,223,.17);
+  --glass-highlight:rgba(228,255,249,.22);
+  --glass-shadow:0 18px 52px rgba(0,0,0,.26),0 5px 18px rgba(0,0,0,.10);
+  --glass-shadow-raised:0 26px 64px rgba(0,0,0,.36),0 6px 20px rgba(0,0,0,.16);
+}
+
+/* Floating controls are the clearest glass layer. No transform on nav itself. */
+.eao-v2 nav{
+  border-color:var(--glass-border);
+  background:linear-gradient(165deg,rgba(255,255,255,.27),rgba(255,255,255,0) 57%),var(--glass-surface-strong);
+  box-shadow:0 17px 48px rgba(20,61,56,.11),0 2px 6px rgba(20,61,56,.035),inset 0 1px 0 var(--glass-highlight),inset 0 -1px 0 var(--glass-edge);
+  backdrop-filter:blur(23px) saturate(155%);
+  -webkit-backdrop-filter:blur(23px) saturate(155%);
+}
+.eao-v2 nav::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  border:1px solid transparent;
+  border-top-color:var(--glass-highlight);
+  background:linear-gradient(100deg,rgba(255,255,255,.19),transparent 32%,rgba(255,255,255,.095) 83%,transparent);
+  pointer-events:none;
+}
+.eao-v2 .nav-indicator{
+  background:linear-gradient(150deg,#165a55,#0c3d39 72%);
+  box-shadow:0 6px 18px rgba(12,61,57,.18),inset 0 1px 0 rgba(255,255,255,.43),inset 0 -1px 0 rgba(0,0,0,.12);
+}
+.eao-v2 .theme-toggle,.eao-v2 .gh,.eao-v2 .lang{
+  border:1px solid var(--glass-border);
+  background:linear-gradient(155deg,rgba(255,255,255,.31),transparent 68%),var(--glass-surface-subtle);
+  box-shadow:0 5px 15px rgba(19,57,52,.065),inset 0 1px 0 var(--glass-highlight);
+  transition:background var(--glass-transition),box-shadow var(--glass-transition),border-color var(--glass-transition);
+}
+.eao-v2 .theme-toggle{backdrop-filter:none;-webkit-backdrop-filter:none}
+.eao-v2 .theme-toggle:hover,.eao-v2 .gh:hover,.eao-v2 .lang:hover{
+  border-color:var(--glass-edge);
+  background:var(--glass-surface-strong);
+  box-shadow:0 8px 20px rgba(16,58,53,.095),inset 0 1px 0 var(--glass-highlight);
+}
+.eao-v2 .kicker{
+  border-color:var(--glass-edge);
+  background:linear-gradient(135deg,rgba(255,255,255,.30),transparent 85%),rgba(185,239,232,.30);
+  box-shadow:inset 0 1px 0 var(--glass-highlight),0 3px 12px rgba(13,90,83,.035);
+}
+
+/* Buttons retain strong-primary / clear-secondary hierarchy. */
+.eao-v2 .btn{
+  border-color:var(--glass-border);
+  background:linear-gradient(158deg,rgba(255,255,255,.42),rgba(255,255,255,.03) 69%),var(--glass-surface);
+  box-shadow:0 8px 22px rgba(16,58,53,.075),inset 0 1px 0 var(--glass-highlight),inset 0 -1px 0 var(--glass-edge);
+  transition:transform var(--glass-transition),background var(--glass-transition),border-color var(--glass-transition),box-shadow var(--glass-transition);
+}
+.eao-v2 .btn:hover{
+  border-color:var(--glass-edge);
+  background:var(--glass-surface-strong);
+  box-shadow:0 12px 26px rgba(16,58,53,.12),inset 0 1px 0 var(--glass-highlight);
+}
+.eao-v2 .btn:active{transform:translateY(0) scale(.985)}
+.eao-v2 .btn.primary{
+  color:#fff;
+  border-color:rgba(7,67,63,.68);
+  background:linear-gradient(155deg,rgba(28,137,126,.65),rgba(12,61,57,.14) 61%),#0c3d39;
+  box-shadow:0 10px 24px rgba(10,83,77,.18),inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(0,0,0,.13);
+}
+.eao-v2 .btn.primary:hover{
+  background:linear-gradient(155deg,rgba(34,160,148,.7),rgba(12,61,57,.1) 66%),#0c3d39;
+  box-shadow:0 15px 30px rgba(10,83,77,.22),inset 0 1px 0 rgba(255,255,255,.40);
+}
+.eao-v2 :is(a,button,summary):focus-visible{
+  outline:3px solid #098f85;
+  outline-offset:3px;
+}
+
+/* Protect the actual interface pixels: only the perimeter carries glass. */
+.eao-v2 .hero-shot{
+  border:.5rem solid rgba(247,255,253,.68);
+  border-radius:1.375rem;
+  background:#fff;
+  box-shadow:0 31px 72px rgba(12,61,57,.19),0 9px 24px rgba(12,61,57,.08),0 0 0 1px rgba(255,255,255,.86),inset 0 1px 0 var(--glass-highlight);
+}
+.eao-v2 .hero-visual::after{
+  content:"";
+  position:absolute;
+  inset:-.25rem;
+  border:1px solid rgba(255,255,255,.63);
+  border-radius:1.55rem;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.77),inset 1px 0 0 rgba(255,255,255,.30),0 0 24px rgba(14,118,105,.06);
+  pointer-events:none;
+}
+.eao-v2 .visual-caption{
+  border-color:var(--glass-border);
+  background:var(--glass-surface-strong);
+  box-shadow:inset 0 1px 0 var(--glass-highlight),0 7px 19px rgba(16,58,53,.08);
+}
+
+/* Shared glass language for content panels, without moving grid items. */
+.eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real){
+  border:1px solid var(--glass-border);
+  border-radius:var(--glass-radius);
+  background:linear-gradient(157deg,rgba(255,255,255,.23),transparent 57%),var(--glass-surface);
+  box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight),inset 0 -1px 0 var(--glass-edge);
+}
+.eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col){
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+}
+/* Department cards remain static information panels — no transform or GSAP. */
+.eao-v2 .dept-card{min-width:0;transition:border-color var(--glass-transition),box-shadow var(--glass-transition)}
+.eao-v2 .dept-card:hover{
+  border-color:rgba(82,169,157,.34);
+  box-shadow:var(--glass-shadow-raised),inset 0 1px 0 var(--glass-highlight);
+}
+.eao-v2 .control-card{padding:1.3125rem;min-width:0}
+.eao-v2 .work-col.after{
+  border-color:rgba(8,153,142,.30);
+  background:linear-gradient(155deg,rgba(177,242,232,.35),transparent 62%),var(--glass-surface-strong);
+}
+.eao-v2 .real{
+  background:linear-gradient(130deg,rgba(161,235,226,.27),transparent 62%),var(--glass-surface);
+  box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight);
+}
+.eao-v2 .real-items span{
+  background:var(--glass-surface-subtle);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.43);
+}
+.eao-v2 :is(.note,.work-note){
+  background:linear-gradient(120deg,rgba(200,246,239,.38),transparent),var(--glass-surface-subtle);
+  box-shadow:inset 0 1px 0 var(--glass-highlight);
+}
+/* Images and illustrations stay completely unfiltered. */
+.eao-v2 :is(.story-visual,.contrast-card){
+  border-color:var(--glass-border);
+  box-shadow:var(--glass-shadow-raised),inset 0 1px 0 var(--glass-highlight);
+}
+.eao-v2 :is(.story-visual,.contrast-card) img{filter:none}
+
+/* Architecture retains its dark band, with luminous translucent cells. */
+.eao-v2 .tech-grid{
+  border-color:rgba(211,255,249,.24);
+  background:linear-gradient(140deg,rgba(255,255,255,.09),rgba(255,255,255,.015));
+  box-shadow:0 18px 40px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.19);
+}
+.eao-v2 .tech-grid div{
+  background:linear-gradient(150deg,rgba(255,255,255,.055),transparent 78%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.075);
+}
+
+/* FAQ: a quiet grouped glass treatment rather than rows on bare backdrop. */
+.eao-v2 .faq-list{display:grid;gap:.5625rem;border:0}
+.eao-v2 .faq-item{
+  min-width:0;
+  border:1px solid var(--glass-border);
+  border-radius:.9375rem;
+  background:var(--glass-surface-subtle);
+  box-shadow:0 5px 20px rgba(16,58,53,.045),inset 0 1px 0 var(--glass-highlight);
+  transition:background var(--glass-transition),border-color var(--glass-transition),box-shadow var(--glass-transition);
+}
+.eao-v2 .faq-item[open]{
+  border-color:var(--glass-edge);
+  background:var(--glass-surface-strong);
+  box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight);
+}
+.eao-v2 .faq-item summary{padding:1.125rem 1.25rem}
+.eao-v2 .faq-answer{padding:0 1.25rem 1.1875rem}
+
+/* Dark surfaces share the same material tokens rather than one-off opaque fills. */
+:root[data-theme="dark"] .eao-v2 nav{
+  border-color:var(--glass-border);
+  background:linear-gradient(150deg,rgba(122,190,181,.10),transparent 68%),var(--glass-surface-strong);
+  box-shadow:0 18px 48px rgba(0,0,0,.34),inset 0 1px 0 var(--glass-highlight);
+}
+:root[data-theme="dark"] .eao-v2 .nav-indicator{
+  background:linear-gradient(155deg,#fff,#d5f4ec);
+  box-shadow:0 6px 18px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.75);
+}
+:root[data-theme="dark"] .eao-v2 .theme-toggle,
+:root[data-theme="dark"] .eao-v2 .gh,
+:root[data-theme="dark"] .eao-v2 .lang{border-color:var(--glass-border);background:var(--glass-surface-subtle)}
+:root[data-theme="dark"] .eao-v2 .theme-toggle:hover,
+:root[data-theme="dark"] .eao-v2 .gh:hover,
+:root[data-theme="dark"] .eao-v2 .lang:hover{background:var(--glass-surface-strong)}
+:root[data-theme="dark"] .eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.control-card,.real){
+  border-color:var(--glass-border);
+  background:linear-gradient(150deg,rgba(127,204,190,.055),transparent 62%),var(--glass-surface);
+  box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight);
+}
+:root[data-theme="dark"] .eao-v2 .work-col.after{
+  border-color:rgba(82,225,212,.26);
+  background:linear-gradient(140deg,rgba(36,167,155,.17),transparent 67%),var(--glass-surface);
+}
+:root[data-theme="dark"] .eao-v2 .real{
+  background:linear-gradient(135deg,rgba(23,216,205,.09),transparent 68%),var(--glass-surface);
+}
+:root[data-theme="dark"] .eao-v2 .real-items span{
+  border-color:var(--glass-border);
+  background:var(--glass-surface-subtle);
+  box-shadow:inset 0 1px 0 var(--glass-highlight);
+}
+:root[data-theme="dark"] .eao-v2 .faq-item{border-color:var(--glass-border);background:var(--glass-surface-subtle)}
+:root[data-theme="dark"] .eao-v2 .faq-item[open]{background:var(--glass-surface-strong)}
+:root[data-theme="dark"] .eao-v2 .kicker{background:rgba(42,127,116,.19);box-shadow:inset 0 1px 0 var(--glass-highlight)}
+:root[data-theme="dark"] .eao-v2 .btn{background:var(--glass-surface-strong);border-color:var(--glass-border)}
+:root[data-theme="dark"] .eao-v2 .btn.primary{
+  color:#fff;
+  border-color:rgba(110,229,216,.36);
+  background:linear-gradient(155deg,rgba(48,140,130,.40),transparent 70%),#174b46;
+}
+:root[data-theme="dark"] .eao-v2 :is(.note,.work-note){
+  background:linear-gradient(120deg,rgba(18,118,107,.10),transparent),var(--glass-surface-subtle);
+}
+
+/* Expensive backdrop sampling is reduced on small touch devices. */
+@media(max-width:700px){
+  .eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col){backdrop-filter:none;-webkit-backdrop-filter:none}
+  .eao-v2 .hero-visual::after{inset:-.2rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .eao-v2 .dept-card,.eao-v2 .faq-item,.eao-v2 .btn{transition:none}
+  .eao-v2 .dept-card:hover{box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight)}
+  .eao-v2 .btn:hover,.eao-v2 .btn:active{transform:none}
+}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+  :root{
+    --glass-surface:#f9fdfb;
+    --glass-surface-subtle:#f5faf8;
+    --glass-surface-strong:#fff;
+  }
+  :root[data-theme="dark"]{
+    --glass-surface:#1b2a27;
+    --glass-surface-subtle:#182522;
+    --glass-surface-strong:#22332e;
+  }
+  .eao-v2 nav,.eao-v2 :is(.dept-card,.pain-card,.value-card,.work-col,.visual-caption){
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  :root{
+    --glass-surface:rgba(250,254,252,.96);
+    --glass-surface-subtle:rgba(247,252,250,.94);
+    --glass-surface-strong:rgba(255,255,255,.98);
+  }
+  :root[data-theme="dark"]{
+    --glass-surface:#1b2a27;
+    --glass-surface-subtle:#182522;
+    --glass-surface-strong:#22332e;
+  }
+}
+@media(forced-colors:active){
+  .eao-v2 :is(nav,.btn,.theme-toggle,.dept-card,.pain-card,.value-card,.work-col,.control-card,.real,.faq-item){
+    background:Canvas;
+    border:1px solid CanvasText;
+    box-shadow:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  .eao-v2 :is(a,button,summary):focus-visible{outline:3px solid Highlight}
+}
+
+/* Keep screenshot color/detail unchanged in both modes. */
+:root[data-theme="dark"] .eao-v2 .hero-shot{filter:none}
