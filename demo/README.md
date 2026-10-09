@@ -9,6 +9,13 @@ This directory hosts the independent Liquid Glass study for browser review.
 - Search indexing disabled with noindex,follow.
 - Base styling: demo/portfolio.css (isolated snapshot).
 - Glass styling: demo/portfolio-liquid-glass.css (isolated).
+- The approved moderate-frost and theme-aware text contrast now extend to
+  Hero resource links, Journey milestones, Principles cards and footer.
+- The original opaque primary Hero CTA remains intentionally opaque.
+- Mobile disables costly SVG refraction across repeated cards; clear solid
+  materials are used for increased contrast / forced colors.
+- Restore this pre-rollout Demo independently from branch
+  backup/demo-before-full-glass-20261009 (commit b439441).
 - Entrance and reversible motion: demo/entrances.css + demo/portfolio-motion.js
   (preserves the previous /demo motion behavior).
 - Theme preference uses licat-demo-theme, separate from production.

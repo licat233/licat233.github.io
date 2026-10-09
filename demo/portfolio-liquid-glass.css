@@ -434,3 +434,264 @@
   #projects .project-meta,
   #projects .section-note { text-shadow: none; }
 }
+
+/* Demo material rollout: apply the accepted moderate frost and narrow
+ * text separation beyond projects, without changing the production homepage.
+ * Hero controls, timeline milestones, principles, and footer use optical
+ * layers with contrast-safe fallbacks; the filled primary CTA stays filled. */
+
+/* Hero's existing resource list is one restrained glass slab, not three
+ * competing floating cards. The existing link hit targets remain intact. */
+.hero-resources.liquid-demo {
+  overflow: hidden;
+  padding: .25rem .875rem;
+  border: 1px solid rgba(255, 255, 255, .76);
+  border-radius: 1.125rem;
+  box-shadow: 0 12px 28px rgba(24, 61, 83, .14), inset 0 1px 0 rgba(255, 255, 255, .91);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.hero-resources.liquid-demo > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(2.35px) saturate(125%);
+  backdrop-filter: blur(2.35px) saturate(125%);
+  filter: url("#portfolioLensFilter");
+}
+.hero-resources.liquid-demo > .lg-glass-overlay {
+  background: rgba(250, 253, 255, .15);
+}
+.hero-resources.liquid-demo > .lg-glass-specular {
+  box-shadow: inset 1px 1px 1px rgba(255,255,255,.95),
+              inset -1px -1px 0 rgba(255,255,255,.60),
+              inset -4px -7px 12px -11px rgba(30,70,94,.39);
+}
+.hero-resources.liquid-demo > .hero-resource {
+  position: relative;
+  z-index: 3;
+  border-bottom-color: rgba(27, 67, 88, .20);
+  text-shadow: 0 1px 1px rgba(255,255,255,.85), 0 0 2px rgba(255,255,255,.52);
+}
+.hero-resources.liquid-demo > .hero-resource:last-child { border-bottom: 0; }
+.hero-resources.liquid-demo > .hero-resource:focus-visible {
+  outline: 2px solid #168aab;
+  outline-offset: -2px;
+  border-radius: .375rem;
+}
+:root[data-theme="dark"] .hero-resources.liquid-demo {
+  border-color: rgba(231, 244, 251, .34);
+  box-shadow: 0 12px 28px rgba(0,0,0,.26), inset 0 1px 0 rgba(238,250,255,.24);
+}
+:root[data-theme="dark"] .hero-resources.liquid-demo > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(2.1px) saturate(127%);
+  backdrop-filter: blur(2.1px) saturate(127%);
+}
+:root[data-theme="dark"] .hero-resources.liquid-demo > .lg-glass-overlay {
+  background: rgba(8, 24, 32, .19);
+}
+:root[data-theme="dark"] .hero-resources.liquid-demo > .hero-resource {
+  border-bottom-color: rgba(231, 244, 251, .13);
+  text-shadow: 0 1px 2px rgba(0, 10, 18, .89), 0 0 3px rgba(0,10,18,.64);
+}
+:root[data-theme="dark"] .hero-resources.liquid-demo > .hero-resource:last-child { border-bottom: 0; }
+
+/* Journey: preserve the timeline line/dots and reversible motion. A glass
+ * surface wraps only the milestone copy, with no change to the dot geometry. */
+#journey {
+  background:
+    radial-gradient(ellipse 43% 65% at 6% 35%, rgba(88, 147, 166, .20), transparent 80%),
+    radial-gradient(ellipse 44% 65% at 94% 75%, rgba(184, 156, 126, .17), transparent 80%),
+    linear-gradient(145deg, #dce7e9, #e7ebeb 51%, #e8e5e0);
+}
+#journey > .shell, #principles > .shell { position: relative; z-index: 1; }
+#journey .phase-glass.liquid-demo {
+  min-height: 12.5rem;
+  padding: 1.125rem 1.25rem;
+  border: 1px solid rgba(255,255,255,.77);
+  border-radius: 1.125rem;
+  box-shadow: 0 12px 27px rgba(30,68,87,.11), inset 0 1px 0 rgba(255,255,255,.92);
+  overflow: hidden;
+}
+#journey .phase-glass > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(2.35px) saturate(125%);
+  backdrop-filter: blur(2.35px) saturate(125%);
+  /* Large low-contrast milestones do not need SVG displacement.
+     This avoids a secondary distorted rim inside each card. */
+  filter: none;
+}
+#journey .phase-glass > .lg-glass-overlay { background: rgba(250,253,255,.12); }
+#journey .phase-glass > .lg-glass-specular {
+  box-shadow: inset 1px 1px 1px rgba(255,255,255,.97),
+              inset -1px -1px 0 rgba(255,255,255,.62),
+              inset -5px -7px 15px -13px rgba(30,70,94,.34);
+}
+#journey .phase-glass > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular) {
+  position: relative;
+  z-index: 3;
+}
+#journey .phase h3 { color: #1b303c; }
+#journey .phase p { color: #475c68; }
+#journey .phase time { color: #446777; }
+#journey .phase-glass h3,
+#journey .phase-glass p,
+#journey .phase-glass time,
+#journey .section-note { text-shadow: 0 1px 1px rgba(255,255,255,.90), 0 0 2px rgba(255,255,255,.47); }
+
+/* Principles: the original three cards already contain the optical layers.
+ * Replace their white wash with the approved project-glass clarity/frost. */
+#principles {
+  background:
+    radial-gradient(ellipse 45% 65% at 96% 22%, rgba(99,156,173,.22), transparent 80%),
+    radial-gradient(ellipse 44% 66% at 10% 82%, rgba(185,157,128,.15), transparent 79%),
+    linear-gradient(150deg, #e9e9e6, #dce8e9 56%, #e5e8e6);
+}
+#principles .principle.liquid-demo {
+  border: 1px solid rgba(255,255,255,.77);
+  box-shadow: 0 12px 28px rgba(30,68,87,.12), inset 0 1px 0 rgba(255,255,255,.94);
+}
+#principles .principle.liquid-demo > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(2.35px) saturate(125%);
+  backdrop-filter: blur(2.35px) saturate(125%);
+  filter: url("#portfolioCardLensFilter");
+}
+#principles .principle.liquid-demo > .lg-glass-overlay { background: rgba(250,253,255,.12); }
+#principles .principle.liquid-demo > .lg-glass-specular {
+  box-shadow: inset 1px 1px 1px rgba(255,255,255,.97),
+              inset -1px -1px 0 rgba(255,255,255,.62),
+              inset 4px 4px 12px -10px rgba(255,255,255,.88),
+              inset -5px -7px 15px -13px rgba(30,70,94,.35);
+}
+/* Earlier base CSS had a high-specificity direct-child rule that accidentally
+ * made the positioned number and icon relative. Restore the intended layout. */
+#principles .principle.liquid-demo > .principle-icon,
+#principles .principle.liquid-demo > .principle-no {
+  position: absolute;
+  z-index: 4;
+}
+#principles .principle h3 { color: #1b303c; }
+#principles .principle p { color: #475c68; }
+#principles .principle h3,
+#principles .principle p,
+#principles .section-note { text-shadow: 0 1px 1px rgba(255,255,255,.90), 0 0 2px rgba(255,255,255,.48); }
+
+/* Footer stays a single translucent strip. Text shadows here are subtler
+ * because it has no mountain photograph directly behind the copy. */
+.site-footer.liquid-demo > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(2.35px) saturate(125%);
+  backdrop-filter: blur(2.35px) saturate(125%);
+}
+.site-footer.liquid-demo > .lg-glass-overlay {
+  background: rgba(250,253,255,.12);
+}
+.site-footer.liquid-demo > .lg-glass-specular {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.87);
+}
+.site-footer .footer-row {
+  text-shadow: 0 1px 1px rgba(255,255,255,.66);
+}
+.site-footer a:focus-visible { outline: 2px solid #168aab; outline-offset: 5px; border-radius: .1875rem; }
+
+/* Dark-mode geometry remains identical; only material + text contrast change. */
+:root[data-theme="dark"] #journey {
+  background:
+    radial-gradient(ellipse 45% 70% at 7% 25%, rgba(87,142,157,.17), transparent 80%),
+    linear-gradient(145deg, #1c292f, #233036 53%, #2c3131);
+}
+:root[data-theme="dark"] #principles {
+  background:
+    radial-gradient(ellipse 45% 70% at 93% 30%, rgba(92,142,157,.16), transparent 80%),
+    linear-gradient(145deg, #252d31, #1c2a30 56%, #202b30);
+}
+:root[data-theme="dark"] #journey .phase-glass.liquid-demo,
+:root[data-theme="dark"] #principles .principle.liquid-demo {
+  border-color: rgba(231,244,251,.34);
+  box-shadow: 0 12px 28px rgba(0,0,0,.24), inset 0 1px 0 rgba(238,250,255,.26);
+}
+:root[data-theme="dark"] #journey .phase-glass > .lg-glass-filter,
+:root[data-theme="dark"] #principles .principle.liquid-demo > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(2.1px) saturate(127%);
+  backdrop-filter: blur(2.1px) saturate(127%);
+}
+:root[data-theme="dark"] #journey .phase-glass > .lg-glass-overlay,
+:root[data-theme="dark"] #principles .principle.liquid-demo > .lg-glass-overlay,
+:root[data-theme="dark"] .site-footer.liquid-demo > .lg-glass-overlay {
+  background: rgba(8,24,32,.11);
+}
+:root[data-theme="dark"] #journey .phase-glass > .lg-glass-specular,
+:root[data-theme="dark"] #principles .principle.liquid-demo > .lg-glass-specular {
+  box-shadow: inset 1px 1px 1px rgba(245,251,255,.57),
+              inset -1px -1px 0 rgba(204,227,236,.20),
+              inset -5px -7px 15px -13px rgba(0,8,14,.55);
+}
+:root[data-theme="dark"] #journey .phase h3,
+:root[data-theme="dark"] #principles .principle h3 { color: #f5f7fa; }
+:root[data-theme="dark"] #journey .phase p,
+:root[data-theme="dark"] #principles .principle p { color: rgba(235,246,251,.92); }
+:root[data-theme="dark"] #journey .phase time { color: rgba(196,226,238,.86); }
+:root[data-theme="dark"] #journey .phase-glass h3,
+:root[data-theme="dark"] #journey .phase-glass p,
+:root[data-theme="dark"] #journey .phase-glass time,
+:root[data-theme="dark"] #journey .section-note,
+:root[data-theme="dark"] #principles .principle h3,
+:root[data-theme="dark"] #principles .principle p,
+:root[data-theme="dark"] #principles .section-note,
+:root[data-theme="dark"] .site-footer .footer-row {
+  text-shadow: 0 1px 2px rgba(0,12,20,.88), 0 0 3px rgba(0,12,20,.58);
+}
+:root[data-theme="dark"] .site-footer.liquid-demo > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(2.1px) saturate(127%);
+  backdrop-filter: blur(2.1px) saturate(127%);
+}
+
+/* Mobile phones never run the expensive SVG refraction over long content. */
+@media (max-width: 760px) {
+  .hero-resources.liquid-demo > .lg-glass-filter,
+  #journey .phase-glass > .lg-glass-filter,
+  #principles .principle.liquid-demo > .lg-glass-filter {
+    filter: none;
+    -webkit-backdrop-filter: blur(1.8px) saturate(125%);
+    backdrop-filter: blur(1.8px) saturate(125%);
+    background: transparent;
+  }
+  #journey .phase-glass.liquid-demo { min-height: 0; }
+  .hero-resources.liquid-demo { padding: 0 .625rem; }
+}
+
+/* Accessibility: disable decorative shadows and sampling when a solid
+ * material is requested; preserve touch, focus and forced-colors semantics. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .hero-resources.liquid-demo > .lg-glass-filter,
+  #journey .phase-glass > .lg-glass-filter,
+  #principles .principle.liquid-demo > .lg-glass-filter {
+    filter: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .hero-resources.liquid-demo > .lg-glass-overlay,
+  #journey .phase-glass > .lg-glass-overlay,
+  #principles .principle.liquid-demo > .lg-glass-overlay { background: #f5f9fc; }
+  :root[data-theme="dark"] .hero-resources.liquid-demo > .lg-glass-overlay,
+  :root[data-theme="dark"] #journey .phase-glass > .lg-glass-overlay,
+  :root[data-theme="dark"] #principles .principle.liquid-demo > .lg-glass-overlay { background: #202d35; }
+  .hero-resources.liquid-demo .hero-resource,
+  #journey .phase-glass h3,
+  #journey .phase-glass p,
+  #journey .phase-glass time,
+  #journey .section-note,
+  #principles .principle h3,
+  #principles .principle p,
+  #principles .section-note,
+  .site-footer .footer-row { text-shadow: none; }
+}
+@media (forced-colors: active) {
+  #journey, #principles,
+  :root[data-theme="dark"] #journey,
+  :root[data-theme="dark"] #principles { background: Canvas; }
+  .hero-resources.liquid-demo,
+  #journey .phase-glass.liquid-demo,
+  #principles .principle.liquid-demo { background: Canvas; border-color: CanvasText; box-shadow: none; }
+  .hero-resources.liquid-demo > .lg-glass-filter,
+  #journey .phase-glass > .lg-glass-filter,
+  #principles .principle.liquid-demo > .lg-glass-filter { display: none; }
+  .hero-resources.liquid-demo > .lg-glass-overlay,
+  #journey .phase-glass > .lg-glass-overlay,
+  #principles .principle.liquid-demo > .lg-glass-overlay { display: none; }
+}
