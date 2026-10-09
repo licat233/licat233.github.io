@@ -286,14 +286,15 @@
     box-shadow: none;
   }
 }
-/* Optical glass study v2: retain visible artwork behind the material.
-   Distortion follows the uploaded demo: alpha blur 50 + displacement 50.
-   Reuse the existing 89 KB Hero WebP photo for visual contrast; no new bitmap or animation. */
+/* Optical glass clarity study v3.
+   Keep the Demo-derived refractive layer, but avoid stacking white haze
+   across the card surface. The large-card displacement is adapted to 32.
+   Reuse the existing Hero WebP; no added image, animation or dependency. */
 #projects {
   position: relative;
   isolation: isolate;
   background:
-    linear-gradient(rgba(75, 110, 121, .20), rgba(57, 76, 85, .20)),
+    linear-gradient(rgba(14, 32, 40, .065), rgba(14, 32, 40, .08)),
     url("/assets/licat-hero.webp") center 54% / cover no-repeat,
     linear-gradient(155deg, #b6c7cf, #d4dbdc 50%, #c5c9c7);
 }
@@ -307,23 +308,22 @@
     inset 0 -1px 0 rgba(74, 99, 107, .19);
 }
 #projects .project.liquid-demo > .lg-glass-filter {
-  -webkit-backdrop-filter: blur(4px) saturate(125%) brightness(1.07);
-  backdrop-filter: blur(4px) saturate(125%) brightness(1.07);
+  -webkit-backdrop-filter: blur(1.3px) saturate(130%) brightness(1.02);
+  backdrop-filter: blur(1.3px) saturate(130%) brightness(1.02);
   filter: url("#portfolioCardLensFilter");
 }
 #projects .project.liquid-demo > .lg-glass-overlay {
-  background: rgba(247, 252, 255, .22);
+  background: rgba(250, 253, 255, .065);
 }
 #projects .project.liquid-demo > .lg-glass-specular {
   box-shadow:
-    inset 1.5px 2px 1px rgba(255, 255, 255, .98),
-    inset -2px -1px 1px rgba(249, 254, 255, .58),
-    inset 5px 4px 17px -12px rgba(255, 255, 255, .9),
-    inset -7px -9px 17px -13px rgba(49, 94, 121, .34),
-    0 0 0 1px rgba(255, 255, 255, .2);
+    inset 1px 1px 1px rgba(255, 255, 255, .97),
+    inset -1px -1px 0 rgba(255, 255, 255, .62),
+    inset 5px 5px 11px -9px rgba(255, 255, 255, .87),
+    inset -5px -8px 15px -14px rgba(27, 65, 87, .48);
 }
 #projects .project.liquid-demo::before {
-  background: linear-gradient(134deg, rgba(255,255,255,.22), transparent 48%);
+  background: none;
 }
 #projects .project.liquid-demo:hover {
   border-color: #fff;
@@ -331,7 +331,7 @@
 }
 :root[data-theme="dark"] #projects {
   background:
-    linear-gradient(rgba(9, 22, 30, .52), rgba(11, 23, 29, .65)),
+    linear-gradient(rgba(0, 12, 18, .56), rgba(0, 12, 18, .64)),
     url("/assets/licat-hero.webp") center 54% / cover no-repeat,
     linear-gradient(150deg, #1d2b33, #303b40 52%, #2a3131);
 }
@@ -343,33 +343,39 @@
     inset 0 1px 0 rgba(238,250,255,.36);
 }
 :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-filter {
-  -webkit-backdrop-filter: blur(4px) saturate(130%) brightness(.94);
-  backdrop-filter: blur(4px) saturate(130%) brightness(.94);
+  -webkit-backdrop-filter: blur(1px) saturate(135%) brightness(1);
+  backdrop-filter: blur(1px) saturate(135%) brightness(1);
 }
 :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-overlay {
-  background: rgba(17, 32, 40, .20);
+  background: rgba(8, 24, 32, .06);
 }
 :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-specular {
   box-shadow:
-    inset 1.5px 2px 1px rgba(236,250,255,.53),
-    inset -2px -2px 1px rgba(201,232,246,.19),
-    inset 6px 4px 16px -12px rgba(230,248,255,.24),
-    inset -7px -9px 18px -12px rgba(0, 10, 16, .45);
+    inset 1px 1px 1px rgba(245, 251, 255, .70),
+    inset -1px -1px 0 rgba(204, 227, 236, .26),
+    inset 4px 5px 11px -9px rgba(245, 251, 255, .32),
+    inset -5px -8px 14px -13px rgba(0, 10, 18, .55);
 }
-/* Use the physical blur for touch devices too. The expensive SVG distortion is
+/* Brighten muted description text just enough to remain legible against the
+   newly visible photo in dark mode, without adding an opaque text panel. */
+:root[data-theme="dark"] #projects .project p,
+:root[data-theme="dark"] #projects .project-meta {
+  color: rgba(226, 240, 247, .84);
+}
+/* Use a low-cost, lighter blur for touch devices. The expensive SVG distortion is
    omitted on narrow screens; the strong specular rim still reads as glass. */
 @media (max-width: 760px) {
   #projects .project.liquid-demo > .lg-glass-filter {
     filter: none;
     background: none;
-    -webkit-backdrop-filter: blur(4px) saturate(125%);
-    backdrop-filter: blur(4px) saturate(125%);
+    -webkit-backdrop-filter: blur(1.1px) saturate(127%);
+    backdrop-filter: blur(1.1px) saturate(127%);
   }
   :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-filter {
     filter: none;
     background: none;
-    -webkit-backdrop-filter: blur(4px) saturate(125%);
-    backdrop-filter: blur(4px) saturate(125%);
+    -webkit-backdrop-filter: blur(1.1px) saturate(127%);
+    backdrop-filter: blur(1.1px) saturate(127%);
   }
 }
 /* Stable, solid fallbacks for accessibility or older browsers. */
