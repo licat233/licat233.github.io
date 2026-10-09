@@ -1,0 +1,306 @@
+/* EAO organization diagram — PREVIEW ONLY.
+   Replaces the completely opaque SVG illustration with live glass surfaces.
+   Diagram content and department hierarchy are transcribed from the existing SVG.
+   This stylesheet is not loaded by the production homepage. */
+.eao-v2 #departments .eao-org-diagram {
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 1.375rem;
+  background: transparent;
+  box-shadow: none;
+  position: relative;
+}
+.eao-v2 .eao-org-board {
+  --org-text: #152a35;
+  --org-muted: #556a75;
+  --org-teal: #007e79;
+  --org-line: rgb(78 137 155 / .25);
+  --org-fill: rgb(250 254 255 / .13);
+  --org-rim: rgb(255 255 255 / .83);
+  --org-specular: rgb(255 255 255 / .96);
+  --org-bottom-rim: rgb(71 120 153 / .21);
+  --org-depth: rgb(46 84 121 / .14);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(1.375rem,3.25vw,2.75rem);
+  border-radius: inherit;
+  color: var(--org-text);
+  background:
+    radial-gradient(ellipse 43% 64% at 87% 49%,rgb(133 183 233 / .55),transparent 84%),
+    radial-gradient(ellipse 47% 59% at 9% 78%,rgb(246 202 166 / .38),transparent 82%),
+    radial-gradient(ellipse 32% 48% at 55% 18%,rgb(221 247 246 / .47),transparent 84%),
+    linear-gradient(126deg,#edf3fa 0%,#dfeef8 51%,#d5e7f4 100%);
+}
+.eao-v2 .eao-org-board::before {
+  content:"";
+  position: absolute;
+  inset: 0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(ellipse 14% 25% at 32% 63%,rgb(255 255 255 / .55),transparent 100%),
+    radial-gradient(ellipse 15% 31% at 75% 76%,rgb(255 255 255 / .34),transparent 100%);
+}
+.eao-v2 .eao-org-intro { position: relative; z-index: 1; margin-bottom: 1.75rem; }
+.eao-v2 .eao-org-intro h3 {
+  margin: 0 0 .45rem;
+  color:var(--org-text);
+  font-size:clamp(1.3rem,2.45vw,2rem);
+  line-height:1.25;
+  font-weight:780;
+  letter-spacing:-.027em;
+}
+.eao-v2 .eao-org-intro p {
+  margin:0;
+  color:var(--org-muted);
+  font-size:clamp(.84rem,1.16vw,1rem);
+  font-weight:560;
+  line-height:1.5;
+}
+.eao-v2 .eao-org-glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius:1.125rem;
+  border:1px solid var(--org-rim);
+  background:transparent;
+  box-shadow:
+    0 15px 36px var(--org-depth),
+    0 3px 10px rgb(48 84 124 / .042),
+    inset 0 1px 0 var(--org-specular);
+}
+.eao-v2 .eao-org-glass > :is(.eao-org-filter,.eao-org-overlay,.eao-org-specular) {
+  display:block;
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+}
+.eao-v2 .eao-org-glass > .eao-org-filter {
+  z-index:0;
+  backdrop-filter:blur(5px) saturate(127%);
+  -webkit-backdrop-filter:blur(5px) saturate(127%);
+}
+.eao-v2 .eao-org-glass > .eao-org-overlay {
+  z-index:1;
+  background:
+    linear-gradient(137deg,rgb(255 255 255 / .30),rgb(255 255 255 / .07) 39%,transparent 73%),
+    var(--org-fill);
+}
+.eao-v2 .eao-org-glass > .eao-org-specular {
+  z-index:2;
+  box-shadow:
+    inset 1px 1px 1px var(--org-specular),
+    inset -1px -1px 0 var(--org-bottom-rim),
+    inset 5px 7px 11px -11px rgb(255 255 255 / .86),
+    inset -7px -12px 18px -13px rgb(39 84 122 / .18);
+}
+.eao-v2 .eao-org-glass > .eao-org-content {
+  position:relative;
+  z-index:3;
+}
+.eao-v2 .eao-org-center {
+  display: flex;
+  width:min(26rem,88%);
+  min-height:6.875rem;
+  margin:0 auto;
+  border-color:rgb(255 255 255 / .95);
+  border-radius:1.125rem;
+  box-shadow:
+    0 18px 40px rgb(37 98 119 / .17),
+    inset 0 1px 0 rgb(255 255 255 / .97),
+    0 0 0 1px rgb(0 158 150 / .16);
+}
+.eao-v2 .eao-org-center .eao-org-overlay {
+  background: linear-gradient(124deg,rgb(255 255 255 / .37),transparent 70%),rgb(247 253 255 / .19);
+}
+.eao-v2 .eao-org-center > .eao-org-content {
+  display:flex;
+  gap:1.35rem;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  padding:1.25rem 1.5rem;
+}
+.eao-v2 .eao-org-mark {
+  display:grid;
+  flex:0 0 auto;
+  grid-template-columns:repeat(3,.45rem);
+  gap:.23rem;
+}
+.eao-v2 .eao-org-mark i {
+  display:block;
+  width:.45rem;
+  height:.45rem;
+  border-radius:.125rem;
+  background:var(--org-teal);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .38);
+}
+.eao-v2 .eao-org-mark i:nth-child(5) { background:#09cbc2; }
+.eao-v2 .eao-org-brand { display:flex; min-width:0; flex-direction:column; gap:.125rem; }
+.eao-v2 .eao-org-brand strong {
+  color:var(--org-teal);
+  font-size:clamp(1.5rem,2.45vw,2rem);
+  letter-spacing:-.03em;
+  line-height:1.15;
+}
+.eao-v2 .eao-org-brand span {
+  color:var(--org-muted);
+  font-size:clamp(.8rem,1.13vw,.96rem);
+  font-weight:650;
+}
+.eao-v2 .eao-org-wires {
+  display:block;
+  width:100%;
+  height:5.125rem;
+  margin:0 auto -.1rem;
+  overflow:visible;
+  fill:none;
+  stroke:var(--org-line);
+  stroke-width:2;
+}
+.eao-v2 .eao-org-wires circle {
+  fill:#08beb3;
+  stroke:rgb(255 255 255 / .8);
+  stroke-width:1.5;
+}
+.eao-v2 .eao-org-grid {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  align-items:stretch;
+  gap:clamp(.45rem,1.25vw,1rem);
+  position:relative;
+  z-index:1;
+}
+.eao-v2 .eao-org-card {
+  min-width:0;
+  min-height:14.625rem;
+  border-radius:1rem;
+  background:transparent;
+}
+.eao-v2 .eao-org-card > .eao-org-content { padding:1.15rem 1rem 1.25rem; }
+.eao-v2 .eao-org-card h3 {
+  margin:0 0 .95rem;
+  padding:0 0 .7rem;
+  border-bottom:1px solid rgb(82 133 155 / .21);
+  color:var(--org-teal);
+  font-size:clamp(.95rem,1.38vw,1.21rem);
+  font-weight:750;
+  line-height:1.3;
+}
+.eao-v2 .eao-org-card ul {
+  display:grid;
+  gap:1rem;
+  padding:0;
+  margin:0;
+  list-style:none;
+}
+.eao-v2 .eao-org-card li {
+  display:flex;
+  align-items:flex-start;
+  gap:.55rem;
+  min-width:0;
+  font-size:clamp(.74rem,.93vw,.875rem);
+  font-weight:625;
+  line-height:1.45;
+  color:var(--org-text);
+  overflow-wrap:anywhere;
+  text-shadow:0 1px 1px rgb(255 255 255 / .62);
+}
+.eao-v2 .eao-org-card li::before {
+  content:"";
+  flex:0 0 .375rem;
+  width:.375rem;
+  height:.375rem;
+  border-radius:50%;
+  background:#08c9bf;
+  margin-top:.41em;
+  box-shadow:0 0 0 1px rgb(255 255 255 / .42);
+}
+.eao-v2 .eao-org-summary {
+  position:relative;
+  z-index:1;
+  width:min(83%,54rem);
+  margin:1.85rem auto 0;
+  padding:.85rem 1.2rem;
+  border-radius:.8rem;
+  border:1px solid rgb(255 255 255 / .58);
+  background:linear-gradient(137deg,rgb(255 255 255 / .20),transparent 62%),rgb(228 249 247 / .23);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .70);
+  -webkit-backdrop-filter:blur(3px) saturate(120%);
+  backdrop-filter:blur(3px) saturate(120%);
+  color:var(--org-teal);
+  font-weight:700;
+  font-size:clamp(.84rem,1.13vw,1rem);
+  line-height:1.5;
+  text-align:center;
+}
+:root[data-theme="dark"] .eao-v2 .eao-org-board {
+  --org-text:#f0f7fc;
+  --org-muted:#c1d5e3;
+  --org-teal:#9ce9df;
+  --org-line:rgb(140 191 218 / .37);
+  --org-fill:rgb(24 42 59 / .25);
+  --org-rim:rgb(225 243 255 / .27);
+  --org-specular:rgb(225 243 255 / .35);
+  --org-bottom-rim:rgb(1 12 24 / .50);
+  --org-depth:rgb(0 0 0 / .32);
+  background:
+    radial-gradient(ellipse 43% 65% at 87% 49%,rgb(78 121 168 / .45),transparent 84%),
+    radial-gradient(ellipse 48% 60% at 9% 79%,rgb(131 105 90 / .28),transparent 82%),
+    radial-gradient(ellipse 34% 46% at 55% 18%,rgb(50 113 125 / .22),transparent 84%),
+    linear-gradient(124deg,#17293d,#213b50 55%,#142b41);
+}
+:root[data-theme="dark"] .eao-v2 .eao-org-center {
+  border-color:rgb(220 243 254 / .38);
+  box-shadow:0 18px 40px rgb(0 0 0 / .30),inset 0 1px 0 rgb(231 247 255 / .23);
+}
+:root[data-theme="dark"] .eao-v2 .eao-org-center .eao-org-overlay {
+  background:linear-gradient(127deg,rgb(228 241 255 / .09),transparent 66%),rgb(21 47 64 / .24);
+}
+:root[data-theme="dark"] .eao-v2 .eao-org-glass > .eao-org-overlay {
+  background:linear-gradient(137deg,rgb(211 235 251 / .09),rgb(181 212 236 / .025) 48%,transparent 73%),var(--org-fill);
+}
+:root[data-theme="dark"] .eao-v2 .eao-org-card h3 { border-color:rgb(173 217 235 / .19); }
+:root[data-theme="dark"] .eao-v2 .eao-org-card li { text-shadow:0 1px 1px rgb(0 0 0 / .35); }
+:root[data-theme="dark"] .eao-v2 .eao-org-summary {
+  border-color:rgb(205 238 248 / .17);
+  background:rgb(61 126 136 / .20);
+  box-shadow:inset 0 1px 0 rgb(217 247 255 / .14);
+  color:#a7eee5;
+}
+@media (max-width:1050px) and (min-width:701px) {
+  .eao-v2 .eao-org-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .eao-v2 .eao-org-card { min-height:12.25rem; }
+  .eao-v2 .eao-org-wires { height:2.5rem; }
+  .eao-v2 .eao-org-wires path:not(:nth-of-type(3)),.eao-v2 .eao-org-wires circle { display:none; }
+  .eao-v2 .eao-org-card li { font-size:.875rem; }
+}
+@media (max-width:700px) {
+  /* Keep the original information hierarchy: the separate department cards
+     below this graphic are already the mobile representation. */
+  .eao-v2 #departments .eao-org-diagram { display:none; }
+}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) {
+  .eao-v2 .eao-org-glass > .eao-org-filter { -webkit-backdrop-filter:none; backdrop-filter:none; }
+  .eao-v2 .eao-org-glass > .eao-org-overlay { background:rgb(246 252 255 / .92); }
+  :root[data-theme="dark"] .eao-v2 .eao-org-glass > .eao-org-overlay { background:#21374a; }
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  .eao-v2 .eao-org-glass > .eao-org-filter { -webkit-backdrop-filter:none; backdrop-filter:none; }
+  .eao-v2 .eao-org-glass > .eao-org-overlay { background:#f6fafd; }
+  :root[data-theme="dark"] .eao-v2 .eao-org-glass > .eao-org-overlay { background:#203449; }
+  .eao-v2 .eao-org-glass > .eao-org-specular { box-shadow:none; }
+  .eao-v2 .eao-org-card li { text-shadow:none; }
+  .eao-v2 .eao-org-summary { -webkit-backdrop-filter:none; backdrop-filter:none; background:#e8f5f5; }
+  :root[data-theme="dark"] .eao-v2 .eao-org-summary { background:#294a56; }
+}
+@media (forced-colors:active) {
+  .eao-v2 .eao-org-board { background:Canvas; color:CanvasText; }
+  .eao-v2 .eao-org-glass { background:Canvas; color:CanvasText; border:1px solid CanvasText; box-shadow:none; }
+  .eao-v2 .eao-org-glass > :is(.eao-org-filter,.eao-org-overlay,.eao-org-specular) { display:none; }
+  .eao-v2 .eao-org-brand strong,.eao-v2 .eao-org-card h3,.eao-v2 .eao-org-card li,
+  .eao-v2 .eao-org-summary { color:CanvasText; background:Canvas; text-shadow:none; }
+}
