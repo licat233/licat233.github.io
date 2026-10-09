@@ -34,7 +34,7 @@
   </script>
   <link rel="stylesheet" href="/assets/vendor/open-props/open-props-core-1.7.23.min.css">
   <link rel="stylesheet" href="/assets/portfolio.css?v=20261008-glass1">
-  <link rel="stylesheet" href="/assets/portfolio-liquid-glass.css?v=20261009-navglass1">
+  <link rel="stylesheet" href="/assets/portfolio-liquid-glass.css?v=20261009-optic1">
   <link rel="stylesheet" href="/assets/portfolio-entrances.css?v=20261008a">
 </head>
 <body>
@@ -424,6 +424,11 @@
     <filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB">
       <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="edgeFade"/>
       <feDisplacementMap in="SourceGraphic" in2="edgeFade" scale="12" xChannelSelector="A" yChannelSelector="A"/>
+    </filter>
+    <!-- Restore the original Demo optical parameters on project glass only. -->
+    <filter id="portfolioCardLensFilter" x="-6%" y="-10%" width="112%" height="120%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="50" result="cardEdgeFade"/>
+      <feDisplacementMap in="SourceGraphic" in2="cardEdgeFade" scale="50" xChannelSelector="A" yChannelSelector="A"/>
     </filter>
   </svg>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
