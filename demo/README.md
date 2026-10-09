@@ -1,24 +1,23 @@
-# Licat Reversible Scroll + Idle Visibility Fallback
+# Licat Glass UI Live Demo
 
-Only /demo/ is modified. Production homepage /en/ and /zh/ are unchanged.
+This directory hosts the independent Liquid Glass study for browser review.
 
-Primary control: GSAP ScrollTrigger with scrub true. Scrolling down plays forward;
-scrolling up reverses.
+- Live: https://licat233.github.io/demo/ (Chinese by default)
+- Chinese: https://licat233.github.io/demo/zh/
+- English: https://licat233.github.io/demo/en/
+- Production homepage /, /zh/, /en/ remains unchanged.
+- Search indexing disabled with noindex,follow.
+- Base styling: demo/portfolio.css (isolated snapshot).
+- Glass styling: demo/portfolio-liquid-glass.css (isolated).
+- Entrance and reversible motion: demo/entrances.css + demo/portfolio-motion.js
+  (preserves the previous /demo motion behavior).
+- Theme preference uses licat-demo-theme, separate from production.
+- Open Props and image/logo assets are loaded from existing shared /assets paths.
+- No additional images, API services or external dependencies are required.
 
-Fallback: one shared window.setTimeout reset on scroll. After 480ms idle,
-visible incomplete scenes finish over 600ms. The anchor must actually be in
-the viewport. Footer does not need to reach screen center.
+The former Motion Study version is preserved in the backup branch
+backup/portfolio-demo-motion-before-glass-20261009 at commit
+376c18189f3b9475b0d407b1308ad5d0dcd5e287.
 
-Scenes: section headings, every project row, journey, principles and footer.
-A timeout-settled scene is latched to its current scroll position. Subsequent
-scroll maps to a new continuous path rather than jumping back to the old partial
-scrub position. The latch resets after fully reversing and leaving the viewport.
-
-At initial load the timeout also handles restored deep-link positions. Reduced
-motion skips these effects and timers. Cleanups remove listeners and timers.
-No new service, library, pinned scroll, or layout mutation.
-
-## Footer spacing
-The experimental oversized footer padding was removed. The footer now uses
-its natural height; scroll-idle scene completion provides visibility without
-adding artificial blank space or a scroll spacer.
+The production homepage is deliberately not synchronized from /demo.
+Changes are reviewed here first, then promoted only on approval.

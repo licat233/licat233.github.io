@@ -8,7 +8,7 @@
 
   const getStoredTheme = () => {
     try {
-      const value = localStorage.getItem("licat-theme");
+      const value = localStorage.getItem("licat-demo-theme");
       return value === "light" || value === "dark" ? value : null;
     } catch (_) {
       return null;
@@ -41,7 +41,7 @@
       });
       if (persist) {
         try {
-          localStorage.setItem("licat-theme", theme);
+          localStorage.setItem("licat-demo-theme", theme);
         } catch (_) {}
       }
       updateThemeButton();
