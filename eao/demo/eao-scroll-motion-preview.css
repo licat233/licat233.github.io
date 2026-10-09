@@ -1,0 +1,8 @@
+/* Preview-only animation containment.
+ * Offscreen GSAP transforms must not change the document's scrollable width.
+ * Clip only horizontally at the already-existing chapter boundary, leaving
+ * vertical content and the full card shadows within their natural wrap.
+ */
+.eao-v2 :is(#work,#pain,#value,#departments,#control) {
+  overflow-x: clip;
+}
