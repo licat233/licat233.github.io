@@ -140,6 +140,44 @@
         scheduleSettle();
       }
 
+      // Split only after GSAP is present and motion has been accepted.
+      // The heading retains one accessible name; visual glyph spans are
+      // aria-hidden and reverted on matchMedia teardown.
+      function splitHeadingGlyphs(title) {
+        if (title.children.length || !title.textContent.trim()) return null;
+        const original = title.textContent;
+        const fragment = document.createDocumentFragment();
+        const tokenize = /([A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*|\\s+|[^\\s])/gu;
+        const glyphs = [];
+        for (const match of original.matchAll(tokenize)) {
+          const token = match[0];
+          if (/^\\s+$/u.test(token)) {
+            fragment.appendChild(document.createTextNode(token));
+            continue;
+          }
+          const latin = /^[A-Za-z0-9]/.test(token);
+          const word = latin ? document.createElement("span") : null;
+          if (word) word.className = "eao-fall-word";
+          for (const part of Array.from(token)) {
+            const glyph = document.createElement("span");
+            glyph.className = "eao-fall-char";
+            glyph.textContent = part;
+            glyphs.push(glyph);
+            (word || fragment).appendChild(glyph);
+          }
+          if (word) fragment.appendChild(word);
+        }
+        if (!glyphs.length) return null;
+        title.replaceChildren(fragment);
+        title.setAttribute("aria-label", original);
+        glyphs.forEach((g) => g.setAttribute("aria-hidden", "true"));
+        cleanups.push(() => {
+          title.textContent = original;
+          title.removeAttribute("aria-label");
+        });
+        return glyphs;
+      }
+
       // One-time opening for the hero copy. Never animate the sticky nav.
       // Avoid transforming .hero-visual: the existing pointer/tilt owns it.
       if (scrollY < innerHeight * .35) {
@@ -171,13 +209,30 @@
         if (kicker) tl.fromTo(kicker, { x: -24, autoAlpha: 0 }, {
           x: 0, autoAlpha: 1, duration: .66, ease: "power1.inOut"
         }, 0);
-        tl.fromTo(title, {
-          y: compact ? 38 : 72, rotationX: compact ? -9 : -16,
-          autoAlpha: 0, transformPerspective: 1000
-        }, {
-          y: 0, rotationX: 0, autoAlpha: 1,
-          duration: 1, ease: "power1.inOut"
-        }, .08);
+        const chars = splitHeadingGlyphs(title);
+        if (chars) {
+          // All glyphs are initialized together: none flashes while a
+          // staggered tween waits to begin. Every glyph drops TOP -> DOWN.
+          const each = Math.min(.042, .95 / Math.max(1, chars.length - 1));
+          gsap.set(chars, {
+            y: compact ? -46 : -92,
+            rotationX: compact ? -34 : -63,
+            scale: compact ? .94 : .85,
+            autoAlpha: 0,
+            transformPerspective: 900,
+            transformOrigin: "50% 0%"
+          });
+          tl.to(chars, {
+            y: 0, rotationX: 0, scale: 1, autoAlpha: 1,
+            duration: .62,
+            ease: "power1.inOut",
+            stagger: { each, from: "start" }
+          }, .08);
+        } else {
+          tl.fromTo(title, { y: -42, autoAlpha: 0 }, {
+            y: 0, autoAlpha: 1, duration: .9, ease: "power1.inOut"
+          }, .08);
+        }
         if (intro) tl.fromTo(intro, { y: 15, autoAlpha: 0 }, {
           y: 0, autoAlpha: 1, duration: .67, ease: "power1.inOut"
         }, .3);
@@ -202,7 +257,7 @@
             tl.fromTo(col, {
               x, y: compact ? 26 : 65, rotationY: compact ? 0 : direction * 9, scale: compact ? .97 : .92, autoAlpha: 0
             }, {
-            x: 0, x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1, autoAlpha: 1, duration: .92, ease: "power1.inOut"
+            x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1, autoAlpha: 1, duration: .92, ease: "power1.inOut"
             }, i * .1);
           });
         } else {
@@ -213,6 +268,41 @@
         }
         hold(tl);
       });
+
+      // Real-enterprise reference: the big glass container enters first;
+      // its internal facts then settle individually, in the actual grid order.
+      const realItems = document.querySelector(".real .real-items");
+      if (realItems && realItems.offsetWidth) {
+        const items = [...realItems.querySelectorAll(":scope > span")];
+        const rows = [];
+        items.forEach(item => {
+          const top = naturalY(item);
+          let row = rows.find(r => Math.abs(r.top - top) < 5);
+          if (!row) { row = { top, items: [] }; rows.push(row); }
+          row.items.push(item);
+        });
+        rows.forEach(row => {
+          const tl = sceneFor(realItems, row.items[0], {
+            entry: compact ? .93 : .86,
+            travel: compact ? .33 : .38
+          });
+          if (!tl) return;
+          row.items.forEach((item, i) => {
+            tl.fromTo(item, {
+              y: compact ? 27 : 48,
+              rotationX: compact ? -12 : -35,
+              scale: compact ? .96 : .89,
+              autoAlpha: 0,
+              transformPerspective: 950
+            }, {
+              y: 0, rotationX: 0, scale: 1,
+              autoAlpha: 1, duration: .82,
+              ease: "power1.inOut"
+            }, i * .46);
+          });
+          hold(tl);
+        });
+      }
 
       // Respect the ACTUAL CSS grid rows: desktop 3+2 departments,
       // tablet 2+2+1, phone 1 per row, without reparenting or FLIP layouts.
@@ -338,19 +428,57 @@
               x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1, autoAlpha: 1,
               duration: .92, ease: "power1.inOut"
             }, i * .115);
-            if (kind === "methods") {
-              const arrow = card.nextElementSibling;
-              if (arrow && arrow.matches(".eao-method-arrow")
-                  && getComputedStyle(arrow).display !== "none") {
-                tl.fromTo(arrow, {
-                  autoAlpha: 0, x: compact ? 0 : -40, scale: .66, transformOrigin: "50% 50%"
-                }, {
-                  autoAlpha: 1, x: 0, scale: 1, duration: .58,
-                  ease: "power1.inOut"
-                }, i * .115 + .35);
-              }
+          });
+          hold(tl);
+        });
+      }
+
+      function animateMethodSequence(flow) {
+        if (!flow || !flow.offsetWidth) return;
+        const cards = [...flow.querySelectorAll(".eao-method-card")].filter(c => c.offsetWidth);
+        const rows = [];
+        cards.forEach(card => {
+          const top = naturalY(card);
+          let row = rows.find(r => Math.abs(r.top - top) < 5);
+          if (!row) { row = { top, cards: [] }; rows.push(row); }
+          row.cards.push(card);
+        });
+        rows.forEach(row => {
+          const tl = sceneFor(flow, row.cards[0], {
+            entry: compact ? .92 : .91,
+            travel: compact ? .33 : (row.cards.length === 4 ? .83 : .52)
+          });
+          if (!tl) return;
+          row.cards.forEach((card, index) => {
+            const stage = index * 1.10;
+            const order = cards.indexOf(card);
+            const direction = (order % 2 ? 1 : -1);
+            tl.fromTo(card, {
+              x: compact ? 0 : direction * (row.cards.length === 4 ? 66 : 45),
+              y: compact ? 57 : 94,
+              rotationY: compact ? 0 : direction * 12,
+              rotation: compact ? direction * 2 : direction * 4,
+              scale: compact ? .94 : .86,
+              autoAlpha: 0, transformPerspective: 1050
+            }, {
+              x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1,
+              autoAlpha: 1, duration: .82, ease: "power1.inOut"
+            }, stage);
+            const arrow = card.nextElementSibling;
+            if (arrow && arrow.matches(".eao-method-arrow") &&
+                getComputedStyle(arrow).display !== "none") {
+              tl.fromTo(arrow, {
+                autoAlpha: 0, scale: .6,
+                x: compact ? 0 : -24,
+                y: compact ? -12 : 0,
+                transformOrigin: "50% 50%"
+              }, {
+                autoAlpha: 1, scale: 1, x: 0, y: 0,
+                duration: .23, ease: "power1.inOut"
+              }, stage + .84);
             }
           });
+          // Keep final position once the complete row has settled.
           hold(tl);
         });
       }
@@ -395,7 +523,7 @@
         subtleReveal(methods, methods.querySelector(".eao-method-intro"), {
           entry: .90, travel: compact ? .24 : .28, y: 14
         });
-        animateGlassRows(methods.querySelector(".eao-method-flow"), ".eao-method-card", "methods");
+        animateMethodSequence(methods.querySelector(".eao-method-flow"));
         subtleReveal(methods, methods.querySelector(".eao-method-summary"), {
           entry: .96, travel: compact ? .30 : .36, y: compact ? 30 : 75
         });

@@ -9,3 +9,16 @@
 /* The new FAQ card flights must not widen the page while offscreen.
    Clip horizontal travel at the FAQ section, retaining vertical flow. */
 .eao-v2 .faq { overflow-x: clip; }
+
+/* Accessible falling-glyph headings, flow-preserving and English word-safe. */
+.eao-v2 .section-title .eao-fall-char,
+.eao-v2 .cta h2 .eao-fall-char {
+  display:inline-block;
+  transform-origin:50% 0%;
+}
+.eao-v2 .section-title .eao-fall-word,
+.eao-v2 .cta h2 .eao-fall-word {
+  display:inline-block;
+  white-space:nowrap;
+}
+.eao-v2 #knowledge-story { overflow-x:clip; }
