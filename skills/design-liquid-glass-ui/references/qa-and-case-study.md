@@ -42,6 +42,22 @@ A clear blocker on usability, fidelity or layout means **do not release**, regar
 of overall aesthetics. For remaining style choices, seek human review rather than
 an endless autonomous "polish" loop.
 
+## Portfolio glass acceptance case (October 2026)
+
+The **approved** personal-site project involved fixed landscape backdrop,
+medium frost (~2px), opt-in refractive edge, theme-specific text shadow, and
+strict per-card optical layer positioning. It revealed a hidden **double-rim
+timeline bug** despite earlier passing page-level smoke tests. Read
+`references/portfolio-case-study.md` for the exact failure/recovery history,
+`references/optical-implementation.md` for runnable snippets and the
+single-surface geometry invariant.
+
+Do **not** accept card screenshots alone. Verify each optical child's
+actual bounds against the same card padding box in both themes/mobile;
+inspect interactive hit targets and where the fixed background stays through
+scroll. A commit, Pages build success, and public CSS loading are separate
+evidence. Browser automation does not certify Safari or universal performance.
+
 ## EAO Homepage — documented lessons (October 2026)
 
 Context: bilingual static Enterprise AI Office homepage

@@ -1,5 +1,15 @@
 # Minimal native-CSS implementation patterns
 
+**Which recipe?** The starter below is deliberately a **functional,
+relatively opaque** glass control/content pattern, not the accepted
+scenery-backed optical glass from the October 2026 portfolio. For the
+visually reproduced clear/frosty specular layer, fixed scenic background,
+SVG filter limits and per-layer positioning, use
+`references/optical-implementation.md` first. Do not reuse a 16px blur
+and ~.6 white film indiscriminately on a scenic card: that produced white fog
+in the real iteration. Match the environment, component role and browser.
+
+
 The following examples are **schematic**, not mandatory names, brand colours, or
 permission to append another override to an existing site. First find the active
 source of truth and semantic tokens; modify the right rules in place.

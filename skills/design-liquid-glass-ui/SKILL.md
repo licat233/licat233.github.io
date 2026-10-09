@@ -1,7 +1,7 @@
 ---
 name: design-liquid-glass-ui
-description: Design, prototype, implement, and visually validate restrained Liquid Glass interfaces for websites and web apps. Use when asked for glassmorphism, frosted/translucent navigation, glass cards, glass buttons, optical edge highlights, brand-based color palettes, or improving an existing glass UI. Guides brand color extraction, visual approval, native CSS, accessibility, responsive QA, and safe deployment; does not grant code or deployment permissions.
-version: 1.0.0
+description: Design, prototype, implement, and visually validate restrained Liquid Glass interfaces for websites and web apps. Use when asked for glassmorphism, frosted/translucent navigation, glass cards, glass buttons, optical edge highlights, brand-based color palettes, or improving an existing glass UI. Guides optical layering, moderate frost, pinned scenic backgrounds, text contrast, brand palettes, single-surface geometry, responsive QA, visual approval, and safe deployment; does not grant code or deployment permissions.
+version: 1.1.0
 author: Enterprise AI Office
 metadata:
   hermes:
@@ -52,6 +52,46 @@ and repo paths below are illustrative.
    actual asset loading are separate checks. Invalidate versioned CSS/JS URL on
    static sites after a change; do not disable all browser caching.
 
+## Reproducing the approved optical look (start here for a Demo recreation)
+
+For a request to **match the user's clear Apple-like glass Demo**, read
+`references/optical-implementation.md` *before* choosing CSS opacity or blur.
+That reference is the portable **one-positioned-surface / three-passive-layers**
+recipe, with optional SVG, moderate frost and tiny theme-aware text edge
+shadow. Numeric settings are case-tuned starting points, not universal rules.
+
+1. Establish a *real* environment behind glass. Smooth gradients alone did
+   **not** reproduce the source Demo's optical character. Reuse existing
+   optimized, appropriately licensed photography when that suits the site.
+2. Material order: **backdrop sampling** (`z=0`) → **neutral tint**
+   (`z=1`) → **thin specular rim** (`z=2`) → **semantic content** (`z>=3`).
+   The *single visible glass card* must own the border, radius,
+   `position:relative` and clipping. All optics are non-interactive.
+3. Calibrate against a *real* browser screenshot in this order: too-white
+   fog → too-clear material → moderate frost → contrast → edge refinement.
+   A 22% white wash looked foggy; reducing to ~6.5% went too far. The
+   accepted *case-specific* range was ~12%/2.35px (light), ~11%/2.1px
+   (dark) and a simplified ~1.8px mobile path.
+4. Small white or dark text-edge shadows can separate glyphs from scenic
+   detail, but **do not count as contrast compliance**. Verify foreground
+   contrast on bright/dark composites; use a solid content scrim when needed.
+5. SVG edge filters (the case used large-card displacement scale 32) are
+   *optional*. CSS filter ≠ universal physical backdrop refraction. Check
+   actual browser output and turn expensive SVG off on repeated mobile cards.
+6. For a fixed full-page scene, consider a `body::before` fixed layer with
+   `100svh` and one reused image (rather than unreliable mobile
+   `background-attachment:fixed`). Test its pixels across scroll while
+   hiding moving content *without collapsing scroll height*.
+7. Never ship double glass borders: inspect each optical child's
+   `getBoundingClientRect()` against the **actual bordered surface's padding
+   box**. A missing `position:relative` on a milestone inner card created
+   a visible second frame, later fixed without rewriting the HTML.
+
+Review `references/portfolio-case-study.md` for the rejection/acceptance
+history, reusable debugging decisions, and documented local/live QA.
+This workflow is **inspired by** Apple, not a claim of pixel-identical native
+Liquid Glass or universal Safari/GPU support.
+
 Apple's Liquid Glass guidance prioritizes a distinct *control/navigation* layer.
 Website content panels may use subtler glass-inspired standard materials if readable.
 See `references/material-and-color.md` before setting opacity or choosing a palette.
@@ -94,7 +134,8 @@ See `references/material-and-color.md` before setting opacity or choosing a pale
 - Prefer CSS gradients + semi-transparent fills, `backdrop-filter`, fine borders,
   top/inset highlights, restrained shadows and transitions. Edge refraction
   (SVG displacement or shader) is opt-in, rare, budgeted, and must not distort
-  readable content or product screenshots.
+  readable content or product screenshots. Consult the precise optical-layer
+  pattern and fallback in `references/optical-implementation.md`.
 - Keep component layout and animation transforms independent. In particular, never
   let reveal animations overwrite Grid-card transforms or hide untriggered sections.
 - For language/theme segmented controls, **current state is the current page/state**,
@@ -108,11 +149,17 @@ See `references/material-and-color.md` before setting opacity or choosing a pale
 - Check at least 1440, 1024, 768, 390, 360 px where site warrants it;
   all supported language routes, light/dark, hover, focus, FAQ/dialog, links,
   sticky nav, images, lazy loading, contrast, overflow and reduced motion.
+- Compare positioned glass-layer rectangles with each component border/padding
+  box; verify exactly one rim, timeline dots and icon/number geometry.
+- For fixed scenes, isolate background pixels and compare scroll positions at
+  stable viewport dimensions (not screenshots with moving cards).
 - Test from a real local browser; capture *after* screenshots and review by eye.
   A successful CSS edit or generated visual does not count as UI acceptance.
 - If authorized to deploy: fetch latest remote, protect concurrent work,
   commit isolated changes, run repo checks, push without force, wait for deploy,
   inspect live CSS URL and computed styles in a fresh browser.
+  Preserve production canonical/hreflang and indexability when promoting from
+  a noindex preview; do not leak Demo-only routes or theme storage keys.
 - Do not state success for untested Safari, unsupported reduced-transparency flags,
   or unmeasured GPU performance. Report limits.
 - Use `references/qa-and-case-study.md` for acceptance evidence and lessons.

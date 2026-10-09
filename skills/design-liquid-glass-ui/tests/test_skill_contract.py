@@ -15,6 +15,8 @@ SKILL = ROOT / "SKILL.md"
 MATERIAL = ROOT / "references" / "material-and-color.md"
 CSS = ROOT / "references" / "css-patterns.md"
 QA = ROOT / "references" / "qa-and-case-study.md"
+OPTICAL = ROOT / "references" / "optical-implementation.md"
+PORTFOLIO = ROOT / "references" / "portfolio-case-study.md"
 
 
 def contrast_rgb(a: str, b: str) -> float:
@@ -35,6 +37,8 @@ class DesignGlassSkillContract(unittest.TestCase):
         cls.material = MATERIAL.read_text(encoding="utf-8")
         cls.css = CSS.read_text(encoding="utf-8")
         cls.qa = QA.read_text(encoding="utf-8")
+        cls.optical = OPTICAL.read_text(encoding="utf-8")
+        cls.portfolio = PORTFOLIO.read_text(encoding="utf-8")
 
     def test_hermes_frontmatter(self) -> None:
         match = re.match(r"^---\n(.*?)\n---\n", self.content, re.DOTALL)
@@ -42,12 +46,18 @@ class DesignGlassSkillContract(unittest.TestCase):
         header = match.group(1)
         self.assertRegex(header, r"(?m)^name:\s+design-liquid-glass-ui$")
         self.assertRegex(header, r"(?m)^description:\s+.+$")
-        self.assertRegex(header, r"(?m)^version:\s+1\.0\.0$")
+        self.assertRegex(header, r"(?m)^version:\s+1\.1\.0$")
         self.assertIn("hermes:", header)
         self.assertIn("frontend", header)
 
     def test_refs_resolve(self) -> None:
-        for reference in ("material-and-color.md", "css-patterns.md", "qa-and-case-study.md"):
+        for reference in (
+            "material-and-color.md",
+            "css-patterns.md",
+            "qa-and-case-study.md",
+            "optical-implementation.md",
+            "portfolio-case-study.md",
+        ):
             self.assertIn("references/" + reference, self.content)
             self.assertTrue((ROOT / "references" / reference).is_file())
 
@@ -78,6 +88,61 @@ class DesignGlassSkillContract(unittest.TestCase):
         self.assertIn('aria-current="page"', self.css)
         for unwanted in ("npm install", "WebGLRenderingContext", "ReactDOM", "Vue.createApp"):
             self.assertNotIn(unwanted, self.css)
+
+    def test_optical_stack_and_single_surface_contract(self) -> None:
+        for marker in (
+            "glass-surface", "glass-filter", "glass-tint", "glass-specular",
+            "position: relative", "position: absolute", "pointer-events: none",
+            "aria-hidden", "z-index: 3", "border-radius: inherit",
+            "getBoundingClientRect()", "padding box",
+        ):
+            self.assertIn(marker, self.optical, marker)
+        self.assertIn("one-positioned-surface", self.content)
+        self.assertIn("single visible glass card", self.content)
+        self.assertIn("two nested glass cards", self.optical.lower())
+
+    def test_case_tuning_not_pretended_universal(self) -> None:
+        for marker in (
+            "2.35px", "2.1px", "1.8px", ".12", ".11", "22%",
+            "scale=32", "scale=50", "stdDeviation=\"50\"",
+        ):
+            # SVG attributes are expressed as source/markup, not as a
+            # recommendation that every website uses the same values.
+            self.assertIn(marker, self.optical + self.portfolio, marker)
+        for marker in (
+            "not universal", "never a substitute", "not guaranteed",
+            "Safari", "WCAG", "CSS", "Demo",
+        ):
+            self.assertIn(marker.lower(), (self.optical + self.portfolio).lower())
+
+    def test_pinned_scene_with_contrast_and_accessibility(self) -> None:
+        for marker in (
+            "body::before", "position: fixed", "100svh",
+            "existing-hero.webp", "background-attachment:fixed",
+            "prefers-contrast: more", "prefers-reduced-transparency: reduce",
+            "forced-colors: active", "@supports not",
+        ):
+            self.assertIn(marker, self.optical, marker)
+        self.assertIn("without collapsing", self.optical)
+        self.assertIn("actual Safari", self.optical)
+
+    def test_portfolio_release_separates_preview_and_production(self) -> None:
+        for marker in (
+            "canonical", "noindex", "backup/", "CSS",
+            "four", "4/4", "not establish", "timeline",
+        ):
+            self.assertIn(marker.lower(), self.portfolio.lower())
+        self.assertIn("current source", self.portfolio.lower())
+        self.assertIn("fixed scene", self.portfolio.lower())
+
+    def test_reference_integrity_and_markdown(self) -> None:
+        for path in (SKILL, MATERIAL, CSS, QA, OPTICAL, PORTFOLIO):
+            text = path.read_text(encoding="utf-8")
+            self.assertGreater(len(text), 500)
+            self.assertNotIn("§", text)
+            self.assertEqual(text.count(chr(96) * 3) % 2, 0, path.name)
+        self.assertIn("optical-implementation.md", self.content)
+        self.assertIn("portfolio-case-study.md", self.content)
 
     def test_basic_opaque_examples_not_misleading(self) -> None:
         # The example explicitly asks for composite testing. Opaque baseline is
