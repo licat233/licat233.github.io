@@ -1,0 +1,237 @@
+/*
+  EAO isolated material study, 2026-10-09.
+  Preview-only; formal /eao/ production CSS and JS are not modified.
+  One visible bordered surface, three inert layers, content above optics.
+*/
+:root {
+  --eao-preview-clear-tint: rgb(247 252 255 / .14);
+  --eao-preview-balanced-tint: rgb(248 252 255 / .18);
+  --eao-preview-rim: rgb(255 255 255 / .90);
+  --eao-preview-inner-light: rgb(255 255 255 / .87);
+  --eao-preview-edge: rgb(89 128 164 / .18);
+  --eao-preview-ink-edge: rgb(255 255 255 / .78);
+}
+:root[data-theme="dark"] {
+  --eao-preview-clear-tint: rgb(21 36 50 / .24);
+  --eao-preview-balanced-tint: rgb(22 37 53 / .32);
+  --eao-preview-rim: rgb(232 245 255 / .31);
+  --eao-preview-inner-light: rgb(232 245 255 / .38);
+  --eao-preview-edge: rgb(1 12 24 / .40);
+  --eao-preview-ink-edge: rgb(7 16 27 / .74);
+}
+
+/* Retain the EXACT existing border geometry. Never introduce a second frame. */
+.eao-v2 nav.eao-optical-surface,
+.eao-v2 #work .compare-work .work-col.after.eao-optical-surface {
+  isolation: isolate;
+  overflow: hidden;
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Position against the REAL bordered surface; no new wrapper. */
+.eao-v2 .eao-optical-surface > :is(.eao-optical-filter,.eao-optical-overlay,.eao-optical-specular) {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.eao-v2 .eao-optical-surface > .eao-optical-filter {
+  z-index: 0;
+  -webkit-backdrop-filter: blur(9px) saturate(128%) brightness(1.015);
+  backdrop-filter: blur(9px) saturate(128%) brightness(1.015);
+}
+.eao-v2 .eao-optical-surface > .eao-optical-overlay {
+  z-index: 1;
+  background:
+    linear-gradient(132deg, rgb(255 255 255 / .11), transparent 49%),
+    var(--eao-preview-clear-tint);
+}
+.eao-v2 .eao-optical-surface > .eao-optical-specular {
+  z-index: 2;
+  box-shadow:
+    inset 1px 1px 1px var(--eao-preview-inner-light),
+    inset -1px -1px 0 var(--eao-preview-edge),
+    inset 4px 5px 10px -9px rgb(255 255 255 / .60),
+    inset -6px -9px 14px -12px rgb(50 90 125 / .17);
+}
+.eao-v2 nav.eao-optical-surface {
+  border-color: var(--eao-preview-rim);
+  box-shadow: 0 16px 41px rgb(38 65 98 / .13), 0 3px 9px rgb(51 79 116 / .045);
+}
+.eao-v2 nav.eao-optical-surface::before,
+.eao-v2 #work .compare-work .work-col.after.eao-optical-surface::before,
+.eao-v2 #work .compare-work .work-col.after.eao-optical-surface::after {
+  content: none;
+}
+.eao-v2 nav.eao-optical-surface > .navin {
+  position: relative;
+  z-index: 3;
+}
+
+/* A functional segmented control may remain visibly selected inside nav. */
+.eao-v2 .lang-switch {
+  background: rgb(251 254 255 / .23);
+  border-color: rgb(255 255 255 / .58);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.eao-v2 .theme-toggle {
+  border-color: rgb(255 255 255 / .78);
+  background: linear-gradient(130deg, rgb(255 255 255 / .42), rgb(255 255 255 / .035)), rgb(247 253 255 / .13);
+}
+.eao-v2 .hero .btn:not(.primary),
+.eao-v2 .cta .btn:not(.primary) {
+  background: linear-gradient(132deg, rgb(255 255 255 / .22), transparent 62%), rgb(251 253 255 / .25);
+  border-color: rgb(255 255 255 / .84);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  backdrop-filter: blur(6px) saturate(120%);
+}
+
+/* Emphasized transparent specimen: EAO workflow, not the old period-era window. */
+.eao-v2 #work .compare-work .work-col.after.eao-optical-surface {
+  border-color: rgb(255 255 255 / .88);
+  box-shadow:
+    0 19px 42px rgb(42 73 108 / .12),
+    0 4px 10px rgb(46 77 114 / .04);
+}
+.eao-v2 #work .compare-work .work-col.after > .eao-optical-filter {
+  -webkit-backdrop-filter: blur(3.5px) saturate(125%);
+  backdrop-filter: blur(3.5px) saturate(125%);
+}
+.eao-v2 #work .compare-work .work-col.after > .eao-optical-overlay {
+  background:
+    linear-gradient(127deg, rgb(255 255 255 / .065), transparent 61%),
+    var(--eao-preview-balanced-tint);
+}
+.eao-v2 #work .compare-work .work-col.after > :not(.eao-optical-filter):not(.eao-optical-overlay):not(.eao-optical-specular) {
+  position: relative;
+  z-index: 3;
+}
+.eao-v2 #work .compare-work .after .work-heading h3,
+.eao-v2 #work .compare-work .after .work-step-text {
+  text-shadow: 0 1px 1px var(--eao-preview-ink-edge);
+}
+
+/* Repeated information cards: lighter translucent material; do not replicate DOM optics. */
+.eao-v2 .dept-card,
+.eao-v2 .control-card {
+  background:
+    linear-gradient(137deg, rgb(255 255 255 / .23), transparent 60%),
+    rgb(251 254 255 / .19);
+  box-shadow: 0 14px 30px rgb(48 78 116 / .10), inset 0 1px 0 rgb(255 255 255 / .83);
+  border-color: rgb(255 255 255 / .79);
+}
+.eao-v2 .dept-card {
+  -webkit-backdrop-filter: blur(9px) saturate(122%);
+  backdrop-filter: blur(9px) saturate(122%);
+}
+.eao-v2 .faq-item {
+  background: linear-gradient(143deg, rgb(255 255 255 / .21), transparent 70%), rgb(252 254 255 / .23);
+  -webkit-backdrop-filter: blur(9px) saturate(119%);
+  backdrop-filter: blur(9px) saturate(119%);
+  border-color: rgb(255 255 255 / .77);
+  box-shadow: 0 7px 17px rgb(52 85 122 / .075), inset 0 1px 0 rgb(255 255 255 / .78);
+}
+.eao-v2 .faq-item[open] {
+  background: linear-gradient(140deg, rgb(255 255 255 / .27), transparent 67%), rgb(246 250 255 / .40);
+}
+
+/* Night materials calibrated separately. Text remains opaque and sharp. */
+:root[data-theme="dark"] .eao-v2 nav.eao-optical-surface {
+  border-color: var(--eao-preview-rim);
+  box-shadow: 0 17px 42px rgb(0 0 0 / .27), 0 3px 9px rgb(0 0 0 / .12);
+}
+:root[data-theme="dark"] .eao-v2 .eao-optical-surface > .eao-optical-filter {
+  -webkit-backdrop-filter: blur(9px) saturate(123%);
+  backdrop-filter: blur(9px) saturate(123%);
+}
+:root[data-theme="dark"] .eao-v2 .eao-optical-surface > .eao-optical-overlay {
+  background: linear-gradient(138deg, rgb(232 244 255 / .065), transparent 57%), var(--eao-preview-clear-tint);
+}
+:root[data-theme="dark"] .eao-v2 .eao-optical-surface > .eao-optical-specular {
+  box-shadow:
+    inset 1px 1px 1px var(--eao-preview-inner-light),
+    inset -1px -1px 0 var(--eao-preview-edge),
+    inset -5px -8px 14px -12px rgb(1 12 24 / .29);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.after.eao-optical-surface {
+  border-color: var(--eao-preview-rim);
+  box-shadow: 0 18px 39px rgb(0 0 0 / .21), 0 4px 10px rgb(0 0 0 / .09);
+}
+:root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.after > .eao-optical-overlay {
+  background: linear-gradient(135deg, rgb(213 234 250 / .065), transparent 60%), var(--eao-preview-balanced-tint);
+}
+:root[data-theme="dark"] .eao-v2 .lang-switch {
+  background: rgb(19 36 52 / .16);
+  border-color: rgb(221 237 252 / .21);
+}
+:root[data-theme="dark"] .eao-v2 .theme-toggle {
+  border-color: rgb(232 246 255 / .25);
+  background: rgb(26 42 59 / .31);
+}
+:root[data-theme="dark"] .eao-v2 .dept-card,
+:root[data-theme="dark"] .eao-v2 .control-card {
+  background: linear-gradient(142deg, rgb(180 206 227 / .08), transparent 60%), rgb(26 42 58 / .48);
+  border-color: rgb(218 238 255 / .22);
+  box-shadow: 0 15px 34px rgb(0 0 0 / .22), inset 0 1px 0 rgb(237 248 255 / .15);
+}
+:root[data-theme="dark"] .eao-v2 .faq-item {
+  background: linear-gradient(145deg, rgb(177 207 234 / .065), transparent 64%), rgb(23 40 57 / .49);
+  border-color: rgb(215 237 255 / .20);
+  box-shadow: 0 7px 18px rgb(0 0 0 / .16), inset 0 1px 0 rgb(225 244 255 / .13);
+}
+:root[data-theme="dark"] .eao-v2 .faq-item[open] { background: rgb(30 49 66 / .73); }
+
+/* Avoid repeated GPU backdrop surfaces and huge blur areas on phones. */
+@media (max-width: 700px) {
+  .eao-v2 .eao-optical-surface > .eao-optical-filter {
+    -webkit-backdrop-filter: blur(5px) saturate(120%);
+    backdrop-filter: blur(5px) saturate(120%);
+  }
+  .eao-v2 #work .compare-work .work-col.after > .eao-optical-filter {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .eao-v2 #work .compare-work .work-col.after > .eao-optical-overlay {
+    background: rgb(244 250 255 / .52);
+  }
+  .eao-v2 .dept-card,
+  .eao-v2 .faq-item {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgb(250 253 255 / .48);
+  }
+  :root[data-theme="dark"] .eao-v2 #work .compare-work .work-col.after > .eao-optical-overlay { background: rgb(25 43 60 / .69); }
+  :root[data-theme="dark"] .eao-v2 .dept-card,
+  :root[data-theme="dark"] .eao-v2 .faq-item { background: rgb(25 42 58 / .70); }
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .eao-v2 .eao-optical-surface > .eao-optical-filter { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .eao-v2 .eao-optical-surface > .eao-optical-overlay { background: rgb(247 250 254 / .96); }
+  :root[data-theme="dark"] .eao-v2 .eao-optical-surface > .eao-optical-overlay { background: rgb(25 42 58 / .97); }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .eao-v2 .eao-optical-surface > .eao-optical-filter { -webkit-backdrop-filter: none; backdrop-filter: none; filter: none; }
+  .eao-v2 .eao-optical-surface > .eao-optical-overlay { background: #f6f9fc; }
+  :root[data-theme="dark"] .eao-v2 .eao-optical-surface > .eao-optical-overlay { background: #1d3042; }
+  .eao-v2 .dept-card,.eao-v2 .faq-item,.eao-v2 .control-card,
+  .eao-v2 .lang-switch { background: #f6f9fc; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  :root[data-theme="dark"] .eao-v2 .dept-card,
+  :root[data-theme="dark"] .eao-v2 .faq-item,
+  :root[data-theme="dark"] .eao-v2 .control-card,
+  :root[data-theme="dark"] .eao-v2 .lang-switch { background: #203447; }
+  .eao-v2 #work .compare-work .after :is(h3,.work-step-text) { text-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eao-v2 .eao-optical-surface,.eao-v2 .dept-card,.eao-v2 .faq-item { transition: none; }
+}
+@media (forced-colors: active) {
+  .eao-v2 .eao-optical-surface > :is(.eao-optical-filter,.eao-optical-overlay,.eao-optical-specular) { display: none; }
+  .eao-v2 nav.eao-optical-surface,
+  .eao-v2 #work .compare-work .work-col.after.eao-optical-surface,
+  .eao-v2 .dept-card,.eao-v2 .faq-item,.eao-v2 .control-card { background: Canvas; color: CanvasText; border: 1px solid CanvasText; box-shadow: none; }
+  .eao-v2 #work .compare-work .after :is(h3,.work-step-text) { color: CanvasText; text-shadow: none; }
+}
