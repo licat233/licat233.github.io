@@ -286,10 +286,9 @@
     box-shadow: none;
   }
 }
-/* Optical glass clarity study v3.
-   Keep the Demo-derived refractive layer, but avoid stacking white haze
-   across the card surface. The large-card displacement is adapted to 32.
-   Reuse the existing Hero WebP; no added image, animation or dependency. */
+/* Optical glass clarity study v4: moderate frost for text contrast.
+   Keep the Demo-derived refractive edge and cached Hero WebP; increase only
+   interior blur/tint and typography contrast. No image or script changes. */
 #projects {
   position: relative;
   isolation: isolate;
@@ -308,12 +307,12 @@
     inset 0 -1px 0 rgba(74, 99, 107, .19);
 }
 #projects .project.liquid-demo > .lg-glass-filter {
-  -webkit-backdrop-filter: blur(1.3px) saturate(130%) brightness(1.02);
-  backdrop-filter: blur(1.3px) saturate(130%) brightness(1.02);
+  -webkit-backdrop-filter: blur(2.35px) saturate(125%) brightness(1.015);
+  backdrop-filter: blur(2.35px) saturate(125%) brightness(1.015);
   filter: url("#portfolioCardLensFilter");
 }
 #projects .project.liquid-demo > .lg-glass-overlay {
-  background: rgba(250, 253, 255, .065);
+  background: rgba(250, 253, 255, .12);
 }
 #projects .project.liquid-demo > .lg-glass-specular {
   box-shadow:
@@ -343,11 +342,11 @@
     inset 0 1px 0 rgba(238,250,255,.36);
 }
 :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-filter {
-  -webkit-backdrop-filter: blur(1px) saturate(135%) brightness(1);
-  backdrop-filter: blur(1px) saturate(135%) brightness(1);
+  -webkit-backdrop-filter: blur(2.1px) saturate(127%) brightness(1);
+  backdrop-filter: blur(2.1px) saturate(127%) brightness(1);
 }
 :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-overlay {
-  background: rgba(8, 24, 32, .06);
+  background: rgba(8, 24, 32, .11);
 }
 :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-specular {
   box-shadow:
@@ -356,11 +355,12 @@
     inset 4px 5px 11px -9px rgba(245, 251, 255, .32),
     inset -5px -8px 14px -13px rgba(0, 10, 18, .55);
 }
-/* Brighten muted description text just enough to remain legible against the
-   newly visible photo in dark mode, without adding an opaque text panel. */
+/* Typography must remain readable when glass overlaps bright scenery. */
+#projects .project p { color: #425563; }
+#projects .project-meta { color: #526575; }
 :root[data-theme="dark"] #projects .project p,
 :root[data-theme="dark"] #projects .project-meta {
-  color: rgba(226, 240, 247, .84);
+  color: rgba(235, 246, 251, .94);
 }
 /* Use a low-cost, lighter blur for touch devices. The expensive SVG distortion is
    omitted on narrow screens; the strong specular rim still reads as glass. */
@@ -368,14 +368,14 @@
   #projects .project.liquid-demo > .lg-glass-filter {
     filter: none;
     background: none;
-    -webkit-backdrop-filter: blur(1.1px) saturate(127%);
-    backdrop-filter: blur(1.1px) saturate(127%);
+    -webkit-backdrop-filter: blur(1.8px) saturate(125%);
+    backdrop-filter: blur(1.8px) saturate(125%);
   }
   :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-filter {
     filter: none;
     background: none;
-    -webkit-backdrop-filter: blur(1.1px) saturate(127%);
-    backdrop-filter: blur(1.1px) saturate(127%);
+    -webkit-backdrop-filter: blur(1.8px) saturate(125%);
+    backdrop-filter: blur(1.8px) saturate(125%);
   }
 }
 /* Stable, solid fallbacks for accessibility or older browsers. */
