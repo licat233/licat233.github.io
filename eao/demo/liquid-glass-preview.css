@@ -71,6 +71,110 @@
   z-index: 3;
 }
 
+/* Selected navigation = optical lens, NOT a filled teal button.
+   The existing sliding indicator owns the single material boundary.
+   Its transform and CSS custom-property geometry remain controlled by EAO JS. */
+.eao-v2 .nav-sections .nav-indicator {
+  box-sizing: border-box;
+  border: 1px solid rgb(255 255 255 / .85);
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / .37), rgb(255 255 255 / .10) 35%, transparent 76%),
+    linear-gradient(325deg, rgb(116 191 203 / .14), transparent 53%),
+    rgb(247 253 255 / .16);
+  -webkit-backdrop-filter: blur(6px) saturate(140%) brightness(1.04);
+  backdrop-filter: blur(6px) saturate(140%) brightness(1.04);
+  box-shadow:
+    0 5px 13px rgb(38 76 104 / .17),
+    0 1px 3px rgb(35 80 100 / .07),
+    inset 1px 1px 0 rgb(255 255 255 / .99),
+    inset -1px -1px 0 rgb(101 147 174 / .25),
+    inset 0 0 9px rgb(255 255 255 / .15);
+}
+.eao-v2 .nav-sections .nav-indicator::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:
+    linear-gradient(103deg, rgb(255 255 255 / .52), transparent 38%),
+    linear-gradient(0deg, rgb(108 166 184 / .095), transparent 29%);
+  pointer-events:none;
+}
+.eao-v2 .nav-sections .nav-indicator::after {
+  content:"";
+  position:absolute;
+  top:1px;
+  left:11%;
+  right:11%;
+  height:1px;
+  border-radius:100%;
+  background:linear-gradient(90deg,transparent,rgb(255 255 255 / .94),transparent);
+  pointer-events:none;
+}
+.eao-v2 .nav-sections .nav-section-link.is-active {
+  color:#17485b;
+  text-shadow:0 1px 1px rgb(255 255 255 / .70);
+}
+:root[data-theme="dark"] .eao-v2 .nav-sections .nav-indicator {
+  border-color:rgb(226 245 255 / .39);
+  background:
+    linear-gradient(140deg, rgb(216 239 252 / .21), rgb(173 213 230 / .065) 44%, transparent 75%),
+    linear-gradient(317deg, rgb(96 158 188 / .09), transparent 52%),
+    rgb(119 174 198 / .10);
+  -webkit-backdrop-filter:blur(6px) saturate(132%) brightness(1.09);
+  backdrop-filter:blur(6px) saturate(132%) brightness(1.09);
+  box-shadow:
+    0 6px 18px rgb(0 0 0 / .24),
+    0 1px 3px rgb(0 0 0 / .13),
+    inset 1px 1px 0 rgb(237 249 255 / .43),
+    inset -1px -1px 0 rgb(1 18 36 / .39),
+    inset 0 0 7px rgb(221 242 255 / .075);
+}
+:root[data-theme="dark"] .eao-v2 .nav-sections .nav-indicator::before {
+  background:linear-gradient(112deg,rgb(226 247 255 / .12),transparent 50%);
+}
+:root[data-theme="dark"] .eao-v2 .nav-sections .nav-indicator::after {
+  background:linear-gradient(90deg,transparent,rgb(225 248 255 / .42),transparent);
+}
+:root[data-theme="dark"] .eao-v2 .nav-sections .nav-section-link.is-active {
+  color:#effbff;
+  text-shadow:0 1px 1px rgb(5 20 33 / .68);
+}
+@media (max-width:700px) {
+  .eao-v2 .nav-sections .nav-indicator {
+    -webkit-backdrop-filter:blur(3px) saturate(128%);
+    backdrop-filter:blur(3px) saturate(128%);
+  }
+}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) {
+  .eao-v2 .nav-sections .nav-indicator { background:rgb(236 246 251 / .96); }
+  :root[data-theme="dark"] .eao-v2 .nav-sections .nav-indicator { background:#34546a; }
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  .eao-v2 .nav-sections .nav-indicator {
+    -webkit-backdrop-filter:none; backdrop-filter:none; background:#e7f2f8;
+    border-color:#537c95; box-shadow:none;
+  }
+  :root[data-theme="dark"] .eao-v2 .nav-sections .nav-indicator {
+    background:#355369; border-color:#b8d9ec; box-shadow:none;
+  }
+  .eao-v2 .nav-sections .nav-indicator::before,
+  .eao-v2 .nav-sections .nav-indicator::after { display:none; }
+  .eao-v2 .nav-sections .nav-section-link.is-active { text-shadow:none; }
+}
+@media (forced-colors:active) {
+  .eao-v2 .nav-sections .nav-indicator {
+    background:Highlight; border-color:Highlight; box-shadow:none;
+    -webkit-backdrop-filter:none; backdrop-filter:none;
+  }
+  .eao-v2 .nav-sections .nav-section-link.is-active,
+  :root[data-theme="dark"] .eao-v2 .nav-sections .nav-section-link.is-active {
+    color:HighlightText; text-shadow:none;
+  }
+  .eao-v2 .nav-sections .nav-indicator::before,
+  .eao-v2 .nav-sections .nav-indicator::after { display:none; }
+}
+
 /* A functional segmented control may remain visibly selected inside nav. */
 .eao-v2 .lang-switch {
   background: rgb(251 254 255 / .23);
