@@ -112,3 +112,16 @@ facts; these historical details are examples, not instructions to reset HEAD.
 - LiquidGlass-UI code/Skill: https://github.com/hwyuanzi/LiquidGlass-UI
 
 No upstream CSS or library is vendored by this reference.
+
+## EAO 2026 native-diagram acceptance lessons
+
+Blurring the outside of an opaque SVG did not turn the painted white cards
+into real optical components. The preview reconstructed meaningful
+information nodes in DOM and kept connectors/icons as vectors. Check
+source-text parity, connector order, dark/light background sampling,
+legacy mobile display:none and the actual single-rim rectangles.
+
+The user rejected a saturated blue-grey carrier **after** prior automated
+layout checks had passed. A later near-colourless carrier reconciled the
+diagram with the page. Treat automated PASS and visual approval as
+independent gates; see [native-diagram case](eao-native-diagrams.md).

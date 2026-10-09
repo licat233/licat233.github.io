@@ -58,3 +58,12 @@ These are **starting proposals**, not hard-coded standards. The footer may have 
 - [Production page](https://licat233.github.io/zh/)
 
 *Apple product pages are a source of inspiration for visible choreography and phase pacing, not a license to copy their assets, proprietary source or exact design.*
+
+## Narrative grammar discovered on EAO
+
+A workflow is A → connector → B → connector → C → connector → D,
+not four visually simultaneous cards. A title can drop each character
+from above, while a parent information card first establishes context
+and then reveals its child facts. Motion distance may be substantial
+when the story justifies it, but large X+Y on FAQ cards caused
+mid-flight overlap. See [EAO story case](eao-story-choreography.md).

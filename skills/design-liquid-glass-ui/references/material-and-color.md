@@ -91,3 +91,13 @@ illustrations just to make a frame look refractive.
 Never imply that `backdrop-filter:blur(...)` alone implements physically accurate
 refraction. Edge-lens demos may be Chromium-only or require nontrivial GPU budget.
 Verify the **current** license and compatibility of any upstream package before use.
+
+## Quiet information-diagram carrier (EAO lesson)
+
+The coloured blue-grey department background looked incompatible even
+though the inner cards were glass. It was replaced with a nearly
+colourless weak carrier over one shared ambient page; inner cards
+retained the actual optical rims. If nested carrier filtering reduces
+descendant backdrop sampling, remove the carrier blur before increasing
+inner tint. An optically quiet group is *not* a second prominent glass
+frame. See [EAO native diagrams](eao-native-diagrams.md).

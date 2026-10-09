@@ -123,3 +123,14 @@ Copy: state machine, stable grid geometry, cap on positive Y travel, breakpoint 
 Do not copy: Licat-specific selectors or artwork, an `overflow: hidden` on the entire page, fixed section heights, debug overlays, demo `noindex` tags, or site identity.
 
 Prefer a small, native implementation: GSAP + ScrollTrigger with optional SplitText. A heavy rendering framework is unnecessary for this style of DOM entrance animation.
+
+## 9. Semantic sequence and nested-item implementation
+
+See [EAO story case](eao-story-choreography.md) for staged workflow
+timeline code, explicit arrow offsets, responsive row groups, glyph
+pre-initialization, and parent + seven-child choreography. Use the
+existing shared idle/re-anchor controller, not a new timer per step.
+
+A staggered fromTo may initialize later glyphs too late; set every
+glyph initial state first. Rotation must be included in scrollWidth
+flight limits. Never animate glass filter/tint/rim separately.

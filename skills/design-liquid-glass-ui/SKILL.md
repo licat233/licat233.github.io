@@ -1,7 +1,7 @@
 ---
 name: design-liquid-glass-ui
-description: Design, prototype, implement, and visually validate restrained Liquid Glass interfaces for websites and web apps. Use when asked for glassmorphism, frosted/translucent navigation, glass cards, glass buttons, optical edge highlights, brand-based color palettes, or improving an existing glass UI. Guides optical layering, moderate frost, pinned scenic backgrounds, text contrast, brand palettes, single-surface geometry, responsive QA, visual approval, and safe deployment; does not grant code or deployment permissions.
-version: 1.1.0
+description: Design, prototype, implement, and visually validate restrained Liquid Glass interfaces for websites and web apps. Use when asked for glassmorphism, frosted/translucent navigation, glass cards, glass buttons, optical edge highlights, brand-based color palettes, or improving an existing glass UI. Guides optical layering, moderate frost, pinned scenic backgrounds, text contrast, brand palettes, single-surface geometry, responsive QA, visual approval, and safe deployment; does not grant code or deployment permissions. Includes native glass infographic reconstruction, quiet neutral carriers, and responsive SVG-to-DOM auditing.
+version: 1.2.0
 author: Enterprise AI Office
 metadata:
   hermes:
@@ -48,7 +48,14 @@ and repo paths below are illustrative.
 6. **Evidence beats adjectives**: compare before/after screenshots at real viewports,
    both languages and themes where applicable. Fix overlap, unreadable text,
    unexpected card transforms, image loading, and layout bugs before delivery.
-7. **Do not mistake polish for completion**: Git commit, Pages deployment and
+7. **Material hierarchy includes quiet carriers**: a large infographic
+   canvas may be near-colourless while inner cards own the clear glass rim.
+   Do not add a competing second optical stack around them.
+8. **Diagnose opaque images before glassifying**: a painted SVG shown as an
+   image cannot become separate backdrop-sampling cards through outer blur.
+   Edit the SVG for transparency; convert semantic nodes to HTML/CSS only
+   when independent lenses, themes, responsive text or motion need them.
+9. **Do not mistake polish for completion**: Git commit, Pages deployment and
    actual asset loading are separate checks. Invalidate versioned CSS/JS URL on
    static sites after a change; do not disable all browser caching.
 
@@ -96,6 +103,15 @@ Apple's Liquid Glass guidance prioritizes a distinct *control/navigation* layer.
 Website content panels may use subtler glass-inspired standard materials if readable.
 See `references/material-and-color.md` before setting opacity or choosing a palette.
 
+## EAO information-diagram material case (read when applicable)
+
+See [native glass diagrams](references/eao-native-diagrams.md) for the
+observed rejected blue-grey board, almost-colourless outer carrier,
+independently layered inner nodes, SVG-versus-DOM decision, bilingual
+text parity, mobile infographic-hide rules and visual approval gates.
+These are site-specific observations, not reusable brand values.
+A passing browser test does not constitute the user's aesthetic approval.
+
 ## Workflow — execute in order
 
 **A. Audit & reference study (read only)**
@@ -128,6 +144,13 @@ See `references/material-and-color.md` before setting opacity or choosing a pale
   foreground contrast against *worst-case composite*, not bare HEX swatches.
 - See `references/material-and-color.md`.
 
+**Diagram-specific scope guard**
+- Preserve the original SVG text in every locale, icon meaning and
+  connector order before replacing any painted infographic with live DOM.
+- Never treat a faint, colourless organizing surface as another prominent
+  glass card; check nested backdrop sampling in the browser.
+- Check old mobile media rules that may still hide the converted diagram.
+
 **D. Implement minimally**
 - First reuse existing CSS architecture; do not add React, WebGL, a new framework,
   or another animation runtime merely for a marketing page.
@@ -144,6 +167,12 @@ See `references/material-and-color.md` before setting opacity or choosing a pale
 - Use `prefers-reduced-motion`, `prefers-reduced-transparency` (where supported),
   `prefers-contrast`, `forced-colors`, visible keyboard focus, and no-filter fallback.
 - Reference starter patterns in `references/css-patterns.md`. Adapt to real selectors.
+
+**Material QA additions**
+- Distinguish the parent carrier from the independently positioned
+  rim/filter/tint of every semantic child card.
+- Compare SVG originals with new DOM text/structure, mobile reflow and
+  arrow meaning for all supported languages.
 
 **E. QA & release gate**
 - Check at least 1440, 1024, 768, 390, 360 px where site warrants it;

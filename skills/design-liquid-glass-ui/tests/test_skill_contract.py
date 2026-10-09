@@ -17,6 +17,7 @@ CSS = ROOT / "references" / "css-patterns.md"
 QA = ROOT / "references" / "qa-and-case-study.md"
 OPTICAL = ROOT / "references" / "optical-implementation.md"
 PORTFOLIO = ROOT / "references" / "portfolio-case-study.md"
+NATIVE = ROOT / "references" / "eao-native-diagrams.md"
 
 
 def contrast_rgb(a: str, b: str) -> float:
@@ -39,6 +40,7 @@ class DesignGlassSkillContract(unittest.TestCase):
         cls.qa = QA.read_text(encoding="utf-8")
         cls.optical = OPTICAL.read_text(encoding="utf-8")
         cls.portfolio = PORTFOLIO.read_text(encoding="utf-8")
+        cls.native = NATIVE.read_text(encoding="utf-8")
 
     def test_hermes_frontmatter(self) -> None:
         match = re.match(r"^---\n(.*?)\n---\n", self.content, re.DOTALL)
@@ -46,7 +48,7 @@ class DesignGlassSkillContract(unittest.TestCase):
         header = match.group(1)
         self.assertRegex(header, r"(?m)^name:\s+design-liquid-glass-ui$")
         self.assertRegex(header, r"(?m)^description:\s+.+$")
-        self.assertRegex(header, r"(?m)^version:\s+1\.1\.0$")
+        self.assertRegex(header, r"(?m)^version:\s+1\.2\.0$")
         self.assertIn("hermes:", header)
         self.assertIn("frontend", header)
 
@@ -57,6 +59,7 @@ class DesignGlassSkillContract(unittest.TestCase):
             "qa-and-case-study.md",
             "optical-implementation.md",
             "portfolio-case-study.md",
+            "eao-native-diagrams.md",
         ):
             self.assertIn("references/" + reference, self.content)
             self.assertTrue((ROOT / "references" / reference).is_file())
@@ -136,13 +139,33 @@ class DesignGlassSkillContract(unittest.TestCase):
         self.assertIn("fixed scene", self.portfolio.lower())
 
     def test_reference_integrity_and_markdown(self) -> None:
-        for path in (SKILL, MATERIAL, CSS, QA, OPTICAL, PORTFOLIO):
+        for path in (SKILL, MATERIAL, CSS, QA, OPTICAL, PORTFOLIO, NATIVE):
             text = path.read_text(encoding="utf-8")
             self.assertGreater(len(text), 500)
             self.assertNotIn("§", text)
             self.assertEqual(text.count(chr(96) * 3) % 2, 0, path.name)
         self.assertIn("optical-implementation.md", self.content)
         self.assertIn("portfolio-case-study.md", self.content)
+
+    def test_eao_native_diagram_material_contract(self) -> None:
+        for marker in (
+            "colourless", "carrier", "optical", "SVG", "tspan",
+            "source-text parity", "display:none", "pointer-events: none",
+            "backdrop-filter", "desktop", "tablet", "phone",
+            "Safari", "30/30", "aesthetic", "production",
+        ):
+            self.assertIn(marker.lower(), self.native.lower(), marker)
+        self.assertIn("references/eao-native-diagrams.md", self.content)
+        self.assertIn("not a production approval", self.native)
+        self.assertIn("independently", self.native)
+        self.assertIn("Apple", self.content)
+        # Cross-Skill references must resolve from THIS directory, too.
+        for source in (NATIVE,):
+            for ref in re.findall(r"(?<!!)\[[^\]]+\]\(([^)]+)\)", source.read_text()):
+                if ref.startswith(("https://", "http://", "#")):
+                    continue
+                path = (source.parent / ref.split("#")[0]).resolve()
+                self.assertTrue(path.is_file(), f"broken link: {source} -> {ref}")
 
     def test_basic_opaque_examples_not_misleading(self) -> None:
         # The example explicitly asks for composite testing. Opaque baseline is

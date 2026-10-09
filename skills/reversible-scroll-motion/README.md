@@ -62,3 +62,12 @@ The linked [production example](https://licat233.github.io/zh/) provides a real,
 ## Lessons encoded
 
 **Scroll determines movement, not readability.** Use reversible `ScrollTrigger` and one debounced `setTimeout` to finish scenes that are already visible while the user is idle. Re-anchor animation progress for smooth reverse. Keep real grid geometry fixed, clip horizontal travel appropriately, never inflate `scrollHeight` with bottom-origin cards, and never pad the footer to force animations to play.
+
+## Narrative scenes
+
+For A→B→C→D workflows, character-falling headings and large
+glass cards with individually animated facts, read
+[EAO story choreography](references/eao-story-choreography.md).
+The controller remains the same; narrative order is a separate
+design concern. Do not copy a site's visual identity or deploy without
+authorization.

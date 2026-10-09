@@ -1,6 +1,7 @@
 ---
 name: reversible-scroll-motion
-description: Build and repair production-grade, GSAP-powered, reversible scroll animations for websites. Use for cinematic entrances, eight-direction card flights, SplitText headings, timeline wipes, 3D panels, footer reveals, ScrollTrigger scrub timing, idle/setTimeout visibility fallback, mobile/reduced-motion support, and browser QA. Also use when scroll animations hide content, fail at page bottom, inflate document height, or stop working on reverse scroll.
+version: 1.1.0
+description: Build and repair production-grade, GSAP-powered, reversible scroll animations for websites. Use for cinematic entrances, eight-direction card flights, SplitText headings, timeline wipes, 3D panels, footer reveals, ScrollTrigger scrub timing, idle/setTimeout visibility fallback, mobile/reduced-motion support, and browser QA. Also use when scroll animations hide content, fail at page bottom, inflate document height, or stop working on reverse scroll. Includes semantic A-to-D workflows, falling glyph headings, parent-child item choreography, and animated FAQ lists.
 ---
 
 # Reversible Scroll Motion — production workflow
@@ -14,10 +15,25 @@ Create expressive, readable, accessible page motion without scroll hijacking. Th
 1. Inspect the **actual** repository, entry pages, CSS/JS, existing animation dependencies and Git state. Do not trust earlier chat SHA values.
 2. Confirm which pages are approved for edits. For unapproved production changes, work in an isolated demo or worktree first. Preserve other concurrent changes; never force-push or reset legitimate commits.
 3. Record a baseline with real browser screenshots at desktop, mobile, light/dark and `prefers-reduced-motion: reduce`. Identify scroll containers, sticky headers, page-end behavior and links.
-4. Decide which sections merit expressive choreography. Do not animate every word or control: keep navigation, forms, accessibility controls and reading surfaces usable.
-5. Prefer the site's existing GSAP; avoid introducing frameworks, services or large 3D engines for simple entrances.
+4. **Choose movement by information meaning**: a sequence is not an
+   unordered card grid; a heading has reading order; a parent card can
+   contain facts that need their own sequence. Decide this before GSAP.
+5. Decide which sections merit expressive choreography. Do not animate every word or control: keep navigation, forms, accessibility controls and reading surfaces usable.
+6. Prefer the site's existing GSAP; avoid introducing frameworks, services or large 3D engines for simple entrances.
 
 Read [the motion grammar](references/MOTION-GRAMMAR.md) before designing. For runnable implementation, see [the reusable demo](assets/example.html) and [controller](assets/reversible-motion.js).
+
+## Semantic narrative patterns (EAO field work)
+
+Read [EAO information choreography](references/eao-story-choreography.md)
+for explicit A → arrow → B → arrow → C → arrow → D sequencing,
+character-by-character top-down falling titles, and parent-card followed
+by internal child facts. It includes real regressions: visually concurrent
+stages, late-initialized flashing glyphs, FAQ mid-flight overlap, rotated
+card overflow and mobile row-grouping errors.
+
+The user rejected arbitrary weak stagger despite layout tests passing.
+Animation must explain relationships, not merely demonstrate motion.
 
 ## 1. Plan scenes according to their visible geometry
 
@@ -46,6 +62,19 @@ Measure real viewport, section heights, sticky headers and document max scroll; 
 - SplitText: initialize all glyphs before staggering, keep wrappers until responsive context cleanup, and call `revert()` during cleanup instead of on forward completion.
 - Prefer native plugins; if SplitText/MorphSVG are missing, use a simpler fallback. Content must remain readable if animation scripts fail.
 
+### Extra choreography contracts
+
+- Sequential diagrams: explicit timeline offsets for each step and outgoing
+  connector. Validate intermediate stages, not just the fully settled result.
+- Falling characters: initialize *all* glyphs with gsap.set before a stagger,
+  preserve the accessible full heading and English word wrapping, and
+  restore original DOM on context teardown.
+- Nested facts: parent glass surface first, then children in visual reading
+  order, with separate visibility/idle coverage.
+- Expressive moves can be large, but cap translation **including rotated
+  bounds**. Don't combine huge horizontal and vertical FAQ displacements.
+  Never animate optical layers independently or hide interactive summaries.
+
 ## 3. Implement scroll + `setTimeout` visibility fallback
 
 **Scroll-only hiding is not acceptable for core content.**
@@ -69,6 +98,16 @@ See [implementation details](references/IMPLEMENTATION.md) and [fully runnable c
 - Prevent horizontal overflow without clipping important text vertically.
 - Preserve content, real links, SEO metadata, localization, theme and responsive behavior. Do not copy demo banners or `noindex` into production.
 
+### Narrative QA (in addition to scroll mechanics)
+
+- At ~20/45/70/100% compare the step and connector states: A must
+  precede B, C and D; no premature arrow or invisible visible row.
+- Check the heading first and last glyph for flashes, accessible naming
+  and final correct wrap in both languages.
+- Check the large-card child items independently after parent arrival;
+  pausing and reversing may not strand half a visible card blank.
+- In FAQ, controls remain focusable throughout any row entry.
+
 ## 5. Test locally AND on the published page
 
 Read [acceptance checklist](references/ACCEPTANCE.md) and [historical failures](references/FAILURE-MODES.md). Test:
@@ -86,6 +125,9 @@ Never claim tests passed without actually running them. Do not claim a deploymen
 ## 6. Deliver an auditable result
 
 Include: modified files, scenes implemented, screenshots/demo, viewport test matrix, idle/reverse/Footer findings, code commit and rollback route if deployed. Communicate the final experience rather than internal planning or debug notes.
+
+The [EAO narrative case](references/eao-story-choreography.md) provides
+portable snippets and failure evidence; do not copy EAO-specific selectors.
 
 ### Portable starter
 

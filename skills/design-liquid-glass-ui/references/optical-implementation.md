@@ -220,3 +220,11 @@ override the absolute icon/number positioning: inspect computed geometry.
 
 For the full sequence, browser acceptance matrix and rollback practices, read
 `references/portfolio-case-study.md`.
+
+## Grouping several real lenses without Glass-in-Glass
+
+Do not mistake a neutral chapter carrier for a second fully layered glass
+panel. The EAO organization/method examples use a faint grouping surface
+and independent semantic nodes with their own filter/tint/rim children.
+Avoid strong outer bevel and blue-grey fill; verify the parent backdrop
+does not degrade inner samples. See [EAO native diagrams](eao-native-diagrams.md).

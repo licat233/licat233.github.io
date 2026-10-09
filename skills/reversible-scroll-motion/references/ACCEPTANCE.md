@@ -76,3 +76,19 @@ Assert scrollHeight at initial load, after first card settles and at page bottom
 - [ ] Commit only intended paths; verify remote HEAD before updating.
 - [ ] Live deployment success and changed file bytes/versions confirmed via public URL.
 - [ ] Post-release same smoke tests run on actual public pages.
+
+## EAO semantic-scene acceptance
+
+- [ ] Annotate meaning and order before choosing transforms.
+- [ ] A, connector, B, connector, C, connector, D verified at
+  intermediate progress, in DOM/layout order.
+- [ ] Top-down characters pre-initialized; no flash, normal wrapping
+  and one accessible heading.
+- [ ] Parent cards and their child fact items settle and reverse;
+  pause with a partly visible last child to verify idle completion.
+- [ ] FAQ remains clickable while animated; no large X+Y overlap.
+- [ ] Perspective card flights do not widen page; actual rows and
+  responsive breakpoint teardown are tested.
+- [ ] Automated geometry PASS and user aesthetic sign-off are separate.
+
+See [EAO story case](eao-story-choreography.md).

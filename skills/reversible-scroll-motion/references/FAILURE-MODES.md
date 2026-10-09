@@ -31,3 +31,18 @@ These occurred or were identified during the Licat animation work and should bec
 3. Fix in demo/worktree; test desktop/mobile/short/tall viewport and deep-link restore.
 4. Compare all real content, typography, pictures and links to baseline.
 5. Check concurrent Git changes, then release and validate **live** served assets. No speculative success claims.
+
+## EAO additional regressions
+
+| Failure | Repair and evidence |
+| --- | --- |
+| Four workflow cards look simultaneous | A → arrow → B → arrow → C → arrow → D; measure at intermediate timeline progress |
+| Whole heading moves rather than individual characters | Segmented glyph wrappers, negative-Y falling characters and accessible full name |
+| Late glyphs flash | gsap.set every glyph initially before stagger |
+| Seven internal facts pop instantly | Parent frame then child items by actual grid row |
+| FAQ entries collide | One dominant travel direction, preserve clickable summary |
+| Rotation inflates width at 1280px | Reserve rotated rectangle headroom, section-level X clipping |
+| Rebuilt SVG diagram missing on mobile | Override only the responsive replacement's old hidden rule |
+
+See [EAO story case](eao-story-choreography.md). These failure cases
+were corrected in an isolated demo, not proof of production deployment.

@@ -20,6 +20,7 @@ EXPECTED = [
     "references/IMPLEMENTATION.md",
     "references/FAILURE-MODES.md",
     "references/ACCEPTANCE.md",
+    "references/eao-story-choreography.md",
     "scripts/validate_skill.py",
     "scripts/qa_browser.mjs",
 ]
@@ -61,6 +62,53 @@ if FILE.exists():
                 continue
             local = (path.parent / target.split("#", 1)[0]).resolve()
             require(local.is_file(), f"Broken relative link: {path.name} -> {target}")
+
+case = SKILL / "references/eao-story-choreography.md"
+if case.exists():
+    example = case.read_text(encoding="utf-8")
+    for marker in ("A", "B", "C", "D", "step-arrow", "gsap.set",
+                   "aria-hidden", "word", "parent", "FAQ",
+                   "reverse", "idle", "scrollWidth", "reduced-motion"):
+        require(marker.lower() in example.lower(),
+                f"EAO scene case lacks: {marker}")
+    require("references/eao-story-choreography.md" in FILE.read_text(),
+            "SKILL.md must route agents to EAO narrative case")
+
+# Validate the documented *actual* A→arrow→B sequence, not only keywords.
+if case.exists():
+    code_match = re.search(r"~~~js\n(.*?)\n~~~", example, re.S)
+    require(code_match is not None, "EAO case requires a JavaScript sequence recipe")
+    if code_match and shutil.which("node"):
+        recipe = code_match.group(1)
+        syntax = subprocess.run(["node", "--check", "-"], input=recipe,
+                                capture_output=True, text=True)
+        require(syntax.returncode == 0,
+                f"EAO sequence recipe syntax failure:\\n{syntax.stderr}")
+        harness = recipe + """
+const events = [];
+const timeline = {
+  fromTo: (target, initial, final, at) =>
+    events.push([target.key, at])
+};
+const cards = Array.from({ length: 4 }, (_, i) => ({
+  key: String.fromCharCode(65 + i),
+  nextElementSibling: i < 3
+    ? { key: "arrow-" + i, matches: () => true }
+    : null
+}));
+globalThis.getComputedStyle = () => ({ display: "flex" });
+addOrderedSteps(timeline, cards, false);
+const actual = events.map(([key]) => key);
+const wanted = ["A", "arrow-0", "B", "arrow-1",
+                "C", "arrow-2", "D"];
+if (JSON.stringify(actual) !== JSON.stringify(wanted)) {
+  throw new Error("Incorrect semantic sequence: " + actual.join(","));
+}
+"""
+        behavior = subprocess.run(["node", "-"], input=harness,
+                                  capture_output=True, text=True)
+        require(behavior.returncode == 0,
+                f"EAO sequence recipe behavior failure:\\n{behavior.stderr}")
 
 js = SKILL / "assets/reversible-motion.js"
 css = SKILL / "assets/motion.css"
