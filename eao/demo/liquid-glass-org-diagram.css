@@ -15,7 +15,7 @@
   --org-text: #152a35;
   --org-muted: #556a75;
   --org-teal: #007e79;
-  --org-line: rgb(78 137 155 / .25);
+  --org-line: rgb(78 137 155 / .21);
   --org-fill: rgb(250 254 255 / .13);
   --org-rim: rgb(255 255 255 / .83);
   --org-specular: rgb(255 255 255 / .96);
@@ -25,23 +25,21 @@
   isolation: isolate;
   overflow: hidden;
   padding: clamp(1.375rem,3.25vw,2.75rem);
+  border: 1px solid rgb(255 255 255 / .28);
   border-radius: inherit;
   color: var(--org-text);
-  background:
-    radial-gradient(ellipse 43% 64% at 87% 49%,rgb(133 183 233 / .55),transparent 84%),
-    radial-gradient(ellipse 47% 59% at 9% 78%,rgb(246 202 166 / .38),transparent 82%),
-    radial-gradient(ellipse 32% 48% at 55% 18%,rgb(221 247 246 / .47),transparent 84%),
-    linear-gradient(126deg,#edf3fa 0%,#dfeef8 51%,#d5e7f4 100%);
+  /*
+   * Neutral carrier, not another coloured section.
+   * Ambient page light provides the colour visible through the six real glass cards.
+   * Keep this layer optically quiet to avoid an obvious glass-in-glass frame.
+   */
+  background: rgb(255 255 255 / .045);
+  -webkit-backdrop-filter: blur(1.5px) saturate(102%);
+  backdrop-filter: blur(1.5px) saturate(102%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .37), 0 10px 28px rgb(55 86 122 / .026);
 }
 .eao-v2 .eao-org-board::before {
-  content:"";
-  position: absolute;
-  inset: 0;
-  pointer-events:none;
-  z-index:-1;
-  background:
-    radial-gradient(ellipse 14% 25% at 32% 63%,rgb(255 255 255 / .55),transparent 100%),
-    radial-gradient(ellipse 15% 31% at 75% 76%,rgb(255 255 255 / .34),transparent 100%);
+  content: none;
 }
 .eao-v2 .eao-org-intro { position: relative; z-index: 1; margin-bottom: 1.75rem; }
 .eao-v2 .eao-org-intro h3 {
@@ -226,9 +224,9 @@
   margin:1.85rem auto 0;
   padding:.85rem 1.2rem;
   border-radius:.8rem;
-  border:1px solid rgb(255 255 255 / .58);
-  background:linear-gradient(137deg,rgb(255 255 255 / .20),transparent 62%),rgb(228 249 247 / .23);
-  box-shadow:inset 0 1px 0 rgb(255 255 255 / .70);
+  border:1px solid rgb(255 255 255 / .52);
+  background:linear-gradient(135deg,rgb(255 255 255 / .18),transparent 68%),rgb(255 255 255 / .075);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .56);
   -webkit-backdrop-filter:blur(3px) saturate(120%);
   backdrop-filter:blur(3px) saturate(120%);
   color:var(--org-teal);
@@ -241,17 +239,15 @@
   --org-text:#f0f7fc;
   --org-muted:#c1d5e3;
   --org-teal:#9ce9df;
-  --org-line:rgb(140 191 218 / .37);
+  --org-line:rgb(140 191 218 / .29);
   --org-fill:rgb(24 42 59 / .25);
   --org-rim:rgb(225 243 255 / .27);
   --org-specular:rgb(225 243 255 / .35);
   --org-bottom-rim:rgb(1 12 24 / .50);
   --org-depth:rgb(0 0 0 / .32);
-  background:
-    radial-gradient(ellipse 43% 65% at 87% 49%,rgb(78 121 168 / .45),transparent 84%),
-    radial-gradient(ellipse 48% 60% at 9% 79%,rgb(131 105 90 / .28),transparent 82%),
-    radial-gradient(ellipse 34% 46% at 55% 18%,rgb(50 113 125 / .22),transparent 84%),
-    linear-gradient(124deg,#17293d,#213b50 55%,#142b41);
+  border-color: rgb(232 245 255 / .115);
+  background: rgb(13 25 38 / .055);
+  box-shadow: inset 0 1px 0 rgb(233 245 255 / .12), 0 10px 28px rgb(0 0 0 / .045);
 }
 :root[data-theme="dark"] .eao-v2 .eao-org-center {
   border-color:rgb(220 243 254 / .38);
@@ -266,9 +262,9 @@
 :root[data-theme="dark"] .eao-v2 .eao-org-card h3 { border-color:rgb(173 217 235 / .19); }
 :root[data-theme="dark"] .eao-v2 .eao-org-card li { text-shadow:0 1px 1px rgb(0 0 0 / .35); }
 :root[data-theme="dark"] .eao-v2 .eao-org-summary {
-  border-color:rgb(205 238 248 / .17);
-  background:rgb(61 126 136 / .20);
-  box-shadow:inset 0 1px 0 rgb(217 247 255 / .14);
+  border-color:rgb(223 240 251 / .16);
+  background:rgb(229 244 255 / .055);
+  box-shadow:inset 0 1px 0 rgb(229 244 255 / .12);
   color:#a7eee5;
 }
 @media (max-width:1050px) and (min-width:701px) {
@@ -289,16 +285,21 @@
   :root[data-theme="dark"] .eao-v2 .eao-org-glass > .eao-org-overlay { background:#21374a; }
 }
 @media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  .eao-v2 .eao-org-board {
+    -webkit-backdrop-filter:none; backdrop-filter:none;
+    background:#f3f7fb;
+  }
+  :root[data-theme="dark"] .eao-v2 .eao-org-board { background:#182c3e; }
   .eao-v2 .eao-org-glass > .eao-org-filter { -webkit-backdrop-filter:none; backdrop-filter:none; }
   .eao-v2 .eao-org-glass > .eao-org-overlay { background:#f6fafd; }
   :root[data-theme="dark"] .eao-v2 .eao-org-glass > .eao-org-overlay { background:#203449; }
   .eao-v2 .eao-org-glass > .eao-org-specular { box-shadow:none; }
   .eao-v2 .eao-org-card li { text-shadow:none; }
-  .eao-v2 .eao-org-summary { -webkit-backdrop-filter:none; backdrop-filter:none; background:#e8f5f5; }
-  :root[data-theme="dark"] .eao-v2 .eao-org-summary { background:#294a56; }
+  .eao-v2 .eao-org-summary { -webkit-backdrop-filter:none; backdrop-filter:none; background:#f5f8fb; }
+  :root[data-theme="dark"] .eao-v2 .eao-org-summary { background:#2b4053; }
 }
 @media (forced-colors:active) {
-  .eao-v2 .eao-org-board { background:Canvas; color:CanvasText; }
+  .eao-v2 .eao-org-board { background:Canvas; color:CanvasText; -webkit-backdrop-filter:none; backdrop-filter:none; box-shadow:none; }
   .eao-v2 .eao-org-glass { background:Canvas; color:CanvasText; border:1px solid CanvasText; box-shadow:none; }
   .eao-v2 .eao-org-glass > :is(.eao-org-filter,.eao-org-overlay,.eao-org-specular) { display:none; }
   .eao-v2 .eao-org-brand strong,.eao-v2 .eao-org-card h3,.eao-v2 .eao-org-card li,
