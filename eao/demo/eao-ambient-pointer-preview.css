@@ -1,0 +1,91 @@
+/*
+ * EAO /demo/ only — Soft chromatic environment inspired by supplied
+ * "Background gradient moves with mouse" experiment.
+ * Five restrained blended layers on one fixed paint surface.
+ */
+html { background:#f1f5fb; }
+body.eao-v2 {
+  --amb-x:0px;
+  --amb-y:0px;
+  isolation:isolate;
+  background:transparent;
+}
+body.eao-v2::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:-1;
+  opacity:1;
+  filter:none;
+  background-color:#eff4fa;
+  background-image:
+    radial-gradient(ellipse 49vw 73vh at calc(10% + var(--amb-x)) calc(31% + var(--amb-y)),rgb(253 186 169 / .54),transparent 78%),
+    radial-gradient(ellipse 65vw 84vh at calc(87% - var(--amb-x)) calc(28% - var(--amb-y)),rgb(150 193 245 / .79),transparent 77%),
+    radial-gradient(ellipse 64vw 73vh at calc(73% + var(--amb-x)) calc(89% - var(--amb-y)),rgb(143 224 214 / .64),transparent 77%),
+    radial-gradient(ellipse 52vw 70vh at calc(43% - var(--amb-x)) calc(7% + var(--amb-y)),rgb(219 194 248 / .49),transparent 74%),
+    linear-gradient(118deg,#faf7f8 2%,#edf4fc 53%,#f2f9f8);
+  background-blend-mode:normal,normal,normal,soft-light,normal;
+}
+.eao-v2 .hero,
+.eao-v2 #work,
+.eao-v2 #departments,
+.eao-v2 #knowledge-story,
+.eao-v2 #value,
+.eao-v2 #control,
+.eao-v2 .faq,
+.eao-v2 .cta,
+.eao-v2 footer {
+  background-color:transparent;
+  background-image:none;
+}
+:root[data-theme="dark"] { background:#101e30; }
+:root[data-theme="dark"] body.eao-v2 { background:transparent; }
+:root[data-theme="dark"] body.eao-v2::before {
+  opacity:1;
+  filter:none;
+  background-color:#16263a;
+  background-image:
+    radial-gradient(ellipse 70vw 84vh at calc(14% + var(--amb-x)) calc(25% + var(--amb-y)),rgb(144 90 118 / .33),transparent 78%),
+    radial-gradient(ellipse 68vw 88vh at calc(87% - var(--amb-x)) calc(29% - var(--amb-y)),rgb(82 117 178 / .47),transparent 76%),
+    radial-gradient(ellipse 68vw 76vh at calc(65% + var(--amb-x)) calc(88% - var(--amb-y)),rgb(51 135 131 / .31),transparent 78%),
+    radial-gradient(ellipse 61vw 78vh at calc(41% - var(--amb-x)) calc(7% + var(--amb-y)),rgb(123 89 160 / .27),transparent 75%),
+    linear-gradient(118deg,#172235 0%,#1b3148 54%,#132a3a 100%);
+  background-blend-mode:screen,normal,screen,soft-light,normal;
+}
+@media (max-width:700px), (pointer:coarse) {
+  body.eao-v2::before {
+    background-image:
+      radial-gradient(ellipse 89vw 55vh at 13% 16%,rgb(252 201 188 / .53),transparent 84%),
+      radial-gradient(ellipse 93vw 58vh at 91% 48%,rgb(174 201 242 / .55),transparent 86%),
+      linear-gradient(126deg,#faf8fa,#eef5fa 64%,#f2f9f8);
+    background-blend-mode:normal,normal,normal;
+  }
+  :root[data-theme="dark"] body.eao-v2::before {
+    background-image:
+      radial-gradient(ellipse 87vw 54vh at 15% 20%,rgb(128 88 122 / .26),transparent 86%),
+      radial-gradient(ellipse 95vw 63vh at 89% 42%,rgb(75 117 167 / .35),transparent 84%),
+      linear-gradient(120deg,#172235,#1b3148 58%,#14283a);
+    background-blend-mode:normal,normal,normal;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  body.eao-v2 { --amb-x:0px; --amb-y:0px; }
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  body.eao-v2::before { background-image:none; background-color:#eff4f9; }
+  :root[data-theme="dark"] body.eao-v2::before { background-image:none; background-color:#17293b; }
+}
+@media (forced-colors:active) {
+  html,:root[data-theme="dark"] { background:Canvas; }
+  body.eao-v2::before,:root[data-theme="dark"] body.eao-v2::before {
+    background:Canvas;
+    forced-color-adjust:auto;
+  }
+  .eao-v2 :is(.hero,#work,#departments,#knowledge-story,#value,#control,.faq,.cta,footer) {
+    background:Canvas;
+    color:CanvasText;
+  }
+}
