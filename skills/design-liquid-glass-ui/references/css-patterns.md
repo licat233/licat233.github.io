@@ -171,3 +171,15 @@ Notes:
    layout reflow, then look at light/dark and accessibility states.
 5. Commit only scoped files. Fast-forward/reconcile remote without forced update;
    validate actual public deployment, asset version and component computed styles.
+
+## Full control coverage and glass-inspired scrollbar
+
+When every button should match the glass language, use semantic
+control material roles, NOT one alpha pasted onto every control.
+CTA, nav selection, icon-only, language/theme, menu, dialog and
+disabled/focus/hover states all need coverage and accessible labels.
+Scrollbar thumb styling is platform-dependent and not true optical
+refraction; keep the browser's scrolling mechanics intact.
+
+Read [glass controls and scrollbar patterns](glass-controls-scrollbars.md)
+for full CSS examples, limitations and test gates.

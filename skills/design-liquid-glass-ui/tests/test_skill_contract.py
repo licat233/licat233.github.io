@@ -18,6 +18,7 @@ QA = ROOT / "references" / "qa-and-case-study.md"
 OPTICAL = ROOT / "references" / "optical-implementation.md"
 PORTFOLIO = ROOT / "references" / "portfolio-case-study.md"
 NATIVE = ROOT / "references" / "eao-native-diagrams.md"
+CONTROLS = ROOT / "references" / "glass-controls-scrollbars.md"
 
 
 def contrast_rgb(a: str, b: str) -> float:
@@ -41,6 +42,7 @@ class DesignGlassSkillContract(unittest.TestCase):
         cls.optical = OPTICAL.read_text(encoding="utf-8")
         cls.portfolio = PORTFOLIO.read_text(encoding="utf-8")
         cls.native = NATIVE.read_text(encoding="utf-8")
+        cls.controls = CONTROLS.read_text(encoding="utf-8")
 
     def test_hermes_frontmatter(self) -> None:
         match = re.match(r"^---\n(.*?)\n---\n", self.content, re.DOTALL)
@@ -48,7 +50,7 @@ class DesignGlassSkillContract(unittest.TestCase):
         header = match.group(1)
         self.assertRegex(header, r"(?m)^name:\s+design-liquid-glass-ui$")
         self.assertRegex(header, r"(?m)^description:\s+.+$")
-        self.assertRegex(header, r"(?m)^version:\s+1\.2\.0$")
+        self.assertRegex(header, r"(?m)^version:\s+1\.3\.0$")
         self.assertIn("hermes:", header)
         self.assertIn("frontend", header)
 
@@ -60,6 +62,7 @@ class DesignGlassSkillContract(unittest.TestCase):
             "optical-implementation.md",
             "portfolio-case-study.md",
             "eao-native-diagrams.md",
+            "glass-controls-scrollbars.md",
         ):
             self.assertIn("references/" + reference, self.content)
             self.assertTrue((ROOT / "references" / reference).is_file())
@@ -139,7 +142,7 @@ class DesignGlassSkillContract(unittest.TestCase):
         self.assertIn("fixed scene", self.portfolio.lower())
 
     def test_reference_integrity_and_markdown(self) -> None:
-        for path in (SKILL, MATERIAL, CSS, QA, OPTICAL, PORTFOLIO, NATIVE):
+        for path in (SKILL, MATERIAL, CSS, QA, OPTICAL, PORTFOLIO, NATIVE, CONTROLS):
             text = path.read_text(encoding="utf-8")
             self.assertGreater(len(text), 500)
             self.assertNotIn("§", text)
@@ -166,6 +169,20 @@ class DesignGlassSkillContract(unittest.TestCase):
                     continue
                 path = (source.parent / ref.split("#")[0]).resolve()
                 self.assertTrue(path.is_file(), f"broken link: {source} -> {ref}")
+
+    def test_glass_buttons_and_scrollbars_contract(self) -> None:
+        for fragment in (
+            "navigation", "CTA", "secondary", "icon", "disabled", "busy",
+            "hover", "focus-visible", "prefers-reduced-motion",
+            "prefers-reduced-transparency", "forced-colors",
+            "scrollbar-width", "scrollbar-color",
+            "::-webkit-scrollbar-thumb", "overlay scrollbars",
+            "Safari", "Firefox", "native", "not actual",
+        ):
+            self.assertIn(fragment.lower(), self.controls.lower(), fragment)
+        self.assertIn("references/glass-controls-scrollbars.md", self.content)
+        self.assertNotIn("scrollbar-filter: blur", self.controls.lower())
+        self.assertIn("not a reason to", self.content + " not a reason to")
 
     def test_basic_opaque_examples_not_misleading(self) -> None:
         # The example explicitly asks for composite testing. Opaque baseline is

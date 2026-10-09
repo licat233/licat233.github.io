@@ -125,3 +125,18 @@ The user rejected a saturated blue-grey carrier **after** prior automated
 layout checks had passed. A later near-colourless carrier reconciled the
 diagram with the page. Treat automated PASS and visual approval as
 independent gates; see [native-diagram case](eao-native-diagrams.md).
+
+## Full control-family and scrollbar QA
+
+Add a complete inventory of buttons: nav, current selection, CTA,
+theme/language, icon-only, menu, modal close, FAQ and keyboard focus.
+Check consistency across roles without reducing contrast or making
+busy/disabled states ambiguous.
+
+For requested glass scrollbars, visually test where an OS scrollbar
+is actually shown, including macOS overlay versus always-visible
+settings and Firefox, Chrome and Safari separately. The scrollbar
+may ignore author styles. Native fallback is a correct result;
+do not claim true optical edge refraction or replace scrolling.
+
+See [glass controls and scrollbars](glass-controls-scrollbars.md).

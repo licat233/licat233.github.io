@@ -1,6 +1,6 @@
 ---
 name: reversible-scroll-motion
-version: 1.1.0
+version: 1.2.0
 description: Build and repair production-grade, GSAP-powered, reversible scroll animations for websites. Use for cinematic entrances, eight-direction card flights, SplitText headings, timeline wipes, 3D panels, footer reveals, ScrollTrigger scrub timing, idle/setTimeout visibility fallback, mobile/reduced-motion support, and browser QA. Also use when scroll animations hide content, fail at page bottom, inflate document height, or stop working on reverse scroll. Includes semantic A-to-D workflows, falling glyph headings, parent-child item choreography, and animated FAQ lists.
 ---
 
@@ -34,6 +34,21 @@ card overflow and mobile row-grouping errors.
 
 The user rejected arbitrary weak stagger despite layout tests passing.
 Animation must explain relationships, not merely demonstrate motion.
+
+## Parent + child animation is a first-class scene type
+
+Before animating a container, inventory its meaningful internal units:
+individual workflow steps, fact/list/grid rows, feature items and
+decorative connectors. If the parent contains multiple *visually distinct*
+items, consider BOTH a parent entrance and a second story-driven child
+timeline rather than animating the outer card alone. For every child,
+record reading/causal order, visibility trigger, starting/final geometry,
+reverse path and idle-completion fallback.
+
+Do not animate every glyph of body paragraphs or duplicate hover/
+focus interactions just for spectacle. Never independently transform
+glass filter/tint/rim layers or make FAQ buttons inaccessible. See
+[EAO information-story case](references/eao-story-choreography.md).
 
 ## 1. Plan scenes according to their visible geometry
 
@@ -88,6 +103,20 @@ Measure real viewport, section heights, sticky headers and document max scroll; 
 7. For `prefers-reduced-motion: reduce`, leave content statically visible and skip scene animations and fallback timer.
 
 See [implementation details](references/IMPLEMENTATION.md) and [fully runnable controller](assets/reversible-motion.js).
+
+### Depth budget for nested timelines
+
+- Outer surface first: reveal the card's place in the composition.
+- Inner items second: enter row-by-row or one-by-one according to
+  semantic and visible reading order, not random shuffle.
+- Allow intentional overlap for a smooth sequence; do not compound
+  X/Y/rotation until items overlap or fly outside the screen.
+- The shared idle fallthrough must complete any *visible* incomplete
+  child timeline after scroll stops, while offscreen children wait.
+- Parent and child animation use the existing reversible controller,
+  not a new independent timer or library per item.
+- Mobile shortens translation and may regroup rows; reduced-motion
+  and GSAP failure keep **all** children readable.
 
 ## 4. Accessibility, performance and safety
 

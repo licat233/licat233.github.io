@@ -67,3 +67,13 @@ from above, while a parent information card first establishes context
 and then reveals its child facts. Motion distance may be substantial
 when the story justifies it, but large X+Y on FAQ cards caused
 mid-flight overlap. See [EAO story case](eao-story-choreography.md).
+
+## Parent + children = intentional detail, not decoration
+
+When a card contains multiple meaningful subitems, stage the card
+first and then its children in semantic reading order. This adds
+depth and precision without moving all elements randomly. Do not
+assume all subitems warrant separate motion: long body text, forms,
+links, status alerts and FAQ focusable controls must remain usable.
+Check composed parent and child transforms, physical bounds and
+pause-with-half-visible-content. See [EAO case](eao-story-choreography.md).

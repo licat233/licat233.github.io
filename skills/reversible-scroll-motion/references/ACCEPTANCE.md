@@ -92,3 +92,16 @@ Assert scrollHeight at initial load, after first card settles and at page bottom
 - [ ] Automated geometry PASS and user aesthetic sign-off are separate.
 
 See [EAO story case](eao-story-choreography.md).
+
+## Nested-item audit
+
+- [ ] Each visual parent inventoried for meaningful subitems; no
+  obvious feature/list/grid children unintentionally remain static.
+- [ ] Semantic order captured and visually observed (parent then
+  children, or source then connector then dependent node).
+- [ ] The last visible child reaches readable opacity after idle
+  timeout; reversing restores a coherent original state.
+- [ ] Mid-animation screenshots reveal no child overlap, clipping,
+  focus loss, distorted glass optics or widened scrollWidth.
+- [ ] Parent and children are statically readable if GSAP fails
+  or prefers-reduced-motion is enabled.

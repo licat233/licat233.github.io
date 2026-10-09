@@ -1,7 +1,7 @@
 ---
 name: design-liquid-glass-ui
 description: Design, prototype, implement, and visually validate restrained Liquid Glass interfaces for websites and web apps. Use when asked for glassmorphism, frosted/translucent navigation, glass cards, glass buttons, optical edge highlights, brand-based color palettes, or improving an existing glass UI. Guides optical layering, moderate frost, pinned scenic backgrounds, text contrast, brand palettes, single-surface geometry, responsive QA, visual approval, and safe deployment; does not grant code or deployment permissions. Includes native glass infographic reconstruction, quiet neutral carriers, and responsive SVG-to-DOM auditing.
-version: 1.2.0
+version: 1.3.0
 author: Enterprise AI Office
 metadata:
   hermes:
@@ -55,7 +55,17 @@ and repo paths below are illustrative.
    image cannot become separate backdrop-sampling cards through outer blur.
    Edit the SVG for transparency; convert semantic nodes to HTML/CSS only
    when independent lenses, themes, responsive text or motion need them.
-9. **Do not mistake polish for completion**: Git commit, Pages deployment and
+9. **Inventory all interactive controls when full-site glass is requested**:
+   buttons, CTA, icon controls, selection, language/theme switch, FAQ
+   toggles, menu triggers, dialog close, hover/focus/pressed/disabled.
+   Design ONE family with distinct contrast-oriented material roles;
+   do not paint every button with the same transparent alpha.
+10. **A scrollbar is not a normal DOM glass element**: native
+    scrollbar colour and thumb styling may be glass-inspired, but
+    true optical refraction is not guaranteed, especially with
+    platform overlay scrollbars. Never replace native scrolling
+    merely to create a glass decoration.
+11. **Do not mistake polish for completion**: Git commit, Pages deployment and
    actual asset loading are separate checks. Invalidate versioned CSS/JS URL on
    static sites after a change; do not disable all browser caching.
 
@@ -111,6 +121,16 @@ independently layered inner nodes, SVG-versus-DOM decision, bilingual
 text parity, mobile infographic-hide rules and visual approval gates.
 These are site-specific observations, not reusable brand values.
 A passing browser test does not constitute the user's aesthetic approval.
+
+## Whole-site glass controls and native scrollbar
+
+For a request to turn EVERY button into glass, read
+[glass controls and native scrollbars](references/glass-controls-scrollbars.md).
+Inventory all actual interactive elements (not just Hero/nav), apply one
+consistent tokenized material family with role-based opacity/contrast,
+and preserve keyboard/focus/selected/destructive semantics. Do not
+misrepresent the native scrollbar as a true backdrop-filter glass
+surface: use a tested glass-inspired thumb and browser-native fallbacks.
 
 ## Workflow — execute in order
 
@@ -173,6 +193,15 @@ A passing browser test does not constitute the user's aesthetic approval.
   rim/filter/tint of every semantic child card.
 - Compare SVG originals with new DOM text/structure, mobile reflow and
   arrow meaning for all supported languages.
+
+**Control coverage & scrollbar QA**
+- Audit every button role and focus/hover/pressed/current/disabled state
+  across desktop/mobile and both themes; primary CTA may need an
+  opaque readable core within the glass design family.
+- Scrollbar cosmetic styling is optional; check actual OS overlay and
+  always-visible states, Firefox/Chrome/Safari differences, forced
+  colours, keyboard scrolling and native touch. Never force custom
+  scrolling to manufacture an optical scrollbar.
 
 **E. QA & release gate**
 - Check at least 1440, 1024, 768, 390, 360 px where site warrants it;

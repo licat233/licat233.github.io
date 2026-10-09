@@ -157,3 +157,26 @@ See [motion grammar](MOTION-GRAMMAR.md),
 [implementation](IMPLEMENTATION.md), [failure modes](FAILURE-MODES.md),
 [acceptance](ACCEPTANCE.md) and
 [glass diagram case](../../design-liquid-glass-ui/references/eao-native-diagrams.md).
+
+## Generalized nested animation design contract
+
+Do not stop the component audit at the parent element. For a visual
+card containing many items, create a **parent/child choreography
+inventory**: parent meaning, child selectors, original reading order,
+row layout, which children are decorative versus interactive, and
+which must remain fully visible during animation.
+
+Example: a large glass proof/reference card enters as a single
+surface, then seven distinct facts enter in row-major order;
+an organization source node precedes its five dependent cards;
+a method's arrows belong *between* the numbered steps.
+
+Use the smallest number of scroll scenes that preserve these
+relationships: one parent scene and scoped child timelines per
+visible row when needed. Share the single idle-completion controller.
+Test short/tall viewports and transform composition; two animations
+cannot simultaneously own the same CSS transform on one element
+without explicit GSAP composition. Do not animate the lens filter,
+overlay and rim separately from their glass surface. A document
+with 30/30 automated geometry checks can still have poor motion
+logic or an unappealing mid-flight overlap: human review is required.

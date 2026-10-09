@@ -110,6 +110,19 @@ if (JSON.stringify(actual) !== JSON.stringify(wanted)) {
         require(behavior.returncode == 0,
                 f"EAO sequence recipe behavior failure:\\n{behavior.stderr}")
 
+# Nested card scenes are a separate semantic completeness gate.
+if case.exists():
+    for marker in ("parent/child", "seven distinct facts",
+                   "actual grid-row", "idle", "reduced-motion",
+                   "30/30", "optical", "FAQ"):
+        require(marker.lower() in example.lower(),
+                f"EAO nested-child scene case lacks: {marker}")
+    main = FILE.read_text(encoding="utf-8")
+    for marker in ("version: 1.2.0", "Parent + child animation",
+                   "inventory", "shared", "readable"):
+        require(marker.lower() in main.lower(),
+                f"Motion Skill lacks explicit nested-scene policy: {marker}")
+
 js = SKILL / "assets/reversible-motion.js"
 css = SKILL / "assets/motion.css"
 if js.exists():
