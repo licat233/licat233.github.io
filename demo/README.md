@@ -28,3 +28,17 @@ backup/portfolio-demo-motion-before-glass-20261009 at commit
 
 The production homepage is deliberately not synchronized from /demo.
 Changes are reviewed here first, then promoted only on approval.
+
+## Fixed shared landscape (2026-10-09)
+
+The Hero image (`/assets/licat-hero.webp`) is now the single fixed, viewport-sized
+background on all Demo sections. It is rendered by `body::before` with
+`position: fixed` and `100svh` on mobile, rather than CSS
+`background-attachment: fixed` (unreliable on iOS Safari).
+The former cropped Hero image is visually hidden, but remains in markup
+as an inert GSAP animation target. No additional image, dependency or script
+was introduced. Background pixel-position has been tested as stable during
+scroll on both desktop and mobile, in light and dark modes.
+
+Use branch `backup/demo-before-fixed-scenery-20261009` to restore the previous
+Demo. As always, the production homepage and EAO are untouched.

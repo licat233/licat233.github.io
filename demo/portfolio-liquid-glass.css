@@ -695,3 +695,116 @@
   #journey .phase-glass > .lg-glass-overlay,
   #principles .principle.liquid-demo > .lg-glass-overlay { display: none; }
 }
+
+/* Single pinned landscape behind the complete Demo.
+ * Fixed pseudo-layer instead of background-attachment:fixed, which is
+ * unreliable in iOS Safari. Reuse the existing 89 KB Hero WebP: no new asset.
+ * The scene and its geometry do not animate or move with document scroll. */
+body {
+  position: relative;
+  isolation: isolate;
+  background: #d9e5e9;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;  /* older mobile browser fallback */
+  height: 100svh; /* stable mobile viewport during address-bar collapse */
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+  filter: none;
+  background:
+    linear-gradient(rgba(230, 240, 245, .30), rgba(227, 237, 242, .29)),
+    url("/assets/licat-hero.webp") 58% center / cover no-repeat;
+}
+body > main,
+body > .site-footer {
+  position: relative;
+  z-index: 1;
+}
+/* The photo used to be cropped into the Hero's right-hand column.
+ * Hide that duplicated view, keeping the element as an inert animation
+ * target for the original motion JS (no JS edits needed). */
+.hero-scene { display: none; }
+.hero-wrap {
+  background:
+    radial-gradient(circle at 14% 22%, rgba(255,255,255,.33), transparent 33%),
+    linear-gradient(180deg, rgba(228,238,243,.15), rgba(228,238,243,.04));
+}
+#projects {
+  background: rgba(230, 239, 243, .07);
+}
+#journey {
+  background:
+    linear-gradient(145deg, rgba(220,232,237,.19), rgba(236,240,238,.22));
+}
+#principles {
+  background:
+    linear-gradient(150deg, rgba(231,238,240,.21), rgba(222,235,238,.17));
+}
+/* Scenic details vary behind the small Hero list; avoid washed-out links. */
+.hero-resources.liquid-demo > .hero-resource { color: #294453; }
+.hero-resources.liquid-demo > .hero-resource.active,
+.hero-resources.liquid-demo > .hero-resource:hover { color: #102936; }
+:root[data-theme="dark"] .hero-resources.liquid-demo > .hero-resource { color: #d5e4ec; }
+:root[data-theme="dark"] .hero-resources.liquid-demo > .hero-resource.active,
+:root[data-theme="dark"] .hero-resources.liquid-demo > .hero-resource:hover { color: #f5fbff; }
+/* Keep typography legible while glass is over bright mountain/snow detail. */
+#journey > .shell .section-note,
+#principles > .shell .section-note,
+#projects > .shell .section-note {
+  color: #435969;
+  text-shadow: 0 1px 1px rgba(255,255,255,.9), 0 0 3px rgba(255,255,255,.6);
+}
+:root[data-theme="dark"] body { background: #101c25; }
+:root[data-theme="dark"] body::before {
+  opacity: 1;
+  filter: none;
+  background:
+    linear-gradient(rgba(8, 17, 24, .68), rgba(8, 19, 27, .70)),
+    url("/assets/licat-hero.webp") 58% center / cover no-repeat;
+}
+:root[data-theme="dark"] .hero-wrap {
+  background:
+    radial-gradient(circle at 14% 22%, rgba(20,38,48,.28), transparent 33%),
+    linear-gradient(180deg, rgba(9,20,27,.14), rgba(11,23,29,.04));
+}
+:root[data-theme="dark"] #projects { background: rgba(8,18,26,.08); }
+:root[data-theme="dark"] #journey {
+  background: linear-gradient(145deg, rgba(12,27,35,.20), rgba(17,28,33,.24));
+}
+:root[data-theme="dark"] #principles {
+  background: linear-gradient(150deg, rgba(15,28,36,.24), rgba(10,24,31,.22));
+}
+:root[data-theme="dark"] #journey > .shell .section-note,
+:root[data-theme="dark"] #principles > .shell .section-note,
+:root[data-theme="dark"] #projects > .shell .section-note {
+  color: rgba(234,244,249,.86);
+  text-shadow: 0 1px 2px rgba(0,10,18,.94), 0 0 3px rgba(0,10,18,.7);
+}
+/* Opaque fallbacks should retain their contrast, not expose a busy photo. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  body::before { background: #e6edf0; }
+  :root[data-theme="dark"] body::before { background: #17252d; }
+  #journey,
+  #principles,
+  #projects { background: rgba(238,245,248,.96); }
+  :root[data-theme="dark"] #journey,
+  :root[data-theme="dark"] #principles,
+  :root[data-theme="dark"] #projects { background: rgba(23,37,46,.96); }
+}
+@media (forced-colors: active) {
+  body::before,
+  :root[data-theme="dark"] body::before { background: Canvas; }
+  .hero-wrap,
+  #journey,
+  #principles,
+  #projects,
+  :root[data-theme="dark"] .hero-wrap,
+  :root[data-theme="dark"] #journey,
+  :root[data-theme="dark"] #principles,
+  :root[data-theme="dark"] #projects { background: Canvas; }
+}
