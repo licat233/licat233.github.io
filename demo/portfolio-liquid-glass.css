@@ -503,6 +503,8 @@
 }
 #journey > .shell, #principles > .shell { position: relative; z-index: 1; }
 #journey .phase-glass.liquid-demo {
+  /* Scope the absolute glass layers to this one card, not .phase above it. */
+  position: relative;
   min-height: 12.5rem;
   padding: 1.125rem 1.25rem;
   border: 1px solid rgba(255,255,255,.77);
