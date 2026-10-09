@@ -304,6 +304,37 @@
         });
       }
 
+      // Parent and child movement MUST belong to the same timeline.
+      // Separate triggers caused last-row facts to complete before their
+      // parent card arrived. The shared idle completion then acts on both.
+      function nestedParts(card) {
+        const map = [
+          [".dept-card", ":scope > h3, :scope > ul > li"],
+          [".eao-org-card", ":scope > .eao-org-content > h3, :scope > .eao-org-content > ul > li"],
+          [".value-card", ":scope > b, :scope > h3, :scope > p"],
+          [".control-card", ":scope > h3, :scope > p"],
+          [".eao-method-card", ":scope > .eao-method-card-content > .eao-method-card-heading, :scope > .eao-method-card-content > .eao-method-icon, :scope > .eao-method-card-content > p"]
+        ];
+        const type = map.find(([key]) => card.matches(key));
+        if (!type) return [];
+        return [...card.querySelectorAll(type[1])]
+          .filter(el => el.offsetWidth && el.offsetHeight);
+      }
+      function addNestedArrival(tl, card, start, gap = .13) {
+        nestedParts(card).forEach((part, i) => {
+          tl.fromTo(part, {
+            y: compact ? 15 : 30,
+            rotationX: compact ? 0 : -16,
+            scale: compact ? .97 : .93,
+            autoAlpha: 0,
+            transformPerspective: 850
+          }, {
+            y: 0, rotationX: 0, scale: 1, autoAlpha: 1,
+            duration: .49, ease: "power1.inOut"
+          }, start + i * (compact ? .11 : gap));
+        });
+      }
+
       // Respect the ACTUAL CSS grid rows: desktop 3+2 departments,
       // tablet 2+2+1, phone 1 per row, without reparenting or FLIP layouts.
       const directions = [[-1, 1], [1, -1], [0, 1], [-1, -1],
@@ -372,6 +403,7 @@
                 duration: .93, ease: "power1.inOut"
               }, i * .11);
             }
+            addNestedArrival(tl, card, (style === "fold" ? i * .09 : i * .11) + .68);
           });
           hold(tl);
         });
@@ -428,6 +460,7 @@
               x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1, autoAlpha: 1,
               duration: .92, ease: "power1.inOut"
             }, i * .115);
+            addNestedArrival(tl, card, i * .115 + .70);
           });
           hold(tl);
         });
@@ -450,7 +483,7 @@
           });
           if (!tl) return;
           row.cards.forEach((card, index) => {
-            const stage = index * 1.10;
+            const stage = index * 2.25;
             const order = cards.indexOf(card);
             const direction = (order % 2 ? 1 : -1);
             tl.fromTo(card, {
@@ -464,6 +497,7 @@
               x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1,
               autoAlpha: 1, duration: .82, ease: "power1.inOut"
             }, stage);
+            addNestedArrival(tl, card, stage + .86, .21);
             const arrow = card.nextElementSibling;
             if (arrow && arrow.matches(".eao-method-arrow") &&
                 getComputedStyle(arrow).display !== "none") {
@@ -475,7 +509,7 @@
               }, {
                 autoAlpha: 1, scale: 1, x: 0, y: 0,
                 duration: .23, ease: "power1.inOut"
-              }, stage + .84);
+              }, stage + 1.98);
             }
           });
           // Keep final position once the complete row has settled.
