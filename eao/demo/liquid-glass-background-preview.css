@@ -1,0 +1,120 @@
+/*
+  EAO background material study — preview only.
+  Stable porcelain daylight behind existing glass; no image, new runtime or page copy.
+  Keep photo/illustration artwork intact. Never turn section wrappers into glass cards.
+*/
+body.eao-v2 {
+  background:
+    radial-gradient(ellipse 51vw 67vh at 87% 20%, rgb(177 207 237 / .51), transparent 84%),
+    radial-gradient(ellipse 43vw 55vh at 8% 77%, rgb(245 213 190 / .36), transparent 84%),
+    radial-gradient(ellipse 45vw 43vh at 63% 91%, rgb(157 219 216 / .20), transparent 84%),
+    linear-gradient(119deg,#f9fafc 2%,#eef4fa 51%,#e5eef8 100%);
+  background-attachment: fixed;
+}
+/* Existing 1px textures and product diagrams remain unchanged.
+   These chapter washes are transparencies OVER the shared ambient background. */
+.eao-v2 .hero {
+  background: linear-gradient(128deg,rgb(255 255 255 / .13),rgb(245 250 255 / .015) 58%,transparent);
+}
+.eao-v2 #work {
+  background:
+    radial-gradient(ellipse 56% 56% at 7% 74%,rgb(248 222 199 / .13),transparent 85%),
+    linear-gradient(115deg,rgb(255 255 255 / .075),transparent 75%);
+}
+.eao-v2 #departments {
+  background:
+    radial-gradient(ellipse 53% 72% at 90% 59%,rgb(160 199 233 / .12),transparent 82%),
+    linear-gradient(135deg,rgb(243 250 255 / .065),transparent 72%);
+}
+.eao-v2 #knowledge-story {
+  background:linear-gradient(127deg,rgb(255 255 255 / .10),transparent 70%);
+}
+.eao-v2 #value {
+  background:
+    radial-gradient(ellipse 44% 65% at 6% 76%,rgb(247 221 192 / .12),transparent 84%),
+    linear-gradient(135deg,rgb(255 255 255 / .055),transparent);
+}
+.eao-v2 #control {
+  background:
+    radial-gradient(ellipse 48% 70% at 91% 70%,rgb(162 208 231 / .10),transparent 82%),
+    linear-gradient(125deg,rgb(244 250 255 / .055),transparent);
+}
+.eao-v2 .faq {
+  background:linear-gradient(132deg,rgb(255 255 255 / .085),transparent 72%);
+}
+.eao-v2 .cta {
+  background:
+    radial-gradient(ellipse 55% 72% at 91% 45%,rgb(177 218 237 / .12),transparent 80%),
+    linear-gradient(125deg,rgb(255 255 255 / .07),transparent 74%);
+}
+.eao-v2 footer {
+  background:linear-gradient(125deg,rgb(240 246 252 / .16),rgb(233 242 250 / .09));
+}
+/* Section separation remains informational, not a stack of opaque colored plates. */
+.eao-v2 main>section:not(.hero) {
+  border-bottom-color:rgb(101 140 173 / .14);
+}
+/* Dark theme: same ambient principle with separate parameters, not inverted white. */
+:root[data-theme="dark"] body.eao-v2 {
+  background:
+    radial-gradient(ellipse 54vw 67vh at 86% 23%,rgb(74 115 154 / .31),transparent 85%),
+    radial-gradient(ellipse 42vw 54vh at 8% 79%,rgb(125 100 88 / .20),transparent 84%),
+    radial-gradient(ellipse 41vw 46vh at 65% 90%,rgb(41 104 112 / .16),transparent 84%),
+    linear-gradient(118deg,#111e2c 0%,#1b3044 57%,#172738 100%);
+  background-attachment:fixed;
+}
+:root[data-theme="dark"] .eao-v2 .hero {
+  background:linear-gradient(124deg,rgb(17 35 54 / .12),transparent 75%);
+}
+:root[data-theme="dark"] .eao-v2 #work {
+  background:
+    radial-gradient(ellipse 49% 65% at 8% 78%,rgb(135 99 82 / .075),transparent 84%),
+    linear-gradient(118deg,rgb(19 40 58 / .14),transparent 77%);
+}
+:root[data-theme="dark"] .eao-v2 #departments {
+  background:radial-gradient(ellipse 56% 72% at 91% 63%,rgb(85 132 165 / .10),transparent 83%);
+}
+:root[data-theme="dark"] .eao-v2 #knowledge-story {
+  background:linear-gradient(132deg,rgb(21 47 62 / .12),transparent 78%);
+}
+:root[data-theme="dark"] .eao-v2 #value {
+  background:radial-gradient(ellipse 48% 64% at 7% 77%,rgb(122 95 77 / .09),transparent 83%);
+}
+:root[data-theme="dark"] .eao-v2 #control {
+  background:radial-gradient(ellipse 51% 73% at 92% 76%,rgb(81 132 167 / .10),transparent 84%);
+}
+:root[data-theme="dark"] .eao-v2 .faq {
+  background:linear-gradient(122deg,rgb(27 53 70 / .12),transparent 75%);
+}
+:root[data-theme="dark"] .eao-v2 .cta {
+  background:radial-gradient(ellipse 54% 78% at 91% 43%,rgb(76 124 160 / .12),transparent 83%);
+}
+:root[data-theme="dark"] .eao-v2 footer {
+  background:linear-gradient(128deg,rgb(12 28 43 / .21),rgb(23 42 57 / .18));
+}
+@media (max-width:700px) {
+  /* Mobile Safari does not reliably hold fixed CSS backgrounds during scroll.
+     Skip fixed attachment and reduce expensive layered gradients. */
+  body.eao-v2 {
+    background:
+      radial-gradient(ellipse 80vw 52vh at 90% 14%,rgb(177 207 237 / .27),transparent 88%),
+      linear-gradient(125deg,#f7f9fc,#eaf3fa 58%,#e4eff7);
+    background-attachment:scroll;
+  }
+  :root[data-theme="dark"] body.eao-v2 {
+    background:
+      radial-gradient(ellipse 78vw 57vh at 91% 15%,rgb(78 125 162 / .21),transparent 87%),
+      linear-gradient(125deg,#152439,#1c3346 59%,#172b3e);
+    background-attachment:scroll;
+  }
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  body.eao-v2 { background:#f3f7fb; background-attachment:scroll; }
+  :root[data-theme="dark"] body.eao-v2 { background:#182c3e; background-attachment:scroll; }
+}
+@media (forced-colors:active) {
+  body.eao-v2, :root[data-theme="dark"] body.eao-v2 { background:Canvas; background-attachment:scroll; }
+  .eao-v2 :is(.hero,#work,#departments,#knowledge-story,#value,#control,.faq,.cta,footer) {
+    background:Canvas; color:CanvasText;
+  }
+}
