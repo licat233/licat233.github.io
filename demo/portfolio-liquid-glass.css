@@ -398,3 +398,39 @@
   #projects .project.liquid-demo > .lg-glass-specular { box-shadow:none; }
   #projects .project.liquid-demo { border-color:CanvasText; box-shadow:none; }
 }
+
+/* Glass text legibility: narrow optical separation from uneven scenery.
+ * Avoid broad halos or text outlines that make the interface look luminous.
+ * Restrict changes to the Demo's scenic projects section only. */
+#projects .project h3 {
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, .88),
+    0 0 2px rgba(255, 255, 255, .54);
+}
+#projects .project p,
+#projects .project-meta,
+#projects .section-note {
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, .95),
+    0 0 3px rgba(255, 255, 255, .64);
+}
+:root[data-theme="dark"] #projects .project h3 {
+  text-shadow:
+    0 1px 2px rgba(0, 12, 20, .86),
+    0 0 3px rgba(0, 12, 20, .58);
+}
+:root[data-theme="dark"] #projects .project p,
+:root[data-theme="dark"] #projects .project-meta,
+:root[data-theme="dark"] #projects .section-note {
+  text-shadow:
+    0 1px 2px rgba(0, 12, 20, .94),
+    0 0 3px rgba(0, 12, 20, .68);
+}
+/* When OS contrast features are enabled, use the solid contrast materials,
+ * not simulated edge shadows. */
+@media (prefers-contrast: more), (forced-colors: active) {
+  #projects .project h3,
+  #projects .project p,
+  #projects .project-meta,
+  #projects .section-note { text-shadow: none; }
+}
