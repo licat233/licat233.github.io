@@ -1,0 +1,88 @@
+/*
+ * EAO /demo/ — theme-aware optical edge for descriptive and muted text.
+ * On vivid multicolour SVG backgrounds the original muted greys can disappear.
+ * This is deliberately a text-shadow only patch: no text recolouring, extra
+ * frosted layers, size changes, letter spacing or image/asset adjustments.
+ *
+ * Light mode: fine WHITE edge for charcoal/slate grey captions.
+ * Dark mode: fine BLACK edge for silver-grey text.
+ */
+.eao-v2 {
+  --eao-muted-legibility-shadow:
+    0 1px 1px rgb(255 255 255 / .84),
+    0 0 2px rgb(255 255 255 / .45);
+}
+:root[data-theme="dark"] .eao-v2 {
+  --eao-muted-legibility-shadow:
+    0 1px 2px rgb(0 0 0 / .75),
+    0 0 1px rgb(0 0 0 / .50);
+}
+
+/* Semantic grey text — navigation, intro, descriptive/secondary content,
+ * process captions, department items, fact grid, knowledge, FAQ, CTA, footer.
+ * Directly target the text-bearing elements; don't add a shadow to the glass
+ * itself, icons, pictures, active controls or colourful section headings. */
+.eao-v2 :is(
+  .nav-section-link:not(.is-active),
+  .hero .lead,
+  .hero .hero-meta,
+  .intro,
+  .section-subtitle,
+  .section-head p,
+  .section-intro,
+  .work-mode,
+  .work-col.before .work-heading h3,
+  .work-context,
+  .work-note-detail,
+  .work-note,
+  .work-step-text,
+  .work-col p,
+  .work-col li,
+  .pain-card p,
+  .pain-card li,
+  .value-card p,
+  .value-card li,
+  .dept-card p,
+  .dept-card li,
+  #departments > .wrap > .note,
+  .control-card p,
+  .real p,
+  .real-items span,
+  .faq-answer,
+  .cta p,
+  .foot,
+  footer p,
+  footer small,
+  .eao-org-intro p,
+  .eao-org-brand span,
+  .eao-org-card li,
+  .eao-method-intro p,
+  .eao-method-card p,
+  .eao-method-summary p,
+  .eao-method-summary-content p
+) {
+  text-shadow: var(--eao-muted-legibility-shadow);
+}
+/* The English language link is silver-grey only in dark mode. */
+:root[data-theme="dark"] .eao-v2 .nav-tools .lang:not(.is-active) {
+  text-shadow:var(--eao-muted-legibility-shadow);
+}
+/* Free-standing explanatory strips are grey by default and can cross vivid
+ * regions even when outside the named cards. */
+.eao-v2 :is(.note, .visual-caption, .eao-org-summary) {
+  text-shadow: var(--eao-muted-legibility-shadow);
+}
+/* High-contrast/forced colours own their foreground and must not pick up
+ * photographic edge shadows. */
+@media (forced-colors:active), (prefers-contrast:more) {
+  .eao-v2 :is(
+    .nav-section-link, .nav-tools .lang, .lead, .intro, .section-head p,
+    .work-mode, .work-col.before .work-heading h3, .work-context, .work-note-detail, .work-note, .work-step-text,
+    .work-col p, .work-col li, .pain-card p, .pain-card li,
+    .value-card p, .value-card li, .dept-card p, .dept-card li,
+    .control-card p, .real p, .real-items span, .faq-answer, .cta p,
+    .foot, footer p, footer small, .eao-org-intro p, .eao-org-brand span,
+    .eao-org-card li, .eao-org-summary, .eao-method-intro p,
+    .eao-method-card p, .eao-method-summary p, .note, .visual-caption
+  ) { text-shadow:none; }
+}
