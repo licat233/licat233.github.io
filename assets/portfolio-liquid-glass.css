@@ -286,3 +286,132 @@
     box-shadow: none;
   }
 }
+/*
+ * Ambient material study — featured projects only.
+ * Static CSS gradients replace image-backed environments: zero image requests,
+ * no animation, and no changes to the Hero or page-wide background.
+ * Scope: #projects; remove this block to restore the previous material.
+ */
+#projects {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 52% 36% at 8% 22%, rgba(94, 150, 167, .33), transparent 75%),
+    radial-gradient(ellipse 55% 42% at 99% 49%, rgba(191, 155, 127, .29), transparent 77%),
+    radial-gradient(ellipse 43% 32% at 39% 94%, rgba(125, 167, 170, .18), transparent 81%),
+    linear-gradient(135deg, #e2e9eb 0%, #e7eaeb 46%, #e7e5e0 100%);
+}
+#projects::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(113deg, transparent 10%, rgba(255, 255, 255, .30) 36%, transparent 63%),
+    linear-gradient(170deg, transparent 45%, rgba(117, 154, 163, .07) 100%);
+}
+#projects > .shell {
+  position: relative;
+  z-index: 1;
+}
+/* Keep card text above the optical layers but let the environment show through. */
+#projects .project.liquid-demo {
+  background: rgba(255, 255, 255, .055);
+  border-color: rgba(255, 255, 255, .78);
+  box-shadow:
+    0 13px 32px rgba(33, 64, 80, .12),
+    0 2px 7px rgba(33, 64, 80, .045),
+    inset 0 1px 0 rgba(255, 255, 255, .92);
+}
+#projects .project.liquid-demo > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  backdrop-filter: blur(12px) saturate(130%);
+}
+#projects .project.liquid-demo > .lg-glass-overlay {
+  background:
+    linear-gradient(142deg, rgba(255, 255, 255, .29), transparent 62%),
+    linear-gradient(0deg, rgba(249, 253, 255, .10), transparent 57%),
+    rgba(249, 252, 253, .16);
+}
+#projects .project.liquid-demo:hover {
+  border-color: rgba(255, 255, 255, .96);
+  box-shadow:
+    0 19px 40px rgba(33, 64, 80, .15),
+    0 3px 10px rgba(33, 64, 80, .07),
+    inset 0 1px 0 rgba(255, 255, 255, .96);
+}
+/* The palette shifts, but the same glass layering works in dark mode. */
+:root[data-theme="dark"] #projects {
+  background:
+    radial-gradient(ellipse 53% 38% at 9% 20%, rgba(92, 139, 152, .22), transparent 78%),
+    radial-gradient(ellipse 54% 42% at 97% 53%, rgba(142, 115, 97, .19), transparent 80%),
+    radial-gradient(ellipse 42% 37% at 46% 97%, rgba(103, 139, 147, .13), transparent 80%),
+    linear-gradient(135deg, #19242a 0%, #222c30 52%, #292b2b 100%);
+}
+:root[data-theme="dark"] #projects::before {
+  background:
+    linear-gradient(115deg, transparent 11%, rgba(218, 240, 248, .055) 37%, transparent 65%);
+}
+:root[data-theme="dark"] #projects .project.liquid-demo {
+  background: rgba(35, 49, 56, .06);
+  border-color: rgba(219, 238, 246, .22);
+  box-shadow:
+    0 13px 33px rgba(0, 0, 0, .25),
+    inset 0 1px 0 rgba(238, 251, 255, .24);
+}
+:root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-overlay {
+  background:
+    linear-gradient(142deg, rgba(219, 242, 252, .105), transparent 65%),
+    rgba(30, 44, 52, .19);
+}
+:root[data-theme="dark"] #projects .project.liquid-demo:hover {
+  border-color: rgba(235, 249, 255, .39);
+  box-shadow: 0 17px 37px rgba(0, 0, 0, .29), inset 0 1px 0 rgba(238, 251, 255, .3);
+}
+/* Mobile preserves the current no-backdrop-filter performance policy.
+ * The desktop colour fields would otherwise fall partly off the narrow viewport.
+ */
+@media (max-width: 760px) {
+  #projects {
+    background:
+      radial-gradient(ellipse 95% 25% at 13% 18%, rgba(90, 157, 178, .33), transparent 80%),
+      radial-gradient(ellipse 115% 27% at 88% 52%, rgba(193, 157, 123, .24), transparent 85%),
+      radial-gradient(ellipse 100% 28% at 14% 89%, rgba(96, 151, 171, .23), transparent 84%),
+      linear-gradient(150deg, #e0e9ec, #e7e9e7 58%, #e6e5e0);
+  }
+  :root[data-theme="dark"] #projects {
+    background:
+      radial-gradient(ellipse 100% 29% at 12% 16%, rgba(92, 147, 160, .24), transparent 82%),
+      radial-gradient(ellipse 120% 28% at 90% 55%, rgba(157, 122, 95, .17), transparent 82%),
+      linear-gradient(150deg, #1c282d, #242b2e 58%, #2a2b2a);
+  }
+  #projects .project.liquid-demo > .lg-glass-filter {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(247, 251, 252, .46);
+  }
+  :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-filter {
+    background: rgba(26, 39, 46, .48);
+  }
+}
+/* A solid fallback for users who explicitly reduce transparency. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  #projects .project.liquid-demo > .lg-glass-filter {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  #projects .project.liquid-demo > .lg-glass-overlay { background: #f5f9fc; }
+  :root[data-theme="dark"] #projects .project.liquid-demo > .lg-glass-overlay { background: #202d35; }
+}
+@media (forced-colors: active) {
+  #projects,
+  :root[data-theme="dark"] #projects { background: Canvas; }
+  #projects::before { display: none; }
+  #projects .project.liquid-demo,
+  :root[data-theme="dark"] #projects .project.liquid-demo {
+    color: CanvasText;
+    background: Canvas;
+    border: 1px solid CanvasText;
+    box-shadow: none;
+  }
+}
