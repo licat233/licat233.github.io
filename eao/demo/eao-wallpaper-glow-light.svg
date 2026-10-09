@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+ <defs>
+  <linearGradient id="s1"><stop stop-color="#ffdd3c" stop-opacity=".0"/><stop offset=".30" stop-color="#fff2e6" stop-opacity=".55"/><stop offset=".70" stop-color="#ff4dc0" stop-opacity=".32"/><stop offset="1" stop-color="#8951d8" stop-opacity="0"/></linearGradient>
+  <linearGradient id="s2"><stop stop-color="#20d8e2" stop-opacity="0"/><stop offset=".37" stop-color="#20d8e2" stop-opacity=".53"/><stop offset=".64" stop-color="#fff2e6" stop-opacity=".40"/><stop offset="1" stop-color="#1b9fff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="shine"><stop stop-color="#fff2e6" stop-opacity=".22"/><stop offset="1" stop-color="#fff2e6" stop-opacity="0"/></radialGradient>
+  <filter id="f" x="-15%" y="-45%" width="130%" height="190%"><feGaussianBlur stdDeviation="19"/></filter>
+ </defs>
+ <ellipse cx="905" cy="410" rx="390" ry="240" fill="url(#shine)"/>
+ <path d="M-130 205 C300 18 500 315 810 325 S1295 105 1730 40" fill="none" stroke="url(#s1)" stroke-width="108" opacity=".45" filter="url(#f)"/>
+ <path d="M-140 880 C230 580 390 865 715 709 C1060 518 1305 295 1790 440" fill="none" stroke="url(#s2)" stroke-width="132" opacity=".53" filter="url(#f)"/>
+ <path d="M-170 470 C180 280 440 345 670 480 C1000 642 1265 422 1745 282" fill="none" stroke="url(#s1)" stroke-width="58" opacity=".30" filter="url(#f)"/>
+ </svg>

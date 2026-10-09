@@ -1,0 +1,94 @@
+/* EAO isolated demo — SVG silk/aurora wallpaper, Apple-inspired, original paths.
+   Pure SVG assets, no canvas, no JS, no tracking, no heavy CSS backdrop on body.
+   Slow independent transforms, static fallback and simplified mobile mode. */
+html { background: #a988c2; }
+body.eao-v2 { isolation:isolate; background:transparent; }
+body.eao-v2::before,
+body.eao-v2::after {
+  content:"";
+  pointer-events:none;
+  position:fixed;
+  inset:-12%;
+  display:block;
+  width:auto;
+  height:auto;
+  z-index:-2;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  filter:none;
+  opacity:1;
+  backface-visibility:hidden;
+  will-change:transform;
+}
+body.eao-v2::before {
+  background-image:url("./eao-wallpaper-light.svg");
+  animation:eao-silk-drift 47s ease-in-out infinite alternate;
+}
+body.eao-v2::after {
+  z-index:-1;
+  background-image:url("./eao-wallpaper-glow-light.svg");
+  background-color:transparent;
+  opacity:.7;
+  animation:eao-silk-glow 61s ease-in-out infinite alternate;
+}
+@keyframes eao-silk-drift {
+  0% {transform:translate3d(-2.5%,-1.5%,0) scale(1.035) rotate(-1.2deg);}
+  47% {transform:translate3d(1.8%,2.2%,0) scale(1.07) rotate(1.6deg);}
+  100% {transform:translate3d(3.4%,-2.7%,0) scale(1.025) rotate(-.8deg);}
+}
+@keyframes eao-silk-glow {
+  0% {transform:translate3d(3%,-2%,0) scale(1.035) rotate(1deg);opacity:.38;}
+  55% {transform:translate3d(-3.5%,2.9%,0) scale(1.075) rotate(-1.5deg);opacity:.8;}
+  100% {transform:translate3d(2%,3.2%,0) scale(1.04) rotate(.7deg);opacity:.43;}
+}
+/* All sections float over the same optical field. */
+.eao-v2 :is(.hero,#work,#departments,#knowledge-story,#value,#control,.faq,.cta,footer) {
+  background-color:transparent;
+  background-image:none;
+}
+/* Use a different modeled light map in dark mode, not a CSS inversion. */
+:root[data-theme="dark"] {background:#171a44;}
+:root[data-theme="dark"] body.eao-v2 {background:transparent;}
+:root[data-theme="dark"] body.eao-v2::before {
+  background-image:url("./eao-wallpaper-dark.svg");
+  filter:none;
+  opacity:1;
+}
+:root[data-theme="dark"] body.eao-v2::after {
+  background-image:url("./eao-wallpaper-glow-dark.svg");
+  filter:none;
+}
+/* In brighter wallpaper regions text-bearing glass gets a slightly stronger
+   local frost; preserve its single existing rim, no extra nesting. */
+:root:not([data-theme="dark"]) .eao-v2 .eao-org-glass > .eao-org-overlay,
+:root:not([data-theme="dark"]) .eao-v2 .eao-method-glass > .eao-method-overlay {
+  background:linear-gradient(140deg,rgb(255 255 255 / .45),rgb(255 255 255 / .23) 68%,rgb(255 255 255 / .14)),rgb(248 251 255 / .19);
+}
+:root:not([data-theme="dark"]) .eao-v2 .eao-method-summary > .eao-method-overlay {
+  background:linear-gradient(136deg,rgb(255 255 255 / .42),rgb(255 255 255 / .24)),rgb(248 253 255 / .14);
+}
+:root:not([data-theme="dark"]) .eao-v2 :is(.lead,.eao-org-intro p,.eao-method-intro p) {color:#1d3442;text-shadow:0 1px 1px rgb(255 255 255 / .62);}
+:root:not([data-theme="dark"]) .eao-v2 .eao-method-card p {color:#263745;}
+:root:not([data-theme="dark"]) .eao-v2 .hero h1 span {color:#c5fff3;text-shadow:0 2px 4px rgb(13 18 51 / .70);}
+/* Only one image plane on mobile; no blur rendering or independent glow field. */
+@media (max-width:700px), (pointer:coarse) {
+  body.eao-v2::before {inset:-8%;animation-duration:75s;}
+  body.eao-v2::after {display:none;will-change:auto;}
+}
+/* Respect accessible presentation and low-motion preferences. */
+@media (prefers-reduced-motion:reduce) {
+  body.eao-v2::before,body.eao-v2::after {animation:none;transform:none;will-change:auto;}
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  body.eao-v2::before,body.eao-v2::after {animation:none;transform:none;will-change:auto;background-image:none;}
+  body.eao-v2::before {background-color:#f2f5fa;}
+  :root[data-theme="dark"] body.eao-v2::before {background-color:#182a3c;}
+  body.eao-v2::after {display:none;}
+}
+@media (forced-colors:active) {
+  html,:root[data-theme="dark"] {background:Canvas;}
+  body.eao-v2::before,body.eao-v2::after {background:Canvas;animation:none;transform:none;will-change:auto;}
+  body.eao-v2::after {display:none;}
+  .eao-v2 :is(.hero,#work,#departments,#knowledge-story,#value,#control,.faq,.cta,footer) {background:Canvas;color:CanvasText;}
+}
