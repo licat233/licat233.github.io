@@ -16,7 +16,8 @@
     media.add({
       motion: "(prefers-reduced-motion: no-preference)",
       wide: "(min-width: 1041px)",
-      tablet: "(min-width: 701px) and (max-width: 1040px)",
+      tablet: "(min-width: 901px) and (max-width: 1040px)",
+      tabletStack: "(min-width: 701px) and (max-width: 900px)",
       compact: "(max-width: 700px)"
     }, (ctx) => {
       if (!ctx.conditions.motion) return;
@@ -56,7 +57,7 @@
         const bottom = top + scene.height();
         const header = document.querySelector("nav");
         const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
-        return top < innerHeight * (scene.footer ? .995 : .965)
+        return top < innerHeight * scene.visibleThreshold
           && bottom > Math.max(headerBottom + 8, innerHeight * .09);
       }
 
@@ -79,7 +80,9 @@
         }
       }
 
-      function sceneFor(parent, focus, { entry = .89, travel = .4, footer = false } = {}) {
+      function sceneFor(parent, focus, {
+        entry = .89, travel = .4, footer = false, visibleThreshold = null
+      } = {}) {
         if (!parent || !focus) return null;
         const top = () => naturalY(focus);
         const range = () => scrollRange(top(), entry, travel, footer);
@@ -99,6 +102,7 @@
           top,
           height: () => focus.offsetHeight,
           footer,
+          visibleThreshold: visibleThreshold ?? (footer ? .995 : .965),
           latched: false,
           anchor: 0,
           base: 0,
@@ -239,35 +243,130 @@
         hold(tl);
       });
 
-      // Illustrations and comparison surfaces keep their layout and crop.
-      document.querySelectorAll(".story-visual, .contrast-card, .compare-work, .real").forEach((surface) => {
-        // Live organization and method diagrams have their own per-node scenes.
-        // Do not transform an optical backdrop ancestor as well as its glass cards.
-        if (surface.matches(".eao-org-diagram, .eao-method-diagram")) return;
+      // Independent illustration scene: comparison panels have their own
+      // narrative, and must NOT receive a second competing parent tween.
+      document.querySelectorAll(".story-visual, .contrast-card, .real").forEach((surface) => {
         const tl = sceneFor(surface, surface, { entry: .9, travel: compact ? .35 : .43 });
         if (!tl) return;
-        if (surface.matches(".compare-work")) {
-          const cols = surface.querySelectorAll(".work-col");
-          cols.forEach((col, i) => {
-            const direction = i ? 1 : -1;
-            const room = direction > 0
-              ? innerWidth - naturalX(col) - col.offsetWidth - 8
-              : naturalX(col) - 8;
-            const x = direction * Math.min(compact ? 30 : 88, Math.max(0, room));
-            tl.fromTo(col, {
-              x, y: compact ? 26 : 65, rotationY: compact ? 0 : direction * 9, scale: compact ? .97 : .92, autoAlpha: 0
-            }, {
-            x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1, autoAlpha: 1, duration: .92, ease: "power1.inOut"
-            }, i * .1);
-          });
-        } else {
-          tl.fromTo(surface, { y: compact ? 39 : 100, scale: compact ? .96 : .91, autoAlpha: 0 }, {
-            y: 0, scale: 1, autoAlpha: 1,
-            duration: 1, ease: "power1.inOut"
-          }, 0);
-        }
+        tl.fromTo(surface, { y: compact ? 39 : 100, scale: compact ? .96 : .91, autoAlpha: 0 }, {
+          y: 0, scale: 1, autoAlpha: 1, duration: 1, ease: "power1.inOut"
+        }, 0);
         hold(tl);
       });
+
+      // Five real steps in EACH workflow (before/after), not five decorative
+      // simultaneous fades. The card enters first; item 1 then item 2...
+      // Within each step, icon and text appear in that order. Two separate
+      // panel scenes respect stacked mobile viewports: a below-fold "after"
+      // column must not play just because "before" entered.
+      const workComparison = document.querySelector("#work .compare-work");
+      if (workComparison && workComparison.offsetWidth) {
+        const columns = [...workComparison.querySelectorAll(":scope > .work-col")];
+        // Read the actual layout, not just the named breakpoint: at 768px
+        // the columns stack although 'compact' is false.
+        const stacked = columns.length === 2 &&
+          Math.abs(naturalY(columns[0]) - naturalY(columns[1])) > 10;
+        columns.forEach((column, colIndex) => {
+          if (!column.offsetWidth) return;
+          const items = [...column.querySelectorAll("ol > li")];
+          if (items.length !== 5) return;
+          const heading = column.querySelector(".work-head");
+          const parts = items.map(item => ({
+            item,
+            icon: item.querySelector(".work-step-icon"),
+            text: item.querySelector(".work-step-text")
+          }));
+          const tl = sceneFor(column, column, {
+            entry: compact ? .90 : .89,
+            travel: compact ? .64 : .82
+          });
+          if (!tl) return;
+
+          // Initialize the full list NOW, not at the respective stagger start:
+          // later stages must never flash before their own turn.
+          gsap.set(items, {
+            x: compact ? 0 : (colIndex ? 39 : -39),
+            y: compact ? 31 : 37,
+            rotationX: compact ? 0 : -9,
+            scale: compact ? .97 : .94,
+            autoAlpha: 0
+          });
+          parts.forEach(({ icon, text }) => {
+            if (icon) gsap.set(icon, { scale: .55, rotation: colIndex ? -15 : -9, autoAlpha: 0 });
+            if (text) gsap.set(text, { y: 12, autoAlpha: 0 });
+          });
+          // Contrasting yet coherent movements: legacy slides from left,
+          // EAO arrives from right. The original glass panels remain intact.
+          const dir = colIndex ? 1 : -1;
+          const room = dir > 0
+            ? innerWidth - naturalX(column) - column.offsetWidth - 36
+            : naturalX(column) - 36;
+          const enteringX = compact ? 0 : dir * Math.min(68, Math.max(0, room));
+          tl.fromTo(column, {
+            x: enteringX, y: compact ? 31 : 57,
+            rotationY: compact ? 0 : dir * 8,
+            scale: compact ? .975 : .93, autoAlpha: 0,
+            transformPerspective: 1100
+          }, {
+            x: 0, y: 0, rotationY: 0, scale: 1,
+            autoAlpha: 1, duration: .82, ease: "power1.inOut"
+          }, 0);
+          if (heading) {
+            tl.fromTo(heading, { y: 18, autoAlpha: .3 }, {
+              y: 0, autoAlpha: 1, duration: .42, ease: "power1.inOut"
+            }, .56);
+          }
+          if (stacked) {
+            // As each step reaches the viewport, animate it in-place.
+            // A barely visible EAO card must NOT settle 5 below-fold rows.
+            // Parent scene comes first; each real step owns a visibility
+            // trigger but reuses the shared idle/reverse controller.
+            hold(tl);
+            parts.forEach(({ item, icon, text }) => {
+              const stepTl = sceneFor(column, item, {
+                entry: compact ? .88 : .86,
+                travel: compact ? .25 : .31,
+                // The final row can be only 20px visible at the bottom:
+                // do not fast-forward it until it enters the reading area.
+                visibleThreshold: .91
+              });
+              if (!stepTl) return;
+              stepTl.to(item, {
+                x: 0, y: 0, rotationX: 0, scale: 1,
+                autoAlpha: 1, duration: .67, ease: "power1.inOut"
+              }, 0);
+              if (icon) stepTl.to(icon, {
+                scale: 1, rotation: 0, autoAlpha: 1,
+                duration: .43, ease: "power1.inOut"
+              }, .12);
+              if (text) stepTl.to(text, {
+                y: 0, autoAlpha: 1, duration: .47,
+                ease: "power1.inOut"
+              }, .21);
+              hold(stepTl);
+            });
+          } else {
+            // Side-by-side desktop: the two 1→5 timelines read like a
+            // comparison, with their own contrasting entry directions.
+            parts.forEach(({ item, icon, text }, i) => {
+              const at = 1.02 + i * .78;
+              tl.to(item, {
+                x: 0, y: 0, rotationX: 0, scale: 1,
+                autoAlpha: 1, duration: .67, ease: "power1.inOut"
+              }, at);
+              if (icon) tl.to(icon, {
+                scale: 1, rotation: 0, autoAlpha: 1,
+                duration: .43, ease: "power1.inOut"
+              }, at + .12);
+              if (text) tl.to(text, {
+                y: 0, autoAlpha: 1, duration: .47,
+                ease: "power1.inOut"
+              }, at + .21);
+            });
+            hold(tl);
+          }
+        });
+      }
 
       // Real-enterprise reference: the big glass container enters first;
       // its internal facts then settle individually, in the actual grid order.
