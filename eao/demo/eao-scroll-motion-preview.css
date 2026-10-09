@@ -6,3 +6,6 @@
 .eao-v2 :is(#work,#pain,#value,#departments,#control) {
   overflow-x: clip;
 }
+/* The new FAQ card flights must not widen the page while offscreen.
+   Clip horizontal travel at the FAQ section, retaining vertical flow. */
+.eao-v2 .faq { overflow-x: clip; }

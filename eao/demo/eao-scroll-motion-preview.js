@@ -146,8 +146,8 @@
         const hero = gsap.timeline({ defaults: { ease: "power2.out" } });
         [
           [".hero .eyebrow", 16, .53],
-          [".hero h1", 32, .78],
-          [".hero .lead", 24, .64],
+          [".hero h1", 65, .85],
+          [".hero .lead", 45, .72],
           [".hero .actions", 20, .59],
           [".hero .meta", 14, .53]
         ].forEach(([selector, y, duration], i) => {
@@ -172,7 +172,7 @@
           x: 0, autoAlpha: 1, duration: .66, ease: "power1.inOut"
         }, 0);
         tl.fromTo(title, {
-          y: compact ? 27 : 43, rotationX: compact ? -8 : -13,
+          y: compact ? 38 : 72, rotationX: compact ? -9 : -16,
           autoAlpha: 0, transformPerspective: 1000
         }, {
           y: 0, rotationX: 0, autoAlpha: 1,
@@ -198,15 +198,15 @@
             const room = direction > 0
               ? innerWidth - naturalX(col) - col.offsetWidth - 8
               : naturalX(col) - 8;
-            const x = direction * Math.min(compact ? 20 : 38, Math.max(0, room));
+            const x = direction * Math.min(compact ? 30 : 88, Math.max(0, room));
             tl.fromTo(col, {
-              x, y: 12, autoAlpha: 0
+              x, y: compact ? 26 : 65, rotationY: compact ? 0 : direction * 9, scale: compact ? .97 : .92, autoAlpha: 0
             }, {
-            x: 0, y: 0, autoAlpha: 1, duration: .92, ease: "power1.inOut"
+            x: 0, x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1, autoAlpha: 1, duration: .92, ease: "power1.inOut"
             }, i * .1);
           });
         } else {
-          tl.fromTo(surface, { y: compact ? 29 : 42, scale: .978, autoAlpha: 0 }, {
+          tl.fromTo(surface, { y: compact ? 39 : 100, scale: compact ? .96 : .91, autoAlpha: 0 }, {
             y: 0, scale: 1, autoAlpha: 1,
             duration: 1, ease: "power1.inOut"
           }, 0);
@@ -238,19 +238,19 @@
 
         rows.forEach((row, rowIndex) => {
           const tl = sceneFor(grid, row.cards[0], {
-            entry: .91, travel: compact ? .36 : .43
+            entry: .91, travel: compact ? .45 : .56
           });
           if (!tl) return;
           row.cards.forEach((card, i) => {
             const index = cards.indexOf(card);
             if (style === "fold") {
               tl.fromTo(card, {
-                rotationY: (index % 2 ? 1 : -1) * (compact ? 8 : 32),
+                rotationY: (index % 2 ? 1 : -1) * (compact ? 10 : 46),
                 transformPerspective: 1200,
                 transformOrigin: index % 2 ? "100% 50%" : "0% 50%",
-                y: 18, autoAlpha: 0
+                y: compact ? 32 : 72, scale: compact ? .975 : .90, autoAlpha: 0
               }, {
-                rotationY: 0, y: 0, autoAlpha: 1,
+                rotationY: 0, y: 0, scale: 1, autoAlpha: 1,
                 duration: .91, ease: "power1.inOut"
               }, i * .09);
             } else {
@@ -271,12 +271,12 @@
                 ? innerWidth - naturalX(card) - card.offsetWidth - rim
                 : naturalX(card) - rim;
               const sideRoom = Math.max(0, Math.min(visualRoom, logicalRoom));
-              const flightX = dx * Math.min(compact ? 23 : 55, sideRoom);
+              const flightX = dx * Math.min(compact ? 30 : 110, sideRoom);
               tl.fromTo(card, {
                 x: flightX,
-                y: dy * (compact ? 21 : 37),
-                rotation: (index % 2 ? 1 : -1) * (compact ? 2 : 4),
-                scale: compact ? .975 : .955, autoAlpha: 0
+                y: dy * (compact ? 38 : 97),
+                rotation: (index % 2 ? 1 : -1) * (compact ? 3 : 8),
+                scale: compact ? .955 : .86, autoAlpha: 0
               }, {
                 x: 0, y: 0, rotation: 0, scale: 1, autoAlpha: 1,
                 duration: .93, ease: "power1.inOut"
@@ -320,7 +320,7 @@
         rows.forEach((row) => {
           const tl = sceneFor(grid, row.cards[0], {
             entry: compact ? .93 : .91,
-            travel: compact ? .29 : .37
+            travel: compact ? .36 : .51
           });
           if (!tl) return;
           row.cards.forEach((card, i) => {
@@ -328,12 +328,14 @@
             // Small, deliberately bounded travel: no card escapes its grid cell
             // far enough to extend the document scrollHeight.
             tl.fromTo(card, {
-              y: (compact ? 16 : 26) * (order % 2 ? 1 : .75),
-              rotationY: compact ? 0 : (order % 2 ? 2.5 : -2.5),
-              scale: compact ? .984 : .971,
+              x: compact ? 0 : ((order % 2 ? -1 : 1) * (kind === 'methods' ? 94 : 75)),
+              y: (compact ? 39 : (kind === 'methods' ? 105 : 115)) * (order % 2 ? 1 : .86),
+              rotationY: compact ? 0 : (order % 2 ? 12 : -12),
+              rotation: compact ? (order % 2 ? 2 : -2) : (order % 2 ? 5 : -5),
+              scale: compact ? .96 : .85,
               autoAlpha: 0, transformPerspective: 1200
             }, {
-              y: 0, rotationY: 0, scale: 1, autoAlpha: 1,
+              x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1, autoAlpha: 1,
               duration: .92, ease: "power1.inOut"
             }, i * .115);
             if (kind === "methods") {
@@ -341,9 +343,9 @@
               if (arrow && arrow.matches(".eao-method-arrow")
                   && getComputedStyle(arrow).display !== "none") {
                 tl.fromTo(arrow, {
-                  autoAlpha: 0, scale: .91, transformOrigin: "50% 50%"
+                  autoAlpha: 0, x: compact ? 0 : -40, scale: .66, transformOrigin: "50% 50%"
                 }, {
-                  autoAlpha: 1, scale: 1, duration: .58,
+                  autoAlpha: 1, x: 0, scale: 1, duration: .58,
                   ease: "power1.inOut"
                 }, i * .115 + .35);
               }
@@ -362,18 +364,18 @@
         const wires = org.querySelector(".eao-org-wires");
         if (center && center.offsetWidth) {
           const tl = sceneFor(org, center, {
-            entry: .90, travel: compact ? .30 : .33
+            entry: .90, travel: compact ? .34 : .48
           });
           if (tl) {
             tl.fromTo(center, {
-              y: compact ? 11 : 23, scale: .968, autoAlpha: 0
+              y: compact ? 34 : 122, rotationX: compact ? 0 : -11, scale: compact ? .96 : .86, autoAlpha: 0
             }, {
-              y: 0, scale: 1, autoAlpha: 1,
+              y: 0, rotationX: 0, scale: 1, autoAlpha: 1,
               duration: .85, ease: "power1.inOut"
             }, 0);
             if (wires && wires.offsetWidth) {
               tl.fromTo(wires, {
-                scaleY: .82, autoAlpha: 0, transformOrigin: "50% 0%"
+                scaleY: .15, autoAlpha: 0, transformOrigin: "50% 0%"
               }, {
                 scaleY: 1, autoAlpha: 1,
                 duration: .68, ease: "power1.inOut"
@@ -384,7 +386,7 @@
         }
         animateGlassRows(org.querySelector(".eao-org-grid"), ".eao-org-card", "org");
         subtleReveal(org, org.querySelector(".eao-org-summary"), {
-          entry: .96, travel: compact ? .21 : .24, y: 11
+          entry: .96, travel: compact ? .30 : .36, y: compact ? 30 : 75
         });
       }
 
@@ -395,7 +397,7 @@
         });
         animateGlassRows(methods.querySelector(".eao-method-flow"), ".eao-method-card", "methods");
         subtleReveal(methods, methods.querySelector(".eao-method-summary"), {
-          entry: .96, travel: compact ? .20 : .23, y: 12
+          entry: .96, travel: compact ? .30 : .36, y: compact ? 30 : 75
         });
       }
 
@@ -407,6 +409,38 @@
         if (!tl) return;
         tl.fromTo(heading, { y: 18, autoAlpha: 0 }, {
           y: 0, autoAlpha: 1, duration: .8, ease: "power1.inOut"
+        });
+        hold(tl);
+      });
+
+      // FAQ choreography includes the previously omitted About EAO list.
+      // Keep interactive summaries visible and focusable from frame zero.
+      document.querySelectorAll(".faq-group").forEach((group) => {
+        const list = group.querySelector(".faq-list");
+        if (!list || !list.offsetWidth) return;
+        const items = [...list.querySelectorAll(":scope > .faq-item")];
+        if (!items.length) return;
+        const tl = sceneFor(group, list, {
+          entry: compact ? .94 : .90,
+          travel: compact ? .50 : .67
+        });
+        if (!tl) return;
+        items.forEach((item, i) => {
+          const sign = i % 2 ? 1 : -1;
+          tl.fromTo(item, {
+            x: sign * (compact ? 45 : 122),
+            y: compact ? 5 : 0,
+            rotationY: compact ? 0 : sign * 12,
+            rotation: compact ? sign * .5 : sign * 1.25,
+            scale: compact ? .965 : .91,
+            opacity: compact ? .88 : .74,
+            transformPerspective: 1050,
+            transformOrigin: i % 2 ? "100% 50%" : "0% 50%"
+          }, {
+            x: 0, y: 0, rotationY: 0, rotation: 0,
+            scale: 1, opacity: 1,
+            duration: 1, ease: "power1.inOut"
+          }, i * .12);
         });
         hold(tl);
       });
