@@ -24,3 +24,14 @@
   }
 }
 #skills { overflow-x: clip; overflow-y: visible; }
+
+/* Choreography-only geometry; optical glass layers remain untouched. */
+.projects .project, .skills-grid .skill-card, .timeline .phase-glass,
+.principles .principle { backface-visibility: visible; }
+.projects .project h3, .skill-card h3, .phase-glass h3,
+.principle h3 { transform-origin: 50% 0%; }
+.skills-grid { perspective: 1450px; }
+@media (prefers-reduced-motion: reduce) {
+  .section-head *, .projects .project *, .skills-grid .skill-card *,
+  .timeline *, .principles * { clip-path: none !important; }
+}
