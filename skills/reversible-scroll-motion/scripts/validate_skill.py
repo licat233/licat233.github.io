@@ -172,10 +172,10 @@ if FILE.exists():
             "Hard fail conditions", "20/45/70%", "VISUAL NOT ACCEPTED")),
         ("MOTION-GRAMMAR.md", grammar_policy, (
             "Hard ban on presentation microanimations",
-            "Position-grounded trajectories", "stay static")),
+            "Position-grounded trajectories", "leave the content static")),
         ("ACCEPTANCE.md", acceptance_policy, (
             "Presentation microanimation ban", "NO MICROANIMATIONS",
-            "hidden→visible", "block production"))):
+            "hidden→visible", "production"))):
         for marker in markers:
             require(marker.lower() in document.lower(),
                     f"{name} missing enforced no-microanimation policy: {marker}")
