@@ -241,38 +241,71 @@
         return;
       }
 
-      // Hero L4: kinetic typography and spatial assembly; never fade to zero.
-      gsap.set(".site-header", { y: -65, rotationX: -16, transformOrigin: "50% 0%" });
-      gsap.set(".system-flow", { x: 300, rotation: -8, scale: 1.15 });
-      gsap.set(".flow-glow", { scale: .45, x: 140 });
-      gsap.set(".hero-ghost", { x: -155, rotation: -7, scale: 1.22 });
-      gsap.set(".hero-scene", { x: 140, y: 80, rotationY: -20, scale: .86 });
-      gsap.set(".eyebrow", { x: -90, clipPath: "inset(0 100% 0 0)" });
-      gsap.set(".hero-word", { yPercent: 145, rotationX: -67, transformOrigin: "50% 100%" });
-      gsap.set(".hero-inline-note", { x: -105, rotationY: -35 });
-      gsap.set(".hero-paren", { x: 45, rotation: 100, scale: .55 });
-      gsap.set(".hero-logo-token", { x: -80, rotation: -155, scale: .65 });
-      gsap.set(".hero-signal", { x: 100, rotationY: -70, scale: .72 });
-      gsap.set(".hero-badge", { y: -110, rotation: -160, scale: .53 });
-      gsap.set(".hero-actions", { x: -95, rotationY: -23 });
-      gsap.set(".hero-resource", { x: 105, rotationY: -36 });
-      const intro = gsap.timeline({ defaults: { ease: "power3.out" }, delay: .06 });
+      gsap.set(".site-header", { y: -22, autoAlpha: 0 });
+      gsap.set(".system-flow", { x: 150, autoAlpha: 0 });
+      gsap.set(".flow-glow", { autoAlpha: 0 });
+      gsap.set(".hero-ghost", { autoAlpha: 0, scale: 1.08 });
+      gsap.set(".hero-scene", { autoAlpha: 0, scale: 1.08 });
+      gsap.set(".eyebrow", { y: 12, autoAlpha: 0 });
+      gsap.set(".hero-word", { yPercent: 112, autoAlpha: 0 });
+      gsap.set(".hero-inline-note", { x: -14, autoAlpha: 0 });
+      gsap.set(".hero-paren", { scale: 0, autoAlpha: 0 });
+      gsap.set(".hero-logo-token", { scale: 0, rotation: -42, autoAlpha: 0 });
+      gsap.set(".hero-signal", { scale: 0.78, rotation: 6, autoAlpha: 0 });
+      gsap.set(".hero-badge", { scale: 0, rotation: -80, autoAlpha: 0 });
+      gsap.set(".hero-actions", { y: 16, autoAlpha: 0 });
+      gsap.set(".hero-resource", { y: 14, autoAlpha: 0 });
+
+      const intro = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        delay: 0.08
+      });
+
       intro
-        .to(".site-header", { y: 0, rotationX: 0, duration: .95 })
-        .to(".system-flow", { x: 0, rotation: 0, scale: 1, duration: 2, ease: "expo.out" }, .18)
-        .to(".flow-glow", { x: 0, scale: 1, duration: 1.8, stagger: .15 }, .2)
-        .to(".hero-ghost", { x: 0, rotation: 0, scale: 1, duration: 1.55 }, .29)
-        .to(".hero-scene", { x: 0, y: 0, rotationY: 0, scale: 1, duration: 1.55 }, .42)
-        .to(".eyebrow", { x: 0, clipPath: "inset(0 0 0 0)", duration: .86 }, .35)
-        .to(".hero-word", { yPercent: 0, rotationX: 0, duration: 1.28,
-            stagger: .17, ease: "back.out(1.12)" }, .57)
-        .to(".hero-inline-note", { x: 0, rotationY: 0, duration: .86 }, 1.0)
-        .to(".hero-paren", { x: 0, rotation: 0, scale: 1, duration: .8, stagger: .12 }, 1.12)
-        .to(".hero-logo-token", { x: 0, rotation: 0, scale: 1, duration: 1 }, 1.17)
-        .to(".hero-signal", { x: 0, rotationY: 0, scale: 1, duration: .98 }, 1.29)
-        .to(".hero-badge", { y: 0, rotation: 0, scale: 1, duration: 1.1 }, 1.31)
-        .to(".hero-actions", { x: 0, rotationY: 0, duration: .9 }, 1.54)
-        .to(".hero-resource", { x: 0, rotationY: 0, duration: .96, stagger: .13 }, 1.66);
+        .to(".site-header", { y: 0, autoAlpha: 1, duration: 0.62 })
+        .to(".flow-glow", { autoAlpha: 1, duration: 1.05, stagger: 0.12 }, "-=.38")
+        .to(".system-flow", { x: 0, autoAlpha: 1, duration: 1.25 }, "-=.92")
+        .to(".hero-ghost", { autoAlpha: 1, scale: 1, duration: 1.15 }, "-=1.02")
+        .to(".hero-scene", { autoAlpha: 1, scale: 1, duration: 1.0 }, "-=.92")
+        .to(".eyebrow", { y: 0, autoAlpha: 1, duration: 0.42 }, "-=.72")
+        .to(
+          ".hero-word",
+          {
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: 0.82,
+            stagger: 0.09,
+            ease: "power4.out"
+          },
+          "-=.56"
+        )
+        .to(".hero-inline-note", { x: 0, autoAlpha: 1, duration: 0.48 }, "-=.44")
+        .to(
+          ".hero-paren",
+          { scale: 1, autoAlpha: 1, duration: 0.46, stagger: 0.08, ease: "back.out(2)" },
+          "-=.34"
+        )
+        .to(
+          ".hero-logo-token",
+          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.56, ease: "back.out(1.7)" },
+          "-=.33"
+        )
+        .to(
+          ".hero-signal",
+          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.50, ease: "back.out(1.45)" },
+          "-=.38"
+        )
+        .to(
+          ".hero-badge",
+          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.68, ease: "back.out(1.55)" },
+          "-=.28"
+        )
+        .to(".hero-actions", { y: 0, autoAlpha: 1, duration: 0.44 }, "-=.33")
+        .to(
+          ".hero-resource",
+          { y: 0, autoAlpha: 1, duration: 0.44, stagger: 0.08 },
+          "-=.32"
+        );
 
       /* GSAP Creative Motion Showcase
          Official patterns: directional off-screen flights, SplitText masks,
@@ -429,8 +462,11 @@
           idleScenes.forEach(scene => scene.idleTween?.kill());
         });
 
-        // V1.4 L3/L4: each chapter title hinges into place as visible type;
-        // spatial movement, not opacity, is the defining transition.
+        // Storyboard:
+        // Section title = reading order; projects = frame -> identity -> explanation
+        // -> tags -> metadata; Skills = index -> name -> use -> actions;
+        // journey = chronological cause -> next milestone; principles = structure
+        // -> idea -> explanation. Every visible child shares the parent's timeline.
         gsap.utils.toArray(".section-head").forEach((head) => {
           const title = head.querySelector("h2");
           const eyebrow = head.querySelector(".kicker");
@@ -440,38 +476,42 @@
           let split = null;
           if (Split) {
             split = Split.create(title, { type: "chars", mask: "chars" });
+            // Pre-initialize ALL characters. No alternating random directions,
+            // no first/last glyph flash on a reverse or restored scroll.
             gsap.set(split.chars, {
-              yPercent: -135, rotationX: -95, transformOrigin: "50% 0%"
+              yPercent: -115, rotationX: -55, scale: .89, autoAlpha: 0
             });
             cleanups.push(() => split.revert());
           }
           const tl = gsap.timeline({
             scrollTrigger: {
-              trigger: head, ...createRange(head, .9, desktop ? .49 : .46),
+              trigger: head,
+              ...createRange(head, .88, desktop ? .41 : .39),
               scrub: true, onUpdate: synchronizeScene,
               invalidateOnRefresh: true
             }
           });
           if (eyebrow) tl.fromTo(eyebrow,
-            { x: -90, clipPath: "inset(0 100% 0 0)" },
-            { x: 0, clipPath: "inset(0 0 0 0)", duration: .74 }, 0);
-          if (split) tl.to(split.chars,
-            { yPercent: 0, rotationX: 0, duration: 1.10,
-              stagger: .043, ease: "back.out(1.1)" }, .17);
+            { y: 20, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: .42, ease: "power2.out" }, 0);
+          if (split) tl.fromTo(split.chars,
+            { yPercent: -115, rotationX: -55, scale: .89, autoAlpha: 0 },
+            { yPercent: 0, rotationX: 0, scale: 1, autoAlpha: 1,
+              stagger: .045, duration: .84, ease: "power2.out" }, .13);
           else tl.fromTo(title,
-            { y: -110, rotationX: -80, transformOrigin: "50% 0%" },
-            { y: 0, rotationX: 0, duration: 1.15 }, .17);
+            { y: -45, rotationX: -35, autoAlpha: 0 },
+            { y: 0, rotationX: 0, autoAlpha: 1, duration: .85 }, .13);
           if (note) tl.fromTo(note,
-            { x: desktop ? 130 : 55, clipPath: "inset(0 0 0 100%)" },
-            { x: 0, clipPath: "inset(0 0 0 0)", duration: .93 }, .4);
-          appendHold(tl, .12);
+            { y: 26, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: .58, ease: "power2.out" }, .42);
+          appendHold(tl);
           registerIdleScene(tl,
-            () => layoutTop(head) - window.scrollY,
-            () => head.offsetHeight, .98);
+            () => layoutTop(head) - window.scrollY, () => head.offsetHeight, .85);
         });
 
-        // Bento assembly: the frame travels from its actual grid-side; icon
-        // and arrow orbit inward, title drops as 3D type, tags form a row.
+        // Project pairs enter from the side where they actually sit in the
+        // composition. Within each glass frame, meaningful information arrives
+        // in reading order; optical filter / tint / rim layers are never animated.
         const projectGrid = document.querySelector(".projects");
         const projectCards = gsap.utils.toArray(".projects .project");
         if (projectGrid && projectCards.length) {
@@ -481,60 +521,52 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: projectGrid,
-                ...groupRange(projectGrid, group[0], .92, desktop ? .65 : .57),
+                ...groupRange(projectGrid, group[0], .91, desktop ? .58 : .54),
                 scrub: true, onUpdate: synchronizeScene,
                 invalidateOnRefresh: true
               }
             });
             group.forEach((card, column) => {
-              const side = desktop ? (column === 0 ? -1 : 1) : -1;
-              const at = column * .55;
-              const icon = card.querySelector(".project-icon");
-              const arrow = card.querySelector(".project-arrow");
+              const side = desktop ? (column === 0 ? -1 : 1) : (index % 2 ? 1 : -1);
+              const at = column * .46;
+              const top = card.querySelector(".project-top");
               const heading = card.querySelector("h3");
               const summary = card.querySelector("p");
               const tags = gsap.utils.toArray(card.querySelectorAll(".tag"));
               const metadata = gsap.utils.toArray(card.querySelectorAll(".project-meta span"));
               tl.fromTo(card,
-                { x: side * (desktop ? 245 : 95), y: desktop ? -32 : -25,
-                  rotationY: side * -37, rotationZ: side * 5,
-                  scale: .77, transformPerspective: 1300,
-                  transformOrigin: side < 0 ? "0% 50%" : "100% 50%" },
-                { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 1,
-                  duration: 2.46, ease: "sine.inOut" }, at);
-              if (icon) tl.fromTo(icon,
-                { x: side * -100, y: 58, rotation: side * -170, scale: .45 },
-                { x: 0, y: 0, rotation: 0, scale: 1,
-                  duration: .84, ease: "back.out(1.5)" }, at + .24);
-              if (arrow) tl.fromTo(arrow,
-                { x: -side * 100, y: -54, rotation: side * -100, scale: 1.6 },
-                { x: 0, y: 0, rotation: 0, scale: 1,
-                  duration: .78, ease: "power3.out" }, at + .30);
+                { x: side * (desktop ? 190 : 76), y: desktop ? 46 : 34,
+                  rotationY: side * -19, scale: .91, autoAlpha: 0 },
+                { x: 0, y: 0, rotationY: 0, scale: 1, autoAlpha: 1,
+                  duration: .95, ease: "power2.out" }, at);
+              if (top) tl.fromTo(top,
+                { y: 30, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .4 }, at + .43);
               if (heading) tl.fromTo(heading,
-                { y: -90, rotationX: -82, transformOrigin: "50% 0%" },
-                { y: 0, rotationX: 0, duration: 1.03,
-                  ease: "back.out(1.12)" }, at + .48);
+                { y: 35, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .47 }, at + .57);
               if (summary) tl.fromTo(summary,
-                { x: side * 96, clipPath: "inset(0 100% 0 0)" },
-                { x: 0, clipPath: "inset(0 0 0 0)", duration: .91 }, at + .80);
+                { y: 22, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .51 }, at + .79);
               if (tags.length) tl.fromTo(tags,
-                { x: side * 80, y: 35, rotationY: side * -55, scale: .65 },
-                { x: 0, y: 0, rotationY: 0, scale: 1,
-                  duration: .7, stagger: .15, ease: "back.out(1.2)" }, at + 1.02);
+                { y: 19, scale: .88, autoAlpha: 0 },
+                { y: 0, scale: 1, autoAlpha: 1, duration: .35, stagger: .085 },
+                at + 1.03);
               if (metadata.length) tl.fromTo(metadata,
-                { x: -65, clipPath: "inset(0 100% 0 0)" },
-                { x: 0, clipPath: "inset(0 0 0 0)",
-                  duration: .66, stagger: .12 }, at + 1.43);
+                { y: 13, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .32, stagger: .07 },
+                at + 1.32);
             });
-            appendHold(tl, .13);
+            appendHold(tl);
             registerIdleScene(tl,
               () => layoutTop(group[0]) - window.scrollY,
-              () => group[0].offsetHeight, 1.42);
+              () => group[0].offsetHeight, 1.18);
           }
         }
 
-        // A skill is a handbook: the frame hinges into the grid, the index
-        // establishes its source, and use-cases unfold as a knowledge fan.
+        // Skills can be appended after page load by portfolio-skills.js.
+        // Register each newly discovered card exactly once. No extra library,
+        // no independent scroll listeners/timers and no animation of glass layers.
         const skillsGrid = document.querySelector("#skills .skills-grid");
         if (skillsGrid) {
           const registered = new WeakSet();
@@ -549,54 +581,44 @@
               const tl = gsap.timeline({
                 scrollTrigger: {
                   trigger: skillsGrid,
-                  ...createRange(card, .92, desktop ? .69 : .62),
+                  ...createRange(card, .91, desktop ? .61 : .55),
                   scrub: true, onUpdate: synchronizeScene,
                   invalidateOnRefresh: true
                 }
               });
-              const idx = card.querySelector(".skill-index");
-              const domain = card.querySelector(".skill-domain");
-              const heading = card.querySelector("h3");
+              const top = card.querySelector(".skill-card-top");
+              const title = card.querySelector("h3");
               const summary = card.querySelector(".skill-summary");
               const usageTitle = card.querySelector(".skill-usage h4");
               const usages = gsap.utils.toArray(card.querySelectorAll(".skill-usage li"));
               const actions = card.querySelector(".skill-actions");
               tl.fromTo(card,
-                { x: side * (desktop ? 205 : 85), y: -36,
-                  rotationY: side * -49, scale: .83,
-                  transformPerspective: 1300,
-                  transformOrigin: side < 0 ? "0% 50%" : "100% 50%" },
-                { x: 0, y: 0, rotationY: 0, scale: 1,
-                  duration: 2.36, ease: "sine.inOut" }, 0);
-              if (idx) tl.fromTo(idx,
-                { x: side * 95, y: -56, rotation: side * -115, scale: 1.9 },
-                { x: 0, y: 0, rotation: 0, scale: 1,
-                  duration: .8, ease: "back.out(1.35)" }, .24);
-              if (domain) tl.fromTo(domain,
-                { x: -side * 95, rotationY: -side * 75 },
-                { x: 0, rotationY: 0, duration: .72 }, .36);
-              if (heading) tl.fromTo(heading,
-                { y: -105, rotationX: -78, transformOrigin: "50% 0%" },
-                { y: 0, rotationX: 0, duration: .96,
-                  ease: "back.out(1.2)" }, .52);
+                { x: side * (desktop ? 132 : 50), y: 42,
+                  rotationY: side * -12, scale: .94, autoAlpha: 0 },
+                { x: 0, y: 0, rotationY: 0, scale: 1, autoAlpha: 1,
+                  duration: .86, ease: "power2.out" }, 0);
+              if (top) tl.fromTo(top,
+                { y: 25, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .38 }, .4);
+              if (title) tl.fromTo(title,
+                { y: 32, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .48 }, .55);
               if (summary) tl.fromTo(summary,
-                { x: side * 90, clipPath: "inset(0 100% 0 0)" },
-                { x: 0, clipPath: "inset(0 0 0 0)", duration: .9 }, .77);
+                { y: 20, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .46 }, .78);
               if (usageTitle) tl.fromTo(usageTitle,
-                { y: -48, rotationX: -62 },
-                { y: 0, rotationX: 0, duration: .68 }, .95);
+                { y: 16, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .36 }, .95);
               if (usages.length) tl.fromTo(usages,
-                { x: side * 92, rotationY: side * -48, scale: .83 },
-                { x: 0, rotationY: 0, scale: 1,
-                  duration: .78, stagger: .20, ease: "power3.out" }, 1.12);
+                { x: -22, autoAlpha: 0 },
+                { x: 0, autoAlpha: 1, duration: .37, stagger: .12 }, 1.11);
               if (actions) tl.fromTo(actions,
-                { x: side * 70, y: 36, rotationY: side * -27 },
-                { x: 0, y: 0, rotationY: 0, duration: .73 }, 1.65);
-              appendHold(tl, .13);
+                { y: 22, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .4 }, 1.55);
+              appendHold(tl);
               skillTimelines.push(tl);
               registerIdleScene(tl,
-                () => layoutTop(card) - window.scrollY,
-                () => card.offsetHeight, 1.40);
+                () => layoutTop(card) - window.scrollY, () => card.offsetHeight, 1.10);
             });
             if (count) ScrollTrigger.refresh();
           };
@@ -614,14 +636,13 @@
               tl.scrollTrigger?.kill();
               tl.kill();
             });
-            gsap.set(skillsGrid.querySelectorAll(
-              ".skill-card, .skill-index, .skill-domain, .skill-card h3, .skill-summary, .skill-usage h4, .skill-usage li, .skill-actions"
-            ), { clearProps: "transform,opacity,visibility,clipPath" });
+            gsap.set(skillsGrid.querySelectorAll(".skill-card, .skill-card-top, .skill-card h3, .skill-summary, .skill-usage h4, .skill-usage li, .skill-actions"),
+              { clearProps: "transform,opacity,visibility" });
           });
         }
 
-        // Chronological, connected progress: marker -> glass step -> year
-        // -> idea -> detail. Desktop line grows as source reaches destination.
+        // Journey is chronological, not three unrelated simultaneous reveals.
+        // On narrow screens each milestone receives its own visible row trigger.
         const timelineGrid = document.querySelector(".timeline");
         const phases = gsap.utils.toArray(".timeline .phase");
         if (timelineGrid && phases.length) {
@@ -632,25 +653,22 @@
             const heading = phase.querySelector("h3");
             const detail = phase.querySelector("p");
             if (dot) tl.fromTo(dot,
-              { x: -85, y: 55, rotation: -180, scale: .40 },
-              { x: 0, y: 0, rotation: 0, scale: 1,
-                duration: .75, ease: "back.out(1.5)" }, at);
+              { scale: .4, rotation: -55, autoAlpha: 0 },
+              { scale: 1, rotation: 0, autoAlpha: 1,
+                duration: .4, ease: "back.out(1.4)" }, at);
             if (glass) tl.fromTo(glass,
-              { x: desktop ? -160 : -75, y: -44,
-                rotationY: -62, scale: .78,
-                transformPerspective: 1200, transformOrigin: "0% 50%" },
-              { x: 0, y: 0, rotationY: 0, scale: 1,
-                duration: 1.65, ease: "sine.inOut" }, at + .18);
+              { x: desktop ? -28 : -20, y: 25, scale: .96, autoAlpha: 0 },
+              { x: 0, y: 0, scale: 1, autoAlpha: 1,
+                duration: .64, ease: "power2.out" }, at + .11);
             if (year) tl.fromTo(year,
-              { x: 96, rotationY: -65 },
-              { x: 0, rotationY: 0, duration: .65 }, at + .42);
+              { y: 15, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: .3 }, at + .32);
             if (heading) tl.fromTo(heading,
-              { y: -80, rotationX: -78, transformOrigin: "50% 0%" },
-              { y: 0, rotationX: 0,
-                duration: .76, ease: "power3.out" }, at + .55);
+              { y: 19, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: .37 }, at + .45);
             if (detail) tl.fromTo(detail,
-              { x: 75, clipPath: "inset(0 100% 0 0)" },
-              { x: 0, clipPath: "inset(0 0 0 0)", duration: .72 }, at + .74);
+              { y: 17, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: .42 }, at + .56);
           };
           if (desktop) {
             timelineGrid.classList.add("motion-line");
@@ -658,18 +676,18 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: timelineGrid,
-                ...createRange(timelineGrid, .93, .68),
+                ...createRange(timelineGrid, .91, .66),
                 scrub: true, onUpdate: synchronizeScene,
                 invalidateOnRefresh: true
               }
             });
-            phases.forEach((phase, index) => makePhase(tl, phase, index * 1.28));
+            phases.forEach((phase, index) => makePhase(tl, phase, index * 1.02));
             tl.fromTo(timelineGrid, { "--motion-line": 0 },
-              { "--motion-line": 1, duration: 3.35, ease: "none" }, .12);
-            appendHold(tl, .10);
+              { "--motion-line": 1, duration: 2.4, ease: "none" }, .27);
+            appendHold(tl);
             registerIdleScene(tl,
               () => layoutTop(timelineGrid) - window.scrollY,
-              () => timelineGrid.offsetHeight, 1.75);
+              () => timelineGrid.offsetHeight, 1.50);
             cleanups.push(() => {
               timelineGrid.classList.remove("motion-line");
               timelineGrid.style.removeProperty("--motion-line");
@@ -679,22 +697,22 @@
               const tl = gsap.timeline({
                 scrollTrigger: {
                   trigger: timelineGrid,
-                  ...createRange(phase, .92, .50),
+                  ...createRange(phase, .91, .47),
                   scrub: true, onUpdate: synchronizeScene,
                   invalidateOnRefresh: true
                 }
               });
               makePhase(tl, phase, 0);
-              appendHold(tl, .12);
+              appendHold(tl);
               registerIdleScene(tl,
                 () => layoutTop(phase) - window.scrollY,
-                () => phase.offsetHeight, 1.08);
+                () => phase.offsetHeight, .90);
             });
           }
         }
 
-        // Philosophical principles are panels unfolding from a hinge:
-        // frame -> symbol -> number -> proposition -> explanation.
+        // Three principles explain a philosophy: icon / identifier gives a
+        // structure, followed by statement and explanatory text in reading order.
         const principlesGrid = document.querySelector(".principles");
         const principles = gsap.utils.toArray(".principles .principle");
         if (principlesGrid && principles.length) {
@@ -704,46 +722,74 @@
             const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: principlesGrid,
-                ...createRange(group[0], .92, desktop ? .38 : .42),
+                ...createRange(group[0], .90, desktop ? .58 : .47),
                 scrub: true, onUpdate: synchronizeScene,
                 invalidateOnRefresh: true
               }
             });
             group.forEach((card, column) => {
-              const at = column * .58;
+              const at = column * .35;
               const icon = card.querySelector(".principle-icon");
               const number = card.querySelector(".principle-no");
               const heading = card.querySelector("h3");
               const description = card.querySelector("p");
               tl.fromTo(card,
-                { rotationY: -72, x: -125, scale: .80,
-                  transformPerspective: 1200, transformOrigin: "0% 50%" },
-                { rotationY: 0, x: 0, scale: 1,
-                  duration: 1.65, ease: "sine.inOut" }, at);
+                { rotationY: desktop ? -37 : -20, x: -37,
+                  scale: .93, autoAlpha: 0, transformOrigin: "0% 50%" },
+                { rotationY: 0, x: 0, scale: 1, autoAlpha: 1,
+                  duration: .79, ease: "power2.out" }, at);
               if (icon) tl.fromTo(icon,
-                { x: -68, y: 35, rotation: -160, scale: .42 },
-                { x: 0, y: 0, rotation: 0, scale: 1,
-                  duration: .88, ease: "back.out(1.4)" }, at + .29);
+                { rotation: -50, scale: .57, autoAlpha: 0 },
+                { rotation: 0, scale: 1, autoAlpha: 1,
+                  duration: .44, ease: "back.out(1.5)" }, at + .35);
               if (number) tl.fromTo(number,
-                { x: 60, y: -65, rotationY: -68 },
-                { x: 0, y: 0, rotationY: 0, duration: .78 }, at + .38);
+                { y: -18, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .32 }, at + .42);
               if (heading) tl.fromTo(heading,
-                { y: -80, rotationX: -82 },
-                { y: 0, rotationX: 0,
-                  duration: .86, ease: "back.out(1.12)" }, at + .60);
+                { y: 24, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .47 }, at + .55);
               if (description) tl.fromTo(description,
-                { x: -68, clipPath: "inset(0 100% 0 0)" },
-                { x: 0, clipPath: "inset(0 0 0 0)", duration: .74 }, at + .92);
+                { y: 16, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: .43 }, at + .76);
             });
-            appendHold(tl, .12);
+            appendHold(tl);
             registerIdleScene(tl,
               () => layoutTop(group[0]) - window.scrollY,
-              () => group[0].offsetHeight, desktop ? 1.45 : 1.10);
+              () => group[0].offsetHeight, desktop ? 1.18 : .90);
           }
         }
 
-        // Footer stays still, visible, readable and clickable.
-        // A token fade-in would violate the anti-microanimation Skill v1.4.
+        // The small footer also participates, while its links remain clickable
+        // once in view. The short range is reachable near the bottom of the page.
+        const footer = document.querySelector(".site-footer");
+        const footerParts = [
+          footer?.querySelector(".footer-brand"),
+          footer?.querySelector(".footer-links"),
+          footer?.querySelector(".footer-note")
+        ].filter(Boolean);
+        if (footer && footerParts.length) {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: footer,
+              // Footer has little available scroll space: use a shorter,
+              // reachable range but only AFTER its top enters the viewport.
+              ...createRange(footer, .94, .17, 20),
+              scrub: true,
+              onUpdate: synchronizeScene,
+              invalidateOnRefresh: true
+            }
+          });
+          footerParts.forEach((part, index) => {
+            tl.fromTo(part,
+              { y: -18, rotationX: -24, autoAlpha: 0 },
+              { y: 0, rotationX: 0, autoAlpha: 1,
+                duration: .75, ease: "power1.inOut" }, index * .14);
+          });
+          appendHold(tl);
+          registerIdleScene(tl,
+            () => absTop(footer) - window.scrollY,
+            () => footer.offsetHeight);
+        }
         // Cover restored positions when no wheel event occurred after loading.
         // Schedule only while this responsive animation context is alive.
         requestAnimationFrame(() => {
