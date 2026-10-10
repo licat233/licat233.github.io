@@ -152,7 +152,7 @@
         }, .1);
         cleanups.push(() => split.revert());
       } else {
-        tl.fromTo(title, { y: 60, rotationX: -45, autoAlpha: 0 },
+        tl.fromTo(title, { y: -80, rotationX: -65, autoAlpha: .7 },
           { y: 0, rotationX: 0, autoAlpha: 1,
             duration: 1.1, ease: "power1.inOut" }, .1);
       }
@@ -205,21 +205,39 @@
       }
     });
 
+    // Timeline stages must be sequential and legible, not one row of
+    // independent fades. Each stage leads with its marker then its facts.
     document.querySelectorAll('[data-motion-scene="timeline"]').forEach(grid => {
       const entries = Array.from(grid.querySelectorAll("[data-motion-item]"));
       const rowSize = desktop ? entries.length : 1;
       for (let i = 0; i < entries.length; i += rowSize) {
         const group = entries.slice(i, i + rowSize);
-        const tl = createScene(grid, group[0], { entry: .88, travel: .44 });
+        const tl = createScene(grid, group[0], {
+          entry: .9, travel: desktop ? .65 : .49
+        });
         if (!tl) continue;
         group.forEach((entry, offset) => {
-          tl.fromTo(entry, {
-            clipPath: (i + offset) % 2 ? "inset(0 0 100% 0)" : "inset(100% 0 0 0)",
-            y: (i + offset) % 2 ? -30 : 30, autoAlpha: 0
-          }, {
-            clipPath: "inset(0 0 0 0)", y: 0, autoAlpha: 1,
-            duration: .9, ease: "power1.inOut"
-          }, offset * .1);
+          const at = offset * .82;
+          const marker = entry.querySelector(".step");
+          const heading = entry.querySelector("h3");
+          const detail = entry.querySelector("p");
+          tl.fromTo(entry,
+            { x: desktop ? -96 : -68, y: 38, scale: .85,
+              rotationY: -30, autoAlpha: .72 },
+            { x: 0, y: 0, scale: 1, rotationY: 0, autoAlpha: 1,
+              duration: .85, ease: "power2.out" }, at);
+          if (marker) tl.fromTo(marker,
+            { scale: .55, rotation: -85, autoAlpha: .7 },
+            { scale: 1, rotation: 0, autoAlpha: 1,
+              duration: .5, ease: "back.out(1.4)" }, at + .2);
+          if (heading) tl.fromTo(heading,
+            { y: -40, rotationX: -55 },
+            { y: 0, rotationX: 0,
+              duration: .63, ease: "power2.out" }, at + .39);
+          if (detail) tl.fromTo(detail,
+            { x: -32, clipPath: "inset(0 65% 0 0)" },
+            { x: 0, clipPath: "inset(0 0 0 0)",
+              duration: .56, ease: "power2.inOut" }, at + .56);
         });
         holdLastFrame(tl);
       }
@@ -233,15 +251,22 @@
         const tl = createScene(grid, group[0], { entry: .89, travel: .47 });
         if (!tl) continue;
         group.forEach((card, offset) => {
-          tl.fromTo(card, {
-            transformPerspective: 1100,
-            transformOrigin: (i + offset) % 2 ? "100% 50%" : "0% 50%",
-            rotationY: (i + offset) % 2 ? 75 : -75,
-            scale: .8, autoAlpha: 0
-          }, {
-            rotationY: 0, scale: 1, autoAlpha: 1,
-            duration: 1.05, ease: "power1.inOut"
-          }, offset * .1);
+          const at = offset * .38;
+          // Unfold a solid spatial plane, then assemble its idea and details.
+          tl.fromTo(card,
+            { transformPerspective: 1100, transformOrigin: "0% 50%",
+              rotationY: -64, scale: .85, autoAlpha: .75 },
+            { rotationY: 0, scale: 1, autoAlpha: 1,
+              duration: .96, ease: "power2.out" }, at);
+          const heading = card.querySelector("h3");
+          const description = card.querySelector("p");
+          if (heading) tl.fromTo(heading,
+            { rotationX: -62, y: -40 },
+            { rotationX: 0, y: 0, duration: .65 }, at + .34);
+          if (description) tl.fromTo(description,
+            { x: -35, clipPath: "inset(0 65% 0 0)" },
+            { x: 0, clipPath: "inset(0 0 0 0)",
+              duration: .62, ease: "power2.inOut" }, at + .56);
         });
         holdLastFrame(tl);
       }
