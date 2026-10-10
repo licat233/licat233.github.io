@@ -112,6 +112,19 @@ body.eao-v2 header.hero::after {
   content:none !important;
   background:none !important;
 }
+/*
+ * Section boundaries are not card borders: remove the old 1px separators
+ * so the original rain-window scene flows seamlessly across the page.
+ * Keep borders on cards, FAQ items, navigation and informational notes.
+ */
+body.eao-v2 main > section:not(.hero) {
+  border-top:0;
+  border-bottom:0;
+}
+body.eao-v2 footer {
+  border-top:0;
+}
+
 /* Forced colors should remain a true Canvas, not alpha-transparent artwork. */
 @media(forced-colors:active) {
   body.eao-v2 :is(header.hero, main > section, footer) {
