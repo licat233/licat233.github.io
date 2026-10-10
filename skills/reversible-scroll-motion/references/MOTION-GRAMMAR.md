@@ -15,7 +15,7 @@ The Licat production site illustrates **technique**, not mandatory appearance. C
 | --- | --- | --- | --- |
 | Hero | Introduce the product | One-time opening; optional SVG morph or gentle depth | Establishes the page, then stops competing with reading |
 | Section title | Signal a new chapter | Character masks/3D rotation and small kicker/note wipes | Starts while entering view, finishes legibly before leaving |
-| Portfolio/project grid | Show variety, emphasize composition | Eight directional flights, stagger by actual grid row; scale .72–.85 and ±8–13° rotation | Expressive approach followed by stable original grid |
+| Portfolio/project grid | Show structure and meaning | Position-grounded trajectories, perspective assembly, card→identity→details choreography; each row's movement follows its layout | A visible spatial story with clear parent/child landing |
 | Journey/timeline | Explain progression | Alternating directional clip reveal with rotating nodes | Natural reading sequence |
 | Principles/values | Convey structure | Perspective `rotationY` fold, brief stagger | Depth without changing the real card layout |
 | Footer | End with functional navigation | Short fade-and-rise | Should become usable even if its top never reaches mid-viewport |
@@ -51,10 +51,11 @@ These are **starting proposals**, not hard-coded standards. The footer may have 
 ## Motion depth and restraint
 
 - Prefer geometric transform choreography, not neon glows or a pile of floaty SaaS cards.
+- **Hard ban on presentation microanimations:** a generic small fade-up, opacity-only reveal, random-direction flight or decorative stagger does not count as a main animation, even when JS works. If you cannot justify visible geometric travel or transformation, leave the content static instead.
 - Keep real CSS grid intact. Transform card content inside grid cells; no change to `position` or `display` to build a temporary stack.
 - Use a 2-step `fromTo` + `to` for large flights to avoid abrupt landings; let `timeline.progress()` reverse them.
-- Use mild translation for explanatory text. Avoid complex masking on long paragraphs.
-- Favor one intentional focal animation in each region, supported by subtle sibling movement.
+- Dense explanatory copy can remain static; do not pad the animation count with tiny translations. Avoid complex masking on long paragraphs.
+- Favor one intentional focal motion event in each region, with subordinate children moving as a meaningful consequence (not identical opacity-only staggers).
 - Theme, navigation and accessibility remain independent of scroll and should not be animated away.
 
 ## References

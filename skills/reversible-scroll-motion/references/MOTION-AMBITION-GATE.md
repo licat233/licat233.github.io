@@ -19,6 +19,53 @@ This does not establish that models consciously avoid risk or that
 subtle animation is always bad. The verified problem is that generic
 fade-up code can pass technical QA while failing the visual brief.
 
+## Gate 0 — hard ban on presentation microanimations
+
+**Default: NO MICROANIMATIONS in narrative/showcase scenes.**
+“Hidden → visible” is an appearance transition, not a creative motion
+concept. The prior subjective advice was too weak: perfectly valid GSAP
+and all-green device tests still shipped undistinguished opacity reveals.
+
+**Hard fail conditions for major sections (hero, chapters, project/skill
+cards, diagrams, timelines, comparisons, showcases):**
+
+- The primary visual change is `opacity: 0 → 1`, `autoAlpha: 0 → 1`,
+  fade-up / slide-in by a token 20–40px, or the same stagger preset
+  repeated across unrelated scenes.
+- A seemingly large transform spends most of its journey invisible,
+  offscreen, behind a mask, or compressed by idle completion; users
+  only perceive an appearance at the final position.
+- Only the parent appears while its meaningful child facts remain
+  static, or the parent/children all use the same fade-in without
+  meaningful sequence.
+- Cards launch from arbitrary eight/random directions without
+  relation to composition, content, reading order or causal structure.
+- The author argues for “subtlety,” “professionalism,” or test PASS
+  instead of demonstrating a genuinely visible, expressive motion.
+
+**Required alternative:** choose a story-specific physical event
+(e.g. ordered path traversal, perspective unfold, shape transformation,
+layered spatial assembly, connection line drawing, source-to-result
+movement, chapter typography with readable cadence). For each major
+scene, prove that a human can explain the motion with an **action verb**
+other than “appear” or “fade.” Document the source, destination,
+dependency of child items, viewport timing and reverse path.
+
+At real wheel/touch speed, inspect 20/45/70% mid-flight **while the
+subject is visibly on screen**. The user should distinguish movement,
+cause-and-effect and a composed landing. If not, record
+**VISUAL NOT ACCEPTED** — an engineering PASS cannot override this.
+
+Opacity remains allowed as a *supporting channel* for overlap or
+occlusion, not as the principal content experience. There is no
+arbitrary minimum pixel distance: perceptible geometry and narrative
+are the proof. If text-heavy material does not warrant motion, leave
+it static rather than decorating it with a small fade.
+
+**Narrow exceptions:** L1 hover/press/focus and functional controls;
+reduced-motion accessibility; unobtrusive dense editorial copy. These
+exceptions must not be used to downgrade L3/L4 sections by default.
+
 ## Gate 1 — read the content and choose ambition deliberately
 
 Before writing GSAP/CSS, prepare a small **internal storyboard** per

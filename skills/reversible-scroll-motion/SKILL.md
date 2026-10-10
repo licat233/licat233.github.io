@@ -1,7 +1,7 @@
 ---
 name: reversible-scroll-motion
-version: 1.3.0
-description: Build and repair production-grade, GSAP-powered, reversible scroll animations for websites. Use for cinematic entrances, eight-direction card flights, SplitText headings, timeline wipes, 3D panels, footer reveals, ScrollTrigger scrub timing, idle/setTimeout visibility fallback, mobile/reduced-motion support, and browser QA. Also use when scroll animations hide content, fail at page bottom, inflate document height, or stop working on reverse scroll. Includes semantic A-to-D workflows, falling glyph headings, parent-child item choreography, and animated FAQ lists. Requires choosing L1-L4 ambition by content meaning and separate perceptual-motion review, not default microanimations.
+version: 1.4.0
+description: Build and repair production-grade, GSAP-powered, reversible scroll animations for websites. Use for cinematic entrances, meaning-driven spatial card choreography, SplitText headings, timeline wipes, 3D panels, footer reveals, ScrollTrigger scrub timing, idle/setTimeout visibility fallback, mobile/reduced-motion support, and browser QA. Also use when scroll animations hide content, fail at page bottom, inflate document height, or stop working on reverse scroll. Includes semantic A-to-D workflows, falling glyph headings, parent-child item choreography, and animated FAQ lists. Requires choosing L1-L4 ambition by content meaning and separate perceptual-motion review, with a hard ban on presentation microanimations.
 ---
 
 # Reversible Scroll Motion — production workflow
@@ -9,6 +9,47 @@ description: Build and repair production-grade, GSAP-powered, reversible scroll 
 Create expressive, readable, accessible page motion without scroll hijacking. This Skill was distilled from the launched bilingual Licat homepage. Do **not** copy its colors, typography, text, layout, or site identity; transfer its **technique** to the user's existing page.
 
 > **Invariant:** Scrolling can control *how* content moves; it must never be the only thing controlling *whether content can be read*. An element in the viewport must become fully readable even if scrolling stops.
+
+## HARD RULE — Ban presentation microanimations
+
+**Default mode: NO MICROANIMATIONS for storytelling and showcase content.**
+For heroes, chapter headings, project/skill cards, product showcases,
+timelines, comparisons and meaningful card children, a generic
+`opacity: 0 → 1`, `autoAlpha` reveal, tiny `translateY` fade-up,
+or decorative `stagger` is **NOT an animation design**. Reject it as
+the primary effect even when browser/JS tests pass.
+
+This is a *visual outcome gate*, not a ban on every use of opacity.
+Apply these enforceable requirements:
+
+1. **Movement before appearance:** Design a readable spatial event —
+   directional travel tied to layout/meaning, path following, SVG drawing
+   or morphing, perspective unfolding, scale/depth choreography,
+   connecting-line progress or a real causal transformation. A viewer must
+   see meaningful travel/change in the viewport at normal scroll speed.
+2. **Never treat fade-in as the story.** Opacity can support occlusion or
+   prevent awkward overlap, but cannot supply the principal motion or
+   conceal most of an otherwise large movement. Prefer visible motion
+   over items simply materializing at their final coordinates.
+3. **No random showmanship:** Eight-direction/random card flights,
+   arbitrary rotation or uniform stagger for unrelated items are also
+   rejected. Movement must express parent→child, step→connector→next
+   step, source→result, or actual position in the composition.
+4. **No consolation microanimations:** If a paragraph or practical UI
+   region has no meaningful motion story, **leave it static** rather than
+   add a token 20–40px fade-up to claim the page is animated.
+5. **Every major content scene requires a distinct storyboard** stating
+   what physically changes, why, what its child items do, what a human
+   sees at 20/45/70% playback and how it reverses/settles. Motion that
+   only reads as “hidden → visible” is **VISUAL NOT ACCEPTED**.
+6. **Exceptions are scoped, not loopholes:** L1 press/hover/focus,
+   functional state feedback, reduced-motion accessibility and
+   unobtrusive dense reading copy may use restrained motion or remain
+   static. These must not replace the main site's L3/L4 choreography.
+
+Read the **[mandatory anti-microanimation gate](references/MOTION-AMBITION-GATE.md#gate-0--hard-ban-on-presentation-microanimations)**
+before any motion implementation. **Do not deploy** a visually failing
+preview regardless of engineering QA or a passing static validator.
 
 ## 0. Before touching code
 
@@ -20,7 +61,7 @@ Create expressive, readable, accessible page motion without scroll hijacking. Th
    choose **L1–L4** purpose and ambition **per scene** with a rationale.
    Record entry path, real viewing window, causal order and visual QA
    evidence. See the mandatory [ambition gate](references/MOTION-AMBITION-GATE.md).
-   Do not default to 20–40px Fade Up for an L3/L4 request.
+   Do not use 20–40px Fade Up / opacity reveal as an L3/L4 substitute.
 5. **Choose movement by information meaning**: a sequence is not an
    unordered card grid; a heading has reading order; a parent card can
    contain facts that need their own sequence. Decide this before GSAP.
@@ -75,7 +116,7 @@ real mid-flight viewing window**. Suggested defaults, not universal:
 | --- | --- | --- | --- |
 | Hero | One-time load intro, optional SVG morph | Initial load | Before interaction |
 | Section heading | Masked SplitText chars, modest 3D rotation, note wipe | Top near 85–90% viewport height | Top near 40–50% |
-| Grid cards | Different offscreen directions, rotate/scale, stagger per row | Top near 88–90% | Top near 37–45% |
+| Grid cards | Layout-grounded paths, position-aware spatial placement, semantic parent/child staging | Top near 88–90% | Top near 37–45% |
 | Timeline | Alternating clip masks, node rotation | Top near 85–90% | Top near 42–50% |
 | Principles | Perspective unfold | Top near 85–90% | Top near 40–50% |
 | Footer | Short fade/rise | As soon as actually visible | **Never require screen midpoint** |
@@ -162,9 +203,9 @@ See [implementation details](references/IMPLEMENTATION.md) and [fully runnable c
   states: ensure visible travel, comprehensible causal ordering,
   interesting spatial layers and landing, not merely working JS.
 - Run separate **engineering acceptance** and **visual-motion acceptance**.
-  If the requested L3/L4 scene is imperceptible, mark visual NOT ACCEPTED
-  regardless of a perfect viewport test matrix; revise and review with
-  the user before production promotion.
+  If an L3/L4 scene is primarily fade-in, generic stagger, or visibly
+  imperceptible, mark **visual NOT ACCEPTED** regardless of a perfect
+  viewport test matrix; revise and review with the user before production.
 
 ### Narrative QA (in addition to scroll mechanics)
 

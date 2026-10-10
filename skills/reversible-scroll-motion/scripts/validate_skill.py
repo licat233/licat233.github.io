@@ -119,7 +119,7 @@ if case.exists():
         require(marker.lower() in example.lower(),
                 f"EAO nested-child scene case lacks: {marker}")
     main = FILE.read_text(encoding="utf-8")
-    for marker in ("version: 1.3.0", "Parent + child animation",
+    for marker in ("version: 1.4.0", "Parent + child animation",
                    "inventory", "shared", "readable"):
         require(marker.lower() in main.lower(),
                 f"Motion Skill lacks explicit nested-scene policy: {marker}")
@@ -154,6 +154,34 @@ if ambition.exists() and FILE.exists():
     require("references/MOTION-AMBITION-GATE.md" in skill_text,
             "Root SKILL.md must link the mandatory ambition guide")
 
+# Do not let an all-green technical suite substitute for the user's
+# expressive-motion brief. This validates the written hard gate; judging
+# actual visual impact still requires real-time browser/user review.
+if FILE.exists():
+    root_policy = FILE.read_text(encoding="utf-8")
+    ambition_policy = (SKILL / "references/MOTION-AMBITION-GATE.md").read_text(encoding="utf-8")
+    grammar_policy = (SKILL / "references/MOTION-GRAMMAR.md").read_text(encoding="utf-8")
+    acceptance_policy = (SKILL / "references/ACCEPTANCE.md").read_text(encoding="utf-8")
+    for name, document, markers in (
+        ("SKILL.md", root_policy, (
+            "HARD RULE", "NO MICROANIMATIONS",
+            "Movement before appearance", "No consolation microanimations",
+            "VISUAL NOT ACCEPTED", "reduced-motion accessibility")),
+        ("MOTION-AMBITION-GATE.md", ambition_policy, (
+            "Gate 0", "hard ban on presentation microanimations",
+            "Hard fail conditions", "20/45/70%", "VISUAL NOT ACCEPTED")),
+        ("MOTION-GRAMMAR.md", grammar_policy, (
+            "Hard ban on presentation microanimations",
+            "Position-grounded trajectories", "leave the content static")),
+        ("ACCEPTANCE.md", acceptance_policy, (
+            "Presentation microanimation ban", "NO MICROANIMATIONS",
+            "hidden→visible", "production"))):
+        for marker in markers:
+            require(marker.lower() in document.lower(),
+                    f"{name} missing enforced no-microanimation policy: {marker}")
+    require("Eight directional flights" not in grammar_policy,
+            "Motion grammar still promotes random eight-direction flights")
+
 js = SKILL / "assets/reversible-motion.js"
 css = SKILL / "assets/motion.css"
 if js.exists():
@@ -163,6 +191,17 @@ if js.exists():
                      "prefers-reduced-motion", "scrollHeight"):
         require(fragment in source, f"Controller missing expected behavior: {fragment}")
     require("padding-block-end" not in source, "Controller uses footer padding hack")
+    require("Eight directional flights" not in source and
+            "const directions = [" not in source,
+            "Controller still promotes random-direction card flights")
+    require("const heading = card.querySelector" in source and
+            "const detail = card.querySelector" in source,
+            "Controller must stage meaningful card child elements")
+    require("const marker = entry.querySelector" in source and
+            "const heading = entry.querySelector" in source,
+            "Timeline controller must stage steps and contents")
+    require("opacity-only" in (SKILL / "README.md").read_text().lower(),
+            "README must explain ban on opacity-only showcase reveals")
     if shutil.which("node"):
         check = subprocess.run(["node", "--check", str(js)], capture_output=True, text=True)
         require(check.returncode == 0, f"JavaScript syntax failure:\n{check.stderr}")
