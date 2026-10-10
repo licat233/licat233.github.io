@@ -1,0 +1,79 @@
+/* Dedicated Styles for the Skills section, matched to the existing Apple-glass portfolio. */
+#skills {
+  position:relative; scroll-margin-top:9.375rem;
+  background:radial-gradient(ellipse at 14% 18%,rgba(49,171,212,.11),transparent 48%),
+             radial-gradient(ellipse at 86% 86%,rgba(19,158,149,.09),transparent 48%);
+}
+.skills-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.125rem}
+.skill-card {
+  position:relative;isolation:isolate;display:flex;min-width:0;min-height:25.5rem;
+  padding:clamp(1.375rem,2.7vw,2.125rem);border-radius:var(--radius-card);overflow:hidden;
+  transition:transform .36s cubic-bezier(.16,1,.3,1),box-shadow .36s ease,border-color .36s ease;
+}
+.skill-card > .lg-glass-filter {-webkit-backdrop-filter:blur(10px) saturate(135%);backdrop-filter:blur(10px) saturate(135%)}
+.skill-card > .lg-glass-overlay {background:linear-gradient(140deg,rgba(255,255,255,.24),transparent 56%),var(--lg-demo-overlay)}
+.skill-card > .skill-card-content {position:relative;z-index:3;display:flex;flex-direction:column;flex:1;min-width:0}
+.skill-card-top {display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem 1.25rem}
+.skill-index {color:var(--text-2);font-size:1.0625rem;font-weight:740;font-variant-numeric:tabular-nums}
+.skill-domain {color:#4a6473;font-size:.65625rem;font-weight:730;letter-spacing:.08em;text-transform:uppercase}
+.skill-card h3 {margin:1.5rem 0 .75rem;font-size:clamp(1.375rem,2.1vw,1.875rem);line-height:1.2;letter-spacing:-.035em;overflow-wrap:anywhere}
+.skill-summary {margin:0;max-width:33rem;color:#344e5d;font-size:.90625rem;line-height:1.78}
+.skill-usage {margin-top:1.625rem;padding-top:1.25rem;border-top:1px solid rgba(47,93,114,.14)}
+.skill-usage h4 {margin:0 0 .625rem;color:#38586a;font-size:.6875rem;font-weight:760;letter-spacing:.09em;text-transform:uppercase}
+.skill-usage ul {display:grid;gap:.5rem;margin:0;padding:0;list-style:none}
+.skill-usage li {display:flex;align-items:baseline;gap:.625rem;min-width:0;color:#415b68;font-size:.8125rem;line-height:1.5}
+.skill-usage li::before {content:"";flex:0 0 .375rem;width:.375rem;height:.375rem;border-radius:50%;background:#238c9a}
+.skill-actions {display:flex;align-items:center;flex-wrap:wrap;gap:.875rem 1.25rem;margin-top:auto;padding-top:1.875rem}
+.skill-link {
+  display:inline-flex;align-items:center;justify-content:space-between;gap:1.125rem;
+  min-height:2.625rem;padding:.625rem 1rem;border:1px solid rgba(255,255,255,.84);
+  border-radius:var(--radius-pill);background:rgba(240,250,253,.45);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 4px 16px rgba(25,71,88,.08);
+  color:#1e455b;font-size:.8125rem;font-weight:740;
+  -webkit-backdrop-filter:blur(6px) saturate(120%);backdrop-filter:blur(6px) saturate(120%);
+  transition:background .24s ease,transform .24s ease,box-shadow .24s ease;
+}
+.skill-link:hover,.skill-link:focus-visible {background:rgba(241,252,255,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.96),0 7px 22px rgba(25,71,88,.14)}
+.skill-source {color:#3b6476;font-size:.8125rem;font-weight:680;text-underline-offset:.25rem}
+.skill-source:hover,.skill-source:focus-visible {text-decoration:underline}
+.skills-directory-link {display:inline-flex;gap:.75rem;align-items:center;margin-top:1.625rem;padding-block:.375rem;color:var(--text-2);font-size:.8125rem;font-weight:700;text-underline-offset:.25rem}
+.skills-directory-link:hover,.skills-directory-link:focus-visible {text-decoration:underline}
+@media (hover:hover) and (pointer:fine) {
+  .skill-card:hover {transform:translateY(-.3125rem);border-color:rgba(255,255,255,.88);box-shadow:0 17px 36px var(--lg-demo-depth),inset 0 1px 0 var(--lg-demo-rim)}
+  .skill-link:hover {transform:translateY(-1px)}
+}
+:root[data-theme="dark"] .skill-card > .lg-glass-overlay {background:linear-gradient(140deg,rgba(218,242,252,.065),transparent 60%),var(--lg-demo-overlay)}
+:root[data-theme="dark"] .skill-index {color:#e3edf1}
+:root[data-theme="dark"] .skill-domain {color:#b8c8d0}
+:root[data-theme="dark"] .skill-summary {color:#cbd8de}
+:root[data-theme="dark"] .skill-usage {border-color:rgba(222,239,249,.14)}
+:root[data-theme="dark"] .skill-usage h4 {color:#aacbd9}
+:root[data-theme="dark"] .skill-usage li {color:#c3d1d8}
+:root[data-theme="dark"] .skill-usage li::before {background:#77c7d1}
+:root[data-theme="dark"] .skill-link {color:#e0f3fa;background:rgba(45,70,80,.50);border-color:rgba(211,238,253,.27);box-shadow:inset 0 1px 0 rgba(234,250,255,.15),0 5px 18px rgba(0,0,0,.17)}
+:root[data-theme="dark"] .skill-link:hover,:root[data-theme="dark"] .skill-link:focus-visible {background:rgba(59,91,103,.70)}
+:root[data-theme="dark"] .skill-source {color:#a8cfdf}
+@media (max-width:760px) {
+  .skills-grid {grid-template-columns:1fr;gap:1rem}
+  .skill-card {min-height:0;padding:1.5rem}
+  .skill-card > .lg-glass-filter {-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(249,252,255,.65)}
+  :root[data-theme="dark"] .skill-card > .lg-glass-filter {background:rgba(27,39,48,.67)}
+  .skill-link {-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+@media (prefers-reduced-transparency:reduce), (prefers-contrast:more) {
+  .skill-card > .lg-glass-filter {-webkit-backdrop-filter:none;backdrop-filter:none}
+  .skill-card > .lg-glass-overlay {background:#f5f9fc}
+  :root[data-theme="dark"] .skill-card > .lg-glass-overlay {background:#202d35}
+  .skill-link {-webkit-backdrop-filter:none;backdrop-filter:none;background:#eff7fa}
+  :root[data-theme="dark"] .skill-link {background:#2b3f49}
+}
+@media (forced-colors:active) {
+  .skill-card > .lg-glass-filter,.skill-card > .lg-glass-overlay,.skill-card > .lg-glass-specular {display:none}
+  .skill-card,.skill-link {background:Canvas;border-color:CanvasText;box-shadow:none}
+  .skill-domain,.skill-summary,.skill-usage h4,.skill-usage li,.skill-index,.skill-link,.skill-source {color:CanvasText}
+  .skill-usage li::before {background:CanvasText}
+}
+@media (prefers-reduced-motion:reduce) {
+  .skill-card,.skill-link {transition:none}
+  .skill-card:hover,.skill-link:hover {transform:none}
+}
