@@ -1,24 +1,41 @@
 /*
- * EAO isolated preview — REAL rain-on-glass at night, not a pale synthetic fog.
- * Based on the user's reference: near-black blue/cyan night with small magenta
- * and amber bokeh and photographed raindrops. Two locally hosted static WebP.
- * No JS, WebGL, video, filters, CSS opacity wash, or background animation.
+ * EAO /demo ONLY — original rainy-window WebGL layer.
+ * Background is the isolated original reference renderer inside an iframe.
+ * This site stylesheet does not redraw raindrops, apply imagery, or alter
+ * the source renderer. No full-screen white / coloured overlay.
  */
-body.eao-v2 {
-  background-color:#071a2b;
-  background-image:url("./assets/rain-window-day.webp");
-  background-position:center 47%;
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
+body.eao-v2, :root[data-theme="dark"] body.eao-v2 {
+  position:relative;
+  isolation:isolate;
+  background:#080e17;
+  background-image:none;
+  background-attachment:scroll;
 }
-:root[data-theme="dark"] body.eao-v2 {
-  background-color:#061524;
-  background-image:url("./assets/rain-window-night.webp");
-  background-position:center 47%;
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
+body.eao-v2::before,
+:root[data-theme="dark"] body.eao-v2::before {
+  display:none;
+}
+/* The iframe is a real composited WebGL surface. Put it at z=0 rather
+ * than behind the body's painting plane; all existing UI stays above it. */
+ .eao-v2 :is(main,footer) {
+  position:relative;
+  z-index:1;
+}
+.eao-v2 nav {
+  /* Original floating navigation is FIXED, not relative. */
+  position:fixed;
+  z-index:1000;
+}
+.eao-v2 .eao-reference-rain-frame {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100vh;
+  height:100dvh;
+  z-index:0;
+  pointer-events:none;
+  border:0;
+  background:#080e17;
 }
 /* Light-theme content now sits over a NIGHT photograph, not pale paper.
  * Use actual light text (no blurred shadow or faux outline) outside cards.
@@ -81,65 +98,27 @@ body.eao-v2 {
 }
 /* Accessibility degrades the wallpaper to quiet paper without relying on
  * dark-on-dark text; the original palette is already used in high contrast. */
-@media(max-width:700px) {
-  /* A scroll-attached body photo scales to the whole LONG page and loses its
-     city/window composition. A STATIC fixed viewport layer avoids the iOS
-     background-attachment:fixed issue, without a moving animation. */
-  body.eao-v2 {
-    isolation:isolate;
-    background:#071a2b;
-  }
-  :root[data-theme="dark"] body.eao-v2 {
-    background:#061524;
-  }
-  body.eao-v2::before {
-    content:"";
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100vh;
-    height:100dvh;
-    z-index:-1;
-    pointer-events:none;
-    background-color:#071a2b;
-    background-image:url("./assets/rain-window-day.webp");
-    background-repeat:no-repeat;
-    background-position:center 47%;
-    background-size:cover;
-    opacity:1;
-    filter:none;
-    transform:none;
-    animation:none;
-    will-change:auto;
-  }
-  :root[data-theme="dark"] body.eao-v2::before {
-    background-color:#061524;
-    background-image:url("./assets/rain-window-night.webp");
-    opacity:1;
-    filter:none;
-  }
-}
-/* Accessible fallback: no image and proper foreground contrast again. */
-@media(prefers-reduced-transparency:reduce),(prefers-contrast:more) {
-  body.eao-v2 { background:#f0f5f8; }
-  :root[data-theme="dark"] body.eao-v2 { background:#172a39; }
-  body.eao-v2::before { background:#f0f5f8; }
-  :root[data-theme="dark"] body.eao-v2::before { background:#172a39; }
-  :root:not([data-theme="dark"]) .eao-v2 :is(.hero h1,.hero h1 span,.section-title,.faq-group > h3,.eao-org-intro h3,.eao-method-intro h3) {
-    color:#152b37;
-    -webkit-text-fill-color:#152b37;
-  }
-  :root:not([data-theme="dark"]) .eao-v2 :is(.hero p.lead,#departments > .wrap > p.intro,#knowledge-story > .wrap > p.intro,.eao-org-intro p,.eao-method-intro p) {
-    color:#425762;
-  }
-}
 
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  body.eao-v2 {background:#f0f5f8;}
+  :root[data-theme="dark"] body.eao-v2 {background:#172a39;}
+  .eao-v2 .eao-reference-rain-frame {display:none;}
+  :root:not([data-theme="dark"]) .eao-v2 :is(
+    .hero h1,.hero h1 span,.section-title,.faq-group > h3,
+    .eao-org-intro h3,.eao-method-intro h3
+  ) {color:#152b37;-webkit-text-fill-color:#152b37;}
+  :root:not([data-theme="dark"]) .eao-v2 :is(
+    .hero p.lead,#departments > .wrap > p.intro,
+    #knowledge-story > .wrap > p.intro,.eao-org-intro p,.eao-method-intro p
+  ) {color:#425762;}
+}
 @media(forced-colors:active) {
   body.eao-v2,:root[data-theme="dark"] body.eao-v2 {background:Canvas;}
-  body.eao-v2::before,:root[data-theme="dark"] body.eao-v2::before {background:Canvas;}
-  .eao-v2 :is(.hero h1,.hero h1 span,.section-title,.faq-group > h3,.eao-org-intro h3,.eao-method-intro h3,
-    .hero p.lead,#departments > .wrap > p.intro,#knowledge-story > .wrap > p.intro,.eao-org-intro p,.eao-method-intro p) {
-    color:CanvasText;
-    -webkit-text-fill-color:CanvasText;
+  .eao-v2 .eao-reference-rain-frame {display:none;}
+  .eao-v2 :is(.hero h1,.hero h1 span,.section-title,.faq-group > h3,
+    .eao-org-intro h3,.eao-method-intro h3,.hero p.lead,
+    #departments > .wrap > p.intro,#knowledge-story > .wrap > p.intro,
+    .eao-org-intro p,.eao-method-intro p) {
+    color:CanvasText;-webkit-text-fill-color:CanvasText;
   }
 }

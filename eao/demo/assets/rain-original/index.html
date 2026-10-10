@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+/*
+ * Isolated original Demo background layer — WebGL/canvas only.
+ * All actual refraction shaders, drop textures and simulations live in
+ * the unchanged raindrops.js mirrored from the demo's own remote dependency.
+ * No City preset photo: the WebGL's embedded night-scene reflection JPEG
+ * is the actual visual the reference screenshot most closely resembles.
+ */
+* { box-sizing:border-box }
+html,body {margin:0;width:100%;height:100%;overflow:hidden}
+body {
+  background:#000 url("./frame-fallback.webp") center / cover no-repeat;
+}
+html.rain-running body {background:#000}
+#bg-canvas {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  mix-blend-mode:screen;
+  opacity:.7; /* exact reference default: state.rain / 100 */
+  pointer-events:none;
+}
+@media (prefers-reduced-motion:reduce),(prefers-reduced-transparency:reduce),(forced-colors:active) {
+  html.rain-running body {background:#000 url("./frame-fallback.webp") center/cover no-repeat}
+  #bg-canvas {display:none}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<script>
+/* Only load the original animation in capable browsers.
+ * This preview preserves the full original shader implementation instead
+ * of painting any new droplets. The iframe is pointer-events:none, so the
+ * vendor's mouse-parallax listener cannot observe website mouse movement. */
+(() => {
+  const modeQueries = [
+    matchMedia("(prefers-reduced-motion:reduce)"),
+    matchMedia("(prefers-reduced-transparency:reduce)"),
+    matchMedia("(forced-colors:active)")
+  ];
+  // Media preferences can change while the page is open; restart only this
+  // iframe to stop the original two RAF loops and select the still image.
+  modeQueries.forEach(query => query.addEventListener("change", () => location.reload()));
+  const isReduced = modeQueries.some(query => query.matches);
+  if (isReduced) return;
+  const canvas = document.getElementById("bg-canvas");
+  // Probe on a disposable canvas. Creating the real context here would lock
+  // its viewport at the default 300 x 150 BEFORE the upstream boot sizes it.
+  try {
+    if (!document.createElement("canvas").getContext("webgl")) return;
+  } catch { return; }
+  document.documentElement.classList.add("rain-running");
+  const script = document.createElement("script");
+  script.src = "./raindrops.js";
+  script.onerror = () => {
+    document.documentElement.classList.remove("rain-running");
+    canvas.style.display = "none";
+  };
+  document.body.appendChild(script);
+  // The original renderer creates its WebGL viewport only at bootstrap.
+  // On a real device orientation change, reload THIS BACKGROUND iframe only,
+  // not the EAO page. Avoid a permanently stretched/stale canvas.
+  let viewportWidth = innerWidth, viewportHeight = innerHeight, resizeDelay;
+  addEventListener("resize", () => {
+    clearTimeout(resizeDelay);
+    resizeDelay = setTimeout(() => {
+      if (innerWidth !== viewportWidth || innerHeight !== viewportHeight) {
+        location.reload();
+      }
+    }, 300);
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
