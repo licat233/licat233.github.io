@@ -8,7 +8,7 @@
 .skill-card {
   position:relative;isolation:isolate;display:flex;min-width:0;min-height:25.5rem;
   padding:clamp(1.375rem,2.7vw,2.125rem);border-radius:var(--radius-card);overflow:hidden;
-  transition:transform .36s cubic-bezier(.16,1,.3,1),box-shadow .36s ease,border-color .36s ease;
+  transition:translate .36s cubic-bezier(.16,1,.3,1),box-shadow .36s ease,border-color .36s ease;
 }
 .skill-card > .lg-glass-filter {-webkit-backdrop-filter:blur(10px) saturate(135%);backdrop-filter:blur(10px) saturate(135%)}
 .skill-card > .lg-glass-overlay {background:linear-gradient(140deg,rgba(255,255,255,.24),transparent 56%),var(--lg-demo-overlay)}
@@ -39,7 +39,7 @@
 .skills-directory-link {display:inline-flex;gap:.75rem;align-items:center;margin-top:1.625rem;padding-block:.375rem;color:var(--text-2);font-size:.8125rem;font-weight:700;text-underline-offset:.25rem}
 .skills-directory-link:hover,.skills-directory-link:focus-visible {text-decoration:underline}
 @media (hover:hover) and (pointer:fine) {
-  .skill-card:hover {transform:translateY(-.3125rem);border-color:rgba(255,255,255,.88);box-shadow:0 17px 36px var(--lg-demo-depth),inset 0 1px 0 var(--lg-demo-rim)}
+  .skill-card:hover {translate:0 -.3125rem;border-color:rgba(255,255,255,.88);box-shadow:0 17px 36px var(--lg-demo-depth),inset 0 1px 0 var(--lg-demo-rim)}
   .skill-link:hover {transform:translateY(-1px)}
 }
 :root[data-theme="dark"] .skill-card > .lg-glass-overlay {background:linear-gradient(140deg,rgba(218,242,252,.065),transparent 60%),var(--lg-demo-overlay)}
