@@ -19,3 +19,14 @@ No rain controls, geolocation, weather, HUD, video, external API, rain sounds,
 font files, or third-party runtime requests. Original source engine DOES
 contain continuous animation; do not claim static-background performance.
 The original Demo's MIT license notice is preserved in LICENSE.txt.
+
+
+## Active EAO /eao/demo/ background (performance mode)
+
+Since 2026-10-10, EAO demo pages do not embed this WebGL runtime.
+They display frame-fallback.webp directly through a fixed, decorative
+CSS background layer. This stops both original requestAnimationFrame loops,
+avoids WebGL contexts, and removes the nested iframe entirely. The original
+WebGL files are retained here as archived reference/rollback material and
+are not fetched by normal demo page loads. To see the original moving demo,
+open this asset folder's index.html explicitly; it is NOT in the EAO page.

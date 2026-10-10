@@ -1,8 +1,7 @@
 /*
- * EAO /demo ONLY — original rainy-window WebGL layer.
- * Background is the isolated original reference renderer inside an iframe.
- * This site stylesheet does not redraw raindrops, apply imagery, or alter
- * the source renderer. No full-screen white / coloured overlay.
+ * EAO /demo ONLY — frozen frame from the original raindrops/WebGL renderer.
+ * One static local WebP replaces the active iframe, Canvas and RAF loops.
+ * Keep the EXACT night-scene colour and drops; no new tint or animation.
  */
 body.eao-v2, :root[data-theme="dark"] body.eao-v2 {
   position:relative;
@@ -15,8 +14,8 @@ body.eao-v2::before,
 :root[data-theme="dark"] body.eao-v2::before {
   display:none;
 }
-/* The iframe is a real composited WebGL surface. Put it at z=0 rather
- * than behind the body's painting plane; all existing UI stays above it. */
+/* One fixed image layer at z=0; existing UI stacks above it.
+ * Never use the animated WebGL iframe for the EAO page background. */
  .eao-v2 :is(main,footer) {
   position:relative;
   z-index:1;
@@ -35,7 +34,8 @@ body.eao-v2::before,
   z-index:0;
   pointer-events:none;
   border:0;
-  background:#080e17;
+  /* Original refraction, droplets and colours baked into an 83 KB still. */
+  background:#080e17 url("assets/rain-original/frame-fallback.webp") center center / cover no-repeat;
 }
 /* Light-theme content now sits over a NIGHT photograph, not pale paper.
  * Use actual light text (no blurred shadow or faux outline) outside cards.
@@ -56,7 +56,7 @@ body.eao-v2::before,
   text-shadow:none;
 }
 /*
- * Clear glass over the original dark rainy WebGL background.
+ * Clear glass over the original dark rainy-window still.
  * Fixes regression where 75–89% white linear-gradient covered cards.
  * Tint is a neutral 8–12%, not a white or blue paint layer.
  * Preserve existing one-surface optical rims, geometry and scroll motion.
@@ -177,7 +177,7 @@ body.eao-v2::before,
 :root:not([data-theme="dark"]) .eao-v2 .eao-org-card li {
   text-shadow:none;
 }
-/* Moderate frost: old blur(20px) on WebGL flattened dynamic colour
+/* Moderate frost: old blur(20px) flattened the rainy background colour
    and enlarged the GPU sampling area. */
 @media (min-width:701px) {
   :root .eao-v2 :is(.dept-card,.pain-card,.value-card,.control-card,.real,.faq-item) {
@@ -380,9 +380,8 @@ body.eao-v2::before,
     .dept-card,.value-card,.control-card,.real,.faq-item
   ) { border-color:CanvasText; box-shadow:none; }
 }
-/* On static/accessibility fallbacks there is no dynamic WebGL scene to
-   sample: use solid neutral panels and corresponding dark ink instead.
-   These media styles intentionally override the clear-glass settings. */
+/* On reduced-transparency/high-contrast preferences, use solid neutral
+   panels and dark ink, overriding the transparent-glass appearance. */
 @media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
   :root:not([data-theme="dark"]) .eao-v2 :is(
     nav.eao-optical-surface,.dept-card,.pain-card,.value-card,.control-card,
@@ -442,7 +441,7 @@ body.eao-v2::before,
   }
 }
 /*
- * Original-engine cleanup — the Rain WebGL scene is ONE continuous backdrop.
+ * Section cleanup — the frozen rain window is ONE continuous backdrop.
  * The old porcelain-era chapter washes must not tint or hide the scene.
  * Scope only to page-wide semantic sections (NOT glass cards, diagrams,
  * buttons, nav, screenshots, or the text-containing glass overlays).
