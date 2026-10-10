@@ -54,8 +54,14 @@ representative light/dark area *behind* glass:
   against adjacent colours.
 - Different backdrops, theme changes, hover, motion and reduced-transparency
   settings can alter the effective contrast.
-- If arbitrary changing background cannot meet contrast in a translucent panel,
-  use a stronger opaque or near-opaque content surface and keep only the rim glassy.
+- **First fix the foreground ink**: choose high-contrast colours for headings,
+  paragraphs, muted copy, links and icons against the *real composited* backdrop.
+  Do not whiten or opacity-fill the glass just because its text looks faint.
+- If arbitrary scenery varies from very bright to very dark so that no one text
+  colour can pass everywhere, refine the **environment** or propose a
+  theme/region-aware ink treatment for approval. Do not silently insert a
+  white content slab. Explicit reduced-transparency/high-contrast preferences
+  may have their own accessible opaque fallback; that is not normal glass mode.
 - Don't claim a palette is AA on the strength of a single token pair.
 
 W3C normative references:
@@ -64,8 +70,9 @@ W3C normative references:
 
 ## Three material roles
 
-- **Subtle content panel**: quiet fill, few filters, readable copy and tables.
-  Prefer standard content material over prominent Liquid Glass.
+- **Subtle content panel**: low-distraction transparent fill, minimal filters,
+  and carefully chosen text ink for paragraphs and tables. Do not make the
+  panel opaque merely to repair poor text contrast.
 - **Regular interactive glass**: light translucent fill, careful edges, backdrop
   where useful, clear hover/focus/pressed/selected/disabled states.
 - **Emphasized glass**: e.g., floating navigation, key image frame perimeter,
@@ -101,3 +108,18 @@ retained the actual optical rims. If nested carrier filtering reduces
 descendant backdrop sampling, remove the carrier blur before increasing
 inner tint. An optically quiet group is *not* a second prominent glass
 frame. See [EAO native diagrams](eao-native-diagrams.md).
+
+
+## Material preservation rule — read before any text-only patch
+
+**When words are hard to read on glass, change text colour first, not card
+opacity or its white background.** Audit typography selectors and computed
+colour inheritance across light/dark, hover and muted states; measure the real
+composited backdrop behind the card, not only the intended theme swatches.
+A theme-aware crisp edge shadow is optional, not WCAG evidence. Do not
+increase panel white tint, turn the glass into a white rectangle, or add an
+opaque pseudo-element without the user's explicit permission to redesign
+the material. Accessibility preferences are separately scoped exceptions.
+
+See [contrast-first glass and unified background](contrast-first-glass.md)
+for the correction order and regression gates.

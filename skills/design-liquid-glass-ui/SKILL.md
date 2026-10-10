@@ -1,7 +1,7 @@
 ---
 name: design-liquid-glass-ui
-description: Design, prototype, implement, and visually validate restrained Liquid Glass interfaces for websites and web apps. Use when asked for glassmorphism, frosted/translucent navigation, glass cards, glass buttons, optical edge highlights, brand-based color palettes, or improving an existing glass UI. Guides optical layering, moderate frost, pinned scenic backgrounds, text contrast, brand palettes, single-surface geometry, responsive QA, visual approval, and safe deployment; does not grant code or deployment permissions. Includes native glass infographic reconstruction, quiet neutral carriers, and responsive SVG-to-DOM auditing.
-version: 1.3.0
+description: Design, prototype, implement, and visually validate restrained Liquid Glass interfaces for websites and web apps. Use when asked for glassmorphism, frosted/translucent navigation, glass cards, glass buttons, optical edge highlights, brand-based color palettes, or improving an existing glass UI. Guides optical layering, moderate frost, pinned scenic backgrounds, text contrast, brand palettes, single-surface geometry, responsive QA, visual approval, and safe deployment; does not grant code or deployment permissions. Includes native glass infographic reconstruction, quiet neutral carriers, and responsive SVG-to-DOM auditing, contrast-first text repairs without whitening glass, and one shared page background.
+version: 1.4.0
 author: Enterprise AI Office
 metadata:
   hermes:
@@ -39,9 +39,10 @@ and repo paths below are illustrative.
 3. **Show colours to humans**: provide visible swatches, preferably a real-page preview,
    with role labels and HEX values. Seek user approval before implementing a major
    palette change when the workflow calls for approval.
-4. **Use a material hierarchy**: clearer glass for navigation/selected controls;
-   quieter or mostly opaque surfaces for text-heavy content; images remain sharp.
-   Do not apply blur to every section, image, paragraph, or card.
+4. **Use a material hierarchy without sacrificing transparency**: clearer glass
+   for navigation/selected controls; quieter transparent materials for dense
+   content, with legibility primarily supplied by foreground ink. Keep images
+   sharp. Do not apply blur to every section, image, paragraph, or card.
 5. **Light must be coherent**: use one dominant highlight direction, thin rim/reflection,
    restrained bottom edge, soft shadow, and modest hover/pressed states.
    Neither cyan neon nor full-page blue/purple glow is a synonym for Apple-like glass.
@@ -68,6 +69,16 @@ and repo paths below are illustrative.
 11. **Do not mistake polish for completion**: Git commit, Pages deployment and
    actual asset loading are separate checks. Invalidate versioned CSS/JS URL on
    static sites after a change; do not disable all browser caching.
+12. **Readability never authorizes whitening the glass**: when copy is hard to
+   read, repair the real computed text colour, muted ink, typography and
+   composite contrast FIRST. Do not raise card fill opacity or add opaque white
+   panels as an agent shortcut. Preserve approved blur, transparent surface,
+   edge light, rim and spatial hierarchy; user-requested accessibility
+   fallbacks are a separate, explicitly scoped exception.
+13. **One page, one environment when requested**: body (or one global layer)
+   owns the ambient scene and sections become transparent layout regions.
+   Never clear card materials or meaningful optical pseudo-elements while
+   removing chapter-specific painted gradients.
 
 ## Reproducing the approved optical look (start here for a Demo recreation)
 
@@ -91,7 +102,9 @@ shadow. Numeric settings are case-tuned starting points, not universal rules.
    (dark) and a simplified ~1.8px mobile path.
 4. Small white or dark text-edge shadows can separate glyphs from scenic
    detail, but **do not count as contrast compliance**. Verify foreground
-   contrast on bright/dark composites; use a solid content scrim when needed.
+   contrast on bright/dark composites; change text ink before considering any
+   environmental or material adjustment. Only explicit accessibility modes
+   or approved redesigns may introduce opaque content fallbacks.
 5. SVG edge filters (the case used large-card displacement scale 32) are
    *optional*. CSS filter ≠ universal physical backdrop refraction. Check
    actual browser output and turn expensive SVG off on repeated mobile cards.
@@ -112,6 +125,17 @@ Liquid Glass or universal Safari/GPU support.
 Apple's Liquid Glass guidance prioritizes a distinct *control/navigation* layer.
 Website content panels may use subtler glass-inspired standard materials if readable.
 See `references/material-and-color.md` before setting opacity or choosing a palette.
+
+## Mandatory contrast-first repair for existing glass
+
+Read [contrast-first glass and unified page backgrounds](references/contrast-first-glass.md)
+BEFORE changing opacity, blur or card background in response to complaints
+about text readability. The default rule is **change the text colour, not the
+glass background** (优先修改文字颜色，禁止把玻璃改成白底). Recheck
+normal/composited light/dark contrast and preserve glass tokens, borders
+and edge layers. If a shared full-page background is requested, replace
+section-painted backgrounds without clearing the independent glass cards.
+Accessibility preferences may use explicit scoped opaque fallbacks.
 
 ## EAO information-diagram material case (read when applicable)
 
@@ -162,6 +186,8 @@ surface: use a tested glass-inspired thumb and browser-native fallbacks.
   light and dark themes. Prefer a single direction of rim light.
 - Treat transparent surface + actual backdrop = composited final colour. Validate
   foreground contrast against *worst-case composite*, not bare HEX swatches.
+  For unreadable text, change foreground ink first; do NOT solve it by turning
+  an existing glass panel into a solid white container.
 - See `references/material-and-color.md`.
 
 **Diagram-specific scope guard**
@@ -196,8 +222,9 @@ surface: use a tested glass-inspired thumb and browser-native fallbacks.
 
 **Control coverage & scrollbar QA**
 - Audit every button role and focus/hover/pressed/current/disabled state
-  across desktop/mobile and both themes; primary CTA may need an
-  opaque readable core within the glass design family.
+  across desktop/mobile and both themes. Improve CTA text ink first;
+  separately approved solid action controls are not a justification for
+  turning translucent glass information cards opaque.
 - Scrollbar cosmetic styling is optional; check actual OS overlay and
   always-visible states, Firefox/Chrome/Safari differences, forced
   colours, keyboard scrolling and native touch. Never force custom
@@ -209,6 +236,9 @@ surface: use a tested glass-inspired thumb and browser-native fallbacks.
   sticky nav, images, lazy loading, contrast, overflow and reduced motion.
 - Compare positioned glass-layer rectangles with each component border/padding
   box; verify exactly one rim, timeline dots and icon/number geometry.
+- For existing-glass readability fixes, compare optical materials before/after:
+  card background alpha, filter, rim, pseudo-layers and screenshot pixels must
+  not change merely to improve text colour. Test text ink on the full composite.
 - For fixed scenes, isolate background pixels and compare scroll positions at
   stable viewport dimensions (not screenshots with moving cards).
 - Test from a real local browser; capture *after* screenshots and review by eye.

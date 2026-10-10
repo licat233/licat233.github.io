@@ -1,7 +1,7 @@
 # Minimal native-CSS implementation patterns
 
-**Which recipe?** The starter below is deliberately a **functional,
-relatively opaque** glass control/content pattern, not the accepted
+**Which recipe?** The starter below is a **functional, restrained translucent**
+glass control/content pattern, not the accepted
 scenery-backed optical glass from the October 2026 portfolio. For the
 visually reproduced clear/frosty specular layer, fixed scenic background,
 SVG filter limits and per-layer positioning, use
@@ -20,21 +20,21 @@ Prefer *one* token layer per theme. Avoid repeated permanent override stages.
 \`\`\`css
 :root {
   /* Site owns --site-accent, --site-bg, --site-ink: supply from approved palette. */
-  --glass-fill-subtle: rgb(255 255 255 / .35);
-  --glass-fill-control: rgb(255 255 255 / .48);
-  --glass-fill-emphasized: rgb(255 255 255 / .62);
+  --glass-fill-subtle: rgb(255 255 255 / .14);
+  --glass-fill-control: rgb(255 255 255 / .22);
+  --glass-fill-emphasized: rgb(255 255 255 / .30);
   --glass-rim: rgb(255 255 255 / .75);
   --glass-rim-shadow: rgb(49 79 118 / .16);
   --glass-bevel: rgb(255 255 255 / .92);
   --glass-elevation: 0 14px 35px rgb(30 58 95 / .13);
   --glass-focus: #136f75; /* example only: check against local backgrounds */
-  --glass-frost: blur(16px) saturate(130%);
+  --glass-frost: blur(8px) saturate(125%);
   --glass-motion: 220ms cubic-bezier(.16, 1, .3, 1);
 }
 [data-theme="dark"] {
-  --glass-fill-subtle: rgb(24 38 55 / .73);
-  --glass-fill-control: rgb(27 43 60 / .78);
-  --glass-fill-emphasized: rgb(34 50 68 / .91);
+  --glass-fill-subtle: rgb(24 38 55 / .21);
+  --glass-fill-control: rgb(27 43 60 / .29);
+  --glass-fill-emphasized: rgb(34 50 68 / .38);
   --glass-rim: rgb(225 243 255 / .19);
   --glass-rim-shadow: rgb(0 0 0 / .35);
   --glass-bevel: rgb(238 252 255 / .21);
@@ -43,8 +43,24 @@ Prefer *one* token layer per theme. Avoid repeated permanent override stages.
 \`\`\`
 
 These are **starting values**, not universal accessibility-approved colours.
-A tinted brand button may need an opaque dark variant independent of the
-logo's exact hue.
+A high-emphasis, small action button can have a deliberately stronger semantic
+colour; this is distinct from making existing glass content cards opaque as
+a "readability fix". Foreground ink, not whitened glass, is the first lever.
+
+## Foreground-first legibility correction (material unchanged)
+
+When existing glass text is washed out, patch `color` and typography
+using approved theme-aware ink tokens, **not a new white glass background**.
+The same surface opacity, rim and blur must remain computed-identical before
+and after a text-only fix. See
+[contrast-first glass](contrast-first-glass.md).
+
+```css
+.glass-content { color: var(--glass-ink); }
+.glass-content :is(p, li, .muted) { color: var(--glass-muted-ink); }
+/* Set/test --glass-ink and --glass-muted-ink against actual composites
+   in every supported theme, image and scroll state. */
+```
 
 ## Ambient environment, separate from surface
 
@@ -127,13 +143,15 @@ HTML when the old \`.lang\` receives accent colour and \`.lang-current\` grey.
 
 \`\`\`css
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .ui-glass-control { background: rgb(250 252 255 / .97); }
-  [data-theme="dark"] .ui-glass-control { background: #25374a; }
+  /* Blur-free glass stays translucent in normal mode; test real contrast. */
+  .ui-glass-control { background: var(--glass-fill-control); }
+  [data-theme="dark"] .ui-glass-control { background: var(--glass-fill-control); }
 }
 @media (prefers-reduced-motion: reduce) {
   .ui-glass-control { transition: none; }
 }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  /* Explicit user accessibility preference, NOT the default glass look. */
   .ui-glass-control { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .ui-glass-control { background: #fff; }
   [data-theme="dark"] .ui-glass-control { background: #26394c; }
@@ -152,8 +170,11 @@ HTML when the old \`.lang\` receives accent colour and \`.lang-current\` grey.
 Notes:
 - \`prefers-reduced-transparency\` is not supported everywhere; fallback is
   intentionally independent of this media query.
-- When contrast preference requests less transparency, **disable both blur and
-  translucency**: blur:none alone still leaves unreadable see-through panels.
+- In **normal glass mode**, first repair headings, paragraphs and muted
+  text using foreground ink tokens; do not add an opaque white card fill.
+- Only when a **contrast/reduced-transparency preference explicitly requests**
+  reduced transparency, disable both blur and translucent material for that
+  preference scope. This is an accessibility exception, not a visual shortcut.
 - On small GPUs, prioritize nav blur and turn off backdrop sampling on many
   repeated content cards. Do not add permanent \`will-change\` hints indiscriminately.
 - For CSS/JS changes on static sites, bump versioned asset URL query strings

@@ -19,6 +19,7 @@ OPTICAL = ROOT / "references" / "optical-implementation.md"
 PORTFOLIO = ROOT / "references" / "portfolio-case-study.md"
 NATIVE = ROOT / "references" / "eao-native-diagrams.md"
 CONTROLS = ROOT / "references" / "glass-controls-scrollbars.md"
+CONTRAST_FIRST = ROOT / "references" / "contrast-first-glass.md"
 
 
 def contrast_rgb(a: str, b: str) -> float:
@@ -43,6 +44,7 @@ class DesignGlassSkillContract(unittest.TestCase):
         cls.portfolio = PORTFOLIO.read_text(encoding="utf-8")
         cls.native = NATIVE.read_text(encoding="utf-8")
         cls.controls = CONTROLS.read_text(encoding="utf-8")
+        cls.contrast_first = CONTRAST_FIRST.read_text(encoding="utf-8")
 
     def test_hermes_frontmatter(self) -> None:
         match = re.match(r"^---\n(.*?)\n---\n", self.content, re.DOTALL)
@@ -50,7 +52,7 @@ class DesignGlassSkillContract(unittest.TestCase):
         header = match.group(1)
         self.assertRegex(header, r"(?m)^name:\s+design-liquid-glass-ui$")
         self.assertRegex(header, r"(?m)^description:\s+.+$")
-        self.assertRegex(header, r"(?m)^version:\s+1\.3\.0$")
+        self.assertRegex(header, r"(?m)^version:\s+1\.4\.0$")
         self.assertIn("hermes:", header)
         self.assertIn("frontend", header)
 
@@ -63,6 +65,7 @@ class DesignGlassSkillContract(unittest.TestCase):
             "portfolio-case-study.md",
             "eao-native-diagrams.md",
             "glass-controls-scrollbars.md",
+            "contrast-first-glass.md",
         ):
             self.assertIn("references/" + reference, self.content)
             self.assertTrue((ROOT / "references" / reference).is_file())
@@ -142,7 +145,7 @@ class DesignGlassSkillContract(unittest.TestCase):
         self.assertIn("fixed scene", self.portfolio.lower())
 
     def test_reference_integrity_and_markdown(self) -> None:
-        for path in (SKILL, MATERIAL, CSS, QA, OPTICAL, PORTFOLIO, NATIVE, CONTROLS):
+        for path in (SKILL, MATERIAL, CSS, QA, OPTICAL, PORTFOLIO, NATIVE, CONTROLS, CONTRAST_FIRST):
             text = path.read_text(encoding="utf-8")
             self.assertGreater(len(text), 500)
             self.assertNotIn("§", text)
@@ -183,6 +186,33 @@ class DesignGlassSkillContract(unittest.TestCase):
         self.assertIn("references/glass-controls-scrollbars.md", self.content)
         self.assertNotIn("scrollbar-filter: blur", self.controls.lower())
         self.assertIn("not a reason to", self.content + " not a reason to")
+
+    def test_glass_readability_prioritizes_ink_not_white_material(self) -> None:
+        combined = (self.content + self.material + self.css +
+                    self.optical + self.qa + self.contrast_first).lower()
+        for marker in (
+            "change the text colour", "foreground ink",
+            "opaque white", "text-only fix", "composited",
+            "prefers-reduced-transparency", "theme-aware", "fallback",
+        ):
+            self.assertTrue(marker in combined, marker)
+        self.assertIn("references/contrast-first-glass.md", self.content)
+        self.assertRegex(self.contrast_first.lower(), r"change the ink, not the\s+glass")
+        self.assertNotIn("modestly raise neutral tint/blur", self.optical.lower())
+        self.assertNotIn("stronger opaque or near-opaque content surface", self.material.lower())
+        self.assertIn("prohibited", self.contrast_first.lower())
+        # Normal-mode fallback must not resort to a white opaque fill.
+        before_prefs = self.css.split('@media (prefers-reduced-transparency: reduce)', 1)[0]
+        no_blur_fallback = before_prefs.split('@supports not', 1)[1]
+        self.assertNotIn('background: #fff;', no_blur_fallback.lower())
+        self.assertNotIn('rgb(250 252 255 / .97)', no_blur_fallback)
+
+    def test_shared_background_preserves_card_optics(self) -> None:
+        for marker in ("one continuous background", "body", "sections",
+                       "transparent", "optical", "mobile", "card"):
+            self.assertIn(marker.lower(), self.contrast_first.lower(), marker)
+        self.assertIn("one shared page background", self.content)
+        self.assertIn("CSS cache version", self.qa)
 
     def test_basic_opaque_examples_not_misleading(self) -> None:
         # The example explicitly asks for composite testing. Opaque baseline is

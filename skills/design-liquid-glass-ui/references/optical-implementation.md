@@ -88,8 +88,12 @@ Never nest a second visibly bordered glass panel inside a first one.
 ```
 
 Text-shadow is **only edge separation**, never a substitute for real WCAG
-contrast on the composite bright/dark image. Use opaque or near-opaque content
-material when changing scenery cannot provide adequate readability.
+contrast on the composite bright/dark image. **Fix foreground text colours
+first while preserving the approved translucent glass**. If no foreground
+colour passes over all reachable backgrounds, propose a steadier shared scene
+or a region-aware ink treatment; request design approval rather than quietly
+painting an opaque or near-opaque white card. Preference-driven high-contrast
+material is a separately scoped accessibility fallback.
 
 ## Optional SVG edge distortion — not guaranteed background refraction
 
@@ -122,7 +126,7 @@ fall back to pure CSS if SVG is ineffective.
 | Appearance | First correction | Avoid |
 | --- | --- | --- |
 | White fog / plastic | Decrease large white overlay, blur and broad shine | Adding more white gradients |
-| Too transparent / unreadable | Modestly raise neutral tint/blur, adjust text contrast, then tiny theme-aware shadow | Heavy text strokes / neon glow |
+| Text unreadable on otherwise approved glass | Fix heading/body/muted foreground ink first; test against actual bright/dark composites, then optional crisp edge shadow | Raising white fill/opacity, opaque card, pretending shadow passes WCAG |
 | Weak glass edge | Thin inner rim and coherent light direction | Fat opaque borders |
 | Two nested glass frames | Fix containing block and duplicated borders | Another wrapper |
 | Over-warped corners | Reduce/disable SVG displacement | Filtering whole card/text |
@@ -145,9 +149,11 @@ against actual content/background, never universalize these numbers.
 }
 @supports not ((-webkit-backdrop-filter: blur(1px)) or
                (backdrop-filter: blur(1px))) {
+  /* No blur API does not automatically mean "make the glass white". */
   .glass-surface > .glass-filter { filter: none; }
-  .glass-surface > .glass-tint { background: rgb(245 249 252 / .96); }
-  [data-theme="dark"] .glass-surface > .glass-tint { background: #202d35; }
+  .glass-surface > .glass-tint { background: rgb(245 249 252 / .18); }
+  [data-theme="dark"] .glass-surface > .glass-tint { background: rgb(28 44 59 / .30); }
+  /* Keep text ink accessible on this specific composite. */
 }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
   .glass-surface > .glass-filter {

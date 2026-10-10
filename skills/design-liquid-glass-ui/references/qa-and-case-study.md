@@ -17,7 +17,7 @@ is unavailable rather than treating a checklist as proof.
 | Animation | reduced-motion obeyed, scroll entry never leaves content invisible |
 | Image loading | wait for all lazy images; check `naturalWidth`, cropping and alt text |
 | Browser | Chrome + Safari when accessible; state gaps honestly |
-| Compatibility | `@supports` opaque fallback, forced-colors, supported preference queries |
+| Compatibility | `@supports` blur-free fallback, preference-scoped opacity reduction, forced-colors |
 | Performance | filter count/coverage, long-card scrolling, mobile GPU and stable nav |
 | Release | clean diff, sync with remote, no force push, live CSS URL & computed style |
 
@@ -140,3 +140,45 @@ may ignore author styles. Native fallback is a correct result;
 do not claim true optical edge refraction or replace scrolling.
 
 See [glass controls and scrollbars](glass-controls-scrollbars.md).
+
+
+## EAO production glass and shared-background lesson (October 2026)
+
+After transferring the Demo's optimized motion, the EAO homepage adopted
+selected glass controls and native department/method diagrams **without**
+the Demo's rain backdrop. A subsequent patch changed individual Hero,
+department, workflow, knowledge, control, FAQ, CTA and footer backgrounds
+into **one continuous page-wide environment**. Sections became transparent;
+the real glass components retained their individual rims, tint/filter layers
+and semantic content. Mobile used a continuous scrolling variant to avoid
+fixed-background browser issues.
+
+A key failure mode in earlier glass reviews was to "fix" faint text by
+filling transparent panels with white. That makes the copy appear clearer
+but loses the very optical effect the user approved. **Text legibility is
+first an ink/contrast problem, not a carte blanche to redesign the glass.**
+Check foreground colour and muted ink on the actual composite; only then
+consider precise theme-aware text-edge separation. A text-only change must
+leave glass surface alpha, rim, blur and layout unchanged.
+
+Accessibility preferences can opt into solid high-contrast materials; those
+are explicit, scoped fallbacks, **not** the normal glass style. If one ink
+colour cannot pass over both bright and dark moving scenery, explain the
+constraint and seek authorization for a steadier environment or contextual
+ink treatment instead of painting opaque white cards.
+
+Practical acceptance checks:
+- Verify a real screenshot at Hero, middle chapter, FAQ and footer in light
+  and dark themes, rather than only at the initial fold.
+- Inspect every top-level section's *computed* `background-image` to ensure
+  old coloured panels are truly gone; the body's single background remains.
+- Assert content-card `background`/opacity, optical child layers, borders and
+  filter strengths are preserved while fixing text contrast.
+- Confirm page-wide image/gradient is described truthfully, the background
+  remains stable at desktop scroll and mobile degrades gracefully.
+- Check translated text and diagram readability, responsive overflow,
+  reduced motion, CSS cache version, live deployment and measured browser
+  errors. Do not claim Safari/GPU validation without actually testing it.
+
+Read [contrast-first glass](contrast-first-glass.md) before undertaking
+any text-readability repair on approved glass surfaces.
