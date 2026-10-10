@@ -119,7 +119,7 @@ if case.exists():
         require(marker.lower() in example.lower(),
                 f"EAO nested-child scene case lacks: {marker}")
     main = FILE.read_text(encoding="utf-8")
-    for marker in ("version: 1.3.0", "Parent + child animation",
+    for marker in ("version: 1.4.0", "Parent + child animation",
                    "inventory", "shared", "readable"):
         require(marker.lower() in main.lower(),
                 f"Motion Skill lacks explicit nested-scene policy: {marker}")
@@ -153,6 +153,34 @@ if ambition.exists() and FILE.exists():
                 f"Acceptance checklist lacks visual ambition gate: {token}")
     require("references/MOTION-AMBITION-GATE.md" in skill_text,
             "Root SKILL.md must link the mandatory ambition guide")
+
+# Do not let an all-green technical suite substitute for the user's
+# expressive-motion brief. This validates the written hard gate; judging
+# actual visual impact still requires real-time browser/user review.
+if FILE.exists():
+    root_policy = FILE.read_text(encoding="utf-8")
+    ambition_policy = (SKILL / "references/MOTION-AMBITION-GATE.md").read_text(encoding="utf-8")
+    grammar_policy = (SKILL / "references/MOTION-GRAMMAR.md").read_text(encoding="utf-8")
+    acceptance_policy = (SKILL / "references/ACCEPTANCE.md").read_text(encoding="utf-8")
+    for name, document, markers in (
+        ("SKILL.md", root_policy, (
+            "HARD RULE", "NO MICROANIMATIONS",
+            "Movement before appearance", "No consolation microanimations",
+            "VISUAL NOT ACCEPTED", "reduced-motion accessibility")),
+        ("MOTION-AMBITION-GATE.md", ambition_policy, (
+            "Gate 0", "hard ban on presentation microanimations",
+            "Hard fail conditions", "20/45/70%", "VISUAL NOT ACCEPTED")),
+        ("MOTION-GRAMMAR.md", grammar_policy, (
+            "Hard ban on presentation microanimations",
+            "Position-grounded trajectories", "stay static")),
+        ("ACCEPTANCE.md", acceptance_policy, (
+            "Presentation microanimation ban", "NO MICROANIMATIONS",
+            "hidden→visible", "block production"))):
+        for marker in markers:
+            require(marker.lower() in document.lower(),
+                    f"{name} missing enforced no-microanimation policy: {marker}")
+    require("Eight directional flights" not in grammar_policy,
+            "Motion grammar still promotes random eight-direction flights")
 
 js = SKILL / "assets/reversible-motion.js"
 css = SKILL / "assets/motion.css"
