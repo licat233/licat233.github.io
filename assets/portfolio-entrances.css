@@ -15,3 +15,12 @@
 @media (prefers-reduced-motion: reduce) {
   #projects .project { opacity: 1 !important; visibility: visible !important; transform: none !important; }
 }
+
+/* The chronological line advances after the first milestone is introduced. */
+@media (min-width: 761px) {
+  .timeline.motion-line::before {
+    transform: scaleX(var(--motion-line, 1));
+    transform-origin: left center;
+  }
+}
+#skills { overflow-x: clip; overflow-y: visible; }
