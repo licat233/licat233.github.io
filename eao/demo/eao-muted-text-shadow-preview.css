@@ -8,14 +8,27 @@
  * Dark mode: fine BLACK edge for silver-grey text.
  */
 .eao-v2 {
+  /* Subpixel hairline outline (8 compass directions), no blur radius. */
   --eao-muted-legibility-shadow:
-    0 1px 1px rgb(255 255 255 / .84),
-    0 0 2px rgb(255 255 255 / .45);
+    -.55px 0 0 rgb(255 255 255 / .82),
+     .55px 0 0 rgb(255 255 255 / .82),
+    0 -.55px 0 rgb(255 255 255 / .82),
+    0  .55px 0 rgb(255 255 255 / .82),
+    -.39px -.39px 0 rgb(255 255 255 / .72),
+     .39px -.39px 0 rgb(255 255 255 / .72),
+    -.39px  .39px 0 rgb(255 255 255 / .72),
+     .39px  .39px 0 rgb(255 255 255 / .72);
 }
 :root[data-theme="dark"] .eao-v2 {
   --eao-muted-legibility-shadow:
-    0 1px 2px rgb(0 0 0 / .75),
-    0 0 1px rgb(0 0 0 / .50);
+    -.55px 0 0 rgb(0 0 0 / .82),
+     .55px 0 0 rgb(0 0 0 / .82),
+    0 -.55px 0 rgb(0 0 0 / .82),
+    0  .55px 0 rgb(0 0 0 / .82),
+    -.39px -.39px 0 rgb(0 0 0 / .70),
+     .39px -.39px 0 rgb(0 0 0 / .70),
+    -.39px  .39px 0 rgb(0 0 0 / .70),
+     .39px  .39px 0 rgb(0 0 0 / .70);
 }
 
 /* Semantic grey text — navigation, intro, descriptive/secondary content,
@@ -72,12 +85,48 @@
 .eao-v2 :is(.note, .visual-caption, .eao-org-summary) {
   text-shadow: var(--eao-muted-legibility-shadow);
 }
+/* Main hero highlight: a crisp, restrained dark optical rim and luminous
+ * teal foreground in BOTH themes. The old 4px drop shadow caused the
+ * apparent defocus. No blur, filter or text layer; readable over pink/blue. */
+.eao-v2 .hero h1 span,
+:root[data-theme="dark"] .eao-v2 .hero h1 span {
+  color: #c5fff3;
+  /* Clear the base theme's background-clip:text / transparent fill; otherwise
+     changing color only affects the invisible fallback, not the glyph. */
+  background-image:none;
+  -webkit-background-clip:border-box;
+  background-clip:border-box;
+  -webkit-text-fill-color:#c5fff3;
+  -webkit-text-stroke: .42px rgb(16 29 48 / .90);
+  text-shadow:
+    -.65px 0 0 rgb(16 29 48 / .78),
+     .65px 0 0 rgb(16 29 48 / .78),
+    0 -.65px 0 rgb(16 29 48 / .78),
+    0  .65px 0 rgb(16 29 48 / .78);
+}
+/* Existing preview controls and EAO workflow previously used 1px blur.
+ * Keep the designed edge colours, but eliminate their blur as well. */
+.eao-v2 .nav-sections .nav-section-link.is-active,
+:root[data-theme="dark"] .eao-v2 .nav-sections .nav-section-link.is-active {
+  text-shadow: var(--eao-muted-legibility-shadow);
+}
+.eao-v2 .btn.primary {
+  text-shadow:
+     0  1px 0 rgb(0 30 43 / .65),
+     0 -1px 0 rgb(0 30 43 / .65);
+}
+.eao-v2 #work .compare-work .after .work-heading h3,
+.eao-v2 #work .compare-work .after .work-step-text {
+  text-shadow: var(--eao-muted-legibility-shadow);
+}
 /* High-contrast/forced colours own their foreground and must not pick up
  * photographic edge shadows. */
 @media (forced-colors:active), (prefers-contrast:more) {
   .eao-v2 :is(
-    .nav-section-link, .nav-tools .lang, .lead, .intro, .section-head p,
-    .work-mode, .work-col.before .work-heading h3, .work-context, .work-note-detail, .work-note, .work-step-text,
+    .nav-section-link, .nav-tools .lang, .btn.primary, .lead, .intro, .section-head p,
+    .work-mode, .work-col.before .work-heading h3,
+    #work .compare-work .after .work-heading h3,
+    #work .compare-work .after .work-step-text, .work-context, .work-note-detail, .work-note, .work-step-text,
     .work-col p, .work-col li, .pain-card p, .pain-card li,
     .value-card p, .value-card li, .dept-card p, .dept-card li,
     .control-card p, .real p, .real-items span, .faq-answer, .cta p,
@@ -85,4 +134,11 @@
     .eao-org-card li, .eao-org-summary, .eao-method-intro p,
     .eao-method-card p, .eao-method-summary p, .note, .visual-caption
   ) { text-shadow:none; }
+  .eao-v2 .hero h1 span,
+  :root[data-theme="dark"] .eao-v2 .hero h1 span {
+    color: CanvasText;
+    -webkit-text-fill-color:CanvasText;
+    -webkit-text-stroke:0;
+    text-shadow:none;
+  }
 }

@@ -70,7 +70,7 @@ body.eao-v2::after {
 }
 :root:not([data-theme="dark"]) .eao-v2 :is(.lead,.eao-org-intro p,.eao-method-intro p) {color:#1d3442;text-shadow:0 1px 1px rgb(255 255 255 / .62);}
 :root:not([data-theme="dark"]) .eao-v2 .eao-method-card p {color:#263745;}
-:root:not([data-theme="dark"]) .eao-v2 .hero h1 span {color:#c5fff3;text-shadow:0 2px 4px rgb(13 18 51 / .70);}
+:root:not([data-theme="dark"]) .eao-v2 .hero h1 span {color:#c5fff3;}
 /* Only one image plane on mobile; no blur rendering or independent glow field. */
 @media (max-width:700px), (pointer:coarse) {
   body.eao-v2::before {inset:-8%;animation-duration:75s;}
