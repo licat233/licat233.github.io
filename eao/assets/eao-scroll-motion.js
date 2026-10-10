@@ -1,5 +1,5 @@
-/* EAO reversible entrance choreography.
- * Adapted from skills/reversible-scroll-motion (same repository).
+/* EAO production reversible entrance choreography (animation-only port).
+ * Ported from eao/demo/eao-scroll-motion-preview.js + skills/reversible-scroll-motion.
  * DOM/content/layout stay untouched; no pin, spacer, scroll lock or CSS hiding.
  * If GSAP is unavailable or reduced motion is enabled, all content remains visible.
  */
@@ -14,7 +14,8 @@
     media.add({
       motion: "(prefers-reduced-motion: no-preference)",
       wide: "(min-width: 1041px)",
-      tablet: "(min-width: 701px) and (max-width: 1040px)",
+      tablet: "(min-width: 901px) and (max-width: 1040px)",
+      tabletStack: "(min-width: 701px) and (max-width: 900px)",
       compact: "(max-width: 700px)"
     }, (ctx) => {
       if (!ctx.conditions.motion) return;
@@ -54,7 +55,7 @@
         const bottom = top + scene.height();
         const header = document.querySelector("nav");
         const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
-        return top < innerHeight * (scene.footer ? .995 : .965)
+        return top < innerHeight * scene.visibleThreshold
           && bottom > Math.max(headerBottom + 8, innerHeight * .09);
       }
 
@@ -77,7 +78,10 @@
         }
       }
 
-      function sceneFor(parent, focus, { entry = .89, travel = .4, footer = false } = {}) {
+      function sceneFor(parent, focus, {
+        entry = .89, travel = .4, footer = false,
+        visibleThreshold = null, settleDuration = .58
+      } = {}) {
         if (!parent || !focus) return null;
         const top = () => naturalY(focus);
         const range = () => scrollRange(top(), entry, travel, footer);
@@ -97,6 +101,8 @@
           top,
           height: () => focus.offsetHeight,
           footer,
+          visibleThreshold: visibleThreshold ?? (footer ? .995 : .965),
+          settleDuration,
           latched: false,
           anchor: 0,
           base: 0,
@@ -121,7 +127,7 @@
           scene.anchor = scrollY;
           scene.base = 1;
           scene.idleTween = gsap.to(scene.tl, {
-            progress: 1, duration: .58, ease: "power2.out",
+            progress: 1, duration: scene.settleDuration, ease: "power1.inOut",
             overwrite: "auto",
             onComplete: () => { scene.idleTween = null; }
           });
@@ -138,14 +144,52 @@
         scheduleSettle();
       }
 
+      // Split only after GSAP is present and motion has been accepted.
+      // The heading retains one accessible name; visual glyph spans are
+      // aria-hidden and reverted on matchMedia teardown.
+      function splitHeadingGlyphs(title) {
+        if (title.children.length || !title.textContent.trim()) return null;
+        const original = title.textContent;
+        const fragment = document.createDocumentFragment();
+        const tokenize = /([A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*|\s+|[^\s])/gu;
+        const glyphs = [];
+        for (const match of original.matchAll(tokenize)) {
+          const token = match[0];
+          if (/^\s+$/u.test(token)) {
+            fragment.appendChild(document.createTextNode(token));
+            continue;
+          }
+          const latin = /^[A-Za-z0-9]/.test(token);
+          const word = latin ? document.createElement("span") : null;
+          if (word) word.className = "eao-fall-word";
+          for (const part of Array.from(token)) {
+            const glyph = document.createElement("span");
+            glyph.className = "eao-fall-char";
+            glyph.textContent = part;
+            glyphs.push(glyph);
+            (word || fragment).appendChild(glyph);
+          }
+          if (word) fragment.appendChild(word);
+        }
+        if (!glyphs.length) return null;
+        title.replaceChildren(fragment);
+        title.setAttribute("aria-label", original);
+        glyphs.forEach((g) => g.setAttribute("aria-hidden", "true"));
+        cleanups.push(() => {
+          title.textContent = original;
+          title.removeAttribute("aria-label");
+        });
+        return glyphs;
+      }
+
       // One-time opening for the hero copy. Never animate the sticky nav.
       // Avoid transforming .hero-visual: the existing pointer/tilt owns it.
       if (scrollY < innerHeight * .35) {
         const hero = gsap.timeline({ defaults: { ease: "power2.out" } });
         [
           [".hero .eyebrow", 16, .53],
-          [".hero h1", 32, .78],
-          [".hero .lead", 24, .64],
+          [".hero h1", 65, .85],
+          [".hero .lead", 45, .72],
           [".hero .actions", 20, .59],
           [".hero .meta", 14, .53]
         ].forEach(([selector, y, duration], i) => {
@@ -169,45 +213,257 @@
         if (kicker) tl.fromTo(kicker, { x: -24, autoAlpha: 0 }, {
           x: 0, autoAlpha: 1, duration: .66, ease: "power1.inOut"
         }, 0);
-        tl.fromTo(title, {
-          y: compact ? 27 : 43, rotationX: compact ? -8 : -13,
-          autoAlpha: 0, transformPerspective: 1000
-        }, {
-          y: 0, rotationX: 0, autoAlpha: 1,
-          duration: 1, ease: "power1.inOut"
-        }, .08);
+        const chars = splitHeadingGlyphs(title);
+        if (chars) {
+          // All glyphs are initialized together: none flashes while a
+          // staggered tween waits to begin. Every glyph drops TOP -> DOWN.
+          const each = Math.min(.042, .95 / Math.max(1, chars.length - 1));
+          gsap.set(chars, {
+            y: compact ? -46 : -92,
+            rotationX: compact ? -34 : -63,
+            scale: compact ? .94 : .85,
+            autoAlpha: 0,
+            transformPerspective: 900,
+            transformOrigin: "50% 0%"
+          });
+          tl.to(chars, {
+            y: 0, rotationX: 0, scale: 1, autoAlpha: 1,
+            duration: .62,
+            ease: "power1.inOut",
+            stagger: { each, from: "start" }
+          }, .08);
+        } else {
+          tl.fromTo(title, { y: -42, autoAlpha: 0 }, {
+            y: 0, autoAlpha: 1, duration: .9, ease: "power1.inOut"
+          }, .08);
+        }
         if (intro) tl.fromTo(intro, { y: 15, autoAlpha: 0 }, {
           y: 0, autoAlpha: 1, duration: .67, ease: "power1.inOut"
         }, .3);
         hold(tl);
       });
 
-      // Illustrations and comparison surfaces keep their layout and crop.
-      document.querySelectorAll(".story-visual, .contrast-card, .compare-work, .real").forEach((surface) => {
+      // Independent illustration scene: comparison panels have their own
+      // narrative, and must NOT receive a second competing parent tween.
+      document.querySelectorAll(".story-visual, .contrast-card, .real").forEach((surface) => {
         const tl = sceneFor(surface, surface, { entry: .9, travel: compact ? .35 : .43 });
         if (!tl) return;
-        if (surface.matches(".compare-work")) {
-          const cols = surface.querySelectorAll(".work-col");
-          cols.forEach((col, i) => {
-            const direction = i ? 1 : -1;
-            const room = direction > 0
-              ? innerWidth - naturalX(col) - col.offsetWidth - 8
-              : naturalX(col) - 8;
-            const x = direction * Math.min(compact ? 20 : 38, Math.max(0, room));
-            tl.fromTo(col, {
-              x, y: 12, autoAlpha: 0
-            }, {
-            x: 0, y: 0, autoAlpha: 1, duration: .92, ease: "power1.inOut"
-            }, i * .1);
-          });
-        } else {
-          tl.fromTo(surface, { y: compact ? 29 : 42, scale: .978, autoAlpha: 0 }, {
-            y: 0, scale: 1, autoAlpha: 1,
-            duration: 1, ease: "power1.inOut"
-          }, 0);
-        }
+        tl.fromTo(surface, { y: compact ? 39 : 100, scale: compact ? .96 : .91, autoAlpha: 0 }, {
+          y: 0, scale: 1, autoAlpha: 1, duration: 1, ease: "power1.inOut"
+        }, 0);
         hold(tl);
       });
+
+      // Five real steps in EACH workflow (before/after), not five decorative
+      // simultaneous fades. The card enters first; item 1 then item 2...
+      // Within each step, icon and text appear in that order. Two separate
+      // panel scenes respect stacked mobile viewports: a below-fold "after"
+      // column must not play just because "before" entered.
+      const workComparison = document.querySelector("#work .compare-work");
+      if (workComparison && workComparison.offsetWidth) {
+        const columns = [...workComparison.querySelectorAll(":scope > .work-col")];
+        // Read the actual layout, not just the named breakpoint: at 768px
+        // the columns stack although 'compact' is false.
+        const stacked = columns.length === 2 &&
+          Math.abs(naturalY(columns[0]) - naturalY(columns[1])) > 10;
+        columns.forEach((column, colIndex) => {
+          if (!column.offsetWidth) return;
+          const items = [...column.querySelectorAll("ol > li")];
+          if (items.length !== 5) return;
+          const heading = column.querySelector(".work-head");
+          const parts = items.map(item => ({
+            item,
+            icon: item.querySelector(".work-step-icon"),
+            text: item.querySelector(".work-step-text")
+          }));
+          const tl = sceneFor(column, column, {
+            entry: compact ? .90 : .89,
+            travel: compact ? .64 : .82,
+            // Give the 5 visibly different entries time to *read* as a
+            // sequence after the wheel stops, while guaranteeing completion.
+            settleDuration: stacked ? .68 : 1.36
+          });
+          if (!tl) return;
+
+          // Initialize the full list NOW, not at the respective stagger start:
+          // later stages must never flash before their own turn.
+          // Expressive, visibly travelling workflow stages. Both workflows
+          // share logical order but NOT one anonymous fade/slide preset:
+          // legacy steps enter from the LEFT, deliberately weighty;
+          // EAO steps sweep from the RIGHT with deeper perspective.
+          // Mobile retains ~90px travel instead of collapsing to x:0.
+          const stepSide = colIndex ? 1 : -1;
+          const flightX = Math.min(
+            compact ? 118 : 175,
+            Math.max(compact ? 86 : 125, innerWidth * (compact ? .27 : .125))
+          );
+          gsap.set(items, {
+            x: stepSide * flightX,
+            y: colIndex ? (compact ? -53 : -77) : (compact ? 61 : 82),
+            rotationY: stepSide * (compact ? 21 : 31),
+            rotationX: colIndex ? -16 : 13,
+            rotation: stepSide * (compact ? 4 : 7),
+            scale: colIndex ? (compact ? .77 : .69) : (compact ? .82 : .77),
+            autoAlpha: 0,
+            transformPerspective: 1100,
+            transformOrigin: colIndex ? "100% 50%" : "0% 50%"
+          });
+          parts.forEach(({ icon, text }) => {
+            if (icon) gsap.set(icon, {
+              scale: colIndex ? .23 : .32,
+              rotation: stepSide * (compact ? 35 : 54),
+              autoAlpha: 0,
+              transformOrigin: "50% 50%"
+            });
+            if (text) gsap.set(text, {
+              x: stepSide * (compact ? 27 : 55),
+              y: colIndex ? -24 : 25,
+              scale: .86,
+              autoAlpha: 0
+            });
+          });
+          // Contrasting yet coherent movements: legacy slides from left,
+          // EAO arrives from right. The original glass panels remain intact.
+          const dir = colIndex ? 1 : -1;
+          const room = dir > 0
+            ? innerWidth - naturalX(column) - column.offsetWidth - 36
+            : naturalX(column) - 36;
+          // The optical column travels too, but stays inside section bounds.
+          // Prefer vertical perspective on narrow displays with little side room.
+          const enteringX = compact ? dir * 24 : dir * Math.min(94, Math.max(0, room));
+          tl.fromTo(column, {
+            x: enteringX, y: compact ? 78 : 96,
+            rotationY: compact ? 0 : dir * 15,
+            rotationX: compact ? -12 : -6,
+            scale: compact ? .89 : .85, autoAlpha: 0,
+            transformPerspective: 1100
+          }, {
+            x: 0, y: 0, rotationY: 0, rotationX: 0, scale: 1,
+            autoAlpha: 1, duration: 1.04, ease: "power2.out"
+          }, 0);
+          if (heading) {
+            tl.fromTo(heading, { y: 18, autoAlpha: .3 }, {
+              y: 0, autoAlpha: 1, duration: .42, ease: "power1.inOut"
+            }, .56);
+          }
+          if (stacked) {
+            // As each step reaches the viewport, animate it in-place.
+            // A barely visible EAO card must NOT settle 5 below-fold rows.
+            // Parent scene comes first; each real step owns a visibility
+            // trigger but reuses the shared idle/reverse controller.
+            hold(tl);
+            parts.forEach(({ item, icon, text }) => {
+              const stepTl = sceneFor(column, item, {
+                entry: compact ? .88 : .86,
+                travel: compact ? .25 : .31,
+                // The final row can be only 20px visible at the bottom:
+                // do not fast-forward it until it enters the reading area.
+                visibleThreshold: .91,
+                settleDuration: .78
+              });
+              if (!stepTl) return;
+              stepTl.to(item, {
+                x: 0, y: 0, rotationY: 0, rotationX: 0, rotation: 0, scale: 1,
+                autoAlpha: 1, duration: .94,
+                ease: colIndex ? "power3.out" : "power2.out"
+              }, 0);
+              if (icon) stepTl.to(icon, {
+                scale: 1, rotation: 0, autoAlpha: 1,
+                duration: .62, ease: "back.out(1.12)"
+              }, .12);
+              if (text) stepTl.to(text, {
+                x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .70,
+                ease: "power2.out"
+              }, .21);
+              hold(stepTl);
+            });
+          } else {
+            // Side-by-side desktop: the two 1→5 timelines read like a
+            // comparison, with their own contrasting entry directions.
+            parts.forEach(({ item, icon, text }, i) => {
+              const at = 1.06 + i * 1.08;
+              tl.to(item, {
+                x: 0, y: 0, rotationY: 0, rotationX: 0, rotation: 0, scale: 1,
+                autoAlpha: 1, duration: .94,
+                ease: colIndex ? "power3.out" : "power2.out"
+              }, at);
+              if (icon) tl.to(icon, {
+                scale: 1, rotation: 0, autoAlpha: 1,
+                duration: .62, ease: "back.out(1.12)"
+              }, at + .12);
+              if (text) tl.to(text, {
+                x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .70,
+                ease: "power2.out"
+              }, at + .21);
+            });
+            hold(tl);
+          }
+        });
+      }
+
+      // Real-enterprise reference: the big glass container enters first;
+      // its internal facts then settle individually, in the actual grid order.
+      const realItems = document.querySelector(".real .real-items");
+      if (realItems && realItems.offsetWidth) {
+        const items = [...realItems.querySelectorAll(":scope > span")];
+        const rows = [];
+        items.forEach(item => {
+          const top = naturalY(item);
+          let row = rows.find(r => Math.abs(r.top - top) < 5);
+          if (!row) { row = { top, items: [] }; rows.push(row); }
+          row.items.push(item);
+        });
+        rows.forEach(row => {
+          const tl = sceneFor(realItems, row.items[0], {
+            entry: compact ? .93 : .86,
+            travel: compact ? .33 : .38
+          });
+          if (!tl) return;
+          row.items.forEach((item, i) => {
+            tl.fromTo(item, {
+              y: compact ? 27 : 48,
+              rotationX: compact ? -12 : -35,
+              scale: compact ? .96 : .89,
+              autoAlpha: 0,
+              transformPerspective: 950
+            }, {
+              y: 0, rotationX: 0, scale: 1,
+              autoAlpha: 1, duration: .82,
+              ease: "power1.inOut"
+            }, i * .46);
+          });
+          hold(tl);
+        });
+      }
+
+      // Parent and child movement MUST belong to the same timeline.
+      // Separate triggers caused last-row facts to complete before their
+      // parent card arrived. The shared idle completion then acts on both.
+      function nestedParts(card) {
+        const map = [
+          [".dept-card", ":scope > h3, :scope > ul > li"],
+          [".value-card", ":scope > b, :scope > h3, :scope > p"],
+          [".control-card", ":scope > h3, :scope > p"]
+        ];
+        const type = map.find(([key]) => card.matches(key));
+        if (!type) return [];
+        return [...card.querySelectorAll(type[1])]
+          .filter(el => el.offsetWidth && el.offsetHeight);
+      }
+      function addNestedArrival(tl, card, start, gap = .13) {
+        nestedParts(card).forEach((part, i) => {
+          tl.fromTo(part, {
+            y: compact ? 15 : 30,
+            rotationX: compact ? 0 : -16,
+            scale: compact ? .97 : .93,
+            autoAlpha: 0,
+            transformPerspective: 850
+          }, {
+            y: 0, rotationX: 0, scale: 1, autoAlpha: 1,
+            duration: .49, ease: "power1.inOut"
+          }, start + i * (compact ? .11 : gap));
+        });
+      }
 
       // Respect the ACTUAL CSS grid rows: desktop 3+2 departments,
       // tablet 2+2+1, phone 1 per row, without reparenting or FLIP layouts.
@@ -233,38 +489,51 @@
 
         rows.forEach((row, rowIndex) => {
           const tl = sceneFor(grid, row.cards[0], {
-            entry: .91, travel: compact ? .36 : .43
+            entry: .91, travel: compact ? .45 : .56
           });
           if (!tl) return;
           row.cards.forEach((card, i) => {
             const index = cards.indexOf(card);
             if (style === "fold") {
               tl.fromTo(card, {
-                rotationY: (index % 2 ? 1 : -1) * (compact ? 8 : 32),
+                rotationY: (index % 2 ? 1 : -1) * (compact ? 10 : 46),
                 transformPerspective: 1200,
                 transformOrigin: index % 2 ? "100% 50%" : "0% 50%",
-                y: 18, autoAlpha: 0
+                y: compact ? 32 : 72, scale: compact ? .975 : .90, autoAlpha: 0
               }, {
-                rotationY: 0, y: 0, autoAlpha: 1,
+                rotationY: 0, y: 0, scale: 1, autoAlpha: 1,
                 duration: .91, ease: "power1.inOut"
               }, i * .09);
             } else {
               const [dx, dy] = directions[index % directions.length];
               // Keep sideward flights inside the real viewport (especially 375px).
-              const sideRoom = dx > 0
-                ? innerWidth - naturalX(card) - card.offsetWidth - 8
-                : naturalX(card) - 8;
-              const flightX = dx * Math.min(compact ? 23 : 55, Math.max(0, sideRoom));
+              // Natural offsetLeft ignores the visual viewport edge for some
+              // CSS grid children. The untouched rectangle is a safe cap
+              // *at setup*, before any GSAP tween on this card starts.
+              // This also prevents offscreen row transforms inflating scrollWidth.
+              const slot = card.getBoundingClientRect();
+              // Leave headroom for the 4deg rotation: even zero X travel
+              // expands a rotated rectangle beyond its untouched slot.
+              const rim = compact ? 26 : 48;
+              const visualRoom = dx > 0
+                ? innerWidth - slot.right - rim
+                : slot.left - rim;
+              const logicalRoom = dx > 0
+                ? innerWidth - naturalX(card) - card.offsetWidth - rim
+                : naturalX(card) - rim;
+              const sideRoom = Math.max(0, Math.min(visualRoom, logicalRoom));
+              const flightX = dx * Math.min(compact ? 30 : 110, sideRoom);
               tl.fromTo(card, {
                 x: flightX,
-                y: dy * (compact ? 21 : 37),
-                rotation: (index % 2 ? 1 : -1) * (compact ? 2 : 4),
-                scale: compact ? .975 : .955, autoAlpha: 0
+                y: dy * (compact ? 38 : 97),
+                rotation: (index % 2 ? 1 : -1) * (compact ? 3 : 8),
+                scale: compact ? .955 : .86, autoAlpha: 0
               }, {
                 x: 0, y: 0, rotation: 0, scale: 1, autoAlpha: 1,
                 duration: .93, ease: "power1.inOut"
               }, i * .11);
             }
+            addNestedArrival(tl, card, (style === "fold" ? i * .09 : i * .11) + .68);
           });
           hold(tl);
         });
@@ -278,6 +547,38 @@
         if (!tl) return;
         tl.fromTo(heading, { y: 18, autoAlpha: 0 }, {
           y: 0, autoAlpha: 1, duration: .8, ease: "power1.inOut"
+        });
+        hold(tl);
+      });
+
+      // FAQ choreography includes the previously omitted About EAO list.
+      // Keep interactive summaries visible and focusable from frame zero.
+      document.querySelectorAll(".faq-group").forEach((group) => {
+        const list = group.querySelector(".faq-list");
+        if (!list || !list.offsetWidth) return;
+        const items = [...list.querySelectorAll(":scope > .faq-item")];
+        if (!items.length) return;
+        const tl = sceneFor(group, list, {
+          entry: compact ? .94 : .90,
+          travel: compact ? .50 : .67
+        });
+        if (!tl) return;
+        items.forEach((item, i) => {
+          const sign = i % 2 ? 1 : -1;
+          tl.fromTo(item, {
+            x: sign * (compact ? 45 : 122),
+            y: compact ? 5 : 0,
+            rotationY: compact ? 0 : sign * 12,
+            rotation: compact ? sign * .5 : sign * 1.25,
+            scale: compact ? .965 : .91,
+            opacity: compact ? .88 : .74,
+            transformPerspective: 1050,
+            transformOrigin: i % 2 ? "100% 50%" : "0% 50%"
+          }, {
+            x: 0, y: 0, rotationY: 0, rotation: 0,
+            scale: 1, opacity: 1,
+            duration: 1, ease: "power1.inOut"
+          }, i * .12);
         });
         hold(tl);
       });

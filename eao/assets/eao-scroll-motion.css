@@ -1,0 +1,20 @@
+/* Animation-only bridge from eao/demo. No glass skins, surfaces, colors,
+   typography, spacing, or production component design are changed. */
+
+/* Falling-glyph headers: retain normal text wrapping and no layout shift. */
+.eao-v2 .section-title .eao-fall-char,
+.eao-v2 .cta h2 .eao-fall-char {
+  display:inline-block;
+  transform-origin:50% 0%;
+}
+.eao-v2 .section-title .eao-fall-word,
+.eao-v2 .cta h2 .eao-fall-word {
+  display:inline-block;
+  white-space:nowrap;
+}
+
+/* Restrict horizontal flight paths without turning these sections into
+   scrolling containers; this does not alter normal vertical page flow. */
+.eao-v2 :is(#work,#pain,#value,#departments,#control,.faq) {
+  overflow-x:clip;
+}
