@@ -1,0 +1,249 @@
+/* EAO /eao/demo/ only — unified interaction glass & native scrollbar.
+ * Use the pre-existing control geometry. Never wrap a second glass rim.
+ * Brand accent signals priority; lens remains neutral, responsive to ambience.
+ */
+:root {
+  --eao-control-edge: rgb(255 255 255 / .79);
+  --eao-control-ridge: rgb(255 255 255 / .84);
+  --eao-control-tint: rgb(248 253 255 / .14);
+  --eao-control-shadow: rgb(35 67 97 / .13);
+  --eao-control-text: #183744;
+  --eao-scroll-thumb: rgb(106 149 168 / .59);
+  --eao-scroll-track: rgb(255 255 255 / .045);
+}
+:root[data-theme="dark"] {
+  --eao-control-edge: rgb(227 243 255 / .29);
+  --eao-control-ridge: rgb(238 249 255 / .37);
+  --eao-control-tint: rgb(31 50 65 / .29);
+  --eao-control-shadow: rgb(0 0 0 / .32);
+  --eao-control-text: #eff8fb;
+  --eao-scroll-thumb: rgb(170 206 220 / .59);
+  --eao-scroll-track: rgb(6 20 32 / .07);
+}
+
+/* CTA, theme switch and language options are one optical control family.
+ * Existing elements own their rims: no extra wrappers or optical layers. */
+.eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current) {
+  border: 1px solid var(--eao-control-edge);
+  background:
+    linear-gradient(136deg,rgb(255 255 255 / .27),transparent 55%),
+    var(--eao-control-tint);
+  box-shadow:
+    0 8px 20px var(--eao-control-shadow),
+    inset 1px 1px 0 var(--eao-control-ridge),
+    inset -1px -1px 0 rgb(91 125 151 / .14);
+  color: var(--eao-control-text);
+  -webkit-backdrop-filter: blur(6px) saturate(130%);
+  backdrop-filter: blur(6px) saturate(130%);
+  transition: background .2s ease,border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang):hover {
+  border-color: rgb(255 255 255 / .94);
+  box-shadow:
+    0 11px 23px var(--eao-control-shadow),
+    inset 1px 1px 0 rgb(255 255 255 / .97),
+    inset -1px -1px 0 rgb(93 125 158 / .15);
+}
+.eao-v2 .btn:active { transform: translateY(1px) scale(.992); }
+.eao-v2 .theme-toggle:active { transform: translateY(1px) scale(.97); }
+
+/* Primary retains semantic hierarchy and readable ink without opaque teal. */
+.eao-v2 .btn.primary {
+  color: #fff;
+  border-color: rgb(175 237 235 / .60);
+  background:
+    linear-gradient(133deg,rgb(164 233 231 / .31),transparent 54%),
+    linear-gradient(325deg,rgb(6 74 76 / .57),rgb(7 109 111 / .62)),
+    rgb(9 90 90 / .54);
+  -webkit-backdrop-filter: blur(7px) saturate(133%);
+  backdrop-filter: blur(7px) saturate(133%);
+  text-shadow: 0 1px 1px rgb(0 36 42 / .66);
+  box-shadow:
+    0 9px 22px rgb(11 73 81 / .20),
+    inset 1px 1px 0 rgb(223 255 253 / .46),
+    inset -1px -1px 0 rgb(5 67 71 / .3);
+}
+.eao-v2 .btn.primary:hover {
+  border-color: rgb(215 250 246 / .80);
+  background:
+    linear-gradient(137deg,rgb(173 245 235 / .4),transparent 54%),
+    linear-gradient(324deg,rgb(6 74 76 / .51),rgb(5 132 125 / .65)),
+    rgb(7 86 86 / .55);
+  box-shadow:0 12px 28px rgb(12 72 78 / .27),inset 1px 1px 0 rgb(237 255 255 / .59);
+}
+:root[data-theme="dark"] .eao-v2 .btn.primary {
+  border-color:rgb(164 238 231 / .42);
+  background:linear-gradient(132deg,rgb(179 240 235 / .16),transparent 54%),rgb(10 99 100 / .68);
+  box-shadow:0 10px 27px rgb(0 0 0 / .30),inset 1px 1px 0 rgb(210 251 248 / .32);
+}
+:root[data-theme="dark"] .eao-v2 .btn.primary:hover {
+  background:linear-gradient(130deg,rgb(199 248 242 / .22),transparent 52%),rgb(15 121 121 / .72);
+}
+
+/* Nav selection already owns a sliding glass lens: don't add a second.
+ * Unselected tabs get a hint of the same material on hover/focus. */
+.eao-v2 .nav-sections .nav-section-link:not(.is-active) {
+  border:1px solid transparent;
+  background:transparent;
+  box-shadow:none;
+}
+.eao-v2 .nav-sections .nav-section-link:not(.is-active):is(:hover,:focus-visible) {
+  border-color:rgb(255 255 255 / .44);
+  background:rgb(247 253 255 / .15);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .45);
+}
+:root[data-theme="dark"] .eao-v2 .nav-sections .nav-section-link:not(.is-active):is(:hover,:focus-visible) {
+  background:rgb(182 216 229 / .075);
+  border-color:rgb(216 241 255 / .19);
+}
+.eao-v2 .nav-tools .lang-switch {
+  border-color:rgb(255 255 255 / .32);
+  background:rgb(255 255 255 / .035);
+  box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.eao-v2 .nav-tools :is(.lang,.lang-current) {
+  box-shadow:inset 1px 1px 0 var(--eao-control-ridge);
+  font-weight:650;
+}
+.eao-v2 .nav-tools .lang-current {
+  background:rgb(245 253 255 / .22);
+  color:#225363;
+}
+:root[data-theme="dark"] .eao-v2 .nav-tools .lang-current {
+  background:rgb(207 241 249 / .105);color:#f0f9fc;
+}
+
+/* Each FAQ row is ALREADY one glass surface. Do not give its summary a
+   second border or lens; only illuminate the existing surface on interaction. */
+.eao-v2 .faq-item {overflow:hidden}
+.eao-v2 .faq-item:is(:hover,:focus-within) {
+  border-color:var(--eao-control-edge);
+  box-shadow:0 10px 22px var(--eao-control-shadow),inset 0 1px 0 var(--eao-control-ridge);
+}
+.eao-v2 .faq-item summary {
+  border:0;
+  background:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  color:inherit;
+}
+.eao-v2 .faq-item summary:hover {
+  background:linear-gradient(90deg,rgb(255 255 255 / .11),transparent 78%);
+}
+.eao-v2 :is(.btn,.theme-toggle,.lang,.nav-section-link,.faq-item summary):focus-visible {
+  outline:2px solid #0b827e;outline-offset:3px;
+}
+:root[data-theme="dark"] .eao-v2 :is(.btn,.theme-toggle,.lang,.nav-section-link,.faq-item summary):focus-visible {
+  outline-color:#91eee1;
+}
+
+/* Cosmetic native scrollbar, not fake full refractive glass.
+ * Overlay/auto-hide implementations may ignore these hints. */
+html {
+  scrollbar-width:thin;
+  scrollbar-color:var(--eao-scroll-thumb) var(--eao-scroll-track);
+}
+html::-webkit-scrollbar { width:11px; }
+html::-webkit-scrollbar-track {background:var(--eao-scroll-track)}
+html::-webkit-scrollbar-thumb {
+  border:2px solid transparent;
+  border-radius:999px;
+  background:var(--eao-scroll-thumb);
+  background-clip:padding-box;
+}
+html::-webkit-scrollbar-thumb:hover {background:rgb(97 142 161 / .74);background-clip:padding-box;}
+:root[data-theme="dark"] html::-webkit-scrollbar-thumb:hover {
+  background:rgb(189 224 235 / .76);background-clip:padding-box;
+}
+
+@media (max-width:700px) {
+  .eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current) {
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background-color:rgb(246 251 254 / .5);
+  }
+  :root[data-theme="dark"] .eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current) {
+    background-color:rgb(26 43 59 / .62);
+  }
+  .eao-v2 .btn.primary {
+    background-color:rgb(7 85 86 / .83);
+    color:#fff;
+  }
+  :root[data-theme="dark"] .eao-v2 .btn.primary {
+    background-color:rgb(8 93 94 / .87);
+  }
+}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) {
+  .eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current) {
+    -webkit-backdrop-filter:none;backdrop-filter:none;background:#eff7f9;
+  }
+  .eao-v2 .btn.primary {background:#096363;color:white}
+  :root[data-theme="dark"] .eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current) {background:#283e50}
+  :root[data-theme="dark"] .eao-v2 .btn.primary {background:#105a5a}
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  .eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current) {
+    -webkit-backdrop-filter:none;backdrop-filter:none;background:#f0f7f8;color:#183744;
+  }
+  .eao-v2 .btn.primary {background:#075d60;color:white}
+  :root[data-theme="dark"] .eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current) {
+    background:#243e50;color:#eef7fa;
+  }
+  :root[data-theme="dark"] .eao-v2 .btn.primary {background:#115858;color:white}
+}
+@media (prefers-reduced-motion:reduce) {
+  .eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current,.faq-item) {
+    transition:none;
+  }
+  .eao-v2 .btn:active,.eao-v2 .theme-toggle:active {transform:none}
+}
+@media (forced-colors:active) {
+  html {scrollbar-color:auto;scrollbar-width:auto}
+  .eao-v2 :is(.btn,.theme-toggle,.nav-tools .lang,.nav-tools .lang-current) {
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background:ButtonFace!important;color:ButtonText!important;
+    border:1px solid ButtonText;box-shadow:none;text-shadow:none;
+  }
+  .eao-v2 .nav-section-link:not(.is-active):hover {border-color:ButtonText}
+  .eao-v2 .faq-item:is(:hover,:focus-within) {border-color:Highlight}
+}
+
+/* Existing specimen CSS had more-specific Hero/CTA secondary rules;
+ * unify them with the same optical family without changing their bounds. */
+.eao-v2 .hero .btn:not(.primary),
+.eao-v2 .cta .btn:not(.primary) {
+  color:var(--eao-control-text);
+  border-color:var(--eao-control-edge);
+  background:linear-gradient(136deg,rgb(255 255 255 / .27),transparent 55%),var(--eao-control-tint);
+  box-shadow:0 8px 20px var(--eao-control-shadow),
+             inset 1px 1px 0 var(--eao-control-ridge),
+             inset -1px -1px 0 rgb(91 125 151 / .14);
+  -webkit-backdrop-filter:blur(6px) saturate(130%);
+  backdrop-filter:blur(6px) saturate(130%);
+}
+@media (max-width:700px) {
+  .eao-v2 .hero .btn:not(.primary),
+  .eao-v2 .cta .btn:not(.primary) {
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background:rgb(248 253 255 / .53);
+  }
+  :root[data-theme="dark"] .eao-v2 .hero .btn:not(.primary),
+  :root[data-theme="dark"] .eao-v2 .cta .btn:not(.primary) {
+    background:rgb(26 43 59 / .69);
+  }
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  .eao-v2 .hero .btn:not(.primary),
+  .eao-v2 .cta .btn:not(.primary) {
+    -webkit-backdrop-filter:none;backdrop-filter:none;background:#f0f7f8;
+  }
+  :root[data-theme="dark"] .eao-v2 .hero .btn:not(.primary),
+  :root[data-theme="dark"] .eao-v2 .cta .btn:not(.primary) {background:#243e50}
+}
+@media (forced-colors:active) {
+  .eao-v2 .hero .btn:not(.primary),
+  .eao-v2 .cta .btn:not(.primary) {
+    -webkit-backdrop-filter:none;backdrop-filter:none;
+    background:ButtonFace;color:ButtonText;border-color:ButtonText;
+    box-shadow:none;
+  }
+}

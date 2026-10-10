@@ -442,7 +442,9 @@
       function nestedParts(card) {
         const map = [
           [".dept-card", ":scope > h3, :scope > ul > li"],
+          [".eao-org-card", ":scope > .eao-org-content > h3, :scope > .eao-org-content > ul > li"],
           [".value-card", ":scope > b, :scope > h3, :scope > p"],
+          [".eao-method-card", ":scope > .eao-method-card-content > .eao-method-card-heading, :scope > .eao-method-card-content > .eao-method-icon, :scope > .eao-method-card-content > p"],
           [".control-card", ":scope > h3, :scope > p"]
         ];
         const type = map.find(([key]) => card.matches(key));
@@ -538,6 +540,160 @@
           hold(tl);
         });
       });
+
+      // Choreography for the two native glass diagrams on the production site.
+      // All triggers use natural/untransformed positions. Transform only the
+      // live glass card, never its optical layers or the section layout.
+      const subtleReveal = (parent, target, options = {}) => {
+        if (!target || !target.offsetWidth || !target.offsetHeight) return;
+        const tl = sceneFor(parent, target, {
+          entry: options.entry ?? .91,
+          travel: options.travel ?? (compact ? .26 : .31)
+        });
+        if (!tl) return;
+        tl.fromTo(target, {
+          y: options.y ?? (compact ? 13 : 20), autoAlpha: 0
+        }, {
+          y: 0, autoAlpha: 1, duration: .86, ease: "power1.inOut"
+        }, 0);
+        hold(tl);
+      };
+
+      // Natural CSS grid row groups: 5 on wide desktop, 3+2 on tablet;
+      // method steps: 4 wide, 2+2 on tablet, 1 each on phone.
+      function animateGlassRows(grid, selector, kind) {
+        if (!grid || !grid.offsetWidth) return;
+        const cards = Array.from(grid.querySelectorAll(selector)).filter(card => card.offsetWidth);
+        const rows = [];
+        cards.forEach((card) => {
+          const y = naturalY(card);
+          const row = rows.find(group => Math.abs(group.y - y) < 5);
+          if (row) row.cards.push(card);
+          else rows.push({ y, cards: [card] });
+        });
+        rows.forEach((row) => {
+          const tl = sceneFor(grid, row.cards[0], {
+            entry: compact ? .93 : .91,
+            travel: compact ? .36 : .51
+          });
+          if (!tl) return;
+          row.cards.forEach((card, i) => {
+            const order = cards.indexOf(card);
+            // Small, deliberately bounded travel: no card escapes its grid cell
+            // far enough to extend the document scrollHeight.
+            tl.fromTo(card, {
+              x: compact ? 0 : ((order % 2 ? -1 : 1) * (kind === 'methods' ? 94 : 75)),
+              y: (compact ? 39 : (kind === 'methods' ? 105 : 115)) * (order % 2 ? 1 : .86),
+              rotationY: compact ? 0 : (order % 2 ? 12 : -12),
+              rotation: compact ? (order % 2 ? 2 : -2) : (order % 2 ? 5 : -5),
+              scale: compact ? .96 : .85,
+              autoAlpha: 0, transformPerspective: 1200
+            }, {
+              x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1, autoAlpha: 1,
+              duration: .92, ease: "power1.inOut"
+            }, i * .115);
+            addNestedArrival(tl, card, i * .115 + .70);
+          });
+          hold(tl);
+        });
+      }
+
+      function animateMethodSequence(flow) {
+        if (!flow || !flow.offsetWidth) return;
+        const cards = [...flow.querySelectorAll(".eao-method-card")].filter(c => c.offsetWidth);
+        const rows = [];
+        cards.forEach(card => {
+          const top = naturalY(card);
+          let row = rows.find(r => Math.abs(r.top - top) < 5);
+          if (!row) { row = { top, cards: [] }; rows.push(row); }
+          row.cards.push(card);
+        });
+        rows.forEach(row => {
+          const tl = sceneFor(flow, row.cards[0], {
+            entry: compact ? .92 : .91,
+            travel: compact ? .33 : (row.cards.length === 4 ? .83 : .52)
+          });
+          if (!tl) return;
+          row.cards.forEach((card, index) => {
+            const stage = index * 2.25;
+            const order = cards.indexOf(card);
+            const direction = (order % 2 ? 1 : -1);
+            tl.fromTo(card, {
+              x: compact ? 0 : direction * (row.cards.length === 4 ? 66 : 45),
+              y: compact ? 57 : 94,
+              rotationY: compact ? 0 : direction * 12,
+              rotation: compact ? direction * 2 : direction * 4,
+              scale: compact ? .94 : .86,
+              autoAlpha: 0, transformPerspective: 1050
+            }, {
+              x: 0, y: 0, rotationY: 0, rotation: 0, scale: 1,
+              autoAlpha: 1, duration: .82, ease: "power1.inOut"
+            }, stage);
+            addNestedArrival(tl, card, stage + .86, .21);
+            const arrow = card.nextElementSibling;
+            if (arrow && arrow.matches(".eao-method-arrow") &&
+                getComputedStyle(arrow).display !== "none") {
+              tl.fromTo(arrow, {
+                autoAlpha: 0, scale: .6,
+                x: compact ? 0 : -24,
+                y: compact ? -12 : 0,
+                transformOrigin: "50% 50%"
+              }, {
+                autoAlpha: 1, scale: 1, x: 0, y: 0,
+                duration: .23, ease: "power1.inOut"
+              }, stage + 1.98);
+            }
+          });
+          // Keep final position once the complete row has settled.
+          hold(tl);
+        });
+      }
+
+      const org = document.querySelector(".eao-org-diagram");
+      if (org && org.offsetWidth) {
+        subtleReveal(org, org.querySelector(".eao-org-intro"), {
+          entry: .90, travel: compact ? .22 : .28, y: 14
+        });
+        const center = org.querySelector(".eao-org-center");
+        const wires = org.querySelector(".eao-org-wires");
+        if (center && center.offsetWidth) {
+          const tl = sceneFor(org, center, {
+            entry: .90, travel: compact ? .34 : .48
+          });
+          if (tl) {
+            tl.fromTo(center, {
+              y: compact ? 34 : 122, rotationX: compact ? 0 : -11, scale: compact ? .96 : .86, autoAlpha: 0
+            }, {
+              y: 0, rotationX: 0, scale: 1, autoAlpha: 1,
+              duration: .85, ease: "power1.inOut"
+            }, 0);
+            if (wires && wires.offsetWidth) {
+              tl.fromTo(wires, {
+                scaleY: .15, autoAlpha: 0, transformOrigin: "50% 0%"
+              }, {
+                scaleY: 1, autoAlpha: 1,
+                duration: .68, ease: "power1.inOut"
+              }, .26);
+            }
+            hold(tl);
+          }
+        }
+        animateGlassRows(org.querySelector(".eao-org-grid"), ".eao-org-card", "org");
+        subtleReveal(org, org.querySelector(".eao-org-summary"), {
+          entry: .96, travel: compact ? .30 : .36, y: compact ? 30 : 75
+        });
+      }
+
+      const methods = document.querySelector(".eao-method-diagram");
+      if (methods && methods.offsetWidth) {
+        subtleReveal(methods, methods.querySelector(".eao-method-intro"), {
+          entry: .90, travel: compact ? .24 : .28, y: 14
+        });
+        animateMethodSequence(methods.querySelector(".eao-method-flow"));
+        subtleReveal(methods, methods.querySelector(".eao-method-summary"), {
+          entry: .96, travel: compact ? .30 : .36, y: compact ? 30 : 75
+        });
+      }
 
       // FAQ controls stay visible/focusable even before the scroll scene runs.
       // Animate the group heading only; never hide <summary> or its answers.
