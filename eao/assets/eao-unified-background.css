@@ -1,0 +1,77 @@
+/*
+ * EAO production: one continuous page-level environment.
+ *
+ * Background ownership: body only. Chapters remain transparent so the same
+ * quiet backdrop is visible from Hero through Footer; cards, glass optics,
+ * screenshots and illustration surfaces keep their own materials.
+ *
+ * Keep these overrides after eao-redesign.css and all component styles:
+ * legacy chapter gradients exist at multiple specificity levels.
+ */
+html {
+  background-color: #edf3f9;
+}
+
+body.eao-v2 {
+  background-color: #edf3f9;
+  background-image:
+    radial-gradient(ellipse 78vw 77vh at 86% 16%, rgb(174 207 239 / .31), transparent 86%),
+    radial-gradient(ellipse 74vw 82vh at 12% 83%, rgb(247 220 200 / .22), transparent 86%),
+    linear-gradient(126deg, #fafbfd 0%, #f0f5fa 54%, #e7f1f9 100%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+:root[data-theme="dark"] {
+  background-color: #132235;
+}
+
+:root[data-theme="dark"] body.eao-v2 {
+  background-color: #132235;
+  background-attachment: fixed;
+  background-image:
+    radial-gradient(ellipse 82vw 84vh at 84% 18%, rgb(54 91 126 / .32), transparent 86%),
+    radial-gradient(ellipse 73vw 82vh at 10% 86%, rgb(78 88 107 / .20), transparent 84%),
+    linear-gradient(129deg, #142236 0%, #192c40 52%, #142538 100%);
+}
+
+/* The old viewport dot texture was a second surface. */
+body.eao-v2::before {
+  content: none !important;
+}
+
+/* Section-specific fills are intentionally retired, regardless of the
+   previous individual chapter selector's specificity. Preserve spacing. */
+body.eao-v2 .hero,
+body.eao-v2 main > section,
+body.eao-v2 footer {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* No color breaks or rules across chapter boundaries; do not touch card rims. */
+body.eao-v2 main > section,
+body.eao-v2 footer {
+  border-bottom-color: transparent !important;
+  border-top-color: transparent !important;
+}
+
+/* Disable only decorative wash layers. Leave Hero and CTA text watermarks
+   (:before) intact and keep internal card ::before/::after optics untouched. */
+body.eao-v2 .hero::after,
+body.eao-v2 :is(#work, #departments, #knowledge-story, #value, #control, .faq)::before {
+  background: none !important;
+}
+
+/* iOS browsers handle fixed body backgrounds inconsistently. A scrollable
+   continuous gradient avoids repaint jitter without section-local backgrounds. */
+@media (max-width: 700px) {
+  body.eao-v2 {
+    background-attachment: scroll;
+    background-image: linear-gradient(160deg, #f9fbfd, #edf4fa 55%, #e6eff8);
+  }
+  :root[data-theme="dark"] body.eao-v2 {
+    background-image: linear-gradient(160deg, #152437, #1a2e43 55%, #132335);
+  }
+}
