@@ -1,14 +1,18 @@
-# EAO demo rain-window background assets
+# EAO Rain-Night Demo Background (Static)
 
-Two static WebP composites made for the EAO demo from the default
-City photographic backdrop referenced in the rain-window CodePen demo
-provided by the user. Both files have the blur, color grading, and small
-droplets/traces baked in at authoring time. No background-rendering runtime.
+These two lightweight WebP variants derive from a real rain-splattered
+window photo supplied by photographer via Unsplash, chosen because it
+resembles the dark cyan-blue / magenta / amber visual reference.
 
-- Photo: https://images.unsplash.com/photo-1477959858617-67f85cf4f1df
-- Unsplash licensing information: https://unsplash.com/license
-- Reference demo: https://codepen.io/fyildiz1974/pen/RNRgjpj
-- rain-window-day.webp: light theme.
-- rain-window-night.webp: dark theme.
+- Source: https://unsplash.com/photos/rain-splattered-glass-window-WBjHUwMoMI8
+- Source JPEG: https://images.unsplash.com/flagged/photo-1559664862-a64f59fddb6c
+- Photo under Unsplash License: https://unsplash.com/license
+- Creative direction: screenshot of the user's Rainy Window demo.
+- rain-window-day.webp: night blue-cyan photo with preserved bokeh and light.
+- rain-window-night.webp: darker graded version of the same photo.
 
-No weather, location, video, WebGL, canvas, audio, clock, or HUD scripts.
+Only static editorial color grading, no artificially painted droplets. All
+rain speckles in this version are in the original source photograph.
+
+No canvas, video, weather, clock, WebGL, background JS or continuous
+animation. The /eao/demo/ preview is the only consumer.

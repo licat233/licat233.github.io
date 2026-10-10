@@ -1,38 +1,96 @@
 /*
- * EAO isolated preview: static rain-window ambiance, source photograph from
- * the user's supplied CodePen demo. Real water speckle already rasterized.
- * One tiny WebP per theme: no canvas, video, WebGL, filters or background RAF.
+ * EAO isolated preview — REAL rain-on-glass at night, not a pale synthetic fog.
+ * Based on the user's reference: near-black blue/cyan night with small magenta
+ * and amber bokeh and photographed raindrops. Two locally hosted static WebP.
+ * No JS, WebGL, video, filters, CSS opacity wash, or background animation.
  */
 body.eao-v2 {
-  background-color:#dceaf0;
-  background-image:
-    linear-gradient(115deg,rgb(248 251 254 / .40),rgb(231 240 248 / .34) 52%,rgb(230 239 249 / .43)),
-    url("./assets/rain-window-day.webp");
-  background-position:center,center;
-  background-size:cover,cover;
-  background-repeat:no-repeat,no-repeat;
-  background-attachment:fixed,fixed;
+  background-color:#071a2b;
+  background-image:url("./assets/rain-window-day.webp");
+  background-position:center 47%;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
 }
 :root[data-theme="dark"] body.eao-v2 {
-  background-color:#142637;
-  background-image:
-    linear-gradient(115deg,rgb(14 29 42 / .23),rgb(16 28 42 / .38) 65%,rgb(12 24 41 / .30)),
-    url("./assets/rain-window-night.webp");
-  background-position:center,center;
-  background-size:cover,cover;
-  background-repeat:no-repeat,no-repeat;
-  background-attachment:fixed,fixed;
+  background-color:#061524;
+  background-image:url("./assets/rain-window-night.webp");
+  background-position:center 47%;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
 }
+/* Light-theme content now sits over a NIGHT photograph, not pale paper.
+ * Use actual light text (no blurred shadow or faux outline) outside cards.
+ * Existing light frosted cards keep their own dark internal typography.
+ */
+:root:not([data-theme="dark"]) .eao-v2 .hero h1 {
+  color:#f5f9ff;
+  -webkit-text-fill-color:#f5f9ff;
+}
+:root:not([data-theme="dark"]) .eao-v2 .hero h1 span {
+  color:#c8fff1;
+  -webkit-text-fill-color:#c8fff1;
+  -webkit-text-stroke:0;
+  text-shadow:none;
+}
+:root:not([data-theme="dark"]) .eao-v2 .hero p.lead {
+  color:#e2edf5;
+  text-shadow:none;
+}
+/*
+ * Keep night colour in the WALLPAPER and restore readable foreground glass.
+ * Do not wash the whole photograph or add extra glass-in-glass wrappers.
+ * These are existing component surfaces only.
+ */
+:root:not([data-theme="dark"]) .eao-v2 nav {
+  background:linear-gradient(130deg,rgb(249 252 255 / .81),rgb(226 239 249 / .70));
+}
+:root:not([data-theme="dark"]) .eao-v2 :is(.section-title,.faq-group > h3) {
+  color:#f5faff;
+}
+:root:not([data-theme="dark"]) .eao-v2 #departments > .wrap > p.intro,
+:root:not([data-theme="dark"]) .eao-v2 #knowledge-story > .wrap > p.intro {
+  color:#e1edf6;
+  text-shadow:none !important;
+}
+:root:not([data-theme="dark"]) .eao-v2 .eao-org-intro h3,
+:root:not([data-theme="dark"]) .eao-v2 .eao-method-intro h3 {
+  color:#f7fbff;
+}
+:root:not([data-theme="dark"]) .eao-v2 .eao-org-intro p,
+:root:not([data-theme="dark"]) .eao-v2 .eao-method-intro p {
+  color:#e1edf6;
+}
+:root:not([data-theme="dark"]) .eao-v2 .eao-org-glass > .eao-org-overlay {
+  background:linear-gradient(135deg,rgb(255 255 255 / .89),rgb(243 251 255 / .77));
+}
+:root:not([data-theme="dark"]) .eao-v2 .eao-method-glass > .eao-method-overlay {
+  background:linear-gradient(140deg,rgb(250 253 255 / .87),rgb(236 247 254 / .75));
+}
+:root:not([data-theme="dark"]) .eao-v2 .eao-org-summary {
+  background:rgb(241 251 254 / .77);
+}
+:root:not([data-theme="dark"]) .eao-v2 :is(
+  .dept-card,.pain-card,.value-card,.work-col.after,.control-card,.real,.faq-item
+) {
+  background:linear-gradient(140deg,rgb(250 253 255 / .86),rgb(231 245 252 / .78));
+}
+:root:not([data-theme="dark"]) .eao-v2 .work-note {
+  background:rgb(249 252 255 / .79);
+}
+/* Accessibility degrades the wallpaper to quiet paper without relying on
+ * dark-on-dark text; the original palette is already used in high contrast. */
 @media(max-width:700px) {
   /* A scroll-attached body photo scales to the whole LONG page and loses its
      city/window composition. A STATIC fixed viewport layer avoids the iOS
      background-attachment:fixed issue, without a moving animation. */
   body.eao-v2 {
     isolation:isolate;
-    background:#e5eff6;
+    background:#071a2b;
   }
   :root[data-theme="dark"] body.eao-v2 {
-    background:#172838;
+    background:#061524;
   }
   body.eao-v2::before {
     content:"";
@@ -43,13 +101,11 @@ body.eao-v2 {
     height:100dvh;
     z-index:-1;
     pointer-events:none;
-    background-color:#e5eff6;
-    background-image:
-      linear-gradient(115deg,rgb(248 251 254 / .40),rgb(231 240 248 / .34) 52%,rgb(230 239 249 / .43)),
-      url("./assets/rain-window-day.webp");
-    background-repeat:no-repeat,no-repeat;
-    background-position:center,center;
-    background-size:cover,cover;
+    background-color:#071a2b;
+    background-image:url("./assets/rain-window-day.webp");
+    background-repeat:no-repeat;
+    background-position:center 47%;
+    background-size:cover;
     opacity:1;
     filter:none;
     transform:none;
@@ -57,22 +113,33 @@ body.eao-v2 {
     will-change:auto;
   }
   :root[data-theme="dark"] body.eao-v2::before {
-    background-color:#172838;
-    background-image:
-      linear-gradient(115deg,rgb(14 29 42 / .23),rgb(16 28 42 / .38) 65%,rgb(12 24 41 / .30)),
-      url("./assets/rain-window-night.webp");
+    background-color:#061524;
+    background-image:url("./assets/rain-window-night.webp");
     opacity:1;
     filter:none;
   }
 }
-/* If the OS requires less transparency or extra contrast, show plain paper. */
+/* Accessible fallback: no image and proper foreground contrast again. */
 @media(prefers-reduced-transparency:reduce),(prefers-contrast:more) {
   body.eao-v2 { background:#f0f5f8; }
   :root[data-theme="dark"] body.eao-v2 { background:#172a39; }
   body.eao-v2::before { background:#f0f5f8; }
   :root[data-theme="dark"] body.eao-v2::before { background:#172a39; }
+  :root:not([data-theme="dark"]) .eao-v2 :is(.hero h1,.hero h1 span,.section-title,.faq-group > h3,.eao-org-intro h3,.eao-method-intro h3) {
+    color:#152b37;
+    -webkit-text-fill-color:#152b37;
+  }
+  :root:not([data-theme="dark"]) .eao-v2 :is(.hero p.lead,#departments > .wrap > p.intro,#knowledge-story > .wrap > p.intro,.eao-org-intro p,.eao-method-intro p) {
+    color:#425762;
+  }
 }
+
 @media(forced-colors:active) {
   body.eao-v2,:root[data-theme="dark"] body.eao-v2 {background:Canvas;}
   body.eao-v2::before,:root[data-theme="dark"] body.eao-v2::before {background:Canvas;}
+  .eao-v2 :is(.hero h1,.hero h1 span,.section-title,.faq-group > h3,.eao-org-intro h3,.eao-method-intro h3,
+    .hero p.lead,#departments > .wrap > p.intro,#knowledge-story > .wrap > p.intro,.eao-org-intro p,.eao-method-intro p) {
+    color:CanvasText;
+    -webkit-text-fill-color:CanvasText;
+  }
 }
