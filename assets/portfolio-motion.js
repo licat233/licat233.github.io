@@ -431,6 +431,9 @@
         };
         const settleVisibleScenes = () => {
           idleRevealTimer = null;
+          // Interactive SVG glass refraction resumes only after scrolling
+          // settles; routine backdrop blur and edge optics stay active.
+          root.classList.remove("portfolio-is-scrolling");
           idleScenes.forEach((scene) => {
             const trigger = scene.timeline.scrollTrigger;
             if (!trigger || scene.latched || !sceneVisible(scene) ||
@@ -446,6 +449,7 @@
           });
         };
         const onScrollIdleCheck = () => {
+          root.classList.add("portfolio-is-scrolling");
           idleScenes.forEach((scene) => {
             if (scene.latched && scene.timeline.scrollTrigger) {
               synchronizeScene(scene.timeline.scrollTrigger);
@@ -456,6 +460,7 @@
         };
         window.addEventListener("scroll", onScrollIdleCheck, { passive: true });
         cleanups.push(() => {
+          root.classList.remove("portfolio-is-scrolling");
           window.removeEventListener("scroll", onScrollIdleCheck);
           if (idleRevealTimer !== null) window.clearTimeout(idleRevealTimer);
           idleSceneActive = false;
