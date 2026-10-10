@@ -21,6 +21,7 @@ EXPECTED = [
     "references/FAILURE-MODES.md",
     "references/ACCEPTANCE.md",
     "references/eao-story-choreography.md",
+    "references/MOTION-AMBITION-GATE.md",
     "scripts/validate_skill.py",
     "scripts/qa_browser.mjs",
 ]
@@ -118,10 +119,40 @@ if case.exists():
         require(marker.lower() in example.lower(),
                 f"EAO nested-child scene case lacks: {marker}")
     main = FILE.read_text(encoding="utf-8")
-    for marker in ("version: 1.2.0", "Parent + child animation",
+    for marker in ("version: 1.3.0", "Parent + child animation",
                    "inventory", "shared", "readable"):
         require(marker.lower() in main.lower(),
                 f"Motion Skill lacks explicit nested-scene policy: {marker}")
+
+# A requested expressive scene requires an ambition decision BEFORE code,
+# and a distinct visual-motion acceptance gate AFTER functional QA.
+ambition = SKILL / "references/MOTION-AMBITION-GATE.md"
+if ambition.exists() and FILE.exists():
+    ambition_text = ambition.read_text(encoding="utf-8")
+    skill_text = FILE.read_text(encoding="utf-8")
+    acceptance = (SKILL / "references/ACCEPTANCE.md").read_text(encoding="utf-8")
+    for level in ("L1", "L2", "L3", "L4"):
+        require(level in ambition_text and level in skill_text,
+                f"Missing per-scene motion ambition level: {level}")
+    for token in ("Gate 1", "Gate 2", "Gate 3", "Gate 4",
+                  "Parent-child", "near-zero opacity", "normal wheel/touch",
+                  "20/45/70/100%", "visual", "technical QA",
+                  "not an acceptable primary deliverable",
+                  "idle completion", "reduced"):
+        require(token.lower() in ambition_text.lower(),
+                f"Motion Design Ambition Gate lacks: {token}")
+    for token in ("Motion Design Ambition Gate", "20–40px",
+                  "visual NOT ACCEPTED", "normal-speed",
+                  "engineering acceptance", "visual-motion acceptance"):
+        require(token.lower() in skill_text.lower(),
+                f"SKILL.md lacks mandatory decision/quality contract: {token}")
+    for token in ("Motion Design Ambition Gate", "L1/L2/L3/L4",
+                  "normal wheel/touch", "visual",
+                  "engineering PASS/FAIL", "0/20/45/70/100%"):
+        require(token.lower() in acceptance.lower(),
+                f"Acceptance checklist lacks visual ambition gate: {token}")
+    require("references/MOTION-AMBITION-GATE.md" in skill_text,
+            "Root SKILL.md must link the mandatory ambition guide")
 
 js = SKILL / "assets/reversible-motion.js"
 css = SKILL / "assets/motion.css"

@@ -2,6 +2,13 @@
 
 ## Design before code
 
+Use the [Motion Design Ambition Gate](MOTION-AMBITION-GATE.md) first.
+Choose per-scene **L1 microinteraction, L2 editorial, L3 narrative, or
+L4 cinematic** based on meaning and user brief. L1/L2 are not the
+safe default for a requested L3/L4 story; L3/L4 must not be forced
+onto functional controls or dense prose. Motion meaning comes before
+timing/easing code.
+
 The Licat production site illustrates **technique**, not mandatory appearance. Customize the direction, depth and timing around real content. Awwwards-level polish comes from a clear visual hierarchy and disciplined pacing, not covering every component with movement.
 
 | Scene | Purpose | Motion | Why it works |
@@ -77,3 +84,13 @@ assume all subitems warrant separate motion: long body text, forms,
 links, status alerts and FAQ focusable controls must remain usable.
 Check composed parent and child transforms, physical bounds and
 pause-with-half-visible-content. See [EAO case](eao-story-choreography.md).
+
+## Why a large transform can still feel micro
+
+A numeric 175px translation does not establish cinematic presentation
+if most travel happens with opacity near zero, before viewport entry,
+during an impossibly short idle finish, or without distinct causal
+steps. In an expressive flow, design **perceivable travel during the
+viewing window** and give the landing/sequence enough time to read.
+Capture normal-scroll playback, not only source CSS. Use the
+[ambition gate](MOTION-AMBITION-GATE.md) for the visual review rubric.

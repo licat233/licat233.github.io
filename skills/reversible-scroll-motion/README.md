@@ -59,6 +59,18 @@ node skills/reversible-scroll-motion/scripts/qa_browser.mjs http://127.0.0.1:800
 
 The linked [production example](https://licat233.github.io/zh/) provides a real, complete website; it is not a visual template to copy wholesale.
 
+## Motion ambition: design judgement before code
+
+Read the mandatory [Motion Design Ambition Gate](references/MOTION-AMBITION-GATE.md) when requesting or revising site
+animations. Agents must classify each scene from **L1 microinteraction**
+through **L4 cinematic**, according to content and brief, and verify
+the effect is **perceptible during normal scrolling**.
+
+A generic tiny Fade Up is not an acceptable main result for a
+deliberately expressive narrative scene. Equally, do not make every
+button or FAQ cinematic. Technical QA and **aesthetic acceptance**
+are different checks.
+
 ## Lessons encoded
 
 **Scroll determines movement, not readability.** Use reversible `ScrollTrigger` and one debounced `setTimeout` to finish scenes that are already visible while the user is idle. Re-anchor animation progress for smooth reverse. Keep real grid geometry fixed, clip horizontal travel appropriately, never inflate `scrollHeight` with bottom-origin cards, and never pad the footer to force animations to play.

@@ -2,6 +2,28 @@
 
 This Skill is only complete when **a user can actually read and use the page**. Passing a JS unit test or printing GSAP's progress is not sufficient.
 
+## Separate technical and visual acceptance
+
+**Never call a narrative-animation request done because responsive
+test counts pass.** Run the independent [Motion Design Ambition Gate](MOTION-AMBITION-GATE.md) and present the approved visual demo
+alongside engineering findings.
+
+- [ ] Per-scene meaning and **L1/L2/L3/L4** choice documented before code.
+- [ ] Explicit expressive/cinematic requests get an intentional L3/L4
+  design (or a specific justified downgrade), **not a generic Fade Up**.
+- [ ] Parent and meaningful children have planned order and visible
+  entrances, instead of all entering at once.
+- [ ] Normal wheel/touch playback is recorded/reviewed; transforms are
+  visible for useful time and **not hidden at near-zero opacity**.
+- [ ] Check **0/20/45/70/100%** actual intermediate states AND natural
+  scroll + stop. The sequence must read at real speed.
+- [ ] Scroll-stop idle completion does not compress a multi-step sequence
+  into an indistinguishable flash, yet leaves visible text fully readable.
+- [ ] Independent outcome reported: **engineering PASS/FAIL** and
+  **visual ACCEPTED/NOT ACCEPTED/PENDING USER REVIEW**.
+- [ ] Any user-required aesthetic approval is obtained before production
+  promotion; a perfect automation matrix does not grant it.
+
 ## Preflight
 
 - [ ] Exact repository branch/commit recorded; worktree clean or unrelated user changes preserved.

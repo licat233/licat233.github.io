@@ -46,3 +46,18 @@ These occurred or were identified during the Licat animation work and should bec
 
 See [EAO story case](eao-story-choreography.md). These failure cases
 were corrected in an isolated demo, not proof of production deployment.
+
+## Ambition and perception failures (EAO review lesson)
+
+| Visual failure | Likely cause | Correct response |
+| --- | --- | --- |
+| Every section gets micro Fade Up | The model picks the safest widely reusable recipe without reading content | Choose L1–L4 by meaning; storyboard L3/L4 where requested |
+| A declared 175px flight still looks tiny | Motion hidden at low opacity or occurs outside viewport | Inspect actual on-screen travel, not transform parameters |
+| Five steps are merely one quick flash | Idle-completion forcibly finishes a long scrubbed timeline too quickly | Tune visible range and bounded scene-specific idle continuation |
+| Complex movement feels arbitrary | No source/arrow/child semantic order | Design parent → ordered children; connectors between causal nodes |
+| Technical matrix is green but user rejects result | Tests verify geometry and JS, not aesthetic/pacing | Independent visual review on actual device/browser, human sign-off |
+| Everything becomes theatrical | Misread ambition gate as an L4 quota | Keep L1 for controls, L2 for reading, intentional focal L3/L4 only |
+
+The [Motion Design Ambition Gate](MOTION-AMBITION-GATE.md) is the
+correction mechanism; it does **not** replace accessibility or
+reversible-scroll acceptance tests.

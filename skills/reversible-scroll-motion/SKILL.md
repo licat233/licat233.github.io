@@ -1,7 +1,7 @@
 ---
 name: reversible-scroll-motion
-version: 1.2.0
-description: Build and repair production-grade, GSAP-powered, reversible scroll animations for websites. Use for cinematic entrances, eight-direction card flights, SplitText headings, timeline wipes, 3D panels, footer reveals, ScrollTrigger scrub timing, idle/setTimeout visibility fallback, mobile/reduced-motion support, and browser QA. Also use when scroll animations hide content, fail at page bottom, inflate document height, or stop working on reverse scroll. Includes semantic A-to-D workflows, falling glyph headings, parent-child item choreography, and animated FAQ lists.
+version: 1.3.0
+description: Build and repair production-grade, GSAP-powered, reversible scroll animations for websites. Use for cinematic entrances, eight-direction card flights, SplitText headings, timeline wipes, 3D panels, footer reveals, ScrollTrigger scrub timing, idle/setTimeout visibility fallback, mobile/reduced-motion support, and browser QA. Also use when scroll animations hide content, fail at page bottom, inflate document height, or stop working on reverse scroll. Includes semantic A-to-D workflows, falling glyph headings, parent-child item choreography, and animated FAQ lists. Requires choosing L1-L4 ambition by content meaning and separate perceptual-motion review, not default microanimations.
 ---
 
 # Reversible Scroll Motion — production workflow
@@ -15,11 +15,26 @@ Create expressive, readable, accessible page motion without scroll hijacking. Th
 1. Inspect the **actual** repository, entry pages, CSS/JS, existing animation dependencies and Git state. Do not trust earlier chat SHA values.
 2. Confirm which pages are approved for edits. For unapproved production changes, work in an isolated demo or worktree first. Preserve other concurrent changes; never force-push or reset legitimate commits.
 3. Record a baseline with real browser screenshots at desktop, mobile, light/dark and `prefers-reduced-motion: reduce`. Identify scroll containers, sticky headers, page-end behavior and links.
-4. **Choose movement by information meaning**: a sequence is not an
+4. **Pass the Motion Design Ambition Gate before coding**: inspect content
+   semantics, parent/child structure and the visitor's desired insight;
+   choose **L1–L4** purpose and ambition **per scene** with a rationale.
+   Record entry path, real viewing window, causal order and visual QA
+   evidence. See the mandatory [ambition gate](references/MOTION-AMBITION-GATE.md).
+   Do not default to 20–40px Fade Up for an L3/L4 request.
+5. **Choose movement by information meaning**: a sequence is not an
    unordered card grid; a heading has reading order; a parent card can
    contain facts that need their own sequence. Decide this before GSAP.
-5. Decide which sections merit expressive choreography. Do not animate every word or control: keep navigation, forms, accessibility controls and reading surfaces usable.
-6. Prefer the site's existing GSAP; avoid introducing frameworks, services or large 3D engines for simple entrances.
+6. Decide which sections merit expressive choreography. Do not animate every word or control: keep navigation, forms, accessibility controls and reading surfaces usable.
+7. Prefer the site's existing GSAP; avoid introducing frameworks, services or large 3D engines for simple entrances.
+
+Read the **[Motion Design Ambition Gate](references/MOTION-AMBITION-GATE.md)**
+*first* whenever designing or substantially revising motion. It is a
+mandatory decision/visual-quality gate, not optional inspiration.
+Record an internal per-scene storyboard: meaning → chosen L1/L2/L3/L4
+→ direction/timing/children → actual visible travel → visual evidence.
+If the user requests expressive or cinematic motion, do not deliver
+generic fade-up as the hero effect without a specific reason; conversely
+do not force heavy 3D into FAQ controls or text-heavy reading content.
 
 Read [the motion grammar](references/MOTION-GRAMMAR.md) before designing. For runnable implementation, see [the reusable demo](assets/example.html) and [controller](assets/reversible-motion.js).
 
@@ -52,7 +67,9 @@ glass filter/tint/rim layers or make FAQ buttons inaccessible. See
 
 ## 1. Plan scenes according to their visible geometry
 
-For each scene, record: **stable trigger, target(s), viewport entry, viewport finish, idle fallback, reverse exit**. Suggested defaults, not universal:
+For each scene, record: **content story, ambition level, stable trigger,
+target(s), viewport entry, viewport finish, idle fallback, reverse exit,
+real mid-flight viewing window**. Suggested defaults, not universal:
 
 | Scene | Motion grammar | Start | Finish while visible |
 | --- | --- | --- | --- |
@@ -63,7 +80,12 @@ For each scene, record: **stable trigger, target(s), viewport entry, viewport fi
 | Principles | Perspective unfold | Top near 85–90% | Top near 40–50% |
 | Footer | Short fade/rise | As soon as actually visible | **Never require screen midpoint** |
 
-Measure real viewport, section heights, sticky headers and document max scroll; shorten passages when necessary. The objective is a legible experience, not arbitrary long animation distances.
+Measure real viewport, section heights, sticky headers and document max
+scroll; shorten passages when necessary. The objective is **legible,
+purposeful and perceivable** motion, not arbitrary long distances.
+A declared 175px initial transform can still LOOK like microanimation if
+the actual travel is invisible or the idle-completion compresses a five-step
+story into a blink. Validate the perceptual effect, not just CSS values.
 
 ## 2. Implement reversible scenes without layout shifts
 
@@ -127,6 +149,23 @@ See [implementation details](references/IMPLEMENTATION.md) and [fully runnable c
 - Prevent horizontal overflow without clipping important text vertically.
 - Preserve content, real links, SEO metadata, localization, theme and responsive behavior. Do not copy demo banners or `noindex` into production.
 
+### Design ambition QA (independent from engineering QA)
+
+- Check the [ambition gate](references/MOTION-AMBITION-GATE.md):
+  per-scene **L1–L4** classification, semantic storyboard, chosen
+  motion vocabulary and specific reason for any L3/L4 downgrade.
+- When expressive motion was requested, **generic 20–40px opacity
+  Fade Up is insufficient as the main choreography** if the content
+  supports narrative/cinematic staging. A suitable L1/L2 for controls
+  and dense text is not a failure.
+- Inspect real normal-speed wheel/touch playback and **0/20/45/70/100%**
+  states: ensure visible travel, comprehensible causal ordering,
+  interesting spatial layers and landing, not merely working JS.
+- Run separate **engineering acceptance** and **visual-motion acceptance**.
+  If the requested L3/L4 scene is imperceptible, mark visual NOT ACCEPTED
+  regardless of a perfect viewport test matrix; revise and review with
+  the user before production promotion.
+
 ### Narrative QA (in addition to scroll mechanics)
 
 - At ~20/45/70/100% compare the step and connector states: A must
@@ -147,7 +186,9 @@ Read [acceptance checklist](references/ACCEPTANCE.md) and [historical failures](
 - Scroll rapidly to the bottom and return. All cards, timeline entries, methods and footer text remain readable at the end of the page.
 - Check **physical geometry**, not only `ScrollTrigger.progress===1`: finished content must be in the viewport, and `document.documentElement.scrollHeight` must remain stable while transforms run.
 - No JS errors, asset 404s, horizontal overflow, scroll pins or locks. All links, theme switchers and keyboard navigation work.
-- Capture screenshots at 0%, 25%, 50%, 85%, 100%, footer entrance and page bottom; review visually.
+- Capture screenshots at 0/20/45/70/100%, footer entrance and page
+  bottom; **review real playback at normal scroll speed**. Geometry and
+  automated PASS alone cannot certify animation quality or originality.
 
 Never claim tests passed without actually running them. Do not claim a deployment succeeded before the public URL loads the new files and CI/deployment state is confirmed.
 
@@ -163,6 +204,8 @@ portable snippets and failure evidence; do not copy EAO-specific selectors.
 - [Example website](assets/example.html) — standalone HTML using standard CDN GSAP.
 - [Motion controller](assets/reversible-motion.js) — reversible scenes + single idle fallback.
 - [CSS](assets/motion.css) — responsive layout and motion defaults; no padding hack.
+- [Mandatory ambition/visual gate](references/MOTION-AMBITION-GATE.md)
+  — L1–L4 selection, anti-generic-fade policy, real perceptual QA.
 - [Design grammar](references/MOTION-GRAMMAR.md), [code patterns](references/IMPLEMENTATION.md), [failure cases](references/FAILURE-MODES.md), [QA checklist](references/ACCEPTANCE.md).
 - [Static Skill validator](scripts/validate_skill.py) — no third-party Python dependencies.
 

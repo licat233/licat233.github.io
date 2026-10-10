@@ -134,3 +134,25 @@ existing shared idle/re-anchor controller, not a new timer per step.
 A staggered fromTo may initialize later glyphs too late; set every
 glyph initial state first. Rotation must be included in scrollWidth
 flight limits. Never animate glass filter/tint/rim separately.
+
+## 10. Do not use GSAP configuration values as visual acceptance
+
+The [Motion Design Ambition Gate](MOTION-AMBITION-GATE.md) is required
+**before** implementing or significantly revising choreography. A
+"large" from-state or tween duration in source code is not proof
+that users will witness substantial movement:
+
+- An object may move while transparent, outside the viewport, or before
+  the scroll triggers users actually reach.
+- With scrub, timeline duration represents *relative portions* of
+  the physical start/end range; slowing an ease does not necessarily
+  expand the visible viewing window.
+- An idle tween that races through five explicit steps can erase
+  sequential readability. Set a *bounded* completion time appropriate
+  to the scene, without compromising fail-open visibility.
+- Inspect actual mid-flight rects/opacities, normal user scroll,
+  stop-and-finish and reverse. Treat engineering and visual sign-off
+  as separate results.
+
+Do not install a new 3D framework or motion runtime merely to
+"upgrade" L3/L4; compose the existing GSAP timeline first.
