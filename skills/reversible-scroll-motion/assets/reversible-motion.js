@@ -164,6 +164,8 @@
     });
 
     // Layout-grounded composition, not eight arbitrary flights.
+    // Side-origin movement must never inflate document scrollHeight;
+    // preserve natural Grid placement without below-footer transforms.
     // The card establishes a spatial frame; heading and summary then
     // physically unfold as meaningful children. Opacity is secondary.
     document.querySelectorAll('[data-motion-scene="cards"]').forEach(grid => {
