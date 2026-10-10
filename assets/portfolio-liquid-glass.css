@@ -810,3 +810,19 @@ body > .site-footer {
   :root[data-theme="dark"] #principles,
   :root[data-theme="dark"] #projects { background: Canvas; }
 }
+
+/* Performance: SVG displacement + backdrop blur on EVERY full-size project
+ * slab forced costly repeated compositing while scrolling. Preserve all
+ * approved tint, frosted backdrop and specular/rim optics at rest; reserve
+ * high-cost refraction for the single card being deliberately inspected.
+ * While a real scroll is active, never compute that interactive refraction.
+ * The fallback without JS retains the hover behavior.
+ */
+@media (min-width: 761px) and (prefers-reduced-transparency: no-preference) and (prefers-contrast: no-preference) and (forced-colors: none) {
+  #projects .project.liquid-demo > .lg-glass-filter {
+    filter: none;
+  }
+  html:not(.portfolio-is-scrolling) #projects .project.liquid-demo:is(:hover, :focus-visible) > .lg-glass-filter {
+    filter: url("#portfolioCardLensFilter");
+  }
+}
