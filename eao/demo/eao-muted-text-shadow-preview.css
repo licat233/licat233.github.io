@@ -31,112 +31,129 @@
      .39px  .39px 0 rgb(0 0 0 / .70);
 }
 
-/* Semantic grey text — navigation, intro, descriptive/secondary content,
- * process captions, department items, fact grid, knowledge, FAQ, CTA, footer.
- * Directly target the text-bearing elements; don't add a shadow to the glass
- * itself, icons, pictures, active controls or colourful section headings. */
+/*
+ * Grey-text-only optical edges.
+ *
+ * The previous version targeted every child of some cards, including
+ * high-contrast dark headings, black list items and coloured accents.
+ * Only these verified slate-grey / secondary-text selectors receive rims.
+ * The containing glass and regular dark text remain completely unchanged.
+ */
 .eao-v2 :is(
   .nav-section-link:not(.is-active),
-  .hero .lead,
-  .hero .hero-meta,
   .intro,
   .section-subtitle,
   .section-head p,
   .section-intro,
   .work-mode,
-  .work-col.before .work-heading h3,
   .work-context,
   .work-note-detail,
-  .work-note,
-  .work-step-text,
-  .work-col p,
-  .work-col li,
-  .pain-card p,
-  .pain-card li,
-  .value-card p,
-  .value-card li,
-  .dept-card p,
   .dept-card li,
-  #departments > .wrap > .note,
+  .value-card p,
   .control-card p,
   .real p,
-  .real-items span,
   .faq-answer,
-  .cta p,
-  .foot,
-  footer p,
-  footer small,
-  .eao-org-intro p,
   .eao-org-brand span,
-  .eao-org-card li,
-  .eao-method-intro p,
-  .eao-method-card p,
   .eao-method-summary p,
-  .eao-method-summary-content p
+  .note,
+  .visual-caption,
+  .foot
 ) {
-  text-shadow: var(--eao-muted-legibility-shadow);
+  text-shadow:var(--eao-muted-legibility-shadow);
 }
-/* The English language link is silver-grey only in dark mode. */
+/* On the dark theme, these become silver-grey rather than charcoal.
+ * The traditional flow remains dark-on-paper in BOTH themes. */
+:root[data-theme="dark"] .eao-v2 :is(
+  .hero .lead,
+  .work-col.before .work-heading h3,
+  .eao-org-intro p,
+  .eao-method-intro p,
+  .eao-method-card p
+) {
+  text-shadow:var(--eao-muted-legibility-shadow);
+}
 :root[data-theme="dark"] .eao-v2 .nav-tools .lang:not(.is-active) {
   text-shadow:var(--eao-muted-legibility-shadow);
 }
-/* Free-standing explanatory strips are grey by default and can cross vivid
- * regions even when outside the named cards. */
-.eao-v2 :is(.note, .visual-caption, .eao-org-summary) {
-  text-shadow: var(--eao-muted-legibility-shadow);
+
+/* Explicitly reject outlines on dark headings, lists, coloured calls-to-action
+ * and the selected nav tab. Some older glass styles supply their own shadows. */
+.eao-v2 :is(
+  .nav-sections .nav-section-link.is-active,
+  .btn.primary,
+  .work-col.before .work-heading h3,
+  .work-col.before .work-step-text,
+  .work-col.after .work-heading h3,
+  .work-col.after .work-step-text,
+  .eao-org-card li,
+  .real-items span,
+  .eao-org-summary,
+  .eao-method-card p,
+  .eao-org-intro p,
+  .eao-method-intro p
+) {
+  text-shadow:none;
 }
-/* Main hero highlight: a crisp, restrained dark optical rim and luminous
- * teal foreground in BOTH themes. The old 4px drop shadow caused the
- * apparent defocus. No blur, filter or text layer; readable over pink/blue. */
+/* Match the old specificity of the glass workflow override. The flow's
+ * charcoal and teal labels are not grey caption text. */
+.eao-v2 #work .compare-work .after .work-heading h3,
+.eao-v2 #work .compare-work .after .work-step-text,
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after .work-heading h3,
+:root[data-theme="dark"] .eao-v2 #work .compare-work .after .work-step-text {
+  text-shadow:none;
+}
+:root[data-theme="dark"] .eao-v2 :is(
+  .nav-sections .nav-section-link.is-active,
+  .btn.primary,
+  .work-col.before .work-step-text,
+  .work-col.after .work-heading h3,
+  .work-col.after .work-step-text,
+  .eao-org-card li,
+  .real-items span,
+  .eao-org-summary
+) {
+  text-shadow:none;
+}
+:root:not([data-theme="dark"]) .eao-v2 .hero .lead {
+  text-shadow:none;
+}
+
+/*
+ * iPhone Safari-safe Hero: a solid filled glyph, not an outlined font.
+ * -webkit-text-stroke + eight multi-shadows over clipped gradient glyphs
+ * produced the internal doubled seams seen on iPhone. No text effect here.
+ * Accent remains deep teal (light) / pale mint (dark), not black-on-black.
+ */
 .eao-v2 .hero h1 span,
 :root[data-theme="dark"] .eao-v2 .hero h1 span {
-  color: #c5fff3;
-  /* Clear the base theme's background-clip:text / transparent fill; otherwise
-     changing color only affects the invisible fallback, not the glyph. */
-  background-image:none;
+  background:none;
   -webkit-background-clip:border-box;
   background-clip:border-box;
-  -webkit-text-fill-color:#c5fff3;
-  -webkit-text-stroke: .42px rgb(16 29 48 / .90);
-  text-shadow:
-    -.65px 0 0 rgb(16 29 48 / .78),
-     .65px 0 0 rgb(16 29 48 / .78),
-    0 -.65px 0 rgb(16 29 48 / .78),
-    0  .65px 0 rgb(16 29 48 / .78);
+  color:#093944;
+  -webkit-text-fill-color:#093944;
+  -webkit-text-stroke:0;
+  text-shadow:none;
 }
-/* Existing preview controls and EAO workflow previously used 1px blur.
- * Keep the designed edge colours, but eliminate their blur as well. */
-.eao-v2 .nav-sections .nav-section-link.is-active,
-:root[data-theme="dark"] .eao-v2 .nav-sections .nav-section-link.is-active {
-  text-shadow: var(--eao-muted-legibility-shadow);
-}
-.eao-v2 .btn.primary {
-  text-shadow:
-     0  1px 0 rgb(0 30 43 / .65),
-     0 -1px 0 rgb(0 30 43 / .65);
-}
-.eao-v2 #work .compare-work .after .work-heading h3,
-.eao-v2 #work .compare-work .after .work-step-text {
-  text-shadow: var(--eao-muted-legibility-shadow);
+:root[data-theme="dark"] .eao-v2 .hero h1 span {
+  color:#e0faf4;
+  -webkit-text-fill-color:#e0faf4;
 }
 /* High-contrast/forced colours own their foreground and must not pick up
  * photographic edge shadows. */
 @media (forced-colors:active), (prefers-contrast:more) {
   .eao-v2 :is(
-    .nav-section-link, .nav-tools .lang, .btn.primary, .lead, .intro, .section-head p,
-    .work-mode, .work-col.before .work-heading h3,
-    #work .compare-work .after .work-heading h3,
-    #work .compare-work .after .work-step-text, .work-context, .work-note-detail, .work-note, .work-step-text,
-    .work-col p, .work-col li, .pain-card p, .pain-card li,
-    .value-card p, .value-card li, .dept-card p, .dept-card li,
-    .control-card p, .real p, .real-items span, .faq-answer, .cta p,
-    .foot, footer p, footer small, .eao-org-intro p, .eao-org-brand span,
-    .eao-org-card li, .eao-org-summary, .eao-method-intro p,
-    .eao-method-card p, .eao-method-summary p, .note, .visual-caption
+    .nav-section-link, .nav-tools .lang, .intro,
+    .section-subtitle, .section-head p, .section-intro,
+    .work-mode, .work-context, .work-note-detail,
+    .dept-card li, .value-card p, .control-card p, .real p,
+    .faq-answer, .eao-org-brand span, .eao-method-summary p,
+    .note, .visual-caption, .foot,
+    .hero .lead, .work-col.before .work-heading h3,
+    .eao-org-intro p, .eao-method-intro p, .eao-method-card p
   ) { text-shadow:none; }
   .eao-v2 .hero h1 span,
   :root[data-theme="dark"] .eao-v2 .hero h1 span {
-    color: CanvasText;
+    color:CanvasText;
     -webkit-text-fill-color:CanvasText;
     -webkit-text-stroke:0;
     text-shadow:none;
