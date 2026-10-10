@@ -142,13 +142,13 @@
 
       if (SplitText && typeof SplitText.create === "function") {
         const split = SplitText.create(title, { type: "chars", mask: "chars" });
+        // A coherent top-down letter assembly; no random alternating flips.
         gsap.set(split.chars, {
-          yPercent: i => i % 2 ? -120 : 130,
-          rotationX: i => i % 2 ? 60 : -60, autoAlpha: 0
+          yPercent: -125, rotationX: -65, autoAlpha: .75
         });
         tl.to(split.chars, {
-          yPercent: 0, rotationX: 0, autoAlpha: 1, duration: 1.05,
-          ease: "power1.inOut", stagger: .035
+          yPercent: 0, rotationX: 0, autoAlpha: 1, duration: 1.16,
+          ease: "power2.out", stagger: .042
         }, .1);
         cleanups.push(() => split.revert());
       } else {
@@ -163,47 +163,43 @@
       holdLastFrame(tl);
     });
 
-    // Eight directional flights, preserving actual CSS Grid positions.
-    const directions = [
-      [-1, -1], [1, -1], [-1, 1], [1, 1],
-      [-1, 0], [1, 0], [0, -1], [0, 1]
-    ];
+    // Layout-grounded composition, not eight arbitrary flights.
+    // The card establishes a spatial frame; heading and summary then
+    // physically unfold as meaningful children. Opacity is secondary.
     document.querySelectorAll('[data-motion-scene="cards"]').forEach(grid => {
       const cards = Array.from(grid.querySelectorAll("[data-motion-item]"));
       const rowSize = desktop ? 2 : 1;
-      gsap.set(cards, { autoAlpha: 0 });
       for (let i = 0; i < cards.length; i += rowSize) {
         const group = cards.slice(i, i + rowSize);
-        const tl = createScene(grid, group[0], { entry: .89, travel: desktop ? .53 : .51 });
+        const tl = createScene(grid, group[0], {
+          entry: .9, travel: desktop ? .62 : .56
+        });
         if (!tl) continue;
-
         group.forEach((card, inRow) => {
-          const ordinal = i + inRow;
-          const [dx, dy] = directions[ordinal % directions.length];
-          const rotation = (ordinal % 2 ? 1 : -1) * (desktop ? 12 : 8);
-          const x = () => dx * (window.innerWidth + card.offsetWidth + 70);
-          const y = () => {
-            const distance = window.innerHeight + card.offsetHeight + 50;
-            if (dy <= 0) return dy * distance;
-            // Do not let an initially transformed card inflate scrollHeight.
-            const naturalBottom = absTop(grid) + card.offsetTop + card.offsetHeight;
-            const room = Math.max(0, document.body.offsetHeight - naturalBottom - 100);
-            return Math.min(distance, room);
-          };
-          const start = inRow * .1;
-          tl.fromTo(card, {
-            x, y, scale: desktop ? .72 : .84, rotation,
-            autoAlpha: 0, force3D: true
-          }, {
-            x: () => x() * .07, y: () => y() * .07,
-            rotation: rotation * .13, scale: .96, autoAlpha: 1,
-            duration: .68, ease: "power1.inOut",
-            immediateRender: true
-          }, start);
-          tl.to(card, {
-            x: 0, y: 0, rotation: 0, scale: 1,
-            duration: .22, ease: "power2.out"
-          }, start + .68);
+          // Desktop direction follows real column, not ordinal roulette.
+          const side = desktop ? (inRow === 0 ? -1 : 1) : -1;
+          const at = inRow * .42;
+          tl.fromTo(card,
+            {
+              x: side * (desktop ? 200 : 85),
+              y: desktop ? 55 : 30,
+              rotationY: side * -20, scale: .84, autoAlpha: .65,
+              transformPerspective: 1200
+            },
+            {
+              x: 0, y: 0, rotationY: 0, scale: 1, autoAlpha: 1,
+              duration: 1.05, ease: "power2.out"
+            }, at);
+          const heading = card.querySelector("h3");
+          const detail = card.querySelector("p");
+          if (heading) tl.fromTo(heading,
+            { y: -50, rotationX: -62, transformOrigin: "50% 0%", autoAlpha: .7 },
+            { y: 0, rotationX: 0, autoAlpha: 1,
+              duration: .72, ease: "power2.out" }, at + .39);
+          if (detail) tl.fromTo(detail,
+            { x: side * 45, clipPath: "inset(0 100% 0 0)" },
+            { x: 0, clipPath: "inset(0 0 0 0)",
+              duration: .68, ease: "power2.inOut" }, at + .68);
         });
         holdLastFrame(tl);
       }
