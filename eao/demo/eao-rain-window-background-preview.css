@@ -56,45 +56,227 @@ body.eao-v2::before,
   text-shadow:none;
 }
 /*
- * Keep night colour in the WALLPAPER and restore readable foreground glass.
- * Do not wash the whole photograph or add extra glass-in-glass wrappers.
- * These are existing component surfaces only.
+ * Clear glass over the original dark rainy WebGL background.
+ * Fixes regression where 75–89% white linear-gradient covered cards.
+ * Tint is a neutral 8–12%, not a white or blue paint layer.
+ * Preserve existing one-surface optical rims, geometry and scroll motion.
  */
-:root:not([data-theme="dark"]) .eao-v2 nav {
-  background:linear-gradient(130deg,rgb(249 252 255 / .81),rgb(226 239 249 / .70));
+:root:not([data-theme="dark"]) .eao-v2 .hero h1 {
+  color:#f5f9ff;
+  -webkit-text-fill-color:#f5f9ff;
+}
+:root:not([data-theme="dark"]) .eao-v2 .hero h1 span {
+  color:#c8fff1;
+  -webkit-text-fill-color:#c8fff1;
+  -webkit-text-stroke:0;
+  text-shadow:none;
+}
+:root:not([data-theme="dark"]) .eao-v2 .hero p.lead {
+  color:#e2edf5;
+  text-shadow:none;
+}
+/* Both browser themes share the SAME dark environment; light-material
+   tokens from the old light wallpaper no longer apply to this scene. */
+.eao-v2 .eao-org-board {
+  --org-text:#f0f7fc;
+  --org-muted:#c6d9e6;
+  --org-teal:#91e9dc;
+  --org-line:rgb(140 191 218 / .26);
+  --org-fill:rgb(11 27 43 / .10);
+  background:transparent;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+/* Override the old dark-theme carrier tint as well. */
+:root[data-theme="dark"] .eao-v2 :is(.eao-org-board,.eao-method-board) {
+  background:transparent;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+.eao-v2 .eao-method-board {
+  --method-ink:#f0f8fc;
+  --method-muted:#c9dce9;
+  --method-accent:#91e8de;
+  --method-fill:rgb(12 28 43 / .10);
+  background:transparent;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
 }
 :root:not([data-theme="dark"]) .eao-v2 :is(.section-title,.faq-group > h3) {
   color:#f5faff;
 }
-:root:not([data-theme="dark"]) .eao-v2 #departments > .wrap > p.intro,
-:root:not([data-theme="dark"]) .eao-v2 #knowledge-story > .wrap > p.intro {
+:root:not([data-theme="dark"]) .eao-v2 :is(
+  #departments > .wrap > p.intro,
+  #knowledge-story > .wrap > p.intro,
+  .eao-org-intro p,.eao-method-intro p
+) {
   color:#e1edf6;
   text-shadow:none !important;
 }
-:root:not([data-theme="dark"]) .eao-v2 .eao-org-intro h3,
-:root:not([data-theme="dark"]) .eao-v2 .eao-method-intro h3 {
+:root:not([data-theme="dark"]) .eao-v2 :is(.eao-org-intro h3,.eao-method-intro h3) {
   color:#f7fbff;
 }
-:root:not([data-theme="dark"]) .eao-v2 .eao-org-intro p,
-:root:not([data-theme="dark"]) .eao-v2 .eao-method-intro p {
-  color:#e1edf6;
+/* Keep a single restrained neutral tint below the original edge specular. */
+:root .eao-v2 .eao-org-glass > .eao-org-overlay,
+:root[data-theme="dark"] .eao-v2 .eao-org-glass > .eao-org-overlay,
+:root .eao-v2 .eao-org-center > .eao-org-overlay,
+:root[data-theme="dark"] .eao-v2 .eao-org-center > .eao-org-overlay {
+  background:rgb(9 22 36 / .09);
 }
-:root:not([data-theme="dark"]) .eao-v2 .eao-org-glass > .eao-org-overlay {
-  background:linear-gradient(135deg,rgb(255 255 255 / .89),rgb(243 251 255 / .77));
+:root .eao-v2 .eao-method-glass > .eao-method-overlay,
+:root[data-theme="dark"] .eao-v2 .eao-method-glass > .eao-method-overlay,
+:root .eao-v2 .eao-method-summary > .eao-method-overlay,
+:root[data-theme="dark"] .eao-v2 .eao-method-summary > .eao-method-overlay {
+  background:rgb(9 22 36 / .09);
 }
-:root:not([data-theme="dark"]) .eao-v2 .eao-method-glass > .eao-method-overlay {
-  background:linear-gradient(140deg,rgb(250 253 255 / .87),rgb(236 247 254 / .75));
+:root .eao-v2 .eao-org-summary,
+:root[data-theme="dark"] .eao-v2 .eao-org-summary,
+:root .eao-v2 .work-note {
+  background:rgb(11 28 42 / .11);
 }
-:root:not([data-theme="dark"]) .eao-v2 .eao-org-summary {
-  background:rgb(241 251 254 / .77);
+:root .eao-v2 :is(.dept-card,.pain-card,.value-card,.control-card,.real,.faq-item,.faq-item[open]),
+:root[data-theme="dark"] .eao-v2 :is(.dept-card,.pain-card,.value-card,.control-card,.real,.faq-item,.faq-item[open]) {
+  background:rgb(9 23 38 / .12);
+}
+:root:not([data-theme="dark"]) .eao-v2 nav.eao-optical-surface {
+  background:transparent;
+  color:#f2f8fc;
+}
+/* Dark nav previously had a 65%-opaque colour fill. */
+:root[data-theme="dark"] .eao-v2 nav.eao-optical-surface {
+  background:rgb(9 22 36 / .12);
+}
+:root:not([data-theme="dark"]) .eao-v2 nav :is(.brand,.nav-section-link,.nav-tools,.nav-tools button,.nav-tools a) {
+  color:#f2f8fc;
+}
+:root:not([data-theme="dark"]) .eao-v2 .nav-sections .nav-section-link.is-active {
+  color:#f4fafc;
 }
 :root:not([data-theme="dark"]) .eao-v2 :is(
-  .dept-card,.pain-card,.value-card,.work-col.after,.control-card,.real,.faq-item
+  .dept-card,.value-card,.pain-card,.control-card,.real,.faq-item,
+  #work .compare-work .work-col.after,.work-note
 ) {
-  background:linear-gradient(140deg,rgb(250 253 255 / .86),rgb(231 245 252 / .78));
+  color:#f0f8fd;
 }
-:root:not([data-theme="dark"]) .eao-v2 .work-note {
-  background:rgb(249 252 255 / .79);
+:root:not([data-theme="dark"]) .eao-v2 :is(
+  .dept-card,.value-card,.pain-card,.control-card,.real,.faq-item,
+  #work .compare-work .work-col.after,.work-note
+) :is(h2,h3,h4,li,b,strong,summary,span) {
+  color:inherit;
+}
+:root:not([data-theme="dark"]) .eao-v2 :is(
+  .dept-card,.value-card,.pain-card,.control-card,.real,.faq-item,.work-note
+) p {
+  color:#d7e7f1;
+  text-shadow:none !important;
+}
+:root:not([data-theme="dark"]) .eao-v2 .eao-org-summary {
+  color:#a2f0e7;
+}
+:root:not([data-theme="dark"]) .eao-v2 .eao-method-card :is(h4,p),
+:root:not([data-theme="dark"]) .eao-v2 .eao-org-card li {
+  text-shadow:none;
+}
+/* Moderate frost: old blur(20px) on WebGL flattened dynamic colour
+   and enlarged the GPU sampling area. */
+@media (min-width:701px) {
+  :root .eao-v2 :is(.dept-card,.pain-card,.value-card,.control-card,.real,.faq-item) {
+    -webkit-backdrop-filter:blur(6px) saturate(123%);
+    backdrop-filter:blur(6px) saturate(123%);
+  }
+}
+/* Independent inner content must use scene-aware ink, not the old gray
+   typography intended for porcelain card backgrounds. */
+:root:not([data-theme="dark"]) .eao-v2 .dept-card ul,
+:root:not([data-theme="dark"]) .eao-v2 .faq-answer {
+  color:#d8eaf4;
+}
+:root:not([data-theme="dark"]) .eao-v2 .dept-card li::marker {
+  color:#91e9dc;
+}
+:root:not([data-theme="dark"]) .eao-v2 .faq-answer p {
+  color:#d8eaf4;
+  text-shadow:none !important;
+}
+:root .eao-v2 .real-items span,
+:root[data-theme="dark"] .eao-v2 .real-items span {
+  background:rgb(11 28 44 / .14);
+  color:#e4f1f9;
+}
+:root:not([data-theme="dark"]) .eao-v2 #work .work-note {
+  background:rgb(11 28 44 / .13);
+  color:#d7e9f4;
+}
+:root:not([data-theme="dark"]) .eao-v2 #work .work-note strong {
+  color:#b6f5ea;
+}
+:root:not([data-theme="dark"]) .eao-v2 .nav-sections .nav-indicator {
+  background:rgb(9 22 36 / .10);
+}
+:root:not([data-theme="dark"]) .eao-v2 .nav-sections .nav-indicator::before {
+  background:linear-gradient(112deg,rgb(255 255 255 / .10),transparent 50%);
+}
+
+/* On static/accessibility fallbacks there is no dynamic WebGL scene to
+   sample: use solid neutral panels and corresponding dark ink instead.
+   These media styles intentionally override the clear-glass settings. */
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  :root:not([data-theme="dark"]) .eao-v2 :is(
+    nav.eao-optical-surface,.dept-card,.pain-card,.value-card,.control-card,
+    .real,.faq-item,.work-note,.eao-org-summary,.real-items span
+  ),
+  :root:not([data-theme="dark"]) .eao-v2 #work .work-note,
+  :root:not([data-theme="dark"]) .eao-v2 .eao-org-board,
+  :root:not([data-theme="dark"]) .eao-v2 .eao-method-board {
+    background:#f1f6fa;
+    color:#19313e;
+  }
+  :root:not([data-theme="dark"]) .eao-v2 :is(
+    .eao-org-glass > .eao-org-overlay,.eao-method-glass > .eao-method-overlay
+  ) { background:#e9f2f8; }
+  :root:not([data-theme="dark"]) .eao-v2 :is(
+    .dept-card,.pain-card,.value-card,.control-card,.real,.faq-item,.work-note,
+    .eao-method-card,.eao-org-card
+  ) :is(h2,h3,h4,li,p,span,strong,b,summary,ul),
+  :root:not([data-theme="dark"]) .eao-v2 :is(
+    .faq-answer,.faq-answer p,.real-items span,.eao-org-summary
+  ) {
+    color:#19313e;
+    text-shadow:none !important;
+  }
+  :root:not([data-theme="dark"]) .eao-v2 .eao-org-board {
+    --org-text:#19313e;
+    --org-muted:#435968;
+    --org-teal:#087972;
+  }
+  :root:not([data-theme="dark"]) .eao-v2 .eao-method-board {
+    --method-ink:#19313e;
+    --method-muted:#435968;
+    --method-accent:#087972;
+  }
+  :root:not([data-theme="dark"]) .eao-v2 nav :is(
+    .brand,.nav-section-link,.nav-tools,.nav-tools button,.nav-tools a
+  ) {color:#19313e;}
+}
+@media (forced-colors:active) {
+  .eao-v2 :is(.dept-card,.pain-card,.value-card,.control-card,.real,
+    .faq-item,.work-note,.eao-org-board,.eao-method-board,
+    .eao-org-summary,.real-items span,.eao-org-glass,.eao-method-glass) {
+    background:Canvas;
+    color:CanvasText;
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+  }
+  .eao-v2 :is(.eao-org-glass > .eao-org-overlay,
+    .eao-method-glass > .eao-method-overlay) {
+    background:Canvas;
+  }
+  .eao-v2 :is(.dept-card,.pain-card,.value-card,.control-card,.real,
+    .faq-item,.work-note,.eao-org-board,.eao-method-board)
+    :is(h2,h3,h4,li,p,span,strong,b,summary,ul) {
+    color:CanvasText;
+    text-shadow:none !important;
+  }
 }
 /*
  * Original-engine cleanup — the Rain WebGL scene is ONE continuous backdrop.
