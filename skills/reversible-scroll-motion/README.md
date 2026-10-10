@@ -16,7 +16,7 @@ For Claude Code, use its supported Skill directory (often `~/.claude/skills/`). 
 ## Trigger phrases
 
 - "为我的网站做 Apple 风格的 GSAP 滚动入场动画"
-- "让这些卡片从八个方向飞入，滚动回去时倒放"
+- "根据卡片在页面中的位置和内容关系编排空间运动，滚动回去时倒放"
 - "修复页面滚动停止以后内容一直半透明隐藏"
 - "Footer 进入页面下方也要自动完成动画，禁止加空白"
 - "Create a reversible scroll choreography with visible idle completion"
@@ -66,10 +66,23 @@ animations. Agents must classify each scene from **L1 microinteraction**
 through **L4 cinematic**, according to content and brief, and verify
 the effect is **perceptible during normal scrolling**.
 
-A generic tiny Fade Up is not an acceptable main result for a
-deliberately expressive narrative scene. Equally, do not make every
-button or FAQ cinematic. Technical QA and **aesthetic acceptance**
-are different checks.
+## No presentation microanimations — hard rule (v1.4.0)
+
+**NO MICROANIMATIONS as primary content/showcase motion.**
+Opacity-only reveals, 20–40px fade-ups, generic stagger and randomly
+chosen card flight directions fail the visual gate. Every major scene
+must visibly **move, transform, assemble or draw** something because
+of its information structure, not merely fade into existence.
+Use the [Gate 0 checklist](references/MOTION-AMBITION-GATE.md#gate-0--hard-ban-on-presentation-microanimations);
+if a major scene reads as “hidden → visible,” it is
+**VISUAL NOT ACCEPTED** even if tests are green.
+
+Leave dense practical text static when no meaningful motion fits.
+Keep L1 control feedback, focus and reduced-motion accessibility.
+
+Technical QA and **aesthetic acceptance** are separate checks.
+The reusable controller is a learning scaffold: adapt scenes to actual
+content; do not blindly copy its defaults into a different page.
 
 ## Lessons encoded
 
