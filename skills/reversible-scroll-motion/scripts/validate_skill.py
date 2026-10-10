@@ -200,7 +200,7 @@ if js.exists():
     require("const marker = entry.querySelector" in source and
             "const heading = entry.querySelector" in source,
             "Timeline controller must stage steps and contents")
-    require("opacity-only" in (SKILL / "README.md").read_text(),
+    require("opacity-only" in (SKILL / "README.md").read_text().lower(),
             "README must explain ban on opacity-only showcase reveals")
     if shutil.which("node"):
         check = subprocess.run(["node", "--check", str(js)], capture_output=True, text=True)
