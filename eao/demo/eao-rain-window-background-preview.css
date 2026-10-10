@@ -96,6 +96,30 @@ body.eao-v2::before,
 :root:not([data-theme="dark"]) .eao-v2 .work-note {
   background:rgb(249 252 255 / .79);
 }
+/*
+ * Original-engine cleanup — the Rain WebGL scene is ONE continuous backdrop.
+ * The old porcelain-era chapter washes must not tint or hide the scene.
+ * Scope only to page-wide semantic sections (NOT glass cards, diagrams,
+ * buttons, nav, screenshots, or the text-containing glass overlays).
+ */
+body.eao-v2 :is(header.hero, main > section, footer) {
+  background-color:transparent !important;
+  background-image:none !important;
+}
+/* Entire-SECTION pseudo highlights (not the content/card pseudo layers). */
+body.eao-v2 :is(#work,#departments,#value,#control,.faq)::before,
+body.eao-v2 header.hero::after {
+  content:none !important;
+  background:none !important;
+}
+/* Forced colors should remain a true Canvas, not alpha-transparent artwork. */
+@media(forced-colors:active) {
+  body.eao-v2 :is(header.hero, main > section, footer) {
+    background-color:Canvas !important;
+    background-image:none !important;
+  }
+}
+
 /* Accessibility degrades the wallpaper to quiet paper without relying on
  * dark-on-dark text; the original palette is already used in high contrast. */
 
