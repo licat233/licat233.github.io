@@ -81,7 +81,8 @@
       }
 
       function sceneFor(parent, focus, {
-        entry = .89, travel = .4, footer = false, visibleThreshold = null
+        entry = .89, travel = .4, footer = false,
+        visibleThreshold = null, settleDuration = .58
       } = {}) {
         if (!parent || !focus) return null;
         const top = () => naturalY(focus);
@@ -103,6 +104,7 @@
           height: () => focus.offsetHeight,
           footer,
           visibleThreshold: visibleThreshold ?? (footer ? .995 : .965),
+          settleDuration,
           latched: false,
           anchor: 0,
           base: 0,
@@ -127,7 +129,7 @@
           scene.anchor = scrollY;
           scene.base = 1;
           scene.idleTween = gsap.to(scene.tl, {
-            progress: 1, duration: .58, ease: "power2.out",
+            progress: 1, duration: scene.settleDuration, ease: "power1.inOut",
             overwrite: "auto",
             onComplete: () => { scene.idleTween = null; }
           });
@@ -278,22 +280,49 @@
           }));
           const tl = sceneFor(column, column, {
             entry: compact ? .90 : .89,
-            travel: compact ? .64 : .82
+            travel: compact ? .64 : .82,
+            // Give the 5 visibly different entries time to *read* as a
+            // sequence after the wheel stops, while guaranteeing completion.
+            settleDuration: stacked ? .68 : 1.36
           });
           if (!tl) return;
 
           // Initialize the full list NOW, not at the respective stagger start:
           // later stages must never flash before their own turn.
+          // Expressive, visibly travelling workflow stages. Both workflows
+          // share logical order but NOT one anonymous fade/slide preset:
+          // legacy steps enter from the LEFT, deliberately weighty;
+          // EAO steps sweep from the RIGHT with deeper perspective.
+          // Mobile retains ~90px travel instead of collapsing to x:0.
+          const stepSide = colIndex ? 1 : -1;
+          const flightX = Math.min(
+            compact ? 118 : 175,
+            Math.max(compact ? 86 : 125, innerWidth * (compact ? .27 : .125))
+          );
           gsap.set(items, {
-            x: compact ? 0 : (colIndex ? 39 : -39),
-            y: compact ? 31 : 37,
-            rotationX: compact ? 0 : -9,
-            scale: compact ? .97 : .94,
-            autoAlpha: 0
+            x: stepSide * flightX,
+            y: colIndex ? (compact ? -53 : -77) : (compact ? 61 : 82),
+            rotationY: stepSide * (compact ? 21 : 31),
+            rotationX: colIndex ? -16 : 13,
+            rotation: stepSide * (compact ? 4 : 7),
+            scale: colIndex ? (compact ? .77 : .69) : (compact ? .82 : .77),
+            autoAlpha: 0,
+            transformPerspective: 1100,
+            transformOrigin: colIndex ? "100% 50%" : "0% 50%"
           });
           parts.forEach(({ icon, text }) => {
-            if (icon) gsap.set(icon, { scale: .55, rotation: colIndex ? -15 : -9, autoAlpha: 0 });
-            if (text) gsap.set(text, { y: 12, autoAlpha: 0 });
+            if (icon) gsap.set(icon, {
+              scale: colIndex ? .23 : .32,
+              rotation: stepSide * (compact ? 35 : 54),
+              autoAlpha: 0,
+              transformOrigin: "50% 50%"
+            });
+            if (text) gsap.set(text, {
+              x: stepSide * (compact ? 27 : 55),
+              y: colIndex ? -24 : 25,
+              scale: .86,
+              autoAlpha: 0
+            });
           });
           // Contrasting yet coherent movements: legacy slides from left,
           // EAO arrives from right. The original glass panels remain intact.
@@ -301,15 +330,18 @@
           const room = dir > 0
             ? innerWidth - naturalX(column) - column.offsetWidth - 36
             : naturalX(column) - 36;
-          const enteringX = compact ? 0 : dir * Math.min(68, Math.max(0, room));
+          // The optical column travels too, but stays inside section bounds.
+          // Prefer vertical perspective on narrow displays with little side room.
+          const enteringX = compact ? dir * 24 : dir * Math.min(94, Math.max(0, room));
           tl.fromTo(column, {
-            x: enteringX, y: compact ? 31 : 57,
-            rotationY: compact ? 0 : dir * 8,
-            scale: compact ? .975 : .93, autoAlpha: 0,
+            x: enteringX, y: compact ? 78 : 96,
+            rotationY: compact ? 0 : dir * 15,
+            rotationX: compact ? -12 : -6,
+            scale: compact ? .89 : .85, autoAlpha: 0,
             transformPerspective: 1100
           }, {
-            x: 0, y: 0, rotationY: 0, scale: 1,
-            autoAlpha: 1, duration: .82, ease: "power1.inOut"
+            x: 0, y: 0, rotationY: 0, rotationX: 0, scale: 1,
+            autoAlpha: 1, duration: 1.04, ease: "power2.out"
           }, 0);
           if (heading) {
             tl.fromTo(heading, { y: 18, autoAlpha: .3 }, {
@@ -328,20 +360,22 @@
                 travel: compact ? .25 : .31,
                 // The final row can be only 20px visible at the bottom:
                 // do not fast-forward it until it enters the reading area.
-                visibleThreshold: .91
+                visibleThreshold: .91,
+                settleDuration: .78
               });
               if (!stepTl) return;
               stepTl.to(item, {
-                x: 0, y: 0, rotationX: 0, scale: 1,
-                autoAlpha: 1, duration: .67, ease: "power1.inOut"
+                x: 0, y: 0, rotationY: 0, rotationX: 0, rotation: 0, scale: 1,
+                autoAlpha: 1, duration: .94,
+                ease: colIndex ? "power3.out" : "power2.out"
               }, 0);
               if (icon) stepTl.to(icon, {
                 scale: 1, rotation: 0, autoAlpha: 1,
-                duration: .43, ease: "power1.inOut"
+                duration: .62, ease: "back.out(1.12)"
               }, .12);
               if (text) stepTl.to(text, {
-                y: 0, autoAlpha: 1, duration: .47,
-                ease: "power1.inOut"
+                x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .70,
+                ease: "power2.out"
               }, .21);
               hold(stepTl);
             });
@@ -349,18 +383,19 @@
             // Side-by-side desktop: the two 1→5 timelines read like a
             // comparison, with their own contrasting entry directions.
             parts.forEach(({ item, icon, text }, i) => {
-              const at = 1.02 + i * .78;
+              const at = 1.06 + i * 1.08;
               tl.to(item, {
-                x: 0, y: 0, rotationX: 0, scale: 1,
-                autoAlpha: 1, duration: .67, ease: "power1.inOut"
+                x: 0, y: 0, rotationY: 0, rotationX: 0, rotation: 0, scale: 1,
+                autoAlpha: 1, duration: .94,
+                ease: colIndex ? "power3.out" : "power2.out"
               }, at);
               if (icon) tl.to(icon, {
                 scale: 1, rotation: 0, autoAlpha: 1,
-                duration: .43, ease: "power1.inOut"
+                duration: .62, ease: "back.out(1.12)"
               }, at + .12);
               if (text) tl.to(text, {
-                y: 0, autoAlpha: 1, duration: .47,
-                ease: "power1.inOut"
+                x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .70,
+                ease: "power2.out"
               }, at + .21);
             });
             hold(tl);
