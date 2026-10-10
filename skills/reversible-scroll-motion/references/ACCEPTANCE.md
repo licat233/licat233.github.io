@@ -2,6 +2,28 @@
 
 This Skill is only complete when **a user can actually read and use the page**. Passing a JS unit test or printing GSAP's progress is not sufficient.
 
+## Presentation microanimation ban — mandatory visual ship gate
+
+- [ ] **NO MICROANIMATIONS** as main hero/project/Skills/timeline/
+  showcase/chapter animation. Generic `opacity/autoAlpha 0→1`,
+  20–40px fade-up, arbitrary stagger and random card flights
+  are disallowed as the primary experience.
+- [ ] Every major scene visibly changes geometry, path, shape,
+  perspective, depth or causal assembly **on screen**; the scene is
+  describable by an action verb other than “appear.”
+- [ ] Parent and meaningful children have different semantic roles:
+  container establishes context; children convey order, relationship
+  or dependency. No decorative identical fade-in applied to all nodes.
+- [ ] Inspect 20/45/70% on-screen visual evidence and normal-speed
+  wheel/touch footage. A source animation that is technically large
+  but invisible through near-zero opacity does **not** count.
+- [ ] If an expressive scene is functionally correct but visually
+  just hidden→visible, report **VISUAL NOT ACCEPTED** and block
+  production; numerical tests alone are insufficient.
+- [ ] Text-heavy/utility sections without a motion story stay
+  static; L1 control feedback and reduced-motion fallbacks remain
+  permitted and accessible.
+
 ## Separate technical and visual acceptance
 
 **Never call a narrative-animation request done because responsive
