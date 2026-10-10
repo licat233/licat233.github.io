@@ -191,6 +191,17 @@ if js.exists():
                      "prefers-reduced-motion", "scrollHeight"):
         require(fragment in source, f"Controller missing expected behavior: {fragment}")
     require("padding-block-end" not in source, "Controller uses footer padding hack")
+    require("Eight directional flights" not in source and
+            "const directions = [" not in source,
+            "Controller still promotes random-direction card flights")
+    require("const heading = card.querySelector" in source and
+            "const detail = card.querySelector" in source,
+            "Controller must stage meaningful card child elements")
+    require("const marker = entry.querySelector" in source and
+            "const heading = entry.querySelector" in source,
+            "Timeline controller must stage steps and contents")
+    require("opacity-only" in (SKILL / "README.md").read_text(),
+            "README must explain ban on opacity-only showcase reveals")
     if shutil.which("node"):
         check = subprocess.run(["node", "--check", str(js)], capture_output=True, text=True)
         require(check.returncode == 0, f"JavaScript syntax failure:\n{check.stderr}")
