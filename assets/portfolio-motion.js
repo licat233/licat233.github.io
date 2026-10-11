@@ -246,7 +246,7 @@
       gsap.set(".flow-glow", { autoAlpha: 0 });
       gsap.set(".hero-ghost", { autoAlpha: 0, scale: 1.08 });
       gsap.set(".hero-scene", { autoAlpha: 0, scale: 1.08 });
-      gsap.set(".hero-wrap .eyebrow", { y: 12, autoAlpha: 0 });
+      gsap.set(".eyebrow", { y: 12, autoAlpha: 0 });
       gsap.set(".hero-word", { yPercent: 112, autoAlpha: 0 });
       gsap.set(".hero-inline-note", { x: -14, autoAlpha: 0 });
       gsap.set(".hero-paren", { scale: 0, autoAlpha: 0 });
@@ -256,53 +256,55 @@
       gsap.set(".hero-actions", { y: 16, autoAlpha: 0 });
       gsap.set(".hero-resource", { y: 14, autoAlpha: 0 });
 
-      // Preserve original movements, easing and per-element durations.
-      // All animations start at t=0; never wait for a prior Hero animation.
-      const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
-      intro.addLabel("heroStart", 0);
+      const intro = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        delay: 0.08
+      });
+
       intro
-        .to(".site-header", { y: 0, autoAlpha: 1, duration: 0.62 }, "heroStart")
-        .to(".flow-glow", { autoAlpha: 1, duration: 1.05 }, "heroStart")
-        .to(".system-flow", { x: 0, autoAlpha: 1, duration: 1.25 }, "heroStart")
-        .to(".hero-ghost", { autoAlpha: 1, scale: 1, duration: 1.15 }, "heroStart")
-        .to(".hero-scene", { autoAlpha: 1, scale: 1, duration: 1.0 }, "heroStart")
-        .to(".hero-wrap .eyebrow", { y: 0, autoAlpha: 1, duration: 0.42 }, "heroStart")
+        .to(".site-header", { y: 0, autoAlpha: 1, duration: 0.62 })
+        .to(".flow-glow", { autoAlpha: 1, duration: 1.05, stagger: 0.12 }, "-=.38")
+        .to(".system-flow", { x: 0, autoAlpha: 1, duration: 1.25 }, "-=.92")
+        .to(".hero-ghost", { autoAlpha: 1, scale: 1, duration: 1.15 }, "-=1.02")
+        .to(".hero-scene", { autoAlpha: 1, scale: 1, duration: 1.0 }, "-=.92")
+        .to(".eyebrow", { y: 0, autoAlpha: 1, duration: 0.42 }, "-=.72")
         .to(
           ".hero-word",
           {
             yPercent: 0,
             autoAlpha: 1,
             duration: 0.82,
+            stagger: 0.09,
             ease: "power4.out"
           },
-          "heroStart"
+          "-=.56"
         )
-        .to(".hero-inline-note", { x: 0, autoAlpha: 1, duration: 0.48 }, "heroStart")
+        .to(".hero-inline-note", { x: 0, autoAlpha: 1, duration: 0.48 }, "-=.44")
         .to(
           ".hero-paren",
-          { scale: 1, autoAlpha: 1, duration: 0.46, ease: "back.out(2)" },
-          "heroStart"
+          { scale: 1, autoAlpha: 1, duration: 0.46, stagger: 0.08, ease: "back.out(2)" },
+          "-=.34"
         )
         .to(
           ".hero-logo-token",
           { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.56, ease: "back.out(1.7)" },
-          "heroStart"
+          "-=.33"
         )
         .to(
           ".hero-signal",
           { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.50, ease: "back.out(1.45)" },
-          "heroStart"
+          "-=.38"
         )
         .to(
           ".hero-badge",
           { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.68, ease: "back.out(1.55)" },
-          "heroStart"
+          "-=.28"
         )
-        .to(".hero-actions", { y: 0, autoAlpha: 1, duration: 0.44 }, "heroStart")
+        .to(".hero-actions", { y: 0, autoAlpha: 1, duration: 0.44 }, "-=.33")
         .to(
           ".hero-resource",
-          { y: 0, autoAlpha: 1, duration: 0.44 },
-          "heroStart"
+          { y: 0, autoAlpha: 1, duration: 0.44, stagger: 0.08 },
+          "-=.32"
         );
 
       /* GSAP Creative Motion Showcase
@@ -325,7 +327,7 @@
           gsap.set(ribbon, { morphSVG: lineShape });
           intro.to(ribbon, {
             morphSVG: finalShape, duration: 1.7, ease: "expo.inOut"
-          }, "heroStart");
+          }, .46);
         }
 
         // A scrubbed animation is constrained by the space in which its target
