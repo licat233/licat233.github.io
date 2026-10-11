@@ -246,7 +246,7 @@
       gsap.set(".flow-glow", { autoAlpha: 0 });
       gsap.set(".hero-ghost", { autoAlpha: 0, scale: 1.08 });
       gsap.set(".hero-scene", { autoAlpha: 0, scale: 1.08 });
-      gsap.set(".eyebrow", { y: 12, autoAlpha: 0 });
+      gsap.set(".hero-wrap .eyebrow", { y: 12, autoAlpha: 0 });
       gsap.set(".hero-word", { yPercent: 112, autoAlpha: 0 });
       gsap.set(".hero-inline-note", { x: -14, autoAlpha: 0 });
       gsap.set(".hero-paren", { scale: 0, autoAlpha: 0 });
@@ -256,56 +256,45 @@
       gsap.set(".hero-actions", { y: 16, autoAlpha: 0 });
       gsap.set(".hero-resource", { y: 14, autoAlpha: 0 });
 
-      const intro = gsap.timeline({
-        defaults: { ease: "power3.out" },
-        delay: 0.08
-      });
-
+      // Parallel hero entrance: every visual actor begins at heroStart.
+      // Preserve each actor's spatial transform; remove the wait for previous
+      // tweens and all stagger delays so first-screen content settles quickly.
+      const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+      intro.addLabel("heroStart", 0);
       intro
-        .to(".site-header", { y: 0, autoAlpha: 1, duration: 0.62 })
-        .to(".flow-glow", { autoAlpha: 1, duration: 1.05, stagger: 0.12 }, "-=.38")
-        .to(".system-flow", { x: 0, autoAlpha: 1, duration: 1.25 }, "-=.92")
-        .to(".hero-ghost", { autoAlpha: 1, scale: 1, duration: 1.15 }, "-=1.02")
-        .to(".hero-scene", { autoAlpha: 1, scale: 1, duration: 1.0 }, "-=.92")
-        .to(".eyebrow", { y: 0, autoAlpha: 1, duration: 0.42 }, "-=.72")
-        .to(
-          ".hero-word",
-          {
-            yPercent: 0,
-            autoAlpha: 1,
-            duration: 0.82,
-            stagger: 0.09,
-            ease: "power4.out"
-          },
-          "-=.56"
-        )
-        .to(".hero-inline-note", { x: 0, autoAlpha: 1, duration: 0.48 }, "-=.44")
-        .to(
-          ".hero-paren",
-          { scale: 1, autoAlpha: 1, duration: 0.46, stagger: 0.08, ease: "back.out(2)" },
-          "-=.34"
-        )
-        .to(
-          ".hero-logo-token",
-          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.56, ease: "back.out(1.7)" },
-          "-=.33"
-        )
-        .to(
-          ".hero-signal",
-          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.50, ease: "back.out(1.45)" },
-          "-=.38"
-        )
-        .to(
-          ".hero-badge",
-          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.68, ease: "back.out(1.55)" },
-          "-=.28"
-        )
-        .to(".hero-actions", { y: 0, autoAlpha: 1, duration: 0.44 }, "-=.33")
-        .to(
-          ".hero-resource",
-          { y: 0, autoAlpha: 1, duration: 0.44, stagger: 0.08 },
-          "-=.32"
-        );
+        .to(".site-header",
+          { y: 0, autoAlpha: 1, duration: 0.55 }, "heroStart")
+        .to(".flow-glow",
+          { autoAlpha: 1, duration: 0.95 }, "heroStart")
+        .to(".system-flow",
+          { x: 0, autoAlpha: 1, duration: 1.0 }, "heroStart")
+        .to(".hero-ghost",
+          { autoAlpha: 1, scale: 1, duration: 0.95 }, "heroStart")
+        .to(".hero-scene",
+          { autoAlpha: 1, scale: 1, duration: 0.95 }, "heroStart")
+        .to(".hero-wrap .eyebrow",
+          { y: 0, autoAlpha: 1, duration: 0.70 }, "heroStart")
+        .to(".hero-word",
+          { yPercent: 0, autoAlpha: 1, duration: 0.90,
+            ease: "power4.out" }, "heroStart")
+        .to(".hero-inline-note",
+          { x: 0, autoAlpha: 1, duration: 0.75 }, "heroStart")
+        .to(".hero-paren",
+          { scale: 1, autoAlpha: 1, duration: 0.75,
+            ease: "back.out(2)" }, "heroStart")
+        .to(".hero-logo-token",
+          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.82,
+            ease: "back.out(1.7)" }, "heroStart")
+        .to(".hero-signal",
+          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.82,
+            ease: "back.out(1.45)" }, "heroStart")
+        .to(".hero-badge",
+          { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.90,
+            ease: "back.out(1.55)" }, "heroStart")
+        .to(".hero-actions",
+          { y: 0, autoAlpha: 1, duration: 0.82 }, "heroStart")
+        .to(".hero-resource",
+          { y: 0, autoAlpha: 1, duration: 0.82 }, "heroStart");
 
       /* GSAP Creative Motion Showcase
          Official patterns: directional off-screen flights, SplitText masks,
@@ -326,8 +315,8 @@
             "L1880 255 C1510 255 1210 255 858 255 C580 255 265 260 -160 262 Z";
           gsap.set(ribbon, { morphSVG: lineShape });
           intro.to(ribbon, {
-            morphSVG: finalShape, duration: 1.7, ease: "expo.inOut"
-          }, .46);
+            morphSVG: finalShape, duration: 1.0, ease: "expo.inOut"
+          }, "heroStart");
         }
 
         // A scrubbed animation is constrained by the space in which its target
