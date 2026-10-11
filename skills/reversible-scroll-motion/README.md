@@ -23,7 +23,8 @@ then apply this Skill's meaning, readability and visual-acceptance gates.
 
 - [GSAP official-first guide](references/GSAP-OFFICIAL-FIRST.md)
 - [Licat journey V1 → V2 evidence](references/licat-journey-v1-v2.md)
-- [Independent V2 preview](https://licat233.github.io/motion-preview/gsap-journey-v2/)
+- [V2 implementation archive (immutable commit)](https://github.com/licat233/licat233.github.io/tree/754493a5be24f8034580cc16b4ede119a1f8c79f/motion-preview/gsap-journey-v2) — preview site retired after homepage integration.
+- [Live production journey](https://licat233.github.io/#journey) — the approved implementation.
 
 Positive feedback on V2 did **not** authorize changing the production
 homepage. Reuse the process, not the brand-specific design.
