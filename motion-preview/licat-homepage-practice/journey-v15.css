@@ -1,0 +1,67 @@
+
+/* Scoped V1.5.0 field application: full homepage, unchanged site chrome,
+   unchanged copy, unchanged Liquid Glass optical layers. */
+#journey .journey-story{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(20px,3vw,48px);align-items:stretch;margin-top:2.25rem}
+#journey .journey-art-pane{position:sticky;top:clamp(80px,11vh,118px);height:min(72svh,670px);min-height:400px;overflow:hidden;display:flex;flex-direction:column;border-radius:20px;border:1px solid rgba(255,255,255,.66);background:rgba(207,238,249,.055);box-shadow:0 16px 30px rgba(17,68,91,.07),inset 0 1px 0 rgba(255,255,255,.5);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+#journey .stage-caption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:21px 23px 5px;font-size:10px;font-weight:780;color:#416577;letter-spacing:.14em}
+#journey .stage-status{display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.08em}
+#journey .status-disc{width:7px;height:7px;background:#147c9b;border-radius:50%}
+#journey .capability-svg{display:block;width:100%;min-height:0;flex:1;overflow:visible}
+#journey .guide-lines path{fill:none;stroke:rgba(27,93,120,.12);stroke-width:1}
+#journey .node-surface{fill:rgba(210,239,248,.25);stroke:rgba(18,104,137,.76);stroke-width:2.5;filter:drop-shadow(0 8px 9px rgba(14,68,94,.08))}
+#journey .node-primary{fill:rgba(198,239,247,.20);stroke:#0580a0;stroke-width:3}
+#journey .node-title{font-size:18px;fill:#123e53;text-anchor:middle;font-weight:760;letter-spacing:1px}
+#journey .node-icon{fill:none;stroke:#087e99;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+#journey .morph-core{fill:rgba(14,133,158,.11);stroke:#06819e;stroke-width:4}
+#journey #process-line{stroke:#0986a2;stroke-width:4;stroke-linecap:round}
+#journey #process-traveler{fill:#fff;stroke:#0986a2;stroke-width:4}
+#journey .mesh-wire{stroke:#0d829f;stroke-width:3;stroke-linecap:round}
+#journey .drawing-annotations text{font-size:12px;fill:rgba(29,94,118,.57);letter-spacing:2.4px;font-weight:720}
+#journey .stage-footer{display:flex;align-items:center;gap:18px;margin:0 23px 18px;padding-top:15px;border-top:1px solid rgba(19,81,108,.18)}
+#journey .phase-monitor{display:flex;gap:8px;align-items:baseline;min-width:95px}
+#journey .phase-monitor-number{color:#0983a0;font-size:22px;font-weight:820}
+#journey .phase-monitor-name{font-size:9px;letter-spacing:.1em;font-weight:730;color:#476c7e}
+#journey .phase-progress{height:2px;background:rgba(16,88,114,.19);flex:1;overflow:hidden}
+#journey .phase-progress span{display:block;width:100%;height:100%;background:#087d97;transform-origin:left;transform:scaleX(0)}
+#journey .stage-footnote{font-size:9px;color:#567486;letter-spacing:.08em}
+#journey .journey-story-steps{border-left:1px solid rgba(24,94,117,.24);padding-left:clamp(18px,2.6vw,40px)}
+#journey .journey-story-steps .phase{position:relative;min-height:79svh;display:flex;align-items:center;padding:24px 0}
+#journey .journey-story-steps .phase::before{content:"";position:absolute;top:50%;left:calc(-1 * clamp(18px,2.6vw,40px) - 6px);width:11px;height:11px;border-radius:50%;border:2px solid #22869c;background:rgba(226,249,253,.7)}
+#journey .journey-story-steps .phase-dot{position:absolute;top:clamp(22px,20vh,190px);left:0;color:#0b7994;border:1px solid rgba(11,114,149,.3);box-shadow:none;background:transparent}
+#journey .journey-story-steps .phase-glass.liquid-demo{width:100%;min-height:260px;padding:clamp(22px,2.8vw,38px);background:rgba(202,238,245,.055)}
+#journey .journey-story-steps .phase h3{font-size:clamp(25px,2.7vw,38px);letter-spacing:-.04em;line-height:1.22;margin:15px 0 24px}
+#journey .journey-story-steps .phase p{font-size:clamp(15px,1.4vw,17px);line-height:1.85}
+#journey .journey-story-steps .phase time{font-size:12px;letter-spacing:.1em}
+:root[data-theme="dark"] #journey .journey-art-pane{background:rgba(16,37,51,.08);border-color:rgba(221,248,255,.3)}
+:root[data-theme="dark"] #journey .node-surface{fill:rgba(18,58,77,.35);stroke:#73ccdc}
+:root[data-theme="dark"] #journey .node-primary{stroke:#80d7e5}
+:root[data-theme="dark"] #journey .node-title{fill:#e0f3fa}
+:root[data-theme="dark"] #journey .node-icon,:root[data-theme="dark"] #journey .morph-core{stroke:#9be5ee}
+:root[data-theme="dark"] #journey .morph-core{fill:rgba(38,148,174,.16)}
+:root[data-theme="dark"] #journey .mesh-wire,:root[data-theme="dark"] #journey #process-line{stroke:#7fd2e0}
+:root[data-theme="dark"] #journey .drawing-annotations text,:root[data-theme="dark"] #journey .stage-caption{fill:#d8edf4;color:#c3e3eb}
+:root[data-theme="dark"] #journey .phase-monitor-name{color:#b5deea}
+:root[data-theme="dark"] #journey .journey-story-steps .phase-glass.liquid-demo{background:rgba(10,45,64,.07)}
+@media(max-width:760px){
+#journey .journey-story{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+#journey .journey-art-pane{grid-area:1/1;z-index:3;top:128px;height:37svh;min-height:0;border-radius:16px;pointer-events:none;background:rgba(210,240,250,.07);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#journey .stage-caption{padding:11px 13px 0;font-size:9px}
+#journey .stage-status{font-size:8px}
+#journey .stage-footer{margin:0 14px 11px;padding-top:9px;gap:10px}
+#journey .phase-monitor{min-width:74px;gap:5px}
+#journey .phase-monitor-number{font-size:19px}
+#journey .phase-monitor-name{font-size:8px}
+#journey .stage-footnote{display:none}
+#journey .journey-story-steps{grid-area:1/1;padding:37svh 0 0;border:0;z-index:1}
+#journey .journey-story-steps .phase{min-height:84svh;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:44svh 0 5svh}
+#journey .journey-story-steps .phase::before{display:none}
+#journey .journey-story-steps .phase-dot{position:relative;top:auto;left:auto;margin:0 0 12px;font-size:11px;width:36px;height:36px}
+#journey .journey-story-steps .phase-glass.liquid-demo{min-height:190px;padding:22px}
+#journey .journey-story-steps .phase h3{font-size:27px;margin:12px 0 17px}
+#journey .journey-story-steps .phase p{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){#journey .phase-progress span{transform:none}}
+
+/* overflow:hidden on the real homepage section suppresses CSS sticky.
+   clip preserves edge clipping without creating a scrolling container. */
+#journey { overflow: clip; }
