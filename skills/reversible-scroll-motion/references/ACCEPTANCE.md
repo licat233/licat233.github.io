@@ -46,6 +46,24 @@ alongside engineering findings.
 - [ ] Any user-required aesthetic approval is obtained before production
   promotion; a perfect automation matrix does not grant it.
 
+## Official GSAP and continuous-structure ship gate
+
+- [ ] Consult appropriate official GSAP Skills (Timeline, ScrollTrigger,
+  plugins, performance) at a known version; verify runtime compatibility.
+  [Official-first workflow](GSAP-OFFICIAL-FIRST.md).
+- [ ] Prepare a persistent actor storyboard: source → workflow →
+  collaboration (or meaningful page-specific structure). Card-outline
+  tracing alone is not a sufficient visual narrative.
+- [ ] Check the expected structure at each real viewport **chapter center**,
+  not only synthetic forced timeline progress.
+- [ ] Verify MotionPath waypoints after mobile resize; rebuild cached
+  tweens when SVG geometry changes.
+- [ ] Sticky graphics never overlap chapter year, heading, copy or links.
+- [ ] Use Flip only for actual DOM/layout-state transitions.
+- [ ] Reduced-motion and missing JS/CDN keep essential content readable.
+- [ ] V2 demo approval does not authorize production replacement.
+  [Case evidence](licat-journey-v1-v2.md).
+
 ## Preflight
 
 - [ ] Exact repository branch/commit recorded; worktree clean or unrelated user changes preserved.

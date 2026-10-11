@@ -1,6 +1,6 @@
 ---
 name: reversible-scroll-motion
-version: 1.4.0
+version: 1.5.0
 description: Build and repair production-grade, GSAP-powered, reversible scroll animations for websites. Use for cinematic entrances, meaning-driven spatial card choreography, SplitText headings, timeline wipes, 3D panels, footer reveals, ScrollTrigger scrub timing, idle/setTimeout visibility fallback, mobile/reduced-motion support, and browser QA. Also use when scroll animations hide content, fail at page bottom, inflate document height, or stop working on reverse scroll. Includes semantic A-to-D workflows, falling glyph headings, parent-child item choreography, and animated FAQ lists. Requires choosing L1-L4 ambition by content meaning and separate perceptual-motion review, with a hard ban on presentation microanimations.
 ---
 
@@ -51,6 +51,26 @@ Read the **[mandatory anti-microanimation gate](references/MOTION-AMBITION-GATE.
 before any motion implementation. **Do not deploy** a visually failing
 preview regardless of engineering QA or a passing static validator.
 
+## Official GSAP first — proven primitives, meaningful motion
+
+**Mandatory:** Read [GSAP official-first workflow](references/GSAP-OFFICIAL-FIRST.md)
+and the applicable [GreenSock AI Skills](https://github.com/greensock/gsap-skills)
+(Timeline, ScrollTrigger, plugins, performance) **before writing effects**.
+Official sources govern plugin syntax; this Skill governs semantic motion
+design, the **NO MICROANIMATIONS** gate, readability, visual QA and approval.
+
+**V1 → V2 field evidence:** [Licat's journey case](references/licat-journey-v1-v2.md)
+shows why tracing a timeline and static card outlines is not enough.
+V2 transformed **one persistent diagram**: foundation → automated workflow
+→ interconnected network, using labels, transforms, MorphSVG, DrawSVG
+and MotionPath. Transfer the **method**, not any Licat colors, texts
+or layout.
+
+**Tool selection:** Use official Flip only for genuine DOM/layout state
+transitions. Fixed SVG nodes are better served by transforms and MorphSVG.
+Never stack plugins just to look sophisticated. Scene-specific JS can
+coordinate geometry and teardown, not reinvent animation primitives.
+
 ## 0. Before touching code
 
 1. Inspect the **actual** repository, entry pages, CSS/JS, existing animation dependencies and Git state. Do not trust earlier chat SHA values.
@@ -66,7 +86,11 @@ preview regardless of engineering QA or a passing static validator.
    unordered card grid; a heading has reading order; a parent card can
    contain facts that need their own sequence. Decide this before GSAP.
 6. Decide which sections merit expressive choreography. Do not animate every word or control: keep navigation, forms, accessibility controls and reading surfaces usable.
-7. Prefer the site's existing GSAP; avoid introducing frameworks, services or large 3D engines for simple entrances.
+7. Prefer the site's existing GSAP and official APIs over new frameworks,
+   services, large 3D engines or self-written motion engines.
+8. For timelines, diagrams and workflows, read the
+   [Licat V1 → V2 case](references/licat-journey-v1-v2.md) and identify
+   persistent actors and source→destination states before tweening.
 
 Read the **[Motion Design Ambition Gate](references/MOTION-AMBITION-GATE.md)**
 *first* whenever designing or substantially revising motion. It is a
@@ -117,7 +141,7 @@ real mid-flight viewing window**. Suggested defaults, not universal:
 | Hero | One-time load intro, optional SVG morph | Initial load | Before interaction |
 | Section heading | Masked SplitText chars, modest 3D rotation, note wipe | Top near 85–90% viewport height | Top near 40–50% |
 | Grid cards | Layout-grounded paths, position-aware spatial placement, semantic parent/child staging | Top near 88–90% | Top near 37–45% |
-| Timeline | Alternating clip masks, node rotation | Top near 85–90% | Top near 42–50% |
+| Timeline | Meaningful **structural evolution**: path, process, morph, network (not only card borders) | Align to first chapter | Settle while its actual chapter remains visible |
 | Principles | Perspective unfold | Top near 85–90% | Top near 40–50% |
 | Footer | Short fade/rise | As soon as actually visible | **Never require screen midpoint** |
 
@@ -130,9 +154,15 @@ story into a blink. Validate the perceptual effect, not just CSS values.
 
 ## 2. Implement reversible scenes without layout shifts
 
-- Use official GSAP: `gsap.timeline()`, `ScrollTrigger`, `gsap.matchMedia()`, `invalidateOnRefresh: true` and `scrub: true`; refresh after font/image/layout changes.
+- Use official GSAP `gsap.timeline()` with semantic labels,
+  `ScrollTrigger` on the **top-level** narrative timeline,
+  `gsap.matchMedia()` where needed and `invalidateOnRefresh: true`.
+  Refresh only after actual font/image/layout changes.
 - With `scrub: true`, tween `duration` sets relative timeline proportions, **not wall-clock seconds**. `end - start` determines the scroll travel that controls pacing.
-- Animate transforms and opacity; keep CSS Grid/Flex cell geometry intact. No FLIP rearrangement, fake cards, absolute stacking or forced resizing to simulate entrance.
+- Prefer transforms and official SVG draw/morph/path plugins. Keep normal
+  CSS Grid/Flex geometry intact; no fake cards or forced resizing.
+  **Official Flip is valid for real measured layout-state transitions**,
+  not a fake rearrangement of a fixed SVG diagram.
 - Trigger against a **stable parent/natural offset**, not the moved child's `getBoundingClientRect()`.
 - For cards flying up from below, cap positive initial Y so the transformed card cannot extend beyond the document's natural bottom and temporarily inflate `scrollHeight`.
 - Never add enormous footer padding, fake spacers, pins or scroll locking simply to supply missing animation distance. Shorten the effect or let the idle fallback finish.
@@ -153,12 +183,18 @@ story into a blink. Validate the perceptual effect, not just CSS values.
   bounds**. Don't combine huge horizontal and vertical FAQ displacements.
   Never animate optical layers independently or hide interactive summaries.
 
-## 3. Implement scroll + `setTimeout` visibility fallback
+## 3. Use scroll + `setTimeout` visibility fallback **when necessary**
 
-**Scroll-only hiding is not acceptable for core content.**
+**Scroll-only hiding is not acceptable for core content.** Use the single
+idle completion timer for a reveal that would otherwise hide meaningful
+content. In a V2-style structural SVG scene, headings, body and links
+remain readable; therefore **no idle timer is required**. Do not force
+decorative scrubbed scenes to complete on pause and jump on reversal.
 
-1. Normal scroll uses a reversible ScrollTrigger timeline, with no delayed scrub.
-2. A **single debounced timer** (~480 ms since the last scroll) checks all **actually visible** but incomplete scenes. A footer can be visible near the lower edge without reaching screen center.
+1. Normal scroll uses a reversible ScrollTrigger timeline.
+   Use `scrub: true` for strict alignment; allow a mild numeric scrub
+   only when real wheel/touch QA proves no chapter lag.
+2. **For visibility-gated reveal scenes only**, a single debounced timer (~480 ms since the last scroll) checks all **actually visible** but incomplete scenes. A footer can be visible near the lower edge without reaching screen center.
 3. Animate their remaining progress to `1` (~600 ms). Do not animate offscreen content and do not create a separate timer for each item.
 4. **Re-anchor** a timer-completed scene to its current scroll position and animation progress. On the next wheel/touch event it must continue smoothly without snapping back to stale ScrollTrigger progress.
 5. Cancel active completion tweens when scrolling resumes. Reset a scene after reversing to hidden and leaving the viewport; prevent transparent ghosts.
@@ -185,7 +221,10 @@ See [implementation details](references/IMPLEMENTATION.md) and [fully runnable c
 
 - Missing CDN, blocked JS, reduced motion or unsupported GSAP must **fail open to visible content**, never permanently `opacity: 0`.
 - Preserve semantic headings, reading order, tab navigation and focus outlines. Do not animate critical controls out of reach.
-- Use `transform` and `opacity`; avoid heavyweight per-frame layout reads or animating `height`/`left`/`top`. Do not default to `once: true` when reversible playback was requested.
+- Prefer `transform` and native SVG drawing/morphing; avoid per-frame layout
+  reads, `height`/`left`/`top` and animated `backdrop-filter`. For glass
+  content, improve contrast rather than overlay opaque white fog.
+  Preserve reversible playback, not `once: true`.
 - No default scroll pin, wheel interception, programmatic scroll hijack, snap or 1-second scrub catch-up. Only use these when the user expressly wants them.
 - Prevent horizontal overflow without clipping important text vertically.
 - Preserve content, real links, SEO metadata, localization, theme and responsive behavior. Do not copy demo banners or `noindex` into production.
@@ -206,6 +245,22 @@ See [implementation details](references/IMPLEMENTATION.md) and [fully runnable c
   If an L3/L4 scene is primarily fade-in, generic stagger, or visibly
   imperceptible, mark **visual NOT ACCEPTED** regardless of a perfect
   viewport test matrix; revise and review with the user before production.
+
+### V1 → V2 continuous-structure QA
+
+- Reject decorative progress dots and traced borders as the *only* event
+  in a scene about genuine growth, process or system change.
+- At each **real chapter center**, prove a distinct spatial structure:
+  source → workflow → relationship network (or its semantic equivalent).
+  Don't test exclusively by forcing `timeline.progress(0.5)`.
+- Prefer the **same actors** restructuring between chapters rather than
+  unrelated cards appearing independently. Check causal connectors.
+- Mobile sticky visual must not hide chapter year, heading or body copy.
+- After 1440→390→768→1440 resize, verify path waypoints and rebuild
+  cached MotionPath tweens if geometry changes. V1 once drifted ~946px.
+- Distinguish **visual design acceptance** from green JavaScript tests;
+  see [official-first](references/GSAP-OFFICIAL-FIRST.md) and
+  [V1 → V2 case](references/licat-journey-v1-v2.md).
 
 ### Narrative QA (in addition to scroll mechanics)
 
@@ -247,6 +302,10 @@ portable snippets and failure evidence; do not copy EAO-specific selectors.
 - [CSS](assets/motion.css) — responsive layout and motion defaults; no padding hack.
 - [Mandatory ambition/visual gate](references/MOTION-AMBITION-GATE.md)
   — L1–L4 selection, anti-generic-fade policy, real perceptual QA.
+- [Official-first GSAP integration](references/GSAP-OFFICIAL-FIRST.md)
+  — upstream plugin selection, lifecycle and performance.
+- [V1 → V2 case](references/licat-journey-v1-v2.md)
+  — real continuous transformations, phone geometry and reverse testing.
 - [Design grammar](references/MOTION-GRAMMAR.md), [code patterns](references/IMPLEMENTATION.md), [failure cases](references/FAILURE-MODES.md), [QA checklist](references/ACCEPTANCE.md).
 - [Static Skill validator](scripts/validate_skill.py) — no third-party Python dependencies.
 

@@ -13,6 +13,21 @@ cp -R skills/reversible-scroll-motion ~/.agents/skills/
 
 For Claude Code, use its supported Skill directory (often `~/.claude/skills/`). For other agents, check their skill configuration. Some systems may require refreshing skill discovery / restarting the agent. This Skill does not install itself or modify other applications.
 
+## GSAP official-first and V2 learning (v1.5.0)
+
+The V1 → V2 case demonstrates that calling a plugin is not enough.
+The visual actors must change **structural meaning**, not simply reveal
+their border. Learn implementation from the
+[official GreenSock Skills](https://github.com/greensock/gsap-skills),
+then apply this Skill's meaning, readability and visual-acceptance gates.
+
+- [GSAP official-first guide](references/GSAP-OFFICIAL-FIRST.md)
+- [Licat journey V1 → V2 evidence](references/licat-journey-v1-v2.md)
+- [Independent V2 preview](https://licat233.github.io/motion-preview/gsap-journey-v2/)
+
+Positive feedback on V2 did **not** authorize changing the production
+homepage. Reuse the process, not the brand-specific design.
+
 ## Trigger phrases
 
 - "为我的网站做 Apple 风格的 GSAP 滚动入场动画"
@@ -24,7 +39,7 @@ For Claude Code, use its supported Skill directory (often `~/.claude/skills/`). 
 ## Files
 
 - `SKILL.md` — main agent contract and design-to-production workflow.
-- `references/` — visible motion grammar, implementation details, known regressions and acceptance criteria.
+- `references/` — official-first GSAP plugin decisions, V1→V2 study, motion grammar, implementation, regressions and acceptance.
 - `assets/example.html` + `assets/motion.css` + `assets/reversible-motion.js` — runnable, brand-neutral demonstration.
 - `scripts/validate_skill.py` — zero-dependency frontmatter, links and code checks.
 - `scripts/qa_browser.mjs` — optional Puppeteer browser tests (Puppeteer must be supplied by the host project).
@@ -66,7 +81,7 @@ animations. Agents must classify each scene from **L1 microinteraction**
 through **L4 cinematic**, according to content and brief, and verify
 the effect is **perceptible during normal scrolling**.
 
-## No presentation microanimations — hard rule (v1.4.0)
+## No presentation microanimations — hard rule (v1.5.0)
 
 **NO MICROANIMATIONS as primary content/showcase motion.**
 Opacity-only reveals, 20–40px fade-ups, generic stagger and randomly

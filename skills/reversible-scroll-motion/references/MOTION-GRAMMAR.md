@@ -1,5 +1,19 @@
 # Motion grammar — expressive but readable
 
+## A persistent scene that changes structure beats card-border decoration
+
+The [Licat V1 → V2 case](licat-journey-v1-v2.md) proved that tracing
+a line alongside static cards is not the same as explaining *evolution*.
+Retain meaningful actors and transform the relationship graph:
+one source → connected workflow → collaborative network. DrawSVG,
+MotionPath, MorphSVG and transforms express that change; decorative
+tracing should not be the entire story. Follow the
+[official-first plugin guide](GSAP-OFFICIAL-FIRST.md). Judge actual
+chapter viewing, mobile occlusion and reverse playback separately
+from merely running the code.
+
+
+
 ## Design before code
 
 Use the [Motion Design Ambition Gate](MOTION-AMBITION-GATE.md) first.

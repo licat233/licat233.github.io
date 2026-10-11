@@ -22,6 +22,8 @@ EXPECTED = [
     "references/ACCEPTANCE.md",
     "references/eao-story-choreography.md",
     "references/MOTION-AMBITION-GATE.md",
+    "references/GSAP-OFFICIAL-FIRST.md",
+    "references/licat-journey-v1-v2.md",
     "scripts/validate_skill.py",
     "scripts/qa_browser.mjs",
 ]
@@ -55,6 +57,11 @@ if FILE.exists():
         if desc:
             require(0 < len(desc.group(1)) <= 1024,
                     "description: length must be 1-1024 characters")
+    version = re.search(r"^version:\s*(\d+)\.(\d+)\.(\d+)\s*$", m.group(1), re.M) if m else None
+    require(version is not None, "Missing semantic version in frontmatter")
+    if version:
+        require(tuple(map(int, version.groups())) >= (1, 5, 0),
+                "Skill version must include the GSAP official-first V2 contract")
     require(len(text.splitlines()) <= 500, "SKILL.md should be <= 500 lines")
 
     for path in [FILE, *(SKILL / "references").glob("*.md")]:
@@ -119,7 +126,7 @@ if case.exists():
         require(marker.lower() in example.lower(),
                 f"EAO nested-child scene case lacks: {marker}")
     main = FILE.read_text(encoding="utf-8")
-    for marker in ("version: 1.4.0", "Parent + child animation",
+    for marker in ("Parent + child animation",
                    "inventory", "shared", "readable"):
         require(marker.lower() in main.lower(),
                 f"Motion Skill lacks explicit nested-scene policy: {marker}")
@@ -153,6 +160,37 @@ if ambition.exists() and FILE.exists():
                 f"Acceptance checklist lacks visual ambition gate: {token}")
     require("references/MOTION-AMBITION-GATE.md" in skill_text,
             "Root SKILL.md must link the mandatory ambition guide")
+
+# The V1 -> V2 case and upstream implementation source are both mandatory.
+upstream = SKILL / "references/GSAP-OFFICIAL-FIRST.md"
+case2 = SKILL / "references/licat-journey-v1-v2.md"
+if FILE.exists() and upstream.exists() and case2.exists():
+    main = FILE.read_text(encoding="utf-8")
+    p = upstream.read_text(encoding="utf-8")
+    c = case2.read_text(encoding="utf-8")
+    acceptance = (SKILL / "references/ACCEPTANCE.md").read_text(encoding="utf-8")
+    for term in ("greensock/gsap-skills", "gsap-timeline",
+                 "gsap-scrolltrigger", "gsap-plugins", "gsap-performance",
+                 "MorphSVG", "DrawSVG", "MotionPath", "Flip.getState()",
+                 "reduced", "glass", "readable"):
+        require(term.lower() in p.lower(),
+                f"GSAP official-first missing source or policy: {term}")
+    for term in ("V1", "V2", "946", "BUILD", "AUTOMATE",
+                 "ORCHESTRATE", "reverse", "mobile", "static", "GSAP"):
+        require(term.lower() in c.lower(),
+                f"V1/V2 case lacks evidence: {term}")
+    for term in ("references/GSAP-OFFICIAL-FIRST.md",
+                 "references/licat-journey-v1-v2.md",
+                 "Official Flip", "idle"):
+        require(term.lower() in main.lower(),
+                f"Skill lacks official GSAP narrative policy: {term}")
+    for term in ("official GSAP", "waypoints", "chapter",
+                 "Flip", "sticky", "reduced-motion"):
+        require(term.lower() in acceptance.lower(),
+                f"Acceptance lacks V2 ship gate: {term}")
+    require("No FLIP rearrangement" not in main,
+            "An outdated blanket ban on Flip contradicts official guidance")
+    require("version: 1.4.0" not in main, "Outdated Skill version")
 
 # Do not let an all-green technical suite substitute for the user's
 # expressive-motion brief. This validates the written hard gate; judging
