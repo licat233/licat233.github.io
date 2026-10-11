@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="/assets/portfolio-liquid-glass.css?v=20261010-perf1">
   <link rel="stylesheet" href="/assets/portfolio-entrances.css?v=20261010-semantic1">
   <link rel="stylesheet" href="/assets/portfolio-skills.css?v=20261010-semantic1">
+  <link rel="stylesheet" href="/assets/portfolio-journey-v2.css?v=20261011-v2">
 </head>
 <body>
   <header class="liquid-demo site-header apple-glass-base apple-glass-ultra-thin">
@@ -381,7 +382,60 @@
           </div>
           <p class="section-note">项目方向一直在变，但主线没有变：把重复、摩擦和复杂性压缩掉。</p>
         </div>
-        <div class="timeline">
+        <div class="journey-story" id="story">
+          <div class="journey-art-pane" id="stage-frame" role="group" aria-label="开发能力演进动态结构">
+            <div class="stage-caption"><span>CAPABILITY SYSTEM</span><span class="stage-status"><span class="status-disc"></span> CONTINUOUS EVOLUTION</span></div>
+<svg class="capability-svg" viewBox="0 0 900 640" role="img" aria-labelledby="diagramTitle diagramDesc">
+<title id="diagramTitle">持续演进的能力结构图</title>
+<desc id="diagramDesc">第一阶段从单一开发核心开始，第二阶段变成自动化流程链路，第三阶段组合成多节点 AI 协作网络。滚动控制图形演变。</desc>
+<defs>
+<path id="shape-build" d="M-30-27H19Q30-27 30-16V17Q30 27 19 27H-19Q-30 27-30 16V-16Q-30-27-19-27Z"/>
+<path id="shape-flow" d="M-37-16 H12 Q25-16 25-29 L43 0 L25 29 Q25 16 12 16 H-37 Q-42 16-42 10 V-10 Q-42-16-37-16Z"/>
+<path id="shape-network" d="M0-36 L31-18 L31 18 L0 36 L-31 18 L-31-18Z"/>
+</defs>
+<g class="guide-lines" aria-hidden="true"><path d="M70 100 H830 M70 320 H830 M70 540 H830 M100 70 V580 M450 70 V580 M800 70 V580"/></g>
+<g class="mesh-wiring" fill="none" aria-hidden="true">
+<path class="mesh-wire" d="M450 244 Q318 248 210 311"/>
+<path class="mesh-wire" d="M450 244 Q582 248 690 311"/>
+<path class="mesh-wire" d="M210 449 Q274 455 350 481"/>
+<path class="mesh-wire" d="M690 449 Q626 455 550 481"/>
+<path class="mesh-wire" d="M210 449 Q450 475 690 449"/>
+<path class="mesh-wire" d="M350 599 Q450 623 550 599"/>
+</g>
+<path id="process-line" d="M230 310 H670" fill="none" aria-hidden="true"/>
+<circle id="process-traveler" cx="0" cy="0" r="10" aria-hidden="true"/>
+<g class="node-wrap" transform="translate(450 310)">
+<g id="node-core" class="node" transform="translate(0 -155)">
+<rect class="node-surface node-primary" x="-93" y="-89" width="186" height="178" rx="20"/>
+<path id="morph-core" d="M-30-27H19Q30-27 30-16V17Q30 27 19 27H-19Q-30 27-30 16V-16Q-30-27-19-27Z" class="morph-core"/>
+<text class="node-title" x="0" y="58">构建 · BUILD</text>
+</g>
+<g id="node-tools" class="node" transform="translate(-240 70)">
+<rect class="node-surface" x="-86" y="-69" width="172" height="138" rx="18"/>
+<path class="node-icon" d="M-30-19 H30 M-30-4 H13 M-30 12 H27"/>
+<text class="node-title" x="0" y="48">工具 · TOOLING</text>
+</g>
+<g id="node-delivery" class="node" transform="translate(240 70)">
+<rect class="node-surface" x="-86" y="-69" width="172" height="138" rx="18"/>
+<path class="node-icon" d="M-29 0 H27 M14-13 29 0 14 13 M-26-21 V21"/>
+<text class="node-title" x="0" y="48">交付 · DELIVERY</text>
+</g>
+<g id="node-knowledge" class="node" transform="translate(-100 230)">
+<rect class="node-surface" x="-75" y="-59" width="150" height="118" rx="18"/>
+<path class="node-icon" d="M-25-16 Q-11-26 0-16 Q11-26 25-16 V18 Q10 9 0 19 Q-10 9-25 18 Z M0-16 V19"/>
+<text class="node-title" x="0" y="43">知识 · MEMORY</text>
+</g>
+<g id="node-governance" class="node" transform="translate(100 230)">
+<rect class="node-surface" x="-75" y="-59" width="150" height="118" rx="18"/>
+<path class="node-icon" d="M0-27 L25-15 V5 Q22 23 0 29 Q-22 23-25 5 V-15 Z M-10 1 L-1 10 L13-8"/>
+<text class="node-title" x="0" y="43">治理 · CONTROL</text>
+</g>
+</g>
+<g class="drawing-annotations" aria-hidden="true"><text x="70" y="70">SYSTEM ARCHITECTURE</text><text x="810" y="600" text-anchor="end">01 → 02 → 03</text></g>
+</svg>
+            <div class="stage-footer"><div class="phase-monitor"><span class="phase-monitor-number" id="monitor-phase">01</span><span class="phase-monitor-name" id="monitor-name">BUILD</span></div><div class="phase-progress"><span id="progress-fill"></span></div><span class="stage-footnote">REVERSIBLE SCROLL</span></div>
+          </div>
+          <div class="journey-story-steps">
           <article class="phase">
             <div class="phase-dot">01</div>
             <div class="liquid-demo phase-glass">
@@ -415,6 +469,7 @@
             <p>从 Skill、Agent 工具与知识系统，走向权限、工作流、可维护部署和完整企业 AI 工作系统。</p>
             </div>
           </article>
+          </div>
         </div>
       </div>
     </section>
@@ -491,7 +546,10 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/MorphSVGPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/DrawSVGPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/MotionPathPlugin.min.js"></script>
   <script src="/assets/portfolio-motion.js?v=20261010-perf1"></script>
+  <script src="/assets/portfolio-journey-v2.js?v=20261011-v2"></script>
   <script defer src="/assets/portfolio-skills.js?v=20261010a"></script>
 </body>
 </html>
