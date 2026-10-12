@@ -25,6 +25,7 @@
       const cleanups = [];
       const clamp = gsap.utils.clamp(0, 1);
       let idleTimer = null;
+      let scrollFrame = 0;
       let alive = true;
 
       // offsetTop/offsetParent measure the untransformed, natural document slot.
@@ -140,7 +141,13 @@
       }
 
       function onScroll() {
-        scenes.forEach(sync);
+        // Coalesce scroll events into one scene synchronization per paint frame.
+        if (!scrollFrame) {
+          scrollFrame = requestAnimationFrame(() => {
+            scrollFrame = 0;
+            scenes.forEach(sync);
+          });
+        }
         scheduleSettle();
       }
 
@@ -776,6 +783,7 @@
       return () => {
         alive = false;
         cancelAnimationFrame(initialFrame);
+        cancelAnimationFrame(scrollFrame);
         clearTimeout(idleTimer);
         window.removeEventListener("scroll", onScroll);
         window.removeEventListener("load", onLoad);

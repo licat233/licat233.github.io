@@ -641,7 +641,8 @@ html[lang="zh-CN"] .eao-v2 .cta h2{
    16:9 artwork arrives, shifting downstream ScrollTrigger positions. */
 .eao-v2 .story-visual img.lazy-image{aspect-ratio:16 / 9;object-fit:cover}
 .eao-v2 .work-cartoon img.lazy-image{aspect-ratio:2 / 1}
-.eao-v2 .hero-visual,.eao-v2 .story-visual,.eao-v2 .contrast-card{will-change:transform}
+/* Keep the interactive hero primed; avoid permanent GPU layers for large scroll artwork. */
+.eao-v2 .hero-visual{will-change:transform}
 .eao-v2 .lazy-image{transition:opacity .28s ease}
 
 /* Responsive */
@@ -1519,7 +1520,8 @@ html[lang="zh-CN"] .eao-v2 .kicker{
   --glass-edge:rgba(76,112,160,.20);
   --glass-shadow:0 19px 42px rgba(39,76,126,.125),0 5px 12px rgba(49,81,125,.060);
   --glass-shadow-raised:0 27px 57px rgba(39,76,126,.17),0 7px 16px rgba(49,81,125,.078);
-  --glass-blur:blur(20px) saturate(132%);
+  /* Static information panels retain transparency with a smaller backdrop sampling radius. */
+  --glass-blur:blur(12px) saturate(132%);
 }
 body.eao-v2{
   background:radial-gradient(ellipse 45rem 43rem at 92% 5%,rgba(187,214,239,.30),transparent 79%),
