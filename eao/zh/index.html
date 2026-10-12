@@ -77,6 +77,18 @@ section{padding:82px 0;border-bottom:1px solid var(--line)}.section-title{font-s
 <section id="control"><div class="wrap"><div class="kicker">05 / 企业控制权仍然在自己手里</div><h2 class="section-title">AI 可以进入企业，但控制权仍然属于企业。</h2><div class="story-visual"><img class="lazy-image" alt="EAO 企业控制层通过部门边界、工具授权、访问范围和人工确认约束 AI 的工作范围。" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="../assets/control-zh.webp" loading="lazy" decoding="async" width="1200" height="675"></div><div class="control-grid"><div class="control-card"><h3><span class="eao-category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#eao-category-selfhost"/></svg></span><span class="eao-category-label">系统可自托管</span></h3><p>EAO 应用栈可以运行在企业自己的基础设施中。</p></div><div class="control-card"><h3><span class="eao-category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#eao-category-boundary"/></svg></span><span class="eao-category-label">部门边界可区分</span></h3><p>不同部门可以拥有不同的知识、文件和工具范围。</p></div><div class="control-card"><h3><span class="eao-category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#eao-category-permissions"/></svg></span><span class="eao-category-label">工具需要明确授权</span></h3><p>Assistant 能做什么，取决于企业显式开放的工具和权限。</p></div><div class="control-card"><h3><span class="eao-category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#eao-category-review"/></svg></span><span class="eao-category-label">关键动作不自动越权</span></h3><p>判断、审批和正式对外动作仍由人负责；EAO 是否能够执行具体操作，取决于企业明确开放的工具和权限。</p></div></div><div class="note">外部数据如何处理，仍取决于企业选择的模型供应商和集成方式。系统自托管并不自动等于所有模型请求都留在本地。</div><div class="real"><div><div class="kicker">真实企业参考</div><h3>EAO 已经在真实企业环境中运行和持续维护。</h3><p>ARMOR 是 EAO 的首个参考实现。当前参考部署覆盖真实部门、企业知识、NAS 文件、浏览器/PWA 访问和日常运行维护；可复用组件与企业私有配置和数据保持分离。</p></div><div class="real-items"><span>部门工作环境</span><span>企业知识 + 历史</span><span>NAS / 企业文件</span><span>浏览器 + PWA</span><span>模型可灵活选择</span><span>工具与权限边界</span><span>日常运维与恢复</span></div></div></div></section>
 
 
+<section id="hardware"><div class="wrap">
+<div class="kicker">06 / 部署硬件</div>
+<h2 class="section-title">部署 EAO，需要准备什么样的服务器？</h2>
+<p class="intro">如果主要使用云端大模型，推荐 8 核 CPU、32 GB 内存和 500 GB NVMe SSD，无需独立显卡。</p>
+<div class="dept-grid">
+<article class="dept-card"><h3>入门试用</h3><ul><li>CPU：<strong>4 核</strong></li><li>内存：<strong>16 GB</strong></li><li>硬盘：<strong>100 GB SSD</strong></li><li>显卡：不需要</li></ul></article>
+<article class="dept-card"><h3>推荐 · 日常办公</h3><ul><li>CPU：<strong>8 核</strong></li><li>内存：<strong>32 GB</strong></li><li>硬盘：<strong>500 GB NVMe SSD</strong></li><li>显卡：不需要</li></ul></article>
+<article class="dept-card"><h3>本地 AI 增强</h3><ul><li>CPU：按模型决定</li><li>内存：64 GB 起参考</li><li>硬盘：1 TB 起参考</li><li>显卡：按模型决定</li></ul></article>
+</div>
+<div class="note">以上是硬件采购建议，不是已认证的最低配置，也不代表经过并发容量测试。本地运行大模型时需按具体模型另行评估。<a href="https://github.com/licat233/Enterprise-AI-Office/blob/main/README.zh-CN.md">查看 GitHub 项目说明 ↗</a></div>
+</div></section>
+
 <section class="faq" id="faq"><div class="wrap"><div class="faq-head"><div class="kicker">常见问题</div><h2 class="section-title">企业在让 AI 进入日常工作之前，通常会问这些问题。</h2></div><div class="faq-groups">
 
 <div class="faq-group"><h3>关于 EAO</h3><div class="faq-list">
