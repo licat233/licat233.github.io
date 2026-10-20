@@ -96,13 +96,14 @@
     return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
   function mdInline(value){
+    // Only auto-link an entire URL line; never rewrite links already in HTML.
+    const raw=String(value).trim();
+    if(/^https:\/\/[^\s<>]+$/.test(raw)){
+      return '<a href="'+esc(raw)+'" target="_blank" rel="noopener noreferrer">'+esc(raw)+'</a>';
+    }
     let s=esc(value);
     s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
     s=s.replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g,(_,label,url)=>'<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+label+'</a>');
-    s=s.replace(/(https:\/\/[^\s<>]+)/g,(url,offset,full)=>{
-      if(full.slice(Math.max(0,offset-7),offset).includes('href="'))return url;
-      return '<a href="'+url.replace(/\.$/,'')+'" target="_blank" rel="noopener noreferrer">'+url+'</a>';
-    });
     return s;
   }
   function renderMarkdown(src){
@@ -171,7 +172,7 @@
     document.title='AI 提示词库 · Prompt Library — Licat';
     if(updateUrl)history.pushState({},'',location.pathname);
     showCards();
-    scrollTo({top:0,behavior:'instant'});
+    scrollTo({top:0,behavior:'auto'});
   }
   async function showDetail(id,updateUrl=true){
     const item=byId.get(id);
@@ -190,7 +191,7 @@
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
     document.title=item.title+' — Licat Prompt Library';
     if(updateUrl)history.pushState({},'',location.pathname+'?p='+encodeURIComponent(id));
-    scrollTo({top:0,behavior:'instant'});
+    scrollTo({top:0,behavior:'auto'});
     try{
       const response=await fetch('/prompts/content/'+encodeURIComponent(id)+'.md');
       if(!response.ok)throw new Error('HTTP '+response.status);
