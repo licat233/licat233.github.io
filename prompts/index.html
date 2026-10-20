@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef3f5">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Licat 的 AI 提示词库：12 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与工作流。支持分类搜索、一键复制和独立分享。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Licat / 233">
+  <meta property="og:title" content="AI 提示词库 · Prompt Library — Licat">
+  <meta property="og:description" content="收集、打磨与持续更新：真正能拿来用的 AI 提示词。">
+  <meta property="og:url" content="https://licat233.github.io/prompts/">
+  <link rel="canonical" href="https://licat233.github.io/prompts/">
+  <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+  <title>AI 提示词库 · Prompt Library — Licat</title>
+  <script>
+    (() => {try {
+      const saved = localStorage.getItem('licat-theme');
+      document.documentElement.dataset.theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    } catch (_) {document.documentElement.dataset.theme='light';}})();
+  </script>
+  <link rel="stylesheet" href="/assets/vendor/open-props/open-props-core-1.7.23.min.css">
+  <link rel="stylesheet" href="/prompts/prompt-library.css?v=20261021a">
+  <script defer src="/prompts/prompt-library.js?v=20261021a"></script>
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+  <header class="site-top">
+    <div class="shell top-row">
+      <a class="brand" href="/zh/" aria-label="返回 Licat 个人主页"><img src="/assets/licat-logo.svg" alt=""><span><strong>LICAT</strong><small>/ 233</small></span></a>
+      <div class="top-center"><span class="signal"></span> PROMPT COLLECTION <span class="edition">/ 2026</span></div>
+      <nav class="top-actions" aria-label="页面导航">
+        <a href="/zh/" class="home-link">个人主页 <span aria-hidden="true">↗</span></a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换昼夜模式" title="切换昼夜模式"><span class="theme-light" aria-hidden="true">☼</span><span class="theme-dark" aria-hidden="true">☾</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="library-view" id="library-view" aria-labelledby="page-title">
+      <div class="shell">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="mini-line"></span> KNOWLEDGE, REFINED INTO ACTION</div>
+            <h1 id="page-title">好的提示词，<br><em>值得反复使用。</em></h1>
+            <p class="hero-description">这里收录我在真实使用中收集、总结和打磨的 AI 提示词。从表达方式，到独立判断，再到复杂任务的执行。找到适合的，复制，开始使用。</p>
+            <div class="hero-meta"><span><strong>12</strong> 条精选</span><i></i><span><strong>4</strong> 个主题</span><i></i><span>持续整理中 <span class="pulse"></span></span></div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+            <div class="art-core"><img src="/assets/licat-logo.svg" alt=""></div>
+            <span class="art-note note-a">THINK<br>BETTER</span>
+            <span class="art-note note-b">BUILD<br>SMARTER</span>
+            <span class="art-x">↗</span>
+          </div>
+        </div>
+
+        <div class="catalogue-heading" id="browse">
+          <div><div class="eyebrow">EXPLORE THE COLLECTION</div><h2>探索提示词<span class="heading-count" id="heading-count">/ 12</span></h2></div>
+          <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.6" cy="10.6" r="6.1"/><path d="m15.5 15.5 5.2 5.2"/></svg><input type="search" id="search" placeholder="搜索标题、用途或标签..." aria-label="搜索提示词" autocomplete="off"><kbd>/</kbd></div>
+        </div>
+
+        <div class="filter-row" id="filters" role="group" aria-label="按主题筛选">
+          <button class="filter active" type="button" data-filter="all" aria-pressed="true">全部 <span>12</span></button>
+          <button class="filter" type="button" data-filter="agent" aria-pressed="false">Agent 与工作流</button>
+          <button class="filter" type="button" data-filter="thinking" aria-pressed="false">表达与思考</button>
+          <button class="filter" type="button" data-filter="design" aria-pressed="false">开发与设计</button>
+          <button class="filter" type="button" data-filter="learning" aria-pressed="false">学习与探索</button>
+        </div>
+
+        <p id="result-status" class="result-status" aria-live="polite"></p>
+        <div id="prompt-grid" class="prompt-grid">
+          <a class="prompt-card" href="?p=ai-natural-communication-v1.3"><span class="card-kicker">表达与思考 · 长文</span><h3>AI 说人话指南 V1.3</h3><p>让 AI 自然表达、独立判断、尊重注意力，并知道何时停止。</p><span class="card-cta">阅读提示词 ↗</span></a>
+          <a class="prompt-card" href="?p=agent-efficient-execution"><span class="card-kicker">Agent 与工作流</span><h3>AI Agent 高效执行指令 V2.0</h3><p>交付优先、连续执行、最小验证、限制任务漂移。</p><span class="card-cta">阅读提示词 ↗</span></a>
+          <a class="prompt-card" href="?p=detailflow-ecommerce"><span class="card-kicker">开发与设计 · 长文</span><h3>DetailFlow 八屏电商详情图工作流</h3><p>从产品真实性到视觉连续性，完整的电商详情图制作流程。</p><span class="card-cta">阅读提示词 ↗</span></a>
+        </div>
+        <div class="empty-state" id="empty-state" hidden><div>⌕</div><h3>没有找到匹配的提示词</h3><p>换个关键词，或选择「全部」分类试试。</p><button type="button" id="reset-search">重置筛选</button></div>
+        <div class="library-end"><span>✦</span> LESS NOISE, MORE VALUE. <span>✦</span></div>
+      </div>
+    </section>
+
+    <section class="detail-view" id="detail-view" hidden aria-labelledby="detail-title">
+      <div class="shell detail-shell">
+        <button class="back-link" id="back-link" type="button">← 返回提示词列表</button>
+        <div class="detail-header">
+          <div class="detail-topline"><span class="detail-type" id="detail-type">AI PROMPT</span><span class="detail-index" id="detail-index"></span></div>
+          <h1 id="detail-title"></h1>
+          <p class="detail-summary" id="detail-summary"></p>
+          <div class="detail-tags" id="detail-tags"></div>
+          <div class="detail-actions">
+            <button id="copy-btn" class="action-primary" type="button">复制完整提示词 <span aria-hidden="true">↗</span></button>
+            <button id="share-btn" class="action-secondary" type="button">复制分享链接 <span aria-hidden="true">↗</span></button>
+            <a id="source-btn" class="action-text" target="_blank" rel="noopener noreferrer" href="https://github.com/licat233/licat233.github.io/tree/main/prompts/content">GitHub 源文件 ↗</a>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-margin"><span>THE FULL PROMPT</span><div class="reading-line"></div><p>可直接复制并粘贴到你使用的 AI 工具中。根据具体场景调整必要参数。</p></div>
+          <article class="prompt-article" id="prompt-article"><p>正在载入内容…</p></article>
+        </div>
+        <div class="detail-bottom"><button type="button" id="back-bottom">← 浏览其他提示词</button><button type="button" id="copy-bottom">复制这条提示词 ↑</button></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-bottom"><div class="shell footer-row"><div class="footer-identity"><img src="/assets/licat-logo.svg" alt=""><span><strong>LICAT / 233</strong><small>把复杂问题做成系统。</small></span></div><div class="footer-links"><a href="/zh/">个人主页</a><a href="/en/">English</a><a href="https://github.com/licat233/licat233.github.io/tree/main/prompts" target="_blank" rel="noopener noreferrer">GitHub 源代码 ↗</a></div><small class="footer-caption">思考 · 整理 · 分享</small></div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">该页面需要 JavaScript 才能启用分类、完整阅读与一键复制。你也可以直接<a href="https://github.com/licat233/licat233.github.io/tree/main/prompts/content">阅读全部 Markdown 原文</a>。</div></noscript>
+</body>
+</html>
