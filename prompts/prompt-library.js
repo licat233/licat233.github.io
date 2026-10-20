@@ -9,6 +9,12 @@
       tags:['表达风格','任务边界','沟通','长文'],featured:true
     },
     {
+      id:'agent-efficient-execution-v3',title:'AI Agent 高效执行与防漂移指令 V3.0',
+      category:'agent',label:'Agent 与工作流',type:'执行规范 · V3.0',
+      summary:'强化任务锚定与长会话连续性，防止子任务变成主线，同时坚持连续执行、最小验证和完成即停。',
+      tags:['Agent','任务锚定','防漂移','连续执行','长任务'],featured:true
+    },
+    {
       id:'agent-efficient-execution',title:'AI Agent 高效执行指令 V2.0',
       category:'agent',label:'Agent 与工作流',type:'执行规范 · V2.0',
       summary:'交付优先、连续执行、最小验证、控制成本和任务漂移，适合复杂工作中的执行型 Agent。',
