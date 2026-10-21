@@ -6,7 +6,15 @@
       id:'ai-natural-communication-v1.3.1',title:'AI 说人话指南 V1.3.1',
       category:'thinking',label:'表达与思考',type:'正式使用版 · V1.3.1',
       summary:'让 AI 自然表达、独立判断，更重视内容价值。新增执行优先级、内容生成与自审机制。',
-      tags:['表达风格','内容价值','优先级','自审机制','任务边界','长文'],featured:true
+      tags:['表达风格','内容价值','优先级','自审机制','任务边界','长文'],
+      companion:'ai-high-value-writing-audit-v1.1',featured:true
+    },
+    {
+      id:'ai-high-value-writing-audit-v1.1',title:'AI 高价值内容生成与自审指令 V1.1',
+      category:'thinking',label:'表达与思考',type:'配套执行指令 · V1.1',
+      summary:'配合《AI 说人话指南 V1.3.1》使用，把价值判断、事实核实、内容写作和针对性审稿落实到实际工作。',
+      tags:['内容创作','内容自审','事实核实','SEO','AI 说人话指南'],
+      companion:'ai-natural-communication-v1.3.1',featured:true
     },
     {
       id:'agent-efficient-execution-v3',title:'AI Agent 高效执行与防漂移指令 V3.0',
@@ -195,7 +203,9 @@
     $('#detail-type').textContent=item.label+' / '+item.type;
     $('#detail-index').textContent=String(catalogue.indexOf(item)+1).padStart(2,'0')+' / '+catalogue.length;
     $('#detail-summary').textContent=item.summary;
-    $('#detail-tags').innerHTML=item.tags.map(t=>'<span class="detail-tag">'+esc(t)+'</span>').join('');
+    const companion=item.companion&&byId.get(item.companion);
+    $('#detail-tags').innerHTML=item.tags.map(t=>'<span class="detail-tag">'+esc(t)+'</span>').join('')+
+      (companion?'<a class="detail-tag" href="/prompts/?p='+encodeURIComponent(companion.id)+'" title="阅读配套提示词">配套阅读：'+esc(companion.title)+' ↗</a>':'');
     $('#source-btn').href='https://github.com/licat233/licat233.github.io/blob/main/prompts/content/'+id+'.md';
     article.innerHTML='<p>正在载入完整内容…</p>';
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
