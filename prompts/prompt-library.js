@@ -3,10 +3,10 @@
 
   const catalogue = [
     {
-      id:'ai-natural-communication-v1.3',title:'AI 说人话指南 V1.3',
-      category:'thinking',label:'表达与思考',type:'深度指南 · V1.3',
-      summary:'让 AI 学会自然表达、独立判断、提供真实价值，尊重人类注意力，并适时停止。',
-      tags:['表达风格','任务边界','沟通','长文'],featured:true
+      id:'ai-natural-communication-v1.3.1',title:'AI 说人话指南 V1.3.1',
+      category:'thinking',label:'表达与思考',type:'正式使用版 · V1.3.1',
+      summary:'让 AI 自然表达、独立判断，更重视内容价值。新增执行优先级、内容生成与自审机制。',
+      tags:['表达风格','内容价值','优先级','自审机制','任务边界','长文'],featured:true
     },
     {
       id:'agent-efficient-execution-v3',title:'AI Agent 高效执行与防漂移指令 V3.0',
@@ -83,6 +83,8 @@
   ];
   const categoryLabel={agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索'};
   const byId=new Map(catalogue.map(item=>[item.id,item]));
+  const legacyIds={'ai-natural-communication-v1.3':'ai-natural-communication-v1.3.1'};
+  const resolveId=id=>legacyIds[id]||id;
   const $=selector=>document.querySelector(selector);
   const root=document.documentElement;
   const grid=$('#prompt-grid');
@@ -181,8 +183,10 @@
     scrollTo({top:0,behavior:'auto'});
   }
   async function showDetail(id,updateUrl=true){
-    const item=byId.get(id);
+    const resolvedId=resolveId(id);
+    const item=byId.get(resolvedId);
     if(!item){showLibrary(updateUrl);return;}
+    id=resolvedId;
     currentId=id;currentContent='';
     const token=++loadToken;
     library.hidden=true;
@@ -197,6 +201,7 @@
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
     document.title=item.title+' — Licat Prompt Library';
     if(updateUrl)history.pushState({},'',location.pathname+'?p='+encodeURIComponent(id));
+    else if(new URLSearchParams(location.search).get('p')!==id)history.replaceState({},'',location.pathname+'?p='+encodeURIComponent(id));
     scrollTo({top:0,behavior:'auto'});
     try{
       const response=await fetch('/prompts/content/'+encodeURIComponent(id)+'.md');
@@ -249,7 +254,7 @@
   $('#share-btn').addEventListener('click',()=>copy(location.origin+location.pathname+'?p='+encodeURIComponent(currentId),'独立分享链接已复制'));
   window.addEventListener('popstate',()=>{
     const id=new URLSearchParams(location.search).get('p');
-    if(id&&byId.has(id))showDetail(id,false);else showLibrary(false);
+    if(id&&byId.has(resolveId(id)))showDetail(id,false);else showLibrary(false);
   });
   document.addEventListener('keydown',event=>{
     if(event.key!=='/'||event.ctrlKey||event.metaKey||event.altKey||library.hidden)return;
@@ -257,5 +262,5 @@
     event.preventDefault();search.focus();
   });
   const initial=new URLSearchParams(location.search).get('p');
-  if(initial&&byId.has(initial))showDetail(initial,false);else showLibrary(false);
+  if(initial&&byId.has(resolveId(initial)))showDetail(initial,false);else showLibrary(false);
 })();
