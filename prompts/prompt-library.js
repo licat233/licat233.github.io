@@ -122,6 +122,23 @@
     s=s.replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g,(_,label,url)=>'<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+label+'</a>');
     return s;
   }
+  // Source markdown may include a display title, preface, or editorial notes.
+  // Copy and reader view use only the explicitly delimited executable prompt.
+  function extractPrompt(src){
+    const begin='<!-- prompt:begin -->';
+    const end='<!-- prompt:end -->';
+    const start=src.indexOf(begin);
+    const stop=src.indexOf(end);
+    if(start<0 || stop<start+begin.length ||
+       src.indexOf(begin,start+begin.length)!==-1 ||
+       src.indexOf(end,stop+end.length)!==-1){
+      throw new Error('Prompt content boundary missing or ambiguous');
+    }
+    const body=src.slice(start+begin.length,stop).trim();
+    if(!body)throw new Error('Prompt body is empty');
+    return body;
+  }
+
   function renderMarkdown(src){
     const lines=src.replace(/\r/g,'').split('\n');
     let result='',paragraph=[],listKind=null,listEntries=[];
@@ -218,12 +235,12 @@
       if(!response.ok)throw new Error('HTTP '+response.status);
       const text=await response.text();
       if(token!==loadToken)return;
-      currentContent=text.trim();
+      currentContent=extractPrompt(text);
       article.innerHTML=renderMarkdown(currentContent);
       $('#copy-btn').disabled=false;$('#copy-bottom').disabled=false;
     }catch(error){
       if(token!==loadToken)return;
-      article.innerHTML='<h2>暂时无法加载原文</h2><p>请检查网络或前往 GitHub 源文件阅读。原文没有被替换为不完整的摘要。</p>';
+      article.innerHTML='<h2>暂时无法加载提示词正文</h2><p>正文缺失、尚未标记可复制范围，或网络请求失败。为避免复制混入标题和说明，已暂时禁用复制；可通过 GitHub 源文件查看。</p>';
     }
   }
 
