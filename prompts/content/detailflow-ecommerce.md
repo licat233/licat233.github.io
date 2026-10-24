@@ -1,5 +1,7 @@
 # DetailFlow｜连续式八屏电商产品详情页制作工作流
 
+<!-- prompt:begin -->
+
 接下来请严格使用 DetailFlow 工作流帮我制作产品详情页。
 
 **DetailFlow Skill：** https://github.com/AJbeckliy/detail-flow
@@ -780,3 +782,5 @@ Preview 应该只是正式图的原样拼接预览。
 现在我会提供产品图片和产品资料。
 
 **请严格从 DetailFlow 的 Analyze Inputs 阶段开始。**
+
+<!-- prompt:end -->
