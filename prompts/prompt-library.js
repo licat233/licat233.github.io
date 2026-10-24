@@ -231,7 +231,7 @@
     else if(new URLSearchParams(location.search).get('p')!==id)history.replaceState({},'',location.pathname+'?p='+encodeURIComponent(id));
     scrollTo({top:0,behavior:'auto'});
     try{
-      const response=await fetch('/prompts/content/'+encodeURIComponent(id)+'.md');
+      const response=await fetch('/prompts/content/'+encodeURIComponent(id)+'.md?v=20261024a');
       if(!response.ok)throw new Error('HTTP '+response.status);
       const text=await response.text();
       if(token!==loadToken)return;
