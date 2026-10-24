@@ -7,32 +7,32 @@
       category:'thinking',label:'表达与思考',type:'正式使用版 · V1.3.1',
       summary:'让 AI 自然表达、独立判断，更重视内容价值。新增执行优先级、内容生成与自审机制。',
       tags:['表达风格','内容价值','优先级','自审机制','任务边界','长文'],
-      companion:'ai-high-value-writing-audit-v1.1',featured:true
+      companion:'ai-high-value-writing-audit-v1.1'
     },
     {
       id:'ai-high-value-writing-audit-v1.1',title:'AI 高价值内容生成与自审指令 V1.1',
       category:'thinking',label:'表达与思考',type:'配套执行指令 · V1.1',
       summary:'配合《AI 说人话指南 V1.3.1》使用，把价值判断、事实核实、内容写作和针对性审稿落实到实际工作。',
       tags:['内容创作','内容自审','事实核实','SEO','AI 说人话指南'],
-      companion:'ai-natural-communication-v1.3.1',featured:true
+      companion:'ai-natural-communication-v1.3.1'
     },
     {
       id:'agent-efficient-execution-v3',title:'AI Agent 高效执行与防漂移指令 V3.0',
       category:'agent',label:'Agent 与工作流',type:'执行规范 · V3.0',
       summary:'强化任务锚定与长会话连续性，防止子任务变成主线，同时坚持连续执行、最小验证和完成即停。',
-      tags:['Agent','任务锚定','防漂移','连续执行','长任务'],featured:true
+      tags:['Agent','任务锚定','防漂移','连续执行','长任务']
     },
     {
       id:'agent-efficient-execution',title:'AI Agent 高效执行指令 V2.0',
       category:'agent',label:'Agent 与工作流',type:'执行规范 · V2.0',
       summary:'交付优先、连续执行、最小验证、控制成本和任务漂移，适合复杂工作中的执行型 Agent。',
-      tags:['Agent','交付','效率','工作流'],featured:true
+      tags:['Agent','交付','效率','工作流']
     },
     {
       id:'detailflow-ecommerce',title:'DetailFlow｜八屏电商详情图工作流',
       category:'design',label:'开发与设计',type:'完整工作流 · 25 节',
       summary:'从真实产品素材到连续式八屏详情页：蓝图、视觉母版、审核、确认节点与最终交付。',
-      tags:['DetailFlow','电商设计','产品真实性','长文'],featured:true
+      tags:['DetailFlow','电商设计','产品真实性','长文']
     },
     {
       id:'anti-sycophancy',title:'让 AI 不再一味迎合：独立判断指令',
@@ -175,7 +175,7 @@
   }
 
   function card(item,index){
-    const classes='prompt-card'+(item.featured?' featured':'');
+    const classes='prompt-card';
     return '<a class="'+classes+'" href="?p='+item.id+'" data-open="'+item.id+'" aria-label="阅读 '+esc(item.title)+'">'+
       '<span class="card-kicker">'+esc(item.label)+' <span aria-hidden="true">/</span> '+esc(item.type)+'</span>'+
       '<h3>'+esc(item.title)+'</h3><p>'+esc(item.summary)+'</p>'+
