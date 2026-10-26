@@ -1,6 +1,6 @@
-# SEO Title 与 Meta Description｜Python 字符数精确校验
+# AI 字符数精准控制｜Python 代码校验法
 
-适用：需要严格限制 SEO Title（60 字符）和 Meta Description（160 字符）的官网文案生成与优化。
+适用：AI 生成的文本需要满足明确的字符长度限制时。下面以 SEO Title（60 字符）和 Meta Description（160 字符）为具体应用示例。
 
 说明：使用 Python 的 `len()` 验证 Unicode 字符数，包含空格与标点。该方法验证的是字符上限，不能保证 Google 搜索结果一定完整显示；实际截断还受像素宽度、设备及搜索展示方式影响。
 
