@@ -6,7 +6,7 @@
 
 <!-- prompt:begin -->
 
-请优化我提供的 SEO Title 和 Meta Description。
+请优化此页面的 SEO Title 和 Meta Description。
 
 **严格要求：**
 - SEO Title 不超过 60 字符。
