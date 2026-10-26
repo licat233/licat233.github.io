@@ -35,10 +35,10 @@
       tags:['DetailFlow','电商设计','产品真实性','长文']
     },
     {
-      id:'seo-python-character-validation',title:'SEO Title 与 Meta Description｜Python 字符数精确校验',
-      category:'agent',label:'Agent 与工作流',type:'SEO 实用指令 · Python 验证',
-      summary:'用 Python len() 实际计算标题和描述的字符数，自动淘汰超限文案，拒绝凭感觉估算或机械截断。',
-      tags:['SEO','Meta Description','Title','Python','len()','字符数校验']
+      id:'seo-python-character-validation',title:'AI 字符数精准控制｜Python 代码校验法',
+      category:'agent',label:'Agent 与工作流',type:'文本长度校验 · Python 验证',
+      summary:'解决 AI 字符计数不可靠的问题：用 Python len() 实测字符数，超限重写、验证通过才交付。SEO 是应用示例。',
+      tags:['字符数','文本长度','Python','len()','代码校验','SEO','Meta Description']
     },
     {
       id:'anti-sycophancy',title:'让 AI 不再一味迎合：独立判断指令',
