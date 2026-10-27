@@ -1,17 +1,19 @@
-# Single source of truth for the global (not page-local) site navigation.
-# The five section items are homepage anchors; Blog and Prompts are pages.
+# Only site-level destinations. Home section anchors belong to home-sections.html.
 - key: home
   zh: 首页
   en: Home
-  section: top
+  zh_url: /
+  en_url: /en/
 - key: projects
   zh: 项目
   en: Projects
-  section: projects
+  zh_url: /projects/
+  en_url: /en/projects/
 - key: skills
   zh: Skills
   en: Skills
-  section: skills
+  zh_url: /skills/
+  en_url: /en/skills/
 - key: blog
   zh: Blog
   en: Blog
@@ -22,11 +24,3 @@
   en: Prompts
   zh_url: /prompts/
   en_url: /en/prompts/
-- key: journey
-  zh: 轨迹
-  en: Journey
-  section: journey
-- key: principles
-  zh: 方法
-  en: Principles
-  section: principles

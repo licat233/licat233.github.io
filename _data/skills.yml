@@ -1,0 +1,8 @@
+- name: design-liquid-glass-ui
+  zh_description: 为网页与应用建立可读、可验收的 Liquid Glass 视觉规范。
+  en_description: Design and verify legible Liquid Glass interfaces with practical acceptance checks.
+  source: /skills/design-liquid-glass-ui/SKILL.md
+- name: reversible-scroll-motion
+  zh_description: 可反向播放、可访问且不过度干扰内容的滚动动画规范。
+  en_description: A repeatable process for accessible, reversible scroll-driven motion.
+  source: /skills/reversible-scroll-motion/SKILL.md

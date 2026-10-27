@@ -1,7 +1,7 @@
 {% comment %}
-Global navigation, shared by /, /zh/, /en/, Blog and Prompt Library.
-include.lang: zh|en, include.active: home|blog|prompts
-Site-wide links live in _data/site_nav.yml. Home sections are anchors, not pages.
+Site-wide navigation: Home, Projects, Skills, Blog, Prompts.
+Shared by the public content pages. Homepage sections have their own secondary nav.
+include.lang: zh|en, include.active: home|projects|skills|blog|prompts.
 {% endcomment %}
 {% assign site_language = include.lang | default: page.lang | default: 'zh' %}
 {% assign site_home = '/' %}
@@ -27,6 +27,12 @@ Site-wide links live in _data/site_nav.yml. Home sections are anchors, not pages
 {% elsif include.active == 'prompts' %}
   {% assign link_zh = '/prompts/' %}
   {% assign link_en = '/en/prompts/' %}
+{% elsif include.active == 'projects' %}
+  {% assign link_zh = '/projects/' %}
+  {% assign link_en = '/en/projects/' %}
+{% elsif include.active == 'skills' %}
+  {% assign link_zh = '/skills/' %}
+  {% assign link_en = '/en/skills/' %}
 {% endif %}
 <header class="liquid-demo site-header apple-glass-base apple-glass-ultra-thin">
   <span class="lg-glass-filter" aria-hidden="true"></span>
@@ -47,14 +53,7 @@ Site-wide links live in _data/site_nav.yml. Home sections are anchors, not pages
           {% assign item_label = item.zh %}
           {% assign item_href = item.zh_url %}
         {% endif %}
-        {% if item.section %}
-          {% if is_homepage %}
-            {% capture item_href %}#{{ item.section }}{% endcapture %}
-          {% else %}
-            {% capture item_href %}{{ site_home }}#{{ item.section }}{% endcapture %}
-          {% endif %}
-        {% endif %}
-        <a class="nav-pill{% if item.key == include.active %} active{% endif %}" href="{{ item_href }}"{% if is_homepage and item.section %} data-nav-target="{{ item.section }}"{% endif %}{% if item.key == include.active %} aria-current="page"{% endif %}><span></span>{{ item_label }}</a>
+        <a class="nav-pill{% if item.key == include.active %} active{% endif %}" href="{{ item_href }}"{% if item.key == include.active %} aria-current="page"{% endif %}><span></span>{{ item_label }}</a>
       {% endfor %}
     </div>
     <div class="nav-actions">
