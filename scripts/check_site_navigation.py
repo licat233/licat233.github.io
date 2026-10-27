@@ -14,6 +14,7 @@ for lang in ["zh","en"]:
     for key in keys:
         url=("/en/" if lang=="en" else "/")+(key+"/" if key!="home" else "")
         check(f"{lang}_url: {url}" in nav, f"Missing {lang} {key} route {url}")
+check("- key: blog\n  zh: 博客\n  en: Blog" in nav, "Chinese Blog label must be 博客")
 check("journey" not in keys and "principles" not in keys,"Home sections leaked into global nav")
 header=read("_includes/site-header.html")
 check("site.data.site_nav" in header and 'class="nav-links"' in header, "Shared site header missing")
