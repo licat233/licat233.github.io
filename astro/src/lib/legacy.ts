@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Lang } from './site';
-const root = fileURLToPath(new URL('../../../', import.meta.url));
+const root = path.resolve(process.cwd(), '..');
 export async function readLegacyPage(kind: 'home'|'prompts', lang: Lang) {
   const route = kind === 'home' ? (lang === 'en' ? 'en/index.html':'index.html') : (lang === 'en'?'en/prompts/index.html':'prompts/index.html');
   const source = (await readFile(path.join(root, route), 'utf8')).replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/,'');
