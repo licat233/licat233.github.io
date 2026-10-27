@@ -17,8 +17,12 @@ Site-wide links live in _data/site_nav.yml. Home sections are anchors, not pages
 {% if include.active == 'blog' %}
   {% assign link_zh = '/blog/' %}
   {% assign link_en = '/en/blog/' %}
-  {% if page.translation_url %}
-    {% if site_language == 'en' %}{% assign link_zh = page.translation_url %}{% else %}{% assign link_en = page.translation_url %}{% endif %}
+  {% if site_language == 'en' %}
+    {% assign link_en = page.url %}
+    {% if page.translation_url %}{% assign link_zh = page.translation_url %}{% endif %}
+  {% else %}
+    {% assign link_zh = page.url %}
+    {% if page.translation_url %}{% assign link_en = page.translation_url %}{% endif %}
   {% endif %}
 {% elsif include.active == 'prompts' %}
   {% assign link_zh = '/prompts/' %}
