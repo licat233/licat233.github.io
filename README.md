@@ -17,3 +17,8 @@
 - `/zh/` 是旧中文入口，已收敛为保留 query/hash 的兼容跳转，中文主页仅维护 `/` 一份。
 
 - 基础导航回归检查：`python3 scripts/check_site_navigation.py`，GitHub Actions 的 `site-navigation.yml` 在提交时自动执行；另须检查 GitHub Pages 正式部署结果。
+
+## 项目详情页与站点层级
+- 五组双语项目详情页保留原有章节导航，用 `_includes/project-return.html` 提供返回个人主页 Projects 区域的统一面包屑。
+- 常规项目详情页与主页共用 `licat-theme` 偏好；EAO 与 ToolScout 是独立项目展示页，仍使用各自的局部导航，但已补充返回 Projects 的路径。
+- 项目页的章节导航不等于网站主导航。新增项目时不得复制首页的完整 Header；应使用清晰的上级链接，并保留项目自己的内容导航。

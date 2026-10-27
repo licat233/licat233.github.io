@@ -60,4 +60,21 @@ assert_ok("setLocaleLinks" in get("prompts/prompt-library.js"),
 assert_ok("location.replace('/' + location.search + location.hash)" in get("zh/index.html"),
           "Legacy Chinese homepage should preserve bookmark query and fragment.")
 assert_ok("noindex,follow" in get("zh/index.html"), "Legacy alias must not be separately indexed.")
+for project in ["ai-writing-audit", "armor-memory", "disable-macos-auto-updates", "greenram", "opencore-h81"]:
+    for locale in ["", "zh/"]:
+        path = f"{project}/{locale}index.html"
+        src = get(path)
+        lang = "zh" if locale else "en"
+        assert_ok("{% include project-return.html lang='" + lang + "' %}" in src,
+                  f"Project page is missing the common site breadcrumb: {path}")
+        assert_ok("licat-project-theme" not in src,
+                  f"Project theme preference drifted from the portfolio: {path}")
+assert_ok("site.data.site_nav" in get("_includes/project-return.html"),
+          "Project breadcrumb must reference global navigation data.")
+assert_ok("licat-project-theme" not in get("assets/project-page.js"),
+          "Project theme state must share the portfolio preference.")
+for path,href in [("eao/index.html","/#projects"),("eao/en/index.html","/en/#projects"),
+                  ("eao/zh/index.html","/#projects"),
+                  ("toolscout/en/index.html","/en/#projects"),("toolscout/zh/index.html","/#projects")]:
+    assert_ok(href in get(path), f"Microsite does not link back to portfolio: {path}")
 print("SITE_NAVIGATION_SOURCE_CHECK_PASS: bilingual routes, shared header/styles/JS, legacy alias, prompt deep links")

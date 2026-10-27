@@ -7,6 +7,8 @@ on:
       - '_includes/**'
       - '_layouts/**'
       - 'index.html'
+      - '**/index.html'
+      - 'assets/project-page.*'
       - 'zh/**'
       - 'en/**'
       - 'prompts/**'
