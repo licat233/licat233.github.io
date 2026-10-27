@@ -14,3 +14,5 @@ Global navigation routes and labels now have one JSON source, `src/data/navigati
 - Existing CSS classes and SVG icon drawings are preserved. No third-party theme introduced.
 
 - Prompt single source: `src/data/prompts.json` (15 IDs, bilingual descriptions, translated body availability). Server template builds all cards and serializes the same metadata for the Astro-specific client controller. Original Jekyll `prompts/prompt-library.js` remains untouched until release.
+
+- Legacy HTML routing: `scripts/check-legacy-routes.mjs` enumerates source HTML endpoints and verifies Astro output preserves them, including intentionally independent demos and static project pages. The compatibility copier includes both `demo/` and `previews/`.

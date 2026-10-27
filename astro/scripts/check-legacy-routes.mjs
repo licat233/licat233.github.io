@@ -8,7 +8,6 @@ const dist=path.resolve(current,'../dist');
 const skip=new Set(['.git','.github','astro','_includes','_layouts','_data','_posts','scripts','node_modules']);
 let htmlCount=0;
 let missing=[];
-let sourceFiles=[];
 async function walk(dir,atRoot=false){
  for(const entry of await readdir(dir,{withFileTypes:true})){
   if(entry.name.startsWith('.') || (atRoot&&skip.has(entry.name)))continue;
@@ -16,11 +15,10 @@ async function walk(dir,atRoot=false){
   if(entry.isDirectory()){await walk(absolute,false);continue}
   if(!entry.isFile()||!entry.name.endsWith('.html'))continue;
   const rel=path.relative(root,absolute).replaceAll(path.sep,'/');
-  sourceFiles.push(rel);
   try{
    const out=await readFile(path.join(dist,rel),'utf8');
    if(out.length<60)missing.push(rel+' (empty)');
-   if(/{%\\s*include /.test(out))missing.push(rel+' (unrendered Jekyll include)');
+   if(/{%\s*include /.test(out))missing.push(rel+' (unrendered Jekyll include)');
   }catch(e){if(e.code==='ENOENT')missing.push(rel);else throw e}
   htmlCount++;
  }
