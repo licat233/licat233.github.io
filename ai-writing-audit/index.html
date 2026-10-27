@@ -1,3 +1,6 @@
+---
+lang: en
+---
 <!doctype html>
 <html lang="en" data-project="writing">
 <head>
@@ -11,7 +14,7 @@
 <link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/ai-writing-audit/zh/">
 <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
 <script>
-(()=>{try{const k="licat-project-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
+(()=>{try{const k="licat-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
 </script>
 <link rel="stylesheet" href="/assets/project-page.css">
 </head>
@@ -35,6 +38,7 @@
 </header>
 
 <main>
+{% include project-return.html lang='en' %}
 <section class="hero" data-ghost="WRITE / AUDIT">
   <div class="shell hero-grid">
     <div>
