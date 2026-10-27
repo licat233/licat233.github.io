@@ -82,15 +82,42 @@ test('compare live Jekyll and local Astro DOM geometry, typography and screensho
        jekyll:baseline.scrollHeight,astro:astro.scrollHeight});
      const overflow=astro.scrollWidth>astro.viewportWidth+3;
      if(overflow)diffs.push({issue:'Astro horizontal overflow',extra:astro.scrollWidth-astro.viewportWidth});
-     await reference.screenshot({path:path.join(outputDir,view.name+'-jekyll.png'),animations:'disabled'});
-     await page.screenshot({path:path.join(outputDir,view.name+'-astro.png'),animations:'disabled'});
-     report.pages.push({route:view.route,name:view.name,baseline,astro,diffs});
+     const jekyllScreen=await reference.screenshot({path:path.join(outputDir,view.name+'-jekyll.png'),animations:'disabled'});
+     const astroScreen=await page.screenshot({path:path.join(outputDir,view.name+'-astro.png'),animations:'disabled'});
+     // Same Chromium device, viewport and reduced-motion setting on both sites.
+     // Pixel metrics are review evidence, not a hard equivalence claim: text
+     // antialiasing and runtime timing can vary even with preserved CSS.
+     const pixel=await page.evaluate(async ({reference,candidate})=>{
+       const decode=async (base64:string)=>{
+         const image=await createImageBitmap(await (await fetch('data:image/png;base64,'+base64)).blob());
+         const c=document.createElement('canvas');c.width=image.width;c.height=image.height;
+         const context=c.getContext('2d',{willReadFrequently:true})!;
+         context.drawImage(image,0,0);
+         return {width:image.width,height:image.height,rgba:context.getImageData(0,0,image.width,image.height).data};
+       };
+       const a=await decode(reference),b=await decode(candidate);
+       if(a.width!==b.width||a.height!==b.height)return {sameSize:false,jekyll:[a.width,a.height],astro:[b.width,b.height]};
+       let sum=0,changed=0,large=0;
+       for(let i=0;i<a.rgba.length;i+=4){
+         const delta=Math.abs(a.rgba[i]-b.rgba[i])+Math.abs(a.rgba[i+1]-b.rgba[i+1])+Math.abs(a.rgba[i+2]-b.rgba[i+2]);
+         sum+=delta;
+         if(delta>60)changed++;
+         if(delta>180)large++;
+       }
+       const pixels=a.rgba.length/4;
+       return {sameSize:true,width:a.width,height:a.height,
+         meanRgbDifference:Number((sum/(pixels*3*255)).toFixed(4)),
+         changedPixelRatio:Number((changed/pixels).toFixed(4)),
+         largeDeltaRatio:Number((large/pixels).toFixed(4))};
+     },{reference:jekyllScreen.toString('base64'),candidate:astroScreen.toString('base64')});
+     report.pages.push({route:view.route,name:view.name,baseline,astro,diffs,pixel});
      for(const diff of diffs)report.issues.push({route:view.route,...diff});
    }
  }finally{
    await writeFile(path.join(outputDir,'comparison.json'),JSON.stringify(report,null,2));
    await reference.close();
  }
+ console.log('ASTRO_JEKYLL_PIXEL_REVIEW',JSON.stringify(report.pages.map(({route,pixel})=>({route,...pixel}))));
  console.log('ASTRO_JEKYLL_VISUAL_PARITY',JSON.stringify({views:report.pages.length,issues:report.issues}));
  expect(report.issues,'Jekyll→Astro visual drift; see astro-visual-parity artifact').toEqual([]);
 });
