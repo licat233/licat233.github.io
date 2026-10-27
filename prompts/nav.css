@@ -1,4 +1,7 @@
 :root {
+ /* Align with the original homepage navigation tokens. */
+ --max:77.5rem;
+ --text-2:var(--ink2);
  --nav-active-fg:#fff;--cyan:#49c9f2;--radius-pill:var(--radius-round);
  --space-1:var(--size-1);--space-2:var(--size-2);--space-3:var(--size-3);--space-4:var(--size-4);
  --apple-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
@@ -270,7 +273,6 @@
  .site-header .lang a{min-width:1.875rem;padding:.4375rem}
 }
 .prompts-page #main{padding-top:clamp(110px,12vw,150px)}
-.prompts-page .site-header .nav-pill.active{color:var(--nav-active-fg)}
 .prompts-page .site-header .brand span{display:flex;flex-direction:column;align-items:flex-start;gap:0}
 .prompts-page .site-header .nav-links{scrollbar-width:none}
 .prompts-page .site-header .nav-links a{white-space:nowrap}
