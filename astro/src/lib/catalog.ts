@@ -7,7 +7,12 @@ export interface Project {
   featured_zh_description?:string; featured_en_description?:string;
   featured_tags?:string[]; featured_meta?:string[];
 }
-export interface Skill { name:string; zh_description:string; en_description:string; source:string }
+export interface Skill {
+  name:string; zh_description:string; en_description:string; source:string;
+  featured_zh_domain?:string; featured_en_domain?:string;
+  featured_zh_summary?:string; featured_en_summary?:string;
+  featured_zh_usage?:string[]; featured_en_usage?:string[];
+}
 export async function getProjects():Promise<Project[]> {
  return YAML.parse(await readFile(path.resolve(process.cwd(),'../_data/projects.yml'),'utf8')) as Project[];
 }

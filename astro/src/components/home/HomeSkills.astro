@@ -1,0 +1,39 @@
+---
+import type { Lang } from '../../lib/site';
+import { getSkills } from '../../lib/catalog';
+interface Props {lang:Lang}
+const {lang}=Astro.props;
+const en=lang==='en';
+const skills=await getSkills();
+const github='https://github.com/licat233/licat233.github.io';
+---
+<section class="section skills-section" id="skills" aria-labelledby="skills-heading">
+  <div class="shell">
+    <div class="section-head">
+      <div><p class="kicker">REUSABLE KNOW-HOW</p><h2 id="skills-heading">Agent Skills</h2></div>
+      <p class="section-note">{en?'Reusable instructions from real design and engineering work, ready for AI agents to follow and validate.':'把真实项目中验证过的设计与工程经验，沉淀为 AI Agent 可直接遵循的工作规范。'}</p>
+    </div>
+    <div class="skills-grid">
+      {skills.map((skill,i) => (
+        <article class="liquid-demo skill-card apple-glass-base apple-glass-regular">
+          <span class="lg-glass-filter" aria-hidden="true"></span>
+          <span class="lg-glass-overlay" aria-hidden="true"></span>
+          <span class="lg-glass-specular" aria-hidden="true"></span>
+          <div class="skill-card-content">
+            <div class="skill-card-top"><span class="skill-index">{String(i+1).padStart(2,'0')}</span><span class="skill-domain">{en?skill.featured_en_domain:skill.featured_zh_domain}</span></div>
+            <h3>{skill.name}</h3>
+            <p class="skill-summary">{en?skill.featured_en_summary:skill.featured_zh_summary}</p>
+            <div class="skill-usage"><h4>{en?'USE IT FOR':'适用场景'}</h4>
+              <ul>{(en?skill.featured_en_usage:skill.featured_zh_usage)?.map(text=><li>{text}</li>)}</ul>
+            </div>
+            <div class="skill-actions">
+              <a class="skill-link" href={github+'/blob/main'+skill.source} target="_blank" rel="noopener noreferrer">{en?'Read SKILL.md':'阅读 SKILL.md'} <span aria-hidden="true">↗</span></a>
+              <a class="skill-source" href={github+'/tree/main'+skill.source.replace(/\/SKILL\.md$/,'')} target="_blank" rel="noopener noreferrer">{en?'Browse source':'浏览源文件'} <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+    <a class="skills-directory-link" href={github+'/tree/main/skills'} target="_blank" rel="noopener noreferrer">{en?'Browse all Skills on GitHub':'查看 GitHub Skills 目录'} <span aria-hidden="true">↗</span></a>
+  </div>
+</section>
