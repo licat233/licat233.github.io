@@ -36,3 +36,11 @@ Node.js 24 recommended, Astro 7.4.2 pinned. No Ruby or Bundler in this build.
 `npm run test:e2e` uses pinned Playwright Chromium on desktop and mobile emulation. CI runs 10 end-to-end cases covering actual clicks, canonical routes, prompt search/detail/deep-links, persistent theme state, the Projects/Skills hierarchy, and English translations. Use `npx playwright install chromium` before running locally. The migration branch never deploys Pages. Browser checks cover functional interactions, but full visual pixel parity still needs a reviewed comparison before cutover.
 
 CI uses `npm ci` with a committed lockfile, not `npm install` or on-the-fly dependency changes.
+
+## Component and data ownership (no copy/paste HTML)
+- `src/layouts/BaseLayout.astro` is the **only full HTML document shell**. `PortfolioShell.astro` provides homepage/prompt-specific settings but does not duplicate `<html>`, `<head>` or the global header.
+- `src/components/home/FeaturedProjects.astro` reads the same `_data/projects.yml` used by the Projects directory; eight homepage cards use `featured_*` fields (rank, localized description/url, tags/meta). Decorative SVGs live separately in `src/data/project-icons.ts`.
+- `src/components/home/HomeSkills.astro` reads the same `_data/skills.yml` as the Skills category, including localized featured usage lists.
+- `src/components/prompts/PromptLibrary.astro` renders the same HTML structure in both languages with localized UI labels and initial catalog cards from `src/data/prompt-previews.ts`.
+- Full client-side searchable prompt metadata still lives in `/prompts/prompt-library.js`. It is not yet one data source; unify before calling the prompt content migration finished.
+- Independent microsites still use the intentional build-time static compatibility copier.

@@ -92,3 +92,28 @@ test('prompt copy and cross-language sharing preserve the selected prompt', asyn
  const copied=await page.evaluate(() => navigator.clipboard.readText());
  expect(copied.length).toBeGreaterThan(100);
 });
+
+test('homepage project and Skill previews share one bilingual data structure',async ({page})=>{
+ const expected=['Enterprise AI Office','OpenCore · Haswell H81','ToolScout',
+ 'ai-writing-audit','armor-memory','lottery-calculate','GreenRAM','disable-macos-auto-updates'];
+ for(const url of ['/','/en/']){
+   await page.goto(url);
+   const cards=page.locator('#projects .projects > a.project');
+   await expect(cards).toHaveCount(8);
+   await expect(cards.locator('h3')).toHaveText(expected);
+   await expect(page.locator('#skills .skill-card')).toHaveCount(2);
+   await expect(page.locator('#skills .skill-card h3'))
+     .toHaveText(['design-liquid-glass-ui','reversible-scroll-motion']);
+   await expect(cards.first().locator('.project-icon svg')).toBeAttached();
+ }
+});
+
+test('both prompt languages render the shared catalog UI and all 15 items',async ({page})=>{
+ for(const url of ['/prompts/','/en/prompts/']){
+   await page.goto(url);
+   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(15);
+   await expect(page.locator('#filters [data-filter]')).toHaveCount(5);
+   await expect(page.locator('#copy-btn')).toBeAttached();
+   await expect(page.locator('#share-btn')).toBeAttached();
+ }
+});

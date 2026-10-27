@@ -5,3 +5,10 @@ Native `.astro` files now contain the Chinese and English homepage and prompt li
 The independently designed EAO, ToolScout and five project pairs are still static microsites copied by `scripts/prepare-public.mjs`, with their shared navigation context translated at build time. Next milestone: retire unnecessary adapter logic, run browser visual regression, audit URLs, then cut over only with an explicit production verification gate.
 
 Global navigation routes and labels now have one JSON source, `src/data/navigation.json`, reused by the Astro `SiteHeader` and the static microsite context producer. No second hard-coded route list is allowed.
+
+## Refactoring decisions
+- Authoritative HTML head and global site header: `src/layouts/BaseLayout.astro`; `PortfolioShell.astro` contains only configuration.
+- Featured project cards: `src/components/home/FeaturedProjects.astro`; metadata from the existing `_data/projects.yml`.
+- Featured Skills: `src/components/home/HomeSkills.astro`; metadata from the existing `_data/skills.yml`.
+- Prompt gallery/detail UI: `src/components/prompts/PromptLibrary.astro` shared across both locales.
+- Existing CSS classes and SVG icon drawings are preserved. No third-party theme introduced.

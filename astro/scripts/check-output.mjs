@@ -99,3 +99,24 @@ const translated=await read('blog/publish-markdown-notes/index.html');
 assert(translated.includes('hreflang="en"') && translated.includes('https://licat233.github.io/en/blog/publish-markdown-notes/'),
        'Published English translation must retain its matching hreflang URL');
 console.log('ASTRO_BLOG_HREFLANG_PASS: only real article translations advertised');
+
+const source=(file)=>readFile(new URL('../'+file,import.meta.url),'utf8');
+const documentShell=await source('src/layouts/BaseLayout.astro');
+const portfolioShell=await source('src/layouts/PortfolioShell.astro');
+assert((documentShell.match(/<html\b/g)||[]).length===1,'Global HTML document must have exactly one BaseLayout shell');
+assert(!/<html\b|<!doctype/i.test(portfolioShell),'Portfolio wrapper must not duplicate site-wide HTML');
+for(const locale of ['Zh','En']){
+ const home=await source('src/components/home/Home'+locale+'.astro');
+ const prompts=await source('src/components/prompts/Prompts'+locale+'.astro');
+ assert(home.includes('<FeaturedProjects')&&home.includes('<HomeSkills'),
+  'Homepage reverted to copy/pasted project/Skill cards: '+locale);
+ assert(!home.includes('<a class="liquid-demo project'),'Repeated homepage project card HTML: '+locale);
+ assert(prompts.includes('<PromptLibrary'),'Prompt page reverted to locale-specific layout: '+locale);
+}
+assert((await source('src/components/home/FeaturedProjects.astro')).includes('getProjects()'),
+ 'Featured cards must use the same project YAML data as the Projects category');
+assert((await source('src/components/home/HomeSkills.astro')).includes('getSkills()'),
+ 'Skills cards must use the same catalog as the Skills category');
+assert((await source('src/components/prompts/PromptLibrary.astro')).includes('promptPreviews[lang]'),
+ 'Prompt initial list should be generated from one localized data module');
+console.log('ASTRO_ARCHITECTURE_PASS: one document shell, shared bilingual cards and prompt templates');
