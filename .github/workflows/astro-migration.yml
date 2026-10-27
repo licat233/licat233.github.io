@@ -39,13 +39,3 @@ jobs:
           name: astro-migration-preview
           path: astro/dist/
           retention-days: 7
-      - name: Commit first lockfile to migration branch only
-        if: success()
-        run: |
-          if [ -f package-lock.json ] && ! git ls-files --error-unmatch package-lock.json >/dev/null 2>&1; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add package-lock.json
-            git commit -m "build(astro): lock tested Astro 7 dependencies"
-            git push origin HEAD:migration/astro-20261027
-          fi
