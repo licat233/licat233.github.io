@@ -1,5 +1,7 @@
 (() => {
   'use strict';
+  const isEnglish=document.documentElement.lang.toLowerCase().startsWith('en');
+  const t=(zh,en)=>isEnglish?en:zh;
 
   const catalogue = [
     {
@@ -95,7 +97,13 @@
       tags:['记忆','复盘','Skill','工作优化']
     }
   ];
-  const categoryLabel={agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索'};
+  const enItems=[["ai-natural-communication-v1.3.1","Making AI Sound Natural — Guide V1.3.1","A practical guide to clearer AI communication, independent judgment, substantive answers, and self-review.","Main guide · V1.3.1",["communication","quality","self-review"]],["ai-high-value-writing-audit-v1.1","High-Value AI Writing and Self-Review V1.1","Put evidence checks, content quality, writing, and focused editing into practice.","Companion instructions · V1.1",["content","editing","verification"]],["agent-efficient-execution-v3","AI Agent Execution and Anti-Drift V3.0","Keep long-running tasks on track with continuous delivery, minimal validation, and a clear finish line.","Agent workflow · V3.0",["agents","execution","focus"]],["agent-efficient-execution","Efficient AI Agent Execution V2.0","A lightweight instruction set for delivery-first agents and cost-conscious task execution.","Agent workflow · V2.0",["agents","delivery","efficiency"]],["detailflow-ecommerce","DetailFlow: Eight-Panel Ecommerce Design Workflow","A structured product-detail design workflow based on authentic assets, reviews, and consistent visuals.","Design workflow · 25 sections",["design","ecommerce","products"]],["seo-python-character-validation","Exact AI Character Counts with Python","Use Python len() to validate text length, rewrite failures, and recheck. SEO text is one example.","Length validation · Python",["Python","character counts","SEO"]],["anti-sycophancy","Independent Judgment: Stop AI from Just Agreeing","Ask AI to examine flawed assumptions, reasoning gaps, and potential cognitive biases.","Reasoning guide · 5 rules",["reasoning","bias","critical thinking"]],["four-quadrant-assistance","Four-Quadrant Collaboration: Identify Blind Spots","Explore what is known, unknown, and overlooked before choosing the smallest useful test.","Collaboration · 4 quadrants",["collaboration","discovery","questions"]],["first-principles-reasoning","First Principles: Facts and Constraints","Work from verified facts and constraints rather than unexamined assumptions.","Compact prompt",["first principles","reasoning","decision"]],["prompt-engineer","Prompt Engineering: Two-Level Generator","Turn a practical goal into a concise general-purpose prompt and a detailed advanced version.","Prompt generator",["prompt engineering","optimization"]],["codex-workflow-tips","10 Tips for Using Codex Efficiently","Practical ideas for context management, reviews, AGENTS.md, and reusing skills.","Tips · 10 items",["Codex","development","skills"]],["award-level-web-design","Award-Quality Website Design Prompt","Review the visual quality and user experience of a website using respected design-award references.","Design instructions",["web design","visual quality"]],["logo-motion","Six-Second Brand Logo Animation","Generate a six-second logo introduction from reference frames while keeping the brand consistent.","Video prompt",["logo","motion","video"]],["daily-fable-learning","Learn Advanced Concepts Through Fables","Use a short story to introduce a graduate-level concept before revealing its underlying theory.","Learning prompt",["learning","fables","concepts"]],["memory-insight-skills","Find Insights and Reusable Skills in Past Conversations","Identify hidden decisions and repeated workflows from accessible conversation history only.","Reflection workflow",["memory","insights","skills"]]];
+  if(isEnglish){
+    const byEnglishId=new Map(enItems.map(([id,title,summary,type,tags])=>[id,{title,summary,type,tags}]));
+    const labels={agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration'};
+    catalogue.forEach(item=>{const translated=byEnglishId.get(item.id);if(!translated)return;Object.assign(item,translated);item.label=labels[item.category];});
+  }
+  const categoryLabel=isEnglish?{agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration'}:{agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索'};
   const byId=new Map(catalogue.map(item=>[item.id,item]));
   const legacyIds={'ai-natural-communication-v1.3':'ai-natural-communication-v1.3.1'};
   const resolveId=id=>legacyIds[id]||id;
@@ -182,17 +190,17 @@
 
   function card(item,index){
     const classes='prompt-card';
-    return '<a class="'+classes+'" href="?p='+item.id+'" data-open="'+item.id+'" aria-label="阅读 '+esc(item.title)+'">'+
+    return '<a class="'+classes+'" href="?p='+item.id+'" data-open="'+item.id+'" aria-label="'+t('阅读 ','Read ')+esc(item.title)+'">'+
       '<span class="card-kicker">'+esc(item.label)+' <span aria-hidden="true">/</span> '+esc(item.type)+'</span>'+
       '<h3>'+esc(item.title)+'</h3><p>'+esc(item.summary)+'</p>'+
-      '<div class="card-foot"><span class="card-cta">阅读并复制 <span aria-hidden="true">↗</span></span><span class="card-count">'+String(index+1).padStart(2,'0')+' / '+catalogue.length+'</span></div></a>';
+      '<div class="card-foot"><span class="card-cta">'+t('阅读并复制','Read & copy')+' <span aria-hidden="true">↗</span></span><span class="card-count">'+String(index+1).padStart(2,'0')+' / '+catalogue.length+'</span></div></a>';
   }
   function showCards(){
     const q=search.value.trim().toLocaleLowerCase();
     const matched=catalogue.filter(item=>(filter==='all'||item.category===filter) &&
       (item.title+' '+item.summary+' '+item.tags.join(' ')+' '+item.label).toLocaleLowerCase().includes(q));
     grid.innerHTML=matched.map(item=>card(item,catalogue.indexOf(item))).join('');
-    status.textContent=(q||filter!=='all')?'找到 '+matched.length+' 条提示词':'';
+    status.textContent=(q||filter!=='all')?t('找到 '+matched.length+' 条提示词',matched.length+' prompts found'):'';
     $('#heading-count').textContent='/ '+catalogue.length;
     $('#empty-state').hidden=matched.length>0;
     grid.hidden=matched.length===0;
@@ -206,9 +214,10 @@
     loadToken++;
     currentId=null;
     currentContent='';
+    setLocaleLinks(null);
     detail.hidden=true;
     library.hidden=false;
-    document.title='AI 提示词库 · Prompt Library — Licat';
+    document.title=t('AI 提示词库 · Prompt Library — Licat','AI Prompt Library — Licat');
     if(updateUrl)history.pushState({},'',location.pathname);
     showCards();
     scrollTo({top:0,behavior:'auto'});
@@ -219,6 +228,7 @@
     if(!item){showLibrary(updateUrl);return;}
     id=resolvedId;
     currentId=id;currentContent='';
+    setLocaleLinks(id);
     const token=++loadToken;
     library.hidden=true;
     detail.hidden=false;
@@ -228,9 +238,9 @@
     $('#detail-summary').textContent=item.summary;
     const companion=item.companion&&byId.get(item.companion);
     $('#detail-tags').innerHTML=item.tags.map(t=>'<span class="detail-tag">'+esc(t)+'</span>').join('')+
-      (companion?'<a class="detail-tag" href="/prompts/?p='+encodeURIComponent(companion.id)+'" title="阅读配套提示词">配套阅读：'+esc(companion.title)+' ↗</a>':'');
+      (companion?'<a class="detail-tag" href="'+(isEnglish?'/en/prompts/':'/prompts/')+'?p='+encodeURIComponent(companion.id)+'" title="'+t('阅读配套提示词','Read companion prompt')+'">'+t('配套阅读：','Related: ')+esc(companion.title)+' ↗</a>':'');
     $('#source-btn').href='https://github.com/licat233/licat233.github.io/blob/main/prompts/content/'+id+'.md';
-    article.innerHTML='<p>正在载入完整内容…</p>';
+    article.innerHTML='<p>'+t('正在载入完整内容…','Loading full prompt…')+'</p>';
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
     document.title=item.title+' — Licat Prompt Library';
     if(updateUrl)history.pushState({},'',location.pathname+'?p='+encodeURIComponent(id));
@@ -246,12 +256,12 @@
       $('#copy-btn').disabled=false;$('#copy-bottom').disabled=false;
     }catch(error){
       if(token!==loadToken)return;
-      article.innerHTML='<h2>暂时无法加载提示词正文</h2><p>正文缺失、尚未标记可复制范围，或网络请求失败。为避免复制混入标题和说明，已暂时禁用复制；可通过 GitHub 源文件查看。</p>';
+      article.innerHTML=t('<h2>暂时无法加载提示词正文</h2><p>正文缺失、尚未标记可复制范围，或网络请求失败。为避免复制混入标题和说明，已暂时禁用复制；可通过 GitHub 源文件查看。</p>','<h2>Could not load the original prompt</h2><p>Its Markdown file may be unavailable or missing valid copy boundaries. To avoid copying the wrong text, copy is disabled. See the GitHub source file.</p>');
     }
   }
 
   async function copy(text,message){
-    if(!text){toast('内容尚未载入，请稍后重试');return;}
+    if(!text){toast(t('内容尚未载入，请稍后重试','Content has not loaded yet'));return;}
     try{
       if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(text);}
       else{
@@ -260,18 +270,48 @@
         box.select();if(!document.execCommand('copy'))throw new Error('Copy failed');box.remove();
       }
       toast(message);
-    }catch(_){toast('复制失败，请手动选择文字复制');}
+    }catch(_){toast(t('复制失败，请手动选择文字复制','Could not copy; select the text manually'));}
   }
   function toast(message){
     const el=$('#toast');clearTimeout(toastTimer);el.textContent=message;el.classList.add('show');
     toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
   }
 
-  $('#theme-toggle').addEventListener('click',()=>{
+  const themeToggle=$('#theme-toggle');
+  const syncTheme=()=>{
+    const dark=root.dataset.theme==='dark';
+    root.style.colorScheme=dark?'dark':'light';
+    themeToggle.setAttribute('aria-pressed',String(dark));
+    themeToggle.setAttribute('aria-label',dark?t('切换到昼间模式','Switch to light mode'):t('切换到夜间模式','Switch to dark mode'));
+    themeToggle.title=themeToggle.getAttribute('aria-label');
+  };
+  syncTheme();
+  themeToggle.addEventListener('click',()=>{
     const newTheme=root.dataset.theme==='dark'?'light':'dark';
     root.dataset.theme=newTheme;
     try{localStorage.setItem('licat-theme',newTheme);}catch(_){}
+    syncTheme();
   });
+  const systemTheme=matchMedia('(prefers-color-scheme: dark)');
+  const followSystem=(e)=>{try{if(['dark','light'].includes(localStorage.getItem('licat-theme')))return;}catch(_){}root.dataset.theme=e.matches?'dark':'light';syncTheme();};
+  if(systemTheme.addEventListener)systemTheme.addEventListener('change',followSystem);
+  else if(systemTheme.addListener)systemTheme.addListener(followSystem);
+  const nav=$('.site-header .nav-links'),navActive=nav?.querySelector('.nav-pill.active');
+  const positionIndicator=(center=false)=>{
+    if(!nav||!navActive)return;
+    nav.style.setProperty('--nav-indicator-x',navActive.offsetLeft+'px');
+    nav.style.setProperty('--nav-indicator-w',navActive.offsetWidth+'px');
+    nav.classList.add('nav-ready');
+    if(center&&nav.scrollWidth>nav.clientWidth+2)nav.scrollLeft=Math.max(0,navActive.offsetLeft-(nav.clientWidth-navActive.offsetWidth)/2);
+  };
+  requestAnimationFrame(()=>positionIndicator(true));
+  window.addEventListener('resize',()=>positionIndicator(false));
+  const setLocaleLinks=(id)=>{
+    document.querySelectorAll('.site-header .lang a').forEach(a=>{
+      const url=a.textContent.trim()==='EN'?'/en/prompts/':'/prompts/';
+      a.href=url+(id?'?p='+encodeURIComponent(id):'');
+    });
+  };
   search.addEventListener('input',showCards);
   filters.forEach(el=>el.addEventListener('click',()=>changeFilter(el.dataset.filter)));
   grid.addEventListener('click',event=>{
@@ -282,9 +322,9 @@
   $('#reset-search').addEventListener('click',()=>{search.value='';changeFilter('all');search.focus();});
   $('#back-link').addEventListener('click',()=>showLibrary());
   $('#back-bottom').addEventListener('click',()=>showLibrary());
-  $('#copy-btn').addEventListener('click',()=>copy(currentContent,'完整提示词已复制'));
-  $('#copy-bottom').addEventListener('click',()=>copy(currentContent,'完整提示词已复制'));
-  $('#share-btn').addEventListener('click',()=>copy(location.origin+location.pathname+'?p='+encodeURIComponent(currentId),'独立分享链接已复制'));
+  $('#copy-btn').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Original prompt copied')));
+  $('#copy-bottom').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Original prompt copied')));
+  $('#share-btn').addEventListener('click',()=>copy(location.origin+location.pathname+'?p='+encodeURIComponent(currentId),t('独立分享链接已复制','Share link copied')));
   window.addEventListener('popstate',()=>{
     const id=new URLSearchParams(location.search).get('p');
     if(id&&byId.has(resolveId(id)))showDetail(id,false);else showLibrary(false);
