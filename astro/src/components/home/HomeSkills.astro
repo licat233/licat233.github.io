@@ -6,6 +6,7 @@ const {lang}=Astro.props;
 const en=lang==='en';
 const skills=await getSkills();
 const github='https://github.com/licat233/licat233.github.io';
+import GlassSurface from '../GlassSurface.astro';
 ---
 <section class="section skills-section" id="skills" aria-labelledby="skills-heading">
   <div class="shell">
@@ -15,10 +16,8 @@ const github='https://github.com/licat233/licat233.github.io';
     </div>
     <div class="skills-grid">
       {skills.map((skill,i) => (
-        <article class="liquid-demo skill-card apple-glass-base apple-glass-regular">
-          <span class="lg-glass-filter" aria-hidden="true"></span>
-          <span class="lg-glass-overlay" aria-hidden="true"></span>
-          <span class="lg-glass-specular" aria-hidden="true"></span>
+        <GlassSurface as="article" class="skill-card" material="regular">
+          
           <div class="skill-card-content">
             <div class="skill-card-top"><span class="skill-index">{String(i+1).padStart(2,'0')}</span><span class="skill-domain">{en?skill.featured_en_domain:skill.featured_zh_domain}</span></div>
             <h3>{skill.name}</h3>
@@ -31,7 +30,7 @@ const github='https://github.com/licat233/licat233.github.io';
               <a class="skill-source" href={github+'/tree/main'+skill.source.replace(/\/SKILL\.md$/,'')} target="_blank" rel="noopener noreferrer">{en?'Browse source':'浏览源文件'} <span aria-hidden="true">↗</span></a>
             </div>
           </div>
-        </article>
+        </GlassSurface>
       ))}
     </div>
     <a class="skills-directory-link" href={github+'/tree/main/skills'} target="_blank" rel="noopener noreferrer">{en?'Browse all Skills on GitHub':'查看 GitHub Skills 目录'} <span aria-hidden="true">↗</span></a>

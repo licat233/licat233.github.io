@@ -169,3 +169,32 @@ for(const route of ['projects/index.html','en/projects/index.html','skills/index
  }
 }
 console.log('ASTRO_DIRECTORY_GLASS_PASS: projects and Skills share existing Liquid Glass optics');
+
+const sourceDir=new URL('../src/',import.meta.url);
+async function inspectAstroTemplates(dir,relative=''){
+ const {readdir}=await import('node:fs/promises');
+ for(const entry of await readdir(dir,{withFileTypes:true})){
+  const rel=relative+entry.name;
+  if(entry.isDirectory()){
+   await inspectAstroTemplates(new URL(entry.name+'/',dir),rel+'/');
+  } else if(entry.name.endsWith('.astro') && rel!=='components/GlassSurface.astro'){
+   const code=await readFile(new URL(entry.name,dir),'utf8');
+   assert(!/<span\s+class="lg-glass-(filter|overlay|specular)"/.test(code),
+    'Use GlassSurface, not hand-copied optical layers: '+rel);
+   assert(!/class="[^"]*\bliquid-demo\b/.test(code),
+    'Use GlassSurface instead of manually adding material classes: '+rel);
+   if(code.includes('<GlassSurface')){
+    assert(code.includes('import GlassSurface from '),
+      'GlassSurface needs an explicit import: '+rel);
+   }
+  }
+ }
+}
+await inspectAstroTemplates(sourceDir);
+for(const route of ['index.html','en/index.html','projects/index.html','en/projects/index.html',
+                    'skills/index.html','en/skills/index.html','blog/index.html','prompts/index.html']){
+ const html=await read(route);
+ assert(html.includes('/assets/portfolio-liquid-glass.css?v=20261010-perf1'),
+   'Glass material stylesheet missing from '+route);
+}
+console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');

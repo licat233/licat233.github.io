@@ -175,3 +175,47 @@ test('Projects and Skills directories use original three-layer Liquid Glass', as
  await expect(page.locator('#projects .project.liquid-demo')).toHaveCount(8);
  await expect(page.locator('#projects .project > .lg-glass-filter')).toHaveCount(8);
 });
+
+test('every Astro-owned glass surface uses the complete material in both languages',async ({page})=>{
+ const routes=[
+  {url:'/',minimum:23},{url:'/en/',minimum:23},
+  {url:'/projects/',minimum:12},{url:'/en/projects/',minimum:12},
+  {url:'/skills/',minimum:6},{url:'/en/skills/',minimum:6},
+  {url:'/blog/',minimum:4},{url:'/en/blog/',minimum:4},
+  {url:'/prompts/',minimum:4},{url:'/en/prompts/',minimum:4}
+ ];
+ for(const {url,minimum} of routes){
+  await page.goto(url);
+  const report=await page.evaluate(()=>{
+   const nodes=[...document.querySelectorAll('.liquid-demo')];
+   const classes=['lg-glass-filter','lg-glass-overlay','lg-glass-specular'];
+   return {
+    count:nodes.length,
+    bad:nodes.flatMap(node=>{
+     const children=[...node.children] as HTMLElement[];
+     const layers=classes.map(name=>children.filter(child=>child.classList.contains(name)));
+     const found=layers.every(items=>items.length===1 && items[0].getAttribute('aria-hidden')==='true');
+     return found?[]:[{tag:node.tagName,classes:node.className,layers:layers.map(x=>x.length)}];
+    }),
+    cssLinked:!!document.querySelector('link[href*="portfolio-liquid-glass.css"]')
+   };
+  });
+  expect(report.count, 'Glass surfaces missing on '+url).toBeGreaterThanOrEqual(minimum);
+  expect(report.cssLinked, 'Optical CSS not loaded on '+url).toBe(true);
+  expect(report.bad, 'Glass surfaces missing layers on '+url).toEqual([]);
+ }
+});
+
+test('shared GlassSurface keeps link, button, nav, and footer semantics',async ({page})=>{
+ for(const route of ['/','/en/']){
+   await page.goto(route);
+   await expect(page.locator('header.site-header.liquid-demo nav')).toBeVisible();
+   await expect(page.locator('button.theme-toggle.liquid-demo')).toHaveCount(1);
+   await expect(page.locator('.site-header a.github-cta.liquid-demo')).toHaveAttribute('href','https://github.com/licat233');
+   await expect(page.locator('.hero-actions a.hero-cta.liquid-demo')).toHaveAttribute('href','/eao/');
+   await expect(page.locator('footer.site-footer.liquid-demo')).toHaveCount(1);
+   await expect(page.locator('#projects a.project.liquid-demo')).toHaveCount(8);
+   await expect(page.locator('#skills article.skill-card.liquid-demo')).toHaveCount(2);
+   await expect(page.locator('.principles article.principle.liquid-demo')).toHaveCount(3);
+ }
+});
