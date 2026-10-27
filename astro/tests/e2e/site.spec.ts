@@ -61,3 +61,34 @@ test('project and Skill pages load with correct site hierarchy',async ({page})=>
  await page.goto('/skills/');
  await expect(page.locator('.site-section-card')).toHaveCount(2);
 });
+
+test('critical local links and assets return no HTTP errors', async ({page}) => {
+ const failures: string[] = [];
+ page.on('response', response => {
+   if (response.url().startsWith('http://127.0.0.1:4321/') && response.status() >= 400)
+     failures.push(response.status() + ' ' + response.url());
+ });
+ for (const route of ['/', '/en/', '/projects/', '/skills/', '/blog/', '/en/blog/',
+                      '/prompts/', '/en/prompts/', '/eao/', '/toolscout/en/']) {
+   await page.goto(route, {waitUntil:'domcontentloaded'});
+   await expect(page.locator('main').first()).toBeAttached();
+   await page.waitForTimeout(120);
+ }
+ await page.goto('/prompts/?p=codex-workflow-tips');
+ await expect(page.locator('#prompt-article')).not.toBeEmpty();
+ expect(failures, 'Broken local resources: ' + failures.join(', ')).toEqual([]);
+});
+
+test('prompt copy and cross-language sharing preserve the selected prompt', async ({page,context}) => {
+ await context.grantPermissions(['clipboard-read','clipboard-write'], {
+   origin: 'http://127.0.0.1:4321'
+ });
+ await page.goto('/prompts/?p=codex-workflow-tips');
+ await expect(page.locator('#copy-btn')).toBeEnabled();
+ await expect(page.locator('.site-header .lang a').filter({hasText:'EN'}))
+   .toHaveAttribute('href','/en/prompts/?p=codex-workflow-tips');
+ await page.locator('#copy-btn').click();
+ await expect(page.locator('#toast')).toContainText(/已复制/);
+ const copied=await page.evaluate(() => navigator.clipboard.readText());
+ expect(copied.length).toBeGreaterThan(100);
+});
