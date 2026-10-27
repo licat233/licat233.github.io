@@ -21,13 +21,7 @@ for(const remove of ['prompts/index.html','prompts/nav.css','en/prompts/index.ht
  await rm(path.join(publicDir,remove),{force:true});
 }
 await cp(path.join(root,'favicon.ico'),path.join(publicDir,'favicon.ico'));
-const links=[
- {key:'home',zh:'首页',en:'Home',zhUrl:'/',enUrl:'/en/'},
- {key:'projects',zh:'项目',en:'Projects',zhUrl:'/projects/',enUrl:'/en/projects/'},
- {key:'skills',zh:'Skills',en:'Skills',zhUrl:'/skills/',enUrl:'/en/skills/'},
- {key:'blog',zh:'博客',en:'Blog',zhUrl:'/blog/',enUrl:'/en/blog/'},
- {key:'prompts',zh:'提示词',en:'Prompts',zhUrl:'/prompts/',enUrl:'/en/prompts/'},
-];
+const links=JSON.parse(await readFile(new URL('../src/data/navigation.json',import.meta.url),'utf8'));
 function siteContext(lang,project){
  const en=lang==='en';
  const home=en?'/en/':'/';

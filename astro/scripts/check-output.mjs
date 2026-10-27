@@ -13,7 +13,7 @@ const core=[
  ['blog/website-seo-geo-basics/index.html','zh','blog'],
  ['blog/advanced-seo-geo-guide/index.html','zh','blog'],
 ];
-const siteKeys=['home','projects','skills','blog','prompts'];
+const siteKeys=JSON.parse(await readFile(new URL('../src/data/navigation.json',import.meta.url),'utf8')).map(x=>x.key);
 const routes=(lang)=>[lang==='en'?'/en/':'/',...siteKeys.slice(1).map(k=>(lang==='en'?'/en/':'/')+k+'/')];
 function read(rel){return readFile(path.join(root,rel),'utf8');}
 function assert(ok,message){if(!ok)throw Error(message)}
