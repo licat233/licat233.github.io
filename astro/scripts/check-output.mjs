@@ -56,8 +56,11 @@ for(const filename of independent){
  assert(html.length>500,'Missing independent project '+filename);
  assert(!/\{%\s*include /.test(html),'Project Liquid not expanded '+filename);
  assert(html.includes('class="site-context"'),'Project site context missing '+filename);
- assert(html.includes('href="/projects/"')&&html.includes('href="/en/projects/"'),
-        'Project navigation to portfolio absent '+filename);
+ const language=filename.startsWith('eao/') ? (filename.startsWith('eao/en/')?'en':'zh')
+   : filename.startsWith('toolscout/') ? (filename.startsWith('toolscout/en/')?'en':'zh')
+   : (filename.includes('/zh/')?'zh':'en');
+ for(const url of routes(language))assert(html.includes('href="'+url+'"'),
+   'Project navigation missing '+url+' in '+filename);
 }
 for(const asset of [
  'assets/portfolio.css','assets/portfolio-liquid-glass.css','assets/site-header.css',
