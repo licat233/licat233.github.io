@@ -21,6 +21,10 @@ for(const remove of ['prompts/index.html','prompts/nav.css','en/prompts/index.ht
  await rm(path.join(publicDir,remove),{force:true});
 }
 await cp(path.join(root,'favicon.ico'),path.join(publicDir,'favicon.ico'));
+// The Astro-owned JS is a pure interaction controller; SSR and client both read
+// the same single prompt catalogue from the Astro page (not legacy JS literals).
+await cp(path.join(root,'astro/src/client/prompt-library.js'),
+         path.join(publicDir,'prompts/prompt-library.js'));
 const links=JSON.parse(await readFile(new URL('../src/data/navigation.json',import.meta.url),'utf8'));
 function siteContext(lang,project){
  const en=lang==='en';

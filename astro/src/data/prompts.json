@@ -1,0 +1,421 @@
+[
+  {
+    "id": "ai-natural-communication-v1.3.1",
+    "category": "thinking",
+    "companion": "ai-high-value-writing-audit-v1.1",
+    "translatedEnglish": false,
+    "zh": {
+      "title": "AI 说人话指南 V1.3.1",
+      "label": "表达与思考",
+      "type": "正式使用版 · V1.3.1",
+      "summary": "让 AI 自然表达、独立判断，更重视内容价值。新增执行优先级、内容生成与自审机制。",
+      "tags": [
+        "表达风格",
+        "内容价值",
+        "优先级",
+        "自审机制",
+        "任务边界",
+        "长文"
+      ]
+    },
+    "en": {
+      "title": "Making AI Sound Natural — Guide V1.3.1",
+      "summary": "A practical guide to clearer AI communication, independent judgment, substantive answers, and self-review.",
+      "type": "Main guide · V1.3.1",
+      "tags": [
+        "communication",
+        "quality",
+        "self-review"
+      ],
+      "label": "Writing & Thinking"
+    }
+  },
+  {
+    "id": "ai-high-value-writing-audit-v1.1",
+    "category": "thinking",
+    "companion": "ai-natural-communication-v1.3.1",
+    "translatedEnglish": false,
+    "zh": {
+      "title": "AI 高价值内容生成与自审指令 V1.1",
+      "label": "表达与思考",
+      "type": "配套执行指令 · V1.1",
+      "summary": "配合《AI 说人话指南 V1.3.1》使用，把价值判断、事实核实、内容写作和针对性审稿落实到实际工作。",
+      "tags": [
+        "内容创作",
+        "内容自审",
+        "事实核实",
+        "SEO",
+        "AI 说人话指南"
+      ]
+    },
+    "en": {
+      "title": "High-Value AI Writing and Self-Review V1.1",
+      "summary": "Put evidence checks, content quality, writing, and focused editing into practice.",
+      "type": "Companion instructions · V1.1",
+      "tags": [
+        "content",
+        "editing",
+        "verification"
+      ],
+      "label": "Writing & Thinking"
+    }
+  },
+  {
+    "id": "agent-efficient-execution-v3",
+    "category": "agent",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "AI Agent 高效执行与防漂移指令 V3.0",
+      "label": "Agent 与工作流",
+      "type": "执行规范 · V3.0",
+      "summary": "强化任务锚定与长会话连续性，防止子任务变成主线，同时坚持连续执行、最小验证和完成即停。",
+      "tags": [
+        "Agent",
+        "任务锚定",
+        "防漂移",
+        "连续执行",
+        "长任务"
+      ]
+    },
+    "en": {
+      "title": "AI Agent Execution and Anti-Drift V3.0",
+      "summary": "Keep long-running tasks on track with continuous delivery, minimal validation, and a clear finish line.",
+      "type": "Agent workflow · V3.0",
+      "tags": [
+        "agents",
+        "execution",
+        "focus"
+      ],
+      "label": "Agents & Workflows"
+    }
+  },
+  {
+    "id": "agent-efficient-execution",
+    "category": "agent",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "AI Agent 高效执行指令 V2.0",
+      "label": "Agent 与工作流",
+      "type": "执行规范 · V2.0",
+      "summary": "交付优先、连续执行、最小验证、控制成本和任务漂移，适合复杂工作中的执行型 Agent。",
+      "tags": [
+        "Agent",
+        "交付",
+        "效率",
+        "工作流"
+      ]
+    },
+    "en": {
+      "title": "Efficient AI Agent Execution V2.0",
+      "summary": "A lightweight instruction set for delivery-first agents and cost-conscious task execution.",
+      "type": "Agent workflow · V2.0",
+      "tags": [
+        "agents",
+        "delivery",
+        "efficiency"
+      ],
+      "label": "Agents & Workflows"
+    }
+  },
+  {
+    "id": "detailflow-ecommerce",
+    "category": "design",
+    "translatedEnglish": false,
+    "zh": {
+      "title": "DetailFlow｜八屏电商详情图工作流",
+      "label": "开发与设计",
+      "type": "完整工作流 · 25 节",
+      "summary": "从真实产品素材到连续式八屏详情页：蓝图、视觉母版、审核、确认节点与最终交付。",
+      "tags": [
+        "DetailFlow",
+        "电商设计",
+        "产品真实性",
+        "长文"
+      ]
+    },
+    "en": {
+      "title": "DetailFlow: Eight-Panel Ecommerce Design Workflow",
+      "summary": "A structured product-detail design workflow based on authentic assets, reviews, and consistent visuals.",
+      "type": "Design workflow · 25 sections",
+      "tags": [
+        "design",
+        "ecommerce",
+        "products"
+      ],
+      "label": "Development & Design"
+    }
+  },
+  {
+    "id": "seo-python-character-validation",
+    "category": "agent",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "AI 字符数精准控制｜Python 代码校验法",
+      "label": "Agent 与工作流",
+      "type": "文本长度校验 · Python 验证",
+      "summary": "解决 AI 字符计数不可靠的问题：用 Python len() 实测字符数，超限重写、验证通过才交付。SEO 是应用示例。",
+      "tags": [
+        "字符数",
+        "文本长度",
+        "Python",
+        "len()",
+        "代码校验",
+        "SEO",
+        "Meta Description"
+      ]
+    },
+    "en": {
+      "title": "Exact AI Character Counts with Python",
+      "summary": "Use Python len() to validate text length, rewrite failures, and recheck. SEO text is one example.",
+      "type": "Length validation · Python",
+      "tags": [
+        "Python",
+        "character counts",
+        "SEO"
+      ],
+      "label": "Agents & Workflows"
+    }
+  },
+  {
+    "id": "anti-sycophancy",
+    "category": "thinking",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "让 AI 不再一味迎合：独立判断指令",
+      "label": "表达与思考",
+      "type": "判断约束 · 5 条",
+      "summary": "让 AI 主动检查错误前提、逻辑跳跃与认知偏差，有依据地表达不同意见。",
+      "tags": [
+        "反迎合",
+        "事实核查",
+        "批判性思维"
+      ]
+    },
+    "en": {
+      "title": "Independent Judgment: Stop AI from Just Agreeing",
+      "summary": "Ask AI to examine flawed assumptions, reasoning gaps, and potential cognitive biases.",
+      "type": "Reasoning guide · 5 rules",
+      "tags": [
+        "reasoning",
+        "bias",
+        "critical thinking"
+      ],
+      "label": "Writing & Thinking"
+    }
+  },
+  {
+    "id": "four-quadrant-assistance",
+    "category": "agent",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "四象限协作：发现盲区与未知",
+      "label": "Agent 与工作流",
+      "type": "协作框架 · 4 象限",
+      "summary": "从共同已知到共同未知，让 AI 补齐关键限制、主动发现盲区并提出最小验证。",
+      "tags": [
+        "协作",
+        "问题拆解",
+        "需求澄清"
+      ]
+    },
+    "en": {
+      "title": "Four-Quadrant Collaboration: Identify Blind Spots",
+      "summary": "Explore what is known, unknown, and overlooked before choosing the smallest useful test.",
+      "type": "Collaboration · 4 quadrants",
+      "tags": [
+        "collaboration",
+        "discovery",
+        "questions"
+      ],
+      "label": "Agents & Workflows"
+    }
+  },
+  {
+    "id": "first-principles-reasoning",
+    "category": "thinking",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "第一性原理：事实与约束审查",
+      "label": "表达与思考",
+      "type": "简洁指令",
+      "summary": "从事实、前提与约束出发推导结论，而不是顺从表面叙述或未经验证的假设。",
+      "tags": [
+        "第一性原理",
+        "推理",
+        "决策"
+      ]
+    },
+    "en": {
+      "title": "First Principles: Facts and Constraints",
+      "summary": "Work from verified facts and constraints rather than unexamined assumptions.",
+      "type": "Compact prompt",
+      "tags": [
+        "first principles",
+        "reasoning",
+        "decision"
+      ],
+      "label": "Writing & Thinking"
+    }
+  },
+  {
+    "id": "prompt-engineer",
+    "category": "agent",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "AI 提示词优化专家：双梯度生成器",
+      "label": "Agent 与工作流",
+      "type": "提示词生成器",
+      "summary": "只需描述实际用途，就输出精简通用版与高阶专业版，并适配不同 AI 工具。",
+      "tags": [
+        "Prompt Engineering",
+        "角色设定",
+        "优化"
+      ]
+    },
+    "en": {
+      "title": "Prompt Engineering: Two-Level Generator",
+      "summary": "Turn a practical goal into a concise general-purpose prompt and a detailed advanced version.",
+      "type": "Prompt generator",
+      "tags": [
+        "prompt engineering",
+        "optimization"
+      ],
+      "label": "Agents & Workflows"
+    }
+  },
+  {
+    "id": "codex-workflow-tips",
+    "category": "design",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "Codex 高效使用的 10 个技巧",
+      "label": "开发与设计",
+      "type": "技巧清单 · 10 条",
+      "summary": "从侧边提问、计划模式、审查与上下文管理，到 AGENTS.md 和 Skill 复用。",
+      "tags": [
+        "Codex",
+        "开发效率",
+        "Skills"
+      ]
+    },
+    "en": {
+      "title": "10 Tips for Using Codex Efficiently",
+      "summary": "Practical ideas for context management, reviews, AGENTS.md, and reusing skills.",
+      "type": "Tips · 10 items",
+      "tags": [
+        "Codex",
+        "development",
+        "skills"
+      ],
+      "label": "Development & Design"
+    }
+  },
+  {
+    "id": "award-level-web-design",
+    "category": "design",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "获奖级网站视觉品质提示词",
+      "label": "开发与设计",
+      "type": "设计补充指令",
+      "summary": "以 Awwwards、Webby Awards、FWA 的视觉标准，系统审视网页的质感与体验。",
+      "tags": [
+        "网页设计",
+        "Awwwards",
+        "视觉质量"
+      ]
+    },
+    "en": {
+      "title": "Award-Quality Website Design Prompt",
+      "summary": "Review the visual quality and user experience of a website using respected design-award references.",
+      "type": "Design instructions",
+      "tags": [
+        "web design",
+        "visual quality"
+      ],
+      "label": "Development & Design"
+    }
+  },
+  {
+    "id": "logo-motion",
+    "category": "design",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "6 秒品牌 Logo 开场动画",
+      "label": "开发与设计",
+      "type": "视频生成指令",
+      "summary": "用指定首尾帧和动画参考制作 Logo 动效，严格保持品牌配色与标识一致。",
+      "tags": [
+        "Logo",
+        "动画",
+        "视频生成"
+      ]
+    },
+    "en": {
+      "title": "Six-Second Brand Logo Animation",
+      "summary": "Generate a six-second logo introduction from reference frames while keeping the brand consistent.",
+      "type": "Video prompt",
+      "tags": [
+        "logo",
+        "motion",
+        "video"
+      ],
+      "label": "Development & Design"
+    }
+  },
+  {
+    "id": "daily-fable-learning",
+    "category": "learning",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "每天一个研究生概念：寓言式学习",
+      "label": "学习与探索",
+      "type": "趣味学习指令",
+      "summary": "不急着揭晓概念，先用寓言引导理解，再揭开隐喻与理论之间的对应关系。",
+      "tags": [
+        "学习",
+        "寓言",
+        "知识探索"
+      ]
+    },
+    "en": {
+      "title": "Learn Advanced Concepts Through Fables",
+      "summary": "Use a short story to introduce a graduate-level concept before revealing its underlying theory.",
+      "type": "Learning prompt",
+      "tags": [
+        "learning",
+        "fables",
+        "concepts"
+      ],
+      "label": "Learning & Exploration"
+    }
+  },
+  {
+    "id": "memory-insight-skills",
+    "category": "agent",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "历史对话洞察与 Skill 封装机会",
+      "label": "Agent 与工作流",
+      "type": "复盘与发现",
+      "summary": "从可访问的历史记录中发现你未注意到的决策线索，并找出三项值得 Skill 化的重复工作。",
+      "tags": [
+        "记忆",
+        "复盘",
+        "Skill",
+        "工作优化"
+      ]
+    },
+    "en": {
+      "title": "Find Insights and Reusable Skills in Past Conversations",
+      "summary": "Identify hidden decisions and repeated workflows from accessible conversation history only.",
+      "type": "Reflection workflow",
+      "tags": [
+        "memory",
+        "insights",
+        "skills"
+      ],
+      "label": "Agents & Workflows"
+    }
+  }
+]

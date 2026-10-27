@@ -120,3 +120,27 @@ assert((await source('src/components/home/HomeSkills.astro')).includes('getSkill
 assert((await source('src/components/prompts/PromptLibrary.astro')).includes('promptPreviews[lang]'),
  'Prompt initial list should be generated from one localized data module');
 console.log('ASTRO_ARCHITECTURE_PASS: one document shell, shared bilingual cards and prompt templates');
+
+const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));
+assert(prompts.length===15 && new Set(prompts.map(x=>x.id)).size===15,
+ 'Prompt metadata must contain 15 unique records');
+assert(prompts.filter(x=>x.translatedEnglish).length===12,
+ 'English prompt-content coverage changed');
+for(const lang of ['','en/']){
+ const html=await read(lang+'prompts/index.html');
+ const embedded=html.match(/<script\b[^>]*id="prompt-catalogue"[^>]*>([\s\S]*?)<\/script>/);
+ assert(embedded,'Astro metadata script missing from '+lang+'prompt page');
+ const parsed=JSON.parse(embedded[1]);
+ assert(parsed.items.length===15 && parsed.translatedEnglish.length===12,
+  'Incomplete embedded prompt metadata '+lang);
+ assert(parsed.items.map(x=>x.id).join(',')===prompts.map(x=>x.id).join(','),
+  'SSR prompt IDs drifted from common catalogue '+lang);
+}
+const promptClient=await read('prompts/prompt-library.js');
+assert(promptClient.includes("getElementById('prompt-catalogue')") && !promptClient.includes('const enItems='),
+ 'Browser prompt data must come only from Astro JSON');
+try {
+ await access(new URL('../src/data/prompt-previews.ts',import.meta.url));
+ throw new Error('Redundant prompt-previews.ts reappeared');
+} catch(e) {if(e?.code!=='ENOENT') throw e}
+console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 15 localized records, 12 translations, SSR/client parity');

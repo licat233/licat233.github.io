@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '../../lib/site';
-import { promptPreviews } from '../../data/prompt-previews';
+import promptCatalogue from '../../data/prompts.json';
 interface Props {lang: Lang}
 const {lang}=Astro.props;
 const en=lang==='en';
@@ -37,8 +37,13 @@ const words={
   }
 };
 const t=words[lang];
-const previews=promptPreviews[lang];
+const items=promptCatalogue.map(({id,category,companion,zh,en:english})=>({
+  id,category,companion,...(lang==='en'?english:zh)
+}));
+const translatedIds=promptCatalogue.filter(item=>item.translatedEnglish).map(item=>item.id);
+const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).replace(/</g,'\\u003c');
 ---
+<script type="application/json" id="prompt-catalogue" set:html={cataloguePayload}></script>
 <div class="page-glow" aria-hidden="true"></div>
 <main id="main">
   <section class="library-view" id="library-view" aria-labelledby="page-title">
@@ -48,7 +53,7 @@ const previews=promptPreviews[lang];
           <div class="eyebrow"><span class="mini-line"></span> KNOWLEDGE, REFINED INTO ACTION</div>
           <h1 id="page-title">{t.heroLead}<br/><em>{t.heroEm}</em></h1>
           <p class="hero-description">{t.description}</p>
-          <div class="hero-meta"><span><strong>15</strong> {t.items}</span><i></i><span><strong>4</strong> {t.topics}</span><i></i><span>{t.updating} <span class="pulse"></span></span></div>
+          <div class="hero-meta"><span><strong>{items.length}</strong> {t.items}</span><i></i><span><strong>4</strong> {t.topics}</span><i></i><span>{t.updating} <span class="pulse"></span></span></div>
         </div>
         <div class="hero-art" aria-hidden="true">
           <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
@@ -59,20 +64,24 @@ const previews=promptPreviews[lang];
         </div>
       </div>
       <div class="catalogue-heading" id="browse">
-        <div><div class="eyebrow">EXPLORE THE COLLECTION</div><h2>{t.browse}<span class="heading-count" id="heading-count">/ 12</span></h2></div>
+        <div><div class="eyebrow">EXPLORE THE COLLECTION</div><h2>{t.browse}<span class="heading-count" id="heading-count">/ {items.length}</span></h2></div>
         <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.6" cy="10.6" r="6.1"/><path d="m15.5 15.5 5.2 5.2"/></svg><input type="search" id="search" placeholder={t.placeholder} aria-label={t.searchLabel} autocomplete="off"/><kbd>/</kbd></div>
       </div>
       <div class="filter-row" id="filters" role="group" aria-label={t.filterLabel}>
-        <button class="filter active" type="button" data-filter="all" aria-pressed="true">{t.all} <span>15</span></button>
+        <button class="filter active" type="button" data-filter="all" aria-pressed="true">{t.all} <span>{items.length}</span></button>
         <button class="filter" type="button" data-filter="agent" aria-pressed="false">{t.agent}</button>
         <button class="filter" type="button" data-filter="thinking" aria-pressed="false">{t.thinking}</button>
         <button class="filter" type="button" data-filter="design" aria-pressed="false">{t.design}</button>
         <button class="filter" type="button" data-filter="learning" aria-pressed="false">{t.learning}</button>
       </div>
       <p id="result-status" class="result-status" aria-live="polite"></p>
-      {en&&<p class="result-status">12 prompts have full English translations. The remaining 3 longer prompts are clearly marked as Chinese originals.</p>}
+      {en&&<p class="result-status">{translatedIds.length} prompts have full English translations. The remaining {items.length-translatedIds.length} longer prompts are clearly marked as Chinese originals.</p>}
       <div id="prompt-grid" class="prompt-grid">
-        {previews.map(item=><a class="prompt-card" href={`?p=${item.id}`}><span class="card-kicker">{item.kicker}</span><h3>{item.title}</h3><p>{item.summary}</p><span class="card-cta">{item.cta}</span></a>)}
+        {items.map((item,i)=><a class="prompt-card" href={`?p=${item.id}`} data-open={item.id} aria-label={(en?'Read ':'阅读 ')+item.title}>
+  <span class="card-kicker">{item.label} <span aria-hidden="true">/</span> {item.type}</span>
+  <h3>{item.title}</h3><p>{item.summary}</p>
+  <div class="card-foot"><span class="card-cta">{en?'Read & copy':'阅读并复制'} <span aria-hidden="true">↗</span></span><span class="card-count">{String(i+1).padStart(2,'0')} / {items.length}</span></div>
+</a>)}
       </div>
       <div class="empty-state" id="empty-state" hidden><div>⌕</div><h3>{t.noResults}</h3><p>{t.noResultsHelp}</p><button type="button" id="reset-search">{t.reset}</button></div>
       <div class="library-end"><span>✦</span> LESS NOISE, MORE VALUE. <span>✦</span></div>

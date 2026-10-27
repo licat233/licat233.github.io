@@ -44,3 +44,6 @@ CI uses `npm ci` with a committed lockfile, not `npm install` or on-the-fly depe
 - `src/components/prompts/PromptLibrary.astro` renders the same HTML structure in both languages with localized UI labels and initial catalog cards from `src/data/prompt-previews.ts`.
 - Full client-side searchable prompt metadata still lives in `/prompts/prompt-library.js`. It is not yet one data source; unify before calling the prompt content migration finished.
 - Independent microsites still use the intentional build-time static compatibility copier.
+
+### 2026-10-27 prompt catalogue consolidation
+Astro now has **one** `src/data/prompts.json` source for 15 prompt records and both UI languages. `PromptLibrary.astro` renders its initial cards and embeds that exact same metadata into the page. The `src/client/prompt-library.js` controller reads the embedded payload; it no longer hardcodes 15 records, English translations or file-translation IDs. `scripts/prepare-public.mjs` overlays only the Astro-owned browser controller onto the copied legacy `/prompts/prompt-library.js`; it leaves the Jekyll production version alone. `src/data/prompt-previews.ts` was removed to prevent drift. Original prompt Markdown, URL slugs, copy delimiters and search behavior remain unchanged.

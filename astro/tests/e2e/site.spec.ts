@@ -117,3 +117,17 @@ test('both prompt languages render the shared catalog UI and all 15 items',async
    await expect(page.locator('#share-btn')).toBeAttached();
  }
 });
+
+test('single Astro prompt catalogue powers SSR cards and search without second JS copy',async ({page})=>{
+ for(const lang of ['','en/']){
+   await page.goto('/'+lang+'prompts/');
+   const data=await page.locator('#prompt-catalogue').textContent();
+   const payload=JSON.parse(data!);
+   expect(payload.items).toHaveLength(15);
+   expect(payload.translatedEnglish).toHaveLength(12);
+   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(15);
+   await page.locator('#search').fill(lang?'memory':'记忆');
+   await expect(page.locator('#prompt-grid [data-open]').first()).toBeVisible();
+   await page.locator('#search').fill('');
+ }
+});

@@ -12,3 +12,5 @@ Global navigation routes and labels now have one JSON source, `src/data/navigati
 - Featured Skills: `src/components/home/HomeSkills.astro`; metadata from the existing `_data/skills.yml`.
 - Prompt gallery/detail UI: `src/components/prompts/PromptLibrary.astro` shared across both locales.
 - Existing CSS classes and SVG icon drawings are preserved. No third-party theme introduced.
+
+- Prompt single source: `src/data/prompts.json` (15 IDs, bilingual descriptions, translated body availability). Server template builds all cards and serializes the same metadata for the Astro-specific client controller. Original Jekyll `prompts/prompt-library.js` remains untouched until release.
