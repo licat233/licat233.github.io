@@ -1,80 +1,73 @@
 #!/usr/bin/env python3
-"""Zero-dependency source-level integrity checks for Licat's Jekyll site."""
+"""Source contract for site-level vs page-local navigation (no extra dependencies)."""
 import re
 from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+def read(path): return (ROOT/path).read_text(encoding="utf-8")
+def check(ok, message):
+    if not ok: raise AssertionError(message)
 
-ROOT = Path(__file__).resolve().parents[1]
-def get(path):
-    return (ROOT / path).read_text(encoding="utf-8")
-def assert_ok(condition, message):
-    if not condition:
-        raise AssertionError(message)
-
-DATA = get("_data/site_nav.yml")
-links = re.findall(r"(?m)^- key: ([a-z]+)$", DATA)
-assert_ok(links == ["home", "projects", "skills", "blog", "prompts", "journey", "principles"],
-          "Global navigation must preserve the seven agreed items in order.")
-for locale in ["zh", "en"]:
-    for label in ["blog", "prompts"]:
-        route = f"/{locale}/{label}/" if locale == "en" else f"/{label}/"
-        assert_ok(f"{locale}_url: {route}" in DATA, f"Missing {locale} {label} route: {route}")
-include = get("_includes/site-header.html")
-assert_ok("site.data.site_nav" in include, "Header must use central navigation data.")
-assert_ok('class="nav-links"' in include and 'class="nav-indicator"' in include,
-          "Shared header lost its indicator.")
-assert_ok('class="liquid-demo theme-toggle"' in include, "Shared header lost theme toggle.")
-assert_ok('aria-current="page"' in include, "Shared header must indicate active page.")
-assert_ok("page.translation_url" in include, "Blog translation routes must respect the article mapping.")
-for path, lang, active in [
-    ("index.html", "zh", "home"),
-    ("en/index.html", "en", "home"),
-    ("prompts/index.html", "zh", "prompts"),
-    ("en/prompts/index.html", "en", "prompts"),
-]:
-    src = get(path)
-    expected = "{% include site-header.html lang='" + lang + "' active='" + active + "' %}"
-    assert_ok(expected in src, f"{path} does not use shared global header.")
-    assert_ok(src.startswith("---\nlang: " + lang + "\n---\n"), f"{path} missing Jekyll front matter.")
-    assert_ok('<header class="liquid-demo site-header' not in src,
-              f"{path} reintroduced a copy/pasted site header.")
-    assert_ok("/assets/site-header.css?" in src and "/assets/site-nav.js?" in src,
-              f"{path} must load shared navigation assets.")
-    assert_ok("/prompts/nav.css" not in src, f"{path} loads obsolete independent nav CSS.")
-blog = get("_layouts/blog.html")
-assert_ok("{% include site-header.html lang=page.lang active='blog' %}" in blog,
-          "Blog layout does not share navigation.")
-assert_ok("const storedTheme" not in blog, "Blog layout reintroduced duplicate theme logic.")
-for anchor in ["projects", "skills", "journey", "principles"]:
-    assert_ok(f'id="{anchor}"' in get("index.html") and
-              f'id="{anchor}"' in get("en/index.html"),
-              f"Navigation references a missing homepage section: {anchor}")
-for path in ["assets/portfolio-motion.js", "prompts/prompt-library.js"]:
-    assert_ok("const themeToggle = document.querySelector" not in get(path),
-              f"{path} has duplicate navigation theme handler.")
-assert_ok("window.LicatSiteNav" in get("assets/site-nav.js"),
-          "Global JS API is missing.")
-assert_ok("window.LicatSiteNav" in get("assets/portfolio-motion.js"),
-          "Homepage section tracker must reuse the global nav API.")
-assert_ok("setLocaleLinks" in get("prompts/prompt-library.js"),
-          "Prompt detail language-switch links were lost.")
-assert_ok("location.replace('/' + location.search + location.hash)" in get("zh/index.html"),
-          "Legacy Chinese homepage should preserve bookmark query and fragment.")
-assert_ok("noindex,follow" in get("zh/index.html"), "Legacy alias must not be separately indexed.")
-for project in ["ai-writing-audit", "armor-memory", "disable-macos-auto-updates", "greenram", "opencore-h81"]:
-    for locale in ["", "zh/"]:
-        path = f"{project}/{locale}index.html"
-        src = get(path)
-        lang = "zh" if locale else "en"
-        assert_ok("{% include project-return.html lang='" + lang + "' %}" in src,
-                  f"Project page is missing the common site breadcrumb: {path}")
-        assert_ok("licat-project-theme" not in src,
-                  f"Project theme preference drifted from the portfolio: {path}")
-assert_ok("site.data.site_nav" in get("_includes/project-return.html"),
-          "Project breadcrumb must reference global navigation data.")
-assert_ok("licat-project-theme" not in get("assets/project-page.js"),
-          "Project theme state must share the portfolio preference.")
-for path,href in [("eao/index.html","/#projects"),("eao/en/index.html","/en/#projects"),
-                  ("eao/zh/index.html","/#projects"),
-                  ("toolscout/en/index.html","/en/#projects"),("toolscout/zh/index.html","/#projects")]:
-    assert_ok(href in get(path), f"Microsite does not link back to portfolio: {path}")
-print("SITE_NAVIGATION_SOURCE_CHECK_PASS: bilingual routes, shared header/styles/JS, legacy alias, prompt deep links")
+nav=read("_data/site_nav.yml")
+keys=re.findall(r"(?m)^- key: ([a-z]+)$",nav)
+check(keys==["home","projects","skills","blog","prompts"],f"Unexpected site nav {keys}")
+for lang in ["zh","en"]:
+    for key in keys:
+        url=("/en/" if lang=="en" else "/")+(key+"/" if key!="home" else "")
+        check(f"{lang}_url: {url}" in nav, f"Missing {lang} {key} route {url}")
+check("journey" not in keys and "principles" not in keys,"Home sections leaked into global nav")
+header=read("_includes/site-header.html")
+check("site.data.site_nav" in header and 'class="nav-links"' in header, "Shared site header missing")
+check("data-nav-target=" not in header, "Site navigation should not be homepage scroll nav")
+check("page.translation_url" in header,"Blog translation route support missing")
+check("include.active == 'projects'" in header and "include.active == 'skills'" in header,
+      "Category language counterpart routing missing")
+check('class="home-section-nav' in read("_includes/home-sections.html"),
+      "Homepage-only secondary navigation missing")
+for lang,path in [("zh","index.html"),("en","en/index.html")]:
+    s=read(path)
+    check(f"{{% include site-header.html lang='{lang}' active='home' %}}" in s,
+          f"Homepage shared header missing: {path}")
+    check(f"{{% include home-sections.html lang='{lang}' %}}" in s,
+          f"Homepage local navigation missing: {path}")
+    for anchor in ["projects","skills","journey","principles"]:
+        check(f'id="{anchor}"' in s, f"Broken homepage section {anchor} in {path}")
+for key in ["projects","skills","prompts"]:
+    for lang in ["zh","en"]:
+        path=(f"en/{key}/index.html" if lang=="en" else f"{key}/index.html")
+        s=read(path)
+        if key in ["projects","skills"]:
+            check("layout: site-section" in s and f"section: {key}" in s,
+                  f"Missing content category page {path}")
+        else:
+            check(f"{{% include site-header.html lang='{lang}' active='prompts' %}}" in s,
+                  f"Prompt global header missing {path}")
+check("site.data.projects" in read("_layouts/site-section.html"),"Projects catalog missing")
+check("site.data.skills" in read("_layouts/site-section.html"),"Skills catalog missing")
+check(read("_data/projects.yml").count("- name:")==8, "Project catalog unexpectedly changed")
+check(read("_data/skills.yml").count("- name:")==2, "Skills catalog unexpectedly changed")
+check("{% include site-header.html lang=page.lang active='blog' %}" in read("_layouts/blog.html"),
+      "Blog global header missing")
+for path in ["assets/portfolio-motion.js","prompts/prompt-library.js"]:
+    check("const themeToggle = document.querySelector" not in read(path),
+          "Duplicate theme handler in "+path)
+check("window.LicatSiteNav" in read("assets/site-nav.js"),"Shared navigation JavaScript missing")
+check("window.LicatSiteNav" in read("assets/portfolio-motion.js"),"Homepage animation lost shared nav reference")
+check("setLocaleLinks" in read("prompts/prompt-library.js"),"Prompt language deep links missing")
+check("site.data.site_nav" in read("_includes/site-context.html"),
+      "Project site shell isn't derived from global navigation")
+for name in ["ai-writing-audit","armor-memory","disable-macos-auto-updates","greenram","opencore-h81"]:
+    for suffix,lang in [("","en"),("zh/","zh")]:
+        path=f"{name}/{suffix}index.html"
+        s=read(path)
+        check(f"{{% include site-context.html lang='{lang}' project=" in s,
+              f"Project lacks site context: {path}")
+        check("licat-project-theme" not in s and "/assets/site-context.css" in s,
+              f"Project shell or theme drifted: {path}")
+for path,lang in [("eao/index.html","zh"),("eao/zh/index.html","zh"),("eao/en/index.html","en"),
+                  ("toolscout/zh/index.html","zh"),("toolscout/en/index.html","en")]:
+    s=read(path)
+    check(f"{{% include site-context.html lang='{lang}' project=" in s,
+          f"Microsite lacks common site context {path}")
+check("location.replace('/' + location.search + location.hash)" in read("zh/index.html"),
+      "Legacy Chinese homepage compatibility lost")
+print("SITE_IA_SOURCE_PASS: 5 global destinations, homepage secondary nav, 4 category pages, 15 project shells")

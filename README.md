@@ -24,3 +24,11 @@
 - 项目页的章节导航不等于网站主导航。新增项目时不得复制首页的完整 Header；应使用清晰的上级链接，并保留项目自己的内容导航。
 
 - 自动验收增加 Jekyll 实际 HTML 渲染检查：`scripts/check_rendered_site.py`，验证 8 个中文／英文核心路由（包括文章）及 10 个项目详情面包屑，避免只通过源代码检查却出现空白导航。
+
+## 网站信息架构（2026-10-27）
+- 主导航仅含五个独立栏目：`/`, `/projects/`, `/skills/`, `/blog/`, `/prompts/`。英文栏目对应 `/en/...`。
+- 首页「精选项目、Agent Skills、开发轨迹、方法」是页面内锚点，使用 `_includes/home-sections.html`，**不属于全站主导航**；首页预览仍保留。
+- 项目目录 `_data/projects.yml`，Skills 目录 `_data/skills.yml`；真实栏目页共用 `_layouts/site-section.html`，不要新增空栏目。
+- 项目展示页保留自己的产品/项目内导航，同时通过 `_includes/site-context.html` 显示 Licat → Projects → 当前项目、五个主栏目链接。样式由 `assets/site-context.css` 管理。
+- `scripts/check_site_navigation.py` 检查源代码契约；`scripts/check_rendered_site.py` 在 Jekyll 实际生成的 HTML 上验证栏目、语言、主导航与项目层级。
+- 既有项目 URL、文章 URL 以及 `/zh/` 兼容入口均保留。EAO、ToolScout 等项目独立视觉并未重写；`/lottery-calculate/` 是独立应用，而不是普通内容页。

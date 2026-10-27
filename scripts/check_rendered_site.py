@@ -1,112 +1,92 @@
 #!/usr/bin/env python3
-"""Validate Jekyll's real HTML output, not merely its source templates."""
+"""Check generated Jekyll HTML, navigation hierarchy, and language routes."""
 from html.parser import HTMLParser
 from pathlib import Path
 
-SITE = Path(__file__).resolve().parents[1] / "_site"
+ROOT=Path(__file__).resolve().parents[1]/"_site"
+def read(path):
+    p=ROOT/path
+    if not p.is_file(): raise AssertionError(f"Missing generated page: {p}")
+    return p.read_text(encoding="utf-8")
+def check(v,message):
+    if not v: raise AssertionError(message)
 
-class Navigation(HTMLParser):
+class Nav(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.headers = 0
-        self.in_header = False
-        self.in_nav_items = False
-        self.in_language = False
-        self.items = []
-        self.languages = []
-        self.theme = False
-        self.github = False
-        self.canonicals = []
+        self.site_headers=0
+        self.in_header=False
+        self.nav_pills=[]
+        self.language=[]
+        self.in_pills=False
+        self.in_lang=False
+        self.theme=False
+        self.github=False
+        self.canonicals=[]
+        self.local_nav=False
+        self.project_links=[]
+        self.in_context=False
+        self.contexts=0
+    def handle_starttag(self,tag,attrs):
+        a=dict(attrs); c=set(a.get("class","").split())
+        if tag=="link" and a.get("rel")=="canonical": self.canonicals.append(a.get("href"))
+        if tag=="header" and "site-header" in c: self.site_headers+=1;self.in_header=True
+        if tag=="nav" and "site-context" in c: self.contexts+=1;self.in_context=True
+        if tag=="nav" and ("eao-optical-surface" in c or "shell" in c) and not self.in_header: self.local_nav=True
+        if self.in_context and tag=="a": self.project_links.append(a.get("href"))
+        if not self.in_header:return
+        if tag=="div" and "nav-links" in c:self.in_pills=True
+        if tag=="div" and "lang" in c:self.in_lang=True
+        if tag=="button" and "theme-toggle" in c:self.theme=True
+        if tag=="a":
+            if self.in_pills and "nav-pill" in c:self.nav_pills.append(a)
+            if self.in_lang:self.language.append(a.get("href"))
+            if "github-cta" in c:self.github=True
+    def handle_endtag(self,tag):
+        if tag=="nav":self.in_context=False
+        if tag=="div" and self.in_pills:self.in_pills=False
+        if tag=="div" and self.in_lang:self.in_lang=False
+        if tag=="header":self.in_header=False
 
-    def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        cls = set(a.get("class", "").split())
-        if tag == "header" and "site-header" in cls:
-            self.headers += 1
-            self.in_header = True
-        if tag == "link" and a.get("rel") == "canonical":
-            self.canonicals.append(a.get("href"))
-        if not self.in_header:
-            return
-        if tag == "div" and "nav-links" in cls:
-            self.in_nav_items = True
-        if tag == "div" and "lang" in cls:
-            self.in_language = True
-        if tag == "button" and "theme-toggle" in cls:
-            self.theme = True
-        if tag == "a":
-            if self.in_nav_items and "nav-pill" in cls:
-                self.items.append(a)
-            if self.in_language:
-                self.languages.append(a)
-            if "github-cta" in cls:
-                self.github = True
+KEYS=["home","projects","skills","blog","prompts"]
+def paths(lang):
+    base="/en/" if lang=="en" else "/"
+    return [base]+[base+key+"/" for key in KEYS[1:]]
+def verify(path,lang,active,paired):
+    p=Nav();p.feed(read(path))
+    check(p.site_headers==1,f"{path} missing common site header")
+    check(len(p.nav_pills)==5,f"{path} expected five global links, got {p.nav_pills}")
+    actual=[x.get("href") for x in p.nav_pills]
+    check(actual==paths(lang),f"{path} global routes wrong: {actual}")
+    selected=[i for i,x in enumerate(p.nav_pills) if "active" in x.get("class","").split()]
+    check(selected==[KEYS.index(active)],f"{path} wrong active nav {selected}")
+    check(p.nav_pills[selected[0]].get("aria-current")=="page",f"{path} current item semantics missing")
+    check(p.theme and p.github, f"{path} missing global theme/GitHub")
+    check(p.language==paired, f"{path} language switch wrong: {p.language} expected={paired}")
+    canonical="https://licat233.github.io/"+path.removesuffix("index.html")
+    check(canonical in p.canonicals,f"{path} canonical mismatch: {p.canonicals}")
 
-    def handle_endtag(self, tag):
-        if tag == "div" and self.in_nav_items:
-            self.in_nav_items = False
-        if tag == "div" and self.in_language:
-            self.in_language = False
-        if tag == "header":
-            self.in_header = False
-
-def assert_ok(condition, message):
-    if not condition:
-        raise AssertionError(message)
-
-def read(path):
-    file = SITE / path
-    assert_ok(file.is_file(), f"Jekyll did not render {file}")
-    return file.read_text(encoding="utf-8")
-
-def verify(path, lang, active, homepage=False, paired=None):
-    text = read(path)
-    p = Navigation()
-    p.feed(text)
-    assert_ok(p.headers == 1, f"{path}: expected one global header, got {p.headers}")
-    assert_ok(len(p.items) == 7, f"{path}: expected seven navigation items, got {len(p.items)}")
-    home = "/en/" if lang == "en" else "/"
-    route = home
-    sections = ["top", "projects", "skills", None, None, "journey", "principles"]
-    expected = []
-    for section in sections:
-        if section:
-            expected.append(("#" if homepage else home + "#") + section)
-        elif len(expected) == 3:
-            expected.append("/en/blog/" if lang == "en" else "/blog/")
-        else:
-            expected.append("/en/prompts/" if lang == "en" else "/prompts/")
-    got = [a.get("href") for a in p.items]
-    assert_ok(got == expected, f"{path}: nav URLs mismatch.\nexpected={expected}\nactual={got}")
-    expected_active = {"home": 0, "blog": 3, "prompts": 4}[active]
-    selected = [i for i, a in enumerate(p.items) if "active" in a.get("class", "").split()]
-    assert_ok(selected == [expected_active], f"{path}: wrong active navigation index {selected}")
-    assert_ok(p.items[expected_active].get("aria-current") == "page",
-              f"{path}: selected navigation item missing aria-current")
-    assert_ok(p.theme and p.github, f"{path}: theme or GitHub action missing")
-    assert_ok(len(p.languages) == 2, f"{path}: expected two language switches")
-    if paired:
-        assert_ok([x.get("href") for x in p.languages] == paired,
-                  f"{path}: language-switch URLs incorrect: {p.languages}")
-    expected_canonical = "https://licat233.github.io/" + ("" if path == "index.html" else path.removesuffix("index.html"))
-    assert_ok(expected_canonical in p.canonicals, f"{path}: canonical URL does not match rendered route: {p.canonicals}")
-
-verify("index.html", "zh", "home", True, ["/", "/en/"])
-verify("en/index.html", "en", "home", True, ["/", "/en/"])
-verify("blog/index.html", "zh", "blog", paired=["/blog/", "/en/blog/"])
-verify("en/blog/index.html", "en", "blog", paired=["/blog/", "/en/blog/"])
-verify("prompts/index.html", "zh", "prompts", paired=["/prompts/", "/en/prompts/"])
-verify("en/prompts/index.html", "en", "prompts", paired=["/prompts/", "/en/prompts/"])
-verify("blog/publish-markdown-notes/index.html", "zh", "blog",
-       paired=["/blog/publish-markdown-notes/", "/en/blog/publish-markdown-notes/"])
-verify("en/blog/publish-markdown-notes/index.html", "en", "blog",
-       paired=["/blog/publish-markdown-notes/", "/en/blog/publish-markdown-notes/"])
-for project in ["ai-writing-audit", "armor-memory", "disable-macos-auto-updates", "greenram", "opencore-h81"]:
-    for locale in ["", "zh/"]:
-        path = f"{project}/{locale}index.html"
-        html = read(path)
-        target = "/#projects" if locale else "/en/#projects"
-        assert_ok(f'href="{target}"' in html, f"{path}: rendered project breadcrumb missing")
-        assert_ok("{% include" not in html, f"{path}: Jekyll include was not expanded")
-assert_ok('location.replace' in read("zh/index.html"), "Legacy Chinese alias lost its redirect")
-print("SITE_NAVIGATION_RENDERED_HTML_PASS: 8 bilingual routes, 10 project breadcrumbs, canonical, active state, language, theme")
+for lang,pre in [("zh",""),("en","en/")]:
+    for key in KEYS:
+        path=pre+("" if key=="home" else key+"/")+"index.html"
+        paired=["/"+("" if key=="home" else key+"/"),"/en/"+("" if key=="home" else key+"/")]
+        verify(path,lang,key,paired)
+    blog=pre+"blog/publish-markdown-notes/index.html"
+    verify(blog,lang,"blog",["/blog/publish-markdown-notes/","/en/blog/publish-markdown-notes/"])
+    home=read(pre+"index.html")
+    check('class="home-section-nav' in home and 'href="#journey"' in home,
+          f"{lang} homepage section nav lost")
+for name in ["ai-writing-audit","armor-memory","disable-macos-auto-updates","greenram","opencore-h81"]:
+    for suffix,lang in [("","en"),("zh/","zh")]:
+        path=f"{name}/{suffix}index.html";html=read(path);p=Nav();p.feed(html)
+        check(p.contexts==1,f"{path} missing site context")
+        expected=paths(lang)
+        check(all(url in p.project_links for url in expected),f"{path} global site links broken")
+        check("site-context__path" in html and "{% include" not in html,f"{path} breadcrumb not rendered")
+for path,lang in [("eao/index.html","zh"),("eao/zh/index.html","zh"),("eao/en/index.html","en"),
+                  ("toolscout/zh/index.html","zh"),("toolscout/en/index.html","en")]:
+    p=Nav();p.feed(read(path))
+    check(p.contexts==1,f"{path} lacks site context")
+    check(all(url in p.project_links for url in paths(lang)), f"{path} global site routes broken")
+check("location.replace" in read("zh/index.html"),"Legacy alias lost")
+print("SITE_IA_RENDER_PASS: 12 core routes, 5 destinations, 15 project shells, localized navigation")
