@@ -17,3 +17,33 @@
 .home-section-nav a{font-size:.82rem;padding:.5rem .8rem;border-radius:50px;background:var(--apple-glass-bg-regular);border:1px solid var(--apple-glass-border);text-decoration:none;white-space:nowrap;}
 .home-section-nav a:hover,.home-section-nav a:focus-visible{color:var(--blue);border-color:var(--blue);}
 @media(max-width:720px){.site-section-grid{grid-template-columns:1fr;}.site-section-main{padding-top:10rem;}.home-section-nav{gap:.3rem}.home-section-nav__title{flex-basis:100%;text-align:center;}}
+
+/* Restore the established Liquid Glass material to Projects and Skills
+ * directory cards. The former listing cards used only a translucent fill,
+ * so they lacked backdrop refraction, reflected light and edge highlights.
+ * The three .lg-glass-* layers are defined by portfolio-liquid-glass.css. */
+.site-section-card.liquid-demo {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: transparent;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+.site-section-card.liquid-demo > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular) {
+  position: relative;
+  z-index: 3;
+}
+.site-section-card.liquid-demo:focus-visible,
+.site-section-card.liquid-demo:focus-within,
+.site-section-card.liquid-demo:hover {
+  border-color: var(--blue);
+  box-shadow: 0 13px 34px var(--lg-demo-depth), inset 0 1px 0 var(--lg-demo-rim);
+}
+@media (forced-colors: active) {
+  .site-section-card.liquid-demo {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+    box-shadow: none;
+  }
+}

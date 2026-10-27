@@ -156,3 +156,15 @@ for(const route of ['blog/index.html','en/blog/index.html','blog/website-seo-geo
  assert(html.includes('/assets/blog.css?v=20261027'),'Original blog stylesheet URL changed in '+route);
 }
 console.log('ASTRO_BLOG_SHELL_PARITY_PASS: original footer and styles present');
+
+for(const route of ['projects/index.html','en/projects/index.html','skills/index.html','en/skills/index.html']){
+ const html=await read(route);
+ const expected=route.includes('projects')?8:2;
+ assert((html.match(/class="site-section-card liquid-demo apple-glass-base apple-glass-regular"/g)||[]).length===expected,
+   'Missing material classes on '+route);
+ for(const layer of ['lg-glass-filter','lg-glass-overlay','lg-glass-specular']){
+   assert((html.match(new RegExp('class="'+layer+'"','g'))||[]).length===expected,
+     'Three-layer glass material missing '+layer+' in '+route);
+ }
+}
+console.log('ASTRO_DIRECTORY_GLASS_PASS: projects and Skills share existing Liquid Glass optics');
