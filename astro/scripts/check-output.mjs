@@ -117,8 +117,8 @@ assert((await source('src/components/home/FeaturedProjects.astro')).includes('ge
  'Featured cards must use the same project YAML data as the Projects category');
 assert((await source('src/components/home/HomeSkills.astro')).includes('getSkills()'),
  'Skills cards must use the same catalog as the Skills category');
-assert((await source('src/components/prompts/PromptLibrary.astro')).includes('promptPreviews[lang]'),
- 'Prompt initial list should be generated from one localized data module');
+assert((await source('src/components/prompts/PromptLibrary.astro')).includes("import promptCatalogue from '../../data/prompts.json'"),
+ 'Prompt initial list should use the unified structured catalogue');
 console.log('ASTRO_ARCHITECTURE_PASS: one document shell, shared bilingual cards and prompt templates');
 
 const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));
