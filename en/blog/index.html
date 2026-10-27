@@ -1,0 +1,33 @@
+---
+layout: blog
+lang: en
+title: Blog
+description: Notes on AI, engineering, websites and practical problem-solving.
+permalink: /en/blog/
+translation_url: /blog/
+---
+<section class="blog-intro" aria-labelledby="blog-heading">
+  <div class="blog-eyebrow">LICAT / WRITING</div>
+  <h1 id="blog-heading">Blog<span class="blog-title-dot">.</span></h1>
+  <p>Notes on building useful systems, design, and technical work.</p>
+</section>
+{% assign en_posts = site.posts | where: "lang", "en" %}
+<section class="blog-archive" aria-label="Articles">
+  <div class="blog-archive-heading">
+    <h2>All articles</h2><span>{{ en_posts.size }} posts</span>
+  </div>
+  {% if en_posts.size > 0 %}
+    <div class="blog-list">
+      {% for post in en_posts %}
+      <article class="blog-list-item">
+        <div class="blog-list-meta"><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y.%m.%d" }}</time></div>
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+        {% if post.description %}<p>{{ post.description | escape }}</p>{% endif %}
+        <a class="blog-read-link" href="{{ post.url | relative_url }}">Read article <span aria-hidden="true">↗</span></a>
+      </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="blog-empty">English articles will appear here as they are translated.</p>
+  {% endif %}
+</section>

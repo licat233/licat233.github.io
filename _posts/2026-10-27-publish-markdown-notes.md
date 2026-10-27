@@ -1,5 +1,7 @@
 ---
 layout: post
+lang: zh
+translation_url: /en/blog/publish-markdown-notes/
 title: "如何在这个 Blog 发布 Markdown 笔记"
 date: 2026-10-27 11:00:00 +0800
 description: "不需要博客后台，新增一份 Markdown 文件就能发布文章。"

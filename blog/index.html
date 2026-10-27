@@ -2,6 +2,8 @@
 layout: blog
 title: Blog
 description: 技术笔记、实践记录与个人思考。
+lang: zh
+translation_url: /en/blog/
 permalink: /blog/
 ---
 <section class="blog-intro" aria-labelledby="blog-heading">
@@ -10,14 +12,15 @@ permalink: /blog/
   <p>技术笔记、实践记录与个人思考。</p>
 </section>
 
+{% assign zh_posts = site.posts | where_exp: "post", "post.lang != 'en'" %}
 <section class="blog-archive" aria-label="文章列表">
   <div class="blog-archive-heading">
     <h2>全部文章</h2>
-    <span>{{ site.posts.size }} 篇</span>
+    <span>{{ zh_posts.size }} 篇</span>
   </div>
-  {% if site.posts.size > 0 %}
+  {% if zh_posts.size > 0 %}
     <div class="blog-list">
-      {% for post in site.posts %}
+      {% for post in zh_posts %}
       <article class="blog-list-item">
         <div class="blog-list-meta">
           <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y.%m.%d" }}</time>

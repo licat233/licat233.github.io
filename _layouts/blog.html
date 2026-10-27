@@ -1,7 +1,7 @@
 ---
 ---
 <!doctype html>
-<html lang="zh-CN">
+<html lang="{% if page.lang == 'en' %}en{% else %}zh-CN{% endif %}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,11 +9,12 @@
   <meta name="theme-color" content="#f2f7fa" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111416" media="(prefers-color-scheme: dark)">
   <title>{% if page.title == "Blog" %}Blog · Licat{% else %}{{ page.title | escape }} · Licat{% endif %}</title>
-  <meta name="description" content="{{ page.description | default: 'Licat 的技术笔记与实践记录。' | escape }}">
+  <meta name="description" content="{{ page.description | default: 'Blog notes and practical writing by Licat.' | escape }}">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
+  {% if page.translation_url %}<link rel="alternate" hreflang="{% if page.lang == 'en' %}zh-CN{% else %}en{% endif %}" href="{{ page.translation_url | absolute_url }}">{% endif %}
   <meta property="og:type" content="{% if page.collection == 'posts' %}article{% else %}website{% endif %}">
   <meta property="og:title" content="{{ page.title | escape }} · Licat">
-  <meta property="og:description" content="{{ page.description | default: 'Licat 的技术笔记与实践记录。' | escape }}">
+  <meta property="og:description" content="{{ page.description | default: 'Blog notes and practical writing by Licat.' | escape }}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
   <link rel="alternate icon" href="/favicon.ico">
@@ -32,7 +33,56 @@
   <link rel="stylesheet" href="/assets/blog.css?v=20261027">
 </head>
 <body class="blog-page">
-  <header class="liquid-demo site-header apple-glass-base apple-glass-ultra-thin">
+  {% if page.lang == 'en' %}
+<header class="liquid-demo site-header apple-glass-base apple-glass-ultra-thin">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+    <nav class="shell nav" aria-label="Primary navigation">
+      <a class="brand" href="/en/">
+        <img src="/assets/licat-logo.svg" alt="">
+        <span><strong>LICAT</strong><small>/ 233</small></span>
+      </a>
+
+      <div class="nav-links">
+        <span class="nav-indicator" aria-hidden="true"></span>
+        <a class="nav-pill" href="/en/"><span></span>Home</a>
+        <a class="nav-pill" href="/en/#projects"><span></span>Projects</a>
+        <a class="nav-pill" href="/en/#skills"><span></span>Skills</a>
+        <a class="nav-pill active" href="/en/blog/" aria-current="page"><span></span>Blog</a>
+        <a class="nav-pill" href="/en/#prompts"><span></span>Prompts</a>
+        <a class="nav-pill" href="/en/#journey"><span></span>Journey</a>
+        <a class="nav-pill" href="/en/#principles"><span></span>Principles</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="liquid-demo theme-toggle" type="button" aria-label="Toggle light and dark mode" aria-pressed="false">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+          <span class="theme-toggle-track" aria-hidden="true">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+        <div class="liquid-demo lang" aria-label="Language">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+          <a href="{% if page.lang == 'en' %}{{ page.translation_url | default: '/blog/' }}{% else %}{{ page.url }}{% endif %}" {% unless page.lang == 'en' %}aria-current="page"{% endunless %}>中</a>
+          <a href="{% if page.lang == 'en' %}{{ page.url }}{% else %}{{ page.translation_url | default: '/en/blog/' }}{% endif %}" {% if page.lang == 'en' %}aria-current="page"{% endif %}>EN</a>
+        </div>
+        <a class="liquid-demo github-cta" href="https://github.com/licat233" target="_blank" rel="noreferrer">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+          <svg class="github-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7C5.73.7.75 5.68.75 11.95c0 5.01 3.25 9.26 7.76 10.76.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.15.68-3.81-1.34-3.81-1.34-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.96.1-.74.4-1.25.73-1.54-2.52-.29-5.17-1.26-5.17-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.46.11-2.99 0 0 .95-.3 3.11 1.16a10.8 10.8 0 0 1 5.66 0c2.16-1.46 3.11-1.16 3.11-1.16.61 1.53.23 2.7.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.04.77 2.09 0 1.51-.01 2.73-.01 3.1 0 .3.21.65.79.54 4.5-1.5 7.75-5.75 7.75-10.76C23.25 5.68 18.27.7 12 .7Z"/></svg><span>GitHub</span><b>↗</b>
+        </a>
+      </div>
+    </nav>
+  </header>
+{% else %}
+<header class="liquid-demo site-header apple-glass-base apple-glass-ultra-thin">
     <span class="lg-glass-filter" aria-hidden="true"></span>
     <span class="lg-glass-overlay" aria-hidden="true"></span>
     <span class="lg-glass-specular" aria-hidden="true"></span>
@@ -67,8 +117,8 @@
     <span class="lg-glass-filter" aria-hidden="true"></span>
     <span class="lg-glass-overlay" aria-hidden="true"></span>
     <span class="lg-glass-specular" aria-hidden="true"></span>
-          <a href="/" aria-current="page">中</a>
-          <a href="/en/">EN</a>
+          <a href="{% if page.lang == 'en' %}{{ page.translation_url | default: '/blog/' }}{% else %}{{ page.url }}{% endif %}" {% unless page.lang == 'en' %}aria-current="page"{% endunless %}>中</a>
+          <a href="{% if page.lang == 'en' %}{{ page.url }}{% else %}{{ page.translation_url | default: '/en/blog/' }}{% endif %}" {% if page.lang == 'en' %}aria-current="page"{% endif %}>EN</a>
         </div>
         <a class="liquid-demo github-cta" href="https://github.com/licat233" target="_blank" rel="noreferrer">
     <span class="lg-glass-filter" aria-hidden="true"></span>
@@ -79,6 +129,7 @@
       </div>
     </nav>
   </header>
+{% endif %}
 
   <main id="content" class="blog-main">
     {{ content }}
@@ -86,7 +137,7 @@
 
   <footer class="blog-footer">
     <span>© {{ 'now' | date: '%Y' }} Licat</span>
-    <a href="/">返回个人主页 <span aria-hidden="true">↗</span></a>
+    <a href="{% if page.lang == 'en' %}/en/{% else %}/{% endif %}">{% if page.lang == 'en' %}Back to homepage{% else %}返回个人主页{% endif %} <span aria-hidden="true">↗</span></a>
   </footer>
   <!-- Match the original liquid-glass optical treatment in the homepage header. -->
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">
@@ -113,7 +164,8 @@
       const updateToggle = () => {
         if (!toggle) return;
         const dark = root.dataset.theme === "dark";
-        const label = dark ? "切换到昼间模式" : "切换到夜间模式";
+        const en = root.lang.toLowerCase().startsWith("en");
+        const label = dark ? (en ? "Switch to light mode" : "切换到昼间模式") : (en ? "Switch to dark mode" : "切换到夜间模式");
         toggle.setAttribute("aria-pressed", String(dark));
         toggle.setAttribute("aria-label", label);
         toggle.title = label;
