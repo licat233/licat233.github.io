@@ -10,7 +10,7 @@ await rm(publicDir,{recursive:true,force:true});
 await mkdir(publicDir,{recursive:true});
 const sections=['assets','prompts','en/prompts/content','skills','eao','toolscout',
  'ai-writing-audit','armor-memory','disable-macos-auto-updates','greenram',
- 'opencore-h81','lottery-calculate','armor'];
+ 'opencore-h81','lottery-calculate','armor','demo','previews'];
 for(const dir of sections){
  const dest=path.join(publicDir,dir);
  await mkdir(path.dirname(dest),{recursive:true});

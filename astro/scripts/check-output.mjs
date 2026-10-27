@@ -144,3 +144,8 @@ try {
  throw new Error('Redundant prompt-previews.ts reappeared');
 } catch(e) {if(e?.code!=='ENOENT') throw e}
 console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 15 localized records, 12 translations, SSR/client parity');
+
+const preservedDemo=await read('demo/index.html');
+assert(preservedDemo.includes('name="robots" content="noindex,follow"'),
+ 'Legacy nonindexed design demo missing or accidentally made indexable');
+console.log('ASTRO_DEMO_PRESERVED: public demos remain noindex and reachable');

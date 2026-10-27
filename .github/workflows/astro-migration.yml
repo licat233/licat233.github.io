@@ -44,6 +44,8 @@ jobs:
         run: npm run build
       - name: Verify generated pages and legacy asset parity
         run: npm run check
+      - name: Verify all legacy published HTML routes survived migration
+        run: node scripts/check-legacy-routes.mjs
       - name: Install Chromium for browser regression
         run: npx playwright install --with-deps chromium
       - name: Run desktop and mobile browser regression
