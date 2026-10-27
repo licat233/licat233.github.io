@@ -46,6 +46,8 @@ jobs:
         run: npm run check
       - name: Verify all legacy published HTML routes survived migration
         run: node scripts/check-legacy-routes.mjs
+      - name: Check future GitHub Pages release guard
+        run: node scripts/check-deployment-plan.mjs
       - name: Install Chromium for browser regression
         run: npx playwright install --with-deps chromium
       - name: Run desktop and mobile browser regression
