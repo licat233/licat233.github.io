@@ -17,6 +17,7 @@ lang: zh
 (()=>{try{const k="licat-theme",v=localStorage.getItem(k),d=matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(v==="light"||v==="dark")?v:(d?"dark":"light")}catch(_){document.documentElement.dataset.theme="light"}})();
 </script>
 <link rel="stylesheet" href="/assets/project-page.css">
+<link rel="stylesheet" href="/assets/site-context.css?v=20261027-ia1">
 </head>
 <body>
 <header class="project-nav">
@@ -38,7 +39,7 @@ lang: zh
 </header>
 
 <main>
-{% include project-return.html lang='zh' %}
+{% include site-context.html lang='zh' project='OpenCore · Haswell H81' %}
 <section class="hero" data-ghost="EFI / H81">
   <div class="shell hero-grid">
     <div>
