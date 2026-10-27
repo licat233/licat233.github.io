@@ -50,6 +50,14 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run desktop and mobile browser regression
         run: npm run test:e2e
+      - name: Upload manual visual review snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-visual-review
+          path: astro/test-results/visual-review/
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Upload browser failure artifacts
         if: failure()
         uses: actions/upload-artifact@v4

@@ -53,3 +53,6 @@ Astro now has **one** `src/data/prompts.json` source for 15 prompt records and b
 ## Pre-existing routes preserved
 
 The Astro compatibility build retains the published `/demo/` pages, archived project/demo resources and `previews/` assets. The `scripts/check-legacy-routes.mjs` audit scans the original repository HTML files and requires the same public HTML paths in the Astro output; a missing page now fails CI. This validation complements the Playwright 20 desktop/mobile browser checks and protects less-visited routes.
+
+## Release-candidate visual snapshots
+The Astro CI now exports `astro-visual-review` for representative Chinese/English homepage, categories, blog, prompt list/detail and selected microsites on Chromium desktop/mobile viewports. The Playwright test captures screenshots with reduced motion to make comparison repeatable. **Screenshots alone do not establish pixel parity**; compare the artifact with the still-live Jekyll URLs and inspect any animation-specific effects before merging PR #12.
