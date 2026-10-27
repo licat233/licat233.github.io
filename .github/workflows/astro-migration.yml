@@ -52,6 +52,14 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run desktop and mobile browser regression
         run: npm run test:e2e
+      - name: Upload Jekyll versus Astro article content comparisons
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-vs-jekyll-content
+          path: astro/test-results/content-parity/
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Upload side-by-side Jekyll vs Astro geometry, screenshots and review
         if: always()
         uses: actions/upload-artifact@v4
