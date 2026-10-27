@@ -149,3 +149,10 @@ const preservedDemo=await read('demo/index.html');
 assert(preservedDemo.includes('name="robots" content="noindex,follow"'),
  'Legacy nonindexed design demo missing or accidentally made indexable');
 console.log('ASTRO_DEMO_PRESERVED: public demos remain noindex and reachable');
+
+for(const route of ['blog/index.html','en/blog/index.html','blog/website-seo-geo-basics/index.html']){
+ const html=await read(route);
+ assert(html.includes('class="blog-footer"'),'Jekyll Blog footer missing from '+route);
+ assert(html.includes('/assets/blog.css?v=20261027'),'Original blog stylesheet URL changed in '+route);
+}
+console.log('ASTRO_BLOG_SHELL_PARITY_PASS: original footer and styles present');
