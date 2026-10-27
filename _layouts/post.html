@@ -1,0 +1,17 @@
+---
+layout: blog
+---
+<article class="blog-article">
+  <a class="blog-back" href="/blog/"><span aria-hidden="true">←</span> 返回 Blog</a>
+  <header class="blog-article-header">
+    <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%Y.%m.%d" }}</time>
+    <h1>{{ page.title | escape }}</h1>
+    {% if page.description %}<p>{{ page.description | escape }}</p>{% endif %}
+  </header>
+  <div class="blog-prose">
+    {{ content }}
+  </div>
+  <div class="blog-article-end">
+    <a href="/blog/"><span aria-hidden="true">←</span> 全部文章</a>
+  </div>
+</article>

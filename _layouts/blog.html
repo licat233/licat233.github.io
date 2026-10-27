@@ -1,0 +1,102 @@
+---
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f2f7fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111416" media="(prefers-color-scheme: dark)">
+  <title>{% if page.title == "Blog" %}Blog · Licat{% else %}{{ page.title | escape }} · Licat{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: 'Licat 的技术笔记与实践记录。' | escape }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="{% if page.collection == 'posts' %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ page.title | escape }} · Licat">
+  <meta property="og:description" content="{{ page.description | default: 'Licat 的技术笔记与实践记录。' | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/favicon.ico">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("licat-theme");
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = (saved === "light" || saved === "dark") ? saved : (systemDark ? "dark" : "light");
+      } catch (_) { document.documentElement.dataset.theme = "light"; }
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/vendor/open-props/open-props-core-1.7.23.min.css">
+  <link rel="stylesheet" href="/assets/portfolio.css?v=20261008-glass1">
+  <link rel="stylesheet" href="/assets/portfolio-liquid-glass.css?v=20261010-perf1">
+  <link rel="stylesheet" href="/assets/blog.css?v=20261027">
+</head>
+<body class="blog-page">
+  <header class="liquid-demo site-header apple-glass-base apple-glass-ultra-thin">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+    <nav class="shell nav" aria-label="主导航">
+      <a class="brand" href="/">
+        <img src="/assets/licat-logo.svg" alt="">
+        <span><strong>LICAT</strong><small>/ 233</small></span>
+      </a>
+      <div class="nav-links">
+        <span class="nav-indicator" aria-hidden="true"></span>
+        <a class="nav-pill" href="/"><span></span>首页</a>
+        <a class="nav-pill" href="/#projects"><span></span>项目</a>
+        <a class="nav-pill" href="/#skills"><span></span>Skills</a>
+        <a class="nav-pill active" href="/blog/" aria-current="page"><span></span>Blog</a>
+        <a class="nav-pill" href="/#prompts"><span></span>提示词</a>
+        <a class="nav-pill" href="/#journey"><span></span>轨迹</a>
+        <a class="nav-pill" href="/#principles"><span></span>方法</a>
+      </div>
+      <div class="nav-actions">
+        <button class="liquid-demo theme-toggle" type="button" aria-label="切换昼夜模式" aria-pressed="false">
+          <span class="lg-glass-filter" aria-hidden="true"></span>
+          <span class="lg-glass-overlay" aria-hidden="true"></span>
+          <span class="lg-glass-specular" aria-hidden="true"></span>
+          <span class="theme-toggle-track" aria-hidden="true">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="content" class="blog-main">
+    {{ content }}
+  </main>
+
+  <footer class="blog-footer">
+    <span>© {{ 'now' | date: '%Y' }} Licat</span>
+    <a href="/">返回个人主页 <span aria-hidden="true">↗</span></a>
+  </footer>
+  <script>
+    (() => {
+      const toggle = document.querySelector(".blog-page .theme-toggle");
+      if (!toggle) return;
+      const sync = () => toggle.setAttribute("aria-pressed", String(document.documentElement.dataset.theme === "dark"));
+      sync();
+      toggle.addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("licat-theme", next); } catch (_) {}
+        sync();
+      });
+      const active = document.querySelector(".blog-page .nav-pill.active");
+      const nav = document.querySelector(".blog-page .nav-links");
+      if (nav && active) {
+        const move = () => {
+          nav.style.setProperty("--nav-indicator-x", active.offsetLeft + "px");
+          nav.style.setProperty("--nav-indicator-w", active.offsetWidth + "px");
+          nav.classList.add("nav-ready");
+        };
+        requestAnimationFrame(move);
+        window.addEventListener("resize", move);
+      }
+    })();
+  </script>
+</body>
+</html>
