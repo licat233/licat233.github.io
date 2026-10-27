@@ -1,0 +1,116 @@
+---
+import type { Lang } from '../../lib/site';
+import { promptPreviews } from '../../data/prompt-previews';
+interface Props {lang: Lang}
+const {lang}=Astro.props;
+const en=lang==='en';
+const words={
+  zh:{
+    heroLead:'好的提示词，',heroEm:'值得反复使用。',
+    description:'这里收录我在真实使用中收集、总结和打磨的 AI 提示词。从表达方式，到独立判断，再到复杂任务的执行。找到适合的，复制，开始使用。',
+    items:'条精选',topics:'个主题',updating:'持续整理中',
+    browse:'探索提示词',placeholder:'搜索标题、用途或标签...',searchLabel:'搜索提示词',filterLabel:'按主题筛选',
+    all:'全部',agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索',
+    noResults:'没有找到匹配的提示词',noResultsHelp:'换个关键词，或选择「全部」分类试试。',reset:'重置筛选',
+    back:'← 返回提示词列表',copy:'复制完整提示词',share:'复制分享链接',source:'GitHub 源文件 ↗',
+    reading:'下方仅显示可直接使用的提示词正文。标题、用途说明与编辑备注不会被复制；必要时按使用场景调整参数。',
+    loading:'正在载入内容…',other:'← 浏览其他提示词',copyBottom:'复制这条提示词 ↑',
+    brand:'把复杂问题做成系统。',home:'个人主页',locale:'English',sourceFooter:'GitHub 源代码 ↗',
+    caption:'思考 · 整理 · 分享',
+    noscript:'该页面需要 JavaScript 才能启用分类、完整阅读与一键复制。你也可以直接',
+    originals:'阅读全部 Markdown 原文'
+  },
+  en:{
+    heroLead:'Better prompts.',heroEm:'Better results.',
+    description:'A collection of prompts refined through real use—from clearer communication and independent judgment to complex workflows. Browse, read, and copy what is useful.',
+    items:'curated prompts',topics:'topics',updating:'Updated over time',
+    browse:'Browse prompts',placeholder:'Search titles, summaries or tags...',searchLabel:'Search prompts',filterLabel:'Filter by topic',
+    all:'All',agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration',
+    noResults:'No matching prompts',noResultsHelp:'Try another query or select All.',reset:'Reset filters',
+    back:'← Back to all prompts',copy:'Copy full prompt',share:'Copy share link',source:'GitHub source ↗',
+    reading:'Prompts are displayed in their original Chinese. Copying preserves the full original instruction text; headings and editorial notes outside the prompt boundary are excluded.',
+    loading:'Loading prompt…',other:'← Browse other prompts',copyBottom:'Copy this prompt ↑',
+    brand:'Building useful systems for real problems.',home:'Home',locale:'中文',sourceFooter:'GitHub source code ↗',
+    caption:'Think · Refine · Share',
+    noscript:'JavaScript is required for filters, reading, and copying. You can also ',
+    originals:'read the original Markdown files'
+  }
+};
+const t=words[lang];
+const previews=promptPreviews[lang];
+---
+<div class="page-glow" aria-hidden="true"></div>
+<main id="main">
+  <section class="library-view" id="library-view" aria-labelledby="page-title">
+    <div class="shell">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="mini-line"></span> KNOWLEDGE, REFINED INTO ACTION</div>
+          <h1 id="page-title">{t.heroLead}<br/><em>{t.heroEm}</em></h1>
+          <p class="hero-description">{t.description}</p>
+          <div class="hero-meta"><span><strong>15</strong> {t.items}</span><i></i><span><strong>4</strong> {t.topics}</span><i></i><span>{t.updating} <span class="pulse"></span></span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+          <div class="art-core"><img src="/assets/licat-logo.svg" alt=""/></div>
+          <span class="art-note note-a">THINK<br/>BETTER</span>
+          <span class="art-note note-b">BUILD<br/>SMARTER</span>
+          <span class="art-x">↗</span>
+        </div>
+      </div>
+      <div class="catalogue-heading" id="browse">
+        <div><div class="eyebrow">EXPLORE THE COLLECTION</div><h2>{t.browse}<span class="heading-count" id="heading-count">/ 12</span></h2></div>
+        <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.6" cy="10.6" r="6.1"/><path d="m15.5 15.5 5.2 5.2"/></svg><input type="search" id="search" placeholder={t.placeholder} aria-label={t.searchLabel} autocomplete="off"/><kbd>/</kbd></div>
+      </div>
+      <div class="filter-row" id="filters" role="group" aria-label={t.filterLabel}>
+        <button class="filter active" type="button" data-filter="all" aria-pressed="true">{t.all} <span>15</span></button>
+        <button class="filter" type="button" data-filter="agent" aria-pressed="false">{t.agent}</button>
+        <button class="filter" type="button" data-filter="thinking" aria-pressed="false">{t.thinking}</button>
+        <button class="filter" type="button" data-filter="design" aria-pressed="false">{t.design}</button>
+        <button class="filter" type="button" data-filter="learning" aria-pressed="false">{t.learning}</button>
+      </div>
+      <p id="result-status" class="result-status" aria-live="polite"></p>
+      {en&&<p class="result-status">12 prompts have full English translations. The remaining 3 longer prompts are clearly marked as Chinese originals.</p>}
+      <div id="prompt-grid" class="prompt-grid">
+        {previews.map(item=><a class="prompt-card" href={`?p=${item.id}`}><span class="card-kicker">{item.kicker}</span><h3>{item.title}</h3><p>{item.summary}</p><span class="card-cta">{item.cta}</span></a>)}
+      </div>
+      <div class="empty-state" id="empty-state" hidden><div>⌕</div><h3>{t.noResults}</h3><p>{t.noResultsHelp}</p><button type="button" id="reset-search">{t.reset}</button></div>
+      <div class="library-end"><span>✦</span> LESS NOISE, MORE VALUE. <span>✦</span></div>
+    </div>
+  </section>
+  <section class="detail-view" id="detail-view" hidden aria-labelledby="detail-title">
+    <div class="shell detail-shell">
+      <button class="back-link" id="back-link" type="button">{t.back}</button>
+      <div class="detail-header">
+        <div class="detail-topline"><span class="detail-type" id="detail-type">AI PROMPT</span><span class="detail-index" id="detail-index"></span></div>
+        <h1 id="detail-title"></h1>
+        <p class="detail-summary" id="detail-summary"></p>
+        <div class="detail-tags" id="detail-tags"></div>
+        <div class="detail-actions">
+          <button id="copy-btn" class="action-primary" type="button">{t.copy} <span aria-hidden="true">↗</span></button>
+          <button id="share-btn" class="action-secondary" type="button">{t.share} <span aria-hidden="true">↗</span></button>
+          <a id="source-btn" class="action-text" target="_blank" rel="noopener noreferrer" href="https://github.com/licat233/licat233.github.io/tree/main/prompts/content">{t.source}</a>
+        </div>
+      </div>
+      <div class="reading-layout">
+        <div class="reading-margin"><span>THE FULL PROMPT</span><div class="reading-line"></div><p>{t.reading}</p></div>
+        <article class="prompt-article" id="prompt-article"><p>{t.loading}</p></article>
+      </div>
+      <div class="detail-bottom"><button type="button" id="back-bottom">{t.other}</button><button type="button" id="copy-bottom">{t.copyBottom}</button></div>
+    </div>
+  </section>
+</main>
+<footer class="site-bottom"><div class="shell footer-row">
+  <div class="footer-identity"><img src="/assets/licat-logo.svg" alt=""/><span><strong>LICAT / 233</strong><small>{t.brand}</small></span></div>
+  <div class="footer-links"><a href={en?'/en/':'/zh/'}>{t.home}</a><a href={en?'/prompts/':'/en/'}>{t.locale}</a><a href="https://github.com/licat233/licat233.github.io/tree/main/prompts" target="_blank" rel="noopener noreferrer">{t.sourceFooter}</a></div>
+  <small class="footer-caption">{t.caption}</small>
+</div></footer>
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">
+  <filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="edgeFade"/>
+    <feDisplacementMap in="SourceGraphic" in2="edgeFade" scale="12" xChannelSelector="A" yChannelSelector="A"/>
+  </filter>
+</svg>
+<script is:inline src="/assets/site-nav.js?v=20261027-arch1"></script>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><div class="noscript">{t.noscript}<a href="https://github.com/licat233/licat233.github.io/tree/main/prompts/content">{t.originals}</a>.</div></noscript>
