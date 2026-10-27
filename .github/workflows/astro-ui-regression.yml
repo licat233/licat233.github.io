@@ -1,0 +1,46 @@
+name: Astro UI regression — build and browser
+on:
+  pull_request:
+    paths:
+      - 'astro/**'
+      - 'assets/**'
+      - '_data/**'
+      - '.github/workflows/astro-ui-regression.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'astro/**'
+      - 'assets/**'
+      - '_data/**'
+      - '.github/workflows/astro-ui-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-astro:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: astro
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: astro/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm run check
+      - run: node scripts/check-legacy-routes.mjs
+      - run: npx playwright install --with-deps chromium
+      - name: Verify desktop/mobile styles and interactions
+        run: npx playwright test --grep-invert "compare live Jekyll"
+      - name: Attach browser traces on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-ui-failures
+          path: astro/test-results/
+          retention-days: 7
+          if-no-files-found: ignore
