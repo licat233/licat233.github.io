@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import GlassLayers from '../components/GlassLayers.astro';
+import GlassSurface from '../components/GlassSurface.astro';
 import { getProjects, getSkills } from '../lib/catalog';
 import type { Lang } from '../lib/site';
 interface Props { lang:Lang; kind:'projects'|'skills' }
@@ -22,16 +22,16 @@ const styles=['/assets/vendor/open-props/open-props-core-1.7.23.min.css','/asset
      <h1>{heading}</h1><p class="site-section-lead">{description}</p>
      <p class="site-section-meta">{kind==='projects'?(en?'Selected projects and independent tools':'精选项目与独立工具'):(en?'Two maintained Skills with source instructions':'两项公开维护的 Skill 与原始规范')}</p>
      <div class="site-section-grid">
-       {projects.map((project,i)=><a class="site-section-card liquid-demo apple-glass-base apple-glass-regular" href={en?project.en_url:project.zh_url}>
-         <GlassLayers />
+       {projects.map((project,i)=><GlassSurface as="a" class="site-section-card" material="regular" href={en?project.en_url:project.zh_url}>
+         
          <span class="site-section-card__index">{String(i+1).padStart(2,'0')}</span><h2>{project.name}</h2><p>{en?project.en_description:project.zh_description}</p>
          <span class="site-section-card__go">{en?'Explore project':'查看项目'} ↗</span>
-       </a>)}
-       {skills.map((skill,i)=><article class="site-section-card liquid-demo apple-glass-base apple-glass-regular">
-         <GlassLayers />
+       </GlassSurface>)}
+       {skills.map((skill,i)=><GlassSurface as="article" class="site-section-card" material="regular">
+         
          <span class="site-section-card__index">{String(i+1).padStart(2,'0')}</span><h2>{skill.name}</h2><p>{en?skill.en_description:skill.zh_description}</p>
          <a class="site-section-card__go" href={'https://github.com/licat233/licat233.github.io/blob/main'+skill.source} target="_blank" rel="noopener noreferrer">{en?'Read SKILL.md':'阅读 SKILL.md'} ↗</a>
-       </article>)}
+       </GlassSurface>)}
      </div><p class="site-section-footer-link"><a href={en?'/en/':'/'}>{en?'← Back to the homepage':'← 返回个人主页'}</a></p>
    </div>
  </main>

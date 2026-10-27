@@ -2,6 +2,7 @@
 import HomeSections from '../HomeSections.astro';
 import FeaturedProjects from './FeaturedProjects.astro';
 import HomeSkills from './HomeSkills.astro';
+import GlassSurface from '../GlassSurface.astro';
 ---
 <main id="top">
     <section class="hero-wrap">
@@ -143,20 +144,16 @@ import HomeSkills from './HomeSkills.astro';
         <div class="hero-bottom">
           <div class="hero-actions">
             <a class="hero-cta hero-cta-dark" href="#projects">查看项目 <b>↘</b></a>
-            <a class="liquid-demo hero-cta" href="/eao/">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span><span class="lg-label">EAO</span> <b>↗</b></a>
+            <GlassSurface as="a" class="hero-cta" href="/eao/">
+    <span class="lg-label">EAO</span> <b>↗</b></GlassSurface>
           </div>
 
-          <div class="liquid-demo hero-resources" aria-label="当前重点">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
+          <GlassSurface class="hero-resources" aria-label="当前重点">
+    
             <a class="hero-resource active" href="/eao/"><span>旗舰项目</span><strong>Enterprise AI Office</strong><b>↗</b></a>
             <a class="hero-resource" href="/toolscout/zh/"><span>Agent 工具</span><strong>ToolScout</strong><b>↗</b></a>
             <a class="hero-resource" href="/ai-writing-audit/zh/"><span>持续维护</span><strong>ai-writing-audit</strong><b>↗</b></a>
-          </div>
+          </GlassSurface>
         </div>
       </div>
     </section>
@@ -258,36 +255,30 @@ import HomeSkills from './HomeSkills.astro';
           <div class="journey-story-steps">
           <article class="phase">
             <div class="phase-dot">01</div>
-            <div class="liquid-demo phase-glass">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
+            <GlassSurface class="phase-glass">
+    
               <time>2019 — 2022</time>
             <h3>Go / Web / 后端系统</h3>
             <p>从 Gin、WebSocket、Redis、爬虫到微服务与小型业务系统，建立系统工程和后端开发基础。</p>
-            </div>
+            </GlassSurface>
           </article>
           <article class="phase">
             <div class="phase-dot">02</div>
-            <div class="liquid-demo phase-glass">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
+            <GlassSurface class="phase-glass">
+    
               <time>2023 — 2024</time>
             <h3>开发工具 / 自动化</h3>
             <p>代码生成、资源处理、升级工具和自动化脚本，把反复出现的操作压缩成更短的路径。</p>
-            </div>
+            </GlassSurface>
           </article>
           <article class="phase">
             <div class="phase-dot">03</div>
-            <div class="liquid-demo phase-glass">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
+            <GlassSurface class="phase-glass">
+    
               <time>2026 → NOW</time>
             <h3>AI Agent / 企业 AI 系统</h3>
             <p>从 Skill、Agent 工具与知识系统，走向权限、工作流、可维护部署和完整企业 AI 工作系统。</p>
-            </div>
+            </GlassSurface>
           </article>
           </div>
         </div>
@@ -304,39 +295,31 @@ import HomeSkills from './HomeSkills.astro';
           <p class="section-note">技术只是手段。一个方案最终应该让事情更简单，而不是让人去适应系统。</p>
         </div>
         <div class="principles">
-          <article class="liquid-demo principle apple-glass-base apple-glass-regular">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
+          <GlassSurface as="article" class="principle" material="regular">
+    
             <span class="principle-icon">◎</span><span class="principle-no">01</span>
             <h3>真实问题</h3>
             <p>从真实的需求和摩擦出发，而不是为了使用某项技术而寻找问题。</p>
-          </article>
-          <article class="liquid-demo principle apple-glass-base apple-glass-regular">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
+          </GlassSurface>
+          <GlassSurface as="article" class="principle" material="regular">
+    
             <span class="principle-icon">◇</span><span class="principle-no">02</span>
             <h3>最小充分方案</h3>
             <p>能复用成熟能力就不重造，能用更小的方案解决，就不引入更大的系统。</p>
-          </article>
-          <article class="liquid-demo principle apple-glass-base apple-glass-regular">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
+          </GlassSurface>
+          <GlassSurface as="article" class="principle" material="regular">
+    
             <span class="principle-icon">↻</span><span class="principle-no">03</span>
             <h3>可维护性</h3>
             <p>部署、升级、回滚和后续维护不是收尾工作，而是产品本身的一部分。</p>
-          </article>
+          </GlassSurface>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="liquid-demo site-footer apple-glass-base apple-glass-ultra-thin">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
+  <GlassSurface as="footer" class="site-footer" material="ultra-thin">
+    
     <div class="shell footer-row">
       <div class="footer-brand">
         <img src="/assets/licat-logo.svg" alt="">
@@ -350,7 +333,7 @@ import HomeSkills from './HomeSkills.astro';
       </div>
       <div class="footer-note">更好的工具，更高效的工作，也更自由的生活。</div>
     </div>
-  </footer>
+  </GlassSurface>
   <!-- Narrow optical distortion is borrowed from the MIT-licensed CodePen demo. -->
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">
     <filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB">
