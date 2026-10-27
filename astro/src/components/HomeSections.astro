@@ -1,0 +1,10 @@
+---
+import type { Lang } from '../lib/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const items = [{id:'projects',zh:'精选项目',en:'Featured projects'},{id:'skills',zh:'Agent Skills',en:'Agent Skills'},{id:'journey',zh:'开发轨迹',en:'Journey'},{id:'principles',zh:'方法',en:'Principles'}];
+---
+<nav class="home-section-nav shell" aria-label={lang === 'en' ? 'On this page' : '本页内容'}>
+  <span class="home-section-nav__title">{lang === 'en' ? 'ON THIS PAGE' : '本页导览'}</span>
+  {items.map(item => <a href={`#${item.id}`}>{lang === 'en' ? item.en : item.zh}</a>)}
+</nav>
