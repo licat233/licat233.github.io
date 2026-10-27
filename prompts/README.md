@@ -79,3 +79,10 @@
 
 补充编辑说明（不会被复制）。
 ```
+
+## English version
+
+- English catalogue: [English Prompt Library](../en/prompts/).
+- Both pages use the same 15-item catalogue and preserve individual `?p=slug` share links across language switches.
+- 12 prompt bodies have manually translated English Markdown under `en/prompts/content/`; the three longer originals are shown in Chinese with an explicit language notice until they have been translated.
+- The Chinese files under `prompts/content/` remain authoritative originals. Do not silently machine-rewrite them or merge translated content into source files.

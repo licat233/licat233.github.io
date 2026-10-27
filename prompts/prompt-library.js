@@ -103,6 +103,7 @@
     const labels={agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration'};
     catalogue.forEach(item=>{const translated=byEnglishId.get(item.id);if(!translated)return;Object.assign(item,translated);item.label=labels[item.category];});
   }
+  const translatedEnglish=new Set(["anti-sycophancy","award-level-web-design","codex-workflow-tips","daily-fable-learning","first-principles-reasoning","four-quadrant-assistance","logo-motion","memory-insight-skills","prompt-engineer","seo-python-character-validation","agent-efficient-execution","agent-efficient-execution-v3"]);
   const categoryLabel=isEnglish?{agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration'}:{agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索'};
   const byId=new Map(catalogue.map(item=>[item.id,item]));
   const legacyIds={'ai-natural-communication-v1.3':'ai-natural-communication-v1.3.1'};
@@ -239,7 +240,7 @@
     const companion=item.companion&&byId.get(item.companion);
     $('#detail-tags').innerHTML=item.tags.map(t=>'<span class="detail-tag">'+esc(t)+'</span>').join('')+
       (companion?'<a class="detail-tag" href="'+(isEnglish?'/en/prompts/':'/prompts/')+'?p='+encodeURIComponent(companion.id)+'" title="'+t('阅读配套提示词','Read companion prompt')+'">'+t('配套阅读：','Related: ')+esc(companion.title)+' ↗</a>':'');
-    $('#source-btn').href='https://github.com/licat233/licat233.github.io/blob/main/prompts/content/'+id+'.md';
+    $('#source-btn').href='https://github.com/licat233/licat233.github.io/blob/main/'+(isEnglish&&translatedEnglish.has(id)?'en/prompts/content/':'prompts/content/')+id+'.md';
     article.innerHTML='<p>'+t('正在载入完整内容…','Loading full prompt…')+'</p>';
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
     document.title=item.title+' — Licat Prompt Library';
@@ -247,12 +248,13 @@
     else if(new URLSearchParams(location.search).get('p')!==id)history.replaceState({},'',location.pathname+'?p='+encodeURIComponent(id));
     scrollTo({top:0,behavior:'auto'});
     try{
-      const response=await fetch('/prompts/content/'+encodeURIComponent(id)+'.md?v=20261024a');
+      const path=(isEnglish&&translatedEnglish.has(id)?'/en/prompts/content/':'/prompts/content/');
+      const response=await fetch(path+encodeURIComponent(id)+'.md?v=20261027b');
       if(!response.ok)throw new Error('HTTP '+response.status);
       const text=await response.text();
       if(token!==loadToken)return;
       currentContent=extractPrompt(text);
-      article.innerHTML=renderMarkdown(currentContent);
+      article.innerHTML=(isEnglish&&!translatedEnglish.has(id)?'<p class="lang-note"><strong>Original Chinese prompt.</strong> An English translation of this longer instruction is not yet available. Copy preserves the original Chinese text.</p>':'')+renderMarkdown(currentContent);
       $('#copy-btn').disabled=false;$('#copy-bottom').disabled=false;
     }catch(error){
       if(token!==loadToken)return;
