@@ -1,4 +1,4 @@
-import { readFile, stat } from 'node:fs/promises';
+import { readFile, stat, access } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../dist');
@@ -80,3 +80,14 @@ assert((await read('zh/index.html')).includes('location.replace'),
        'Legacy Chinese homepage URL lost');
 console.log('ASTRO_MIGRATION_OUTPUT_PASS',core.length,'core pages,',independent.length,
  'project pages, original content, navigation, permalink and asset coverage');
+
+// Disallow regressions to brittle Jekyll HTML scraping in future Astro pages.
+for (const removed of ['src/lib/legacy.ts','src/layouts/LegacyPage.astro']) {
+  try { await access(new URL('../'+removed,import.meta.url)); throw new Error('Obsolete adapter reintroduced: '+removed); }
+  catch(error) { if(error?.code!=='ENOENT') throw error; }
+}
+for(const page of ['src/pages/index.astro','src/pages/en/index.astro','src/pages/prompts/index.astro','src/pages/en/prompts/index.astro']){
+ const markup=await readFile(new URL('../'+page,import.meta.url),'utf8');
+ assert(markup.includes('PortfolioShell')&&markup.includes('PageContent'),'Native Astro page component missing: '+page);
+}
+console.log('ASTRO_NATIVE_COMPONENTS_PASS: home and prompt content no longer parsed from Jekyll HTML');
