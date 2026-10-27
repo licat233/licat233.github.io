@@ -2,7 +2,7 @@
   const root=document.documentElement;
   const toggle=document.querySelector(".theme-toggle");
   const system=window.matchMedia("(prefers-color-scheme: dark)");
-  const key="licat-project-theme";
+  const key="licat-theme";
   const stored=()=>{try{const v=localStorage.getItem(key);return v==="light"||v==="dark"?v:null}catch(_){return null}};
   const apply=(theme,persist=false)=>{
     root.dataset.theme=theme;root.style.colorScheme=theme;

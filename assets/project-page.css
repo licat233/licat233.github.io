@@ -221,3 +221,19 @@ html[lang="zh-CN"] .hero h1{font-size:clamp(54px,6.2vw,88px);line-height:.95;let
   .footer-row{align-items:flex-start;flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Shared site breadcrumb on dedicated project pages. */
+main { position: relative; }
+.project-return { position: absolute; z-index: 8; top: 95px; left: 50%; transform: translateX(-50%); pointer-events: none; }
+.project-return a {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .42rem .78rem; border: 1px solid var(--line); border-radius: 99px;
+  background: var(--surface-strong); color: var(--ink); font-size: 12px; font-weight: 720;
+  text-decoration: none; box-shadow: 0 5px 15px rgba(20,40,50,.055); pointer-events: auto;
+}
+.project-return a:hover { color: var(--accent); border-color: var(--accent); }
+.project-return a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 680px) {
+  .project-return { top: 78px; }
+  .project-return a { padding: .3rem .65rem; }
+}
