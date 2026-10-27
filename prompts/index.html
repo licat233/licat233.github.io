@@ -1,3 +1,6 @@
+---
+lang: zh
+---
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -24,59 +27,13 @@
   </script>
   <link rel="stylesheet" href="/assets/vendor/open-props/open-props-core-1.7.23.min.css">
   <link rel="stylesheet" href="/prompts/prompt-library.css?v=20261024b">
-  <link rel="stylesheet" href="/prompts/nav.css?v=20261027b">
+  <link rel="stylesheet" href="/assets/site-header.css?v=20261027-arch1">
   <link rel="stylesheet" href="/assets/portfolio-liquid-glass.css?v=20261010-perf1">
-  <script defer src="/prompts/prompt-library.js?v=20261027b"></script>
+  <script defer src="/prompts/prompt-library.js?v=20261027-arch1"></script>
 </head>
 <body class="prompts-page">
   <div class="page-glow" aria-hidden="true"></div>
-  <header class="liquid-demo site-header apple-glass-base apple-glass-ultra-thin">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
-    <nav class="shell nav" aria-label="主导航">
-      <a class="brand" href="/">
-        <img src="/assets/licat-logo.svg" alt="">
-        <span><strong>LICAT</strong><small>/ 233</small></span>
-      </a>
-
-      <div class="nav-links">
-        <span class="nav-indicator" aria-hidden="true"></span>
-        <a class="nav-pill" href="/"><span></span>首页</a>
-        <a class="nav-pill" href="/#projects"><span></span>项目</a>
-        <a class="nav-pill" href="/#skills"><span></span>Skills</a>
-        <a class="nav-pill" href="/blog/"><span></span>Blog</a>
-        <a class="nav-pill active" href="/prompts/" aria-current="page"><span></span>提示词</a>
-        <a class="nav-pill" href="/#journey"><span></span>轨迹</a>
-        <a class="nav-pill" href="/#principles"><span></span>方法</a>
-      </div>
-
-      <div class="nav-actions">
-        <button class="liquid-demo theme-toggle" id="theme-toggle" type="button" aria-label="切换昼夜模式" aria-pressed="false">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
-          <span class="theme-toggle-track" aria-hidden="true">
-            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-          </span>
-        </button>
-        <div class="liquid-demo lang" aria-label="Language">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
-          <a href="/prompts/" aria-current="page">中</a>
-          <a href="/en/prompts/">EN</a>
-        </div>
-        <a class="liquid-demo github-cta" href="https://github.com/licat233" target="_blank" rel="noreferrer">
-    <span class="lg-glass-filter" aria-hidden="true"></span>
-    <span class="lg-glass-overlay" aria-hidden="true"></span>
-    <span class="lg-glass-specular" aria-hidden="true"></span>
-          <svg class="github-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7C5.73.7.75 5.68.75 11.95c0 5.01 3.25 9.26 7.76 10.76.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.15.68-3.81-1.34-3.81-1.34-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.96.1-.74.4-1.25.73-1.54-2.52-.29-5.17-1.26-5.17-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.46.11-2.99 0 0 .95-.3 3.11 1.16a10.8 10.8 0 0 1 5.66 0c2.16-1.46 3.11-1.16 3.11-1.16.61 1.53.23 2.7.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.04.77 2.09 0 1.51-.01 2.73-.01 3.1 0 .3.21.65.79.54 4.5-1.5 7.75-5.75 7.75-10.76C23.25 5.68 18.27.7 12 .7Z"/></svg><span>GitHub</span><b>↗</b>
-        </a>
-      </div>
-    </nav>
-  </header>
+  {% include site-header.html lang='zh' active='prompts' %}
 
   <main id="main">
     <section class="library-view" id="library-view" aria-labelledby="page-title">
@@ -153,6 +110,7 @@
       <feDisplacementMap in="SourceGraphic" in2="edgeFade" scale="12" xChannelSelector="A" yChannelSelector="A"/>
     </filter>
   </svg>
+  <script src="/assets/site-nav.js?v=20261027-arch1"></script>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <noscript><div class="noscript">该页面需要 JavaScript 才能启用分类、完整阅读与一键复制。你也可以直接<a href="https://github.com/licat233/licat233.github.io/tree/main/prompts/content">阅读全部 Markdown 原文</a>。</div></noscript>
 </body>

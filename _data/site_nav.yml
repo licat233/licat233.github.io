@@ -1,0 +1,32 @@
+# Single source of truth for the global (not page-local) site navigation.
+# The five section items are homepage anchors; Blog and Prompts are pages.
+- key: home
+  zh: 首页
+  en: Home
+  section: top
+- key: projects
+  zh: 项目
+  en: Projects
+  section: projects
+- key: skills
+  zh: Skills
+  en: Skills
+  section: skills
+- key: blog
+  zh: Blog
+  en: Blog
+  zh_url: /blog/
+  en_url: /en/blog/
+- key: prompts
+  zh: 提示词
+  en: Prompts
+  zh_url: /prompts/
+  en_url: /en/prompts/
+- key: journey
+  zh: 轨迹
+  en: Journey
+  section: journey
+- key: principles
+  zh: 方法
+  en: Principles
+  section: principles

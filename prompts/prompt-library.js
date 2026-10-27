@@ -279,35 +279,7 @@
     toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
   }
 
-  const themeToggle=$('#theme-toggle');
-  const syncTheme=()=>{
-    const dark=root.dataset.theme==='dark';
-    root.style.colorScheme=dark?'dark':'light';
-    themeToggle.setAttribute('aria-pressed',String(dark));
-    themeToggle.setAttribute('aria-label',dark?t('切换到昼间模式','Switch to light mode'):t('切换到夜间模式','Switch to dark mode'));
-    themeToggle.title=themeToggle.getAttribute('aria-label');
-  };
-  syncTheme();
-  themeToggle.addEventListener('click',()=>{
-    const newTheme=root.dataset.theme==='dark'?'light':'dark';
-    root.dataset.theme=newTheme;
-    try{localStorage.setItem('licat-theme',newTheme);}catch(_){}
-    syncTheme();
-  });
-  const systemTheme=matchMedia('(prefers-color-scheme: dark)');
-  const followSystem=(e)=>{try{if(['dark','light'].includes(localStorage.getItem('licat-theme')))return;}catch(_){}root.dataset.theme=e.matches?'dark':'light';syncTheme();};
-  if(systemTheme.addEventListener)systemTheme.addEventListener('change',followSystem);
-  else if(systemTheme.addListener)systemTheme.addListener(followSystem);
-  const nav=$('.site-header .nav-links'),navActive=nav?.querySelector('.nav-pill.active');
-  const positionIndicator=(center=false)=>{
-    if(!nav||!navActive)return;
-    nav.style.setProperty('--nav-indicator-x',navActive.offsetLeft+'px');
-    nav.style.setProperty('--nav-indicator-w',navActive.offsetWidth+'px');
-    nav.classList.add('nav-ready');
-    if(center&&nav.scrollWidth>nav.clientWidth+2)nav.scrollLeft=Math.max(0,navActive.offsetLeft-(nav.clientWidth-navActive.offsetWidth)/2);
-  };
-  requestAnimationFrame(()=>positionIndicator(true));
-  window.addEventListener('resize',()=>positionIndicator(false));
+  // Shared header theme and selection: /assets/site-nav.js
   const setLocaleLinks=(id)=>{
     document.querySelectorAll('.site-header .lang a').forEach(a=>{
       const url=a.textContent.trim()==='EN'?'/en/prompts/':'/prompts/';
