@@ -1,0 +1,33 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { getProjects, getSkills } from '../lib/catalog';
+import type { Lang } from '../lib/site';
+interface Props { lang:Lang; kind:'projects'|'skills' }
+const {lang,kind}=Astro.props;
+const en=lang==='en';
+const projects=kind==='projects'?await getProjects():[];
+const skills=kind==='skills'?await getSkills():[];
+const title=kind==='projects'?(en?'Projects':'项目'):'Agent Skills';
+const heading=kind==='projects'?(en?'Projects & tools':'项目与作品'):(en?'Reusable Agent Skills':'可复用的 Agent Skills');
+const description=kind==='projects'?(en?'Published enterprise AI systems, developer tools and macOS utilities.':'从企业 AI 系统到开发者工具与 macOS 应用，查看已经发布的项目。'):(en?'Reusable instructions and implementation knowledge from real engineering and design work.':'从真实工程与设计经验中提炼的可复用 Agent 技能规范。');
+const path=(en?'/en/':'/')+kind+'/';
+---
+<BaseLayout {lang} active={kind} {title} {description} canonical={path} zhHref={'/'+kind+'/'} enHref={'/en/'+kind+'/'} pageClass="site-section-page">
+ <main id="content" class="site-section-main">
+   <div class="shell">
+     <p class="site-section-kicker">{kind==='projects'?'BUILT & SHIPPED':'REUSABLE KNOW-HOW'}</p>
+     <h1>{heading}</h1><p class="site-section-lead">{description}</p>
+     <p class="site-section-meta">{kind==='projects'?(en?'Published projects':'已发布的项目'):(en?'Public Skills':'公开的技能规范')}</p>
+     <div class="site-section-grid">
+       {projects.map((project,i)=><a class="site-section-card" href={en?project.en_url:project.zh_url}>
+         <span class="site-section-card__index">{String(i+1).padStart(2,'0')}</span><h2>{project.name}</h2><p>{en?project.en_description:project.zh_description}</p>
+         <span class="site-section-card__go">{en?'Explore project':'查看项目'} ↗</span>
+       </a>)}
+       {skills.map((skill,i)=><article class="site-section-card">
+         <span class="site-section-card__index">{String(i+1).padStart(2,'0')}</span><h2>{skill.name}</h2><p>{en?skill.en_description:skill.zh_description}</p>
+         <a class="site-section-card__go" href={'https://github.com/licat233/licat233.github.io/blob/main'+skill.source} target="_blank" rel="noopener noreferrer">{en?'Read SKILL.md':'阅读 SKILL.md'} ↗</a>
+       </article>)}
+     </div><p class="site-section-footer-link"><a href={en?'/en/':'/'}>{en?'← Back to homepage':'← 返回个人主页'}</a></p>
+   </div>
+ </main>
+</BaseLayout>

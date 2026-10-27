@@ -1,0 +1,22 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../lib/site';
+interface Props { post:CollectionEntry<'blog'>; lang:Lang; canonical:string }
+const {post,lang,canonical}=Astro.props;
+const en=lang==='en';
+const zhHref=en?(post.data.translation_url||'/blog/'):canonical;
+const enHref=en?canonical:(post.data.translation_url||'/en/blog/');
+const date=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Taipei'}).format(post.data.date).replaceAll('-','.');
+---
+<BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description||post.data.title} {canonical} {zhHref} {enHref} pageClass="blog-page">
+<main id="content" class="blog-main"><article class="blog-article">
+  <a class="blog-back" href={en?'/en/blog/':'/blog/'}>← {en?'Back to Blog':'返回博客'}</a>
+  <header class="blog-article-header">
+    <time datetime={post.data.date.toISOString().slice(0,10)}>{date}</time>
+    <h1>{post.data.title}</h1>{post.data.description&&<p>{post.data.description}</p>}
+  </header>
+  <div class="blog-prose"><slot /></div>
+  <div class="blog-article-end"><a href={en?'/en/blog/':'/blog/'}>← {en?'All articles':'全部文章'}</a></div>
+</article></main>
+</BaseLayout>

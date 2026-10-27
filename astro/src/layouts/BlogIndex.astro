@@ -1,0 +1,31 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { blogSlug, type Lang } from '../lib/site';
+interface Props {lang:Lang}
+const {lang}=Astro.props;
+const en=lang==='en';
+const posts=(await getCollection('blog', ({data})=>data.lang===lang)).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
+const date=(d:Date)=>new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Taipei'}).format(d).replaceAll('-','.');
+const title=en?'Blog':'博客';
+const desc=en?'Notes on AI, engineering, websites and practical problem-solving.':'技术笔记、实践记录与个人思考。';
+---
+<BaseLayout {lang} active="blog" {title} description={desc} canonical={en?'/en/blog/':'/blog/'} zhHref="/blog/" enHref="/en/blog/" pageClass="blog-page">
+<main id="content" class="blog-main">
+ <section class="blog-intro" aria-labelledby="blog-heading">
+ <div class="blog-eyebrow">LICAT / WRITING</div>
+ <h1 id="blog-heading">{title}<span class="blog-title-dot">.</span></h1><p>{desc}</p>
+ </section>
+ <section class="blog-archive" aria-label={en?'Articles':'文章列表'}>
+ <div class="blog-archive-heading"><h2>{en?'All articles':'全部文章'}</h2><span>{posts.length} {en?'posts':'篇'}</span></div>
+ <div class="blog-list">
+ {posts.map(post=><article class="blog-list-item">
+ <div class="blog-list-meta"><time datetime={post.data.date.toISOString().slice(0,10)}>{date(post.data.date)}</time></div>
+ <h3><a href={(en?'/en/blog/':'/blog/')+blogSlug(post.id)+'/'}>{post.data.title}</a></h3>
+ {post.data.description && <p>{post.data.description}</p>}
+ <a class="blog-read-link" href={(en?'/en/blog/':'/blog/')+blogSlug(post.id)+'/'}>{en?'Read article':'阅读全文'} ↗</a>
+ </article>)}
+ </div>
+ </section>
+</main>
+</BaseLayout>
