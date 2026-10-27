@@ -131,3 +131,47 @@ test('single Astro prompt catalogue powers SSR cards and search without second J
    await page.locator('#search').fill('');
  }
 });
+
+test('Projects and Skills directories use original three-layer Liquid Glass', async ({page}) => {
+ for(const route of ['/projects/','/en/projects/','/skills/','/en/skills/']){
+   await page.goto(route);
+   const cards=page.locator('.site-section-grid > .site-section-card');
+   const count=route.includes('projects')?8:2;
+   await expect(cards).toHaveCount(count);
+   for(const mode of ['light','dark']){
+     await page.evaluate(mode=>document.documentElement.setAttribute('data-theme',mode),mode);
+     for(const card of await cards.all()){
+       await expect(card).toHaveClass(/\bliquid-demo\b/);
+       await expect(card.locator(':scope > .lg-glass-filter')).toHaveCount(1);
+       await expect(card.locator(':scope > .lg-glass-overlay')).toHaveCount(1);
+       await expect(card.locator(':scope > .lg-glass-specular')).toHaveCount(1);
+     }
+     const optical=await cards.first().evaluate(el=>{
+       const filter=el.querySelector<HTMLElement>(':scope > .lg-glass-filter')!;
+       const overlay=el.querySelector<HTMLElement>(':scope > .lg-glass-overlay')!;
+       const specular=el.querySelector<HTMLElement>(':scope > .lg-glass-specular')!;
+       const text=el.querySelector<HTMLElement>('h2')!;
+       const card=getComputedStyle(el),blur=getComputedStyle(filter);
+       return {
+         cardBg:card.backgroundColor,
+         blur:blur.backdropFilter||blur.webkitBackdropFilter,
+         overlay:getComputedStyle(overlay).backgroundImage,
+         rim:getComputedStyle(specular).boxShadow,
+         textZ:getComputedStyle(text).zIndex,
+         cardPosition:card.position
+       };
+     });
+     expect(optical.cardBg).toMatch(/(?:rgba?\(0, 0, 0, 0\)|transparent|#0000)/);
+     expect(optical.blur).toContain('blur(');
+     expect(optical.overlay).toContain('linear-gradient');
+     expect(optical.rim).toContain('inset');
+     expect(Number(optical.textZ)).toBeGreaterThan(2);
+     expect(optical.cardPosition).toBe('relative');
+   }
+ }
+ // The existing homepage featured cards must keep their previously accepted
+ // glass structure; do not fix the directory by changing the homepage UI.
+ await page.goto('/');
+ await expect(page.locator('#projects .project.liquid-demo')).toHaveCount(8);
+ await expect(page.locator('#projects .project > .lg-glass-filter')).toHaveCount(8);
+});
