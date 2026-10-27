@@ -22,3 +22,5 @@
 - 五组双语项目详情页保留原有章节导航，用 `_includes/project-return.html` 提供返回个人主页 Projects 区域的统一面包屑。
 - 常规项目详情页与主页共用 `licat-theme` 偏好；EAO 与 ToolScout 是独立项目展示页，仍使用各自的局部导航，但已补充返回 Projects 的路径。
 - 项目页的章节导航不等于网站主导航。新增项目时不得复制首页的完整 Header；应使用清晰的上级链接，并保留项目自己的内容导航。
+
+- 自动验收增加 Jekyll 实际 HTML 渲染检查：`scripts/check_rendered_site.py`，验证 8 个中文／英文核心路由（包括文章）及 10 个项目详情面包屑，避免只通过源代码检查却出现空白导航。
