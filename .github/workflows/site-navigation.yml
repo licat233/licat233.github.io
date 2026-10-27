@@ -1,0 +1,32 @@
+name: Site navigation integrity
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_data/**'
+      - '_includes/**'
+      - '_layouts/**'
+      - 'index.html'
+      - 'zh/**'
+      - 'en/**'
+      - 'prompts/**'
+      - 'assets/site-*'
+      - 'assets/portfolio-motion.js'
+      - 'scripts/check_site_navigation.py'
+      - '.github/workflows/site-navigation.yml'
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify shared navigation and language routes
+        run: python3 scripts/check_site_navigation.py
+      - name: Verify JavaScript syntax
+        run: |
+          node --check assets/site-nav.js
+          node --check assets/portfolio-motion.js
+          node --check prompts/prompt-library.js

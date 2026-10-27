@@ -13,3 +13,7 @@
 - `/` 为中文主页 canonical，`/zh/` 为兼容地址；新链接优先使用 `/`。原文章、项目、分享深链接保留。
 - 项目页面的章节导航属于**项目内部导航**，不应误认为全站主导航；后续对项目详情需补充统一的返回 Projects 路径。
 - 必要回归：检查两种语言的首页、Blog、提示词库导航目标/高亮/主题/移动端；确认 Prompt Library 搜索与复制、Blog Markdown 文章页仍正常，GitHub Pages Build + Deploy 均成功。
+
+- `/zh/` 是旧中文入口，已收敛为保留 query/hash 的兼容跳转，中文主页仅维护 `/` 一份。
+
+- 基础导航回归检查：`python3 scripts/check_site_navigation.py`，GitHub Actions 的 `site-navigation.yml` 在提交时自动执行；另须检查 GitHub Pages 正式部署结果。
