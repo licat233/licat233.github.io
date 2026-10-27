@@ -110,6 +110,12 @@ test('compare live Jekyll and local Astro DOM geometry, typography and screensho
          changedPixelRatio:Number((changed/pixels).toFixed(4)),
          largeDeltaRatio:Number((large/pixels).toFixed(4))};
      },{reference:jekyllScreen.toString('base64'),candidate:astroScreen.toString('base64')});
+     // A 5% visibly changed pixel ceiling is intentionally more permissive
+     // than the currently observed <1.5%, but catches real style regressions.
+     // This is screenshot evidence, not a declaration of pixel perfection.
+     if(!pixel.sameSize||((pixel.changedPixelRatio||0)>.05)||((pixel.meanRgbDifference||0)>.02)){
+       diffs.push({issue:'material visual pixel drift',pixel});
+     }
      report.pages.push({route:view.route,name:view.name,baseline,astro,diffs,pixel});
      for(const diff of diffs)report.issues.push({route:view.route,...diff});
    }

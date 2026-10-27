@@ -12,9 +12,11 @@
 - [x] 39 legacy HTML routes and demo/preview resources are preserved.
 - [x] Static build, prompt catalogue validation and bilingual interactions covered by CI.
 - [x] Live Jekyll versus Astro DOM layout/screenshots compared in desktop and mobile Chromium.
-- [ ] Review paired screenshots for major components, image crops and precise typography.
-- [ ] Verify GSAP entrance/scroll animations under ordinary and reduced motion.
-- [ ] Check browser console, responsive overflow, SEO links, keyboard accessibility.
+- [x] Automated Jekyll/Astro screenshot pair comparison across 12 route/states in desktop + mobile Chromium: no significant geometry issues; peak changed-pixel ratio 1.42% (mobile Skills), current automated ceiling 5%.
+- [ ] Human-reviewed paired screenshots for original artwork cropping and visual nuances.
+- [x] GSAP/ScrollTrigger entrance and scroll behavior on normal and reduced motion, desktop/mobile, passed without captured page exceptions.
+- [x] Browser functional checks, keyboard navigation, responsive horizontal overflow and article canonical/title/heading/text parity checks passed in desktop/mobile Chromium.
+- [ ] Final external asset/SEO spot-review and GitHub Pages source mode check.
 - [ ] Record the current GitHub Pages Settings -> Pages -> Source publishing mode.
 
 ## Opt-in deployment
