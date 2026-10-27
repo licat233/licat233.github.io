@@ -7,9 +7,14 @@ const {post,lang,canonical}=Astro.props;
 const en=lang==='en';
 const zhHref=en?(post.data.translation_url||'/blog/'):canonical;
 const enHref=en?canonical:(post.data.translation_url||'/en/blog/');
+const hasTranslation = Boolean(post.data.translation_url);
+// On untranslated posts, the language toggle can open the other archive,
+// but hreflang must never claim that the archive is a translated article.
+const alternateZh = hasTranslation ? zhHref : (en ? null : canonical);
+const alternateEn = hasTranslation ? enHref : (en ? canonical : null);
 const date=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Taipei'}).format(post.data.date).replaceAll('-','.');
 ---
-<BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description||post.data.title} {canonical} {zhHref} {enHref} pageClass="blog-page">
+<BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description||post.data.title} {canonical} {zhHref} {enHref} {alternateZh} {alternateEn} pageClass="blog-page">
 <main id="content" class="blog-main"><article class="blog-article">
   <a class="blog-back" href={en?'/en/blog/':'/blog/'}>← {en?'Back to Blog':'返回博客'}</a>
   <header class="blog-article-header">

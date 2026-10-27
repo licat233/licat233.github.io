@@ -91,3 +91,11 @@ for(const page of ['src/pages/index.astro','src/pages/en/index.astro','src/pages
  assert(markup.includes('PortfolioShell')&&markup.includes('PageContent'),'Native Astro page component missing: '+page);
 }
 console.log('ASTRO_NATIVE_COMPONENTS_PASS: home and prompt content no longer parsed from Jekyll HTML');
+
+const untranslated=await read('blog/advanced-seo-geo-guide/index.html');
+assert(!/hreflang="en"/.test(untranslated),
+       'Untranslated Chinese article must not claim English Blog index as a translation');
+const translated=await read('blog/publish-markdown-notes/index.html');
+assert(translated.includes('hreflang="en"') && translated.includes('https://licat233.github.io/en/blog/publish-markdown-notes/'),
+       'Published English translation must retain its matching hreflang URL');
+console.log('ASTRO_BLOG_HREFLANG_PASS: only real article translations advertised');
