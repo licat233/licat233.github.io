@@ -1,0 +1,219 @@
+(() => {
+  'use strict';
+  const isEnglish=document.documentElement.lang.toLowerCase().startsWith('en');
+  const t=(zh,en)=>isEnglish?en:zh;
+
+  // Astro injects one verified structured catalogue into the page for both
+  // SSR cards and browser filtering; do not duplicate metadata in this script.
+  const catalogueNode=document.getElementById('prompt-catalogue');
+  if(!catalogueNode)throw new Error('Astro prompt catalogue missing');
+  const payload=JSON.parse(catalogueNode.textContent);
+  const catalogue=payload.items;
+  const translatedEnglish=new Set(payload.translatedEnglish);
+  const categoryLabel=isEnglish?{agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration'}:{agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索'};
+  const byId=new Map(catalogue.map(item=>[item.id,item]));
+  const legacyIds={'ai-natural-communication-v1.3':'ai-natural-communication-v1.3.1'};
+  const resolveId=id=>legacyIds[id]||id;
+  const $=selector=>document.querySelector(selector);
+  const root=document.documentElement;
+  const grid=$('#prompt-grid');
+  const library=$('#library-view');
+  const detail=$('#detail-view');
+  const article=$('#prompt-article');
+  const search=$('#search');
+  const status=$('#result-status');
+  const filters=[...document.querySelectorAll('[data-filter]')];
+  let filter='all';
+  let currentId=null;
+  let currentContent='';
+  let loadToken=0;
+  let toastTimer;
+
+  function esc(value){
+    return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function mdInline(value){
+    // Only auto-link an entire URL line; never rewrite links already in HTML.
+    const raw=String(value).trim();
+    if(/^https:\/\/[^\s<>]+$/.test(raw)){
+      return '<a href="'+esc(raw)+'" target="_blank" rel="noopener noreferrer">'+esc(raw)+'</a>';
+    }
+    let s=esc(value);
+    s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    s=s.replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g,(_,label,url)=>'<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+label+'</a>');
+    return s;
+  }
+  // Source markdown may include a display title, preface, or editorial notes.
+  // Copy and reader view use only the explicitly delimited executable prompt.
+  function extractPrompt(src){
+    const begin='<!-- prompt:begin -->';
+    const end='<!-- prompt:end -->';
+    const start=src.indexOf(begin);
+    const stop=src.indexOf(end);
+    if(start<0 || stop<start+begin.length ||
+       src.indexOf(begin,start+begin.length)!==-1 ||
+       src.indexOf(end,stop+end.length)!==-1){
+      throw new Error('Prompt content boundary missing or ambiguous');
+    }
+    const body=src.slice(start+begin.length,stop).trim();
+    if(!body)throw new Error('Prompt body is empty');
+    return body;
+  }
+
+  function renderMarkdown(src){
+    const lines=src.replace(/\r/g,'').split('\n');
+    let result='',paragraph=[],listKind=null,listEntries=[];
+    const flushP=()=>{if(paragraph.length){result+='<p>'+mdInline(paragraph.join(' '))+'</p>';paragraph=[];}};
+    const flushList=()=>{if(listKind){result+='<'+listKind+'>'+listEntries.map(v=>'<li>'+mdInline(v)+'</li>').join('')+'</'+listKind+'>';listEntries=[];listKind=null;}};
+    const cells=s=>s.trim().replace(/^\|/,'').replace(/\|$/,'').split('|').map(v=>v.trim());
+    for(let i=0;i<lines.length;i++){
+      const line=lines[i].trim();
+      if(!line){flushP();flushList();continue;}
+      const heading=line.match(/^(#{1,5})\s+(.+)$/);
+      if(heading){flushP();flushList();const level=heading[1].length;result+='<h'+level+'>'+mdInline(heading[2])+'</h'+level+'>';continue;}
+      if(line.startsWith('|') && i+1<lines.length && /^\s*\|?\s*:?-{2,}/.test(lines[i+1])){
+        flushP();flushList();
+        const headings=cells(line);i+=1;
+        const rows=[];
+        while(i+1<lines.length && lines[i+1].trim().startsWith('|'))rows.push(cells(lines[++i]));
+        result+='<div class="table-scroll"><table><thead><tr>'+headings.map(c=>'<th>'+mdInline(c)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+headings.map((_,j)=>'<td>'+mdInline(r[j]||'')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';
+        continue;
+      }
+      const bullet=line.match(/^[-*]\s+(.+)$/);
+      const number=line.match(/^\d+\.\s+(.+)$/);
+      if(bullet||number){
+        flushP();const kind=bullet?'ul':'ol';if(listKind && listKind!==kind)flushList();
+        listKind=kind;listEntries.push((bullet||number)[1]);continue;
+      }
+      if(line.startsWith('>')){
+        flushP();flushList();result+='<blockquote>'+mdInline(line.replace(/^>\s?/,''))+'</blockquote>';continue;
+      }
+      flushList();
+      paragraph.push(line);
+    }
+    flushP();flushList();
+    return result;
+  }
+
+  function card(item,index){
+    const classes='prompt-card';
+    return '<a class="'+classes+'" href="?p='+item.id+'" data-open="'+item.id+'" aria-label="'+t('阅读 ','Read ')+esc(item.title)+'">'+
+      '<span class="card-kicker">'+esc(item.label)+' <span aria-hidden="true">/</span> '+esc(item.type)+'</span>'+
+      '<h3>'+esc(item.title)+'</h3><p>'+esc(item.summary)+'</p>'+
+      '<div class="card-foot"><span class="card-cta">'+t('阅读并复制','Read & copy')+' <span aria-hidden="true">↗</span></span><span class="card-count">'+String(index+1).padStart(2,'0')+' / '+catalogue.length+'</span></div></a>';
+  }
+  function showCards(){
+    const q=search.value.trim().toLocaleLowerCase();
+    const matched=catalogue.filter(item=>(filter==='all'||item.category===filter) &&
+      (item.title+' '+item.summary+' '+item.tags.join(' ')+' '+item.label).toLocaleLowerCase().includes(q));
+    grid.innerHTML=matched.map(item=>card(item,catalogue.indexOf(item))).join('');
+    status.textContent=(q||filter!=='all')?t('找到 '+matched.length+' 条提示词',matched.length+' prompts found'):'';
+    $('#heading-count').textContent='/ '+catalogue.length;
+    $('#empty-state').hidden=matched.length>0;
+    grid.hidden=matched.length===0;
+  }
+  function changeFilter(next){
+    filter=next;
+    filters.forEach(el=>{const selected=el.dataset.filter===next;el.classList.toggle('active',selected);el.setAttribute('aria-pressed',String(selected));});
+    showCards();
+  }
+  function showLibrary(updateUrl=true){
+    loadToken++;
+    currentId=null;
+    currentContent='';
+    setLocaleLinks(null);
+    detail.hidden=true;
+    library.hidden=false;
+    document.title=t('AI 提示词库 · Prompt Library — Licat','AI Prompt Library — Licat');
+    if(updateUrl)history.pushState({},'',location.pathname);
+    showCards();
+    scrollTo({top:0,behavior:'auto'});
+  }
+  async function showDetail(id,updateUrl=true){
+    const resolvedId=resolveId(id);
+    const item=byId.get(resolvedId);
+    if(!item){showLibrary(updateUrl);return;}
+    id=resolvedId;
+    currentId=id;currentContent='';
+    setLocaleLinks(id);
+    const token=++loadToken;
+    library.hidden=true;
+    detail.hidden=false;
+    $('#detail-title').textContent=item.title;
+    $('#detail-type').textContent=item.label+' / '+item.type;
+    $('#detail-index').textContent=String(catalogue.indexOf(item)+1).padStart(2,'0')+' / '+catalogue.length;
+    $('#detail-summary').textContent=item.summary;
+    const companion=item.companion&&byId.get(item.companion);
+    $('#detail-tags').innerHTML=item.tags.map(t=>'<span class="detail-tag">'+esc(t)+'</span>').join('')+
+      (companion?'<a class="detail-tag" href="'+(isEnglish?'/en/prompts/':'/prompts/')+'?p='+encodeURIComponent(companion.id)+'" title="'+t('阅读配套提示词','Read companion prompt')+'">'+t('配套阅读：','Related: ')+esc(companion.title)+' ↗</a>':'');
+    $('#source-btn').href='https://github.com/licat233/licat233.github.io/blob/main/'+(isEnglish&&translatedEnglish.has(id)?'en/prompts/content/':'prompts/content/')+id+'.md';
+    article.innerHTML='<p>'+t('正在载入完整内容…','Loading full prompt…')+'</p>';
+    $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
+    document.title=item.title+' — Licat Prompt Library';
+    if(updateUrl)history.pushState({},'',location.pathname+'?p='+encodeURIComponent(id));
+    else if(new URLSearchParams(location.search).get('p')!==id)history.replaceState({},'',location.pathname+'?p='+encodeURIComponent(id));
+    scrollTo({top:0,behavior:'auto'});
+    try{
+      const path=(isEnglish&&translatedEnglish.has(id)?'/en/prompts/content/':'/prompts/content/');
+      const response=await fetch(path+encodeURIComponent(id)+'.md?v=20261027b');
+      if(!response.ok)throw new Error('HTTP '+response.status);
+      const text=await response.text();
+      if(token!==loadToken)return;
+      currentContent=extractPrompt(text);
+      article.innerHTML=(isEnglish&&!translatedEnglish.has(id)?'<p class="lang-note"><strong>Original Chinese prompt.</strong> An English translation of this longer instruction is not yet available. Copy preserves the original Chinese text.</p>':'')+renderMarkdown(currentContent);
+      $('#copy-btn').disabled=false;$('#copy-bottom').disabled=false;
+    }catch(error){
+      if(token!==loadToken)return;
+      article.innerHTML=t('<h2>暂时无法加载提示词正文</h2><p>正文缺失、尚未标记可复制范围，或网络请求失败。为避免复制混入标题和说明，已暂时禁用复制；可通过 GitHub 源文件查看。</p>','<h2>Could not load the original prompt</h2><p>Its Markdown file may be unavailable or missing valid copy boundaries. To avoid copying the wrong text, copy is disabled. See the GitHub source file.</p>');
+    }
+  }
+
+  async function copy(text,message){
+    if(!text){toast(t('内容尚未载入，请稍后重试','Content has not loaded yet'));return;}
+    try{
+      if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(text);}
+      else{
+        const box=document.createElement('textarea');box.value=text;box.setAttribute('readonly','');
+        box.style.cssText='position:fixed;left:-9999px;top:0';document.body.appendChild(box);
+        box.select();if(!document.execCommand('copy'))throw new Error('Copy failed');box.remove();
+      }
+      toast(message);
+    }catch(_){toast(t('复制失败，请手动选择文字复制','Could not copy; select the text manually'));}
+  }
+  function toast(message){
+    const el=$('#toast');clearTimeout(toastTimer);el.textContent=message;el.classList.add('show');
+    toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+  }
+
+  // Shared header theme and selection: /assets/site-nav.js
+  const setLocaleLinks=(id)=>{
+    document.querySelectorAll('.site-header .lang a').forEach(a=>{
+      const url=a.textContent.trim()==='EN'?'/en/prompts/':'/prompts/';
+      a.href=url+(id?'?p='+encodeURIComponent(id):'');
+    });
+  };
+  search.addEventListener('input',showCards);
+  filters.forEach(el=>el.addEventListener('click',()=>changeFilter(el.dataset.filter)));
+  grid.addEventListener('click',event=>{
+    const link=event.target.closest('[data-open]');
+    if(!link||event.defaultPrevented||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+    event.preventDefault();showDetail(link.dataset.open);
+  });
+  $('#reset-search').addEventListener('click',()=>{search.value='';changeFilter('all');search.focus();});
+  $('#back-link').addEventListener('click',()=>showLibrary());
+  $('#back-bottom').addEventListener('click',()=>showLibrary());
+  $('#copy-btn').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Original prompt copied')));
+  $('#copy-bottom').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Original prompt copied')));
+  $('#share-btn').addEventListener('click',()=>copy(location.origin+location.pathname+'?p='+encodeURIComponent(currentId),t('独立分享链接已复制','Share link copied')));
+  window.addEventListener('popstate',()=>{
+    const id=new URLSearchParams(location.search).get('p');
+    if(id&&byId.has(resolveId(id)))showDetail(id,false);else showLibrary(false);
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key!=='/'||event.ctrlKey||event.metaKey||event.altKey||library.hidden)return;
+    if(/^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName||''))return;
+    event.preventDefault();search.focus();
+  });
+  const initial=new URLSearchParams(location.search).get('p');
+  if(initial&&byId.has(resolveId(initial)))showDetail(initial,false);else showLibrary(false);
+})();

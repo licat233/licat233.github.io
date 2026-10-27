@@ -1,0 +1,94 @@
+name: Astro migration — build only (never deploy)
+on:
+  push:
+    branches:
+      - migration/astro-20261027
+    paths:
+      - 'astro/**'
+      - '_posts/**'
+      - '_data/**'
+      - 'assets/**'
+      - 'prompts/**'
+      - 'en/prompts/**'
+      - 'eao/**'
+      - 'toolscout/**'
+      - '.github/workflows/astro-migration.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  astro-validation:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: astro
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: astro/package-lock.json
+      - name: Verify pre-migration Jekyll recovery point
+        working-directory: .
+        run: |
+          expected="f7d58cee5c2eb953696870f6931c441ec8f9ad74"
+          actual="$(git ls-remote origin refs/heads/backup/jekyll-production-20261027 | cut -f1)"
+          if [ "$actual" != "$expected" ]; then
+            echo "::error::Jekyll recovery branch missing or changed (actual: $actual)"
+            exit 1
+          fi
+      - name: Install locked Node dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build Astro static site
+        run: npm run build
+      - name: Verify generated pages and legacy asset parity
+        run: npm run check
+      - name: Verify all legacy published HTML routes survived migration
+        run: node scripts/check-legacy-routes.mjs
+      - name: Check future GitHub Pages release guard
+        run: node scripts/check-deployment-plan.mjs
+      - name: Install Chromium for browser regression
+        run: npx playwright install --with-deps chromium
+      - name: Run desktop and mobile browser regression
+        run: npm run test:e2e
+      - name: Upload Jekyll versus Astro article content comparisons
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-vs-jekyll-content
+          path: astro/test-results/content-parity/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Upload side-by-side Jekyll vs Astro geometry, screenshots and review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-vs-jekyll-parity
+          path: astro/test-results/visual-parity/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Upload manual visual review snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-visual-review
+          path: astro/test-results/visual-review/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Upload browser failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-browser-failures
+          path: |
+            astro/test-results/
+            astro/playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Store isolated preview build (not a Pages deployment)
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-migration-preview
+          path: astro/dist/
+          retention-days: 7

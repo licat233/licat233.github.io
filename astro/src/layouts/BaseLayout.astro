@@ -1,0 +1,75 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import type { Lang, NavKey } from '../lib/site';
+interface Props {
+  lang: Lang;
+  active: NavKey;
+  title: string;
+  description: string;
+  canonical: string;
+  zhHref?: string;
+  enHref?: string;
+  pageClass?: string;
+  alternateZh?: string | null;
+  alternateEn?: string | null;
+  exactTitle?: boolean;
+  styles?: readonly string[];
+  includeSiteNavScript?: boolean;
+  includeLensFilter?: boolean;
+  ogType?: 'website' | 'article';
+}
+const {
+  lang, active, title, description, canonical, zhHref, enHref, pageClass = '',
+  exactTitle = false,
+  includeSiteNavScript = true,
+  includeLensFilter = true,
+  ogType = 'website',
+} = Astro.props;
+const defaultStyles = [
+  '/assets/vendor/open-props/open-props-core-1.7.23.min.css',
+  '/assets/portfolio.css?v=20261008-glass1',
+  '/assets/site-header.css?v=20261027-arch1',
+  '/assets/portfolio-liquid-glass.css?v=20261010-perf1',
+  '/assets/blog.css',
+  '/assets/site-sections.css',
+];
+const styles = Astro.props.styles ?? defaultStyles;
+const alternateZh = Astro.props.alternateZh !== undefined
+  ? Astro.props.alternateZh : (zhHref || (lang === 'zh' ? canonical : null));
+const alternateEn = Astro.props.alternateEn !== undefined
+  ? Astro.props.alternateEn : (enHref || (lang === 'en' ? canonical : null));
+const origin = 'https://licat233.github.io';
+const fullTitle = exactTitle ? title : `${title} · Licat`;
+---
+<!doctype html>
+<html lang={lang === 'en' ? 'en' : 'zh-CN'}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f2f7fa" media="(prefers-color-scheme:light)" />
+  <meta name="theme-color" content="#111416" media="(prefers-color-scheme:dark)" />
+  <meta name="description" content={description} />
+  <title>{fullTitle}</title>
+  <meta property="og:type" content={ogType} />
+  <meta property="og:site_name" content="Licat / 233" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={origin + canonical} />
+  <link rel="canonical" href={origin + canonical} />
+  {alternateZh && <link rel="alternate" hreflang="zh-CN" href={origin + alternateZh} />}
+  {alternateEn && <link rel="alternate" hreflang="en" href={origin + alternateEn} />}
+  {active === 'home' && <link rel="alternate" hreflang="x-default" href={origin + '/'} />}
+  <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" />
+  <script is:inline>(()=>{try{const t=localStorage.getItem('licat-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(_){document.documentElement.dataset.theme='light'}})();</script>
+  {styles.map(href => <link rel="stylesheet" href={href} />)}
+  <slot name="head" />
+</head>
+<body class={pageClass}>
+  <SiteHeader {lang} {active} {zhHref} {enHref} />
+  <slot />
+  {includeLensFilter && <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden"><filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="12" result="edgeFade"/><feDisplacementMap in="SourceGraphic" in2="edgeFade" scale="12" xChannelSelector="A" yChannelSelector="A"/></filter></svg>}
+  {includeSiteNavScript && <script is:inline src="/assets/site-nav.js?v=20261027-arch1"></script>}
+</body>
+</html>

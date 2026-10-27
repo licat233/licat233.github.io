@@ -1,0 +1,28 @@
+---
+import type { Lang } from '../../lib/site';
+import { getProjects, type Project } from '../../lib/catalog';
+import { projectIcons } from '../../data/project-icons';
+interface Props {lang:Lang}
+const {lang}=Astro.props;
+const english=lang==='en';
+const items=(await getProjects()).filter(item=>typeof item.featured_rank==='number')
+  .sort((a,b)=>a.featured_rank!-b.featured_rank!);
+---
+<div class="projects">
+  {items.map((project:Project) => (
+    <a class="liquid-demo project apple-glass-base apple-glass-regular"
+       href={english?project.featured_en_url:project.featured_zh_url}>
+      <span class="lg-glass-filter" aria-hidden="true"></span>
+      <span class="lg-glass-overlay" aria-hidden="true"></span>
+      <span class="lg-glass-specular" aria-hidden="true"></span>
+      <div class="project-top">
+        <span class="project-icon"><Fragment set:html={projectIcons[project.name] ?? projectIcons['Enterprise AI Office']}/></span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <h3>{project.name}</h3>
+      <p>{english?project.featured_en_description:project.featured_zh_description}</p>
+      <div class="tags">{project.featured_tags?.map(tag=><span class="tag">{tag}</span>)}</div>
+      <div class="project-meta">{project.featured_meta?.map(meta=><span>{meta}</span>)}</div>
+    </a>
+  ))}
+</div>

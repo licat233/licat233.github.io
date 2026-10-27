@@ -1,0 +1,56 @@
+name: Astro Pages — explicit-release gate
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: ${{ github.ref == 'refs/heads/main' && vars.ASTRO_PAGES_ACTIVE == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: astro
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify untouched Jekyll recovery branch
+        working-directory: .
+        run: |
+          expected="f7d58cee5c2eb953696870f6931c441ec8f9ad74"
+          actual="$(git ls-remote origin refs/heads/backup/jekyll-production-20261027 | cut -f1)"
+          test "$actual" = "$expected"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: astro/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm run check
+      - run: node scripts/check-legacy-routes.mjs
+      - run: npx playwright install --with-deps chromium
+      - name: Run candidate-only browser tests (no live Jekyll dependency)
+        run: npx playwright test --grep-invert "compare live Jekyll"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: astro/dist/
+  deploy:
+    if: ${{ github.ref == 'refs/heads/main' && vars.ASTRO_PAGES_ACTIVE == 'true' }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish verified Astro dist
+        id: deployment
+        uses: actions/deploy-pages@v4
