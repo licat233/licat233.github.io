@@ -1,5 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import BlogFooter from '../components/BlogFooter.astro';
+import { blogStyles } from '../lib/blog';
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../lib/site';
 interface Props { post:CollectionEntry<'blog'>; lang:Lang; canonical:string }
@@ -14,7 +16,7 @@ const alternateZh = hasTranslation ? zhHref : (en ? null : canonical);
 const alternateEn = hasTranslation ? enHref : (en ? canonical : null);
 const date=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Taipei'}).format(post.data.date).replaceAll('-','.');
 ---
-<BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description||post.data.title} {canonical} {zhHref} {enHref} {alternateZh} {alternateEn} pageClass="blog-page">
+<BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description||post.data.title} {canonical} {zhHref} {enHref} {alternateZh} {alternateEn} styles={blogStyles} ogType="article" pageClass="blog-page">
 <main id="content" class="blog-main"><article class="blog-article">
   <a class="blog-back" href={en?'/en/blog/':'/blog/'}>← {en?'Back to Blog':'返回博客'}</a>
   <header class="blog-article-header">
@@ -24,4 +26,5 @@ const date=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'
   <div class="blog-prose"><slot /></div>
   <div class="blog-article-end"><a href={en?'/en/blog/':'/blog/'}>← {en?'All articles':'全部文章'}</a></div>
 </article></main>
+<BlogFooter {lang} />
 </BaseLayout>
