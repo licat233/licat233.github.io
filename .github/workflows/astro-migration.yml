@@ -29,6 +29,15 @@ jobs:
           node-version: '24'
           cache: npm
           cache-dependency-path: astro/package-lock.json
+      - name: Verify pre-migration Jekyll recovery point
+        working-directory: .
+        run: |
+          expected="f7d58cee5c2eb953696870f6931c441ec8f9ad74"
+          actual="$(git ls-remote origin refs/heads/backup/jekyll-production-20261027 | cut -f1)"
+          if [ "$actual" != "$expected" ]; then
+            echo "::error::Jekyll recovery branch missing or changed (actual: $actual)"
+            exit 1
+          fi
       - name: Install locked Node dependencies
         run: npm ci --no-audit --no-fund
       - name: Build Astro static site
