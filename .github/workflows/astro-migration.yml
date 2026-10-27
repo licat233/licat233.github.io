@@ -15,7 +15,7 @@ on:
       - '.github/workflows/astro-migration.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   astro-validation:
     runs-on: ubuntu-latest
@@ -27,12 +27,35 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Install reproducible locked dependencies
-        run: npm ci --no-audit --no-fund
+      - name: Refresh migration-only lockfile for browser QA
+        run: npm install --no-audit --no-fund
+      - name: Commit migration lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m "build(astro): lock Playwright browser test dependency"
+            git push origin HEAD:migration/astro-20261027
+          fi
       - name: Build Astro static site
         run: npm run build
       - name: Verify generated pages and legacy asset parity
         run: npm run check
+      - name: Install Chromium for browser regression
+        run: npx playwright install --with-deps chromium
+      - name: Run desktop and mobile browser regression
+        run: npm run test:e2e
+      - name: Upload browser failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-browser-failures
+          path: |
+            astro/test-results/
+            astro/playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Store isolated preview build (not a Pages deployment)
         uses: actions/upload-artifact@v4
         with:
