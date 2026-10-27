@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef3f5">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="15 carefully curated AI prompts for agent workflows, writing, software development, design, and critical thinking. English interface; original prompts are currently in Chinese.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Licat / 233">
+  <meta property="og:title" content="AI Prompt Library — Licat">
+  <meta property="og:description" content="A curated collection of practical prompts. Original prompt bodies are in Chinese.">
+  <meta property="og:url" content="https://licat233.github.io/en/prompts/">
+  <link rel="canonical" href="https://licat233.github.io/en/prompts/">
+  <link rel="alternate" hreflang="zh-CN" href="https://licat233.github.io/prompts/">
+  <link rel="alternate" hreflang="en" href="https://licat233.github.io/en/prompts/">
+  <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml">
+  <title>AI Prompt Library — Licat</title>
+  <script>
+    (() => {try {
+      const saved = localStorage.getItem('licat-theme');
+      document.documentElement.dataset.theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    } catch (_) {document.documentElement.dataset.theme='light';}})();
+  </script>
+  <link rel="stylesheet" href="/assets/vendor/open-props/open-props-core-1.7.23.min.css">
+  <link rel="stylesheet" href="/prompts/prompt-library.css?v=20261024b">
+  <link rel="stylesheet" href="/prompts/nav.css?v=20261027b">
+  <link rel="stylesheet" href="/assets/portfolio-liquid-glass.css?v=20261010-perf1">
+  <script defer src="/prompts/prompt-library.js?v=20261027b"></script>
+</head>
+<body class="prompts-page">
+  <div class="page-glow" aria-hidden="true"></div>
+  <header class="liquid-demo site-header apple-glass-base apple-glass-ultra-thin">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+    <nav class="shell nav" aria-label="Primary navigation">
+      <a class="brand" href="/en/">
+        <img src="/assets/licat-logo.svg" alt="">
+        <span><strong>LICAT</strong><small>/ 233</small></span>
+      </a>
+
+      <div class="nav-links">
+        <span class="nav-indicator" aria-hidden="true"></span>
+        <a class="nav-pill" href="/en/"><span></span>Home</a>
+        <a class="nav-pill" href="/en/#projects"><span></span>Projects</a>
+        <a class="nav-pill" href="/en/#skills"><span></span>Skills</a>
+        <a class="nav-pill" href="/en/blog/"><span></span>Blog</a>
+        <a class="nav-pill active" href="/en/prompts/" aria-current="page"><span></span>Prompts</a>
+        <a class="nav-pill" href="/en/#journey"><span></span>Journey</a>
+        <a class="nav-pill" href="/en/#principles"><span></span>Principles</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="liquid-demo theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark mode" aria-pressed="false">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+          <span class="theme-toggle-track" aria-hidden="true">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.2v2.2M12 19.6v2.2M4.1 4.1l1.6 1.6M18.3 18.3l1.6 1.6M2.2 12h2.2M19.6 12h2.2M4.1 19.9l1.6-1.6M18.3 5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+        <div class="liquid-demo lang" aria-label="Language">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+          <a href="/prompts/">中</a>
+          <a href="/en/prompts/" aria-current="page">EN</a>
+        </div>
+        <a class="liquid-demo github-cta" href="https://github.com/licat233" target="_blank" rel="noreferrer">
+    <span class="lg-glass-filter" aria-hidden="true"></span>
+    <span class="lg-glass-overlay" aria-hidden="true"></span>
+    <span class="lg-glass-specular" aria-hidden="true"></span>
+          <svg class="github-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7C5.73.7.75 5.68.75 11.95c0 5.01 3.25 9.26 7.76 10.76.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.15.68-3.81-1.34-3.81-1.34-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.96.1-.74.4-1.25.73-1.54-2.52-.29-5.17-1.26-5.17-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.46.11-2.99 0 0 .95-.3 3.11 1.16a10.8 10.8 0 0 1 5.66 0c2.16-1.46 3.11-1.16 3.11-1.16.61 1.53.23 2.7.11 2.99.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.04.77 2.09 0 1.51-.01 2.73-.01 3.1 0 .3.21.65.79.54 4.5-1.5 7.75-5.75 7.75-10.76C23.25 5.68 18.27.7 12 .7Z"/></svg><span>GitHub</span><b>↗</b>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="library-view" id="library-view" aria-labelledby="page-title">
+      <div class="shell">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="mini-line"></span> KNOWLEDGE, REFINED INTO ACTION</div>
+            <h1 id="page-title">Better prompts.<br><em>Better results.</em></h1>
+            <p class="hero-description">A collection of prompts refined through real use—from clearer communication and independent judgment to complex workflows. Browse, read, and copy what is useful.</p>
+            <div class="hero-meta"><span><strong>15</strong> curated prompts</span><i></i><span><strong>4</strong> topics</span><i></i><span>Updated over time <span class="pulse"></span></span></div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+            <div class="art-core"><img src="/assets/licat-logo.svg" alt=""></div>
+            <span class="art-note note-a">THINK<br>BETTER</span>
+            <span class="art-note note-b">BUILD<br>SMARTER</span>
+            <span class="art-x">↗</span>
+          </div>
+        </div>
+
+        <div class="catalogue-heading" id="browse">
+          <div><div class="eyebrow">EXPLORE THE COLLECTION</div><h2>Browse prompts<span class="heading-count" id="heading-count">/ 12</span></h2></div>
+          <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.6" cy="10.6" r="6.1"/><path d="m15.5 15.5 5.2 5.2"/></svg><input type="search" id="search" placeholder="Search titles, summaries or tags..." aria-label="Search prompts" autocomplete="off"><kbd>/</kbd></div>
+        </div>
+
+        <div class="filter-row" id="filters" role="group" aria-label="Filter by topic">
+          <button class="filter active" type="button" data-filter="all" aria-pressed="true">All <span>15</span></button>
+          <button class="filter" type="button" data-filter="agent" aria-pressed="false">Agents & Workflows</button>
+          <button class="filter" type="button" data-filter="thinking" aria-pressed="false">Writing & Thinking</button>
+          <button class="filter" type="button" data-filter="design" aria-pressed="false">Development & Design</button>
+          <button class="filter" type="button" data-filter="learning" aria-pressed="false">Learning & Exploration</button>
+        </div>
+
+        <p id="result-status" class="result-status" aria-live="polite"></p>
+        <p class="result-status">Original prompt bodies are in Chinese. The English descriptions help you find the right prompt.</p>
+        <div id="prompt-grid" class="prompt-grid">
+          <a class="prompt-card" href="?p=ai-natural-communication-v1.3.1"><span class="card-kicker">Writing & Thinking · V1.3.1</span><h3>AI 说人话指南 V1.3.1</h3><p>增加执行优先级与内容自审，重视真实价值、独立判断与自然表达。</p><span class="card-cta">阅读提示词 ↗</span></a>
+          <a class="prompt-card" href="?p=ai-high-value-writing-audit-v1.1"><span class="card-kicker">Writing & Thinking · 配套指令</span><h3>AI 高价值内容生成与自审指令 V1.1</h3><p>配合《AI 说人话指南 V1.3.1》，将价值判断、事实核实与审稿流程用于正式内容创作。</p><span class="card-cta">阅读提示词 ↗</span></a>
+          <a class="prompt-card" href="?p=seo-python-character-validation"><span class="card-kicker">Agents & Workflows · SEO</span><h3>AI 字符数精准控制｜Python 代码校验法</h3><p>用 Python len() 验证 AI 文本的字符数，超限重写后再校验；以 SEO 文案为示例。</p><span class="card-cta">阅读提示词 ↗</span></a>
+          <a class="prompt-card" href="?p=agent-efficient-execution-v3"><span class="card-kicker">Agents & Workflows · V3.0</span><h3>AI Agent 高效执行与防漂移指令 V3.0</h3><p>任务锚定、长任务连续性、防漂移和完成即停。</p><span class="card-cta">阅读提示词 ↗</span></a>
+          <a class="prompt-card" href="?p=detailflow-ecommerce"><span class="card-kicker">Development & Design · 长文</span><h3>DetailFlow 八屏电商详情图工作流</h3><p>从产品真实性到视觉连续性，完整的电商详情图制作流程。</p><span class="card-cta">阅读提示词 ↗</span></a>
+        </div>
+        <div class="empty-state" id="empty-state" hidden><div>⌕</div><h3>No matching prompts</h3><p>Try another query or select All.</p><button type="button" id="reset-search">Reset filters</button></div>
+        <div class="library-end"><span>✦</span> LESS NOISE, MORE VALUE. <span>✦</span></div>
+      </div>
+    </section>
+
+    <section class="detail-view" id="detail-view" hidden aria-labelledby="detail-title">
+      <div class="shell detail-shell">
+        <button class="back-link" id="back-link" type="button">← Back to all prompts</button>
+        <div class="detail-header">
+          <div class="detail-topline"><span class="detail-type" id="detail-type">AI PROMPT</span><span class="detail-index" id="detail-index"></span></div>
+          <h1 id="detail-title"></h1>
+          <p class="detail-summary" id="detail-summary"></p>
+          <div class="detail-tags" id="detail-tags"></div>
+          <div class="detail-actions">
+            <button id="copy-btn" class="action-primary" type="button">Copy full prompt <span aria-hidden="true">↗</span></button>
+            <button id="share-btn" class="action-secondary" type="button">Copy share link <span aria-hidden="true">↗</span></button>
+            <a id="source-btn" class="action-text" target="_blank" rel="noopener noreferrer" href="https://github.com/licat233/licat233.github.io/tree/main/prompts/content">GitHub source ↗</a>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-margin"><span>THE FULL PROMPT</span><div class="reading-line"></div><p>Prompts are displayed in their original Chinese. Copying preserves the full original instruction text; headings and editorial notes outside the prompt boundary are excluded.</p></div>
+          <article class="prompt-article" id="prompt-article"><p>Loading prompt…</p></article>
+        </div>
+        <div class="detail-bottom"><button type="button" id="back-bottom">← Browse other prompts</button><button type="button" id="copy-bottom">Copy this prompt ↑</button></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-bottom"><div class="shell footer-row"><div class="footer-identity"><img src="/assets/licat-logo.svg" alt=""><span><strong>LICAT / 233</strong><small>Building useful systems for real problems.</small></span></div><div class="footer-links"><a href="/en/">Home</a><a href="/prompts/">中文</a><a href="https://github.com/licat233/licat233.github.io/tree/main/prompts" target="_blank" rel="noopener noreferrer">GitHub source code ↗</a></div><small class="footer-caption">Think · Refine · Share</small></div></footer>
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">
+    <filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="edgeFade"/>
+      <feDisplacementMap in="SourceGraphic" in2="edgeFade" scale="12" xChannelSelector="A" yChannelSelector="A"/>
+    </filter>
+  </svg>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">JavaScript is required for filters, reading, and copying. You can also <a href="https://github.com/licat233/licat233.github.io/tree/main/prompts/content">read the original Markdown files</a>。</div></noscript>
+</body>
+</html>
