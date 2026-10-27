@@ -35,7 +35,7 @@ test('prompt library search, detail and share deep links work', async ({page}) =
 test('English prompt library displays its translated copy', async ({page}) => {
  await page.goto('/en/prompts/?p=agent-efficient-execution-v3');
  await expect(page.locator('#detail-view')).toBeVisible();
- await expect(page.locator('#prompt-article')).toContainText('Agent');
+ await expect(page.locator('#prompt-article')).toContainText(/execution agent/i);
  await expect(page.locator('#copy-btn')).toBeEnabled();
 });
 
@@ -44,8 +44,8 @@ test('theme preference persists between content pages',async ({page})=>{
  const toggle=page.locator('.site-header .theme-toggle');
  const before=await page.locator('html').getAttribute('data-theme');
  await toggle.click();
+ await expect.poll(()=>page.locator('html').getAttribute('data-theme')).not.toBe(before);
  const after=await page.locator('html').getAttribute('data-theme');
- expect(after).not.toBe(before);
  await page.locator('.site-header .nav-pill[href="/blog/"]').click();
  await expect(page.locator('html')).toHaveAttribute('data-theme',after!);
 });
@@ -57,7 +57,7 @@ test('project and Skill pages load with correct site hierarchy',async ({page})=>
  await page.locator('.site-section-card[href="/eao/"]').click();
  await expect(page).toHaveURL(/\/eao\/$/);
  await expect(page.locator('.site-context')).toContainText('Enterprise AI Office');
- await expect(page.locator('.site-context a[href="/projects/"]')).toBeVisible();
+ await expect(page.locator('.site-context a[href="/projects/"]').first()).toBeVisible();
  await page.goto('/skills/');
  await expect(page.locator('.site-section-card')).toHaveCount(2);
 });
