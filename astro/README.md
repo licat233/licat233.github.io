@@ -52,7 +52,7 @@ The Prompt Library has 17 entries with independent Chinese and English Markdown 
 
 The build uses `glob({pattern:'*.md',base:'../_posts'})` in `src/content.config.ts`. Both blog detail routes call `getCollection('blog')` and `getStaticPaths()`. The `blogSlug()` helper removes the filename's date prefix and trailing `-en`; it does **not** use a legacy `permalink` frontmatter value to determine routes. Keep filenames stable after publishing.
 
-For a user-oriented walkthrough, see `../_posts/2026-10-27-publish-markdown-notes.md` and its English `-en.md` counterpart.
+For a practical publishing tutorial, see the repository-root [PUBLISHING.md](../PUBLISHING.md).
 
 ## Release and quality checks
 

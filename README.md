@@ -32,23 +32,7 @@ Existing project paths, historic compatibility pages, and stable article URLs ar
 
 ## Publish Markdown blog posts
 
-Create a file such as `_posts/2026-10-28-my-first-note.md` with Astro-compatible frontmatter:
-
-```yaml
----
-title: "My first note"
-date: 2026-10-28
-lang: zh
-description: "A short summary."
----
-```
-
-For an English translation, create `_posts/2026-10-28-my-first-note-en.md` with `lang: en`. Add `translation_url` to **each** article only after both language versions exist. The generated routes are `/blog/my-first-note/` and `/en/blog/my-first-note/`. Historic Jekyll `layout` keys are unnecessary, and `permalink` is not used to determine these routes.
-
-See the live publishing guides:
-
-- [中文：如何用 Astro + GitHub Pages 发布 Markdown 博客](https://licat233.github.io/blog/publish-markdown-notes/)
-- [English: Publishing Markdown Posts with Astro and GitHub Pages](https://licat233.github.io/en/blog/publish-markdown-notes/)
+See [PUBLISHING.md](PUBLISHING.md) for the Markdown template, bilingual naming rules and publishing steps.
 
 ## Develop and verify
 
