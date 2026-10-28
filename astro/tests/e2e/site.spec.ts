@@ -60,7 +60,13 @@ test('AI active Liquid Glass pill includes the chevron in both locales and theme
    expect(geometry.leftDelta).toBeLessThan(2.1);
    expect(geometry.rightDelta).toBeLessThan(2.1);
    expect(geometry.chevronInside).toBe(true);
-   expect(geometry.textColor).toBe(geometry.arrowColor);
+   // Active anchor text eases its color over 320ms on theme changes.
+   // Wait until the glass control and chevron have settled to the same ink.
+   await expect.poll(async()=>page.locator('.site-header .nav-group').evaluate(group=>{
+     const link=group.querySelector<HTMLElement>('.nav-pill')!;
+     const chevron=group.querySelector<HTMLElement>('.nav-submenu-trigger')!;
+     return getComputedStyle(link).color===getComputedStyle(chevron).color;
+   }),{timeout:3000}).toBe(true);
    expect(Number(geometry.glassOpacity)).toBeGreaterThan(.9);
   }
   const trigger=page.locator('.site-header .nav-submenu-trigger');
