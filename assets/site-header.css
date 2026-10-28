@@ -189,7 +189,8 @@
   gap: .1875rem;
   padding: .5rem;
   border-radius: 1rem;
-  background: var(--apple-glass-bg-regular);
+  /* The shared GlassSurface owns tint and refraction; no opaque white wash. */
+  background: transparent;
   border: 1px solid var(--apple-glass-border);
   box-shadow: 0 12px 30px rgba(16, 35, 52, .17), var(--apple-glass-inner-rim);
 }

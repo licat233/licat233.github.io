@@ -230,10 +230,17 @@ await inspectAstroTemplates(sourceDir);
 for(const route of ['index.html','en/index.html','projects/index.html','en/projects/index.html',
                     'skills/index.html','en/skills/index.html','ai/index.html','en/ai/index.html','blog/index.html','prompts/index.html']){
  const html=await read(route);
- assert(html.includes('/assets/portfolio-liquid-glass.css?v=20261028-ai-subnav-clip1'),
+ assert(html.includes('/assets/portfolio-liquid-glass.css?v=20261028-ai-glass1'),
    'Glass material stylesheet missing from '+route);
 }
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');
+const headerGlass=await read('assets/site-header.css');
+const liquidGlass=await read('assets/portfolio-liquid-glass.css');
+assert(/\.site-header \.ai-subnav\s*\{[^}]*background:\s*transparent/s.test(headerGlass),
+ 'AI dropdown must not override GlassSurface with opaque white');
+assert(/\.site-header \.ai-subnav\.liquid-demo\s*>\s*\.lg-glass-filter\s*\{/.test(liquidGlass),
+ 'AI dropdown needs its own real backdrop refraction layer');
+console.log('ASTRO_AI_MENU_GLASS_PASS: no opaque wash, shared optical backdrop');
 
 for(const route of ['index.html','en/index.html']){
  const html=await read(route);

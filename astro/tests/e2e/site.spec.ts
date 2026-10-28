@@ -69,6 +69,44 @@ test('AI subnavigation supports Escape, keyboard and mobile click without clippi
  await expect(page).toHaveURL(/\/en\/prompts\/$/);
 });
 
+test('AI submenu has genuine three-layer Liquid Glass in both themes and languages', async ({page})=>{
+ for(const route of ['/','/en/','/skills/','/en/prompts/']){
+  await page.goto(route);
+  const trigger=page.locator('.site-header .nav-submenu-trigger');
+  await trigger.click();
+  const menu=page.locator('.site-header .ai-subnav');
+  await expect(menu).toBeVisible();
+  await expect(menu).toHaveClass(/liquid-demo/);
+  for(const theme of ['light','dark'] as const){
+   await page.evaluate(value=>document.documentElement.dataset.theme=value,theme);
+   const optics=await menu.evaluate(el=>{
+    const style=getComputedStyle(el);
+    const layer=(name:string)=>getComputedStyle(el.querySelector<HTMLElement>(':scope > .'+name)!);
+    const filter=layer('lg-glass-filter');
+    const overlay=layer('lg-glass-overlay');
+    const rim=layer('lg-glass-specular');
+    const rgba=style.backgroundColor.match(/^rgba?\(([^)]+)\)$/);
+    const alpha=rgba?(rgba[1].split(',').length===4?Number(rgba[1].split(',')[3]):1):0;
+    return {
+     alpha,
+     backdrop:filter.backdropFilter||filter.webkitBackdropFilter,
+     reflection:overlay.backgroundImage,
+     rim:rim.boxShadow,
+     z:style.zIndex,
+     parentOverflow:getComputedStyle(document.querySelector('.site-header')!).overflow
+    };
+   });
+   expect(optics.alpha,'Submenu must not carry an opaque white background').toBeLessThan(.1);
+   expect(optics.backdrop).toContain('blur(14px)');
+   expect(optics.reflection).toContain('linear-gradient');
+   expect(optics.rim).toContain('inset');
+   expect(optics.parentOverflow).toBe('visible');
+  }
+  const links=menu.locator('a');
+  await expect(links).toHaveCount(2);
+  await page.keyboard.press('Escape');
+ }
+});
 test('prompt library search, detail and share deep links work', async ({page}) => {
  await page.goto('/prompts/');
  await expect(page.locator('#library-view')).toBeVisible();
