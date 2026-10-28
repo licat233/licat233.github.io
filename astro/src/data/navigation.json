@@ -17,7 +17,8 @@
   {
     "key": "skills",
     "zh": "Skills",
-    "en": "Skills"
+    "en": "Skills",
+    "parent": "ai"
   },
   {
     "key": "blog",
@@ -27,6 +28,7 @@
   {
     "key": "prompts",
     "zh": "提示词",
-    "en": "Prompts"
+    "en": "Prompts",
+    "parent": "ai"
   }
 ]

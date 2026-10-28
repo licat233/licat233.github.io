@@ -9,7 +9,14 @@ for (const suffix of paths) {
       await page.goto(url, { waitUntil: 'domcontentloaded' });
       await expect(page.locator('html')).toHaveAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://licat233.github.io' + url);
-      await expect(page.locator('.site-header .nav-pill[aria-current="page"]')).toHaveAttribute('href', url);
+      const selected=page.locator(suffix==='skills/'||suffix==='prompts/'
+        ? '.site-header .ai-subnav [aria-current="page"]'
+        : '.site-header .nav-pill[aria-current="page"]');
+      await expect(selected).toHaveAttribute('href', url);
+      if(suffix==='skills/'||suffix==='prompts/'){
+        await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute(
+          'href',lang==='zh'?'/ai/':'/en/ai/');
+      }
       await expect(page.locator('.site-header .lang a[data-locale="zh"]')).toHaveAttribute('href', '/' + suffix);
       await expect(page.locator('.site-header .lang a[data-locale="en"]')).toHaveAttribute('href', '/en/' + suffix);
       await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://licat233.github.io/' + suffix);
