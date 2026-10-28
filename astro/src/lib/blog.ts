@@ -4,6 +4,6 @@ export const blogStyles = [
  '/assets/vendor/open-props/open-props-core-1.7.23.min.css',
  '/assets/portfolio.css?v=20261008-glass1',
  '/assets/site-header.css?v=20261028-ai-nav1',
- '/assets/portfolio-liquid-glass.css?v=20261010-perf1',
+ '/assets/portfolio-liquid-glass.css?v=20261028-ai-subnav-clip1',
  '/assets/blog.css?v=20261027',
 ] as const;

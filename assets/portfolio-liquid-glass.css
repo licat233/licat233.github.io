@@ -83,8 +83,10 @@
 
 /* Original semantic children always float above all three optical layers. */
 :root[data-theme="dark"] .liquid-demo:not(.hero-cta-dark) { background: transparent; }
+/* The header glass layers already inherit its rounded border. Keeping the
+ * header itself clipped would cut off the AI submenu, regardless of z-index. */
 .site-header.liquid-demo {
-  overflow: hidden;
+  overflow: visible;
 }
 .site-header.liquid-demo > .nav,
 .site-footer.liquid-demo > .footer-row,
