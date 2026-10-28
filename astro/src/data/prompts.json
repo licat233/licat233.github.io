@@ -3,7 +3,7 @@
     "id": "ai-natural-communication-v1.3.1",
     "category": "thinking",
     "companion": "ai-high-value-writing-audit-v1.1",
-    "translatedEnglish": false,
+    "translatedEnglish": true,
     "zh": {
       "title": "AI 说人话指南 V1.3.1",
       "label": "表达与思考",
@@ -34,7 +34,7 @@
     "id": "ai-high-value-writing-audit-v1.1",
     "category": "thinking",
     "companion": "ai-natural-communication-v1.3.1",
-    "translatedEnglish": false,
+    "translatedEnglish": true,
     "zh": {
       "title": "AI 高价值内容生成与自审指令 V1.1",
       "label": "表达与思考",
@@ -120,7 +120,7 @@
   {
     "id": "detailflow-ecommerce",
     "category": "design",
-    "translatedEnglish": false,
+    "translatedEnglish": true,
     "zh": {
       "title": "DetailFlow｜八屏电商详情图工作流",
       "label": "开发与设计",
@@ -148,7 +148,7 @@
   {
     "id": "ai-coding-minimal-defensive-v1",
     "category": "design",
-    "translatedEnglish": false,
+    "translatedEnglish": true,
     "zh": {
       "title": "AI 编程反过度防御与最小实现指令 V1.0",
       "label": "开发与设计",

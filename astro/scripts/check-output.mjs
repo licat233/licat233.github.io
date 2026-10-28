@@ -139,16 +139,16 @@ console.log('ASTRO_ARCHITECTURE_PASS: one document shell, shared bilingual cards
 const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));
 assert(prompts.length===16 && new Set(prompts.map(x=>x.id)).size===16,
  'Prompt metadata must contain 16 unique records');
-assert(prompts.some(x=>x.id==='ai-coding-minimal-defensive-v1' && x.category==='design' && x.translatedEnglish===false),
+assert(prompts.some(x=>x.id==='ai-coding-minimal-defensive-v1' && x.category==='design' && x.translatedEnglish===true),
  'Missing AI coding guideline in Astro prompt catalogue');
-assert(prompts.filter(x=>x.translatedEnglish).length===12,
+assert(prompts.filter(x=>x.translatedEnglish).length===prompts.length,
  'English prompt-content coverage changed');
 for(const lang of ['','en/']){
  const html=await read(lang+'prompts/index.html');
  const embedded=html.match(/<script\b[^>]*id="prompt-catalogue"[^>]*>([\s\S]*?)<\/script>/);
  assert(embedded,'Astro metadata script missing from '+lang+'prompt page');
  const parsed=JSON.parse(embedded[1]);
- assert(parsed.items.length===prompts.length && parsed.translatedEnglish.length===12,
+ assert(parsed.items.length===prompts.length && parsed.translatedEnglish.length===prompts.length,
   'Incomplete embedded prompt metadata '+lang);
  assert(parsed.items.map(x=>x.id).join(',')===prompts.map(x=>x.id).join(','),
   'SSR prompt IDs drifted from common catalogue '+lang);
@@ -164,7 +164,24 @@ try {
  await access(new URL('../src/data/prompt-previews.ts',import.meta.url));
  throw new Error('Redundant prompt-previews.ts reappeared');
 } catch(e) {if(e?.code!=='ENOENT') throw e}
-console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 16 localized records, 12 translations, SSR/client parity');
+// A catalogue flag is not evidence of a translation unless the published
+// English Markdown actually exists and contains one complete copyable body.
+for(const item of prompts){
+ assert(item.translatedEnglish===true,'Untranslated prompt in English catalogue: '+item.id);
+ const file=await read('en/prompts/content/'+item.id+'.md');
+ assert(file.length>300,'English prompt is empty or unexpectedly short: '+item.id);
+ assert((file.match(/<!-- prompt:begin -->/g)||[]).length===1 &&
+        (file.match(/<!-- prompt:end -->/g)||[]).length===1 &&
+        file.indexOf('<!-- prompt:begin -->')<file.indexOf('<!-- prompt:end -->'),
+        'English prompt copy boundaries missing or ambiguous: '+item.id);
+}
+for(const id of ['ai-natural-communication-v1.3.1','ai-high-value-writing-audit-v1.1',
+                 'detailflow-ecommerce','ai-coding-minimal-defensive-v1']){
+ const file=await read('en/prompts/content/'+id+'.md');
+ const body=file.split('<!-- prompt:begin -->')[1].split('<!-- prompt:end -->')[0];
+ assert(!/[\u3400-\u9fff]/.test(body),'New English prompt still contains Chinese body text: '+id);
+}
+console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 16 localized records, 16 real English prompt files, SSR/client parity');
 
 const preservedDemo=await read('demo/index.html');
 assert(preservedDemo.includes('name="robots" content="noindex,follow"'),

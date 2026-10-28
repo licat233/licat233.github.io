@@ -207,8 +207,8 @@
   $('#reset-search').addEventListener('click',()=>{search.value='';changeFilter('all');search.focus();});
   $('#back-link').addEventListener('click',()=>showLibrary());
   $('#back-bottom').addEventListener('click',()=>showLibrary());
-  $('#copy-btn').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Original prompt copied')));
-  $('#copy-bottom').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Original prompt copied')));
+  $('#copy-btn').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Full prompt copied')));
+  $('#copy-bottom').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Full prompt copied')));
   $('#share-btn').addEventListener('click',()=>copy(location.origin+location.pathname+'?p='+encodeURIComponent(currentId),t('独立分享链接已复制','Share link copied')));
   window.addEventListener('popstate',()=>{
     const id=new URLSearchParams(location.search).get('p');

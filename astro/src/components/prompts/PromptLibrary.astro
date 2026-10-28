@@ -28,7 +28,7 @@ const words={
     all:'All',agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration',
     noResults:'No matching prompts',noResultsHelp:'Try another query or select All.',reset:'Reset filters',
     back:'← Back to all prompts',copy:'Copy full prompt',share:'Copy share link',source:'GitHub source ↗',
-    reading:'Prompts are displayed in their original Chinese. Copying preserves the full original instruction text; headings and editorial notes outside the prompt boundary are excluded.',
+    reading:'The full English instructions are shown below. Copying excludes the display title, introduction, and editorial notes outside the prompt boundary.',
     loading:'Loading prompt…',other:'← Browse other prompts',copyBottom:'Copy this prompt ↑',
     brand:'Building useful systems for real problems.',home:'Home',locale:'中文',sourceFooter:'GitHub source code ↗',
     caption:'Think · Refine · Share',
@@ -77,7 +77,7 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
         <button class="filter" type="button" data-filter="learning" aria-pressed="false">{t.learning}</button>
       </div>
       <p id="result-status" class="result-status" aria-live="polite"></p>
-      {en&&<p class="result-status">{translatedIds.length} prompts have full English translations. The remaining {items.length-translatedIds.length} longer prompts are clearly marked as Chinese originals.</p>}
+      {en&&translatedIds.length!==items.length&&<p class="result-status">{translatedIds.length} prompts have full English translations; untranslated items are marked as Chinese originals.</p>}
       <div id="prompt-grid" class="prompt-grid">
         {items.map((item,i)=><a class="prompt-card" href={`?p=${item.id}`} data-open={item.id} aria-label={(en?'Read ':'阅读 ')+item.title}>
   <span class="card-kicker">{item.label} <span aria-hidden="true">/</span> {item.type}</span>

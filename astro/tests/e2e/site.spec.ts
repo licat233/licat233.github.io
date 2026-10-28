@@ -178,6 +178,32 @@ test('new coding guideline survives Astro catalogue, deep link and copy boundari
  await expect(page.locator('#prompt-grid [data-open="ai-coding-minimal-defensive-v1"]')).toBeVisible();
 });
 
+test('four newly localized prompts show English instructions and preserve language deep links', async ({page}) => {
+ const cases = [
+  ['ai-natural-communication-v1.3.1', 'Understand the purpose'],
+  ['ai-high-value-writing-audit-v1.1', 'what is worth saying'],
+  ['detailflow-ecommerce', 'Approval Gate 2'],
+  ['ai-coding-minimal-defensive-v1', 'Avoid repeated validation'],
+ ] as const;
+ for (const [id,phrase] of cases) {
+  await page.goto('/en/prompts/?p='+id);
+  await expect(page.locator('#detail-view')).toBeVisible();
+  await expect(page.locator('#prompt-article')).toContainText(phrase);
+  await expect(page.locator('#prompt-article')).not.toContainText('Original Chinese prompt.');
+  await expect(page.locator('#copy-btn')).toBeEnabled();
+  await expect(page.locator('#source-btn')).toHaveAttribute(
+   'href','https://github.com/licat233/licat233.github.io/blob/main/en/prompts/content/'+id+'.md');
+  const englishText=await page.locator('#prompt-article').innerText();
+  expect(/[\u3400-\u9fff]/.test(englishText),'English prompt should not include Chinese text').toBe(false);
+  await page.locator('.site-header .lang a[data-locale="zh"]').click();
+  await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/?p='+id);
+  await expect(page.locator('#copy-btn')).toBeEnabled();
+  await page.locator('.site-header .lang a[data-locale="en"]').click();
+  await expect(page).toHaveURL('http://127.0.0.1:4321/en/prompts/?p='+id);
+  await expect(page.locator('#prompt-article')).toContainText(phrase);
+ }
+});
+
 test('English prompt library displays its translated copy', async ({page}) => {
  await page.goto('/en/prompts/?p=agent-efficient-execution-v3');
  await expect(page.locator('#detail-view')).toBeVisible();
@@ -270,7 +296,7 @@ test('single Astro prompt catalogue powers SSR cards and search without second J
    const data=await page.locator('#prompt-catalogue').textContent();
    const payload=JSON.parse(data!);
    expect(payload.items).toHaveLength(16);
-   expect(payload.translatedEnglish).toHaveLength(12);
+   expect(payload.translatedEnglish).toHaveLength(16);
    await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(16);
    await page.locator('#search').fill(lang?'memory':'记忆');
    await expect(page.locator('#prompt-grid [data-open]').first()).toBeVisible();
