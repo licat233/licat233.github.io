@@ -69,6 +69,50 @@
     inset 0 0 7px rgba(221, 244, 255, .10);
 }
 
+/* AI submenu: reuse the same three GlassSurface layers, but keep the
+ * compact popover genuinely translucent. The header's opaque submenu tint
+ * previously hid the backdrop even though its glass layers were present.
+ * Avoid applying backdrop blur to the outer menu, which would create a nested
+ * backdrop root and prevent the inner refraction layer from seeing the page. */
+.site-header .ai-subnav.liquid-demo {
+  background: transparent;
+  box-shadow:
+    0 17px 38px rgba(21, 53, 76, .18),
+    0 4px 12px rgba(22, 56, 81, .09),
+    inset 0 1px 0 var(--lg-demo-rim);
+}
+.site-header .ai-subnav.liquid-demo > .lg-glass-filter {
+  -webkit-backdrop-filter: blur(14px) saturate(165%) brightness(1.04);
+  backdrop-filter: blur(14px) saturate(165%) brightness(1.04);
+}
+.site-header .ai-subnav.liquid-demo > .lg-glass-overlay {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .39), rgba(222, 244, 255, .10) 53%, rgba(125, 182, 214, .12)),
+    rgba(239, 250, 255, .07);
+}
+.site-header .ai-subnav.liquid-demo > .lg-glass-specular {
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, .92),
+    inset -1px -1px 0 rgba(165, 204, 226, .31),
+    inset 0 0 12px rgba(255, 255, 255, .20);
+}
+:root[data-theme="dark"] .site-header .ai-subnav.liquid-demo {
+  box-shadow: 0 17px 38px rgba(0, 0, 0, .36),
+              0 4px 12px rgba(0, 0, 0, .19),
+              inset 0 1px 0 rgba(225, 248, 255, .30);
+}
+:root[data-theme="dark"] .site-header .ai-subnav.liquid-demo > .lg-glass-overlay {
+  background:
+    linear-gradient(140deg, rgba(228, 246, 255, .12), rgba(63, 101, 125, .09) 48%, rgba(12, 25, 36, .19)),
+    rgba(18, 35, 46, .16);
+}
+:root[data-theme="dark"] .site-header .ai-subnav.liquid-demo > .lg-glass-specular {
+  box-shadow:
+    inset 1px 1px 0 rgba(220, 246, 255, .30),
+    inset -1px -1px 0 rgba(0, 0, 0, .29),
+    inset 0 0 10px rgba(190, 229, 250, .08);
+}
+
 /* Optical edge refraction is deliberately restricted to compact, reusable controls.
  * Broad bento panels keep standard blur to avoid large filtered repaint areas. */
 @supports (filter: url("#portfolioLensFilter")) {
