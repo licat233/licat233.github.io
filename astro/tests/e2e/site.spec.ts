@@ -47,6 +47,21 @@ test('AI subnavigation supports Escape, keyboard and mobile click without clippi
  });
  expect(position.width).toBeGreaterThan(100);
  expect(position.overlap).toBeGreaterThan(0);
+ // Bounding boxes can extend outside their container but still be paint-clipped.
+ const hitTest=await menu.evaluate(el=>{
+   const header=document.querySelector<HTMLElement>('.site-header')!;
+   const links=[...el.querySelectorAll<HTMLAnchorElement>('a')];
+   return {
+     headerOverflow:getComputedStyle(header).overflow,
+     reachable:links.map(link=>{
+       const r=link.getBoundingClientRect();
+       const target=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);
+       return target===link || link.contains(target);
+     })
+   };
+ });
+ expect(hitTest.headerOverflow).toBe('visible');
+ expect(hitTest.reachable).toEqual([true,true]);
  await page.keyboard.press('Escape');
  await expect(menu).toBeHidden();
  await trigger.click();
