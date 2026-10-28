@@ -3,6 +3,7 @@ import HomeSections from '../HomeSections.astro';
 import FeaturedProjects from './FeaturedProjects.astro';
 import HomeSkills from './HomeSkills.astro';
 import GlassSurface from '../GlassSurface.astro';
+import promptCatalogue from '../../data/prompts.json';
 ---
 <main id="top">
     <section class="hero-wrap">
@@ -182,8 +183,8 @@ import GlassSurface from '../GlassSurface.astro';
           <div>
             <span class="prompt-showcase-kicker">THE PROMPT LIBRARY / CURATED NOTES</span>
             <h2>Better prompts. Better work.</h2>
-            <p>A collection of 15 practical, reusable prompts I have gathered and refined: clear AI communication, independent thinking, agent execution, Codex workflows and visual design. Original entries are in Chinese.</p>
-            <span class="prompt-showcase-cta">Explore all 15 prompts ↗</span>
+            <p>A collection of {promptCatalogue.length} practical, reusable prompts I have gathered and refined: clear AI communication, independent thinking, agent execution, Codex workflows and visual design. Original entries are in Chinese.</p>
+            <span class="prompt-showcase-cta">Explore all {promptCatalogue.length} prompts ↗</span>
           </div>
           <div class="prompt-showcase-art" aria-hidden="true"><span>{'{ / }'}</span></div>
         </a>
