@@ -6,6 +6,7 @@ const core=[
  ['index.html','zh','home'],['en/index.html','en','home'],
  ['projects/index.html','zh','projects'],['en/projects/index.html','en','projects'],
  ['skills/index.html','zh','skills'],['en/skills/index.html','en','skills'],
+ ['ai/index.html','zh','ai'],['en/ai/index.html','en','ai'],
  ['blog/index.html','zh','blog'],['en/blog/index.html','en','blog'],
  ['prompts/index.html','zh','prompts'],['en/prompts/index.html','en','prompts'],
  ['blog/publish-markdown-notes/index.html','zh','blog'],
@@ -179,6 +180,18 @@ for(const route of ['projects/index.html','en/projects/index.html','skills/index
 }
 console.log('ASTRO_DIRECTORY_GLASS_PASS: projects and Skills share existing Liquid Glass optics');
 
+for (const [route,lang] of [['ai/index.html','zh'],['en/ai/index.html','en']]) {
+ const html=await read(route);
+ assert(html.includes('AI '+(lang==='zh'?'开发工具箱':'Developer Toolkit')),'Toolkit heading absent '+route);
+ assert((html.match(/class="site-section-card liquid-demo apple-glass-base apple-glass-regular"/g)||[]).length===5,
+  'Public AI hub must have five shared material cards: '+route);
+ for(const dest of [lang==='zh'?'/skills/':'/en/skills/',lang==='zh'?'/prompts/':'/en/prompts/'])
+  assert(html.includes('href="'+dest+'"'),'Toolkit destination missing '+dest+' on '+route);
+ assert(html.includes('href="'+(lang==='zh'?'/en/ai/':'/ai/')+'"'),'Toolkit language counterpart absent '+route);
+}
+console.log('ASTRO_AI_TOOLBOX_HUB_PASS: public bilingual hub, real destinations, shared glass');
+
+
 const sourceDir=new URL('../src/',import.meta.url);
 async function inspectAstroTemplates(dir,relative=''){
  const {readdir}=await import('node:fs/promises');
@@ -201,7 +214,7 @@ async function inspectAstroTemplates(dir,relative=''){
 }
 await inspectAstroTemplates(sourceDir);
 for(const route of ['index.html','en/index.html','projects/index.html','en/projects/index.html',
-                    'skills/index.html','en/skills/index.html','blog/index.html','prompts/index.html']){
+                    'skills/index.html','en/skills/index.html','ai/index.html','en/ai/index.html','blog/index.html','prompts/index.html']){
  const html=await read(route);
  assert(html.includes('/assets/portfolio-liquid-glass.css?v=20261010-perf1'),
    'Glass material stylesheet missing from '+route);
