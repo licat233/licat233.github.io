@@ -270,10 +270,22 @@
   box-shadow: 0 0 0 2px rgba(22, 138, 171, .12);
   opacity: 1;
 }
-/* The selected item must still read as selected before nav JS initializes. */
+/* The AI label and disclosure chevron share one continuous selection glass.
+ * The JS indicator follows the outer group, not the anchor's narrower box. */
+.site-header .nav-group:has(.nav-pill.active) .nav-submenu-trigger { color: #173240; }
+/* The pre-JS fallback must also cover BOTH controls, not just the link. */
 .site-header .nav-links:not(.nav-ready) .nav-pill.active {
   background: rgba(255, 255, 255, .52);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7);
+}
+.site-header .nav-links:not(.nav-ready) .nav-group:has(.nav-pill.active) {
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, .52);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7);
+}
+.site-header .nav-links:not(.nav-ready) .nav-group .nav-pill.active {
+  background: transparent;
+  box-shadow: none;
 }
 :root[data-theme="dark"] .site-header .nav-links .nav-indicator {
   border-color: rgba(227, 244, 255, .39);
@@ -296,9 +308,15 @@
   background: #68cadb;
   box-shadow: 0 0 0 2px rgba(104, 202, 219, .12);
 }
-:root[data-theme="dark"] .site-header .nav-links:not(.nav-ready) .nav-pill.active {
+:root[data-theme="dark"] .site-header .nav-group:has(.nav-pill.active) .nav-submenu-trigger { color: #f1fbff; }
+:root[data-theme="dark"] .site-header .nav-links:not(.nav-ready) .nav-pill.active,
+:root[data-theme="dark"] .site-header .nav-links:not(.nav-ready) .nav-group:has(.nav-pill.active) {
   background: rgba(194, 227, 242, .18);
   box-shadow: inset 0 0 0 1px rgba(227, 244, 255, .26);
+}
+:root[data-theme="dark"] .site-header .nav-links:not(.nav-ready) .nav-group .nav-pill.active {
+  background: transparent;
+  box-shadow: none;
 }
 /* Accessibility overrides retain the same contrast and forced-color semantics. */
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
@@ -326,11 +344,14 @@
     backdrop-filter: none;
   }
   .site-header .nav-pill.active { color: HighlightText; }
+  .site-header .nav-group:has(.nav-pill.active) .nav-submenu-trigger { color: HighlightText; }
   .site-header .nav-pill.active > span { background: HighlightText; box-shadow: none; }
-  .site-header .nav-links:not(.nav-ready) .nav-pill.active {
+  .site-header .nav-links:not(.nav-ready) .nav-pill.active,
+  .site-header .nav-links:not(.nav-ready) .nav-group:has(.nav-pill.active) {
     background: Highlight;
     box-shadow: none;
   }
+  .site-header .nav-links:not(.nav-ready) .nav-group .nav-pill.active { background: transparent; }
 }
 /* Optical glass clarity study v4: moderate frost for text contrast.
    Keep the Demo-derived refractive edge and cached Hero WebP; increase only
