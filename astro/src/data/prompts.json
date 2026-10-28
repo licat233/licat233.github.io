@@ -61,6 +61,39 @@
     }
   },
   {
+    "id": "ai-agent-minimal-necessary-execution-v1",
+    "category": "agent",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "AI Agent 最小必要执行原则 V1.0",
+      "label": "Agent 与工作流",
+      "type": "轻量执行约束 · 6 条",
+      "summary": "以六条强制约束防止任务漂移、过度设计、假想防御和反复验证；完成用户要求后立即停止。",
+      "tags": [
+        "AI Agent",
+        "最小必要执行",
+        "任务防漂移",
+        "反过度设计",
+        "最小验证",
+        "完成即停"
+      ]
+    },
+    "en": {
+      "title": "Minimum Necessary Execution Principles for AI Agents V1.0",
+      "label": "Agents & Workflows",
+      "type": "Mandatory rules · 6 principles",
+      "summary": "Six concise rules to prevent task drift, overengineering, speculative defenses, and unnecessary verification—stop when the task is done.",
+      "tags": [
+        "AI agents",
+        "minimal execution",
+        "task focus",
+        "overengineering",
+        "verification",
+        "stop when done"
+      ]
+    }
+  },
+  {
     "id": "agent-efficient-execution-v3",
     "category": "agent",
     "translatedEnglish": true,
