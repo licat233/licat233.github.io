@@ -14,6 +14,10 @@
   const routesNode=document.getElementById('prompt-locale-routes');
   if(!routesNode)throw new Error('Astro localized URLs missing');
   const localeRoutes=JSON.parse(routesNode.textContent);
+  const promptUrl=(lang,id)=>localeRoutes[lang]+encodeURIComponent(id)+'/';
+  const ownLang=isEnglish?'en':'zh';
+  const ssrNode=document.getElementById('prompt-initial-content');
+  const ssrPrompt=ssrNode?JSON.parse(ssrNode.textContent):null;
   const categoryLabel=isEnglish?{agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration'}:{agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索'};
   const byId=new Map(catalogue.map(item=>[item.id,item]));
   const legacyIds={'ai-natural-communication-v1.3':'ai-natural-communication-v1.3.1'};
@@ -101,7 +105,7 @@
 
   function card(item,index){
     const classes='prompt-card';
-    return '<a class="'+classes+'" href="?p='+item.id+'" data-open="'+item.id+'" aria-label="'+t('阅读 ','Read ')+esc(item.title)+'">'+
+    return '<a class="'+classes+'" href="'+promptUrl(ownLang,item.id)+'" data-open="'+item.id+'" aria-label="'+t('阅读 ','Read ')+esc(item.title)+'">'+
       '<span class="card-kicker">'+esc(item.label)+' <span aria-hidden="true">/</span> '+esc(item.type)+'</span>'+
       '<h3>'+esc(item.title)+'</h3><p>'+esc(item.summary)+'</p>'+
       '<div class="card-foot"><span class="card-cta">'+t('阅读并复制','Read & copy')+' <span aria-hidden="true">↗</span></span><span class="card-count">'+String(index+1).padStart(2,'0')+' / '+catalogue.length+'</span></div></a>';
@@ -121,7 +125,7 @@
     filters.forEach(el=>{const selected=el.dataset.filter===next;el.classList.toggle('active',selected);el.setAttribute('aria-pressed',String(selected));});
     showCards();
   }
-  function showLibrary(updateUrl=true){
+  function showLibrary(){
     loadToken++;
     currentId=null;
     currentContent='';
@@ -129,14 +133,13 @@
     detail.hidden=true;
     library.hidden=false;
     document.title=t('AI 提示词库 · Prompt Library — Licat','AI Prompt Library — Licat');
-    if(updateUrl)history.pushState({},'',location.pathname);
     showCards();
     scrollTo({top:0,behavior:'auto'});
   }
-  async function showDetail(id,updateUrl=true){
+  async function showDetail(id){
     const resolvedId=resolveId(id);
     const item=byId.get(resolvedId);
-    if(!item){showLibrary(updateUrl);return;}
+    if(!item){showLibrary();return;}
     id=resolvedId;
     currentId=id;currentContent='';
     setLocaleLinks(id);
@@ -149,13 +152,18 @@
     $('#detail-summary').textContent=item.summary;
     const companion=item.companion&&byId.get(item.companion);
     $('#detail-tags').innerHTML=item.tags.map(t=>'<span class="detail-tag">'+esc(t)+'</span>').join('')+
-      (companion?'<a class="detail-tag" href="'+localeRoutes[isEnglish?'en':'zh']+'?p='+encodeURIComponent(companion.id)+'" title="'+t('阅读配套提示词','Read companion prompt')+'">'+t('配套阅读：','Related: ')+esc(companion.title)+' ↗</a>':'');
+      (companion?'<a class="detail-tag" href="'+promptUrl(ownLang,companion.id)+'" title="'+t('阅读配套提示词','Read companion prompt')+'">'+t('配套阅读：','Related: ')+esc(companion.title)+' ↗</a>':'');
     $('#source-btn').href='https://github.com/licat233/licat233.github.io/blob/main/'+(isEnglish&&translatedEnglish.has(id)?'en/prompts/content/':'prompts/content/')+id+'.md';
-    article.innerHTML='<p>'+t('正在载入完整内容…','Loading full prompt…')+'</p>';
+    if(ssrPrompt?.id!==id)article.innerHTML='<p>'+t('正在载入完整内容…','Loading full prompt…')+'</p>';
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
-    document.title=item.title+' — Licat Prompt Library';
-    if(updateUrl)history.pushState({},'',location.pathname+'?p='+encodeURIComponent(id));
-    else if(new URLSearchParams(location.search).get('p')!==id)history.replaceState({},'',location.pathname+'?p='+encodeURIComponent(id));
+    document.title=item.title+' — Licat Prompts';
+    // Detail routes contain prerendered HTML; reuse the exact Markdown body
+    // for copy without flashing "Loading" or fetching the same file again.
+    if(ssrPrompt?.id===id){
+      currentContent=ssrPrompt.content;
+      $('#copy-btn').disabled=false;$('#copy-bottom').disabled=false;
+      return;
+    }
     scrollTo({top:0,behavior:'auto'});
     try{
       const path=(isEnglish&&translatedEnglish.has(id)?'/en/prompts/content/':'/prompts/content/');
@@ -194,31 +202,32 @@
     document.querySelectorAll('.site-header .lang a').forEach(a=>{
       const url=localeRoutes[a.dataset.locale];
       if(!url)return;
-      a.href=url+(id?'?p='+encodeURIComponent(id):'');
+      a.href=id?promptUrl(a.dataset.locale,id):url;
     });
   };
   search.addEventListener('input',showCards);
   filters.forEach(el=>el.addEventListener('click',()=>changeFilter(el.dataset.filter)));
-  grid.addEventListener('click',event=>{
-    const link=event.target.closest('[data-open]');
-    if(!link||event.defaultPrevented||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
-    event.preventDefault();showDetail(link.dataset.open);
-  });
+  // Real links navigate to dedicated static HTML pages. Do not intercept
+  // them into a query-parameter SPA; each detail has unique canonical metadata.
   $('#reset-search').addEventListener('click',()=>{search.value='';changeFilter('all');search.focus();});
-  $('#back-link').addEventListener('click',()=>showLibrary());
-  $('#back-bottom').addEventListener('click',()=>showLibrary());
+  $('#back-link').addEventListener('click',()=>location.assign(localeRoutes[ownLang]));
+  $('#back-bottom').addEventListener('click',()=>location.assign(localeRoutes[ownLang]));
   $('#copy-btn').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Full prompt copied')));
   $('#copy-bottom').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Full prompt copied')));
-  $('#share-btn').addEventListener('click',()=>copy(location.origin+location.pathname+'?p='+encodeURIComponent(currentId),t('独立分享链接已复制','Share link copied')));
-  window.addEventListener('popstate',()=>{
-    const id=new URLSearchParams(location.search).get('p');
-    if(id&&byId.has(resolveId(id)))showDetail(id,false);else showLibrary(false);
-  });
+  $('#share-btn').addEventListener('click',()=>copy(location.origin+promptUrl(ownLang,currentId),t('独立分享链接已复制','Share link copied')));
   document.addEventListener('keydown',event=>{
     if(event.key!=='/'||event.ctrlKey||event.metaKey||event.altKey||library.hidden)return;
     if(/^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName||''))return;
     event.preventDefault();search.focus();
   });
-  const initial=new URLSearchParams(location.search).get('p');
-  if(initial&&byId.has(resolveId(initial)))showDetail(initial,false);else showLibrary(false);
+  // GitHub Pages cannot issue a server-side 301 based on ?p=.
+  // Keep old shared links working with a client-side replacement redirect.
+  const legacy=new URLSearchParams(location.search).get('p');
+  const normalized=legacy&&resolveId(legacy);
+  if(normalized&&byId.has(normalized)&&!ssrPrompt){
+    location.replace(promptUrl(ownLang,normalized));
+    return;
+  }
+  if(ssrPrompt&&byId.has(ssrPrompt.id))showDetail(ssrPrompt.id);
+  else showLibrary();
 })();

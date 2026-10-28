@@ -1,8 +1,24 @@
 ---
-import { localeUrl, type Lang } from '../../lib/site';
+import { localeUrl, localizedPath, type Lang } from '../../lib/site';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
 import promptCatalogue from '../../data/prompts.json';
-interface Props {lang: Lang}
-const {lang}=Astro.props;
+interface Props {lang: Lang;initialId?:string}
+const {lang,initialId}=Astro.props;
+const selected=initialId ? promptCatalogue.find(item=>item.id===initialId) : undefined;
+if(initialId && !selected) throw new Error('Unknown prompt ID: '+initialId);
+const initialBody=selected ? await readFile(path.resolve(process.cwd(),'../',
+ lang==='en'?'en/prompts/content':'prompts/content',selected.id+'.md'),'utf8') : '';
+const begin='<!-- prompt:begin -->',end='<!-- prompt:end -->';
+const copyText=selected ? initialBody.split(begin)[1]?.split(end)[0]?.trim() : '';
+if(selected && (!copyText || initialBody.split(begin).length!==2 || initialBody.split(end).length!==2))
+ throw new Error('Invalid prompt copy boundaries: '+selected.id);
+// Preserve the catalogue's horizontal-scroll table treatment on static detail pages.
+const rendered=copyText ? (await (await createSatteriMarkdownProcessor({syntaxHighlight:false})).render(copyText)).code
+  .replace(/<table\b[\s\S]*?<\/table>/g, html=>'<div class="table-scroll">'+html+'</div>') : '';
+const initialPayload=JSON.stringify({id:initialId,content:copyText}).replace(/</g,'\u003c');
+const selectedMeta=selected?.[lang];
 const en=lang==='en';
 const words={
   zh:{
@@ -46,9 +62,10 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
 <script type="application/json" id="prompt-catalogue" set:html={cataloguePayload}></script>
 <script type="application/json" id="prompt-locale-routes"
   set:html={JSON.stringify({zh:localeUrl('zh','prompts'),en:localeUrl('en','prompts')})}></script>
+{selected&&<script type="application/json" id="prompt-initial-content" set:html={initialPayload}></script>}
 <div class="page-glow" aria-hidden="true"></div>
-<main id="main">
-  <section class="library-view" id="library-view" aria-labelledby="page-title">
+<main id="main" data-prompt-id={initialId}>
+  <section class="library-view" id="library-view" hidden={Boolean(selected)} aria-labelledby="page-title">
     <div class="shell">
       <div class="hero">
         <div class="hero-copy">
@@ -79,7 +96,7 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
       <p id="result-status" class="result-status" aria-live="polite"></p>
       {en&&translatedIds.length!==items.length&&<p class="result-status">{translatedIds.length} prompts have full English translations; untranslated items are marked as Chinese originals.</p>}
       <div id="prompt-grid" class="prompt-grid">
-        {items.map((item,i)=><a class="prompt-card" href={`?p=${item.id}`} data-open={item.id} aria-label={(en?'Read ':'阅读 ')+item.title}>
+        {items.map((item,i)=><a class="prompt-card" href={localizedPath(lang,'prompts',item.id)} data-open={item.id} aria-label={(en?'Read ':'阅读 ')+item.title}>
   <span class="card-kicker">{item.label} <span aria-hidden="true">/</span> {item.type}</span>
   <h3>{item.title}</h3><p>{item.summary}</p>
   <div class="card-foot"><span class="card-cta">{en?'Read & copy':'阅读并复制'} <span aria-hidden="true">↗</span></span><span class="card-count">{String(i+1).padStart(2,'0')} / {items.length}</span></div>
@@ -89,13 +106,13 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
       <div class="library-end"><span>✦</span> LESS NOISE, MORE VALUE. <span>✦</span></div>
     </div>
   </section>
-  <section class="detail-view" id="detail-view" hidden aria-labelledby="detail-title">
+  <section class="detail-view" id="detail-view" hidden={!selected} aria-labelledby="detail-title">
     <div class="shell detail-shell">
       <button class="back-link" id="back-link" type="button">{t.back}</button>
       <div class="detail-header">
         <div class="detail-topline"><span class="detail-type" id="detail-type">AI PROMPT</span><span class="detail-index" id="detail-index"></span></div>
-        <h1 id="detail-title"></h1>
-        <p class="detail-summary" id="detail-summary"></p>
+        <h1 id="detail-title">{selectedMeta?.title}</h1>
+        <p class="detail-summary" id="detail-summary">{selectedMeta?.summary}</p>
         <div class="detail-tags" id="detail-tags"></div>
         <div class="detail-actions">
           <button id="copy-btn" class="action-primary" type="button">{t.copy} <span aria-hidden="true">↗</span></button>
@@ -105,7 +122,7 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
       </div>
       <div class="reading-layout">
         <div class="reading-margin"><span>THE FULL PROMPT</span><div class="reading-line"></div><p>{t.reading}</p></div>
-        <article class="prompt-article" id="prompt-article"><p>{t.loading}</p></article>
+        <article class="prompt-article" id="prompt-article" set:html={selected?rendered:'<p>'+t.loading+'</p>'}></article>
       </div>
       <div class="detail-bottom"><button type="button" id="back-bottom">{t.other}</button><button type="button" id="copy-bottom">{t.copyBottom}</button></div>
     </div>
@@ -113,7 +130,7 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
 </main>
 <footer class="site-bottom"><div class="shell footer-row">
   <div class="footer-identity"><img src="/assets/licat-logo.svg" alt=""/><span><strong>LICAT / 233</strong><small>{t.brand}</small></span></div>
-  <div class="footer-links"><a href={localeUrl(lang,'home')}>{t.home}</a><a href={localeUrl(en?'zh':'en','prompts')}>{t.locale}</a><a href="https://github.com/licat233/licat233.github.io/tree/main/prompts" target="_blank" rel="noopener noreferrer">{t.sourceFooter}</a></div>
+  <div class="footer-links"><a href={localeUrl(lang,'home')}>{t.home}</a><a href={selected?localizedPath(en?'zh':'en','prompts',selected.id):localeUrl(en?'zh':'en','prompts')}>{t.locale}</a><a href="https://github.com/licat233/licat233.github.io/tree/main/prompts" target="_blank" rel="noopener noreferrer">{t.sourceFooter}</a></div>
   <small class="footer-caption">{t.caption}</small>
 </div></footer>
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">

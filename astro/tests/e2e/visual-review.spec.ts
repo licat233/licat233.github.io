@@ -14,7 +14,7 @@ test('capture Astro release candidate visuals for manual Jekyll comparison',asyn
   {url:'/skills/',name:'skills-zh'},
   {url:'/blog/',name:'blog-zh'},
   {url:'/prompts/',name:'prompts-zh'},
-  {url:'/prompts/?p=agent-efficient-execution-v3',name:'prompts-detail-zh'},
+  {url:'/prompts/agent-efficient-execution-v3/',name:'prompts-detail-zh'},
   {url:'/eao/',name:'eao-zh'},
   {url:'/toolscout/en/',name:'toolscout-en'},
  ];
@@ -23,7 +23,7 @@ test('capture Astro release candidate visuals for manual Jekyll comparison',asyn
    await page.goto(item.url,{waitUntil:'domcontentloaded'});
    await page.evaluate(()=>document.fonts.ready);
    await expect(page.locator('body')).toBeAttached();
-   if(item.url.includes('?p='))await expect(page.locator('#prompt-article')).not.toBeEmpty();
+   if(item.url.includes('/prompts/agent-efficient-execution-v3/'))await expect(page.locator('#prompt-article')).not.toBeEmpty();
    await page.screenshot({path:path.join(folder,item.name+'.png'),animations:'disabled',fullPage:false});
  }
 });

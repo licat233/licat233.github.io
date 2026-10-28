@@ -1,16 +1,22 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import { localeUrl, type Lang } from '../lib/site';
+import { localeUrl, localizedPath, type Lang } from '../lib/site';
 import promptCatalogue from '../data/prompts.json';
-interface Props {lang:Lang;kind:'home'|'prompts'}
-const {lang,kind}=Astro.props;
+interface Props {lang:Lang;kind:'home'|'prompts';promptId?:string}
+const {lang,kind,promptId}=Astro.props;
+const prompt=promptId ? promptCatalogue.find(item=>item.id===promptId) : undefined;
+if(promptId && !prompt) throw new Error('Unknown prompt ID: '+promptId);
 const en=lang==='en',home=kind==='home';
-const title=home?(en?'Licat — Builder & Developer':'Licat — 开发者与系统构建者'):(en?'AI Prompt Library — Licat':'AI 提示词库 · Prompt Library — Licat');
+const title=home ? (en?'Licat — Builder & Developer':'Licat — 开发者与系统构建者')
+  : prompt ? (prompt[lang].title+' — Licat Prompts')
+  : (en?'AI Prompt Library — Licat':'AI 提示词库 · Prompt Library — Licat');
 const description=home
  ? (en?'Licat — developer building practical AI systems, developer tools and automation.':'Licat — 构建实用 AI 系统、开发者工具与自动化。')
- : (en?`${promptCatalogue.length} curated AI prompts for agent workflows, writing, development and critical thinking; some long prompts remain in their original Chinese.`:`Licat 的 AI 提示词库：${promptCatalogue.length} 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与工作流。支持分类搜索、一键复制和独立分享。`);
-const canonical=localeUrl(lang,kind);
-const zhHref=localeUrl('zh',kind),enHref=localeUrl('en',kind);
+ : prompt ? prompt[lang].summary
+ : (en?`${promptCatalogue.length} curated AI prompts covering agents, writing, development, design, and critical thinking.`:`Licat 的 AI 提示词库：${promptCatalogue.length} 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与工作流。支持分类搜索、一键复制和独立分享。`);
+const canonical=prompt ? localizedPath(lang,'prompts',prompt.id) : localeUrl(lang,kind);
+const zhHref=prompt ? localizedPath('zh','prompts',prompt.id) : localeUrl('zh',kind);
+const enHref=prompt ? localizedPath('en','prompts',prompt.id) : localeUrl('en',kind);
 const styles=home?[
  '/assets/vendor/open-props/open-props-core-1.7.23.min.css',
  '/assets/portfolio.css?v=20261008-glass1',
@@ -31,6 +37,6 @@ const styles=home?[
 <BaseLayout {lang} active={kind} {title} {description} {canonical} {zhHref} {enHref}
             {styles} exactTitle={true} includeSiteNavScript={false} includeLensFilter={false}
             pageClass={home?'':'prompts-page'}>
-  {!home && <script slot="head" is:inline defer src="/prompts/prompt-library.js?v=20261027-arch1"></script>}
+  {!home && <script slot="head" is:inline defer src="/prompts/prompt-library.js?v=20261028-routes1"></script>}
   <slot />
 </BaseLayout>
