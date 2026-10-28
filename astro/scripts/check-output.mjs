@@ -157,9 +157,18 @@ for(const route of ['blog/index.html','en/blog/index.html','blog/website-seo-geo
 }
 console.log('ASTRO_BLOG_SHELL_PARITY_PASS: original footer and styles present');
 
+const {readdir:readDirectories}=await import('node:fs/promises');
+const skillFolders=(await readDirectories(new URL('../../skills/',import.meta.url),{withFileTypes:true}))
+ .filter(entry=>entry.isDirectory()&&/^[a-z0-9][a-z0-9-]{0,79}$/.test(entry.name))
+ .map(entry=>entry.name);
+const skillSources=[];
+for(const name of skillFolders){
+ try{await access(new URL('../../skills/'+name+'/SKILL.md',import.meta.url));skillSources.push(name)}
+ catch(error){if(error.code!=='ENOENT')throw error}
+}
 for(const route of ['projects/index.html','en/projects/index.html','skills/index.html','en/skills/index.html']){
  const html=await read(route);
- const expected=route.includes('projects')?8:2;
+ const expected=route.includes('projects')?8:skillSources.length;
  assert((html.match(/class="site-section-card liquid-demo apple-glass-base apple-glass-regular"/g)||[]).length===expected,
    'Missing material classes on '+route);
  for(const layer of ['lg-glass-filter','lg-glass-overlay','lg-glass-specular']){
@@ -198,3 +207,20 @@ for(const route of ['index.html','en/index.html','projects/index.html','en/proje
    'Glass material stylesheet missing from '+route);
 }
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');
+
+for(const route of ['index.html','en/index.html']){
+ const html=await read(route);
+ assert(!html.includes('portfolio-skills.js'),
+  'Astro homepage must not load obsolete visitor-side GitHub Skills API discovery');
+ for(const name of skillSources)assert(html.includes(name),
+  'Locally published SKILL.md was not discovered during build: '+name+' on '+route);
+ const count=(html.match(/<article\s+class="[^"]*\bskill-card\b[^"]*"/g)||[]).length;
+ assert(count===skillSources.length,
+  'Skills catalogue/visible card count drift: '+route+' ('+count+'/'+skillSources.length+')');
+}
+const githubSVG=await source('src/components/SiteHeader.astro');
+assert(githubSVG.includes('M12 .297a12 12 0 0 0-3.793'),
+ 'Known valid GitHub SVG path must be used');
+assert(!githubSVG.includes('7.75-10.76C23.25'),
+ 'Previously broken GitHub SVG path has reappeared');
+console.log('ASTRO_CONSOLE_ERRORS_GUARD_PASS: valid GitHub icon; '+skillSources.length+' build-time Skills; no browser REST dependency');
