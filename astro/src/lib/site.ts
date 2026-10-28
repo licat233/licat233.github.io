@@ -1,6 +1,6 @@
 import entries from '../data/navigation.json';
 export type Lang = 'zh' | 'en';
-export type NavKey = 'home' | 'projects' | 'skills' | 'blog' | 'prompts';
+export type NavKey = 'home' | 'projects' | 'ai' | 'skills' | 'blog' | 'prompts';
 export const origin = 'https://licat233.github.io';
 interface NavItem {key:NavKey;zh:string;en:string;zhUrl:string;enUrl:string}
 export const nav: readonly NavItem[] = entries as NavItem[];
