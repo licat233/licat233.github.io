@@ -18,10 +18,10 @@ test('Jekyll article text, heading structure and canonical URLs survive Astro mi
  // than requiring byte-for-byte equality with the previously published prose.
  const revisedGuides=new Map([
   ['/blog/publish-markdown-notes/',{
-   title:'如何用 Astro + GitHub Pages 发布 Markdown 博客',section:'文章放在哪里？'}],
+   title:'我是如何用 Markdown 发布博客的',section:'写一篇 Markdown'}],
   ['/en/blog/publish-markdown-notes/',{
-   title:'How to Publish Markdown Posts with Astro and GitHub Pages',
-   section:'Where do posts live?'}],
+   title:'How I Publish Blog Posts with Markdown',
+   section:'Write a Markdown post'}],
  ]);
  const clean=(v:string)=>v.replace(/\s+/g,'').replace(/\u00a0/g,'');
  try{
