@@ -1,3 +1,25 @@
+test('AI toolkit links real published sources in both languages and preserves glass',async ({page})=>{
+ for(const route of ['/ai/','/en/ai/']){
+   await page.goto(route);
+   await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href',route);
+   const cards=page.locator('.site-section-grid > a.site-section-card');
+   await expect(cards).toHaveCount(5);
+   for(const card of await cards.all()){
+     await expect(card).toHaveClass(/\\bliquid-demo\\b/);
+     for(const name of ['lg-glass-filter','lg-glass-overlay','lg-glass-specular'])
+       await expect(card.locator(':scope > .'+name)).toHaveCount(1);
+   }
+   const en=route.startsWith('/en/');
+   await expect(cards.nth(0)).toHaveAttribute('href',en?'/en/skills/':'/skills/');
+   await expect(cards.nth(1)).toHaveAttribute('href',en?'/en/prompts/':'/prompts/');
+   await expect(cards.nth(2)).toHaveAttribute('href',en?'/toolscout/en/':'/toolscout/zh/');
+   await expect(cards.nth(3)).toHaveAttribute('href',en?'/eao/en/':'/eao/');
+   await expect(cards.nth(4)).toHaveAttribute('href',en?'/armor-memory/':'/armor-memory/zh/');
+   await expect(page.locator('.site-header .lang a').filter({hasText:en?'中':'EN'}))
+     .toHaveAttribute('href',en?'/ai/':'/en/ai/');
+ }
+});
+
 import { test, expect } from '@playwright/test';
 import { readdir, access } from 'node:fs/promises';
 import path from 'node:path';
@@ -13,7 +35,7 @@ const discoveredSkillCountPromise=(async ()=>{
 
 test('global navigation routes and selected state work', async ({page}) => {
  await page.goto('/');
- await expect(page.locator('.site-header .nav-pill')).toHaveCount(5);
+ await expect(page.locator('.site-header .nav-pill')).toHaveCount(6);
  await expect(page.locator('#journey')).toBeAttached();
  await expect(page.locator('.home-section-nav a[href="#journey"]')).toBeVisible();
  await page.locator('.site-header .nav-pill[href="/prompts/"]').click();
