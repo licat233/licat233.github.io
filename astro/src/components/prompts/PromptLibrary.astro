@@ -1,5 +1,5 @@
 ---
-import type { Lang } from '../../lib/site';
+import { localeUrl, type Lang } from '../../lib/site';
 import promptCatalogue from '../../data/prompts.json';
 interface Props {lang: Lang}
 const {lang}=Astro.props;
@@ -44,6 +44,8 @@ const translatedIds=promptCatalogue.filter(item=>item.translatedEnglish).map(ite
 const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).replace(/</g,'\\u003c');
 ---
 <script type="application/json" id="prompt-catalogue" set:html={cataloguePayload}></script>
+<script type="application/json" id="prompt-locale-routes"
+  set:html={JSON.stringify({zh:localeUrl('zh','prompts'),en:localeUrl('en','prompts')})}></script>
 <div class="page-glow" aria-hidden="true"></div>
 <main id="main">
   <section class="library-view" id="library-view" aria-labelledby="page-title">
@@ -111,7 +113,7 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
 </main>
 <footer class="site-bottom"><div class="shell footer-row">
   <div class="footer-identity"><img src="/assets/licat-logo.svg" alt=""/><span><strong>LICAT / 233</strong><small>{t.brand}</small></span></div>
-  <div class="footer-links"><a href={en?'/en/':'/zh/'}>{t.home}</a><a href={en?'/prompts/':'/en/'}>{t.locale}</a><a href="https://github.com/licat233/licat233.github.io/tree/main/prompts" target="_blank" rel="noopener noreferrer">{t.sourceFooter}</a></div>
+  <div class="footer-links"><a href={localeUrl(lang,'home')}>{t.home}</a><a href={localeUrl(en?'zh':'en','prompts')}>{t.locale}</a><a href="https://github.com/licat233/licat233.github.io/tree/main/prompts" target="_blank" rel="noopener noreferrer">{t.sourceFooter}</a></div>
   <small class="footer-caption">{t.caption}</small>
 </div></footer>
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">
