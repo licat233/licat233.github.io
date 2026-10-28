@@ -153,6 +153,33 @@ for(const lang of ['','en/']){
  assert(parsed.items.map(x=>x.id).join(',')===prompts.map(x=>x.id).join(','),
   'SSR prompt IDs drifted from common catalogue '+lang);
 }
+// Prompt detail pages are real, crawlable HTML with stable bilingual SEO URLs.
+for(const item of prompts){
+ for(const [lang,prefix] of [['zh',''],['en','en/']]){
+  const route=prefix+'prompts/'+item.id+'/';
+  const html=await read(route+'index.html');
+  const base='https://licat233.github.io/';
+  assert(html.includes('rel="canonical" href="'+base+route+'"'),
+   'Prompt has wrong canonical: '+route);
+  assert(html.includes('hreflang="zh-CN" href="'+base+'prompts/'+item.id+'/"') &&
+         html.includes('hreflang="en" href="'+base+'en/prompts/'+item.id+'/"'),
+   'Prompt translations are not paired: '+route);
+  assert(html.includes('id="prompt-initial-content"') &&
+         html.includes('id="detail-title"') &&
+         html.includes('id="prompt-article"') &&
+         /<article\s[^>]*id="prompt-article"[^>]*>\s*<(?:p|h[1-6]|ul|ol|blockquote)\b/.test(html),
+   'Prompt detail missing actual SSR content: '+route);
+  assert(html.includes('name="description"'), 'Prompt missing description: '+route);
+ }
+}
+for(const prefix of ['','en/']){
+ const html=await read(prefix+'prompts/index.html');
+ assert(!/href="\?p=/.test(html),'Catalogue still links to query-param SPA: '+prefix);
+ for(const item of prompts)assert(html.includes('href="/'+prefix+'prompts/'+item.id+'/"'),
+  'Prompt missing crawlable list link: '+prefix+item.id);
+}
+console.log('ASTRO_PROMPT_DETAIL_ROUTES_PASS: 32 static localized articles with canonical, hreflang and SSR body');
+
 const codingPrompt=await read('prompts/content/ai-coding-minimal-defensive-v1.md');
 assert(codingPrompt.includes('<!-- prompt:begin -->') && codingPrompt.includes('<!-- prompt:end -->') &&
        codingPrompt.includes('### 九、必要的安全与正确性边界'),

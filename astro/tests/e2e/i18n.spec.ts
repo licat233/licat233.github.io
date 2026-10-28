@@ -39,13 +39,14 @@ test('untranslated Blog posts never advertise fake English translations', async 
   await expect(page.locator('.site-header a[data-locale="en"]')).toHaveAttribute('href', '/en/blog/');
 });
 
-test('prompts preserve selected ID during Astro-managed locale switch', async ({ page }) => {
-  await page.goto('/prompts/?p=codex-workflow-tips');
-  await expect(page.locator('.site-header a[data-locale="en"]')).toHaveAttribute('href', '/en/prompts/?p=codex-workflow-tips');
+test('prompt detail pages preserve ID and language-specific canonical URLs', async ({ page }) => {
+  await page.goto('/prompts/codex-workflow-tips/');
+  await expect(page.locator('.site-header a[data-locale="en"]')).toHaveAttribute('href', '/en/prompts/codex-workflow-tips/');
   await page.locator('.site-header a[data-locale="en"]').click();
-  await expect(page).toHaveURL(/\/en\/prompts\/\?p=codex-workflow-tips$/);
+  await expect(page).toHaveURL(/\/en\/prompts\/codex-workflow-tips\/$/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://licat233.github.io/en/prompts/codex-workflow-tips/');
   await expect(page.locator('#prompt-article')).not.toBeEmpty();
-  await expect(page.locator('.site-header a[data-locale="zh"]')).toHaveAttribute('href', '/prompts/?p=codex-workflow-tips');
+  await expect(page.locator('.site-header a[data-locale="zh"]')).toHaveAttribute('href', '/prompts/codex-workflow-tips/');
 });
 
 test('legacy Chinese alias redirects to canonical homepage', async ({ page }) => {

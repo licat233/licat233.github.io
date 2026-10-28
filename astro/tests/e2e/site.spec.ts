@@ -157,7 +157,7 @@ test('prompt library search, detail and share deep links work', async ({page}) =
  await expect(page.locator('#prompt-grid [data-open]').first()).toBeVisible();
  await page.locator('#prompt-grid [data-open]').first().click();
  await expect(page.locator('#detail-view')).toBeVisible();
- await expect(page).toHaveURL(/\?p=[\w.-]+$/);
+ await expect(page).toHaveURL(/\/prompts\/[\w.-]+\/$/);
  await expect(page.locator('#prompt-article')).not.toBeEmpty();
  const deepLink=page.url();
  await page.reload();
@@ -167,7 +167,7 @@ test('prompt library search, detail and share deep links work', async ({page}) =
  await expect(page.locator('#library-view')).toBeVisible();
 });
 test('new coding guideline survives Astro catalogue, deep link and copy boundaries', async ({page}) => {
- await page.goto('/prompts/?p=ai-coding-minimal-defensive-v1');
+ await page.goto('/prompts/ai-coding-minimal-defensive-v1/');
  await expect(page.locator('#detail-view')).toBeVisible();
  await expect(page.locator('#detail-title')).toHaveText('AI 编程反过度防御与最小实现指令 V1.0');
  await expect(page.locator('#prompt-article')).toContainText('九、必要的安全与正确性边界');
@@ -186,7 +186,7 @@ test('four newly localized prompts show English instructions and preserve langua
   ['ai-coding-minimal-defensive-v1', 'Avoid repeated validation'],
  ] as const;
  for (const [id,phrase] of cases) {
-  await page.goto('/en/prompts/?p='+id);
+  await page.goto('/en/prompts/'+id+'/');
   await expect(page.locator('#detail-view')).toBeVisible();
   await expect(page.locator('#prompt-article')).toContainText(phrase);
   await expect(page.locator('#prompt-article')).not.toContainText('Original Chinese prompt.');
@@ -196,19 +196,49 @@ test('four newly localized prompts show English instructions and preserve langua
   const englishText=await page.locator('#prompt-article').innerText();
   expect(/[\u3400-\u9fff]/.test(englishText),'English prompt should not include Chinese text').toBe(false);
   await page.locator('.site-header .lang a[data-locale="zh"]').click();
-  await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/?p='+id);
+  await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/'+id+'/');
   await expect(page.locator('#copy-btn')).toBeEnabled();
   await page.locator('.site-header .lang a[data-locale="en"]').click();
-  await expect(page).toHaveURL('http://127.0.0.1:4321/en/prompts/?p='+id);
+  await expect(page).toHaveURL('http://127.0.0.1:4321/en/prompts/'+id+'/');
   await expect(page.locator('#prompt-article')).toContainText(phrase);
  }
 });
 
 test('English prompt library displays its translated copy', async ({page}) => {
- await page.goto('/en/prompts/?p=agent-efficient-execution-v3');
+ await page.goto('/en/prompts/agent-efficient-execution-v3/');
  await expect(page.locator('#detail-view')).toBeVisible();
  await expect(page.locator('#prompt-article')).toContainText(/execution agent/i);
  await expect(page.locator('#copy-btn')).toBeEnabled();
+});
+
+test('old shared query URLs and old ID aliases reach the permanent prompt page',async ({page})=>{
+ await page.goto('/en/prompts/?p=ai-coding-minimal-defensive-v1');
+ await expect(page).toHaveURL(/\/en\/prompts\/ai-coding-minimal-defensive-v1\/$/);
+ await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+  'href','https://licat233.github.io/en/prompts/ai-coding-minimal-defensive-v1/');
+ await expect(page.locator('#prompt-article')).toContainText('Avoid repeated validation');
+ await page.goto('/prompts/?p=ai-natural-communication-v1.3');
+ await expect(page).toHaveURL(/\/prompts\/ai-natural-communication-v1\.3\.1\/$/);
+});
+
+test('prompt detail URLs contain real static HTML, SEO metadata and working copy/share',async ({page,context})=>{
+ await context.grantPermissions(['clipboard-read','clipboard-write'],{origin:'http://127.0.0.1:4321'});
+ const route='/en/prompts/ai-coding-minimal-defensive-v1/';
+ const response=await page.goto(route);
+ expect(response?.status()).toBe(200);
+ await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href','https://licat233.github.io'+route);
+ await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href','https://licat233.github.io/prompts/ai-coding-minimal-defensive-v1/');
+ await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href','https://licat233.github.io'+route);
+ await expect(page.locator('#detail-view')).toBeVisible();
+ await expect(page.locator('#prompt-article h2').first()).toBeVisible();
+ await expect(page.locator('#prompt-article')).toContainText('Avoid repeated validation');
+ await expect(page.locator('#copy-btn')).toBeEnabled();
+ await page.locator('#share-btn').click();
+ await expect.poll(()=>page.evaluate(()=>navigator.clipboard.readText())).toBe('http://127.0.0.1:4321'+route);
+ await page.locator('#copy-btn').click();
+ await expect.poll(()=>page.evaluate(()=>navigator.clipboard.readText())).toContain('Avoid repeated validation');
+ await page.locator('#back-link').click();
+ await expect(page).toHaveURL(/\/en\/prompts\/$/);
 });
 
 test('theme preference persists between content pages',async ({page})=>{
@@ -246,7 +276,7 @@ test('critical local links and assets return no HTTP errors', async ({page}) => 
    await expect(page.locator('main').first()).toBeAttached();
    await page.waitForTimeout(120);
  }
- await page.goto('/prompts/?p=codex-workflow-tips');
+ await page.goto('/prompts/codex-workflow-tips/');
  await expect(page.locator('#prompt-article')).not.toBeEmpty();
  expect(failures, 'Broken local resources: ' + failures.join(', ')).toEqual([]);
 });
@@ -255,10 +285,10 @@ test('prompt copy and cross-language sharing preserve the selected prompt', asyn
  await context.grantPermissions(['clipboard-read','clipboard-write'], {
    origin: 'http://127.0.0.1:4321'
  });
- await page.goto('/prompts/?p=codex-workflow-tips');
+ await page.goto('/prompts/codex-workflow-tips/');
  await expect(page.locator('#copy-btn')).toBeEnabled();
  await expect(page.locator('.site-header .lang a').filter({hasText:'EN'}))
-   .toHaveAttribute('href','/en/prompts/?p=codex-workflow-tips');
+   .toHaveAttribute('href','/en/prompts/codex-workflow-tips/');
  await page.locator('#copy-btn').click();
  await expect(page.locator('#toast')).toContainText(/已复制/);
  const copied=await page.evaluate(() => navigator.clipboard.readText());

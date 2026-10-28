@@ -23,7 +23,7 @@ Node.js 24 recommended, Astro 7.4.2 pinned. No Ruby or Bundler in this build.
 - `src/lib/catalog.ts` reads the original `_data/projects.yml` and `_data/skills.yml` (no copy of metadata).
 - Home and Prompt Library use native, editable `.astro` content components and `src/layouts/PortfolioShell.astro`, preserving existing markup, original SVGs, GSAP, copy/search and deep links. The prior Jekyll HTML parsing layer is removed.
 - `scripts/prepare-public.mjs` copies static assets and standalone projects, strips Jekyll YAML headers and replaces project breadcrumb includes. It is a **temporary compatibility bridge**, not the final maintainable project architecture.
-- Both Chinese root and English `/en/` routes are retained. `/zh/` still redirects. Existing `?p=` prompt share links and blog article URLs remain valid.
+- Both Chinese root and English `/en/` routes are retained. `/zh/` still redirects. Older query-based prompt shares redirect in the browser to the corresponding static detail URL; existing blog URLs remain valid.
 - This branch does NOT deploy to the public GitHub Pages URL. A separate Actions workflow builds and checks it and uploads its `dist/` as a CI artifact. Do not enable an Astro Pages deployment before final approval.
 
 ## Remaining before cutover
