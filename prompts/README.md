@@ -80,9 +80,14 @@
 补充编辑说明（不会被复制）。
 ```
 
+## AI 编程执行规范
+
+- [AI 编程反过度防御与最小实现指令 V1.0](content/ai-coding-minimal-defensive-v1.md)：面向 Codex、Claude Code 和项目编程约定，覆盖减少假想防御、重复校验、过早抽象、冗余注释、过量测试，以及必要的安全边界。
+- 按现有约定将展示信息放在可复制正文标记之外；正文保留九个完整章节以及最终执行准则。
+
 ## English version
 
 - English catalogue: [English Prompt Library](../en/prompts/).
-- Both pages use the same 15-item catalogue and preserve individual `?p=slug` share links across language switches.
-- 12 prompt bodies have manually translated English Markdown under `en/prompts/content/`; the three longer originals are shown in Chinese with an explicit language notice until they have been translated.
+- Both pages use the same 16-item catalogue and preserve individual `?p=slug` share links across language switches.
+- 12 prompt bodies have manually translated English Markdown under `en/prompts/content/`; the four longer originals are shown in Chinese with an explicit language notice until they have been translated.
 - The Chinese files under `prompts/content/` remain authoritative originals. Do not silently machine-rewrite them or merge translated content into source files.
