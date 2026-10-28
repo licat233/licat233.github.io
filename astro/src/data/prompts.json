@@ -146,6 +146,40 @@
     }
   },
   {
+    "id": "ai-coding-minimal-defensive-v1",
+    "category": "design",
+    "translatedEnglish": false,
+    "zh": {
+      "title": "AI 编程反过度防御与最小实现指令 V1.0",
+      "label": "开发与设计",
+      "type": "编程执行规范 · V1.0",
+      "summary": "避免过度防御、过早抽象和重复验证：按现有项目规范完成最小可靠实现，并保留必要的安全边界。",
+      "tags": [
+        "Codex",
+        "Claude Code",
+        "AGENTS.md",
+        "过度防御",
+        "最小实现",
+        "最小验证",
+        "代码质量"
+      ]
+    },
+    "en": {
+      "title": "Minimal, Practical AI Coding — V1.0",
+      "label": "Development & Design",
+      "type": "Coding guidelines · V1.0",
+      "summary": "Reduce speculative defensive code, premature abstractions, and excessive verification while preserving necessary safeguards.",
+      "tags": [
+        "Codex",
+        "Claude Code",
+        "AGENTS.md",
+        "simplicity",
+        "minimal implementation",
+        "testing"
+      ]
+    }
+  },
+  {
     "id": "seo-python-character-validation",
     "category": "agent",
     "translatedEnglish": true,
