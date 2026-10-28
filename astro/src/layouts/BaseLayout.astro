@@ -40,6 +40,10 @@ const alternateEn = Astro.props.alternateEn !== undefined
   ? Astro.props.alternateEn : (enHref || (lang === 'en' ? canonical : null));
 const origin = 'https://licat233.github.io';
 const fullTitle = exactTitle ? title : `${title} · Licat`;
+if (Astro.currentLocale !== lang) {
+  throw new Error('Unexpected i18n locale for '+Astro.url.pathname+
+    ': expected '+lang+', received '+Astro.currentLocale);
+}
 ---
 <!doctype html>
 <html lang={lang === 'en' ? 'en' : 'zh-CN'}>

@@ -1,7 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BlogArticle from '../../../layouts/BlogArticle.astro';
-import { blogSlug } from '../../../lib/site';
+import { blogSlug, localizedPath } from '../../../lib/site';
 export async function getStaticPaths(){
  const posts=await getCollection('blog',({data})=>data.lang==='en');
  return posts.map(post=>({params:{slug:blogSlug(post.id)},props:{post}}));
@@ -9,6 +9,6 @@ export async function getStaticPaths(){
 interface Props { post:CollectionEntry<'blog'> }
 const {post}=Astro.props;
 const {Content}=await render(post);
-const canonical='/en/blog/'+blogSlug(post.id)+'/';
+const canonical=localizedPath('en','blog',blogSlug(post.id));
 ---
 <BlogArticle lang="en" {post} {canonical}><Content /></BlogArticle>

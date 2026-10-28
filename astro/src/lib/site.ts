@@ -1,9 +1,24 @@
 import entries from '../data/navigation.json';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
 export type Lang = 'zh' | 'en';
 export type NavKey = 'home' | 'projects' | 'ai' | 'skills' | 'blog' | 'prompts';
 export const origin = 'https://licat233.github.io';
-interface NavItem {key:NavKey;zh:string;en:string;zhUrl:string;enUrl:string}
-export const nav: readonly NavItem[] = entries as NavItem[];
-export const localeUrl = (lang: Lang, key: NavKey) => nav.find(n => n.key === key)![lang === 'en' ? 'enUrl' : 'zhUrl'];
+
+// Astro's configured i18n router owns all Astro page paths. Keep this
+// catalogue limited to labels + keys: no hardcoded duplicate localized URLs.
+export const localizedPath = (lang: Lang, ...parts: string[]): string =>
+  getRelativeLocaleUrl(lang, parts.filter(Boolean).join('/'));
+
+export const localeUrl = (lang: Lang, key: NavKey): string =>
+  localizedPath(lang, key === 'home' ? '' : key);
+
+type Entry = { key: NavKey; zh: string; en: string };
+export const nav = (entries as Entry[]).map(item => ({
+  ...item,
+  zhUrl: localeUrl('zh', item.key),
+  enUrl: localeUrl('en', item.key),
+}));
+
 export const blogSlug = (id: string) =>
   id.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-en$/, '');

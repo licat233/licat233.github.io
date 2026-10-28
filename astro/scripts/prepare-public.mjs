@@ -26,11 +26,14 @@ await cp(path.join(root,'favicon.ico'),path.join(publicDir,'favicon.ico'));
 await cp(path.join(root,'astro/src/client/prompt-library.js'),
          path.join(publicDir,'prompts/prompt-library.js'));
 const links=JSON.parse(await readFile(new URL('../src/data/navigation.json',import.meta.url),'utf8'));
+// Independent legacy HTML pages are copied outside Astro's generated routes.
+const legacyLocalizedUrl=(lang,key)=>'/' + (lang==='en'?'en/':'') +
+  (key==='home'?'':key+'/');
 function siteContext(lang,project){
  const en=lang==='en';
- const home=en?'/en/':'/';
- const projects=en?'/en/projects/':'/projects/';
- return `<nav class="site-context" aria-label="${en?'Site navigation and project location':'全站导航与项目位置'}"><div class="site-context__path"><a href="${home}">Licat</a><span aria-hidden="true">›</span><a href="${projects}">${en?'Projects':'项目'}</a><span aria-hidden="true">›</span><strong>${project.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')}</strong></div><div class="site-context__links">${links.map(link=>`<a href="${en?link.enUrl:link.zhUrl}"${link.key==='projects'?' class="is-section"':''}>${en?link.en:link.zh}</a>`).join('')}</div></nav>`;
+ const home=legacyLocalizedUrl(lang,'home');
+ const projects=legacyLocalizedUrl(lang,'projects');
+ return `<nav class="site-context" aria-label="${en?'Site navigation and project location':'全站导航与项目位置'}"><div class="site-context__path"><a href="${home}">Licat</a><span aria-hidden="true">›</span><a href="${projects}">${en?'Projects':'项目'}</a><span aria-hidden="true">›</span><strong>${project.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')}</strong></div><div class="site-context__links">${links.map(link=>`<a href="${legacyLocalizedUrl(lang,link.key)}"${link.key==='projects'?' class="is-section"':''}>${en?link.en:link.zh}</a>`).join('')}</div></nav>`;
 }
 const microsites=['eao','toolscout','ai-writing-audit','armor-memory','disable-macos-auto-updates','greenram','opencore-h81'];
 for(const dir of microsites){

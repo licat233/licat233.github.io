@@ -1,10 +1,10 @@
 ---
-import type {Lang} from '../lib/site';
+import { localeUrl, type Lang } from '../lib/site';
 interface Props {lang:Lang}
 const {lang}=Astro.props;
 const en=lang==='en';
 ---
 <footer class="blog-footer">
  <span>© {new Date().getUTCFullYear()} Licat</span>
- <a href={en?'/en/':'/'}>{en?'Back to homepage':'返回个人主页'} <span aria-hidden="true">↗</span></a>
+ <a href={localeUrl(lang,'home')}>{en?'Back to homepage':'返回个人主页'} <span aria-hidden="true">↗</span></a>
 </footer>

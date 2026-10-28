@@ -2,43 +2,31 @@
   {
     "key": "home",
     "zh": "首页",
-    "en": "Home",
-    "zhUrl": "/",
-    "enUrl": "/en/"
+    "en": "Home"
   },
   {
     "key": "projects",
     "zh": "项目",
-    "en": "Projects",
-    "zhUrl": "/projects/",
-    "enUrl": "/en/projects/"
+    "en": "Projects"
   },
   {
     "key": "ai",
     "zh": "AI",
-    "en": "AI",
-    "zhUrl": "/ai/",
-    "enUrl": "/en/ai/"
+    "en": "AI"
   },
   {
     "key": "skills",
     "zh": "Skills",
-    "en": "Skills",
-    "zhUrl": "/skills/",
-    "enUrl": "/en/skills/"
+    "en": "Skills"
   },
   {
     "key": "blog",
     "zh": "博客",
-    "en": "Blog",
-    "zhUrl": "/blog/",
-    "enUrl": "/en/blog/"
+    "en": "Blog"
   },
   {
     "key": "prompts",
     "zh": "提示词",
-    "en": "Prompts",
-    "zhUrl": "/prompts/",
-    "enUrl": "/en/prompts/"
+    "en": "Prompts"
   }
 ]
