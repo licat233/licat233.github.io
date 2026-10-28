@@ -93,6 +93,27 @@ assert((await read('blog/publish-markdown-notes/index.html')).includes('新建�
        'Blog body missing');
 assert((await read('zh/index.html')).includes('location.replace'),
        'Legacy Chinese homepage URL lost');
+// The person's public name is Licat; "233" is only the GitHub account suffix.
+// Do not allow old account-style labels to return in generated public pages.
+const publicNamePages=[
+ ...core.map(([filename])=>filename),
+ ...independent,
+ ...['demo/index.html','demo/zh/index.html','demo/en/index.html'],
+ 'prompts/ai-coding-minimal-defensive-v1/index.html',
+ 'en/prompts/ai-coding-minimal-defensive-v1/index.html',
+];
+for(const filename of publicNamePages){
+ const html=await read(filename);
+ assert(!/Licat\s*\/\s*233|<small>\s*\/\s*233\s*<\/small>|<title>[^<]*Licat233|>Licat233</i.test(html),
+   'Old account suffix is still presented as a personal name: '+filename);
+}
+for(const [filename] of core){
+ const html=await read(filename);
+ assert(html.includes('property="og:site_name" content="Licat"'),
+  'Personal site metadata must say Licat: '+filename);
+}
+console.log('ASTRO_PUBLIC_NAME_PASS: display identity Licat, GitHub account URLs unchanged');
+
 console.log('ASTRO_MIGRATION_OUTPUT_PASS',core.length,'core pages,',independent.length,
  'project pages, original content, navigation, permalink and asset coverage');
 
