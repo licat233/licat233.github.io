@@ -1,64 +1,66 @@
-# Astro migration — isolated branch
+# Licat website — Astro production guide
 
-This is an **unpublished Astro workspace**. The production `main` branch still uses Jekyll.
+The live website at https://licat233.github.io/ is built from this **Astro** workspace. Jekyll was the previous implementation and is no longer the production renderer.
 
-## Commands
+- Astro: `7.4.2` (pinned in `package.json`)
+- Node.js: 24 in the GitHub Actions workflows
+- Output: static, with trailing slashes
+- Languages: `zh` (unprefixed default) and `en` (`/en/`) via Astro's official i18n router
+- Deployment: GitHub Actions → GitHub Pages
 
-```sh
+## Local commands
+
+From the repository root:
+
+```bash
 cd astro
 npm ci
 npm run build
 npm run check
-npm run dev
+node scripts/check-legacy-routes.mjs
 ```
 
-Node.js 24 recommended, Astro 7.4.2 pinned. No Ruby or Bundler in this build.
+Use `npm run dev` for interactive work. `npm run test:e2e` runs Playwright browser regression tests; install its Chromium browser as needed. `npm run check` inspects the generated `dist/` and therefore runs **after** the build.
 
-**Recovery:** a verified Jekyll source backup exists at `backup/jekyll-production-20261027` (commit `f7d58cee5c2eb953696870f6931c441ec8f9ad74`). Read `JEKYLL_BACKUP_AND_ROLLBACK.md` before any Pages cutover.
+Do not hand-edit the generated `dist/` directory or introduce another CMS or deployment stack for routine content changes.
 
-## Migration strategy
+## Source of truth
 
-- `src/components/SiteHeader.astro` and `src/layouts/BaseLayout.astro`: real Astro navigation and shared content layout.
-- `src/content.config.ts` reads original repository `_posts/*.md` with a Content Collection; original Markdown stays in place, including the 2026 SEO/GEO articles.
-- `src/lib/catalog.ts` reads the original `_data/projects.yml` and `_data/skills.yml` (no copy of metadata).
-- Home and Prompt Library use native, editable `.astro` content components and `src/layouts/PortfolioShell.astro`, preserving existing markup, original SVGs, GSAP, copy/search and deep links. The prior Jekyll HTML parsing layer is removed.
-- `scripts/prepare-public.mjs` copies static assets and standalone projects, strips Jekyll YAML headers and replaces project breadcrumb includes. It is a **temporary compatibility bridge**, not the final maintainable project architecture.
-- Both Chinese root and English `/en/` routes are retained. `/zh/` still redirects. Older query-based prompt shares redirect in the browser to the corresponding static detail URL; existing blog URLs remain valid.
-- This branch does NOT deploy to the public GitHub Pages URL. A separate Actions workflow builds and checks it and uploads its `dist/` as a CI artifact. Do not enable an Astro Pages deployment before final approval.
+| Content or feature | Source |
+| --- | --- |
+| Blog Markdown | `../_posts/*.md` |
+| Content Collection / validation | `src/content.config.ts` |
+| Blog listing | `src/layouts/BlogIndex.astro` |
+| Chinese and English blog detail routes | `src/pages/blog/[slug].astro`, `src/pages/en/blog/[slug].astro` |
+| Blog article layout / SEO / alternates | `src/layouts/BlogArticle.astro`, `src/layouts/BaseLayout.astro` |
+| Navigation and locale URLs | `src/data/navigation.json`, `src/lib/site.ts` |
+| Shared header | `src/components/SiteHeader.astro` |
+| Project and Skill catalogue | `../_data/projects.yml`, `../_data/skills.yml`, consumed by `src/lib/catalog.ts` |
+| Prompts catalogue | `src/data/prompts.json` |
+| Bilingual prompt details | `src/pages/prompts/[id].astro`, `src/pages/en/prompts/[id].astro` |
+| Assets and legacy microsites | `scripts/prepare-public.mjs` (build-time compatibility bridge) |
 
-## Remaining before cutover
+The Prompt Library has 16 entries with independent Chinese and English Markdown files and 32 static detail pages. Older query-based `?p=` prompt shares use a browser-side compatibility redirect to their path-based URLs; GitHub Pages does not provide an HTTP 301 specifically for those query values.
 
-1. The home and prompt body sources are now native Astro components. Further reduce duplicate bilingual markup only when it does not jeopardize visual parity.
-2. Move each standalone project microsite to Astro layouts or isolate it as a deliberately independent static app with explicit ownership.
-3. Verify all existing URLs, browser interactions, image assets, SEO metadata, mobile layouts and visual parity against the live Jekyll site.
-4. Review generated assets and lockfile; cut over GitHub Pages only after side-by-side QA and rollback preparation.
+## Publish a blog article
 
-## Browser regression
+1. Add a Markdown file under `../_posts/`. Example: `2026-10-28-my-first-note.md` for `/blog/my-first-note/`.
+2. Include `title`, `date`, `lang: zh` (or `en`), and preferably `description`. `layout: post` is a legacy Jekyll field and is not required.
+3. For an English article use a `-en.md` filename (such as `2026-10-28-my-first-note-en.md`) and `lang: en`; the route becomes `/en/blog/my-first-note/`.
+4. Add `translation_url` only when the actual counterpart article exists. Untranslated posts should not claim a translated `hreflang` page.
+5. Run the build and checks; use a Pull Request, merge into `main` after CI passes, and verify the published URL and Blog index.
 
-`npm run test:e2e` uses pinned Playwright Chromium on desktop and mobile emulation. CI runs 20 end-to-end browser cases covering actual clicks, canonical routes, prompt search/detail/deep-links, persistent theme state, the Projects/Skills hierarchy, and English translations. Use `npx playwright install chromium` before running locally. The migration branch never deploys Pages. Browser checks cover functional interactions, but full visual pixel parity still needs a reviewed comparison before cutover.
+The build uses `glob({pattern:'*.md',base:'../_posts'})` in `src/content.config.ts`. Both blog detail routes call `getCollection('blog')` and `getStaticPaths()`. The `blogSlug()` helper removes the filename's date prefix and trailing `-en`; it does **not** use a legacy `permalink` frontmatter value to determine routes. Keep filenames stable after publishing.
 
-CI uses `npm ci` with a committed lockfile, not `npm install` or on-the-fly dependency changes.
+For a user-oriented walkthrough, see `../_posts/2026-10-27-publish-markdown-notes.md` and its English `-en.md` counterpart.
 
-## Component and data ownership (no copy/paste HTML)
-- `src/layouts/BaseLayout.astro` is the **only full HTML document shell**. `PortfolioShell.astro` provides homepage/prompt-specific settings but does not duplicate `<html>`, `<head>` or the global header.
-- `src/components/home/FeaturedProjects.astro` reads the same `_data/projects.yml` used by the Projects directory; eight homepage cards use `featured_*` fields (rank, localized description/url, tags/meta). Decorative SVGs live separately in `src/data/project-icons.ts`.
-- `src/components/home/HomeSkills.astro` reads the same `_data/skills.yml` as the Skills category, including localized featured usage lists.
-- `src/components/prompts/PromptLibrary.astro` renders the same HTML structure in both languages, deriving cards and serialized browser metadata from `src/data/prompts.json`.
-- The Astro-specific `src/client/prompt-library.js` reads the same embedded `src/data/prompts.json` metadata; the old root `prompts/prompt-library.js` remains for the unmodified production Jekyll site until cutover.
-- Independent microsites still use the intentional build-time static compatibility copier.
+## Release and quality checks
 
-### 2026-10-27 prompt catalogue consolidation
-Astro now has **one** `src/data/prompts.json` source for 16 prompt records and both UI languages. `PromptLibrary.astro` renders its initial cards and embeds that exact same metadata into the page. The `src/client/prompt-library.js` controller reads the embedded payload; it no longer hardcodes catalogue records, English translations or file-translation IDs. `scripts/prepare-public.mjs` overlays only the Astro-owned browser controller onto the copied legacy `/prompts/prompt-library.js`; it leaves the Jekyll production version alone. `src/data/prompt-previews.ts` was removed to prevent drift. Original prompt Markdown, URL slugs, copy delimiters and search behavior remain unchanged.
+- `.github/workflows/astro-ui-regression.yml` runs PR build and browser checks.
+- `.github/workflows/deploy-astro-pages.yml` runs on `main`, checks the Jekyll recovery branch, builds and validates Astro output, runs browser tests, and publishes `dist/` to GitHub Pages when `ASTRO_PAGES_ACTIVE=true`.
+- `scripts/check-output.mjs` checks core pages, Blog and Prompt URLs, localized metadata, navigation and static assets.
+- `scripts/check-legacy-routes.mjs` prevents loss of historical standalone HTML routes.
 
-## Pre-existing routes preserved
+The historical Jekyll source backup is `backup/jekyll-production-20261027` (commit `f7d58cee5c2eb953696870f6931c441ec8f9ad74`). `../JEKYLL_BACKUP_AND_ROLLBACK.md` records the rollback plan. This is recovery material, **not** a still-pending migration.
 
-The Astro compatibility build retains the published `/demo/` pages, archived project/demo resources and `previews/` assets. The `scripts/check-legacy-routes.mjs` audit scans the original repository HTML files and requires the same public HTML paths in the Astro output; a missing page now fails CI. This validation complements the Playwright 20 desktop/mobile browser checks and protects less-visited routes.
-
-## Release-candidate visual snapshots
-The Astro CI now exports `astro-visual-review` for representative Chinese/English homepage, categories, blog, prompt list/detail and selected microsites on Chromium desktop/mobile viewports. The Playwright test captures screenshots with reduced motion to make comparison repeatable. **Screenshots alone do not establish pixel parity**; compare the artifact with the still-live Jekyll URLs and inspect any animation-specific effects before merging PR #12.
-
-### 2026-10-28 prompt update after Astro migration
-
-- `ai-coding-minimal-defensive-v1` is indexed in `src/data/prompts.json` (16th entry; Chinese original with English catalogue metadata).
-- `PortfolioShell.astro` and both home components derive prompt counts from the shared JSON instead of duplicating a hardcoded count.
-- `scripts/check-output.mjs` verifies its published Markdown and copy boundaries, along with all 16 localized records.
+Retain the existing Liquid Glass components, current i18n routes, theme behavior, blog permalinks and standalone app URLs when editing content.

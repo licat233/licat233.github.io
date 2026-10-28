@@ -13,6 +13,16 @@ test('Jekyll article text, heading structure and canonical URLs survive Astro mi
  ];
  const failures:string[]=[];
  const reports:any[]=[];
+ // These two guides are being deliberately updated from Jekyll to Astro.
+ // Preserve URL/SEO metadata while checking their NEW article content rather
+ // than requiring byte-for-byte equality with the previously published prose.
+ const revisedGuides=new Map([
+  ['/blog/publish-markdown-notes/',{
+   title:'如何用 Astro + GitHub Pages 发布 Markdown 博客',section:'文章放在哪里？'}],
+  ['/en/blog/publish-markdown-notes/',{
+   title:'How to Publish Markdown Posts with Astro and GitHub Pages',
+   section:'Where do posts live?'}],
+ ]);
  const clean=(v:string)=>v.replace(/\s+/g,'').replace(/\u00a0/g,'');
  try{
    for(const route of paths){
@@ -38,8 +48,18 @@ test('Jekyll article text, heading structure and canonical URLs survive Astro mi
      const titleSame=j.title===a.title;
      const headingsSame=JSON.stringify(j.headings)===JSON.stringify(a.headings);
      const canonicalSame=j.canon===a.canon;
-     const error=(!titleSame||!headingsSame||!canonicalSame||lengthRatio<.96||lengthRatio>1.04);
-     reports.push({route,jekyllChars:cJ.length,astroChars:cA.length,
+     const revised=revisedGuides.get(route);
+     const editorialContentPass=revised
+       ? a.title.includes(revised.title) &&
+         a.headings.some(h=>h.text===revised.section) &&
+         a.text.includes('Astro + GitHub Pages') &&
+         a.text.includes('GitHub Actions')
+       : true;
+     const error=revised
+       ? (!canonicalSame || !editorialContentPass)
+       : (!titleSame||!headingsSame||!canonicalSame||lengthRatio<.96||lengthRatio>1.04);
+     reports.push({route,editorialRevision:Boolean(revised),editorialContentPass,
+       jekyllChars:cJ.length,astroChars:cA.length,
        lengthRatio:Number(lengthRatio.toFixed(4)),titleSame,headingsSame,canonicalSame,
        jekyllHeadings:j.headings,astroHeadings:a.headings,jekyllAlternates:j.alts,astroAlternates:a.alts});
      if(error)failures.push(route);
