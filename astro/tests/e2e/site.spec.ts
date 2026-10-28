@@ -166,6 +166,18 @@ test('prompt library search, detail and share deep links work', async ({page}) =
  await page.locator('#back-link').click();
  await expect(page.locator('#library-view')).toBeVisible();
 });
+test('minimal necessary agent prompt has six rules and a working dedicated URL', async ({page}) => {
+ await page.goto('/prompts/ai-agent-minimal-necessary-execution-v1/');
+ await expect(page.locator('#detail-title')).toHaveText('AI Agent 最小必要执行原则 V1.0');
+ await expect(page.locator('#prompt-article')).toContainText('任务完成立即停止');
+ await expect(page.locator('#prompt-article')).toContainText('以下是强制执行约束');
+ await expect(page.locator('#prompt-article')).not.toContainText('适用：约束 AI Agent');
+ await expect(page.locator('#copy-btn')).toBeEnabled();
+ await page.goto('/en/prompts/ai-agent-minimal-necessary-execution-v1/');
+ await expect(page.locator('#detail-title')).toContainText('Minimum Necessary Execution Principles');
+ await expect(page.locator('#prompt-article')).toContainText('Stop immediately when the task is complete');
+});
+
 test('new coding guideline survives Astro catalogue, deep link and copy boundaries', async ({page}) => {
  await page.goto('/prompts/ai-coding-minimal-defensive-v1/');
  await expect(page.locator('#detail-view')).toBeVisible();
@@ -313,10 +325,10 @@ test('homepage project and Skill previews share one bilingual data structure',as
  }
 });
 
-test('both prompt languages render the shared catalog UI and all 16 items',async ({page})=>{
+test('both prompt languages render the shared catalog UI and all 17 items',async ({page})=>{
  for(const url of ['/prompts/','/en/prompts/']){
    await page.goto(url);
-   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(16);
+   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(17);
    await expect(page.locator('#filters [data-filter]')).toHaveCount(5);
    await expect(page.locator('#copy-btn')).toBeAttached();
    await expect(page.locator('#share-btn')).toBeAttached();
@@ -328,9 +340,9 @@ test('single Astro prompt catalogue powers SSR cards and search without second J
    await page.goto('/'+lang+'prompts/');
    const data=await page.locator('#prompt-catalogue').textContent();
    const payload=JSON.parse(data!);
-   expect(payload.items).toHaveLength(16);
-   expect(payload.translatedEnglish).toHaveLength(16);
-   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(16);
+   expect(payload.items).toHaveLength(17);
+   expect(payload.translatedEnglish).toHaveLength(17);
+   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(17);
    await page.locator('#search').fill(lang?'memory':'记忆');
    await expect(page.locator('#prompt-grid [data-open]').first()).toBeVisible();
    await page.locator('#search').fill('');
