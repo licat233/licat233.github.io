@@ -230,7 +230,7 @@ await inspectAstroTemplates(sourceDir);
 for(const route of ['index.html','en/index.html','projects/index.html','en/projects/index.html',
                     'skills/index.html','en/skills/index.html','ai/index.html','en/ai/index.html','blog/index.html','prompts/index.html']){
  const html=await read(route);
- assert(html.includes('/assets/portfolio-liquid-glass.css?v=20261028-ai-glass1'),
+ assert(html.includes('/assets/portfolio-liquid-glass.css?v=20261028-ai-active-group1'),
    'Glass material stylesheet missing from '+route);
 }
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');

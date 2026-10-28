@@ -98,20 +98,25 @@
     const id = pill?.dataset.navTarget;
     return id === "top" ? document.querySelector(".hero-wrap") : (id ? document.getElementById(id) : null);
   };
-  const pillLeft = pill => pill.getBoundingClientRect().left -
+  // The AI tab is one visual pill with two semantic controls (link + chevron).
+  // Keep aria-current on the link, but move the glass selection to the GROUP.
+  const pillSurface = pill => pill.closest('[data-nav-group="ai"]') || pill;
+  const pillLeft = surface => surface.getBoundingClientRect().left -
     nav.getBoundingClientRect().left + nav.scrollLeft;
   const center = (pill, smooth) => {
     if (!pill || nav.scrollWidth <= nav.clientWidth + 2) return;
+    const surface = pillSurface(pill);
     nav.scrollTo({
-      left: Math.max(0, pillLeft(pill) - (nav.clientWidth - pill.offsetWidth) / 2),
+      left: Math.max(0, pillLeft(surface) - (nav.clientWidth - surface.offsetWidth) / 2),
       behavior: smooth && !reducedMotion.matches ? "smooth" : "auto"
     });
   };
   const moveNavIndicator = (pill, options = {}) => {
     if (!pill) return;
+    const surface = pillSurface(pill);
     if (options.instant) nav.classList.add("nav-instant");
-    nav.style.setProperty("--nav-indicator-x", pillLeft(pill) + "px");
-    nav.style.setProperty("--nav-indicator-w", pill.offsetWidth + "px");
+    nav.style.setProperty("--nav-indicator-x", pillLeft(surface) + "px");
+    nav.style.setProperty("--nav-indicator-w", surface.offsetWidth + "px");
     nav.classList.add("nav-ready");
     if (options.center) center(pill, !options.instant);
     if (options.instant) requestAnimationFrame(() => requestAnimationFrame(() =>

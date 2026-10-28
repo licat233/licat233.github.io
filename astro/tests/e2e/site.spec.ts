@@ -33,6 +33,49 @@ test('global navigation nests Skills and Prompts under AI', async ({page}) => {
  await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href','/en/blog/');
 });
 
+test('AI active Liquid Glass pill includes the chevron in both locales and themes',async ({page})=>{
+ for(const route of ['/ai/','/skills/','/en/ai/','/en/prompts/']){
+  await page.goto(route,{waitUntil:'domcontentloaded'});
+  const nav=page.locator('.site-header .nav-links');
+  await expect(nav).toHaveClass(/nav-ready/);
+  for(const theme of ['light','dark'] as const){
+   await page.evaluate(value=>document.documentElement.dataset.theme=value,theme);
+   const geometry=await page.locator('.site-header .nav-group').evaluate(group=>{
+    const nav=group.parentElement!;
+    const indicator=nav.querySelector<HTMLElement>('.nav-indicator')!;
+    const link=group.querySelector<HTMLElement>('a.nav-pill')!;
+    const button=group.querySelector<HTMLElement>('button.nav-submenu-trigger')!;
+    const gi=indicator.getBoundingClientRect();
+    const gg=group.getBoundingClientRect();
+    const gb=button.getBoundingClientRect();
+    return {
+     leftDelta:Math.abs(gi.left-gg.left),
+     rightDelta:Math.abs(gi.right-gg.right),
+     chevronInside:gb.right<=gi.right+2 && gb.left>=gi.left-2,
+     textColor:getComputedStyle(link).color,
+     arrowColor:getComputedStyle(button).color,
+     glassOpacity:getComputedStyle(indicator).opacity
+    };
+   });
+   expect(geometry.leftDelta).toBeLessThan(2.1);
+   expect(geometry.rightDelta).toBeLessThan(2.1);
+   expect(geometry.chevronInside).toBe(true);
+   // Active anchor text eases its color over 320ms on theme changes.
+   // Wait until the glass control and chevron have settled to the same ink.
+   await expect.poll(async()=>page.locator('.site-header .nav-group').evaluate(group=>{
+     const link=group.querySelector<HTMLElement>('.nav-pill')!;
+     const chevron=group.querySelector<HTMLElement>('.nav-submenu-trigger')!;
+     return getComputedStyle(link).color===getComputedStyle(chevron).color;
+   }),{timeout:3000}).toBe(true);
+   expect(Number(geometry.glassOpacity)).toBeGreaterThan(.9);
+  }
+  const trigger=page.locator('.site-header .nav-submenu-trigger');
+  await trigger.click();
+  await expect(trigger).toHaveAttribute('aria-expanded','true');
+  await expect(page.locator('.site-header .ai-subnav')).toBeVisible();
+ }
+});
+
 test('AI subnavigation supports Escape, keyboard and mobile click without clipping',async ({page})=>{
  await page.goto('/en/skills/');
  const trigger=page.locator('.site-header .nav-submenu-trigger');
