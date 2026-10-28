@@ -41,7 +41,7 @@ async function settle(page:import('@playwright/test').Page,detail:boolean){
  await page.evaluate(async ()=>{await document.fonts.ready;});
  if(detail) await expect(page.locator('#prompt-article')).not.toBeEmpty();
  else if(await page.locator('#prompt-grid').count())
-   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(16);
+   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(17);
  await page.waitForTimeout(170);
 }
 test('compare live Jekyll and local Astro DOM geometry, typography and screenshots', async ({page},info)=>{
