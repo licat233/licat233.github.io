@@ -1,4 +1,4 @@
-# Licat / 233 — Personal Website
+# Licat — Personal Website
 
 Website: https://licat233.github.io/
 
