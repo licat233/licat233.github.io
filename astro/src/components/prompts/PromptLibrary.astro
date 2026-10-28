@@ -14,7 +14,9 @@ const begin='<!-- prompt:begin -->',end='<!-- prompt:end -->';
 const copyText=selected ? initialBody.split(begin)[1]?.split(end)[0]?.trim() : '';
 if(selected && (!copyText || initialBody.split(begin).length!==2 || initialBody.split(end).length!==2))
  throw new Error('Invalid prompt copy boundaries: '+selected.id);
-const rendered=copyText ? (await (await createSatteriMarkdownProcessor({syntaxHighlight:false})).render(copyText)).code : '';
+// Preserve the catalogue's horizontal-scroll table treatment on static detail pages.
+const rendered=copyText ? (await (await createSatteriMarkdownProcessor({syntaxHighlight:false})).render(copyText)).code
+  .replace(/<table\b[\s\S]*?<\/table>/g, html=>'<div class="table-scroll">'+html+'</div>') : '';
 const initialPayload=JSON.stringify({id:initialId,content:copyText}).replace(/</g,'\u003c');
 const selectedMeta=selected?.[lang];
 const en=lang==='en';

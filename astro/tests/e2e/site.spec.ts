@@ -195,6 +195,9 @@ test('four newly localized prompts show English instructions and preserve langua
    'href','https://github.com/licat233/licat233.github.io/blob/main/en/prompts/content/'+id+'.md');
   const englishText=await page.locator('#prompt-article').innerText();
   expect(/[\u3400-\u9fff]/.test(englishText),'English prompt should not include Chinese text').toBe(false);
+  // Large Markdown tables must scroll within the reader, not stretch mobile viewport.
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.visualViewport.width+3);
+  expect(overflow,'Prompt content must not widen mobile viewport: '+id).toBe(false);
   await page.locator('.site-header .lang a[data-locale="zh"]').click();
   await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/'+id+'/');
   await expect(page.locator('#copy-btn')).toBeEnabled();
