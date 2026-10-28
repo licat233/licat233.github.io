@@ -25,14 +25,6 @@ for (const suffix of paths) {
   });
 }
 
-test('translated Blog articles retain their exact language counterpart', async ({ page }) => {
-  await page.goto('/blog/publish-markdown-notes/');
-  await expect(page.locator('.site-header a[data-locale="en"]')).toHaveAttribute('href', '/en/blog/publish-markdown-notes/');
-  await page.locator('.site-header a[data-locale="en"]').click();
-  await expect(page).toHaveURL(/\/en\/blog\/publish-markdown-notes\/$/);
-  await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://licat233.github.io/blog/publish-markdown-notes/');
-});
-
 test('untranslated Blog posts never advertise fake English translations', async ({ page }) => {
   await page.goto('/blog/advanced-seo-geo-guide/');
   await expect(page.locator('link[hreflang="en"]')).toHaveCount(0);

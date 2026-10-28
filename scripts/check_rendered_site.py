@@ -71,8 +71,6 @@ for lang,pre in [("zh",""),("en","en/")]:
         path=pre+("" if key=="home" else key+"/")+"index.html"
         paired=["/"+("" if key=="home" else key+"/"),"/en/"+("" if key=="home" else key+"/")]
         verify(path,lang,key,paired)
-    blog=pre+"blog/publish-markdown-notes/index.html"
-    verify(blog,lang,"blog",["/blog/publish-markdown-notes/","/en/blog/publish-markdown-notes/"])
     home=read(pre+"index.html")
     check('class="home-section-nav' in home and 'href="#journey"' in home,
           f"{lang} homepage section nav lost")

@@ -9,8 +9,6 @@ const core=[
  ['ai/index.html','zh','ai'],['en/ai/index.html','en','ai'],
  ['blog/index.html','zh','blog'],['en/blog/index.html','en','blog'],
  ['prompts/index.html','zh','prompts'],['en/prompts/index.html','en','prompts'],
- ['blog/publish-markdown-notes/index.html','zh','blog'],
- ['en/blog/publish-markdown-notes/index.html','en','blog'],
  ['blog/website-seo-geo-basics/index.html','zh','blog'],
  ['blog/advanced-seo-geo-guide/index.html','zh','blog'],
 ];
@@ -89,8 +87,6 @@ for(const asset of [
 ])await stat(path.join(root,asset));
 assert((await read('blog/advanced-seo-geo-guide/index.html')).includes('独立站 SEO/GEO'),
        'Long-form Chinese Markdown body missing');
-assert((await read('blog/publish-markdown-notes/index.html')).includes('写一篇 Markdown'),
-       'Blog body missing');
 assert((await read('zh/index.html')).includes('location.replace'),
        'Legacy Chinese homepage URL lost');
 // The person's public name is Licat; "233" is only the GitHub account suffix.
@@ -131,10 +127,13 @@ console.log('ASTRO_NATIVE_COMPONENTS_PASS: home and prompt content no longer par
 const untranslated=await read('blog/advanced-seo-geo-guide/index.html');
 assert(!/hreflang="en"/.test(untranslated),
        'Untranslated Chinese article must not claim English Blog index as a translation');
-const translated=await read('blog/publish-markdown-notes/index.html');
-assert(translated.includes('hreflang="en"') && translated.includes('https://licat233.github.io/en/blog/publish-markdown-notes/'),
-       'Published English translation must retain its matching hreflang URL');
-console.log('ASTRO_BLOG_HREFLANG_PASS: only real article translations advertised');
+// Documentation belongs in the repository, not in the public Blog.
+for(const route of ['blog/publish-markdown-notes/index.html',
+                    'en/blog/publish-markdown-notes/index.html']){
+ try{await stat(path.join(root,route));throw Error('Removed tutorial reappeared: '+route);}
+ catch(error){if(error?.code!=='ENOENT')throw error;}
+}
+console.log('ASTRO_BLOG_HREFLANG_PASS: no fake translation or retired tutorial pages');
 
 const source=(file)=>readFile(new URL('../'+file,import.meta.url),'utf8');
 const documentShell=await source('src/layouts/BaseLayout.astro');
