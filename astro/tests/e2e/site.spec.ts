@@ -166,6 +166,18 @@ test('prompt library search, detail and share deep links work', async ({page}) =
  await page.locator('#back-link').click();
  await expect(page.locator('#library-view')).toBeVisible();
 });
+test('new coding guideline survives Astro catalogue, deep link and copy boundaries', async ({page}) => {
+ await page.goto('/prompts/?p=ai-coding-minimal-defensive-v1');
+ await expect(page.locator('#detail-view')).toBeVisible();
+ await expect(page.locator('#detail-title')).toHaveText('AI 编程反过度防御与最小实现指令 V1.0');
+ await expect(page.locator('#prompt-article')).toContainText('九、必要的安全与正确性边界');
+ await expect(page.locator('#prompt-article')).not.toContainText('适用：Codex');
+ await expect(page.locator('#copy-btn')).toBeEnabled();
+ await page.locator('#back-link').click();
+ await page.locator('#search').fill('过度防御');
+ await expect(page.locator('#prompt-grid [data-open="ai-coding-minimal-defensive-v1"]')).toBeVisible();
+});
+
 test('English prompt library displays its translated copy', async ({page}) => {
  await page.goto('/en/prompts/?p=agent-efficient-execution-v3');
  await expect(page.locator('#detail-view')).toBeVisible();
@@ -242,10 +254,10 @@ test('homepage project and Skill previews share one bilingual data structure',as
  }
 });
 
-test('both prompt languages render the shared catalog UI and all 15 items',async ({page})=>{
+test('both prompt languages render the shared catalog UI and all 16 items',async ({page})=>{
  for(const url of ['/prompts/','/en/prompts/']){
    await page.goto(url);
-   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(15);
+   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(16);
    await expect(page.locator('#filters [data-filter]')).toHaveCount(5);
    await expect(page.locator('#copy-btn')).toBeAttached();
    await expect(page.locator('#share-btn')).toBeAttached();
@@ -257,9 +269,9 @@ test('single Astro prompt catalogue powers SSR cards and search without second J
    await page.goto('/'+lang+'prompts/');
    const data=await page.locator('#prompt-catalogue').textContent();
    const payload=JSON.parse(data!);
-   expect(payload.items).toHaveLength(15);
+   expect(payload.items).toHaveLength(16);
    expect(payload.translatedEnglish).toHaveLength(12);
-   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(15);
+   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(16);
    await page.locator('#search').fill(lang?'memory':'记忆');
    await expect(page.locator('#prompt-grid [data-open]').first()).toBeVisible();
    await page.locator('#search').fill('');
