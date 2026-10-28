@@ -57,21 +57,60 @@
   if (systemTheme.addEventListener) systemTheme.addEventListener("change", followSystem);
   else if (systemTheme.addListener) systemTheme.addListener(followSystem);
 
+  // AI is a primary category with two child pages. The disclosure stays
+  // outside the horizontally clipped layout (four primary links now fit).
+  const aiGroup = nav.querySelector('[data-nav-group="ai"]');
+  const aiTrigger = aiGroup?.querySelector('.nav-submenu-trigger');
+  const aiSubnav = aiGroup?.querySelector('.ai-subnav');
+  if (aiGroup && aiTrigger && aiSubnav) {
+    const openAi = () => {
+      aiSubnav.hidden = false;
+      aiTrigger.setAttribute('aria-expanded', 'true');
+    };
+    const closeAi = () => {
+      aiSubnav.hidden = true;
+      aiTrigger.setAttribute('aria-expanded', 'false');
+    };
+    const hoverPointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    aiTrigger.addEventListener('click', () => {
+      if (hoverPointer) openAi();
+      else if (aiSubnav.hidden) openAi();
+      else closeAi();
+    });
+    aiGroup.addEventListener('focusout', event => {
+      if (!aiGroup.contains(event.relatedTarget)) closeAi();
+    });
+    if (hoverPointer) {
+      aiGroup.addEventListener('mouseenter', openAi);
+      aiGroup.addEventListener('mouseleave', closeAi);
+    }
+    document.addEventListener('pointerdown', event => {
+      if (!aiGroup.contains(event.target)) closeAi();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || aiSubnav.hidden) return;
+      closeAi();
+      aiTrigger.focus();
+    });
+  }
+
   const getNavTarget = pill => {
     const id = pill?.dataset.navTarget;
     return id === "top" ? document.querySelector(".hero-wrap") : (id ? document.getElementById(id) : null);
   };
+  const pillLeft = pill => pill.getBoundingClientRect().left -
+    nav.getBoundingClientRect().left + nav.scrollLeft;
   const center = (pill, smooth) => {
     if (!pill || nav.scrollWidth <= nav.clientWidth + 2) return;
     nav.scrollTo({
-      left: Math.max(0, pill.offsetLeft - (nav.clientWidth - pill.offsetWidth) / 2),
+      left: Math.max(0, pillLeft(pill) - (nav.clientWidth - pill.offsetWidth) / 2),
       behavior: smooth && !reducedMotion.matches ? "smooth" : "auto"
     });
   };
   const moveNavIndicator = (pill, options = {}) => {
     if (!pill) return;
     if (options.instant) nav.classList.add("nav-instant");
-    nav.style.setProperty("--nav-indicator-x", pill.offsetLeft + "px");
+    nav.style.setProperty("--nav-indicator-x", pillLeft(pill) + "px");
     nav.style.setProperty("--nav-indicator-w", pill.offsetWidth + "px");
     nav.classList.add("nav-ready");
     if (options.center) center(pill, !options.instant);
@@ -83,7 +122,7 @@
     pills.forEach(item => {
       const active = item === pill;
       item.classList.toggle("active", active);
-      if (active) item.setAttribute("aria-current", "page");
+      if (active) item.setAttribute("aria-current", item.dataset.navSectionCurrent || "page");
       else item.removeAttribute("aria-current");
     });
     moveNavIndicator(pill, options);

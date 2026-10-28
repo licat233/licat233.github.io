@@ -11,20 +11,47 @@ const discoveredSkillCountPromise=(async ()=>{
   return real.filter(Boolean).length;
 })();
 
-test('global navigation routes and selected state work', async ({page}) => {
+test('global navigation nests Skills and Prompts under AI', async ({page}) => {
  await page.goto('/');
- await expect(page.locator('.site-header .nav-pill')).toHaveCount(6);
+ await expect(page.locator('.site-header .nav-pill')).toHaveCount(4);
  await expect(page.locator('#journey')).toBeAttached();
  await expect(page.locator('.home-section-nav a[href="#journey"]')).toBeVisible();
- await page.locator('.site-header .nav-pill[href="/prompts/"]').click();
+ const trigger=page.locator('.site-header .nav-submenu-trigger');
+ await trigger.click();
+ await expect(trigger).toHaveAttribute('aria-expanded','true');
+ await expect(page.locator('.site-header .ai-subnav a')).toHaveCount(2);
+ await page.locator('.site-header .ai-subnav a[href="/prompts/"]').click();
  await expect(page).toHaveURL(/\/prompts\/$/);
- await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href','/prompts/');
+ await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href','/ai/');
+ await expect(page.locator('.site-header .ai-subnav a[aria-current="page"]')).toHaveAttribute('href','/prompts/');
  await page.locator('.site-header .lang a').filter({hasText:'EN'}).click();
  await expect(page).toHaveURL(/\/en\/prompts\/$/);
- await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href','/en/prompts/');
+ await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href','/en/ai/');
+ await expect(page.locator('.site-header .ai-subnav a[aria-current="page"]')).toHaveAttribute('href','/en/prompts/');
  await page.locator('.site-header .nav-pill[href="/en/blog/"]').click();
  await expect(page).toHaveURL(/\/en\/blog\/$/);
  await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href','/en/blog/');
+});
+
+test('AI subnavigation supports Escape, keyboard and mobile click without clipping',async ({page})=>{
+ await page.goto('/en/skills/');
+ const trigger=page.locator('.site-header .nav-submenu-trigger');
+ await trigger.click();
+ await expect(trigger).toHaveAttribute('aria-expanded','true');
+ const menu=page.locator('.site-header .ai-subnav');
+ await expect(menu).toBeVisible();
+ const position=await menu.evaluate(el=>{
+  const menu=el.getBoundingClientRect();
+  const header=document.querySelector('.site-header')!.getBoundingClientRect();
+  return {width:menu.width,overlap:menu.bottom-header.bottom};
+ });
+ expect(position.width).toBeGreaterThan(100);
+ expect(position.overlap).toBeGreaterThan(0);
+ await page.keyboard.press('Escape');
+ await expect(menu).toBeHidden();
+ await trigger.click();
+ await page.locator('.site-header .ai-subnav a[href="/en/prompts/"]').click();
+ await expect(page).toHaveURL(/\/en\/prompts\/$/);
 });
 
 test('prompt library search, detail and share deep links work', async ({page}) => {

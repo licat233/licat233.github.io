@@ -47,7 +47,14 @@ test('desktop and mobile keyboard access to global nav works',async ({page})=>{
  });
  expect(hasVisibleFocus,'No keyboard-focusable site control').toBe(true);
  await expect(page.locator('html')).toHaveAttribute('lang','zh-CN');
- await page.locator('.site-header a[href="/prompts/"]').first().focus();
+ // Prompts is now an AI child; the keyboard first expands the disclosure.
+ const trigger=page.locator('.site-header .nav-submenu-trigger');
+ await trigger.focus();
+ await page.keyboard.press('Enter');
+ await expect(trigger).toHaveAttribute('aria-expanded','true');
+ const child=page.locator('.site-header .ai-subnav a[href="/prompts/"]');
+ await expect(child).toBeVisible();
+ await child.focus();
  await page.keyboard.press('Enter');
  await expect(page).toHaveURL(/\/prompts\/$/);
 });

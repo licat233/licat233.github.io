@@ -14,7 +14,10 @@ const core=[
  ['blog/website-seo-geo-basics/index.html','zh','blog'],
  ['blog/advanced-seo-geo-guide/index.html','zh','blog'],
 ];
-const siteKeys=JSON.parse(await readFile(new URL('../src/data/navigation.json',import.meta.url),'utf8')).map(x=>x.key);
+const allNav=JSON.parse(await readFile(new URL('../src/data/navigation.json',import.meta.url),'utf8'));
+const siteKeys=allNav.map(x=>x.key);
+const primaryKeys=allNav.filter(x=>!x.parent).map(x=>x.key);
+const childKeys=allNav.filter(x=>x.parent==='ai').map(x=>x.key);
 const routes=(lang)=>[lang==='en'?'/en/':'/',...siteKeys.slice(1).map(k=>(lang==='en'?'/en/':'/')+k+'/')];
 function read(rel){return readFile(path.join(root,rel),'utf8');}
 function assert(ok,message){if(!ok)throw Error(message)}
@@ -26,13 +29,22 @@ for(const [filename,lang,active] of core){
  assert(html.includes('lang="'+(lang==='en'?'en':'zh-CN')+'"'),'Wrong HTML language '+filename);
  const canon='https://licat233.github.io/'+filename.replace(/index\.html$/,'');
  assert(html.includes('rel="canonical" href="'+canon+'"'),'Wrong canonical '+filename);
- const nav=html.match(/<div class="nav-links">([\s\S]*?)<\/div>/)?.[1]||'';
+ const nav=html.match(/<div class="nav-links">([\s\S]*?)<div class="nav-actions">/)?.[1]||'';
  assert(nav,'Missing navigation '+filename);
  const current=nav.match(/<a\s[^>]*aria-current="page"[^>]*>/g)||[];
  assert(current.length===1,'Expected one active nav item '+filename);
  const wanted=(lang==='en'?'/en/':'/')+(active==='home'?'':active+'/');
  assert(current[0].includes('href="'+wanted+'"'),'Wrong active '+active+' for '+filename);
  for(const url of routes(lang))assert(nav.includes('href="'+url+'"'),'Missing '+url+' on '+filename);
+ assert((nav.match(/class="nav-pill(?: active)?"/g)||[]).length===primaryKeys.length,
+  'Primary nav must have four links on '+filename);
+ assert(nav.includes('class="ai-subnav') && nav.includes('aria-controls="ai-subnav"'),
+  'AI sub-navigation is missing on '+filename);
+ if(active==='skills'||active==='prompts'){
+  const parent=(lang==='en'?'/en/':'/')+'ai/';
+  assert(nav.includes('href="'+parent+'"') && nav.includes('aria-current="location"'),
+   'AI parent section not marked active on '+filename);
+ }
  assert(html.includes('/assets/site-nav.js'),'Shared navigation JS not loaded: '+filename);
  if(filename.endsWith('prompts/index.html')){
   assert(html.includes('id="library-view"'),'Prompt library view absent '+filename);
@@ -60,8 +72,10 @@ for(const filename of independent){
  const language=filename.startsWith('eao/') ? (filename.startsWith('eao/en/')?'en':'zh')
    : filename.startsWith('toolscout/') ? (filename.startsWith('toolscout/en/')?'en':'zh')
    : (filename.includes('/zh/')?'zh':'en');
- for(const url of routes(language))assert(html.includes('href="'+url+'"'),
-   'Project navigation missing '+url+' in '+filename);
+ for(const key of primaryKeys){
+  const url=(language==='en'?'/en/':'/')+(key==='home'?'':key+'/');
+  assert(html.includes('href="'+url+'"'), 'Project primary nav missing '+url+' in '+filename);
+ }
 }
 for(const asset of [
  'assets/portfolio.css','assets/portfolio-liquid-glass.css','assets/site-header.css',

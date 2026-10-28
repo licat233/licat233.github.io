@@ -13,12 +13,16 @@ export const localizedPath = (lang: Lang, ...parts: string[]): string =>
 export const localeUrl = (lang: Lang, key: NavKey): string =>
   localizedPath(lang, key === 'home' ? '' : key);
 
-type Entry = { key: NavKey; zh: string; en: string };
+type Entry = { key: NavKey; zh: string; en: string; parent?: NavKey };
 export const nav = (entries as Entry[]).map(item => ({
   ...item,
   zhUrl: localeUrl('zh', item.key),
   enUrl: localeUrl('en', item.key),
 }));
+
+// Parentage is content navigation only: old stable URLs stay unchanged.
+export const primaryNav = nav.filter(item => !item.parent);
+export const aiChildren = nav.filter(item => item.parent === 'ai');
 
 export const blogSlug = (id: string) =>
   id.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-en$/, '');

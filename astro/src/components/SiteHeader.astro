@@ -1,5 +1,5 @@
 ---
-import { nav, localeUrl, type Lang, type NavKey } from '../lib/site';
+import { primaryNav, aiChildren, localeUrl, type Lang, type NavKey } from '../lib/site';
 interface Props { lang: Lang; active: NavKey; zhHref?: string; enHref?: string; }
 const { lang, active, zhHref = localeUrl('zh', active), enHref = localeUrl('en', active) } = Astro.props;
 import GlassSurface from './GlassSurface.astro';
@@ -12,7 +12,31 @@ import GlassSurface from './GlassSurface.astro';
     </a>
     <div class="nav-links">
       <span class="nav-indicator" aria-hidden="true"></span>
-      {nav.map(n => <a class:list={['nav-pill', { active: n.key === active }]} href={lang === 'en' ? n.enUrl : n.zhUrl} aria-current={n.key === active ? 'page' : undefined}><span></span>{lang === 'en' ? n.en : n.zh}</a>)}
+      {primaryNav.map(n => n.key === 'ai' ? (
+        <div class="nav-group" data-nav-group="ai">
+          <a class:list={['nav-pill', { active: active === 'ai' || active === 'skills' || active === 'prompts' }]}
+            href={lang === 'en' ? n.enUrl : n.zhUrl}
+            data-nav-section-current={active === 'skills' || active === 'prompts' ? 'location' : undefined}
+            aria-current={active === 'ai' ? 'page' : active === 'skills' || active === 'prompts' ? 'location' : undefined}>
+            <span></span>{lang === 'en' ? n.en : n.zh}
+          </a>
+          <button class="nav-submenu-trigger" type="button" aria-controls="ai-subnav"
+            aria-expanded="false" aria-label={lang === 'en' ? 'AI subcategories' : '展开 AI 子栏目'}>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <GlassSurface as="div" class="ai-subnav" id="ai-subnav" material="regular"
+            role="group" aria-label={lang === 'en' ? 'AI subcategories' : 'AI 子栏目'} hidden>
+            {aiChildren.map(child => <a href={lang === 'en' ? child.enUrl : child.zhUrl}
+              aria-current={active === child.key ? 'page' : undefined}>
+              {lang === 'en' ? child.en : child.zh}
+            </a>)}
+          </GlassSurface>
+        </div>
+      ) : (
+        <a class:list={['nav-pill', { active: n.key === active }]}
+          href={lang === 'en' ? n.enUrl : n.zhUrl}
+          aria-current={n.key === active ? 'page' : undefined}><span></span>{lang === 'en' ? n.en : n.zh}</a>
+      ))}
     </div>
     <div class="nav-actions">
       <GlassSurface as="button" class="theme-toggle" id="theme-toggle" type="button" aria-label={lang === 'en' ? 'Toggle theme' : '切换昼夜模式'} aria-pressed="false">

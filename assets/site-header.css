@@ -83,13 +83,9 @@
   gap: .1875rem;
   min-width: 0;
   padding: .1875rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
+  /* Four primary links fit: allow the AI child menu to escape the capsule. */
+  overflow: visible;
   scroll-behavior: smooth;
-  scroll-padding-inline: 40%;
-  overscroll-behavior-inline: contain;
-  scrollbar-width: none;
 }
 .site-header .nav-links::-webkit-scrollbar { display: none; }
 
@@ -153,6 +149,71 @@
   opacity: 1;
   background: var(--cyan);
   transform: scale(1.15);
+}
+
+/* AI is one primary navigation item with two accessible child links. */
+.site-header .nav-group {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.site-header .nav-group .nav-pill { padding-right: .375rem; }
+.site-header .nav-submenu-trigger {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 1.625rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: .75rem;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+}
+.site-header .nav-group:has(.nav-pill.active) .nav-submenu-trigger { color: var(--nav-active-fg); }
+.site-header .nav-submenu-trigger svg { width: .875rem; height: .875rem; transition: transform .2s ease; }
+.site-header .nav-submenu-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.site-header .nav-submenu-trigger:focus-visible,
+.site-header .ai-subnav a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.site-header .ai-subnav {
+  position: absolute;
+  z-index: 90;
+  top: 100%;
+  left: 0;
+  min-width: 10.5rem;
+  display: grid;
+  gap: .1875rem;
+  padding: .5rem;
+  border-radius: 1rem;
+  background: var(--apple-glass-bg-regular);
+  border: 1px solid var(--apple-glass-border);
+  box-shadow: 0 12px 30px rgba(16, 35, 52, .17), var(--apple-glass-inner-rim);
+}
+.site-header .ai-subnav[hidden] { display: none; }
+.site-header .ai-subnav > a {
+  position: relative;
+  z-index: 5;
+  display: block;
+  white-space: nowrap;
+  padding: .6875rem .875rem;
+  border-radius: .7rem;
+  color: var(--text);
+  font-size: .8125rem;
+  font-weight: 650;
+}
+.site-header .ai-subnav > a:hover,
+.site-header .ai-subnav > a[aria-current="page"] {
+  background: var(--apple-glass-bg-ultra-thin);
+  box-shadow: inset 0 0 0 1px var(--apple-glass-border);
+}
+@media (max-width: 760px) {
+  .site-header .nav-group .nav-pill { padding-right: .125rem; }
+  .site-header .nav-submenu-trigger { width: 1.375rem; height: 2.25rem; }
+  .site-header .ai-subnav { min-width: 9rem; }
 }
 
 .site-header .nav-actions { display: flex; align-items: center; gap: var(--space-2); }
