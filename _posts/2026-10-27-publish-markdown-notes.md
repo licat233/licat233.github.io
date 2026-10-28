@@ -1,117 +1,55 @@
 ---
 layout: post
-title: "如何用 Astro + GitHub Pages 发布 Markdown 博客"
+title: "我是如何用 Markdown 发布博客的"
 date: 2026-10-27 11:00:00 +0800
 lang: zh
-description: "以本站为例，介绍使用 Astro 内容集合、Markdown 和 GitHub Actions 发布中英文博客文章的实际流程。"
+description: "写好 Markdown，提交到 GitHub，让文章自动发布到博客。我日常使用的简单流程。"
 translation_url: /en/blog/publish-markdown-notes/
 ---
 
-这个 Blog 使用 **Astro + GitHub Pages**。写文章不需要额外的 CMS：Markdown 保存在 GitHub 仓库中，Astro 在构建时把它转换为静态网页，再由 GitHub Actions 部署。
+我写博客基本不用编辑后台。用 Markdown 把内容写好，提交到 GitHub，网站就会自动生成文章。
 
-## 文章放在哪里？
+## 写一篇 Markdown
 
-Markdown 文章保存在仓库根目录的 `_posts/`，由 **Astro Content Collection** 读取并生成博客页面。
-
-新建一篇中文文章，例如：
+在 `_posts/` 目录新建文件，比如：
 
 ```text
 _posts/2026-10-28-my-first-note.md
 ```
 
-文件内容可以从以下模板开始：
+填上标题、日期和语言，下面就可以直接写正文：
 
-```yaml
+```markdown
 ---
 title: "我的第一篇笔记"
 date: 2026-10-28
 lang: zh
-description: "简要介绍这篇文章要解决的问题。"
+description: "这篇文章的简短介绍。"
 ---
 
-这里是 Markdown 正文。
+今天想记录一个小发现。
 
-## 一个小标题
+## 我是怎么做的
 
-可以使用列表、表格、链接、图片和代码块。
+这里写正文。**重点**可以加粗，也可以插入链接、图片和代码。
 ```
 
-**关键字段：** `title`、`date`、`lang`；建议填写 `description`。目前 `lang` 支持 `zh` 和 `en`。新文章无需填写 `layout`；本站文章 URL 由 Astro 路由和文件名生成，`permalink` 字段不会改变该 URL。
+文件名中的 `my-first-note` 会成为文章地址的一部分。尽量用简短、清楚的英文命名；文章发布后，最好不要随意改文件名。
 
-本站目前通过 `astro/src/content.config.ts` 的 `glob` 加载 Markdown，再由 `astro/src/pages/blog/[slug].astro` 生成中文文章页。
+## 发布到网站
 
-文件名前面的日期用于源文件组织；网页的 Slug 由文件名去掉日期前缀而得。因此上例会发布到：
+写完后，把 Markdown 提交到 GitHub，合并到 `main` 分支。GitHub Actions 会自动用 **Astro + GitHub Pages** 构建、发布网站。
+
+上面的文章会出现在：
 
 ```text
 /blog/my-first-note/
 ```
 
-Slug 应当简短、可读且不与已有文章冲突。修改旧文章文件名可能改变 URL，已发布的文章不要随意改名。
+不需要单独制作网页，博客列表也会自动显示新文章。发布后打开链接看一眼，确认文字、图片和链接正常即可。
 
-## 如何发布英文版？
+## 如果还想发布英文版
 
-英文文章单独写成 Markdown，放在同一个 `_posts/` 目录下。本站约定以 `-en.md` 结尾：
+再建一个 `_posts/2026-10-28-my-first-note-en.md`，把 `lang` 改成 `en`，写入完整英文正文，就会得到 `/en/blog/my-first-note/`。
 
-```text
-_posts/2026-10-28-my-first-note-en.md
-```
-
-例如：
-
-```yaml
----
-title: "My First Note"
-date: 2026-10-28
-lang: en
-description: "A short summary of this article."
-translation_url: /blog/my-first-note/
----
-
-The English Markdown article starts here.
-```
-
-它将发布到 `/en/blog/my-first-note/`。当**中文和英文两篇都实际存在**时，在中文文章的头部增加：
-
-```yaml
-translation_url: /en/blog/my-first-note/
-```
-
-这样语言切换链接才能指向真实的对应文章。**只有单语文章时，不要添加虚构的 `translation_url`**；本站会让语言按钮返回另一语言的 Blog 列表，而不会错误声明两篇文章互为翻译。
-
-中英文正文应独立编写或校对，不要只翻译标题、却让正文仍保持原语言。
-
-## 文章怎样变成网页？
-
-发布链路是：
-
-```text
-_posts/*.md
-   ↓ Astro Content Collection（按 lang 分类）
-   ↓ /blog/[slug]/ 与 /en/blog/[slug]/ 静态构建
-   ↓ GitHub Actions：Astro 构建、检查、部署
-   ↓ GitHub Pages
-```
-
-博客列表也是读取同一内容集合自动生成的，不需要手工为每篇文章新增 `.astro` 页面或编辑首页导航。
-
-**图片与链接：** Markdown 可以写绝对站内路径，例如 `/assets/example.png`，但图片文件必须实际存在并随网站发布。发布前检查中英文内链、图片地址和代码块显示。
-
-## 如何检查并发布？
-
-在仓库根目录执行：
-
-```bash
-cd astro
-npm ci
-npm run build
-npm run check
-node scripts/check-legacy-routes.mjs
-```
-
-项目使用 Node.js 24 与仓库锁定的依赖。第一次安装需要 `npm ci`；已有依赖时不必每次重复安装。
-
-建议在工作分支提交文章并创建 Pull Request，待 GitHub 的构建与浏览器检查通过后再合并至 `main`。当前 `.github/workflows/deploy-astro-pages.yml` 会在 `main` 更新时执行 Astro 构建、校验和 GitHub Pages 部署（部署需启用仓库变量 `ASTRO_PAGES_ACTIVE`）。
-
-最后直接打开新文章与 [中文 Blog 列表](/blog/) 检查页面。若有英文版，也检查 [English Blog](/en/blog/) 以及双向语言切换。
-
-**总结：写 Markdown → 核对元数据与双语链接 → 构建检查 → 合并到 `main` → 验证线上页面。**
+如果中英文两篇都已经发布，可以分别添加 `translation_url` 指向对方的地址，让语言切换按钮直达对应文章。没有翻译版时，就不添加这个字段。
