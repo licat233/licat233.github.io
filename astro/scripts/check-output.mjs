@@ -214,7 +214,7 @@ for(const route of ['index.html','en/index.html']){
   'Astro homepage must not load obsolete visitor-side GitHub Skills API discovery');
  for(const name of skillSources)assert(html.includes(name),
   'Locally published SKILL.md was not discovered during build: '+name+' on '+route);
- const count=(html.match(/class="[^"]*\bskill-card\b[^"]*"/g)||[]).length;
+ const count=(html.match(/<article\s+class="[^"]*\bskill-card\b[^"]*"/g)||[]).length;
  assert(count===skillSources.length,
   'Skills catalogue/visible card count drift: '+route+' ('+count+'/'+skillSources.length+')');
 }
