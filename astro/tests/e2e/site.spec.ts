@@ -1,4 +1,15 @@
 import { test, expect } from '@playwright/test';
+import { readdir, access } from 'node:fs/promises';
+import path from 'node:path';
+const discoveredSkillCountPromise=(async ()=>{
+  const entries=await readdir(path.resolve(process.cwd(),'../skills'),{withFileTypes:true});
+  const slugs=entries.filter(e=>e.isDirectory()&&/^[a-z0-9][a-z0-9-]{0,79}$/.test(e.name)).map(e=>e.name);
+  const real=await Promise.all(slugs.map(async slug=>{
+    try{await access(path.resolve(process.cwd(),'../skills',slug,'SKILL.md'));return true}
+    catch{return false}
+  }));
+  return real.filter(Boolean).length;
+})();
 
 test('global navigation routes and selected state work', async ({page}) => {
  await page.goto('/');
@@ -59,7 +70,7 @@ test('project and Skill pages load with correct site hierarchy',async ({page})=>
  await expect(page.locator('.site-context')).toContainText('Enterprise AI Office');
  await expect(page.locator('.site-context a[href="/projects/"]').first()).toBeVisible();
  await page.goto('/skills/');
- await expect(page.locator('.site-section-card')).toHaveCount(2);
+ await expect(page.locator('.site-section-card')).toHaveCount(await discoveredSkillCountPromise);
 });
 
 test('critical local links and assets return no HTTP errors', async ({page}) => {
@@ -101,7 +112,7 @@ test('homepage project and Skill previews share one bilingual data structure',as
    const cards=page.locator('#projects .projects > a.project');
    await expect(cards).toHaveCount(8);
    await expect(cards.locator('h3')).toHaveText(expected);
-   await expect(page.locator('#skills .skill-card')).toHaveCount(2);
+   await expect(page.locator('#skills .skill-card')).toHaveCount(await discoveredSkillCountPromise);
    await expect(page.locator('#skills .skill-card h3'))
      .toHaveText(['design-liquid-glass-ui','reversible-scroll-motion']);
    await expect(cards.first().locator('.project-icon svg')).toBeAttached();
@@ -215,7 +226,40 @@ test('shared GlassSurface keeps link, button, nav, and footer semantics',async (
    await expect(page.locator('.hero-actions a.hero-cta.liquid-demo')).toHaveAttribute('href','/eao/');
    await expect(page.locator('footer.site-footer.liquid-demo')).toHaveCount(1);
    await expect(page.locator('#projects a.project.liquid-demo')).toHaveCount(8);
-   await expect(page.locator('#skills article.skill-card.liquid-demo')).toHaveCount(2);
+   await expect(page.locator('#skills article.skill-card.liquid-demo')).toHaveCount(await discoveredSkillCountPromise);
    await expect(page.locator('.principles article.principle.liquid-demo')).toHaveCount(3);
  }
+});
+
+test('bilingual Astro home does not hit unauthenticated GitHub REST or log malformed SVG',async ({page})=>{
+  const errors:string[]=[];
+  const forbidden:string[]=[];
+  const dynamicApi:string[]=[];
+  page.on('console',message=>{
+    if(message.type()==='error' && /(?:<path> attribute d|Expected number)/i.test(message.text()))
+      errors.push(message.text());
+  });
+  page.on('request',request=>{
+    if(request.url().startsWith('https://api.github.com/'))dynamicApi.push(request.url());
+  });
+  page.on('response',response=>{
+    if(response.url().startsWith('https://api.github.com/')&&response.status()>=400)
+      forbidden.push(response.status()+' '+response.url());
+  });
+  for(const route of ['/','/en/']){
+    await page.goto(route,{waitUntil:'load'});
+    await expect(page.locator('.site-header .github-mark path')).toHaveCount(1);
+    const result=await page.locator('.site-header .github-mark path').evaluate(el=>{
+      const path=el as SVGPathElement;
+      return {len:path.getTotalLength(),d:path.getAttribute('d')||''};
+    });
+    expect(result.len,'GitHub mark rendered as broken path').toBeGreaterThan(45);
+    expect(result.d).toContain('M12 .297');
+    await expect(page.locator('#skills .skill-card')).toHaveCount(await discoveredSkillCountPromise);
+    await expect(page.locator('script[src*="portfolio-skills.js"]')).toHaveCount(0);
+    await page.waitForTimeout(350);
+  }
+  expect(errors,'SVG parsing errors leaked into Chrome console').toEqual([]);
+  expect(dynamicApi,'Site must not call GitHub REST in visitor browser').toEqual([]);
+  expect(forbidden,'Unnecessary GitHub API 403s').toEqual([]);
 });
