@@ -101,6 +101,17 @@ SEO 并不是把网站的技术评分刷到满分，GEO 也不是给页面添加
 
 网页路径中的目录名不是排名魔法。使用 `/blog/article-name/` 可以让博客与其他页面分开管理；文章放在根目录并不会因此自动受到 Google 处罚。根据网站规模、现有路由和维护习惯，选择一种稳定、清晰的结构即可。
 
+### 把文章放在 /blog/ 下有什么实际好处？
+
+对于有产品、服务、项目和文章等多个内容类型的网站，`/blog/{slug}/` 往往比在根目录直接使用 `/{slug}/` 更容易长期管理：
+
+- **减少路由冲突**：文章名称不容易与 `/about/`、`/services/` 等主要栏目撞名；但具体冲突仍取决于路由实现。
+- **方便内容分析**：可在 Search Console 中按 `/blog/` URL 路径筛选文章表现；在 GA4 中按页面路径建立内容组（需要自行配置）。
+- **方便维护和迁移**：内容列表、分页、重定向与缓存规则更容易按目录分类；不意味着必须增加缓存规则。
+- **便于多语言扩展**：例如 `/en/blog/example/`，前提是页面确实提供相应语言的完整内容。
+
+这属于**信息架构和运营管理的取舍**，并不是 Google 规定“博客必须放在 `/blog/` 才能排名”。已有稳定地址的内容不应只为统一格式就贸然改 URL。
+
 ## 五、Title、Meta Description 和标题层级
 
 ### 1. Title：明确告诉读者这页讲什么
@@ -197,6 +208,33 @@ Google 对 AI Overviews、AI Mode 等功能的说明没有要求网站额外安�
 
 可以关注新的 AI 搜索能力，但不必因为某项未经证实的“GEO 技巧”重做整个网站。
 
+### `llms.txt`、`llms-full.txt` 和单页 Markdown 分别是什么？
+
+一些文档网站已经开始为 AI Agent 提供 Markdown 格式的内容。它们主要解决**资料导航、按需读取和批量处理**的问题，不等于搜索引擎排名优化。
+
+| 文件或形式 | 主要用途 | 适合的场景 |
+| --- | --- | --- |
+| `/llms.txt` | 简短描述网站，并按主题列出重要页面或 Markdown 文档的链接 | 让 Agent 快速发现相关资料 |
+| `/llms-full.txt` | 将已公开的多页正文合并为一个较大的 Markdown 文件 | 离线索引、批量向量化、大上下文模型处理 |
+| 单页 Markdown（例如 `/docs/example/index.md`） | 只提供一篇文章或一页文档的纯文本版本 | Agent 按需读取，减少 HTML 模板和不相关内容 |
+| `Accept: text/markdown` | 在服务器支持时，通过 HTTP 内容协商获取单页 Markdown | 同一内容提供 HTML 与 Markdown 两种读取方式 |
+
+[Cloudflare Docs for Agents](https://developers.cloudflare.com/docs-for-agents/) 实际提供了这几种内容交付方式，包括 [Workers 的 llms.txt](https://developers.cloudflare.com/workers/llms.txt) 和 [llms-full.txt](https://developers.cloudflare.com/workers/llms-full.txt)。这是一个值得参考的**工程实践案例**，但不能据此推断其他网站一定会获得更多 AI 引用或搜索流量。
+
+[llms.txt v2](https://llmstxt.org/) 仍是开放社区提案，不是 Google 强制要求的网站标准。它侧重于一个精简的 Markdown 导航文件：使用 H1 写网站名称、简要描述，并在 H2 分类下提供文档链接；详细正文应尽量放到可按需读取的页面里。`llms-full.txt` 是部分网站采用的可选全文聚合实践，而不是每个站点必备的第二份 Sitemap。
+
+**Google Search 不要求网站添加 `llms.txt` 或 `llms-full.txt` 才能进入 AI Overviews 或 AI Mode。** 对 Google 搜索而言，仍应优先保证网页可索引、内容有帮助、技术实现正确。其他 AI 产品是否读取这些文件，需要分别验证，不能笼统假设。
+
+如果确实需要发布这些 Markdown 资源，建议遵守以下原则：
+
+1. **从已公开的唯一内容来源生成**，不要人工复制维护第二份正文，也不要把草稿、内部文件、个人信息或客户敏感资料打包公开。
+2. **保留原页面的标题和规范 URL**，清理页眉、导航、页脚等模板噪音；不要凭空补充页面没有的事实。
+3. **按需求决定粒度**：少量重要资料可以只有 `llms.txt`；内容很多时优先让 Agent 按需读取单页，批处理确有需求时再考虑全文聚合。
+4. **检查文件大小、链接和更新同步**，确保新增、更正、删除和 URL 改名后不会留下过期副本。文件越大，读取及上下文成本可能越高。
+5. **实际验证访问与内容**：HTTP 状态、文本编码、Content-Type、链接有效性，以及公开权限。Markdown 能访问，不代表搜索引擎一定会使用或引用。
+
+对于普通个人博客或规模不大的企业网站，**先把原有 HTML 页面与内容做好，通常比专门开发一套 AI 文档系统更有价值**。
+
 参考：[Google AI 搜索优化指南](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)、[AI 功能与网站](https://developers.google.com/search/docs/appearance/ai-features)。
 
 ## 八、URL、Slug、Canonical 与重定向
@@ -216,6 +254,12 @@ URL 首先应该稳定、可理解、便于维护。实际操作中重点处理�
 ```
 
 Google 推荐使用连字符来分隔 URL 中的词语，但并不存在“所有 URL 都必须少于 75 个字符”或“所有文章只能在三层目录以内”这样的官方排名硬性要求。
+
+**Slug 要聚焦一件事，而不是把所有潜在关键词串起来。** 可以把“尽量控制在 3～5 个有意义的英文单词以内”作为团队的编辑习惯，优先保留内容主题、必要的型号或区分词。例如 `/blog/github-pages-deployment/` 比 `/blog/github-pages-website-free-hosting-deployment-guide-tutorial/` 更清楚。
+
+这里的词数只是**可选的编辑标准**，不是 Google 的排名门槛；没有证据表明每增加一个词，就会按固定比例稀释 URL 权重。比较词 `vs`、介词 `for` 或产品型号中的数字，只要确实影响含义，就不应为凑字数强行删除。清晰、准确、稳定比机械缩短更重要。
+
+另外，**URL 的目录层级不等于用户访问页面的点击深度**。较深的路径并不意味着搜索引擎一定更难抓取；真正要检查的是清晰导航、正常 HTML 链接与实际可达性。
 
 国际化 URL 也不是天然不允许。选择 ASCII Slug 还是本地语言 Slug，可以根据读者、内容和技术维护需求决定。
 
@@ -314,6 +358,12 @@ Schema.org 的结构化数据可帮助搜索引擎识别某些内容类型。常
 
 页面出现问题时，优先按“能否访问 → 是否被索引 → 页面意图是否清楚 → 内容与证据是否充分 → 用户是否得到所需”的顺序定位，不要一上来就安装更多 SEO 插件。
 
+### 用栏目和结果验证，而不是只看总流量
+
+当网站有多个内容栏目时，可用 Search Console 按 URL 路径筛选，分别观察文章、产品、服务等页面的查询和点击；若使用 GA4，可配置内容组，了解不同类型内容如何影响实际阅读、注册或询盘。**目录存在不会自动创建 GA4 内容组，也不能只凭搜索点击推算收益。**
+
+每次重要修改记录发布或更新日期、受影响 URL、调整内容和可观察指标。对比改动前后时注意季节、品牌活动和搜索需求等共同变化；一次排名波动不能直接证明某项 SEO 方法有效。
+
 ## 十三、发布前的简明检查清单
 
 - [ ] 页面解决一个明确的用户问题，内容与标题一致。
@@ -326,6 +376,8 @@ Schema.org 的结构化数据可帮助搜索引擎识别某些内容类型。常
 - [ ] 有合适的相关内容入口，读者能够继续阅读。
 - [ ] 如使用结构化数据，字段与网页实际信息一致。
 - [ ] 对修改过的页面检查真实 HTTP 响应，而不只看源码。
+- [ ] 如果改变 URL，检查旧地址的 301/308、新地址的 200，以及 Canonical、站内链接和 Sitemap 是否同步。
+- [ ] 如果提供 `llms.txt`、Markdown 单页或全文聚合，确认来源已公开、链接有效、内容可同步更新；不要默认它们能提高排名。
 
 ## 结语
 
@@ -343,5 +395,9 @@ Schema.org 的结构化数据可帮助搜索引擎识别某些内容类型。常
 - [Google 搜索垃圾内容政策](https://developers.google.com/search/docs/essentials/spam-policies)
 - [Google 搜索标题链接建议](https://developers.google.com/search/docs/appearance/title-link)
 - [Google Search Console 成效报告](https://support.google.com/webmasters/answer/7576553)
+- [Google Search Console 页面筛选](https://support.google.com/webmasters/answer/17011165)
+- [Google Analytics 内容组](https://support.google.com/analytics/answer/11523339)
+- [Cloudflare Docs for Agents：Markdown、llms.txt 与 llms-full.txt](https://developers.cloudflare.com/docs-for-agents/)
+- [llms.txt v2 开放社区提案](https://llmstxt.org/)
 
 *本篇是通用实践指南，具体实施方式需要根据网站类型、技术框架、内容规模与实际目标调整；搜索引擎与 AI 产品的规则也可能更新。*
