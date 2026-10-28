@@ -40,7 +40,7 @@ Do not hand-edit the generated `dist/` directory or introduce another CMS or dep
 | Bilingual prompt details | `src/pages/prompts/[id].astro`, `src/pages/en/prompts/[id].astro` |
 | Assets and legacy microsites | `scripts/prepare-public.mjs` (build-time compatibility bridge) |
 
-The Prompt Library has 16 entries with independent Chinese and English Markdown files and 32 static detail pages. Older query-based `?p=` prompt shares use a browser-side compatibility redirect to their path-based URLs; GitHub Pages does not provide an HTTP 301 specifically for those query values.
+The Prompt Library has 17 entries with independent Chinese and English Markdown files and 34 static detail pages. Older query-based `?p=` prompt shares use a browser-side compatibility redirect to their path-based URLs; GitHub Pages does not provide an HTTP 301 specifically for those query values.
 
 ## Publish a blog article
 
