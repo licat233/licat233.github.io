@@ -7,13 +7,11 @@ description: "以本站为例，介绍使用 Astro 内容集合、Markdown 和 G
 translation_url: /en/blog/publish-markdown-notes/
 ---
 
-> 本文已于 2026 年 10 月 28 日按网站当前的 Astro 架构更新。本文介绍的是本站的实际发布流程，不是通用的 Jekyll 教程。
-
 这个 Blog 使用 **Astro + GitHub Pages**。写文章不需要额外的 CMS：Markdown 保存在 GitHub 仓库中，Astro 在构建时把它转换为静态网页，再由 GitHub Actions 部署。
 
 ## 文章放在哪里？
 
-博客原稿仍存放在仓库根目录的 `_posts/`，但**现在由 Astro Content Collection 读取，不再由 Jekyll 渲染**。
+Markdown 文章保存在仓库根目录的 `_posts/`，由 **Astro Content Collection** 读取并生成博客页面。
 
 新建一篇中文文章，例如：
 
@@ -38,7 +36,7 @@ description: "简要介绍这篇文章要解决的问题。"
 可以使用列表、表格、链接、图片和代码块。
 ```
 
-**关键字段：** `title`、`date`、`lang`；建议填写 `description`。目前 `lang` 支持 `zh` 和 `en`。旧 Jekyll 模板中的 `layout: post`、`layout: post-en` 对 Astro 不再有作用，也不要指望 `permalink` 改变 Astro 生成的文章地址。**本站这篇已有文章仍保留旧 `layout` 字段，只为兼容历史 Jekyll 回滚检查；新文章不必填写。**
+**关键字段：** `title`、`date`、`lang`；建议填写 `description`。目前 `lang` 支持 `zh` 和 `en`。新文章无需填写 `layout`；本站文章 URL 由 Astro 路由和文件名生成，`permalink` 字段不会改变该 URL。
 
 本站目前通过 `astro/src/content.config.ts` 的 `glob` 加载 Markdown，再由 `astro/src/pages/blog/[slug].astro` 生成中文文章页。
 
@@ -116,4 +114,4 @@ node scripts/check-legacy-routes.mjs
 
 最后直接打开新文章与 [中文 Blog 列表](/blog/) 检查页面。若有英文版，也检查 [English Blog](/en/blog/) 以及双向语言切换。
 
-**总结：写 Markdown → 核对元数据与双语链接 → 构建检查 → 合并到 `main` → 验证线上页面。** 不需要安装博客后台，也无需维护 Jekyll 布局。
+**总结：写 Markdown → 核对元数据与双语链接 → 构建检查 → 合并到 `main` → 验证线上页面。**
