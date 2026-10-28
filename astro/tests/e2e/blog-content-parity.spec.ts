@@ -36,8 +36,20 @@ test('Jekyll article text, heading structure and canonical URLs survive Astro mi
      const titleSame=j.title===a.title;
      const headingsSame=JSON.stringify(j.headings)===JSON.stringify(a.headings);
      const canonicalSame=j.canon===a.canon;
-     const error=(!titleSame||!headingsSame||!canonicalSame||lengthRatio<.96||lengthRatio>1.04);
-     reports.push({route,
+     // This public guide is deliberately revised; verify its SEO identity,
+     // new material, and public-only scope instead of expecting old live prose.
+     const updatedGuide=route==='/blog/website-seo-geo-basics/';
+     const guideContentPass=!updatedGuide || (
+       a.text.includes('llms-full.txt') &&
+       a.text.includes('单页 Markdown') &&
+       a.text.includes('Slug 应该') &&
+       a.text.includes('lastmod') &&
+       !/ARMOR|armorltg|armorlighting|Smart Retail Shelf|Power Track|Sunylive|eaoarchive/i.test(a.text)
+     );
+     const error=updatedGuide
+       ? (!titleSame||!canonicalSame||!guideContentPass)
+       : (!titleSame||!headingsSame||!canonicalSame||lengthRatio<.96||lengthRatio>1.04);
+     reports.push({route,editorialRevision:updatedGuide,guideContentPass,
        jekyllChars:cJ.length,astroChars:cA.length,
        lengthRatio:Number(lengthRatio.toFixed(4)),titleSame,headingsSame,canonicalSame,
        jekyllHeadings:j.headings,astroHeadings:a.headings,jekyllAlternates:j.alts,astroAlternates:a.alts});
