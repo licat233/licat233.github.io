@@ -158,8 +158,8 @@ assert((await source('src/components/prompts/PromptLibrary.astro')).includes("im
 console.log('ASTRO_ARCHITECTURE_PASS: one document shell, shared bilingual cards and prompt templates');
 
 const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));
-assert(prompts.length===16 && new Set(prompts.map(x=>x.id)).size===16,
- 'Prompt metadata must contain 16 unique records');
+assert(prompts.length===17 && new Set(prompts.map(x=>x.id)).size===17,
+ 'Prompt metadata must contain 17 unique records');
 assert(prompts.some(x=>x.id==='ai-coding-minimal-defensive-v1' && x.category==='design' && x.translatedEnglish===true),
  'Missing AI coding guideline in Astro prompt catalogue');
 assert(prompts.filter(x=>x.translatedEnglish).length===prompts.length,
@@ -201,6 +201,12 @@ for(const prefix of ['','en/']){
 }
 console.log('ASTRO_PROMPT_DETAIL_ROUTES_PASS: 32 static localized articles with canonical, hreflang and SSR body');
 
+for(const [prefix,lead] of [['','以下是强制执行约束'],['en/','The following are mandatory execution constraints']]){
+ const text=await read(prefix+'prompts/content/ai-agent-minimal-necessary-execution-v1.md');
+ const part=text.split('<!-- prompt:begin -->')[1]?.split('<!-- prompt:end -->')[0]?.trim();
+ assert(part?.includes(lead) && (part.match(/^\d+\./gm)||[]).length===6,
+  'Minimum necessary agent prompt missing or incomplete in '+prefix);
+}
 const codingPrompt=await read('prompts/content/ai-coding-minimal-defensive-v1.md');
 assert(codingPrompt.includes('<!-- prompt:begin -->') && codingPrompt.includes('<!-- prompt:end -->') &&
        codingPrompt.includes('### 九、必要的安全与正确性边界'),
@@ -229,7 +235,7 @@ for(const id of ['ai-natural-communication-v1.3.1','ai-high-value-writing-audit-
  const body=file.split('<!-- prompt:begin -->')[1].split('<!-- prompt:end -->')[0];
  assert(!/[\u3400-\u9fff]/.test(body),'New English prompt still contains Chinese body text: '+id);
 }
-console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 16 localized records, 16 real English prompt files, SSR/client parity');
+console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 17 localized records, 17 real English prompt files, SSR/client parity');
 
 const preservedDemo=await read('demo/index.html');
 assert(preservedDemo.includes('name="robots" content="noindex,follow"'),
