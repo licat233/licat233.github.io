@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "如何用 Astro + GitHub Pages 发布 Markdown 博客"
 date: 2026-10-27 11:00:00 +0800
 lang: zh
@@ -37,7 +38,7 @@ description: "简要介绍这篇文章要解决的问题。"
 可以使用列表、表格、链接、图片和代码块。
 ```
 
-**关键字段：** `title`、`date`、`lang`；建议填写 `description`。目前 `lang` 支持 `zh` 和 `en`。旧 Jekyll 模板中的 `layout: post`、`layout: post-en` 不再需要，也不要指望 `permalink` 改变 Astro 生成的文章地址。
+**关键字段：** `title`、`date`、`lang`；建议填写 `description`。目前 `lang` 支持 `zh` 和 `en`。旧 Jekyll 模板中的 `layout: post`、`layout: post-en` 对 Astro 不再有作用，也不要指望 `permalink` 改变 Astro 生成的文章地址。**本站这篇已有文章仍保留旧 `layout` 字段，只为兼容历史 Jekyll 回滚检查；新文章不必填写。**
 
 本站目前通过 `astro/src/content.config.ts` 的 `glob` 加载 Markdown，再由 `astro/src/pages/blog/[slug].astro` 生成中文文章页。
 
