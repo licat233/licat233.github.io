@@ -20,7 +20,7 @@ const styles=['/assets/vendor/open-props/open-props-core-1.7.23.min.css','/asset
    <div class="shell">
      <p class="site-section-kicker">{kind==='projects'?'BUILT & SHIPPED':'REUSABLE KNOW-HOW'}</p>
      <h1>{heading}</h1><p class="site-section-lead">{description}</p>
-     <p class="site-section-meta">{kind==='projects'?(en?'Selected projects and independent tools':'精选项目与独立工具'):(en?'Two maintained Skills with source instructions':'两项公开维护的 Skill 与原始规范')}</p>
+     <p class="site-section-meta">{kind==='projects'?(en?'Selected projects and independent tools':'精选项目与独立工具'):(skills.length===2?(en?'Two maintained Skills with source instructions':'两项公开维护的 Skill 与原始规范'):(en?`${skills.length} maintained Skills with source instructions`:`${skills.length} 项公开维护的 Skill 与原始规范`))}</p>
      <div class="site-section-grid">
        {projects.map((project,i)=><GlassSurface as="a" class="site-section-card" material="regular" href={en?project.en_url:project.zh_url}>
          
