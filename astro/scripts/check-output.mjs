@@ -89,7 +89,7 @@ for(const asset of [
 ])await stat(path.join(root,asset));
 assert((await read('blog/advanced-seo-geo-guide/index.html')).includes('独立站 SEO/GEO'),
        'Long-form Chinese Markdown body missing');
-assert((await read('blog/publish-markdown-notes/index.html')).includes('文章放在哪里'),
+assert((await read('blog/publish-markdown-notes/index.html')).includes('写一篇 Markdown'),
        'Blog body missing');
 assert((await read('zh/index.html')).includes('location.replace'),
        'Legacy Chinese homepage URL lost');
