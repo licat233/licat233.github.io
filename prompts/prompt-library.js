@@ -37,6 +37,12 @@
       tags:['DetailFlow','电商设计','产品真实性','长文']
     },
     {
+      id:'ai-coding-minimal-defensive-v1',title:'AI 编程反过度防御与最小实现指令 V1.0',
+      category:'design',label:'开发与设计',type:'编程执行规范 · V1.0',
+      summary:'专治过度防御、过早抽象与反复验证：遵循现有仓库，以最小可靠实现满足需求，并保留必要的安全边界。',
+      tags:['Codex','Claude Code','AGENTS.md','过度防御','最小实现','最小验证','代码质量']
+    },
+    {
       id:'seo-python-character-validation',title:'AI 字符数精准控制｜Python 代码校验法',
       category:'agent',label:'Agent 与工作流',type:'文本长度校验 · Python 验证',
       summary:'解决 AI 字符计数不可靠的问题：用 Python len() 实测字符数，超限重写、验证通过才交付。SEO 是应用示例。',
