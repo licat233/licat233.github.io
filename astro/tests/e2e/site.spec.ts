@@ -1,25 +1,3 @@
-test('AI toolkit links real published sources in both languages and preserves glass',async ({page})=>{
- for(const route of ['/ai/','/en/ai/']){
-   await page.goto(route);
-   await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href',route);
-   const cards=page.locator('.site-section-grid > a.site-section-card');
-   await expect(cards).toHaveCount(5);
-   for(const card of await cards.all()){
-     await expect(card).toHaveClass(/\\bliquid-demo\\b/);
-     for(const name of ['lg-glass-filter','lg-glass-overlay','lg-glass-specular'])
-       await expect(card.locator(':scope > .'+name)).toHaveCount(1);
-   }
-   const en=route.startsWith('/en/');
-   await expect(cards.nth(0)).toHaveAttribute('href',en?'/en/skills/':'/skills/');
-   await expect(cards.nth(1)).toHaveAttribute('href',en?'/en/prompts/':'/prompts/');
-   await expect(cards.nth(2)).toHaveAttribute('href',en?'/toolscout/en/':'/toolscout/zh/');
-   await expect(cards.nth(3)).toHaveAttribute('href',en?'/eao/en/':'/eao/');
-   await expect(cards.nth(4)).toHaveAttribute('href',en?'/armor-memory/':'/armor-memory/zh/');
-   await expect(page.locator('.site-header .lang a').filter({hasText:en?'中':'EN'}))
-     .toHaveAttribute('href',en?'/ai/':'/en/ai/');
- }
-});
-
 import { test, expect } from '@playwright/test';
 import { readdir, access } from 'node:fs/promises';
 import path from 'node:path';
@@ -285,3 +263,26 @@ test('bilingual Astro home does not hit unauthenticated GitHub REST or log malfo
   expect(dynamicApi,'Site must not call GitHub REST in visitor browser').toEqual([]);
   expect(forbidden,'Unnecessary GitHub API 403s').toEqual([]);
 });
+
+test('AI toolkit links real published sources in both languages and preserves glass',async ({page})=>{
+ for(const route of ['/ai/','/en/ai/']){
+   await page.goto(route);
+   await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href',route);
+   const cards=page.locator('.site-section-grid > a.site-section-card');
+   await expect(cards).toHaveCount(5);
+   for(const card of await cards.all()){
+     await expect(card).toHaveClass(/\bliquid-demo\b/);
+     for(const name of ['lg-glass-filter','lg-glass-overlay','lg-glass-specular'])
+       await expect(card.locator(':scope > .'+name)).toHaveCount(1);
+   }
+   const en=route.startsWith('/en/');
+   await expect(cards.nth(0)).toHaveAttribute('href',en?'/en/skills/':'/skills/');
+   await expect(cards.nth(1)).toHaveAttribute('href',en?'/en/prompts/':'/prompts/');
+   await expect(cards.nth(2)).toHaveAttribute('href',en?'/toolscout/en/':'/toolscout/zh/');
+   await expect(cards.nth(3)).toHaveAttribute('href',en?'/eao/en/':'/eao/');
+   await expect(cards.nth(4)).toHaveAttribute('href',en?'/armor-memory/':'/armor-memory/zh/');
+   await expect(page.locator('.site-header .lang a').filter({hasText:en?'中':'EN'}))
+     .toHaveAttribute('href',en?'/ai/':'/en/ai/');
+ }
+});
+
