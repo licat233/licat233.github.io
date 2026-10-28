@@ -12,3 +12,6 @@ The browser console previously showed a malformed SVG path in the global GitHub 
 The browser-extension `content.js` Core Web Vitals log (`CLS 0.00 (good)`) is informational, not a site error.
 
 This is a targeted remediation; the site's original layout, CSS, animations, and existing bilingual Skills content remain unchanged.
+
+## Regression verification
+The CI smoke checks count actual `<article class="…skill-card…">` nodes rather than nested `skill-card-content` elements, assert that every local Skill is built into both homepages, and run Chromium console/request checks in both supported viewport sizes.
