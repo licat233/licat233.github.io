@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 
-test('Jekyll article text, heading structure and canonical URLs survive Astro migration',async ({page},info)=>{
+test('Blog canonical metadata and unchanged article content survive Astro migration',async ({page},info)=>{
  test.setTimeout(120000);
  const live=await page.context().newPage();
  const paths=[
@@ -36,7 +36,18 @@ test('Jekyll article text, heading structure and canonical URLs survive Astro mi
      const titleSame=j.title===a.title;
      const headingsSame=JSON.stringify(j.headings)===JSON.stringify(a.headings);
      const canonicalSame=j.canon===a.canon;
-     const error=(!titleSame||!headingsSame||!canonicalSame||lengthRatio<.96||lengthRatio>1.04);
+     // This article has intentionally gained new editorial sections since the
+     // currently published version. Its metadata must remain stable, and the
+     // candidate must contain the new section; unchanged articles still need
+     // strict live-text/heading parity during the Astro transition.
+     const revisedGuide=route==='/blog/website-seo-geo-basics/';
+     const hasNewGuideContent=a.headings.some(h=>h.text.includes('llms-full.txt'))
+       && a.text.includes('Cloudflare Docs for Agents')
+       && cA.length>=cJ.length;
+     const contentError=revisedGuide
+       ? !hasNewGuideContent
+       : (!headingsSame||lengthRatio<.96||lengthRatio>1.04);
+     const error=(!titleSame||!canonicalSame||contentError);
      reports.push({route,
        jekyllChars:cJ.length,astroChars:cA.length,
        lengthRatio:Number(lengthRatio.toFixed(4)),titleSame,headingsSame,canonicalSame,
