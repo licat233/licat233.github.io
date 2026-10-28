@@ -40,7 +40,7 @@ SEO 并不是把网站的技术评分刷到满分，GEO 也不是给页面添加
 | `robots.txt` | 没有意外禁止搜索引擎访问希望被发现的内容 |
 | `noindex` | 需要收录的页面未被错误标记为不索引 |
 | Canonical | 页面指向正确、可访问的规范 URL |
-| Sitemap | 站点地图列出希望搜索引擎发现的规范内容页 |
+| Sitemap | 站点地图列出希望被发现的规范内容页；`lastmod` 只写真实的重要更新日期 |
 | 内部链接 | 重要页面能够从导航、列表或相关文章进入 |
 
 这里有个经常被误解的区别：`robots.txt` 主要控制**抓取**，而 `noindex` 控制**是否进入搜索索引**。如果搜索引擎因为 robots 规则无法抓取页面，也就可能读不到页面里的 `noindex`。
@@ -197,7 +197,23 @@ Google 对 AI Overviews、AI Mode 等功能的说明没有要求网站额外安�
 
 可以关注新的 AI 搜索能力，但不必因为某项未经证实的“GEO 技巧”重做整个网站。
 
-参考：[Google AI 搜索优化指南](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)、[AI 功能与网站](https://developers.google.com/search/docs/appearance/ai-features)。
+### `llms.txt`、`llms-full.txt` 和单页 Markdown，有必要吗？
+
+这三种形式解决的是**让 AI 工具更方便地读取公开资料**的问题，和 Google 搜索排名不是一回事：
+
+| 内容形式 | 主要用途 | 适合什么情况 |
+| --- | --- | --- |
+| `/llms.txt` | 简短的网站介绍和分类资料链接 | 文档较多，希望 AI 工具快速找到相关页面 |
+| `/llms-full.txt` | 汇总已公开文档的完整 Markdown 正文 | 离线索引、批量处理或大上下文模型读取 |
+| 单页 Markdown | 按需提供某一篇文章或文档的纯文本版本 | AI 工具只需要一个具体主题 |
+
+例如，Cloudflare 的开发者文档同时提供 [文档索引](https://developers.cloudflare.com/workers/llms.txt)、[全文合集](https://developers.cloudflare.com/workers/llms-full.txt)，以及通过 `Accept: text/markdown` 请求单页 Markdown 的方式。这是**内容交付方式**的实例，不代表所有网站都需要照做。
+
+如果确实有 AI 工具使用这些入口，宜从网站**已经公开的正文**自动生成，保留原页面链接，并排除草稿、非公开资料和已删除页面。正文只维护一份，不必人工复制第二套；全文合集还要考虑体积和读取成本。没有明确使用场景的小网站，保持 HTML 清晰可读就足够了。
+
+**Google 明确表示：** 不需要 `llms.txt`、特殊 AI 文本文件，也不必人为把内容拆成短段，才能出现在 Google 搜索及其生成式 AI 功能中。没有证据表明增加 `llms-full.txt` 能直接提高 Google 排名或 AI 引用。
+
+参考：[Google AI 搜索优化指南](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)、[AI 功能与网站](https://developers.google.com/search/docs/appearance/ai-features)、[Cloudflare Docs for Agents](https://developers.cloudflare.com/docs-for-agents/)。
 
 ## 八、URL、Slug、Canonical 与重定向
 
@@ -215,9 +231,9 @@ URL 首先应该稳定、可理解、便于维护。实际操作中重点处理�
 /blog/github-pages-deployment/
 ```
 
-Google 推荐使用连字符来分隔 URL 中的词语，但并不存在“所有 URL 都必须少于 75 个字符”或“所有文章只能在三层目录以内”这样的官方排名硬性要求。
+一个 Slug 应该**聚焦页面的主要主题**，而不是把相关搜索词全部串进去。例如，`/blog/github-pages-deployment/` 已经足够明确，继续追加 `free-hosting-website-seo-guide-tutorial` 只会让链接更难读。团队可以设定较短的词数上限作为编辑规范，但这不是 Google 的排名公式。
 
-国际化 URL 也不是天然不允许。选择 ASCII Slug 还是本地语言 Slug，可以根据读者、内容和技术维护需求决定。
+Google 建议使用连字符分隔词语，却没有统一规定“必须少于 75 个字符”或“文章只能在三层目录以内”。选择 ASCII Slug 还是本地语言 Slug，应根据读者和维护需求决定。
 
 ### 3. 尾斜杠要有统一规则
 
@@ -242,7 +258,7 @@ Google 推荐使用连字符来分隔 URL 中的词语，但并不存在“所�
 
 ### 6. 多语言与参数
 
-存在真正独立的语言版本时，才需要规划不同语言的 URL，以及适用的 `hreflang`。不要把仅翻译导航菜单的页面当作完整本地化内容，也不要无条件把另一语言页面 canonical 到默认语言。
+存在真正独立的语言版本时，才需要规划不同语言的 URL，以及适用的 `hreflang`。各语言页面通常应使用自己的规范 URL，并相互标注对应关系；不要把仅翻译导航菜单的页面当作完整本地化内容，也不要无条件把另一语言页面 canonical 到默认语言。
 
 筛选、分页和跟踪参数应按其是否改变内容分别处理，不能一律删除或阻止抓取。
 
