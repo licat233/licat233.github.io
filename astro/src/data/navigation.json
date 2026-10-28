@@ -14,6 +14,13 @@
     "enUrl": "/en/projects/"
   },
   {
+    "key": "ai",
+    "zh": "AI",
+    "en": "AI",
+    "zhUrl": "/ai/",
+    "enUrl": "/en/ai/"
+  },
+  {
     "key": "skills",
     "zh": "Skills",
     "en": "Skills",
