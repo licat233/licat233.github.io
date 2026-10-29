@@ -118,11 +118,11 @@ for (const removed of ['src/lib/legacy.ts','src/layouts/LegacyPage.astro']) {
   try { await access(new URL('../'+removed,import.meta.url)); throw new Error('Obsolete adapter reintroduced: '+removed); }
   catch(error) { if(error?.code!=='ENOENT') throw error; }
 }
-for(const page of ['src/pages/index.astro','src/pages/en/index.astro','src/pages/prompts/index.astro','src/pages/en/prompts/index.astro']){
+for(const page of ['src/pages/[...locale]/index.astro','src/pages/[...locale]/prompts/index.astro']){
  const markup=await readFile(new URL('../'+page,import.meta.url),'utf8');
- assert(markup.includes('PortfolioShell')&&markup.includes('PageContent'),'Native Astro page component missing: '+page);
+ assert(markup.includes('PortfolioShell')&&markup.includes('localePaths()'),'Shared Astro route missing: '+page);
 }
-console.log('ASTRO_NATIVE_COMPONENTS_PASS: home and prompt content no longer parsed from Jekyll HTML');
+console.log('ASTRO_NATIVE_COMPONENTS_PASS: one route per page type, all locales share layouts');
 
 const untranslated=await read('blog/advanced-seo-geo-guide/index.html');
 assert(!/hreflang="en"/.test(untranslated),
@@ -148,9 +148,17 @@ assert(home.includes('homeCopy[lang]')&&homeData.includes('homeCopy'),
  'Homepage must render both languages from shared structure and language data');
 assert(!home.includes('<a class="liquid-demo project'),
  'Homepage reverted to copy/pasted project card markup');
-for(const locale of ['Zh','En']){
- const prompts=await source('src/components/prompts/Prompts'+locale+'.astro');
- assert(prompts.includes('<PromptLibrary'),'Prompt page reverted to locale-specific layout: '+locale);
+const localeRouting=await source('src/lib/locale-routes.ts');
+assert(localeRouting.includes("from 'astro:config/server'") && localeRouting.includes('i18n.locales'),
+ 'All shared routes must come from the configured Astro i18n locales');
+for(const dir of ['en','de','fr']){
+ try{await access(new URL('../src/pages/'+dir+'/',import.meta.url));throw new Error('Per-language page directory reintroduced: '+dir)}
+ catch(error){if(error?.code!=='ENOENT')throw error}
+}
+for(const page of ['index.astro','ai/index.astro','blog/index.astro','blog/[slug].astro',
+                   'projects/index.astro','skills/index.astro','prompts/index.astro','prompts/[id].astro']){
+ const sourceFile=await source('src/pages/[...locale]/'+page);
+ assert(sourceFile.includes('localePaths'),'Route must come from shared locale data: '+page);
 }
 const englishHome=await read('en/index.html');
 assert(englishHome.includes('href="/eao/en/"'),
