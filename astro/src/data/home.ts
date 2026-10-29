@@ -64,7 +64,7 @@ export const homeCopy = {
     "promptKicker": "CURATED NOTES",
     "promptTitle": "Better prompts. Better work.",
     "promptCountIntro": "A collection of ",
-    "promptCountBody": " practical, reusable prompts I have gathered and refined: clear AI communication, independent thinking, agent execution, Codex workflows and visual design. Original entries are in Chinese.",
+    "promptCountBody": " practical, reusable prompts I have gathered and refined: clear AI communication, independent thinking, agent execution, Codex workflows and visual design. Chinese and English versions are available.",
     "promptCtaBefore": "Explore all ",
     "promptCtaAfter": " prompts ↗",
     "journeyTitle": "Development Journey",
