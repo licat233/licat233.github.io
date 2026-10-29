@@ -429,7 +429,7 @@ test('shared GlassSurface keeps link, button, nav, and footer semantics',async (
    await expect(page.locator('header.site-header.liquid-demo nav')).toBeVisible();
    await expect(page.locator('button.theme-toggle.liquid-demo')).toHaveCount(1);
    await expect(page.locator('.site-header a.github-cta.liquid-demo')).toHaveAttribute('href','https://github.com/licat233');
-   await expect(page.locator('.hero-actions a.hero-cta.liquid-demo')).toHaveAttribute('href','/eao/');
+   await expect(page.locator('.hero-actions a.hero-cta.liquid-demo')).toHaveAttribute('href',route==='/en/'?'/eao/en/':'/eao/');
    await expect(page.locator('footer.site-footer.liquid-demo')).toHaveCount(1);
    await expect(page.locator('#projects a.project.liquid-demo')).toHaveCount(8);
    await expect(page.locator('#skills article.skill-card.liquid-demo')).toHaveCount(await discoveredSkillCountPromise);
