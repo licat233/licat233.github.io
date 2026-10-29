@@ -88,7 +88,9 @@
     "sourceFooter": "GitHub source code ↗",
     "caption": "Think · Refine · Share",
     "noscript": "JavaScript is required for filters, reading, and copying. You can also ",
-    "originals": "read the original Markdown files"
+    "originals": "read the original Markdown files",
+    "readPrefix": "Read ",
+    "readCopy": "Read & copy"
   },
   "header": {
     "navigation": "Primary navigation",
