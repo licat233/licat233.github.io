@@ -140,21 +140,31 @@ const documentShell=await source('src/layouts/BaseLayout.astro');
 const portfolioShell=await source('src/layouts/PortfolioShell.astro');
 assert((documentShell.match(/<html\b/g)||[]).length===1,'Global HTML document must have exactly one BaseLayout shell');
 assert(!/<html\b|<!doctype/i.test(portfolioShell),'Portfolio wrapper must not duplicate site-wide HTML');
+const home=await source('src/components/home/Home.astro');
+const homeData=await source('src/data/home.ts');
+assert(home.includes('<FeaturedProjects')&&home.includes('<HomeSkills'),
+ 'Shared homepage must use project and Skill card components');
+assert(home.includes('homeCopy[lang]')&&homeData.includes('homeCopy'),
+ 'Homepage must render both languages from shared structure and language data');
+assert(!home.includes('<a class="liquid-demo project'),
+ 'Homepage reverted to copy/pasted project card markup');
 for(const locale of ['Zh','En']){
- const home=await source('src/components/home/Home'+locale+'.astro');
  const prompts=await source('src/components/prompts/Prompts'+locale+'.astro');
- assert(home.includes('<FeaturedProjects')&&home.includes('<HomeSkills'),
-  'Homepage reverted to copy/pasted project/Skill cards: '+locale);
- assert(!home.includes('<a class="liquid-demo project'),'Repeated homepage project card HTML: '+locale);
  assert(prompts.includes('<PromptLibrary'),'Prompt page reverted to locale-specific layout: '+locale);
 }
+const englishHome=await read('en/index.html');
+assert(englishHome.includes('href="/eao/en/"'),
+ 'English homepage links to Chinese EAO project page');
+const englishProjects=await read('en/projects/index.html');
+assert(englishProjects.includes('href="/eao/en/"'),
+ 'English projects page links to Chinese EAO project page');
 assert((await source('src/components/home/FeaturedProjects.astro')).includes('getProjects()'),
  'Featured cards must use the same project YAML data as the Projects category');
 assert((await source('src/components/home/HomeSkills.astro')).includes('getSkills()'),
  'Skills cards must use the same catalog as the Skills category');
 assert((await source('src/components/prompts/PromptLibrary.astro')).includes("import promptCatalogue from '../../data/prompts.json'"),
  'Prompt initial list should use the unified structured catalogue');
-console.log('ASTRO_ARCHITECTURE_PASS: one document shell, shared bilingual cards and prompt templates');
+console.log('ASTRO_ARCHITECTURE_PASS: one bilingual home component, shared cards and prompt templates');
 
 const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));
 assert(prompts.length===17 && new Set(prompts.map(x=>x.id)).size===17,
