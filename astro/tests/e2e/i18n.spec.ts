@@ -53,7 +53,7 @@ test('featured and directory project links retain the language of their entry pa
     ['/projects/', 'zh-CN'], ['/en/projects/', 'en'],
   ] as const) {
     await page.goto(route);
-    const links = await page.locator('.hero-resources a.hero-resource, #projects .projects a.project, .site-section-grid a.site-section-card')
+    const links = await page.locator('.hero-actions a.hero-cta[href^="/"], .hero-resources a.hero-resource, #projects .projects a.project, .site-section-grid a.site-section-card')
       .evaluateAll(elements => elements.map(element => element.getAttribute('href')).filter((href): href is string => Boolean(href)));
     expect(links.length, 'No project links on ' + route).toBeGreaterThan(0);
     for (const href of new Set(links)) {
