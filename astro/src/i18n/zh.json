@@ -88,7 +88,9 @@
     "sourceFooter": "GitHub 源代码 ↗",
     "caption": "思考 · 整理 · 分享",
     "noscript": "该页面需要 JavaScript 才能启用分类、完整阅读与一键复制。你也可以直接",
-    "originals": "阅读全部 Markdown 原文"
+    "originals": "阅读全部 Markdown 原文",
+    "readPrefix": "阅读 ",
+    "readCopy": "阅读并复制"
   },
   "header": {
     "navigation": "主导航",
