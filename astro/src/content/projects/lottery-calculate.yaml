@@ -1,0 +1,13 @@
+name: "lottery-calculate"
+order: 8
+featured_rank: 6
+featured_zh_url: "/lottery-calculate/"
+featured_en_url: "/lottery-calculate/"
+featured_zh_description: "把彩票购买中的组合、投入与收益问题抽象成一个可交互计算工具。它更重要的价值在创意、建模与产品化。"
+featured_en_description: "An interactive tool that turns lottery combinations, cost and return into a computable model. Its lasting value is the idea, modeling and product thinking."
+featured_tags: ["Creative","Modeling","Web App"]
+featured_meta: ["TypeScript","★ 1","Last push · 2023-02-02"]
+zh_url: "/lottery-calculate/"
+en_url: "/lottery-calculate/"
+zh_description: "抽奖计算小工具。"
+en_description: "A lightweight lottery calculation utility."

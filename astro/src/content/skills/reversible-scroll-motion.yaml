@@ -1,0 +1,11 @@
+name: reversible-scroll-motion
+order: 2
+featured_zh_domain: "页面动效 / 交互"
+featured_en_domain: "WEB MOTION / INTERACTION"
+featured_zh_summary: "面向 GSAP 的可逆滚动动画工作流：根据内容关系编排动效，并保证停止滚动后内容仍然可见。"
+featured_en_summary: "A GSAP workflow for reversible scroll motion: choreograph by content meaning and keep content visible when scrolling stops."
+featured_zh_usage: ["多方向入场、序列和父子元素动画","反向滚动、时序控制和可见性兜底","移动端、低动态偏好与浏览器验收"]
+featured_en_usage: ["Multi-direction entrances and child-item sequences","Reverse scrolling, timing and visibility fallbacks","Mobile, reduced-motion and browser QA"]
+zh_description: 可反向播放、可访问且不过度干扰内容的滚动动画规范。
+en_description: A repeatable process for accessible, reversible scroll-driven motion.
+source: /skills/reversible-scroll-motion/SKILL.md

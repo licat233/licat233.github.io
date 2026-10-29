@@ -1,0 +1,11 @@
+name: design-liquid-glass-ui
+order: 1
+featured_zh_domain: "界面设计 / 视觉系统"
+featured_en_domain: "UI DESIGN / VISUAL SYSTEMS"
+featured_zh_summary: "帮助 AI Agent 设计和实现具有光学层次的 Liquid Glass 界面，而不只是给背景增加模糊效果。"
+featured_en_summary: "Help AI agents create optically layered Liquid Glass interfaces instead of simply blurring a background."
+featured_zh_usage: ["玻璃质感导航、按钮与卡片","品牌配色、文字对比度和响应式适配","视觉验收与安全上线"]
+featured_en_usage: ["Glass navigation, buttons and cards","Brand color, text contrast and responsive UI","Visual QA and safe deployment"]
+zh_description: 为网页与应用建立可读、可验收的 Liquid Glass 视觉规范。
+en_description: Design and verify legible Liquid Glass interfaces with practical acceptance checks.
+source: /skills/design-liquid-glass-ui/SKILL.md

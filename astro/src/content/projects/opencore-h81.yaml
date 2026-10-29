@@ -1,0 +1,13 @@
+name: "OpenCore · Haswell H81"
+order: 5
+featured_rank: 2
+featured_zh_url: "/opencore-h81/zh/"
+featured_en_url: "/opencore-h81/"
+featured_zh_description: "面向 Haswell + H81 + HD4600 + ALC662 的精简 OpenCore EFI，也是目前 GitHub 上获得外部认可最多的公开项目。"
+featured_en_description: "A minimal OpenCore EFI for Haswell + H81 + HD4600 + ALC662, and currently the public project with the strongest external GitHub signal."
+featured_tags: ["OpenCore","Hackintosh","EFI"]
+featured_meta: ["Shell","★ 26 · Fork 5","Last push · 2023-02-02"]
+zh_url: "/opencore-h81/zh/"
+en_url: "/opencore-h81/"
+zh_description: "针对 Haswell H81 设备的精简 OpenCore EFI。"
+en_description: "A focused OpenCore EFI for Haswell H81 hardware."

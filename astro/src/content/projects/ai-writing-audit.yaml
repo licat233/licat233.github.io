@@ -1,0 +1,13 @@
+name: "ai-writing-audit"
+order: 3
+featured_rank: 4
+featured_zh_url: "/ai-writing-audit/zh/"
+featured_en_url: "/ai-writing-audit/"
+featured_zh_description: "通用的 AI 写作审阅与全文润色 Skill。来源可追溯，组合成熟上游方法，并加入中文、B2B 与 SEO/GEO 原生规则。"
+featured_en_description: "A general-purpose AI-writing audit and full-polish skill with traceable provenance, mature upstream methods, and native Chinese, B2B and SEO/GEO rules."
+featured_tags: ["AI Writing","Skill","Editorial"]
+featured_meta: ["Python","Last push · 2026-09-30"]
+zh_url: "/ai-writing-audit/zh/"
+en_url: "/ai-writing-audit/"
+zh_description: "可追溯的 AI 写作风格审阅与修订辅助工具。"
+en_description: "Traceable writing-style audit and editorial repair workflow."

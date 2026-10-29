@@ -1,0 +1,13 @@
+name: "ToolScout"
+order: 2
+featured_rank: 3
+featured_zh_url: "/toolscout/zh/"
+featured_en_url: "/toolscout/en/"
+featured_zh_description: "Rust CLI / MCP + Skill 规则层。让 AI Agent 在写临时代码之前，先发现成熟工具和已有经验。"
+featured_en_description: "Rust CLI/MCP plus a skill rule layer that helps AI agents discover mature tools and prior experience before writing incidental code."
+featured_tags: ["Rust","MCP","Agent Tools"]
+featured_meta: ["Rust","Last push · 2026-09-22"]
+zh_url: "/toolscout/zh/"
+en_url: "/toolscout/en/"
+zh_description: "AI Agent 编写临时代码之前的工具发现与复用。"
+en_description: "A tool-first gate helping agents reuse mature tools before writing code."

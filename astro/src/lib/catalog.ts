@@ -1,6 +1,7 @@
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import YAML from 'yaml';
+import { getCollection } from 'astro:content';
 export interface Project {
   name:string; zh_url:string; en_url:string; zh_description:string; en_description:string;
   featured_rank?:number; featured_zh_url?:string; featured_en_url?:string;
@@ -15,7 +16,8 @@ export interface Skill {
 }
 const repoRoot=path.resolve(process.cwd(),'..');
 export async function getProjects():Promise<Project[]> {
- return YAML.parse(await readFile(path.join(repoRoot,'_data/projects.yml'),'utf8')) as Project[];
+ const entries=await getCollection('projects');
+ return entries.sort((a,b)=>a.data.order-b.data.order).map(entry=>entry.data);
 }
 /**
  * Build-time skill discovery: the site never calls GitHub REST from visitors'
@@ -24,7 +26,8 @@ export async function getProjects():Promise<Project[]> {
  * This keeps the previous progressive-discovery feature without 403s or CLS.
  */
 export async function getSkills():Promise<Skill[]> {
- const curated=YAML.parse(await readFile(path.join(repoRoot,'_data/skills.yml'),'utf8')) as Skill[];
+ const entries=await getCollection('skills');
+ const curated=entries.sort((a,b)=>a.data.order-b.data.order).map(entry=>entry.data);
  const known=new Set(curated.map(s=>s.name));
  const skillsDir=path.join(repoRoot,'skills');
  const folders=(await readdir(skillsDir,{withFileTypes:true}))
