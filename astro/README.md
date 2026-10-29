@@ -39,7 +39,8 @@ Do not hand-edit the generated `dist/` directory or introduce another CMS or dep
 | Project and Skill catalogue | `../_data/projects.yml`, `../_data/skills.yml`, consumed by `src/lib/catalog.ts` |
 | Prompts catalogue | `src/data/prompts.json` |
 | Bilingual prompt details | `src/pages/prompts/[id].astro`, `src/pages/en/prompts/[id].astro` |
-| Assets and legacy microsites | `scripts/prepare-public.mjs` (build-time compatibility bridge) |
+| Published standalone microsites and demos | `../public-sites/` → `scripts/prepare-public.mjs` → original URLs (e.g. `/eao/`, `/demo/`) |
+| Shared public files and Skill sources | `../assets/`, `../prompts/`, `../en/prompts/content/`, `../skills/` |
 
 The bilingual homepages use one `Home.astro` structure with `homeCopy[lang]`; homepage project links resolve from `_data/projects.yml`. Do not restore separate `HomeZh.astro`/`HomeEn.astro` markup.
 
@@ -66,4 +67,4 @@ For a practical publishing tutorial, see the repository-root [PUBLISHING.md](../
 
 The Jekyll recovery branch is `backup/jekyll-production-20261027` (commit `f7d58cee5c2eb953696870f6931c441ec8f9ad74`) and must remain unchanged. Retired Jekyll templates and CI were removed from `main`. Astro is already the production renderer, **not** a pending migration.
 
-Retain the existing Liquid Glass components, current i18n routes, theme behavior, blog permalinks and standalone app URLs when editing content.
+Do not link to `/public-sites/` in the deployed website; it is a repository source folder only. Retain existing Liquid Glass components, current i18n routes, theme behavior, blog permalinks and standalone app URLs when editing content.

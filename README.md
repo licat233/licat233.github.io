@@ -25,7 +25,7 @@ Existing project paths, historic compatibility pages, and stable article URLs ar
 - `_posts/`: blog Markdown. `_data/projects.yml` and `_data/skills.yml`: shared metadata.
 - `prompts/content/` and `en/prompts/content/`: source translations; `astro/src/data/prompts.json`: catalogue records.
 - `assets/` and `skills/`: shared assets and published skills.
-- `eao/`, `toolscout/`, other standalone project folders, `demo/` and `previews/`: independent published pages and legacy URL assets, preserved by the Astro compatibility build.
+- `public-sites/`: independent project microsites and preserved demos/previews (`eao/`, `toolscout/`, `demo/`, etc.). Astro copies them to their **original public URLs**, so `public-sites/eao/` publishes as `/eao/`, not `/public-sites/eao/`.
 
 Retired Jekyll page templates, duplicate HTML entry pages, and obsolete Jekyll CI are no longer on `main`. The recovery branch retains them.
 
