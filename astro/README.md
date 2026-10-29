@@ -34,11 +34,14 @@ Do not hand-edit the generated `dist/` directory or introduce another CMS or dep
 | Chinese and English blog detail routes | `src/pages/blog/[slug].astro`, `src/pages/en/blog/[slug].astro` |
 | Blog article layout / SEO / alternates | `src/layouts/BlogArticle.astro`, `src/layouts/BaseLayout.astro` |
 | Navigation and locale URLs | `src/data/navigation.json`, `src/lib/site.ts` |
+| Shared homepage structure and translations | `src/components/home/Home.astro`, `src/data/home.ts` |
 | Shared header | `src/components/SiteHeader.astro` |
 | Project and Skill catalogue | `../_data/projects.yml`, `../_data/skills.yml`, consumed by `src/lib/catalog.ts` |
 | Prompts catalogue | `src/data/prompts.json` |
 | Bilingual prompt details | `src/pages/prompts/[id].astro`, `src/pages/en/prompts/[id].astro` |
 | Assets and legacy microsites | `scripts/prepare-public.mjs` (build-time compatibility bridge) |
+
+The bilingual homepages use one `Home.astro` structure with `homeCopy[lang]`; homepage project links resolve from `_data/projects.yml`. Do not restore separate `HomeZh.astro`/`HomeEn.astro` markup.
 
 The Prompt Library has 17 entries with independent Chinese and English Markdown files and 34 static detail pages. Older query-based `?p=` prompt shares use a browser-side compatibility redirect to their path-based URLs; GitHub Pages does not provide an HTTP 301 specifically for those query values.
 
