@@ -64,6 +64,6 @@ For a practical publishing tutorial, see the repository-root [PUBLISHING.md](../
 - `scripts/check-output.mjs` checks core pages, Blog and Prompt URLs, localized metadata, navigation and static assets.
 - `scripts/check-legacy-routes.mjs` prevents loss of historical standalone HTML routes.
 
-The historical Jekyll source backup is `backup/jekyll-production-20261027` (commit `f7d58cee5c2eb953696870f6931c441ec8f9ad74`). `../JEKYLL_BACKUP_AND_ROLLBACK.md` records the rollback plan. This is recovery material, **not** a still-pending migration.
+The Jekyll recovery branch is `backup/jekyll-production-20261027` (commit `f7d58cee5c2eb953696870f6931c441ec8f9ad74`) and must remain unchanged. Retired Jekyll templates and CI were removed from `main`. Astro is already the production renderer, **not** a pending migration.
 
 Retain the existing Liquid Glass components, current i18n routes, theme behavior, blog permalinks and standalone app URLs when editing content.

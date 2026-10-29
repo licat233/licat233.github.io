@@ -1,9 +1,0 @@
-title: "Licat"
-url: "https://licat233.github.io"
-markdown: kramdown
-permalink: /blog/:title/
-timezone: Asia/Taipei
-
-# Keep the in-flight Astro source outside the legacy Jekyll PR build.
-exclude:
-  - astro

@@ -16,10 +16,7 @@ for(const dir of sections){
  await mkdir(path.dirname(dest),{recursive:true});
  await cp(path.join(root,dir),dest,{recursive:true});
 }
-// Astro owns the category pages and prompt library; copy only prompt data/CSS/JS.
-for(const remove of ['prompts/index.html','prompts/nav.css','en/prompts/index.html','skills/index.html']){
- await rm(path.join(publicDir,remove),{force:true});
-}
+// Only retained assets and independently published project pages are copied.
 await cp(path.join(root,'favicon.ico'),path.join(publicDir,'favicon.ico'));
 // The Astro-owned JS is a pure interaction controller; SSR and client both read
 // the same single prompt catalogue from the Astro page (not legacy JS literals).
