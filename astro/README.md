@@ -39,13 +39,13 @@ Do not hand-edit the generated `dist/` directory or introduce another CMS or dep
 | Shared header | `src/components/SiteHeader.astro` |
 | Projects and Skills | `src/content/projects/*.yaml`, `src/content/skills/*.yaml` (glob loaders and Zod schemas) |
 | Prompts catalogue | `src/data/prompts.json` |
-| Bilingual prompt details | `src/pages/prompts/[id].astro`, `src/pages/en/prompts/[id].astro` |
+| Localized prompt detail route | `src/pages/[...locale]/prompts/[id].astro` (one shared template) |
 | Published standalone microsites and demos | `../public-sites/` → `scripts/prepare-public.mjs` → original URLs (e.g. `/eao/`, `/demo/`) |
 | Shared public files and Skill sources | `../assets/`, `../prompts/`, `../en/prompts/content/`, `../skills/` |
 
 All localized pages use the eight `src/pages/[...locale]/` page-type routes and the same layouts/components, not separate `src/pages/en/` trees. The home component reads `dictionary(lang).home`, and homepage project links resolve from the `projects` content collection. Do not restore per-language page wrappers or copies.
 
-Adding a locale means configuring it in `astro.config.mjs`, providing a complete dictionary `src/i18n/<locale>.json` and translating applicable content. No per-language page files are needed. `src/lib/locale-routes.ts` reads official Astro configuration and rejects missing dictionaries. The existing `/zh/` page remains a noindex compatibility redirect.
+Adding a locale means configuring it in `astro.config.mjs`, providing a complete dictionary `src/i18n/<locale>.json` and translating applicable content. No per-language page files are needed. `src/lib/locale-routes.ts` reads official Astro configuration and rejects missing dictionaries. The default Chinese homepage is `/`; there is no `/zh/` alias.
 
 The Prompt Library has 17 entries with independent Chinese and English Markdown files and 34 static detail pages. Older query-based `?p=` prompt shares use a browser-side compatibility redirect to their path-based URLs; GitHub Pages does not provide an HTTP 301 specifically for those query values.
 

@@ -15,7 +15,6 @@ Astro 7 owns the language-aware URLs, not a separate client-side language router
 - The prompt reader consumes Astro-generated locale URLs; query deep links survive.
 - Independently published old project microsites are outside Astro page routing.
   The static build-time bridge preserves their historical paths and nav links.
-- /zh/ remains a legacy noindex redirect to the canonical Chinese home.
 - Do not auto-redirect by browser language on static GitHub Pages.
 - Dark/light theme, CSS, Liquid Glass, GSAP and visual design are unchanged.
 

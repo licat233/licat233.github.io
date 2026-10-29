@@ -87,8 +87,9 @@ for(const asset of [
 ])await stat(path.join(root,asset));
 assert((await read('blog/advanced-seo-geo-guide/index.html')).includes('独立站 SEO/GEO'),
        'Long-form Chinese Markdown body missing');
-assert((await read('zh/index.html')).includes('location.replace'),
-       'Legacy Chinese homepage URL lost');
+// The default Chinese locale is served only at /, never by a duplicate /zh/ page.
+try {await stat(path.join(root,'zh/index.html'));throw Error('Obsolete /zh/ redirect must not be generated')}
+catch(error){if(error?.code!=='ENOENT')throw error}
 // The person's public name is Licat; "233" is only the GitHub account suffix.
 // Do not allow old account-style labels to return in generated public pages.
 const publicNamePages=[
