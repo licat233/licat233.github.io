@@ -8,13 +8,17 @@ const root=path.resolve(here,'../..');
 const publicDir=path.resolve(here,'../public');
 await rm(publicDir,{recursive:true,force:true});
 await mkdir(publicDir,{recursive:true});
-const sections=['assets','prompts','en/prompts/content','skills','eao','toolscout',
- 'ai-writing-audit','armor-memory','disable-macos-auto-updates','greenram',
- 'opencore-h81','lottery-calculate','armor','demo','previews'];
-for(const dir of sections){
+// The repository groups standalone sites in public-sites/, but their published
+// URL paths remain unchanged (e.g. public-sites/eao/ -> /eao/).
+const publicSites=['eao','toolscout','ai-writing-audit','armor-memory',
+ 'disable-macos-auto-updates','greenram','opencore-h81',
+ 'lottery-calculate','armor','demo','previews'];
+const sections=['assets','prompts','en/prompts/content','skills'];
+for(const dir of [...sections,...publicSites]){
  const dest=path.join(publicDir,dir);
+ const source=publicSites.includes(dir)?path.join(root,'public-sites',dir):path.join(root,dir);
  await mkdir(path.dirname(dest),{recursive:true});
- await cp(path.join(root,dir),dest,{recursive:true});
+ await cp(source,dest,{recursive:true});
 }
 // Only retained assets and independently published project pages are copied.
 await cp(path.join(root,'favicon.ico'),path.join(publicDir,'favicon.ico'));
