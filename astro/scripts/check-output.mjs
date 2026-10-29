@@ -159,11 +159,29 @@ const englishProjects=await read('en/projects/index.html');
 assert(englishProjects.includes('href="/eao/en/"'),
  'English projects page links to Chinese EAO project page');
 assert((await source('src/components/home/FeaturedProjects.astro')).includes('getProjects()'),
- 'Featured cards must use the same project YAML data as the Projects category');
+ 'Featured cards must use the same projects collection as the Projects category');
 assert((await source('src/components/home/HomeSkills.astro')).includes('getSkills()'),
  'Skills cards must use the same catalog as the Skills category');
 assert((await source('src/components/prompts/PromptLibrary.astro')).includes("import promptCatalogue from '../../data/prompts.json'"),
  'Prompt initial list should use the unified structured catalogue');
+const contentConfig=await source('src/content.config.ts');
+const catalogSource=await source('src/lib/catalog.ts');
+for(const kind of ['blog','projects','skills']){
+ assert(contentConfig.includes('const '+kind+' = defineCollection({'),
+  'Missing typed Astro content collection: '+kind);
+}
+assert(contentConfig.includes("base: './src/content/blog'") &&
+       contentConfig.includes("base: './src/content/projects'") &&
+       contentConfig.includes("base: './src/content/skills'"),
+  'Content must be under Astro src/content, not legacy root folders');
+assert(catalogSource.includes("getCollection('projects')") &&
+       catalogSource.includes("getCollection('skills')"),
+  'Project and Skill data must come from Astro collections');
+const {readdir:readContent}=await import('node:fs/promises');
+for(const [kind,expected] of [['blog',2],['projects',8],['skills',2]]){
+ const files=await readContent(new URL('../src/content/'+kind+'/',import.meta.url));
+ assert(files.length===expected,'Unexpected '+kind+' content entry count: '+files.length);
+}
 console.log('ASTRO_ARCHITECTURE_PASS: one bilingual home component, shared cards and prompt templates');
 
 const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));

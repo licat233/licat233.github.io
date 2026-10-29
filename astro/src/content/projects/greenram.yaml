@@ -1,0 +1,13 @@
+name: "GreenRAM"
+order: 4
+featured_rank: 7
+featured_zh_url: "/greenram/zh/"
+featured_en_url: "/greenram/"
+featured_zh_description: "macOS 菜单栏内存管理工具。根据 Memory Pressure、Swap 与后台状态，在明确规则下处理可安全退出的应用。"
+featured_en_description: "A macOS menu bar utility that uses Memory Pressure, Swap and background state to safely quit eligible apps under explicit rules."
+featured_tags: ["Swift","macOS","Utility"]
+featured_meta: ["Swift","Last push · 2026-08-07"]
+zh_url: "/greenram/zh/"
+en_url: "/greenram/"
+zh_description: "依据 macOS 内存压力和规则管理空闲应用。"
+en_description: "Rule-driven macOS memory utility for idle background apps."

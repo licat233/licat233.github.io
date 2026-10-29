@@ -1,0 +1,13 @@
+name: "disable-macos-auto-updates"
+order: 7
+featured_rank: 8
+featured_zh_url: "/disable-macos-auto-updates/zh/"
+featured_en_url: "/disable-macos-auto-updates/"
+featured_zh_description: "用于安全关闭并恢复 macOS 自动系统更新的轻量工具，目标明确、依赖很少、使用路径直接。"
+featured_en_description: "A lightweight utility for safely disabling and restoring automatic macOS system updates — focused, low-dependency and intentionally practical."
+featured_tags: ["macOS","Shell","Utility"]
+featured_meta: ["Shell","Last push · 2026-09-01"]
+zh_url: "/disable-macos-auto-updates/zh/"
+en_url: "/disable-macos-auto-updates/"
+zh_description: "可逆的 macOS 自动更新控制脚本方案。"
+en_description: "Reversible shell-based macOS update control."

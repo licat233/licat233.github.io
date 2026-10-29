@@ -1,0 +1,13 @@
+name: "Enterprise AI Office"
+order: 1
+featured_rank: 1
+featured_zh_url: "/eao/"
+featured_en_url: "/eao/en/"
+featured_zh_description: "当前旗舰项目。把知识、Agent、权限、自动化与企业工具整合进一个可长期维护的自托管 AI Office。"
+featured_en_description: "My current flagship: a self-hosted AI office that brings knowledge, agents, permissions, automation and enterprise tools into one maintainable system."
+featured_tags: ["Enterprise AI","Agents","RAG"]
+featured_meta: ["Python","Last push · 2026-09-29"]
+zh_url: "/eao/"
+en_url: "/eao/en/"
+zh_description: "让企业 AI 助手在授权边界内使用知识、文件和工具。"
+en_description: "Department AI assistants with governed company knowledge, files and tools."
