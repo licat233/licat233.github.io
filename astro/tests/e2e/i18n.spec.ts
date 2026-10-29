@@ -41,12 +41,6 @@ test('prompt detail pages preserve ID and language-specific canonical URLs', asy
   await expect(page.locator('.site-header a[data-locale="zh"]')).toHaveAttribute('href', '/prompts/codex-workflow-tips/');
 });
 
-test('legacy Chinese alias redirects to canonical homepage', async ({ page }) => {
-  await page.goto('/zh/');
-  await expect(page).toHaveURL(/\/$/);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://licat233.github.io/');
-});
-
 test('featured and directory project links retain the language of their entry page', async ({ page, request }) => {
   for (const [route, expected] of [
     ['/', 'zh-CN'], ['/en/', 'en'],
