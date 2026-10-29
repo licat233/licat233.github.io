@@ -1,0 +1,21 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+import { blogSlug, localizedPath, type Lang } from '../../../lib/site';
+import { localePaths } from '../../../lib/locale-routes';
+
+export async function getStaticPaths(){
+ const posts=await getCollection('blog');
+ const paths=localePaths();
+ return posts.map(post=>{
+  const route=paths.find(path=>path.props.lang===post.data.lang);
+  if(!route)throw new Error('Unsupported blog language: '+post.data.lang);
+  return {params:{...route.params,slug:blogSlug(post.id)},props:{post,lang:post.data.lang}};
+ });
+}
+interface Props {post:CollectionEntry<'blog'>;lang:Lang}
+const {post,lang}=Astro.props;
+const {Content}=await render(post);
+const canonical=localizedPath(lang,'blog',blogSlug(post.id));
+---
+<BlogArticle {lang} {post} {canonical}><Content /></BlogArticle>
