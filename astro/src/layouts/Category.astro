@@ -2,15 +2,18 @@
 import BaseLayout from './BaseLayout.astro';
 import GlassSurface from '../components/GlassSurface.astro';
 import { getProjects, getSkills } from '../lib/catalog';
+import { dictionary } from '../lib/translation';
 import { localeUrl, type Lang } from '../lib/site';
 interface Props { lang:Lang; kind:'projects'|'skills' }
 const {lang,kind}=Astro.props;
 const en=lang==='en';
 const projects=kind==='projects'?await getProjects():[];
 const skills=kind==='skills'?await getSkills():[];
-const title=kind==='projects'?(en?'Projects':'项目'):'Agent Skills';
-const heading=kind==='projects'?(en?'Projects & tools':'项目与作品'):(en?'Reusable Agent Skills':'可复用的 Agent Skills');
-const description=kind==='projects'?(en?'A curated view of published work: enterprise AI systems, developer tools, and macOS utilities.':'从企业 AI 系统、开发者工具到 macOS 实用工具，查看已公开的项目及实现细节。'):(en?'Published design and motion workflows packaged as readable, reusable Agent Skills.':'把经过实践的界面设计和滚动动画规范整理为可阅读、可复用的 Skill。');
+const t=dictionary(lang).categories;
+const item=t[kind];
+const title=item.title;
+const heading=item.heading;
+const description=item.description;
 const path=localeUrl(lang,kind);
 // Keep original stylesheet URLs and copy identical during framework cutover.
 const styles=['/assets/vendor/open-props/open-props-core-1.7.23.min.css','/assets/portfolio.css?v=20261008-glass1','/assets/site-header.css?v=20261028-ai-glass1','/assets/portfolio-liquid-glass.css?v=20261028-ai-active-group1','/assets/site-sections.css?v=20261027-ia1'];
@@ -20,19 +23,19 @@ const styles=['/assets/vendor/open-props/open-props-core-1.7.23.min.css','/asset
    <div class="shell">
      <p class="site-section-kicker">{kind==='projects'?'BUILT & SHIPPED':'REUSABLE KNOW-HOW'}</p>
      <h1>{heading}</h1><p class="site-section-lead">{description}</p>
-     <p class="site-section-meta">{kind==='projects'?(en?'Selected projects and independent tools':'精选项目与独立工具'):(skills.length===2?(en?'Two maintained Skills with source instructions':'两项公开维护的 Skill 与原始规范'):(en?`${skills.length} maintained Skills with source instructions`:`${skills.length} 项公开维护的 Skill 与原始规范`))}</p>
+     <p class="site-section-meta">{kind==='projects'?t.projects.meta:(skills.length===2?t.skills.metaTwo:`${t.skills.metaPrefix}${skills.length}${t.skills.metaSuffix}`)}</p>
      <div class="site-section-grid">
        {projects.map((project,i)=><GlassSurface as="a" class="site-section-card" material="regular" href={en?project.en_url:project.zh_url}>
          
          <span class="site-section-card__index">{String(i+1).padStart(2,'0')}</span><h2>{project.name}</h2><p>{en?project.en_description:project.zh_description}</p>
-         <span class="site-section-card__go">{en?'Explore project':'查看项目'} ↗</span>
+         <span class="site-section-card__go">{t.projects.explore} ↗</span>
        </GlassSurface>)}
        {skills.map((skill,i)=><GlassSurface as="article" class="site-section-card" material="regular">
          
          <span class="site-section-card__index">{String(i+1).padStart(2,'0')}</span><h2>{skill.name}</h2><p>{en?skill.en_description:skill.zh_description}</p>
-         <a class="site-section-card__go" href={'https://github.com/licat233/licat233.github.io/blob/main'+skill.source} target="_blank" rel="noopener noreferrer">{en?'Read SKILL.md':'阅读 SKILL.md'} ↗</a>
+         <a class="site-section-card__go" href={'https://github.com/licat233/licat233.github.io/blob/main'+skill.source} target="_blank" rel="noopener noreferrer">{t.skills.explore} ↗</a>
        </GlassSurface>)}
-     </div><p class="site-section-footer-link"><a href={localeUrl(lang,'home')}>{en?'← Back to the homepage':'← 返回个人主页'}</a></p>
+     </div><p class="site-section-footer-link"><a href={localeUrl(lang,'home')}>{t.back}</a></p>
    </div>
  </main>
 </BaseLayout>
