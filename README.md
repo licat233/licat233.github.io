@@ -15,7 +15,7 @@ Website: https://licat233.github.io/
 | Prompts | `/prompts/` | `/en/prompts/` | Under AI |
 | Blog | `/blog/` | `/en/blog/` | Top level |
 
-The `astro/astro.config.mjs` i18n configuration controls localized paths (default Chinese locale without a prefix, English under `/en/`). The top navigation and AI child links are defined in `astro/src/data/navigation.json` and `astro/src/lib/site.ts`.
+The `astro/astro.config.mjs` i18n configuration controls localized paths (default Chinese locale without a prefix, English under `/en/`). The route keys are in `astro/src/data/navigation.json`, while Chinese/English navigation labels and UI copy are maintained in `astro/src/i18n/zh.json` and `astro/src/i18n/en.json`. All page types share locale-parameterized Astro routes under `astro/src/pages/[...locale]/`.
 
 Existing project paths, historic compatibility pages, and stable article URLs are intentionally preserved.
 
@@ -32,8 +32,9 @@ Retired Jekyll page templates, duplicate HTML entry pages, and obsolete Jekyll C
 ## Source architecture
 
 - `astro/src/layouts/BaseLayout.astro`: shared page shell and metadata.
-- `astro/src/components/SiteHeader.astro`: bilingual navigation and Liquid Glass header.
+- `astro/src/components/SiteHeader.astro`: shared localized navigation and Liquid Glass header.
 - `astro/src/lib/catalog.ts`: projects and Skills from Astro's typed content collections, with local Skill discovery preserved.
+- `astro/src/i18n/{zh,en}.json`: per-language interface dictionaries for the shared Astro pages; adding a language must not duplicate page templates.
 - `astro/src/content.config.ts`: schemas and glob loaders for blog, projects and Skills.
 - `astro/src/pages/blog/[slug].astro` and `astro/src/pages/en/blog/[slug].astro`: generated bilingual blog posts.
 - `astro/src/layouts/BlogIndex.astro`: generated Blog lists.
