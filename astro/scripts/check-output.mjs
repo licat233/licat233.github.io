@@ -145,6 +145,14 @@ const homeData=await source('src/i18n/zh.json');
 const enData=await source('src/i18n/en.json');
 assert(home.includes('<FeaturedProjects')&&home.includes('<HomeSkills'),
  'Shared homepage must use project and Skill card components');
+const zhDictionary=JSON.parse(homeData);
+const enDictionary=JSON.parse(enData);
+for(const section of ['home','navigation','prompts','header','blog','categories','homeSkills','portfolio','aiHub']){
+ assert(zhDictionary[section]&&enDictionary[section],
+  'Missing '+section+' translation section in locale dictionaries');
+ assert(Object.keys(zhDictionary[section]).sort().join('|')===Object.keys(enDictionary[section]).sort().join('|'),
+  'Mismatched '+section+' dictionary keys between zh and en');
+}
 assert(home.includes('dictionary(lang).home')&&homeData.includes('heroFirst')&&enData.includes('heroFirst'),
  'Homepage must render both languages from shared structure and language data');
 assert(!home.includes('<a class="liquid-demo project'),
