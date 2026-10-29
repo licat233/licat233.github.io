@@ -1,6 +1,6 @@
 # 发布博客文章
 
-文章用 Markdown 编写，保存在仓库根目录的 `astro/src/content/blog/`。合并到 `main` 后，GitHub Actions 会自动构建 Astro 网站并发布到 GitHub Pages。
+文章用 Markdown 编写，保存在 `astro/src/content/blog/`（Astro Content Collection）。合并到 `main` 后，GitHub Actions 会自动构建 Astro 网站并发布到 GitHub Pages。
 
 ## 1. 新建文章
 
