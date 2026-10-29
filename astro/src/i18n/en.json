@@ -89,5 +89,73 @@
     "caption": "Think · Refine · Share",
     "noscript": "JavaScript is required for filters, reading, and copying. You can also ",
     "originals": "read the original Markdown files"
+  },
+  "header": {
+    "navigation": "Primary navigation",
+    "homepage": "Licat homepage",
+    "aiCategories": "AI subcategories",
+    "openAiCategories": "AI subcategories",
+    "theme": "Toggle theme"
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Notes on AI, engineering, websites and practical problem-solving.",
+    "intro": "Notes on building useful systems, design, and technical work.",
+    "listLabel": "Articles",
+    "all": "All articles",
+    "unit": "posts",
+    "read": "Read article",
+    "back": "Back to Blog",
+    "backAll": "All articles",
+    "footer": "Back to homepage"
+  },
+  "categories": {
+    "projects": {
+      "title": "Projects",
+      "heading": "Projects & tools",
+      "description": "A curated view of published work: enterprise AI systems, developer tools, and macOS utilities.",
+      "meta": "Selected projects and independent tools",
+      "explore": "Explore project"
+    },
+    "skills": {
+      "title": "Agent Skills",
+      "heading": "Reusable Agent Skills",
+      "description": "Published design and motion workflows packaged as readable, reusable Agent Skills.",
+      "metaTwo": "Two maintained Skills with source instructions",
+      "metaPrefix": "",
+      "metaSuffix": " maintained Skills with source instructions",
+      "explore": "Read SKILL.md"
+    },
+    "back": "← Back to the homepage"
+  },
+  "homeSkills": {
+    "note": "Reusable instructions from real design and engineering work, ready for AI agents to follow and validate.",
+    "usage": "USE IT FOR",
+    "read": "Read SKILL.md",
+    "browse": "Browse source",
+    "browseAll": "Browse all Skills on GitHub"
+  },
+  "portfolio": {
+    "homeTitle": "Licat — Builder & Developer",
+    "homeDescription": "Licat — developer building practical AI systems, developer tools and automation.",
+    "promptsTitle": "AI Prompt Library — Licat",
+    "promptsDescriptionBefore": "",
+    "promptsDescriptionAfter": " curated AI prompts covering agents, writing, development, design, and critical thinking."
+  },
+  "aiHub": {
+    "title": "AI Developer Toolkit",
+    "description": "A public index of Licat’s Agent Skills, reusable prompts, MCP tooling, AI systems and memory experiments.",
+    "lead": "An entry point to things I have actually published and worked on: skills, prompts, tools and systems.",
+    "meta": "Explore published work; no accounts, private notes or unfinished product listings.",
+    "aria": "AI toolkit collections",
+    "explore": "Explore",
+    "back": "← Back to the homepage",
+    "cards": {
+      "skills": "Reusable design, interaction and engineering procedures, with original SKILL.md source files.",
+      "prompts": "Curated prompts that can be searched, read, shared and copied.",
+      "toolscout": "A published Rust CLI / MCP tool experiment for tool discovery before writing custom code.",
+      "eao": "A practical AI office project connecting agents, knowledge retrieval, permissions and workflows.",
+      "memory": "An earlier shared-memory architecture experiment, retained as history rather than the current EAO design."
+    }
   }
 }
