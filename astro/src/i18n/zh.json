@@ -89,5 +89,73 @@
     "caption": "思考 · 整理 · 分享",
     "noscript": "该页面需要 JavaScript 才能启用分类、完整阅读与一键复制。你也可以直接",
     "originals": "阅读全部 Markdown 原文"
+  },
+  "header": {
+    "navigation": "主导航",
+    "homepage": "Licat 个人主页",
+    "aiCategories": "AI 子栏目",
+    "openAiCategories": "展开 AI 子栏目",
+    "theme": "切换昼夜模式"
+  },
+  "blog": {
+    "title": "博客",
+    "description": "技术笔记、实践记录与个人思考。",
+    "intro": "技术笔记、实践记录与个人思考。",
+    "listLabel": "文章列表",
+    "all": "全部文章",
+    "unit": "篇",
+    "read": "阅读全文",
+    "back": "返回博客",
+    "backAll": "全部文章",
+    "footer": "返回个人主页"
+  },
+  "categories": {
+    "projects": {
+      "title": "项目",
+      "heading": "项目与作品",
+      "description": "从企业 AI 系统、开发者工具到 macOS 实用工具，查看已公开的项目及实现细节。",
+      "meta": "精选项目与独立工具",
+      "explore": "查看项目"
+    },
+    "skills": {
+      "title": "Agent Skills",
+      "heading": "可复用的 Agent Skills",
+      "description": "把经过实践的界面设计和滚动动画规范整理为可阅读、可复用的 Skill。",
+      "metaTwo": "两项公开维护的 Skill 与原始规范",
+      "metaPrefix": "",
+      "metaSuffix": " 项公开维护的 Skill 与原始规范",
+      "explore": "阅读 SKILL.md"
+    },
+    "back": "← 返回个人主页"
+  },
+  "homeSkills": {
+    "note": "把真实项目中验证过的设计与工程经验，沉淀为 AI Agent 可直接遵循的工作规范。",
+    "usage": "适用场景",
+    "read": "阅读 SKILL.md",
+    "browse": "浏览源文件",
+    "browseAll": "查看 GitHub Skills 目录"
+  },
+  "portfolio": {
+    "homeTitle": "Licat — 开发者与系统构建者",
+    "homeDescription": "Licat — 构建实用 AI 系统、开发者工具与自动化。",
+    "promptsTitle": "AI 提示词库 · Prompt Library — Licat",
+    "promptsDescriptionBefore": "Licat 的 AI 提示词库：",
+    "promptsDescriptionAfter": " 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与工作流。支持分类搜索、一键复制和独立分享。"
+  },
+  "aiHub": {
+    "title": "AI 开发工具箱",
+    "description": "整理公开的 Agent Skills、提示词、MCP 工具、AI 系统与记忆实验；内容来自真实项目，而不是未实现的产品清单。",
+    "lead": "把已经公开、真正做过的 Skills、提示词、工具和系统实践整理到一个入口。",
+    "meta": "只收录已公开内容，不设置登录、私人笔记或尚未实现的功能占位。",
+    "aria": "AI 工具箱分类",
+    "explore": "查看内容",
+    "back": "← 返回个人主页",
+    "cards": {
+      "skills": "经过真实项目验证的设计、交互和工程工作规范，可直接阅读原始 SKILL.md。",
+      "prompts": "经过整理的提示词，支持搜索、查看、分享和复制。",
+      "toolscout": "公开的 Rust CLI / MCP 工具实践：让 Agent 先发现成熟工具，再决定是否编写代码。",
+      "eao": "企业 AI 系统实践：Agent、知识检索、权限与工作流如何组合成可维护系统。",
+      "memory": "历史技术探索：多 Agent 共享记忆架构。此项目仅作为实验记录，不代表当前 EAO 架构。"
+    }
   }
 }
