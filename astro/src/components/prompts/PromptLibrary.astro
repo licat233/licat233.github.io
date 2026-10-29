@@ -66,10 +66,10 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
       <p id="result-status" class="result-status" aria-live="polite"></p>
       {en&&translatedIds.length!==items.length&&<p class="result-status">{translatedIds.length} prompts have full English translations; untranslated items are marked as Chinese originals.</p>}
       <div id="prompt-grid" class="prompt-grid">
-        {items.map((item,i)=><a class="prompt-card" href={localizedPath(lang,'prompts',item.id)} data-open={item.id} aria-label={(en?'Read ':'阅读 ')+item.title}>
+        {items.map((item,i)=><a class="prompt-card" href={localizedPath(lang,'prompts',item.id)} data-open={item.id} aria-label={t.readPrefix+item.title}>
   <span class="card-kicker">{item.label} <span aria-hidden="true">/</span> {item.type}</span>
   <h3>{item.title}</h3><p>{item.summary}</p>
-  <div class="card-foot"><span class="card-cta">{en?'Read & copy':'阅读并复制'} <span aria-hidden="true">↗</span></span><span class="card-count">{String(i+1).padStart(2,'0')} / {items.length}</span></div>
+  <div class="card-foot"><span class="card-cta">{t.readCopy} <span aria-hidden="true">↗</span></span><span class="card-count">{String(i+1).padStart(2,'0')} / {items.length}</span></div>
 </a>)}
       </div>
       <div class="empty-state" id="empty-state" hidden><div>⌕</div><h3>{t.noResults}</h3><p>{t.noResultsHelp}</p><button type="button" id="reset-search">{t.reset}</button></div>
