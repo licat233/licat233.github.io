@@ -1,7 +1,8 @@
 import entries from '../data/navigation.json';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { dictionaries, type Lang } from './translation';
+export type { Lang } from './translation';
 
-export type Lang = 'zh' | 'en';
 export type NavKey = 'home' | 'projects' | 'ai' | 'skills' | 'blog' | 'prompts';
 export const origin = 'https://licat233.github.io';
 
@@ -13,9 +14,11 @@ export const localizedPath = (lang: Lang, ...parts: string[]): string =>
 export const localeUrl = (lang: Lang, key: NavKey): string =>
   localizedPath(lang, key === 'home' ? '' : key);
 
-type Entry = { key: NavKey; zh: string; en: string; parent?: NavKey };
+type Entry = { key: NavKey; parent?: NavKey };
 export const nav = (entries as Entry[]).map(item => ({
   ...item,
+  zh:dictionaries.zh.navigation[item.key],
+  en:dictionaries.en.navigation[item.key],
   zhUrl: localeUrl('zh', item.key),
   enUrl: localeUrl('en', item.key),
 }));

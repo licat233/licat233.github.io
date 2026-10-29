@@ -26,7 +26,12 @@ await cp(path.join(root,'favicon.ico'),path.join(publicDir,'favicon.ico'));
 // the same single prompt catalogue from the Astro page (not legacy JS literals).
 await cp(path.join(root,'astro/src/client/prompt-library.js'),
          path.join(publicDir,'prompts/prompt-library.js'));
-const links=JSON.parse(await readFile(new URL('../src/data/navigation.json',import.meta.url),'utf8'));
+const entries=JSON.parse(await readFile(new URL('../src/data/navigation.json',import.meta.url),'utf8'));
+const zh=JSON.parse(await readFile(new URL('../src/i18n/zh.json',import.meta.url),'utf8'));
+const en=JSON.parse(await readFile(new URL('../src/i18n/en.json',import.meta.url),'utf8'));
+const links=entries.map(item=>({
+ ...item,zh:zh.navigation[item.key],en:en.navigation[item.key]
+}));
 // Independent legacy HTML pages are copied outside Astro's generated routes.
 const legacyLocalizedUrl=(lang,key)=>'/' + (lang==='en'?'en/':'') +
   (key==='home'?'':key+'/');

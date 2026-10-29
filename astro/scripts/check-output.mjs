@@ -118,11 +118,11 @@ for (const removed of ['src/lib/legacy.ts','src/layouts/LegacyPage.astro']) {
   try { await access(new URL('../'+removed,import.meta.url)); throw new Error('Obsolete adapter reintroduced: '+removed); }
   catch(error) { if(error?.code!=='ENOENT') throw error; }
 }
-for(const page of ['src/pages/index.astro','src/pages/en/index.astro','src/pages/prompts/index.astro','src/pages/en/prompts/index.astro']){
+for(const page of ['src/pages/[...locale]/index.astro','src/pages/[...locale]/prompts/index.astro']){
  const markup=await readFile(new URL('../'+page,import.meta.url),'utf8');
- assert(markup.includes('PortfolioShell')&&markup.includes('PageContent'),'Native Astro page component missing: '+page);
+ assert(markup.includes('PortfolioShell')&&markup.includes('localePaths()'),'Shared Astro route missing: '+page);
 }
-console.log('ASTRO_NATIVE_COMPONENTS_PASS: home and prompt content no longer parsed from Jekyll HTML');
+console.log('ASTRO_NATIVE_COMPONENTS_PASS: one route per page type, all locales share layouts');
 
 const untranslated=await read('blog/advanced-seo-geo-guide/index.html');
 assert(!/hreflang="en"/.test(untranslated),
@@ -141,16 +141,33 @@ const portfolioShell=await source('src/layouts/PortfolioShell.astro');
 assert((documentShell.match(/<html\b/g)||[]).length===1,'Global HTML document must have exactly one BaseLayout shell');
 assert(!/<html\b|<!doctype/i.test(portfolioShell),'Portfolio wrapper must not duplicate site-wide HTML');
 const home=await source('src/components/home/Home.astro');
-const homeData=await source('src/data/home.ts');
+const homeData=await source('src/i18n/zh.json');
+const enData=await source('src/i18n/en.json');
 assert(home.includes('<FeaturedProjects')&&home.includes('<HomeSkills'),
  'Shared homepage must use project and Skill card components');
-assert(home.includes('homeCopy[lang]')&&homeData.includes('homeCopy'),
+const zhDictionary=JSON.parse(homeData);
+const enDictionary=JSON.parse(enData);
+for(const section of ['home','navigation','prompts','header','blog','categories','homeSkills','portfolio','aiHub']){
+ assert(zhDictionary[section]&&enDictionary[section],
+  'Missing '+section+' translation section in locale dictionaries');
+ assert(Object.keys(zhDictionary[section]).sort().join('|')===Object.keys(enDictionary[section]).sort().join('|'),
+  'Mismatched '+section+' dictionary keys between zh and en');
+}
+assert(home.includes('dictionary(lang).home')&&homeData.includes('heroFirst')&&enData.includes('heroFirst'),
  'Homepage must render both languages from shared structure and language data');
 assert(!home.includes('<a class="liquid-demo project'),
  'Homepage reverted to copy/pasted project card markup');
-for(const locale of ['Zh','En']){
- const prompts=await source('src/components/prompts/Prompts'+locale+'.astro');
- assert(prompts.includes('<PromptLibrary'),'Prompt page reverted to locale-specific layout: '+locale);
+const localeRouting=await source('src/lib/locale-routes.ts');
+assert(localeRouting.includes("from 'astro:config/server'") && localeRouting.includes('i18n.locales'),
+ 'All shared routes must come from the configured Astro i18n locales');
+for(const dir of ['en','de','fr']){
+ try{await access(new URL('../src/pages/'+dir+'/',import.meta.url));throw new Error('Per-language page directory reintroduced: '+dir)}
+ catch(error){if(error?.code!=='ENOENT')throw error}
+}
+for(const page of ['index.astro','ai/index.astro','blog/index.astro','blog/[slug].astro',
+                   'projects/index.astro','skills/index.astro','prompts/index.astro','prompts/[id].astro']){
+ const sourceFile=await source('src/pages/[...locale]/'+page);
+ assert(sourceFile.includes('localePaths'),'Route must come from shared locale data: '+page);
 }
 const englishHome=await read('en/index.html');
 assert(englishHome.includes('href="/eao/en/"'),

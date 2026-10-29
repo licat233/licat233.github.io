@@ -1,0 +1,10 @@
+---
+import PortfolioShell from '../../layouts/PortfolioShell.astro';
+import Home from '../../components/home/Home.astro';
+import { localePaths } from '../../lib/locale-routes';
+import type { Lang } from '../../lib/site';
+export function getStaticPaths(){return localePaths()}
+interface Props {lang:Lang}
+const {lang}=Astro.props;
+---
+<PortfolioShell {lang} kind="home"><Home {lang} /></PortfolioShell>

@@ -1,0 +1,9 @@
+---
+import Category from '../../../layouts/Category.astro';
+import { localePaths } from '../../../lib/locale-routes';
+import type { Lang } from '../../../lib/site';
+export function getStaticPaths(){return localePaths()}
+interface Props {lang:Lang}
+const {lang}=Astro.props;
+---
+<Category {lang} kind="skills" />

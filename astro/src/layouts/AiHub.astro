@@ -2,46 +2,20 @@
 import BaseLayout from './BaseLayout.astro';
 import GlassSurface from '../components/GlassSurface.astro';
 import { localeUrl, type Lang } from '../lib/site';
+import { dictionary } from '../lib/translation';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const en = lang === 'en';
-const title = en ? 'AI Developer Toolkit' : 'AI 开发工具箱';
-const description = en
-  ? 'A public index of Licat’s Agent Skills, reusable prompts, MCP tooling, AI systems and memory experiments.'
-  : '整理公开的 Agent Skills、提示词、MCP 工具、AI 系统与记忆实验；内容来自真实项目，而不是未实现的产品清单。';
-const cards = [
-  {
-    name: 'Agent Skills',
-    zh: '经过真实项目验证的设计、交互和工程工作规范，可直接阅读原始 SKILL.md。',
-    en: 'Reusable design, interaction and engineering procedures, with original SKILL.md source files.',
-    zhHref: localeUrl('zh','skills'), enHref: localeUrl('en','skills')
-  },
-  {
-    name: 'Prompts',
-    zh: '经过整理的提示词，支持搜索、查看、分享和复制。',
-    en: 'Curated prompts that can be searched, read, shared and copied.',
-    zhHref: localeUrl('zh','prompts'), enHref: localeUrl('en','prompts')
-  },
-  {
-    name: 'MCP · ToolScout',
-    zh: '公开的 Rust CLI / MCP 工具实践：让 Agent 先发现成熟工具，再决定是否编写代码。',
-    en: 'A published Rust CLI / MCP tool experiment for tool discovery before writing custom code.',
-    zhHref: '/toolscout/zh/', enHref: '/toolscout/en/'
-  },
-  {
-    name: 'Agents · Enterprise AI Office',
-    zh: '企业 AI 系统实践：Agent、知识检索、权限与工作流如何组合成可维护系统。',
-    en: 'A practical AI office project connecting agents, knowledge retrieval, permissions and workflows.',
-    zhHref: '/eao/', enHref: '/eao/en/'
-  },
-  {
-    name: 'Memory · armor-memory',
-    zh: '历史技术探索：多 Agent 共享记忆架构。此项目仅作为实验记录，不代表当前 EAO 架构。',
-    en: 'An earlier shared-memory architecture experiment, retained as history rather than the current EAO design.',
-    zhHref: '/armor-memory/zh/', enHref: '/armor-memory/'
-  }
-];
+const t=dictionary(lang).aiHub;
+const title=t.title;
+const description=t.description;
+const cards=[
+ {key:'skills',name:'Agent Skills',href:localeUrl(lang,'skills')},
+ {key:'prompts',name:'Prompts',href:localeUrl(lang,'prompts')},
+ {key:'toolscout',name:'MCP · ToolScout',href:lang==='zh'?'/toolscout/zh/':'/toolscout/en/'},
+ {key:'eao',name:'Agents · Enterprise AI Office',href:lang==='zh'?'/eao/':'/eao/en/'},
+ {key:'memory',name:'Memory · armor-memory',href:lang==='zh'?'/armor-memory/zh/':'/armor-memory/'}
+] as const;
 const styles = [
   '/assets/vendor/open-props/open-props-core-1.7.23.min.css',
   '/assets/portfolio.css?v=20261008-glass1',
@@ -57,23 +31,19 @@ const styles = [
     <div class="shell">
       <p class="site-section-kicker">REUSABLE AI PRACTICE</p>
       <h1>{title}</h1>
-      <p class="site-section-lead">{en
-        ? 'An entry point to things I have actually published and worked on: skills, prompts, tools and systems.'
-        : '把已经公开、真正做过的 Skills、提示词、工具和系统实践整理到一个入口。'}</p>
-      <p class="site-section-meta">{en
-        ? 'Explore published work; no accounts, private notes or unfinished product listings.'
-        : '只收录已公开内容，不设置登录、私人笔记或尚未实现的功能占位。'}</p>
-      <div class="site-section-grid" aria-label={en ? 'AI toolkit collections' : 'AI 工具箱分类'}>
+      <p class="site-section-lead">{t.lead}</p>
+      <p class="site-section-meta">{t.meta}</p>
+      <div class="site-section-grid" aria-label={t.aria}>
         {cards.map((card, i) => <GlassSurface as="a" class="site-section-card" material="regular"
-          href={en ? card.enHref : card.zhHref}>
+          href={card.href}>
           <span class="site-section-card__index">{String(i + 1).padStart(2, '0')}</span>
           <h2>{card.name}</h2>
-          <p>{en ? card.en : card.zh}</p>
-          <span class="site-section-card__go">{en ? 'Explore' : '查看内容'} ↗</span>
+          <p>{t.cards[card.key]}</p>
+          <span class="site-section-card__go">{t.explore} ↗</span>
         </GlassSurface>)}
       </div>
       <p class="site-section-footer-link"><a href={localeUrl(lang,'home')}>
-        {en ? '← Back to the homepage' : '← 返回个人主页'}</a></p>
+        {t.back}</a></p>
     </div>
   </main>
 </BaseLayout>

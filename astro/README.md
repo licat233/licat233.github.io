@@ -33,8 +33,9 @@ Do not hand-edit the generated `dist/` directory or introduce another CMS or dep
 | Blog listing | `src/layouts/BlogIndex.astro` |
 | Chinese and English blog detail routes | `src/pages/blog/[slug].astro`, `src/pages/en/blog/[slug].astro` |
 | Blog article layout / SEO / alternates | `src/layouts/BlogArticle.astro`, `src/layouts/BaseLayout.astro` |
-| Navigation and locale URLs | `src/data/navigation.json`, `src/lib/site.ts` |
-| Shared homepage structure and translations | `src/components/home/Home.astro`, `src/data/home.ts` |
+| Navigation route keys and locale URLs | `src/data/navigation.json`, `src/lib/site.ts` and `src/lib/locale-routes.ts` |
+| UI language dictionaries | `src/i18n/zh.json`, `src/i18n/en.json` via `src/lib/translation.ts` |
+| Shared homepage markup | `src/components/home/Home.astro` with `src/i18n/*.json` home translations |
 | Shared header | `src/components/SiteHeader.astro` |
 | Projects and Skills | `src/content/projects/*.yaml`, `src/content/skills/*.yaml` (glob loaders and Zod schemas) |
 | Prompts catalogue | `src/data/prompts.json` |
@@ -42,7 +43,9 @@ Do not hand-edit the generated `dist/` directory or introduce another CMS or dep
 | Published standalone microsites and demos | `../public-sites/` → `scripts/prepare-public.mjs` → original URLs (e.g. `/eao/`, `/demo/`) |
 | Shared public files and Skill sources | `../assets/`, `../prompts/`, `../en/prompts/content/`, `../skills/` |
 
-The bilingual homepages use one `Home.astro` structure with `homeCopy[lang]`; homepage project links resolve from the `projects` content collection. Do not restore separate `HomeZh.astro`/`HomeEn.astro` markup.
+All localized pages use the eight `src/pages/[...locale]/` page-type routes and the same layouts/components, not separate `src/pages/en/` trees. The home component reads `dictionary(lang).home`, and homepage project links resolve from the `projects` content collection. Do not restore per-language page wrappers or copies.
+
+Adding a locale means configuring it in `astro.config.mjs`, providing a complete dictionary `src/i18n/<locale>.json` and translating applicable content. No per-language page files are needed. `src/lib/locale-routes.ts` reads official Astro configuration and rejects missing dictionaries. The existing `/zh/` page remains a noindex compatibility redirect.
 
 The Prompt Library has 17 entries with independent Chinese and English Markdown files and 34 static detail pages. Older query-based `?p=` prompt shares use a browser-side compatibility redirect to their path-based URLs; GitHub Pages does not provide an HTTP 301 specifically for those query values.
 

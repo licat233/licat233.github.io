@@ -2,11 +2,13 @@
 import BaseLayout from './BaseLayout.astro';
 import BlogFooter from '../components/BlogFooter.astro';
 import { blogStyles } from '../lib/blog';
+import { dictionary } from '../lib/translation';
 import type { CollectionEntry } from 'astro:content';
 import { localeUrl, type Lang } from '../lib/site';
 interface Props { post:CollectionEntry<'blog'>; lang:Lang; canonical:string }
 const {post,lang,canonical}=Astro.props;
 const en=lang==='en';
+const t=dictionary(lang).blog;
 const zhHref=en?(post.data.translation_url||localeUrl('zh','blog')):canonical;
 const enHref=en?canonical:(post.data.translation_url||localeUrl('en','blog'));
 const hasTranslation = Boolean(post.data.translation_url);
@@ -18,13 +20,13 @@ const date=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'
 ---
 <BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description||post.data.title} {canonical} {zhHref} {enHref} {alternateZh} {alternateEn} styles={blogStyles} ogType="article" pageClass="blog-page">
 <main id="content" class="blog-main"><article class="blog-article">
-  <a class="blog-back" href={localeUrl(lang,'blog')}>← {en?'Back to Blog':'返回博客'}</a>
+  <a class="blog-back" href={localeUrl(lang,'blog')}>← {t.back}</a>
   <header class="blog-article-header">
     <time datetime={post.data.date.toISOString().slice(0,10)}>{date}</time>
     <h1>{post.data.title}</h1>{post.data.description&&<p>{post.data.description}</p>}
   </header>
   <div class="blog-prose"><slot /></div>
-  <div class="blog-article-end"><a href={localeUrl(lang,'blog')}>← {en?'All articles':'全部文章'}</a></div>
+  <div class="blog-article-end"><a href={localeUrl(lang,'blog')}>← {t.backAll}</a></div>
 </article></main>
 <BlogFooter {lang} />
 </BaseLayout>
