@@ -63,7 +63,7 @@ test('featured and directory project links retain the language of their entry pa
       const response = await request.get(href);
       expect(response.ok(), 'Broken project link ' + route + ' -> ' + href).toBe(true);
       const html = await response.text();
-      const actual = /<html\\b[^>]*\\blang=['"]([^'"]+)['"]/.exec(html)?.[1];
+      const actual = /<html\b[^>]*\blang=['"]([^'"]+)['"]/.exec(html)?.[1];
       expect(actual, 'Wrong project language ' + route + ' -> ' + href).toBe(expected);
     }
   }
