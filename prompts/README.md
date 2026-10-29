@@ -4,18 +4,22 @@
 
 这里收录个人收集、总结和整理的 AI 提示词，以中文原文为主。每条提示词包含标题、分类、用途介绍、标签与完整 Markdown 正文。
 
-## 结构
+## 结构（Astro 生产版）
 
-- `index.html`：浏览与阅读页面
-- `prompt-library.css`：视觉样式、响应式与深色模式
-- `prompt-library.js`：条目索引、搜索、分类、独立链接、一键复制
-- `content/*.md`：提示词原文，供页面加载、GitHub 阅读和版本追踪
+- `content/*.md`：中文提示词原文；`../en/prompts/content/*.md`：对应英文正文。
+- `../astro/src/data/prompts.json`：中英文条目的标题、分类、摘要、标签和对应关系，唯一目录数据源。
+- `../astro/src/components/prompts/PromptLibrary.astro`：中英文共用页面结构。
+- `../astro/src/client/prompt-library.js`：搜索、分类、阅读和复制交互。
+- `prompt-library.css`：共用样式，由 Astro 构建复制到发布目录。
+
+旧版 `index.html`、`prompt-library.js` 和 `nav.css` 已退役；不再分别维护中文、英文页面。
 
 ## 新增或更新条目
 
-1. 在 `content/` 新增或修改一份 `slug.md`，将展示标题、用途说明和编辑备注写在可复制区间之外；用 `<!-- prompt:begin -->` 和 `<!-- prompt:end -->` 仅包围需要实际复制给 AI 的指令正文。
-2. 在 `prompt-library.js` 的 `catalogue` 数组登记对应的 `id`（必须与文件名相同）、标题、分类、用途和标签。
-3. 新增条目时同步更新 `index.html` 的条目统计、简要描述及 SEO 信息。检查筛选、复制和深链接功能；**任何条目缺少正文边界标记时，网页会禁用复制，而不是复制可能混入元信息的整份 Markdown。**
+1. 在 `content/` 编辑 Markdown，保留 `<!-- prompt:begin -->` 与 `<!-- prompt:end -->` 之间的可复制正文。
+2. 更新 `../astro/src/data/prompts.json` 的目录记录，不要在 JavaScript 中复制另一份目录数据。
+3. 同步更新 `../en/prompts/content/` 中对应的英文 Markdown；遵循已有翻译状态字段。
+4. 从 `astro/` 运行 `npm run build`、`npm run check`，并完成浏览器测试，再合并发布。
 
 分类键：`agent`、`thinking`、`design`、`learning`。
 
@@ -88,6 +92,6 @@
 ## English version
 
 - English catalogue: [English Prompt Library](../en/prompts/).
-- Both pages use the same 16-item catalogue and preserve individual `?p=slug` share links across language switches.
-- 12 prompt bodies have manually translated English Markdown under `en/prompts/content/`; the four longer originals are shown in Chinese with an explicit language notice until they have been translated.
-- The Chinese files under `prompts/content/` remain authoritative originals. Do not silently machine-rewrite them or merge translated content into source files.
+- All 17 currently listed entries have independent Chinese and English Markdown files. Both language pages use the shared Astro component and catalogue.
+- Historical `?p=slug` share links redirect to the new path-based detail pages while preserving language selection.
+- Chinese files under `prompts/content/` remain the original texts. Do not silently overwrite originals during translation.
