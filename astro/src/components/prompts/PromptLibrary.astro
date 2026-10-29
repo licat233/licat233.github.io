@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
 import promptCatalogue from '../../data/prompts.json';
+import { dictionary } from '../../lib/translation';
 interface Props {lang: Lang;initialId?:string}
 const {lang,initialId}=Astro.props;
 const selected=initialId ? promptCatalogue.find(item=>item.id===initialId) : undefined;
@@ -20,39 +21,8 @@ const rendered=copyText ? (await (await createSatteriMarkdownProcessor({syntaxHi
 const initialPayload=JSON.stringify({id:initialId,content:copyText}).replace(/</g,'\u003c');
 const selectedMeta=selected?.[lang];
 const en=lang==='en';
-const words={
-  zh:{
-    heroLead:'好的提示词，',heroEm:'值得反复使用。',
-    description:'这里收录我在真实使用中收集、总结和打磨的 AI 提示词。从表达方式，到独立判断，再到复杂任务的执行。找到适合的，复制，开始使用。',
-    items:'条精选',topics:'个主题',updating:'持续整理中',
-    browse:'探索提示词',placeholder:'搜索标题、用途或标签...',searchLabel:'搜索提示词',filterLabel:'按主题筛选',
-    all:'全部',agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索',
-    noResults:'没有找到匹配的提示词',noResultsHelp:'换个关键词，或选择「全部」分类试试。',reset:'重置筛选',
-    back:'← 返回提示词列表',copy:'复制完整提示词',share:'复制分享链接',source:'GitHub 源文件 ↗',
-    reading:'下方仅显示可直接使用的提示词正文。标题、用途说明与编辑备注不会被复制；必要时按使用场景调整参数。',
-    loading:'正在载入内容…',other:'← 浏览其他提示词',copyBottom:'复制这条提示词 ↑',
-    brand:'把复杂问题做成系统。',home:'个人主页',locale:'English',sourceFooter:'GitHub 源代码 ↗',
-    caption:'思考 · 整理 · 分享',
-    noscript:'该页面需要 JavaScript 才能启用分类、完整阅读与一键复制。你也可以直接',
-    originals:'阅读全部 Markdown 原文'
-  },
-  en:{
-    heroLead:'Better prompts.',heroEm:'Better results.',
-    description:'A collection of prompts refined through real use—from clearer communication and independent judgment to complex workflows. Browse, read, and copy what is useful.',
-    items:'curated prompts',topics:'topics',updating:'Updated over time',
-    browse:'Browse prompts',placeholder:'Search titles, summaries or tags...',searchLabel:'Search prompts',filterLabel:'Filter by topic',
-    all:'All',agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration',
-    noResults:'No matching prompts',noResultsHelp:'Try another query or select All.',reset:'Reset filters',
-    back:'← Back to all prompts',copy:'Copy full prompt',share:'Copy share link',source:'GitHub source ↗',
-    reading:'The full English instructions are shown below. Copying excludes the display title, introduction, and editorial notes outside the prompt boundary.',
-    loading:'Loading prompt…',other:'← Browse other prompts',copyBottom:'Copy this prompt ↑',
-    brand:'Building useful systems for real problems.',home:'Home',locale:'中文',sourceFooter:'GitHub source code ↗',
-    caption:'Think · Refine · Share',
-    noscript:'JavaScript is required for filters, reading, and copying. You can also ',
-    originals:'read the original Markdown files'
-  }
-};
-const t=words[lang];
+const t=dictionary(lang).prompts;
+
 const items=promptCatalogue.map(({id,category,companion,zh,en:english})=>({
   id,category,companion,...(lang==='en'?english:zh)
 }));

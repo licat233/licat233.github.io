@@ -141,10 +141,11 @@ const portfolioShell=await source('src/layouts/PortfolioShell.astro');
 assert((documentShell.match(/<html\b/g)||[]).length===1,'Global HTML document must have exactly one BaseLayout shell');
 assert(!/<html\b|<!doctype/i.test(portfolioShell),'Portfolio wrapper must not duplicate site-wide HTML');
 const home=await source('src/components/home/Home.astro');
-const homeData=await source('src/data/home.ts');
+const homeData=await source('src/i18n/zh.json');
+const enData=await source('src/i18n/en.json');
 assert(home.includes('<FeaturedProjects')&&home.includes('<HomeSkills'),
  'Shared homepage must use project and Skill card components');
-assert(home.includes('homeCopy[lang]')&&homeData.includes('homeCopy'),
+assert(home.includes('dictionary(lang).home')&&homeData.includes('heroFirst')&&enData.includes('heroFirst'),
  'Homepage must render both languages from shared structure and language data');
 assert(!home.includes('<a class="liquid-demo project'),
  'Homepage reverted to copy/pasted project card markup');

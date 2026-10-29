@@ -1,34 +1,22 @@
 [
   {
-    "key": "home",
-    "zh": "首页",
-    "en": "Home"
+    "key": "home"
   },
   {
-    "key": "projects",
-    "zh": "项目",
-    "en": "Projects"
+    "key": "projects"
   },
   {
-    "key": "ai",
-    "zh": "AI",
-    "en": "AI"
+    "key": "ai"
   },
   {
     "key": "skills",
-    "zh": "Skills",
-    "en": "Skills",
     "parent": "ai"
   },
   {
-    "key": "blog",
-    "zh": "博客",
-    "en": "Blog"
+    "key": "blog"
   },
   {
     "key": "prompts",
-    "zh": "提示词",
-    "en": "Prompts",
     "parent": "ai"
   }
 ]

@@ -4,12 +4,12 @@ import FeaturedProjects from './FeaturedProjects.astro';
 import HomeSkills from './HomeSkills.astro';
 import GlassSurface from '../GlassSurface.astro';
 import promptCatalogue from '../../data/prompts.json';
-import { homeCopy } from '../../data/home';
+import { dictionary } from '../../lib/translation';
 import { localeUrl, type Lang } from '../../lib/site';
 import { getProjects } from '../../lib/catalog';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const t = homeCopy[lang];
+const t = dictionary(lang).home;
 const projectList = await getProjects();
 const projectHref = (name: string) => {
   const project = projectList.find(item => item.name === name);
