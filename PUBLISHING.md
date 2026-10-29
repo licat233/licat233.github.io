@@ -1,10 +1,10 @@
 # 发布博客文章
 
-文章用 Markdown 编写，保存在仓库根目录的 `_posts/`。合并到 `main` 后，GitHub Actions 会自动构建 Astro 网站并发布到 GitHub Pages。
+文章用 Markdown 编写，保存在仓库根目录的 `astro/src/content/blog/`。合并到 `main` 后，GitHub Actions 会自动构建 Astro 网站并发布到 GitHub Pages。
 
 ## 1. 新建文章
 
-例如新建 `_posts/2026-10-28-my-first-note.md`：
+例如新建 `astro/src/content/blog/2026-10-28-my-first-note.md`：
 
 ```markdown
 ---
@@ -25,7 +25,7 @@ description: "简短介绍这篇文章。"
 
 ## 2. 可选：英文版
 
-英文文章单独保存为 `_posts/2026-10-28-my-first-note-en.md`，头部使用 `lang: en`，正文用英文撰写。
+英文文章单独保存为 `astro/src/content/blog/2026-10-28-my-first-note-en.md`，头部使用 `lang: en`，正文用英文撰写。
 
 生成的地址分别是：
 

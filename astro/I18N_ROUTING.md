@@ -6,7 +6,7 @@ Astro 7 owns the language-aware URLs, not a separate client-side language router
 - Routing helpers in src/lib/site.ts use getRelativeLocaleUrl from astro:i18n.
 - Navigation data contains only route keys and language labels, not duplicated URLs.
 - Both home locales render `src/components/home/Home.astro` with text from `src/data/home.ts`; no locale-specific HTML duplicates.
-- Home project destinations are obtained from the shared `_data/projects.yml` so localized EAO and other project links cannot diverge.
+- Home project destinations are obtained from the shared Astro `projects` Content Collection so localized EAO and other project links cannot diverge.
 - BaseLayout validates Astro.currentLocale against the chosen language.
 - Blog canonical and language URLs come from Astro. Only real translations get
   reciprocal hreflang links. Untranslated posts switch to the alternate archive.

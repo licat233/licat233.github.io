@@ -22,7 +22,7 @@ Existing project paths, historic compatibility pages, and stable article URLs ar
 ## Repository structure
 
 - `astro/`: active Astro production application, language routing, shared components, build and tests.
-- `_posts/`: blog Markdown. `_data/projects.yml` and `_data/skills.yml`: shared metadata.
+- `astro/src/content/blog/`: blog Markdown; `astro/src/content/projects/` and `astro/src/content/skills/`: structured YAML entries, loaded and validated through Astro Content Collections.
 - `prompts/content/` and `en/prompts/content/`: source translations; `astro/src/data/prompts.json`: catalogue records.
 - `assets/` and `skills/`: shared assets and published skills.
 - `public-sites/`: independent project microsites and preserved demos/previews (`eao/`, `toolscout/`, `demo/`, etc.). Astro copies them to their **original public URLs**, so `public-sites/eao/` publishes as `/eao/`, not `/public-sites/eao/`.
@@ -33,8 +33,8 @@ Retired Jekyll page templates, duplicate HTML entry pages, and obsolete Jekyll C
 
 - `astro/src/layouts/BaseLayout.astro`: shared page shell and metadata.
 - `astro/src/components/SiteHeader.astro`: bilingual navigation and Liquid Glass header.
-- `astro/src/lib/catalog.ts`: shared Projects/Skills data from the original repository metadata.
-- `astro/src/content.config.ts`: Astro Content Collection loading `_posts/*.md`.
+- `astro/src/lib/catalog.ts`: projects and Skills from Astro's typed content collections, with local Skill discovery preserved.
+- `astro/src/content.config.ts`: schemas and glob loaders for blog, projects and Skills.
 - `astro/src/pages/blog/[slug].astro` and `astro/src/pages/en/blog/[slug].astro`: generated bilingual blog posts.
 - `astro/src/layouts/BlogIndex.astro`: generated Blog lists.
 - `astro/src/data/prompts.json`: shared prompt metadata; `astro/src/pages/**/prompts/[id].astro` generates bilingual prompt detail pages.
