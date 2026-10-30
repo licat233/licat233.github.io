@@ -196,7 +196,10 @@ assert(catalogSource.includes("getCollection('projects')") &&
        catalogSource.includes("getCollection('skills')"),
   'Project and Skill data must come from Astro collections');
 const {readdir:readContent}=await import('node:fs/promises');
-for(const [kind,expected] of [['blog',2],['projects',8],['skills',2]]){
+// Blog entries are published incrementally; adding a post must not fail the site check.
+const blogFiles=await readContent(new URL('../src/content/blog/',import.meta.url));
+assert(blogFiles.some(file=>file.endsWith('.md')),'Missing blog content');
+for(const [kind,expected] of [['projects',8],['skills',2]]){
  const files=await readContent(new URL('../src/content/'+kind+'/',import.meta.url));
  assert(files.length===expected,'Unexpected '+kind+' content entry count: '+files.length);
 }
