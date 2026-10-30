@@ -3,6 +3,7 @@ title: "GA4 询盘转化追踪教程：使用 GTM 衡量成功提交的表单"
 date: 2026-10-30 21:46:00 +0800
 lang: zh
 description: "使用 GTM 和 GA4 追踪成功提交的询盘：从 dataLayer 成功事件、generate_lead 标签及关键事件配置，到 DebugView 验证和转化报表。"
+translation_url: /en/blog/ga4-gtm-lead-tracking/
 ---
 
 对于以获取客户询盘为目标的网站，仅知道有多少人浏览页面还不够。更有价值的问题是：**有多少访客成功提交了询盘？他们从哪些渠道来到网站？**
