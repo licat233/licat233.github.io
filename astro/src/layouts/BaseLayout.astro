@@ -48,6 +48,15 @@ if (Astro.currentLocale !== lang) {
 <!doctype html>
 <html lang={lang === 'en' ? 'en' : 'zh-CN'}>
 <head>
+  <!-- Google Tag Manager -->
+  <script is:inline>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W68HGFLR');
+  </script>
+  <!-- End Google Tag Manager -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
@@ -71,6 +80,9 @@ if (Astro.currentLocale !== lang) {
   <slot name="head" />
 </head>
 <body class={pageClass}>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W68HGFLR" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <SiteHeader {lang} {active} {zhHref} {enHref} />
   <slot />
   {includeLensFilter && <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden"><filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="12" result="edgeFade"/><feDisplacementMap in="SourceGraphic" in2="edgeFade" scale="12" xChannelSelector="A" yChannelSelector="A"/></filter></svg>}
