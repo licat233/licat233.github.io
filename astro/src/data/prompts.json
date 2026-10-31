@@ -1,30 +1,31 @@
 [
   {
-    "id": "ai-natural-communication-v1.3.2",
+    "id": "ai-natural-communication-v1.3.3",
     "category": "thinking",
     "companion": "ai-high-value-writing-audit-v1.1",
     "translatedEnglish": true,
     "zh": {
-      "title": "AI 说人话指南 V1.3.2",
+      "title": "AI 说人话指南 V1.3.3",
       "label": "表达与思考",
-      "type": "正式使用版 · V1.3.2",
-      "summary": "让 AI 自然表达、独立判断。新增可省则省、按表达目的使用连接词和句子自审规范。",
+      "type": "正式使用版 · V1.3.3",
+      "summary": "让 AI 自然表达、独立判断。明确行为底线与风格建议的区别，避免过度压缩和反向机械化。",
       "tags": [
         "自然表达",
-        "语言省略",
-        "连接词",
+        "语言弹性",
+        "独立判断",
         "内容价值",
-        "自审机制",
-        "长文"
+        "场景适配",
+        "自审机制"
       ]
     },
     "en": {
-      "title": "Making AI Sound Natural — Guide V1.3.2",
-      "summary": "Natural AI communication, with new rules for omitting redundant linking words and reviewing sentence economy.",
-      "type": "Main guide · V1.3.2",
+      "title": "Making AI Sound Natural — Guide V1.3.3",
+      "summary": "Natural communication without anti-AI-style rigidity: firm behavioral boundaries, flexible language, and focused review.",
+      "type": "Main guide · V1.3.3",
       "tags": [
         "communication",
-        "word economy",
+        "natural flow",
+        "flexible style",
         "self-review"
       ],
       "label": "Writing & Thinking"
