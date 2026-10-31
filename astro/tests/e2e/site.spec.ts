@@ -192,7 +192,7 @@ test('new coding guideline survives Astro catalogue, deep link and copy boundari
 
 test('four newly localized prompts show English instructions and preserve language deep links', async ({page}) => {
  const cases = [
-  ['ai-natural-communication-v1.3.1', 'Understand the purpose'],
+  ['ai-natural-communication-v1.3.2', 'Understand the purpose'],
   ['ai-high-value-writing-audit-v1.1', 'what is worth saying'],
   ['detailflow-ecommerce', 'Approval Gate 2'],
   ['ai-coding-minimal-defensive-v1', 'Avoid repeated validation'],
@@ -233,7 +233,9 @@ test('old shared query URLs and old ID aliases reach the permanent prompt page',
   'href','https://licat233.github.io/en/prompts/ai-coding-minimal-defensive-v1/');
  await expect(page.locator('#prompt-article')).toContainText('Avoid repeated validation');
  await page.goto('/prompts/?p=ai-natural-communication-v1.3');
- await expect(page).toHaveURL(/\/prompts\/ai-natural-communication-v1\.3\.1\/$/);
+ await expect(page).toHaveURL(/\/prompts\/ai-natural-communication-v1\.3\.2\/$/);
+ await page.goto('/prompts/ai-natural-communication-v1.3.1/');
+ await expect(page).toHaveURL(/\/prompts\/ai-natural-communication-v1\.3\.2\/$/);
 });
 
 test('prompt detail URLs contain real static HTML, SEO metadata and working copy/share',async ({page,context})=>{
