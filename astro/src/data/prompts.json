@@ -33,13 +33,12 @@
   {
     "id": "ai-high-value-writing-audit-v1.1",
     "category": "thinking",
-    "companion": "ai-natural-communication-v1.3.2",
     "translatedEnglish": true,
     "zh": {
       "title": "AI 高价值内容生成与自审指令 V1.1",
       "label": "表达与思考",
       "type": "配套执行指令 · V1.1",
-      "summary": "配合《AI 说人话指南 V1.3.2》使用，把价值判断、事实核实、内容写作和针对性审稿落实到实际工作。",
+      "summary": "配合《AI 说人话指南》使用，把价值判断、事实核实、内容写作和针对性审稿落实到实际工作。",
       "tags": [
         "内容创作",
         "内容自审",
