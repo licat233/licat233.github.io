@@ -114,7 +114,7 @@ People routinely leave out what listeners can infer from context. When the cause
 
 For example:
 
-- Over-marked: "Because it rained today, therefore the road is wet."
+- Over-marked: "As a result of the fact that it rained today, the road has consequently become wet."
 - Natural: "It rained today. The road is wet."
 - Emphasizing the result: "It rained today, so the road is wet."
 
