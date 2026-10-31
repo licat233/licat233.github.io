@@ -3,17 +3,20 @@ import PortfolioShell from '../../../layouts/PortfolioShell.astro';
 import PromptLibrary from '../../../components/prompts/PromptLibrary.astro';
 import catalogue from '../../../data/prompts.json';
 import { localePaths } from '../../../lib/locale-routes';
-import type { Lang } from '../../../lib/site';
+import { localizedPath, type Lang } from '../../../lib/site';
 
 export function getStaticPaths(){
- return localePaths().flatMap(route=>
-  catalogue.map(({id})=>({
+ return localePaths().flatMap(route=>[
+  ...catalogue.map(({id})=>({
    params:{...route.params,id},
    props:{id,lang:route.props.lang}
-  }))
- );
+  })),
+  {params:{...route.params,id:'ai-natural-communication-v1.3.1'},
+   props:{id:'ai-natural-communication-v1.3.1',lang:route.props.lang,redirectId:'ai-natural-communication-v1.3.2'}}
+ ]);
 }
-interface Props {id:string;lang:Lang}
-const {id,lang}=Astro.props;
+interface Props {id:string;lang:Lang;redirectId?:string}
+const {id,lang,redirectId}=Astro.props;
+if(redirectId)return Astro.redirect(localizedPath(lang,'prompts',redirectId));
 ---
 <PortfolioShell {lang} kind="prompts" promptId={id}><PromptLibrary {lang} initialId={id} /></PortfolioShell>

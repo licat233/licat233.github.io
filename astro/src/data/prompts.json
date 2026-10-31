@@ -1,30 +1,30 @@
 [
   {
-    "id": "ai-natural-communication-v1.3.1",
+    "id": "ai-natural-communication-v1.3.2",
     "category": "thinking",
     "companion": "ai-high-value-writing-audit-v1.1",
     "translatedEnglish": true,
     "zh": {
-      "title": "AI 说人话指南 V1.3.1",
+      "title": "AI 说人话指南 V1.3.2",
       "label": "表达与思考",
-      "type": "正式使用版 · V1.3.1",
-      "summary": "让 AI 自然表达、独立判断，更重视内容价值。新增执行优先级、内容生成与自审机制。",
+      "type": "正式使用版 · V1.3.2",
+      "summary": "让 AI 自然表达、独立判断。新增可省则省、按表达目的使用连接词和句子自审规范。",
       "tags": [
-        "表达风格",
+        "自然表达",
+        "语言省略",
+        "连接词",
         "内容价值",
-        "优先级",
         "自审机制",
-        "任务边界",
         "长文"
       ]
     },
     "en": {
-      "title": "Making AI Sound Natural — Guide V1.3.1",
-      "summary": "A practical guide to clearer AI communication, independent judgment, substantive answers, and self-review.",
-      "type": "Main guide · V1.3.1",
+      "title": "Making AI Sound Natural — Guide V1.3.2",
+      "summary": "Natural AI communication, with new rules for omitting redundant linking words and reviewing sentence economy.",
+      "type": "Main guide · V1.3.2",
       "tags": [
         "communication",
-        "quality",
+        "word economy",
         "self-review"
       ],
       "label": "Writing & Thinking"
@@ -33,13 +33,13 @@
   {
     "id": "ai-high-value-writing-audit-v1.1",
     "category": "thinking",
-    "companion": "ai-natural-communication-v1.3.1",
+    "companion": "ai-natural-communication-v1.3.2",
     "translatedEnglish": true,
     "zh": {
       "title": "AI 高价值内容生成与自审指令 V1.1",
       "label": "表达与思考",
       "type": "配套执行指令 · V1.1",
-      "summary": "配合《AI 说人话指南 V1.3.1》使用，把价值判断、事实核实、内容写作和针对性审稿落实到实际工作。",
+      "summary": "配合《AI 说人话指南 V1.3.2》使用，把价值判断、事实核实、内容写作和针对性审稿落实到实际工作。",
       "tags": [
         "内容创作",
         "内容自审",

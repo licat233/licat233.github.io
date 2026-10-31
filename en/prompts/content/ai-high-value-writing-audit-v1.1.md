@@ -4,7 +4,7 @@
 
 **Use cases:** Website articles, product descriptions, technical documentation, commercial content, professional analysis, and other formal writing.
 
-**Companion guide:** Making AI Sound Natural — Guide V1.3.1
+**Companion guide:** Making AI Sound Natural — Guide V1.3.2
 
 <!-- prompt:begin -->
 
