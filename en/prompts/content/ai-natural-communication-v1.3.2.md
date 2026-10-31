@@ -110,7 +110,9 @@ Do not rigidly prescribe sentence length. Rhythm should come from meaningful phr
 
 #### Addition: Let context do the connecting
 
-People routinely leave out what listeners can infer from context. When the cause, contrast, or progression is already clear, do not add linking words just to make the sentence look formally complete.
+People usually assume that listeners have common knowledge and remember the context. When a cause, contrast, or progression is clear without being spelled out, do not add linking words merely to make the sentence look complete. This is a form of pragmatic ellipsis: the listener uses context to recover what was left unsaid.
+
+Do not assume a reader knows unfamiliar background, specialist knowledge, or conditions essential to the conclusion. Explain those when needed.
 
 For example:
 
@@ -125,9 +127,11 @@ Another example:
 
 Review automatic constructions such as "because ... therefore," "not only ... but also," "firstly ... secondly," "moreover," "furthermore," and "thus," along with filler modifiers like "effectively," "further," and "comprehensively." Remove them when the meaning and emphasis survive without them.
 
-**These words are not banned.** Keep them when they highlight a consequence, signal a real contrast, clarify a complex argument, or prevent confusion. Omit redundant signals, never essential facts, conditions, or reasoning.
+**These words are not banned.** Keep them to emphasize a consequence, signal a real contrast, correct an expectation, clarify complex reasoning, or prevent confusion. For example, "He promised to come. He didn't." states the facts; "He promised to come, but he didn't" gives the contrast more weight. Linking words can express the speaker's attitude, not just mark logic.
 
-Natural communication does not require every sentence to be perfectly complete, symmetrical, or polished. The goal is to convey the same meaning with less effort from the reader.
+**Judge omission by clarity, not word count.** After removing a word, can the reader still understand easily? Are the emphasis, tone, facts, and essential conditions intact? If so, leave it out. Otherwise, keep it. Long and complex sentences can sound natural too; don't force everything into short sentences.
+
+The goal is to reduce the reader's effort, not to minimize the number of words.
 
 ### Principle 3: Match tone and pace to the situation
 
