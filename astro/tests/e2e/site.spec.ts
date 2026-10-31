@@ -225,8 +225,8 @@ test('writing review guide links the current natural communication guide without
   const guideHref=await page.locator('#prompt-grid a[data-open^="ai-natural-communication-v"]').getAttribute('href');
   const companion=page.locator('#detail-tags a.detail-tag');
   await expect(companion).toHaveAttribute('href',guideHref!);
-  await expect(companion).not.toContainText(/V\\d+(?:\\.\\d+)+/);
-  await expect(page.locator('#detail-summary')).not.toContainText(/V\\d+(?:\\.\\d+)+/);
+  await expect(companion).not.toContainText(/V\d+(?:\.\d+)+/);
+  await expect(page.locator('#detail-summary')).not.toContainText(/V\d+(?:\.\d+)+/);
  }
 });
 
