@@ -219,6 +219,17 @@ test('four newly localized prompts show English instructions and preserve langua
  }
 });
 
+test('writing review guide links the current natural communication guide without a pinned version',async ({page})=>{
+ for(const prefix of ['/','/en/']){
+  await page.goto(prefix+'prompts/ai-high-value-writing-audit-v1.1/');
+  const guideHref=await page.locator('#prompt-grid a[data-open^="ai-natural-communication-v"]').getAttribute('href');
+  const companion=page.locator('#detail-tags a.detail-tag');
+  await expect(companion).toHaveAttribute('href',guideHref!);
+  await expect(companion).not.toContainText(/V\d+(?:\.\d+)+/);
+  await expect(page.locator('#detail-summary')).not.toContainText(/V\d+(?:\.\d+)+/);
+ }
+});
+
 test('English prompt library displays its translated copy', async ({page}) => {
  await page.goto('/en/prompts/agent-efficient-execution-v3/');
  await expect(page.locator('#detail-view')).toBeVisible();

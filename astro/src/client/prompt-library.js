@@ -150,9 +150,12 @@
     $('#detail-type').textContent=item.label+' / '+item.type;
     $('#detail-index').textContent=String(catalogue.indexOf(item)+1).padStart(2,'0')+' / '+catalogue.length;
     $('#detail-summary').textContent=item.summary;
-    const companion=item.companion&&byId.get(item.companion);
+    const companion=item.companion
+      ?byId.get(item.companion)
+      :catalogue.find(entry=>entry.companion===item.id);
+    const companionTitle=companion&&(item.companion?companion.title:companion.title.replace(/\s+V\d+(?:\.\d+)+$/i,''));
     $('#detail-tags').innerHTML=item.tags.map(t=>'<span class="detail-tag">'+esc(t)+'</span>').join('')+
-      (companion?'<a class="detail-tag" href="'+promptUrl(ownLang,companion.id)+'" title="'+t('阅读配套提示词','Read companion prompt')+'">'+t('配套阅读：','Related: ')+esc(companion.title)+' ↗</a>':'');
+      (companion?'<a class="detail-tag" href="'+promptUrl(ownLang,companion.id)+'" title="'+t('阅读配套提示词','Read companion prompt')+'">'+t('配套阅读：','Related: ')+esc(companionTitle)+' ↗</a>':'');
     $('#source-btn').href='https://github.com/licat233/licat233.github.io/blob/main/'+(isEnglish&&translatedEnglish.has(id)?'en/prompts/content/':'prompts/content/')+id+'.md';
     if(ssrPrompt?.id!==id)article.innerHTML='<p>'+t('正在载入完整内容…','Loading full prompt…')+'</p>';
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
