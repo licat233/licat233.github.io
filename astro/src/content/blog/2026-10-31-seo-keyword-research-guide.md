@@ -224,7 +224,7 @@ SEO 映射不是直接授权改 Title、H1、Canonical、路由、抓取权限�
 - 有带来源与日期的研究总表，Null 与真实零值分开；
 - 对 P1 歧义词至少有可追溯的 SERP 判断或显式待验证标识；
 - 有关键词簇与页面 Owner 表，现有 URL 经过源代码/页面清单核对；
-- 各项决策有 KEEP / OPTIMIZE / NEW / HOLD / EXCLUDE 和商业理由；
+- 各项决策有 KEEP / OPTIMIZE / NEW / VERIFY / HOLD / EXCLUDE 和商业理由；
 - 标出指标有效期、未完成市场、工具费用、GSC/GA4/索引阻断；
 - 每项后续任务可执行，不把文档研究自动转换为网站改动；VERIFY、HOLD 和 EXCLUDE 均有明确理由。
 - 关键产品事实有证据类型、适用型号/版本和限制说明；历史资料没有冒充现售承诺。
