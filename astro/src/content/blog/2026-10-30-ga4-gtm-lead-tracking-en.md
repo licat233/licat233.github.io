@@ -1,6 +1,6 @@
 ---
 title: "GA4 Lead Conversion Tracking with GTM: Measure Successful Form Submissions"
-date: 2026-10-30 21:46:00 +0800
+date: 2026-10-28 12:00:00 +0800
 lang: en
 description: "Track successful inquiry form submissions with GTM and GA4: dataLayer events, generate_lead tags, key events, DebugView tests, and conversion reports."
 translation_url: /blog/ga4-gtm-lead-tracking/
