@@ -2,11 +2,11 @@
 title: "SEO Keyword Research Guide: From Discovery to Page Ownership"
 date: 2026-10-31
 lang: en
-description: "A practical SEO keyword research workflow: business scope, search intent, SERP analysis, clustering, page ownership, competitor comparisons, prioritization, and performance validation."
+description: "A practical B2B SEO keyword research guide covering product evidence, market data quality, search intent, clustering, page ownership, competitor comparisons, internal links, and performance validation."
 translation_url: /blog/seo-keyword-research-guide/
 ---
 
-> Updated: V1.2 (2026-10-31, with competitor page layout comparisons)  
+> Updated: V1.3 (2026-11-03, adding evidence labels, data-quality controls, page-owner decisions, and an anonymized B2B case study)  
 > Intended use: A reusable keyword research guide for B2B, cross-border e-commerce, SaaS, and independent websites  
 > Scope: Research methodology and decision rules, not a ranking guarantee, permission to redesign a site, or a manual for any single tool
 
@@ -85,11 +85,37 @@ Semrush is not mandatory. Automated clustering produces suggestions, not an appr
 - Paid search competition, organic KD, CPC, and the business value of a deal measure different things.
 - Keep the same keyword in separate rows for different countries. Do not average metrics across tools without a defensible reason.
 
+### 4.2 Research Coverage and Data Quality
+
+Every research batch should answer: what was researched, in which market, when it was collected, through which tool, and what the tool actually returned. Preserve at least the following:
+
+| Record | Minimum requirement |
+| --- | --- |
+| Query | Keep the exact submitted query, not only a translated or normalized version |
+| Market and language | Record country/region and search language separately; English data does not represent other language markets |
+| Date and source | Record collection date, tool/data provider, and query batch |
+| Metric status | Distinguish returned values, returned nulls, not queried, and request errors; null is not zero |
+| SERP evidence | Record check date, location/language, and actual result types; label old captures as historical snapshots |
+| Coverage limits | List unresearched markets, incomplete queries, and quota or access blockers rather than filling gaps with assumptions |
+
+Older data does not become invalid automatically after a fixed number of days. However, recheck key-market SERPs and data freshness before making high-impact page decisions. If a provider reports insufficient credits or `INSUFFICIENT_CREDITS`, stop billable requests, preserve the missing-data status, and document the blocker. Do not automatically recharge, invent metrics, or mark failed requests as completed.
+
 ## 5. Clean Keywords Without Losing Valuable Long-Tail Terms
 
 Normalize spaces, letter case, and exact duplicates. **Do not merge voltages, dimensions, processes, materials, screen technologies, or distinct product models merely because their wording looks similar.**
 
-Use four statuses: `KEEP` (relevant), `REVIEW` (needs verification), `EXCLUDE` (confirmed mismatch), and `BRAND` (own or competitor brands analyzed separately).
+Use four keyword-handling statuses: `KEEP` (relevant), `REVIEW` (needs verification), `EXCLUDE` (confirmed mismatch), and `BRAND` (own or competitor brands analyzed separately). These statuses manage keywords; they do not prove that product facts are verified.
+
+**Label the evidence behind product and page claims separately:**
+
+| Evidence label | Meaning | Limitation |
+| --- | --- | --- |
+| `CONFIRMED_CURRENT` | Current supply or service capability has been confirmed by the responsible owner | Still specify applicable models, versions, and conditions; do not extend the claim to an entire family automatically |
+| `DOCUMENTED_HISTORICAL` | Historical models, specifications, or archived documents are on record | Does not prove current production, stock, certification, warranty, or cross-model compatibility |
+| `SERP_OBSERVED` | Search results were observed in a specified market, language, and date | Proves only what appeared in that search snapshot, not product availability or stable rankings |
+| `HYPOTHESIS` | A judgment that has not yet been supported by sufficient evidence | Keep it explicitly unverified; do not present it as fact |
+
+These labels describe different kinds of evidence, not a single low-to-high score. In particular, `SERP_OBSERVED` cannot substitute for proof of supply, inventory, certification, or technical specifications.
 
 Retain low-volume, high-purchasing-intent terms as REVIEW or KEEP rather than deleting them mechanically. Put broad, consumer-focused terms or terms without actual product evidence on HOLD when appropriate. Never force optimization solely because a keyword has volume.
 
@@ -137,7 +163,16 @@ Examples:
 | Technical / Blog | Installation, comparisons, selection, and technical questions | Producing duplicate articles for every variant |
 | Projects / Resources | Verifiable projects, drawings, and catalogs | Pretending an evidence page is a transactional product page |
 
-For each cluster, decide: `KEEP` (existing page is sufficient), `OPTIMIZE` (add substantive missing information), `NEW` (distinct search task backed by enough evidence), `HOLD` (await verification), or `EXCLUDE` (do not target).
+Record an explicit decision for each cluster:
+
+- `KEEP`: the existing page already satisfies the primary search task; no change is needed.
+- `OPTIMIZE`: the existing URL has a specific, evidenced content or conversion gap; improve that page first.
+- `NEW`: the search task is genuinely distinct, existing pages cannot satisfy it, and sufficient product/case evidence supports independent content.
+- `VERIFY`: supply, model, specification, compatibility, or target-market intent still needs validation; make no page claims until checked.
+- `HOLD`: defer while market, resource, or business evidence is unavailable.
+- `EXCLUDE`: confirmed mismatch; do not target it.
+
+`VERIFY` is an evidence-check status, not authorization to create a URL or edit a page. Do not turn VERIFY into OPTIMIZE or NEW merely to make every row appear actionable.
 
 Multiple URLs ranking for one term does not automatically prove keyword cannibalization. Check buyer tasks, actual content, and GSC Query × Page data before bulk merging, deletion, or 301 redirects.
 
@@ -164,14 +199,21 @@ At the page level, verify the actual URL, HTML title/H1, canonical, main content
 
 At the outcome level, use GSC queries and page-level impressions/clicks/CTR/position, GA4 organic landing sessions and real conversion events, plus CRM or human lead qualification if needed. Account for attribution differences, observation windows, seasonality, market differences, and data-provider methodologies.
 
+When translating page ownership into a real procurement journey, inspect three links in sequence: **business entry point → relevant product family/solution → evidence-backed model or technical resource → correct inquiry path**. Check that links work, match the surrounding context, and lead to the right business. Do not add links merely to meet a fixed count.
+
+Page implementation, code merge, production deployment, search-engine crawling, and business outcomes are separate acceptance stages. A passing PR or CI run does not prove that the production page has been checked; a working production page does not prove indexing or qualified inquiries.
+
 If `robots.txt` still blocks the whole site or GSC is not connected, **you can deliver strategy and page planning, but cannot claim search performance has been validated**. Enabling crawling, changing indexability, or publishing production changes needs separate authorization.
 
 ## 11. Failure and Blocker Handling: Lessons from Practice
 
 1. **Valid older research with a dated snapshot:** Reuse it with its date; recheck critical SERPs before new high-impact decisions. Do not automatically repurchase.
 2. **Keyword tool credits exhausted:** Stop paid calls and preserve missing-data statuses. Never invent volume or KD.
-3. **GSC property exists but is not connected to the project:** Distinguish account access from a queryable property for this research. Access alone does not establish actual clicks or rankings.
+3. **A GSC property exists but is not connected to the project:** Distinguish account access from a property that this research can actually query. The same applies to GA4: an account or property existing does not prove that the project is connected or that conversion events are readable.
 4. **An expert category page already exists:** Reuse its page owner rather than creating a new URL for every keyword.
+8. **Research coverage is incomplete:** Keep not returned, not queried, request errors, and true zero values separate. Never fill gaps with data from another country, a similar query, or a different language.
+9. **A competitor has a more elaborate page structure:** First confirm that it serves the same buyer task, then check whether your site already has equivalent content. A competitor having a page is not a reason by itself to create one.
+10. **PR status is confused with production status:** Record code checks, CI, merge, production HTML/HTTP/canonical acceptance, and subsequent search performance separately. A commit or merge is not proof of SEO results.
 5. **Historical model specifications:** They may support technical provenance but do not prove current production, stock, certification, or cross-model compatibility.
 6. **Multilingual sites:** Publishing many language versions does not mean completing separate keyword research for each market. State countries, priorities, and gaps.
 7. **Research is not publication:** A–C can be delivered as recommendations; D implementation and E conversion measurement are independent subsequent stages.
@@ -184,7 +226,10 @@ If `robots.txt` still blocks the whole site or GSC is not connected, **you can d
 - Cluster-to-owner mapping, with existing URLs verified against source files or a page inventory.
 - KEEP / OPTIMIZE / NEW / HOLD / EXCLUDE decisions supported by business reasons.
 - Metric freshness, unresearched markets, tool costs, GSC/GA4/indexing blockers clearly recorded.
-- Actionable next steps without treating a research document as permission to edit the site.
+- Actionable next steps without treating a research document as permission to edit the site; VERIFY, HOLD, and EXCLUDE decisions have explicit reasons.
+- Key product facts have evidence labels, applicable model/version scope, and limitations; historical documents are not presented as current supply claims.
+- Business-entry, product/resource, and inquiry links for high-priority pages have been checked.
+- Research, implementation, production acceptance, indexing observation, and business outcomes are recorded as separate stages.
 
 ## References
 
@@ -200,7 +245,7 @@ If `robots.txt` still blocks the whole site or GSC is not connected, **you can d
 
 ## 13. Competitor Page Layout Comparisons: From Keyword Clusters to Content Gaps
 
-> Added in V1.2. Comparisons should rely on independently verifiable public pages and authorized site materials. Observing page structure does not prove Google ranking or conversion performance.
+> Introduced in V1.2 and expanded in V1.3. Comparisons should rely on independently verifiable public pages and authorized site materials. Observing page structure does not prove Google ranking or conversion performance.
 
 **The goal is not to collect competitors' page titles. It is to determine how a page answers a specific search task completely, then check whether your own site already offers equivalent content.**
 
@@ -250,3 +295,20 @@ Similarly, a category titled “Shelf Lighting” may primarily show connectors 
 ### 13.6 Know When to Stop
 
 If comparison work shows that an existing page owner, buyer guide, model links, and inquiry path already meet the search task, mark **KEEP / NO ACTION** and stop. Only evidenced gaps belong in the implementation queue. Do not keep producing synonym pages or generic SEO articles merely to imitate high-performing sites.
+
+### 13.7 Anonymized B2B Case Study: From Keyword Clusters to the Smallest Justified Page Action
+
+This case omits the company name, exact URLs, country-level search metrics, SKUs, and internal execution status. It preserves only transferable research and decision logic. It is not evidence of universal ranking outcomes and makes no traffic or lead-growth claims.
+
+| Keyword/product theme | Facts to verify | More defensible page decision |
+| --- | --- | --- |
+| Commercial display lighting / LED strips | Whether the category already contains real products; whether voltage, wattage, width, and process refer to the same current model/version | Keep the existing family page first. Consider a compact specification comparison only after model versions are verified; do not copy historical specifications into every product card |
+| Low-voltage conductive power rails | Mechanical/electrical matching among the rail, feed-in, pickup, and load; whether “wireless” still relies on conductive contacts | Explain contact-based conductive power accurately; verify compatible components and ratings per system. Do not claim unproven wireless transmission or universal cross-family compatibility |
+| Electronic shelf labels and dynamic displays | Whether e-paper, animated full-color screens, and LCD belong to different display/power systems | Separate the technologies and procurement tasks; do not merge specifications, prices, or compatibility because the names sound similar |
+| Stretched commercial LCD | Whether independently sellable models exist or only a complete catalog/brochure is available | Let the existing resource catalog serve the query first. Create a standalone PDP only when a real SKU, distinct buying task, and sufficient evidence all exist |
+| Transparent display film | Whether LED film is being confused with transparent OLED in SERPs or customer language; whether glass, control, and installation evidence is sufficient | Preserve the technology boundary and use verified film documentation; do not borrow OLED specifications or claims |
+| Light-box manufacturing terms | Whether current sellable models, materials, manufacturing capability, and real project evidence exist | Mark `HOLD` when evidence is insufficient; do not create a manufacturer page merely because a keyword tool reports search volume |
+
+The lesson is not that every keyword needs its own page. First identify the real procurement task, then determine whether the existing owner can satisfy it. Choose `KEEP / NO ACTION` when the page is sufficient; use `OPTIMIZE` only for a demonstrated gap; use `VERIFY` when supply or technical facts remain unconfirmed instead of publishing premature commercial claims.
+
+**V1.3 principle:** keyword metrics, SERP observations, product facts, and production acceptance must be evidenced separately. The value of research is more accurate and disciplined page decisions—not a larger page count.
