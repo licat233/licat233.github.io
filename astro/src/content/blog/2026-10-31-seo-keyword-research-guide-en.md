@@ -1,6 +1,6 @@
 ---
 title: "SEO Keyword Research Guide: From Discovery to Page Ownership"
-date: 2026-10-31
+date: 2026-10-30 12:00:00 +0800
 lang: en
 description: "A practical SEO keyword research guide for B2B, cross-border e-commerce, SaaS, and independent websites, covering product evidence, market data quality, search intent, clustering, page ownership, competitor comparisons, internal links, and performance validation."
 translation_url: /blog/seo-keyword-research-guide/
