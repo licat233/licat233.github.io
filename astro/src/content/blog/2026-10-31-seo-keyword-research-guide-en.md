@@ -224,7 +224,7 @@ If `robots.txt` still blocks the whole site or GSC is not connected, **you can d
 - Dated keyword master sheet with documented sources; missing metrics distinguished from actual zero.
 - Traceable SERP assessments or explicit unverified status for ambiguous P1 terms.
 - Cluster-to-owner mapping, with existing URLs verified against source files or a page inventory.
-- KEEP / OPTIMIZE / NEW / HOLD / EXCLUDE decisions supported by business reasons.
+- KEEP / OPTIMIZE / NEW / VERIFY / HOLD / EXCLUDE decisions supported by business reasons.
 - Metric freshness, unresearched markets, tool costs, GSC/GA4/indexing blockers clearly recorded.
 - Actionable next steps without treating a research document as permission to edit the site; VERIFY, HOLD, and EXCLUDE decisions have explicit reasons.
 - Key product facts have evidence labels, applicable model/version scope, and limitations; historical documents are not presented as current supply claims.
