@@ -2,7 +2,7 @@
 title: "SEO 关键词研究指南：从挖词到页面归属"
 date: 2026-10-31
 lang: zh
-description: "面向 B2B 网站的 SEO 关键词研究实操指南：业务与产品证据、市场数据质量、搜索意图、关键词聚类、页面 Owner、竞品对照、内部链接和效果验收。"
+description: "可用于 B2B、跨境电商、SaaS 和独立站的 SEO 关键词研究实操指南：业务与产品证据、市场数据质量、搜索意图、关键词聚类、页面 Owner、竞品对照、内部链接和效果验收。"
 translation_url: /en/blog/seo-keyword-research-guide/
 ---
 
