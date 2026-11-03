@@ -211,12 +211,12 @@ If `robots.txt` still blocks the whole site or GSC is not connected, **you can d
 2. **Keyword tool credits exhausted:** Stop paid calls and preserve missing-data statuses. Never invent volume or KD.
 3. **A GSC property exists but is not connected to the project:** Distinguish account access from a property that this research can actually query. The same applies to GA4: an account or property existing does not prove that the project is connected or that conversion events are readable.
 4. **An expert category page already exists:** Reuse its page owner rather than creating a new URL for every keyword.
-8. **Research coverage is incomplete:** Keep not returned, not queried, request errors, and true zero values separate. Never fill gaps with data from another country, a similar query, or a different language.
-9. **A competitor has a more elaborate page structure:** First confirm that it serves the same buyer task, then check whether your site already has equivalent content. A competitor having a page is not a reason by itself to create one.
-10. **PR status is confused with production status:** Record code checks, CI, merge, production HTML/HTTP/canonical acceptance, and subsequent search performance separately. A commit or merge is not proof of SEO results.
 5. **Historical model specifications:** They may support technical provenance but do not prove current production, stock, certification, or cross-model compatibility.
 6. **Multilingual sites:** Publishing many language versions does not mean completing separate keyword research for each market. State countries, priorities, and gaps.
 7. **Research is not publication:** A–C can be delivered as recommendations; D implementation and E conversion measurement are independent subsequent stages.
+8. **Research coverage is incomplete:** Keep not returned, not queried, request errors, and true zero values separate. Never fill gaps with data from another country, a similar query, or a different language.
+9. **A competitor has a more elaborate page structure:** First confirm that it serves the same buyer task, then check whether your site already has equivalent content. A competitor having a page is not a reason by itself to create one.
+10. **PR status is confused with production status:** Record code checks, CI, merge, production HTML/HTTP/canonical acceptance, and subsequent search performance separately. A commit or merge is not proof of SEO results.
 
 ## 12. Minimum Deliverables Checklist
 
