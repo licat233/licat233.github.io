@@ -1,31 +1,32 @@
 [
   {
-    "id": "ai-natural-communication-v1.3.3",
+    "id": "ai-natural-communication-v1.3.4",
     "category": "thinking",
     "companion": "ai-high-value-writing-audit-v1.1",
     "translatedEnglish": true,
     "zh": {
-      "title": "AI 说人话指南 V1.3.3",
+      "title": "AI 说人话指南 V1.3.4",
       "label": "表达与思考",
-      "type": "正式使用版 · V1.3.3",
-      "summary": "让 AI 自然表达、独立判断。明确行为底线与风格建议的区别，避免过度压缩和反向机械化。",
+      "type": "正式使用版 · V1.3.4",
+      "summary": "让语言服务于理解：依靠语境自然省略，避免过度编号和机械小标题，同时守住事实准确性。",
       "tags": [
         "自然表达",
-        "语言弹性",
+        "语境省略",
+        "段落流转",
+        "内容逻辑",
         "独立判断",
-        "内容价值",
-        "场景适配",
-        "自审机制"
+        "内容自审"
       ]
     },
     "en": {
-      "title": "Making AI Sound Natural — Guide V1.3.3",
-      "summary": "Natural communication without anti-AI-style rigidity: firm behavioral boundaries, flexible language, and focused review.",
-      "type": "Main guide · V1.3.3",
+      "title": "Making AI Sound Natural — Guide V1.3.4",
+      "summary": "Write for understanding: context-aware omission, natural paragraph flow, and fewer forced lists without losing accuracy.",
+      "type": "Main guide · V1.3.4",
       "tags": [
         "communication",
+        "context",
         "natural flow",
-        "flexible style",
+        "technical writing",
         "self-review"
       ],
       "label": "Writing & Thinking"
