@@ -1,0 +1,367 @@
+/* ARMOR Lighting brand guideline V2 — approved Precision Teal direction.
+ * UI color #08E1D4. Brand icon SVG remains visually unmodified. */
+:root {
+  --armor-teal: #08E1D4;
+  --armor-teal-700: #006B68;
+  --armor-deep: #0B171F;
+  --armor-text: #192A31;
+  --armor-muted: #596D73;
+  --armor-mist: #F0FDFA;
+  --armor-border: #DCEBE8;
+  --armor-width: 1320px;
+  color-scheme: light;
+}
+html,body {margin:0!important;padding:0}
+html {scroll-behavior:smooth}
+body, #root, #root > div {background:#F7FBFB !important;color:var(--armor-text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC",sans-serif}
+#root .brand-v2-main {padding-top:0 !important;overflow:hidden}
+#root .brand-v2-content {background:#F7FBFB}
+#root .brand-v2-content * {box-sizing:border-box}
+#root .armor-width {width:min(var(--armor-width),calc(100% - 64px));margin-inline:auto}
+#root .brand-v2-content section[id] {scroll-margin-top:84px}
+#root .brand-v2-content a {transition:color .2s ease,background .2s ease}
+#root .brand-v2-content button {cursor:pointer}
+#root a:focus-visible,#root button:focus-visible,#root summary:focus-visible {outline:3px solid var(--armor-teal);outline-offset:4px}
+#root button:focus-visible {border-radius:3px}
+#root .armor-hero h1,#root .armor-section h2,#root .armor-panel-kicker,#root .armor-core-logo b {font-family:Montserrat,Inter,-apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif}
+#root [class*="text-[#008cd6]"] {color:var(--armor-teal-700) !important}
+#root [class*="text-[hsl(220_30%_15%)]"] {color:var(--armor-text) !important}
+#root [class*="text-[hsl(220_20%_40%)]"] {color:var(--armor-muted) !important}
+#root [class*="border-[hsl(200_50%_60%_/_0.15)]"] {border-color:var(--armor-border)!important}
+#root .armor-continuation [class*="rounded-3xl"] {border-radius:18px}
+#root .armor-continuation [class*="shadow-lg"] {box-shadow:0 8px 30px rgba(14,48,48,.045)}
+#root .armor-continuation [class*="bg-white/"] {background-color:rgba(255,255,255,.92)}
+#root .armor-continuation h2 {font-size:clamp(25px,2.4vw,34px);line-height:1.25;letter-spacing:-.03em}
+#root .armor-continuation [class*="py-20"] {padding-block:62px!important}
+#root .armor-continuation .max-w-7xl {max-width:var(--armor-width)!important}
+#root .armor-continuation section:nth-of-type(even) {background:#F0F8F7!important}
+#root .armor-continuation section:nth-of-type(odd) {background:#fff!important}
+#root .armor-continuation section h2 {position:relative}
+#root .armor-continuation section h2::after {content:"";display:block;width:42px;height:3px;background:var(--armor-teal);margin:15px auto 0}
+#root .armor-continuation .text-center {text-wrap:balance}
+
+/* Compact dark navigation */
+#root .armor-header {position:sticky;top:0;z-index:80;min-height:72px;background:rgba(8,25,30,.97);border-bottom:1px solid rgba(8,225,212,.18);color:#fff;box-shadow:0 12px 25px rgba(3,21,26,.14);backdrop-filter:blur(18px)}
+#root .armor-header-inner {width:min(1490px,calc(100% - 48px));min-height:72px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+#root .armor-lockup {display:flex;flex:none;align-items:center;gap:9px;color:#fff!important;text-decoration:none;white-space:nowrap}
+#root .armor-lockup-icon {width:43px;height:auto;display:block;object-fit:contain}
+#root .armor-lockup-name {font-family:Montserrat,Inter,sans-serif;font-size:24px;font-weight:800;letter-spacing:-.06em;line-height:1}
+#root .armor-lockup-name sup {font-size:8px;vertical-align:top;letter-spacing:0}
+#root .armor-lockup-name > span {font-size:20px;font-weight:450;margin-left:3px;letter-spacing:-.045em}
+#root .armor-lockup i {width:1px;height:24px;background:#527377;margin-inline:12px 5px}
+#root .armor-lockup-descriptor {font-size:11px;letter-spacing:.015em;color:#d1e5e5}
+#root .armor-nav {display:flex;align-items:stretch;gap:3px;overflow-x:auto;scrollbar-width:none}
+#root .armor-nav::-webkit-scrollbar {display:none}
+#root .armor-nav a,#root .armor-mobile-nav nav a {display:flex;align-items:center;flex-direction:column;justify-content:center;text-align:center;color:#e4f2f1;text-decoration:none;min-width:80px;padding:11px 9px 12px;border-bottom:3px solid transparent;gap:3px;line-height:1.1;font-size:13px;font-weight:650}
+#root .armor-nav a small,#root .armor-mobile-nav nav a small {font-size:9px;font-weight:450;letter-spacing:0;color:#8eaeb0}
+#root .armor-nav a:hover,#root .armor-nav a.nav-active {background:rgba(8,225,212,.075);color:#08E1D4!important;border-color:#08E1D4}
+#root .armor-nav a.nav-active small,#root .armor-nav a:hover small {color:#c3ffff}
+#root .armor-mobile-nav {display:none;position:relative}
+#root .armor-mobile-nav summary {cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;color:#fff;font-size:13px;border:1px solid rgba(8,225,212,.4);border-radius:8px;padding:8px 12px}
+#root .armor-mobile-nav summary::-webkit-details-marker {display:none}
+#root .armor-mobile-nav summary span:first-child {color:#08E1D4;font-size:21px;line-height:1}
+#root .armor-mobile-nav nav {position:absolute;right:0;top:calc(100% + 16px);width:min(320px,calc(100vw - 32px));display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:12px;background:#0B2228;border:1px solid #24545A;border-radius:13px;box-shadow:0 18px 50px rgba(0,0,0,.32);max-height:72vh;overflow-y:auto}
+#root .armor-mobile-nav nav a {border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:13px 6px;min-width:0}
+#root .armor-mobile-nav nav a:hover {background:rgba(8,225,212,.12);color:#08E1D4}
+
+/* Hero: actual ARMOR shelf-system photography, not concept artwork. */
+#root .armor-hero {min-height:clamp(560px,68vh,750px);position:relative;overflow:hidden;display:flex;align-items:center;background:#06272C;color:#fff;padding:70px 0 50px!important}
+#root .armor-hero-photo {position:absolute;inset:0 0 0 38%;background-image:url("./assets/hero-retail.webp");background-position:center;background-size:cover;filter:saturate(.85) contrast(1.09)}
+#root .armor-hero::before {content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(91deg,#071C23 0%,#083A3C 38%,rgba(0,65,63,.86) 49%,rgba(3,34,41,.22) 72%,rgba(0,16,22,.13) 100%)}
+#root .armor-hero-sheen {pointer-events:none;position:absolute;z-index:2;left:25%;top:-15%;height:160%;width:23%;background:linear-gradient(112deg,transparent 10%,rgba(8,225,212,.28) 45%,rgba(8,225,212,.045) 70%,transparent 83%);transform:skewX(-23deg);border-right:2px solid rgba(8,225,212,.65)}
+#root .armor-hero-inner {width:min(var(--armor-width),calc(100% - 64px));position:relative;z-index:3;margin:auto;padding:8px 0}
+#root .armor-hero-inner > * {max-width:680px}
+#root .armor-hero-lockup {display:flex;align-items:center;gap:20px;margin-bottom:30px}
+#root .armor-hero-icon {width:94px;height:auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,.1))}
+#root .armor-hero-lockup-type {display:flex;flex-direction:column;line-height:1;letter-spacing:-.04em}
+#root .armor-hero-lockup-type b {font-family:Montserrat,Inter,sans-serif;font-size:clamp(34px,4.8vw,65px);font-weight:800}
+#root .armor-hero-lockup-type sup {font-size:14px;vertical-align:top}
+#root .armor-hero-lockup-type > span {font-size:clamp(25px,3vw,44px);font-weight:500;margin-top:2px}
+#root .armor-eyebrow {color:#8afdf2;font-size:11px;font-weight:650;letter-spacing:.28em;margin:0 0 14px}
+#root .armor-hero h1 {font-size:clamp(31px,4.3vw,58px);font-weight:800;color:#fff!important;letter-spacing:-.045em;line-height:1.2;margin:0 0 5px}
+#root .armor-hero-english {font-size:clamp(15px,1.9vw,25px);letter-spacing:.2em;font-weight:480;color:#f3ffff}
+#root .armor-line {height:3px;width:46px;background:#08E1D4;margin:22px 0}
+#root .armor-hero-tagline {font-size:clamp(20px,2.15vw,28px);line-height:1.35;font-weight:800;font-style:italic;color:#08E1D4;margin-bottom:12px}
+#root .armor-hero-text {font-size:15px;line-height:1.85;color:#e5f5f2}
+#root .armor-hero-motto {margin-top:16px;font-size:11px;letter-spacing:.045em;color:#a4d4d2;font-weight:600}
+#root .armor-hero-motto span {margin-left:8px;color:#dbeeee;font-weight:400}
+#root .armor-hero-capabilities {display:flex;flex-wrap:wrap;gap:16px;margin-top:27px!important;max-width:1000px}
+#root .armor-hero-capabilities span {display:flex;flex-direction:column;position:relative;padding-left:33px;color:#fff;font-size:14px;font-weight:650;min-width:128px}
+#root .armor-hero-capabilities span:not(:last-child) {border-right:1px solid rgba(168,255,247,.36);padding-right:18px}
+#root .armor-hero-capabilities b {position:absolute;left:0;top:1px;font-size:22px;color:#08E1D4;font-weight:400}
+#root .armor-hero-capabilities small {font-size:10px;font-weight:450;color:#bad3d3;letter-spacing:.01em}
+
+/* Compact brand identity strip */
+#root .armor-core {padding:30px 0 36px!important;background:linear-gradient(110deg,#F5FBFA,#EAF7F6)}
+#root .armor-section-heading {display:flex;align-items:baseline;gap:16px;margin:0 0 20px}
+#root .armor-section-heading::before,.armor-panel-kicker::before {content:"";display:inline-block;vertical-align:middle;width:5px;height:22px;background:#08E1D4;transform:skewX(-18deg);margin-right:8px;flex:none}
+#root .armor-section-heading h2 {font-size:clamp(22px,2.1vw,29px);font-weight:800;margin:0;color:#0B171F}
+#root .armor-section-heading > span {font-size:clamp(12px,1.1vw,16px);letter-spacing:.03em;color:#425a60}
+#root .armor-core-layout {background:rgba(255,255,255,.5);border:1px solid rgba(0,107,104,.09);display:grid;grid-template-columns:1fr 1.2fr;align-items:center;padding:28px;gap:28px}
+#root .armor-core-intro {display:grid;grid-template-columns:180px minmax(0,1fr);column-gap:18px;align-items:center;border-right:1px solid var(--armor-border);padding-right:28px}
+#root .armor-core-logo {display:flex;align-items:center;gap:8px}
+#root .armor-core-icon {width:47px;height:auto}
+#root .armor-core-logo > div {display:flex;flex-direction:column;line-height:1.05;color:#0B171F}
+#root .armor-core-logo b {font-size:29px;font-weight:800;letter-spacing:-.045em}
+#root .armor-core-logo sup {font-size:8px}
+#root .armor-core-logo span {font-size:19px;font-weight:450;letter-spacing:-.04em}
+#root .armor-core-intro > p {font-size:12px;line-height:1.7;color:#2c444a}
+#root .armor-core-intro > small {grid-column:2;font-size:10px;color:#007E79;letter-spacing:.07em}
+#root .armor-value-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:center}
+#root .armor-value-grid article {text-align:center;padding:4px 9px;border-right:1px solid var(--armor-border)}
+#root .armor-value-grid article:last-child {border-right:0}
+#root .armor-value-grid .value-icon {font-size:36px;line-height:1.35;font-weight:350;color:#006B68}
+#root .armor-value-grid h3 {font-size:15px;font-weight:800;color:#0B171F;white-space:nowrap}
+#root .armor-value-grid p {font-size:11px;color:#596D73;white-space:nowrap}
+
+/* Pair of editorial visual strategy and color-system panels */
+#root .armor-pair-row {display:grid;grid-template-columns:.92fr 1.14fr;gap:18px;align-items:stretch;padding-top:18px}
+#root .armor-pair-row > section {min-width:0;scroll-margin-top:85px}
+#root .armor-strategy {position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;padding:28px 30px 32px!important;border-radius:0 22px 22px 0;overflow:hidden;background:radial-gradient(circle at 85% 27%,rgba(6,220,203,.23),transparent 37%),linear-gradient(120deg,#06252B,#07484B 68%,#07383B);color:#fff;min-height:480px}
+#root .armor-strategy::before {content:"";position:absolute;z-index:-1;inset:8% -8% 0 24%;background:url("./assets/power-track-detail.jpg") right center / cover no-repeat;opacity:.39;mix-blend-mode:screen;mask-image:linear-gradient(90deg,transparent,black 55%);-webkit-mask-image:linear-gradient(90deg,transparent,black 55%)}
+#root .armor-strategy::after {content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(120deg,transparent 45%,rgba(8,225,212,.14) 60%,transparent 78%);transform:skewX(-25deg)}
+#root .armor-panel-kicker {display:flex;align-items:center;gap:11px;font-weight:800;font-size:21px;letter-spacing:-.02em;color:#0B171F;margin-bottom:20px}
+#root .armor-panel-kicker span {font-size:15px;letter-spacing:.02em;font-weight:450;color:#425A60}
+#root .armor-strategy .armor-panel-kicker {color:#fff}
+#root .armor-strategy .armor-panel-kicker span {color:#c4e8e6}
+#root .armor-strategy-copy {margin-top:auto;max-width:360px}
+#root .armor-strategy h2 {font-size:clamp(33px,3.2vw,46px);line-height:1.2;margin:0;color:#fff;font-weight:800;letter-spacing:-.04em}
+#root .armor-english-name {font-size:clamp(18px,2vw,26px);margin-top:3px;font-weight:560;color:#f1fffe}
+#root .armor-strategy-copy > p:not(.armor-english-name) {font-size:13px;line-height:1.75;color:#d1f1ee;margin-bottom:12px}
+#root .armor-strategy-copy b {color:#08E1D4}
+#root .armor-keywords {display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+#root .armor-keywords span {border:1px solid rgba(8,225,212,.36);border-radius:2px;background:rgba(5,23,26,.46);padding:6px 8px;font-size:10px;color:#aff7ef;white-space:nowrap}
+#root .armor-colors {background:#fff;border:1px solid var(--armor-border);border-radius:22px 0 0 22px;padding:27px 24px 22px!important;min-height:480px}
+#root .armor-color-subtitle {color:#52696b;font-size:12px;margin-top:-9px;margin-bottom:14px}
+#root .armor-swatch-grid {display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px}
+#root .armor-swatch {display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:3px;min-width:0;background:none;border:0;padding:0}
+#root .armor-swatch-color {display:block;width:100%;height:74px;border-radius:11px;border:1px solid #D8E7E6;transition:transform .2s ease,box-shadow .2s ease}
+#root .armor-swatch:hover .armor-swatch-color {transform:translateY(-3px);box-shadow:0 8px 20px rgba(8,128,126,.16)}
+#root .armor-swatch b {font-size:11px;font-weight:800;color:#17282e;white-space:nowrap}
+#root .armor-swatch small {font-size:10px;color:#52676c;white-space:nowrap}
+#root .armor-swatch code {font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;color:#26363c}
+#root .armor-colors h3 {font-size:13px;font-weight:800;margin-top:25px;margin-bottom:8px;color:#0B171F}
+#root .armor-colors h3 span {font-size:10px;color:#596D73;margin-left:7px;font-weight:500}
+#root .armor-scale {display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:2px}
+#root .armor-scale-step {padding:0;background:none;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;border:0}
+#root .armor-scale-step > span {display:block;width:100%;height:42px;border-radius:1px;transition:transform .2s}
+#root .armor-scale-step:hover > span {transform:scaleY(1.13)}
+#root .armor-scale-step b {font-size:9px;color:#264344}
+#root .armor-scale-step code {font-size:8px;letter-spacing:-.045em;color:#52686b}
+#root .armor-color-note {border-top:1px solid var(--armor-border);margin-top:20px;padding-top:12px;color:#596D73;font-size:11px;line-height:1.6}
+#root .armor-color-note b {color:#006B68}
+
+/* Gradients and type: compact comparison table, as in approved visual */
+#root .armor-pair-secondary {grid-template-columns:1fr 1fr;padding-top:17px;padding-bottom:18px}
+#root .armor-gradients,#root .armor-typography {background:#fff;padding:24px 18px 28px!important;border:1px solid var(--armor-border);border-radius:3px;min-width:0}
+#root .armor-gradient-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+#root .armor-gradient-card {min-width:0}
+#root .armor-gradient-preview {display:block;width:100%;height:85px;border:1px solid #D8E9E7;border-radius:10px;position:relative;overflow:hidden}
+#root .armor-gradient-preview span {position:absolute;right:6px;bottom:5px;padding:3px 6px;border-radius:4px;font-size:9px;color:#0B171F;background:rgba(255,255,255,.78);opacity:0;transition:opacity .2s}
+#root .armor-gradient-preview:hover span,#root .armor-gradient-preview:focus-visible span {opacity:1}
+#root .armor-gradient-card h3 {font-size:12px;color:#0B171F;font-weight:800;margin-top:9px}
+#root .armor-gradient-card p {font-size:10px;color:#52676c}
+#root .armor-gradient-card code {display:block;font-size:10px;color:#006B68;margin-top:3px}
+#root .armor-gradient-card > small {display:block;font-size:10px;line-height:1.45;color:#596D73;margin-top:5px}
+#root .armor-panel-note {font-size:10px;line-height:1.65;color:#677d80;margin-top:15px}
+#root .armor-type-list {display:flex;flex-direction:column}
+#root .armor-type-row {display:grid;grid-template-columns:70px 108px minmax(0,1fr);align-items:center;gap:12px;border-bottom:1px solid var(--armor-border);padding:10px 0}
+#root .armor-type-row:last-child {border-bottom:0}
+#root .armor-type-preview {font-family:Montserrat,sans-serif;font-size:61px;line-height:1;color:#0B171F;letter-spacing:-.09em}
+#root .armor-type-preview.armor-type-inter {font-family:Inter,sans-serif;font-weight:400;color:#006B68}
+#root .armor-type-row div {display:flex;flex-direction:column;gap:5px;line-height:1.15}
+#root .armor-type-row b {font-size:14px;color:#0B171F}
+#root .armor-type-row span {font-size:11px;color:#596D73}
+#root .armor-type-row p {font-size:11px;line-height:1.65;letter-spacing:.02em;color:#24373c;border-left:1px solid var(--armor-border);padding-left:15px}
+
+/* Product + system showcase */
+#root .armor-system {position:relative;min-height:390px;display:flex;align-items:center;padding:48px 0!important;isolation:isolate;background:#0B171F url("./assets/hero-retail.webp") right 44% / cover no-repeat;color:#fff}
+#root .armor-system::before {content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#0B1D22 0%,#0B3034 34%,rgba(5,36,43,.7) 55%,rgba(3,15,20,.15) 100%)}
+#root .armor-system::after {content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(116deg,transparent 22%,rgba(4,209,199,.16) 36%,transparent 48%);transform:skewX(-12deg)}
+#root .armor-system-overlay {width:min(var(--armor-width),calc(100% - 64px));margin:auto;max-width:var(--armor-width)}
+#root .armor-system-overlay > * {max-width:470px}
+#root .armor-system h2 {color:#fff!important;font-size:clamp(26px,2.9vw,39px);font-weight:800;line-height:1.25}
+#root .armor-system-english {color:#f1fffe;letter-spacing:.18em;font-size:16px;margin-top:4px}
+#root .armor-system-blurb {font-size:13px;line-height:1.85;margin-top:25px;color:#e3f4f1}
+#root .armor-system-tags {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:610px;margin-top:25px}
+#root .armor-system-tags span {display:flex;flex-direction:column;font-size:12px;color:#e7ffff;white-space:nowrap}
+#root .armor-system-tags small {font-size:10px;color:#8ec9c9;margin-top:2px}
+
+/* Five visual examples and preserved legacy production specifications */
+#root .armor-applications {padding:35px 0 32px!important;background:linear-gradient(180deg,#F7FCFC,#EDF7F6)}
+#root .armor-section-intro {font-size:12px;line-height:1.65;color:#62797c;margin-top:-9px;margin-bottom:20px}
+#root .armor-application-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+#root .armor-application-card {min-width:0;margin:0}
+#root .armor-application-media {position:relative;height:186px;overflow:hidden;border-radius:11px;background:#DBE6E7}
+#root .armor-application-card figcaption {display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px;margin-top:9px;color:#22393E;font-size:11px}
+#root .armor-application-card figcaption b {font-weight:800}
+#root .armor-application-card figcaption span {font-size:10px;color:#5A7072}
+#root .mock-business {background:linear-gradient(138deg,#CAD4D7,#F2F7F7)}
+#root .business-paper {position:absolute;top:30px;left:12%;width:72%;height:106px;background:#fff;box-shadow:0 14px 26px rgba(25,62,63,.19);transform:rotate(-10deg);padding:24px 11px;display:flex;align-items:center;gap:8px;z-index:2}
+#root .business-paper .mock-icon {width:21px;height:auto}
+#root .business-paper strong {font-size:14px;line-height:1;letter-spacing:-.05em}
+#root .business-paper strong small {display:block;font-size:9px;letter-spacing:0}
+#root .business-back {position:absolute;bottom:24px;right:10%;width:76%;height:106px;background:linear-gradient(140deg,#006B68 30%,#08E1D4 100%);transform:rotate(8deg);box-shadow:0 10px 22px rgba(2,56,53,.25)}
+#root .mock-manual {background:linear-gradient(135deg,#D3DDDF,#ECF2F2);display:flex;justify-content:center;align-items:center}
+#root .manual-book {height:160px;width:117px;background:linear-gradient(145deg,#fff 60%,#E1F6F3 60%,#08E1D4 78%,#006B68 100%);border-left:8px solid #D0E0E0;box-shadow:9px 13px 22px rgba(17,60,60,.22);padding:17px 7px 4px 13px;display:flex;flex-direction:column;align-items:flex-start}
+#root .manual-book .mock-icon {width:26px;height:auto}
+#root .manual-book b {font-size:11px;white-space:nowrap;margin-top:5px}
+#root .manual-book span {font-size:9px;font-weight:800;margin-top:14px}
+#root .manual-book small {font-size:8px}
+#root .mock-package {display:flex;align-items:center;justify-content:center;background:linear-gradient(130deg,#C6D4D5,#E8EFEF)}
+#root .package-box {width:168px;height:118px;display:flex;flex-direction:column;padding:21px 21px;background:linear-gradient(144deg,#fff 0%,#fff 50%,#C9F9F1 50%,#08E1D4 69%,#007E79 100%);box-shadow:20px 14px 12px rgba(17,54,53,.2);transform:skewY(-7deg);border-top:9px solid #e6f2f0}
+#root .package-box .mock-icon {width:27px;height:auto}
+#root .package-box b {font-size:14px;color:#1c3034;line-height:1.2}
+#root .package-box span {font-size:9px;color:#34545a}
+#root .mock-photo img {height:100%;width:100%;object-fit:cover;object-position:center}
+#root .mock-media {background:linear-gradient(135deg,#E1EAEB,#BCCED1);display:flex;align-items:center;justify-content:center}
+#root .media-display {width:88%;height:70%;border:9px solid #17262d;border-bottom-width:13px;border-radius:8px;position:relative;background:#0B171F;overflow:hidden;box-shadow:7px 12px 17px rgba(10,43,48,.25)}
+#root .media-display-image {position:absolute;inset:0;background:linear-gradient(115deg,rgba(0,35,40,.9),rgba(0,94,99,.3)),url("./assets/hero-retail.webp") center / cover}
+#root .media-display .mock-icon {position:absolute;top:12px;left:12px;width:26px;height:auto}
+#root .media-display p {position:absolute;bottom:10px;left:12px;color:#fff;font-size:12px;line-height:1.25;font-weight:750}
+#root .armor-reference-details {margin-top:22px;border:1px solid #DCEBE8;background:#fff;border-radius:10px;overflow:hidden}
+#root .armor-reference-details > summary {display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:13px 18px;cursor:pointer;font-size:12px;color:#006B68;font-weight:750;list-style:none}
+#root .armor-reference-details > summary::-webkit-details-marker {display:none}
+#root .armor-reference-details > summary::before {content:"＋";font-size:18px;line-height:1}
+#root .armor-reference-details[open] > summary::before {content:"－"}
+#root .armor-reference-details > summary span {font-size:11px;color:#718789;font-weight:450}
+#root .armor-reference-details #application-specifications {padding:20px 0 30px!important;background:#F7FCFB}
+#root .armor-reference-details #application-specifications > div {max-width:calc(100% - 36px)}
+#root .armor-reference-details #application-specifications h2 {font-size:24px}
+#root .armor-reference-details #application-specifications .grid {gap:12px}
+
+/* Pairing and extended legacy content */
+#root .armor-pairing {padding:36px 0 50px!important;background:#fff}
+#root .armor-pair-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+#root .armor-pair-card {border:1px solid var(--armor-border);border-radius:12px;padding:11px;background:#fff;min-width:0}
+#root .armor-pair-preview {display:flex;border-radius:7px;overflow:hidden;height:72px}
+#root .armor-pair-preview > span {flex:1}
+#root .armor-pair-preview > span:first-child {flex:1.4}
+#root .armor-pair-card h3 {font-size:13px;font-weight:800;color:#152B2D;margin-top:13px}
+#root .armor-pair-card p {font-size:11px;color:#596D73}
+#root .armor-pair-codes {display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+#root .armor-pair-codes button {font-size:9px;background:#EAF6F4;color:#004E4A;border:1px solid #C9E6E2;border-radius:4px;padding:4px}
+#root .armor-pair-codes button:hover {background:#D9FCF8}
+#root .armor-pair-card small {display:block;color:#657B7F;font-size:10px;margin-top:9px}
+#root .armor-continuation {background:#fff}
+#root .armor-continuation-label {padding:26px 0 7px;display:flex;align-items:center;gap:14px;border-top:1px solid var(--armor-border)}
+#root .armor-continuation-label span {font-size:24px;font-weight:800;color:#0B171F}
+#root .armor-continuation-label small {font-size:12px;letter-spacing:.06em;color:#596D73}
+#root .armor-continuation #logo img,#root .armor-continuation #elements img {max-width:100%}
+#root .armor-continuation #contact {background:linear-gradient(150deg,#0B171F,#10373A)!important}
+#root .armor-continuation #contact h2 {color:#fff!important}
+#root .armor-continuation #contact [class*="text-[hsl"] {color:#173039!important}
+#root .armor-continuation #contact [class*="bg-white/"] {background:rgba(255,255,255,.97)!important}
+#root .armor-continuation #contact a {overflow-wrap:anywhere}
+#root .armor-continuation #contact .bg-white\/10 {background:rgba(255,255,255,.1)!important}
+#root .armor-toast {position:fixed;bottom:25px;left:50%;z-index:999;transform:translateX(-50%);background:#0B171F;color:#fff;font-size:13px;padding:10px 20px;border:1px solid #08E1D4;border-radius:8px;box-shadow:0 13px 32px rgba(0,0,0,.23);pointer-events:none}
+#root button[data-copy]:hover {filter:brightness(.97)}
+@media (max-width:1280px) {
+ #root .armor-lockup-descriptor,#root .armor-lockup i {display:none}
+ #root .armor-nav a {min-width:72px;padding-inline:6px;font-size:12px}
+ #root .armor-width {width:min(var(--armor-width),calc(100% - 42px))}
+ #root .armor-hero-inner,#root .armor-system-overlay {width:calc(100% - 42px)}
+ #root .armor-core-intro {grid-template-columns:160px minmax(0,1fr);gap:10px}
+ #root .armor-core-logo b {font-size:24px}
+ #root .armor-core-logo span {font-size:16px}
+ #root .armor-color-note {font-size:10px}
+}
+@media (max-width:1050px) {
+ #root .armor-nav {display:none}
+ #root .armor-mobile-nav {display:block}
+ #root .armor-hero {min-height:560px}
+ #root .armor-core-layout {grid-template-columns:1fr;gap:24px}
+ #root .armor-core-intro {border:0;border-bottom:1px solid var(--armor-border);padding:0 0 20px;grid-template-columns:200px 1fr}
+ #root .armor-pair-row {grid-template-columns:1fr 1fr}
+ #root .armor-strategy {min-height:520px}
+ #root .armor-colors {min-height:520px}
+ #root .armor-swatch-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+ #root .armor-swatch-color {height:43px}
+ #root .armor-swatch small {display:none}
+ #root .armor-scale-step code {font-size:7px}
+ #root .armor-gradient-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+ #root .armor-application-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+ #root .armor-pair-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px) {
+ #root .armor-header,#root .armor-header-inner {min-height:61px}
+ #root .armor-header-inner {width:calc(100% - 26px)}
+ #root .armor-lockup-icon {width:37px}
+ #root .armor-lockup-name {font-size:20px}
+ #root .armor-lockup-name > span {font-size:16px}
+ #root .armor-width {width:calc(100% - 28px)}
+ #root .armor-hero {min-height:620px;align-items:flex-end;padding:100px 0 36px!important;background:#06272C}
+ #root .armor-hero-photo {inset:0 0 35% 0;background-position:54% 45%}
+ #root .armor-hero::before {background:linear-gradient(180deg,rgba(6,31,35,.1) 0%,rgba(5,37,42,.66) 28%,#062b32 57%,#05242c 100%)}
+ #root .armor-hero-sheen {left:75%;width:18%;opacity:.45}
+ #root .armor-hero-inner {width:calc(100% - 36px)}
+ #root .armor-hero-lockup {margin-bottom:17px;gap:12px}
+ #root .armor-hero-icon {width:66px}
+ #root .armor-hero-lockup-type b {font-size:34px}
+ #root .armor-hero-lockup-type > span {font-size:23px}
+ #root .armor-hero h1 {font-size:32px}
+ #root .armor-hero-english {font-size:13px;letter-spacing:.16em}
+ #root .armor-hero-tagline {font-size:21px}
+ #root .armor-hero-text {font-size:13px}
+ #root .armor-hero-text br {display:none}
+ #root .armor-hero-capabilities {gap:8px;margin-top:16px!important}
+ #root .armor-hero-capabilities span {font-size:11px;min-width:0;padding-left:23px}
+ #root .armor-hero-capabilities span:not(:last-child) {padding-right:9px}
+ #root .armor-hero-capabilities b {font-size:17px}
+ #root .armor-hero-capabilities small {font-size:8px}
+ #root .armor-core {padding-block:26px!important}
+ #root .armor-section-heading {gap:8px;align-items:center;flex-wrap:wrap}
+ #root .armor-section-heading h2 {font-size:21px}
+ #root .armor-section-heading > span {font-size:11px}
+ #root .armor-core-layout {padding:17px}
+ #root .armor-core-intro {grid-template-columns:1fr}
+ #root .armor-core-intro > small {grid-column:1}
+ #root .armor-value-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+ #root .armor-value-grid article:nth-child(2) {border-right:0}
+ #root .armor-value-grid article {border-color:#DCEBE8}
+ #root .armor-pair-row {display:flex;flex-direction:column;gap:12px;padding-top:12px}
+ #root .armor-strategy,#root .armor-colors {border-radius:12px;min-height:0;padding:24px 19px!important}
+ #root .armor-strategy {min-height:420px}
+ #root .armor-strategy-copy {max-width:340px}
+ #root .armor-strategy h2 {font-size:32px}
+ #root .armor-color-subtitle {margin-bottom:14px}
+ #root .armor-swatch-grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+ #root .armor-swatch-color {height:58px}
+ #root .armor-swatch small {display:block}
+ #root .armor-scale-step code {font-size:7px}
+ #root .armor-pair-secondary {padding-bottom:12px}
+ #root .armor-gradients,#root .armor-typography {border-radius:12px}
+ #root .armor-gradient-preview {height:77px}
+ #root .armor-type-row {grid-template-columns:62px 95px minmax(0,1fr)}
+ #root .armor-type-preview {font-size:50px}
+ #root .armor-system {min-height:490px;align-items:flex-end;background-position:62% center;padding:200px 0 34px!important}
+ #root .armor-system::before {background:linear-gradient(180deg,rgba(4,24,28,.06),rgba(4,34,36,.58) 38%,#09282d 72%,#09252a 100%)}
+ #root .armor-system-overlay {width:calc(100% - 34px)}
+ #root .armor-system-tags {display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #root .armor-application-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ #root .armor-application-media {height:160px}
+ #root .armor-pair-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+ #root .armor-continuation-label {flex-direction:column;align-items:flex-start;gap:4px}
+ #root .armor-continuation [class*="py-20"] {padding-block:45px!important}
+}
+@media (max-width:420px) {
+ #root .armor-hero {min-height:640px}
+ #root .armor-hero-capabilities span {font-size:10px;padding-left:17px}
+ #root .armor-hero-capabilities b {font-size:14px}
+ #root .armor-hero-capabilities small {font-size:7px}
+ #root .armor-swatch-grid {gap:7px}
+ #root .armor-swatch b {font-size:10px}
+ #root .armor-swatch small {font-size:9px}
+ #root .armor-swatch code {font-size:9px}
+ #root .armor-scale-step code {display:none}
+ #root .armor-type-row {grid-template-columns:52px minmax(0,1fr)}
+ #root .armor-type-preview {font-size:49px}
+ #root .armor-type-row p {grid-column:1/-1;border-left:0;padding-left:0}
+ #root .armor-gradient-card code {font-size:9px}
+ #root .armor-application-media {height:130px}
+ #root .armor-pair-grid {grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion: reduce) {
+ html {scroll-behavior:auto}
+ #root .brand-v2-content *,#root .brand-v2-content *::before,#root .brand-v2-content *::after {transition:none!important;animation:none!important}
+}
