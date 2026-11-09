@@ -40,6 +40,25 @@ const alternateEn = Astro.props.alternateEn !== undefined
   ? Astro.props.alternateEn : (enHref || (lang === 'en' ? canonical : null));
 const origin = 'https://licat.xyz';
 const fullTitle = exactTitle ? title : `${title} · Licat`;
+const homeSchema = active === 'home' ? JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': origin + '/#website',
+      name: 'Licat',
+      url: origin + '/',
+      inLanguage: ['zh-CN', 'en'],
+    },
+    {
+      '@type': 'Person',
+      '@id': origin + '/#person',
+      name: 'Licat',
+      url: origin + '/',
+      sameAs: ['https://github.com/licat233'],
+    },
+  ],
+}).replace(/</g, '\\u003c') : null;
 if (Astro.currentLocale !== lang) {
   throw new Error('Unexpected i18n locale for '+Astro.url.pathname+
     ': expected '+lang+', received '+Astro.currentLocale);
@@ -63,9 +82,12 @@ if (Astro.currentLocale !== lang) {
   <meta name="theme-color" content="#f2f7fa" media="(prefers-color-scheme:light)" />
   <meta name="theme-color" content="#111416" media="(prefers-color-scheme:dark)" />
   <meta name="description" content={description} />
+  <meta name="author" content="Licat" />
+  <meta name="twitter:card" content="summary" />
   <title>{fullTitle}</title>
   <meta property="og:type" content={ogType} />
   <meta property="og:site_name" content="Licat" />
+  <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'zh_CN'} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={origin + canonical} />
@@ -77,6 +99,7 @@ if (Astro.currentLocale !== lang) {
   <link rel="alternate icon" href="/favicon.ico" />
   <script is:inline>(()=>{try{const t=localStorage.getItem('licat-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(_){document.documentElement.dataset.theme='light'}})();</script>
   {styles.map(href => <link rel="stylesheet" href={href} />)}
+  {homeSchema && <script type="application/ld+json" set:html={homeSchema}></script>}
   <slot name="head" />
 </head>
 <body class={pageClass}>
