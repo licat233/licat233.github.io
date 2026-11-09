@@ -42,6 +42,30 @@ function siteContext(lang,project){
  const projects=legacyLocalizedUrl(lang,'projects');
  return `<nav class="site-context" aria-label="${en?'Site navigation and project location':'全站导航与项目位置'}"><div class="site-context__path"><a href="${home}">Licat</a><span aria-hidden="true">›</span><a href="${projects}">${en?'Projects':'项目'}</a><span aria-hidden="true">›</span><strong>${project.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')}</strong></div><div class="site-context__links">${links.filter(link=>!link.parent).map(link=>`<a href="${legacyLocalizedUrl(lang,link.key)}"${link.key==='projects'?' class="is-section"':''}>${en?link.en:link.zh}</a>`).join('')}</div></nav>`;
 }
+
+// The Astro pages already use this GTM container. Standalone project pages
+// must use it too so their traffic is not missing from site-wide analytics.
+// Apply only to the independently published landing pages, not demos/previews.
+const analyticsHead = `<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W68HGFLR');</script>
+<!-- End Google Tag Manager -->`;
+const analyticsBody = `<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W68HGFLR"
+height="0" width="0" style="display:none;visibility:hidden"
+title="Google Tag Manager"></iframe></noscript>
+<!-- End Google Tag Manager -->`;
+function addAnalytics(html) {
+ if (/GTM-[A-Z0-9]+/.test(html)) return html;
+ if (!/<\/head>/i.test(html) || !/<body\b[^>]*>/i.test(html)) throw new Error('Standalone project lacks a complete document');
+ return html.replace(/<\/head>/i, analyticsHead + '\n</head>')
+            .replace(/<body\b[^>]*>/i, match => match + '\n' + analyticsBody);
+}
+
 const microsites=['eao','toolscout','ai-writing-audit','armor-memory','disable-macos-auto-updates','greenram','opencore-h81'];
 for(const dir of microsites){
  const pending=[path.join(publicDir,dir)];
@@ -56,6 +80,11 @@ for(const dir of microsites){
    if(html.startsWith('---\n'))html=html.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/,'');
    html=html.replace(/\{%\s*include site-context\.html\s+lang=['"]([^'"]+)['"]\s+project=['"]([^'"]+)['"]\s*%\}/g,(_m,lang,project)=>siteContext(lang,project));
    if(/\{%\s*include /.test(html))throw Error('Unresolved legacy Liquid include: '+p);
+   const landing=path.relative(path.join(publicDir,dir),p).replaceAll(path.sep,'/');
+   if(['index.html','zh/index.html','en/index.html'].includes(landing) &&
+      !/<meta\b[^>]*name=['\"]robots['\"][^>]*content=['\"][^'\"]*noindex/i.test(html)) {
+     html=addAnalytics(html);
+   }
    await writeFile(p,html);
   }
  }

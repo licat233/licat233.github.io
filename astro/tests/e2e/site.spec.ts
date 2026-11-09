@@ -252,6 +252,14 @@ test('English prompt library displays its translated copy', async ({page}) => {
  await expect(page.locator('#copy-btn')).toBeEnabled();
 });
 
+test('prompt URLs expose exactly one H1 for their visible page', async ({page}) => {
+ for (const route of ['/prompts/','/en/prompts/','/prompts/ai-natural-communication-v1.3.4/','/en/prompts/ai-natural-communication-v1.3.4/']) {
+  await page.goto(route);
+  await expect(page.locator('h1')).toHaveCount(1);
+  await expect(page.locator('h1')).toBeVisible();
+ }
+});
+
 test('old shared query URLs and old ID aliases reach the permanent prompt page',async ({page})=>{
  await page.goto('/en/prompts/?p=ai-coding-minimal-defensive-v1');
  await expect(page).toHaveURL(/\/en\/prompts\/ai-coding-minimal-defensive-v1\/$/);
