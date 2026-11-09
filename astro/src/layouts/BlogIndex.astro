@@ -11,15 +11,28 @@ const en=lang==='en';
 const t=dictionary(lang).blog;
 const posts=(await getCollection('blog', ({data})=>data.lang===lang)).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
 const date=(d:Date)=>new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Taipei'}).format(d).replaceAll('-','.');
-const title=t.title;
-const desc=t.description;
+const title = en ? 'SEO/GEO & Analytics Guides' : 'SEO/GEO 与网站分析实战指南';
+const desc = en
+  ? 'Practical SEO/GEO, keyword research and GA4/GTM conversion tracking guides from Licat.'
+  : 'Licat 的 SEO/GEO、关键词研究及 GA4/GTM 询盘追踪实战教程，分享搜索可见性与网站数据分析方法。';
+const blogSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': 'https://licat.xyz' + localeUrl(lang, 'blog') + '#blog',
+  name: title,
+  url: 'https://licat.xyz' + localeUrl(lang, 'blog'),
+  description: desc,
+  inLanguage: en ? 'en' : 'zh-CN',
+  author: { '@type': 'Person', '@id': 'https://licat.xyz/#person', name: 'Licat' },
+}).replace(/</g, '\\u003c');
 const intro=t.intro;
 ---
 <BaseLayout {lang} active="blog" {title} description={desc} canonical={localeUrl(lang,'blog')} zhHref={localeUrl('zh','blog')} enHref={localeUrl('en','blog')} styles={blogStyles} pageClass="blog-page">
+  <script slot="head" type="application/ld+json" set:html={blogSchema}></script>
 <main id="content" class="blog-main">
  <section class="blog-intro" aria-labelledby="blog-heading">
  <div class="blog-eyebrow">LICAT / WRITING</div>
- <h1 id="blog-heading">{title}<span class="blog-title-dot">.</span></h1><p>{intro}</p>
+ <h1 id="blog-heading">{t.title}<span class="blog-title-dot">.</span></h1><p>{intro}</p>
  </section>
  <section class="blog-archive" aria-label={t.listLabel}>
  <div class="blog-archive-heading"><h2>{t.all}</h2><span>{posts.length} {t.unit}</span></div>
