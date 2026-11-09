@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const PRODUCTION = 'https://licat233.github.io';
+const PRODUCTION = 'https://licat.xyz';
 const CANDIDATE = 'http://127.0.0.1:4321';
 const views: Array<{ route: string; name: string; selectors: string[] }> = [
  {route:'/',name:'home-zh',selectors:['.site-header','.hero','#projects .projects','#skills .skills-grid']},

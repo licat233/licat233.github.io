@@ -18,13 +18,13 @@ test.describe('Resources directory', () => {
       await expect(page.locator('.site-header .lang a[data-locale="' + (route.lang === 'en' ? 'zh' : 'en') + '"]'))
         .toHaveAttribute('href', route.alternate);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
-        'href', 'https://licat233.github.io' + route.url,
+        'href', 'https://licat.xyz' + route.url,
       );
       await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute(
-        'href', 'https://licat233.github.io/resources/',
+        'href', 'https://licat.xyz/resources/',
       );
       await expect(page.locator('link[hreflang="en"]')).toHaveAttribute(
-        'href', 'https://licat233.github.io/en/resources/',
+        'href', 'https://licat.xyz/en/resources/',
       );
       await expect(page.locator('meta[name="robots"][content*="noindex"]')).toHaveCount(0);
       await expect(page.locator('.site-footer.liquid-demo')).toHaveCount(1);

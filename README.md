@@ -1,6 +1,6 @@
 # Licat — Personal Website
 
-Website: https://licat233.github.io/
+Website: https://licat.xyz/
 
 **Production stack:** Astro 7 (static output), GitHub Actions, and GitHub Pages. The GitHub account/URL suffix `233` is not part of the public name **Licat**. Jekyll is retained only in historical source/rollback materials; it no longer builds the live site.
 

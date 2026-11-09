@@ -4,7 +4,7 @@ import { dictionaries, type Lang } from './translation';
 export type { Lang } from './translation';
 
 export type NavKey = 'home' | 'projects' | 'ai' | 'skills' | 'blog' | 'resources' | 'prompts';
-export const origin = 'https://licat233.github.io';
+export const origin = 'https://licat.xyz';
 
 // Astro's configured i18n router owns all Astro page paths. Keep this
 // catalogue limited to labels + keys: no hardcoded duplicate localized URLs.

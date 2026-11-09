@@ -8,7 +8,7 @@ for (const suffix of paths) {
       const url = (lang === 'zh' ? '/' : '/en/') + suffix;
       await page.goto(url, { waitUntil: 'domcontentloaded' });
       await expect(page.locator('html')).toHaveAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
-      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://licat233.github.io' + url);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://licat.xyz' + url);
       const selected=page.locator(suffix==='skills/'||suffix==='prompts/'
         ? '.site-header .ai-subnav [aria-current="page"]'
         : '.site-header .nav-pill[aria-current="page"]');
@@ -19,8 +19,8 @@ for (const suffix of paths) {
       }
       await expect(page.locator('.site-header .lang a[data-locale="zh"]')).toHaveAttribute('href', '/' + suffix);
       await expect(page.locator('.site-header .lang a[data-locale="en"]')).toHaveAttribute('href', '/en/' + suffix);
-      await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://licat233.github.io/' + suffix);
-      await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://licat233.github.io/en/' + suffix);
+      await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://licat.xyz/' + suffix);
+      await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://licat.xyz/en/' + suffix);
     }
   });
 }
@@ -36,7 +36,7 @@ test('prompt detail pages preserve ID and language-specific canonical URLs', asy
   await expect(page.locator('.site-header a[data-locale="en"]')).toHaveAttribute('href', '/en/prompts/codex-workflow-tips/');
   await page.locator('.site-header a[data-locale="en"]').click();
   await expect(page).toHaveURL(/\/en\/prompts\/codex-workflow-tips\/$/);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://licat233.github.io/en/prompts/codex-workflow-tips/');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://licat.xyz/en/prompts/codex-workflow-tips/');
   await expect(page.locator('#prompt-article')).not.toBeEmpty();
   await expect(page.locator('.site-header a[data-locale="zh"]')).toHaveAttribute('href', '/prompts/codex-workflow-tips/');
 });

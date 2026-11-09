@@ -1,6 +1,6 @@
 # Licat website — Astro production guide
 
-The live website at https://licat233.github.io/ is built from this **Astro** workspace. Jekyll was the previous implementation and is no longer the production renderer.
+The live website at https://licat.xyz/ is built from this **Astro** workspace. Jekyll was the previous implementation and is no longer the production renderer.
 
 - Astro: `7.4.2` (pinned in `package.json`)
 - Node.js: 24 in the GitHub Actions workflows

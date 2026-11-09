@@ -47,4 +47,4 @@ npm run build
 npm run check
 ```
 
-发布后打开文章 URL 和 [博客列表](https://licat233.github.io/blog/) 检查正文、链接与图片即可。
+发布后打开文章 URL 和 [博客列表](https://licat.xyz/blog/) 检查正文、链接与图片即可。

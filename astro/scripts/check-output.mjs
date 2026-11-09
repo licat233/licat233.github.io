@@ -26,7 +26,7 @@ for(const [filename,lang,active] of core){
  assert(html.length>450,'Suspiciously empty '+filename);
  assert(!/\{%\s*include /.test(html),'Unresolved Liquid '+filename);
  assert(html.includes('lang="'+(lang==='en'?'en':'zh-CN')+'"'),'Wrong HTML language '+filename);
- const canon='https://licat233.github.io/'+filename.replace(/index\.html$/,'');
+ const canon='https://licat.xyz/'+filename.replace(/index\.html$/,'');
  assert(html.includes('rel="canonical" href="'+canon+'"'),'Wrong canonical '+filename);
  const nav=html.match(/<div class="nav-links">([\s\S]*?)<div class="nav-actions">/)?.[1]||'';
  assert(nav,'Missing navigation '+filename);
@@ -116,13 +116,13 @@ for (const route of ['resources/index.html', 'en/resources/index.html']) {
   assert(taxonomy.length === 7, 'Expected seven Resources top-level categories: ' + route);
 }
 const sitemap = await read('sitemap.xml');
-assert(sitemap.includes('https://licat233.github.io/resources/'), 'Chinese Resources URL missing from sitemap');
-assert(sitemap.includes('https://licat233.github.io/en/resources/'), 'English Resources URL missing from sitemap');
+assert(sitemap.includes('https://licat.xyz/resources/'), 'Chinese Resources URL missing from sitemap');
+assert(sitemap.includes('https://licat.xyz/en/resources/'), 'English Resources URL missing from sitemap');
 assert(sitemap.includes('hreflang="zh-CN"') && sitemap.includes('hreflang="en"'),
   'Sitemap alternate-language links missing');
-assert(!sitemap.includes('https://licat233.github.io/demo/'), 'Noindex demo must not enter sitemap');
+assert(!sitemap.includes('https://licat.xyz/demo/'), 'Noindex demo must not enter sitemap');
 const robots = await read('robots.txt');
-assert(robots.includes('Sitemap: https://licat233.github.io/sitemap.xml'),
+assert(robots.includes('Sitemap: https://licat.xyz/sitemap.xml'),
   'robots.txt must reference the generated sitemap');
 // The default Chinese locale is served only at /, never by a duplicate /zh/ page.
 try {await stat(path.join(root,'zh/index.html'));throw Error('Obsolete /zh/ redirect must not be generated')}
@@ -267,7 +267,7 @@ for(const item of prompts){
  for(const [lang,prefix] of [['zh',''],['en','en/']]){
   const route=prefix+'prompts/'+item.id+'/';
   const html=await read(route+'index.html');
-  const base='https://licat233.github.io/';
+  const base='https://licat.xyz/';
   assert(html.includes('rel="canonical" href="'+base+route+'"'),
    'Prompt has wrong canonical: '+route);
   assert(html.includes('hreflang="zh-CN" href="'+base+'prompts/'+item.id+'/"') &&

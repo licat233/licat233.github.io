@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.resolve(here, '../dist');
-const origin = 'https://licat233.github.io';
+const origin = 'https://licat.xyz';
 const pages = [];
 
 async function walk(directory) {

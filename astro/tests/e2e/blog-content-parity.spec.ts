@@ -14,7 +14,7 @@ test('Blog canonical metadata and unchanged article content survive Astro migrat
  const clean=(v:string)=>v.replace(/\s+/g,'').replace(/\u00a0/g,'');
  try{
    for(const route of paths){
-     const l=await live.goto('https://licat233.github.io'+route,{waitUntil:'domcontentloaded',timeout:30000});
+     const l=await live.goto('https://licat.xyz'+route,{waitUntil:'domcontentloaded',timeout:30000});
      const v=await page.goto('http://127.0.0.1:4321'+route,{waitUntil:'domcontentloaded',timeout:30000});
      expect(l?.status()).toBe(200);expect(v?.status()).toBe(200);
      // The real snapshots are collected from each page's own DOM, without a
