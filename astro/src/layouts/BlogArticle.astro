@@ -30,20 +30,11 @@ const articleSchema = JSON.stringify({
   author: { '@type': 'Person', '@id': 'https://licat.xyz/#person', name: 'Licat', url: 'https://licat.xyz/' },
   publisher: { '@type': 'Person', '@id': 'https://licat.xyz/#person', name: 'Licat', url: 'https://licat.xyz/' },
 }).replace(/</g, '\\u003c');
-const breadcrumbSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: en ? 'Home' : '首页', item: 'https://licat.xyz' + localeUrl(lang, 'home') },
-    { '@type': 'ListItem', position: 2, name: en ? 'Blog' : '博客', item: 'https://licat.xyz' + localeUrl(lang, 'blog') },
-    { '@type': 'ListItem', position: 3, name: post.data.title, item: pageUrl },
-  ],
-}).replace(/</g, '\\u003c');
+
 ---
 <BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description||post.data.title} {canonical} {zhHref} {enHref} {alternateZh} {alternateEn} styles={blogStyles} ogType="article" pageClass="blog-page">
   <meta slot="head" property="article:published_time" content={post.data.date.toISOString()} />
   <script slot="head" type="application/ld+json" set:html={articleSchema}></script>
-  <script slot="head" type="application/ld+json" set:html={breadcrumbSchema}></script>
 <main id="content" class="blog-main"><article class="blog-article">
   <a class="blog-back" href={localeUrl(lang,'blog')}>← {t.back}</a>
   <header class="blog-article-header">

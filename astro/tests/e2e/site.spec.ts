@@ -532,3 +532,19 @@ test('AI toolkit links real published sources in both languages and preserves gl
  }
 });
 
+
+
+test('visible breadcrumbs match their BreadcrumbList JSON-LD on public content routes', async ({ page }) => {
+  for (const route of ['/blog/website-seo-geo-basics/','/resources/','/projects/','/skills/','/ai/','/en/blog/ga4-gtm-lead-tracking/','/en/prompts/ai-natural-communication-v1.3.4/']) {
+    await page.goto(route);
+    const nav = page.locator('nav.seo-breadcrumbs');
+    await expect(nav).toBeVisible();
+    const count = await nav.locator('li').count();
+    const schema = await page.locator('script[type="application/ld+json"]').evaluateAll(nodes =>
+      nodes.map(node => {try {return JSON.parse(node.textContent || '{}')} catch {return {}}})
+        .find(entry => entry['@type'] === 'BreadcrumbList'));
+    expect(schema?.itemListElement?.length,route).toBe(count);
+    expect(new URL(schema.itemListElement.at(-1).item).pathname,route).toBe(route);
+    await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);
+  }
+});
