@@ -40,7 +40,7 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
       <div class="hero">
         <div class="hero-copy">
           <div class="eyebrow"><span class="mini-line"></span> KNOWLEDGE, REFINED INTO ACTION</div>
-          <h1 id="page-title">{t.heroLead}<br/><em>{t.heroEm}</em></h1>
+          {selected ? <h2 id="page-title">{t.heroLead}<br/><em>{t.heroEm}</em></h2> : <h1 id="page-title">{t.heroLead}<br/><em>{t.heroEm}</em></h1>}
           <p class="hero-description">{t.description}</p>
           <div class="hero-meta"><span><strong>{items.length}</strong> {t.items}</span><i></i><span><strong>4</strong> {t.topics}</span><i></i><span>{t.updating} <span class="pulse"></span></span></div>
         </div>
@@ -81,7 +81,7 @@ const cataloguePayload=JSON.stringify({items,translatedEnglish:translatedIds}).r
       <button class="back-link" id="back-link" type="button">{t.back}</button>
       <div class="detail-header">
         <div class="detail-topline"><span class="detail-type" id="detail-type">AI PROMPT</span><span class="detail-index" id="detail-index"></span></div>
-        <h1 id="detail-title">{selectedMeta?.title}</h1>
+        {selected ? <h1 id="detail-title">{selectedMeta?.title}</h1> : <h2 id="detail-title">{selectedMeta?.title}</h2>}
         <p class="detail-summary" id="detail-summary">{selectedMeta?.summary}</p>
         <div class="detail-tags" id="detail-tags"></div>
         <div class="detail-actions">
