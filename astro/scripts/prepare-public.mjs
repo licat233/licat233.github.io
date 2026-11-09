@@ -36,11 +36,21 @@ const links=entries.map(item=>({
 // Independent legacy HTML pages are copied outside Astro's generated routes.
 const legacyLocalizedUrl=(lang,key)=>'/' + (lang==='en'?'en/':'') +
   (key==='home'?'':key+'/');
-function siteContext(lang,project){
+function siteContext(lang,project,html){
  const en=lang==='en';
  const home=legacyLocalizedUrl(lang,'home');
  const projects=legacyLocalizedUrl(lang,'projects');
- return `<nav class="site-context" aria-label="${en?'Site navigation and project location':'全站导航与项目位置'}"><div class="site-context__path"><a href="${home}">Licat</a><span aria-hidden="true">›</span><a href="${projects}">${en?'Projects':'项目'}</a><span aria-hidden="true">›</span><strong>${project.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')}</strong></div><div class="site-context__links">${links.filter(link=>!link.parent).map(link=>`<a href="${legacyLocalizedUrl(lang,link.key)}"${link.key==='projects'?' class="is-section"':''}>${en?link.en:link.zh}</a>`).join('')}</div></nav>`;
+ const canonical = /<link\s+rel=['"]canonical['"]\s+href=['"]([^'"]+)['"]/i.exec(html)?.[1];
+ if(!canonical) throw new Error('Project missing canonical for breadcrumb: '+project);
+ const schema = JSON.stringify({
+   '@context':'https://schema.org','@type':'BreadcrumbList',
+   itemListElement:[
+     {'@type':'ListItem',position:1,name:en?'Home':'首页',item:'https://licat.xyz'+home},
+     {'@type':'ListItem',position:2,name:en?'Projects':'项目',item:'https://licat.xyz'+projects},
+     {'@type':'ListItem',position:3,name:project,item:canonical},
+   ],
+ }).replace(/</g,'\\u003c');
+ return `<script type="application/ld+json">${schema}</script><nav class="site-context" aria-label="${en?'Site navigation and project location':'全站导航与项目位置'}"><div class="site-context__path"><a href="${home}">Licat</a><span aria-hidden="true">›</span><a href="${projects}">${en?'Projects':'项目'}</a><span aria-hidden="true">›</span><strong>${project.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')}</strong></div><div class="site-context__links">${links.filter(link=>!link.parent).map(link=>`<a href="${legacyLocalizedUrl(lang,link.key)}"${link.key==='projects'?' class="is-section"':''}>${en?link.en:link.zh}</a>`).join('')}</div></nav>`;
 }
 
 // The Astro pages already use this GTM container. Standalone project pages
@@ -78,7 +88,7 @@ for(const dir of microsites){
    if(!ent.isFile() || !p.endsWith('.html'))continue;
    let html=await readFile(p,'utf8');
    if(html.startsWith('---\n'))html=html.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/,'');
-   html=html.replace(/\{%\s*include site-context\.html\s+lang=['"]([^'"]+)['"]\s+project=['"]([^'"]+)['"]\s*%\}/g,(_m,lang,project)=>siteContext(lang,project));
+   html=html.replace(/\{%\s*include site-context\.html\s+lang=['"]([^'"]+)['"]\s+project=['"]([^'"]+)['"]\s*%\}/g,(_m,lang,project)=>siteContext(lang,project,html));
    if(/\{%\s*include /.test(html))throw Error('Unresolved legacy Liquid include: '+p);
    const landing=path.relative(path.join(publicDir,dir),p).replaceAll(path.sep,'/');
    if(['index.html','zh/index.html','en/index.html'].includes(landing) &&

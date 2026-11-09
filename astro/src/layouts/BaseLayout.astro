@@ -1,6 +1,7 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
-import type { Lang, NavKey } from '../lib/site';
+import { localeUrl, type Lang, type NavKey } from '../lib/site';
+import { dictionary } from '../lib/translation';
 interface Props {
   lang: Lang;
   active: NavKey;
@@ -39,6 +40,21 @@ const alternateZh = Astro.props.alternateZh !== undefined
 const alternateEn = Astro.props.alternateEn !== undefined
   ? Astro.props.alternateEn : (enHref || (lang === 'en' ? canonical : null));
 const origin = 'https://licat.xyz';
+const labels = dictionary(lang).navigation;
+const isSectionIndex = canonical === localeUrl(lang,active);
+const breadcrumbItems = active === 'home' ? [] : [
+  {name:lang === 'en' ? 'Home' : '首页',url:localeUrl(lang,'home')},
+  ...(['skills','prompts'].includes(active) ? [{name:labels.ai,url:localeUrl(lang,'ai')}] : []),
+  ...(active === 'blog' && !isSectionIndex ? [{name:labels.blog,url:localeUrl(lang,'blog')}] : []),
+  ...(active === 'prompts' && !isSectionIndex ? [{name:labels.prompts,url:localeUrl(lang,'prompts')}] : []),
+  {name:isSectionIndex ? labels[active] : title.replace(/ — Licat Prompts$/, ''),url:canonical},
+];
+const breadcrumbSchema = breadcrumbItems.length ? JSON.stringify({
+  '@context':'https://schema.org','@type':'BreadcrumbList',
+  itemListElement:breadcrumbItems.map((item,index)=>({
+    '@type':'ListItem',position:index+1,name:item.name,item:origin+item.url,
+  })),
+}).replace(/</g,'\\u003c') : null;
 const fullTitle = exactTitle ? title : `${title} · Licat`;
 const homeSchema = active === 'home' ? JSON.stringify({
   '@context': 'https://schema.org',
@@ -100,13 +116,39 @@ if (Astro.currentLocale !== lang) {
   <script is:inline>(()=>{try{const t=localStorage.getItem('licat-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(_){document.documentElement.dataset.theme='light'}})();</script>
   {styles.map(href => <link rel="stylesheet" href={href} />)}
   {homeSchema && <script type="application/ld+json" set:html={homeSchema}></script>}
+  {breadcrumbSchema && <script type="application/ld+json" set:html={breadcrumbSchema}></script>}
+
+  <style is:global>
+    .seo-breadcrumbs { width:min(1190px,calc(100% - 48px));margin:14px auto 0; color:var(--muted,var(--ink2,#6b7b85));font-size:12px;line-height:1.6 }
+    .seo-breadcrumbs ol {display:flex;align-items:center;flex-wrap:wrap;gap:7px;list-style:none;padding:0;margin:0}
+    .seo-breadcrumbs li {display:flex;align-items:center;gap:7px;min-width:0}
+    .seo-breadcrumbs li+li::before {content:'›';opacity:.65}
+    .seo-breadcrumbs a {color:inherit;text-decoration:none}
+    .seo-breadcrumbs a:hover {color:var(--blue,#087ac2);text-decoration:underline;text-underline-offset:3px}
+    .seo-breadcrumbs [aria-current='page'] {color:var(--text,#222);font-weight:650;overflow-wrap:anywhere}
+    @media(max-width:650px){.seo-breadcrumbs{width:calc(100% - 36px);margin-top:10px}}
+  </style>
   <slot name="head" />
 </head>
 <body class={pageClass}>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W68HGFLR" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+
   <SiteHeader {lang} {active} {zhHref} {enHref} />
+  {breadcrumbItems.length > 0 && (
+    <nav class="seo-breadcrumbs" aria-label={lang === 'en' ? 'Breadcrumb' : '面包屑导航'}>
+      <ol>
+        {breadcrumbItems.map((item,index) => (
+          <li>
+            {index < breadcrumbItems.length - 1 ?
+              <a href={item.url}>{item.name}</a> :
+              <span aria-current="page">{item.name}</span>}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
   <slot />
   {includeLensFilter && <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden"><filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="12" result="edgeFade"/><feDisplacementMap in="SourceGraphic" in2="edgeFade" scale="12" xChannelSelector="A" yChannelSelector="A"/></filter></svg>}
   {includeSiteNavScript && <script is:inline src="/assets/site-nav.js?v=20261028-ai-active-group1"></script>}
