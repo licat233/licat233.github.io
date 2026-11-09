@@ -345,13 +345,32 @@ const projectHref = (name: string) => {
       <feDisplacementMap in="SourceGraphic" in2="cardEdgeFade" scale="32" xChannelSelector="A" yChannelSelector="A"/>
     </filter>
   </svg>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/MorphSVGPlugin.min.js"></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/DrawSVGPlugin.min.js"></script>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/MotionPathPlugin.min.js"></script>
+  <!-- Navigation must work immediately on all devices, even when motion scripts are skipped. -->
   <script is:inline src="/assets/site-nav.js?v=20261028-ai-active-group1"></script>
-  <script is:inline src="/assets/portfolio-motion.js?v=20261027-arch1"></script>
-  <script is:inline src="/assets/portfolio-journey-v2.js?v=20261011-v2"></script>
+  <script is:inline>
+    (() => {
+      // Mobile and reduced-motion visitors see the complete static design.
+      // Skip expensive GSAP/ScrollTrigger setup where it harms responsiveness.
+      if (matchMedia('(max-width: 760px), (prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('static-story');
+        return;
+      }
+      const load = src => new Promise((resolve,reject) => {
+        const script = document.createElement('script');
+        script.src=src; script.onload=resolve; script.onerror=()=>reject(new Error('Could not load '+src));
+        document.body.appendChild(script);
+      });
+      (async () => {
+        const cdn='https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/';
+        await load(cdn+'gsap.min.js');
+        await Promise.all(['ScrollTrigger.min.js','SplitText.min.js','MorphSVGPlugin.min.js',
+          'DrawSVGPlugin.min.js','MotionPathPlugin.min.js'].map(file=>load(cdn+file)));
+        await load('/assets/portfolio-motion.js?v=20261109-seo1');
+        await load('/assets/portfolio-journey-v2.js?v=20261109-seo1');
+      })().catch(error => {
+        document.documentElement.classList.add('static-story');
+        console.warn('Optional motion unavailable; static page remains usable.',error);
+      });
+    })();
+  </script>
   

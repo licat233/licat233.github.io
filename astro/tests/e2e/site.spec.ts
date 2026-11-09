@@ -454,7 +454,12 @@ test('every Astro-owned glass surface uses the complete material in both languag
      const found=layers.every(items=>items.length===1 && items[0].getAttribute('aria-hidden')==='true');
      return found?[]:[{tag:node.tagName,classes:node.className,layers:layers.map(x=>x.length)}];
     }),
-    cssLinked:!!document.querySelector('link[href*="portfolio-liquid-glass.css"]')
+    cssLinked:[...document.styleSheets].some(sheet=>{
+       if(!sheet.href || !/\/(?:portfolio-liquid-glass|bundle-(?:home|prompts|content|blog|resources))\.css/.test(sheet.href))return false;
+       try {
+         return [...sheet.cssRules].some(rule=>rule.cssText.includes('.lg-glass-filter'));
+       }catch{return false}
+     })
    };
   });
   expect(report.count, 'Glass surfaces missing on '+url).toBeGreaterThanOrEqual(minimum);

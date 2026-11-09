@@ -50,12 +50,12 @@ test('shared GlassSurface preserves live site card/header geometry and optics',a
    await Promise.all([live.evaluate(()=>document.fonts.ready),page.evaluate(()=>document.fonts.ready)]);
    await Promise.all([live.waitForTimeout(120),page.waitForTimeout(120)]);
    const old=await attrs(live,c.items),cur=await attrs(page,c.items);
-   // A visible breadcrumb is an intentional new block above the category
-   // content. Preserve the cards' geometry relative to that new block.
-   const breadcrumbOffset=await page.evaluate(()=>{
+   // Compare actual breadcrumb heights; existing live site already has one.
+   const crumbHeight=async (p:typeof page)=>p.evaluate(()=>{
      const el=document.querySelector<HTMLElement>('.seo-breadcrumbs');
      return el ? Math.round(el.getBoundingClientRect().height+parseFloat(getComputedStyle(el).marginTop)) : 0;
    });
+   const breadcrumbOffset=await crumbHeight(page)-await crumbHeight(live);
    for(const selector of c.items){
      const reference=(old as any)[selector],after=(cur as any)[selector];
      if(reference.missing||after.missing){errors.push(c.url+': missing '+selector);continue}

@@ -20,9 +20,57 @@ for(const dir of [...sections,...publicSites]){
  await mkdir(path.dirname(dest),{recursive:true});
  await cp(source,dest,{recursive:true});
 }
+
+// One CSS request per page family, preserving the original cascade order.
+// Bundled from existing public assets at build time; no dependency or visual rewrite.
+const styleBundles = {
+  'home': ['vendor/open-props/open-props-core-1.7.23.min.css','portfolio.css','site-header.css',
+    'portfolio-liquid-glass.css','portfolio-entrances.css','portfolio-skills.css',
+    'portfolio-journey-v2.css','portfolio-prompts.css','site-sections.css'],
+  'prompts': ['vendor/open-props/open-props-core-1.7.23.min.css','prompt-library.css',
+    'site-header.css','portfolio-liquid-glass.css'],
+  'content': ['vendor/open-props/open-props-core-1.7.23.min.css','portfolio.css',
+    'site-header.css','portfolio-liquid-glass.css','site-sections.css'],
+  'blog': ['vendor/open-props/open-props-core-1.7.23.min.css','portfolio.css',
+    'site-header.css','portfolio-liquid-glass.css','blog.css'],
+  'resources': ['vendor/open-props/open-props-core-1.7.23.min.css','portfolio.css',
+    'site-header.css','portfolio-liquid-glass.css','site-sections.css','resources.css'],
+};
+for (const [name, files] of Object.entries(styleBundles)) {
+  const chunks = await Promise.all(files.map(async file =>
+    '/* Source: '+file+' */\n'+await readFile(path.join(publicDir,
+      file === 'prompt-library.css' ? 'prompts/prompt-library.css':'assets/'+file),'utf8')));
+  await writeFile(path.join(publicDir,'assets','bundle-'+name+'.css'),chunks.join('\n'));
+}
+
 // Only retained assets and independently published project pages are copied.
 await cp(path.join(root,'favicon.ico'),path.join(publicDir,'favicon.ico'));
 await cp(path.join(root,'llms.txt'),path.join(publicDir,'llms.txt'));
+
+// Optional agent-friendly full-text bundle: derived from published Blog sources.
+// This is not an indexing/ranking signal and never includes private project data.
+const blogSourceDir = path.join(here,'../src/content/blog');
+const { readdir: listBlogFiles } = await import('node:fs/promises');
+const publishedBlog = [];
+for (const name of (await listBlogFiles(blogSourceDir)).filter(name => name.endsWith('.md')).sort()) {
+  const src = await readFile(path.join(blogSourceDir,name),'utf8');
+  const match = src.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
+  if (!match) throw new Error('Published blog post missing YAML frontmatter: '+name);
+  const frontmatter = match[1];
+  const value = key => frontmatter.match(new RegExp('^'+key+':\\s*(.+)$','m'))?.[1]?.replace(/^["']|["']$/g,'')?.trim();
+  const title = value('title');
+  const lang = value('lang') || 'zh';
+  if (!title || !['zh','en'].includes(lang)) throw new Error('Invalid published blog metadata: '+name);
+  const slug = name.replace(/^\d{4}-\d{2}-\d{2}-/,'').replace(/-en\.md$/,'.md').replace(/\.md$/,'');
+  const canonical = 'https://licat.xyz/' +(lang==='en'?'en/':'')+'blog/'+slug+'/';
+  publishedBlog.push('## '+title+'\n\nCanonical: '+canonical+'\nLanguage: '+(lang==='en'?'en':'zh-CN')+
+    '\n\n'+src.slice(match[0].length).trim());
+}
+await writeFile(path.join(publicDir,'llms-full.txt'),
+  '# Licat — Published Blog Full Text\n\n' +
+  '> Automatically generated from the public, published Markdown articles. The canonical HTML URLs are authoritative; this file is for agents that need bulk reading.\n\n' +
+  publishedBlog.join('\n\n---\n\n')+'\n');
+
 // The Astro-owned JS is a pure interaction controller; SSR and client both read
 // the same single prompt catalogue from the Astro page (not legacy JS literals).
 await cp(path.join(root,'astro/src/client/prompt-library.js'),

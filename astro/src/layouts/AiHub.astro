@@ -16,13 +16,7 @@ const cards=[
  {key:'eao',name:'Agents · Enterprise AI Office',href:lang==='zh'?'/eao/':'/eao/en/'},
  {key:'memory',name:'Memory · armor-memory',href:lang==='zh'?'/armor-memory/zh/':'/armor-memory/'}
 ] as const;
-const styles = [
-  '/assets/vendor/open-props/open-props-core-1.7.23.min.css',
-  '/assets/portfolio.css?v=20261008-glass1',
-  '/assets/site-header.css?v=20261028-ai-glass1',
-  '/assets/portfolio-liquid-glass.css?v=20261028-ai-active-group1',
-  '/assets/site-sections.css?v=20261027-ia1'
-];
+const styles = ['/assets/bundle-content.css?v=20261109-seo1'];
 ---
 <BaseLayout {lang} active="ai" {title} {description}
   canonical={localeUrl(lang,'ai')}

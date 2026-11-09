@@ -45,4 +45,13 @@ const articleSchema = JSON.stringify({
   <div class="blog-article-end"><a href={localeUrl(lang,'blog')}>← {t.backAll}</a></div>
 </article></main>
 <BlogFooter {lang} />
+<script is:inline>
+  // Markdown task-list checkboxes are read-only but still need accessible names.
+  document.querySelectorAll('.blog-prose li.task-list-item').forEach(item => {
+    const checkbox = item.querySelector('input[type="checkbox"]');
+    if (checkbox && !checkbox.hasAttribute('aria-label')) {
+      checkbox.setAttribute('aria-label', item.textContent.trim());
+    }
+  });
+</script>
 </BaseLayout>

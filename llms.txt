@@ -27,3 +27,5 @@
 
 - [GitHub](https://github.com/licat233): Public code repositories and project source.
 - [Sitemap](https://licat.xyz/sitemap.xml): Canonical public pages and available localized URLs.
+
+- [Full published blog text](https://licat.xyz/llms-full.txt): Optional Markdown bundle generated from the canonical published articles.
