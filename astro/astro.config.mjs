@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 export default defineConfig({
-  site: 'https://licat233.github.io',
+  site: 'https://licat.xyz',
   output: 'static',
   i18n: {
     locales: ['zh', 'en'],

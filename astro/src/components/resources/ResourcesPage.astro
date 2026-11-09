@@ -61,7 +61,7 @@ const websiteSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Licat',
-  url: 'https://licat233.github.io/',
+  url: 'https://licat.xyz/',
   description: t.metaDescription,
   inLanguage: lang === 'en' ? 'en' : 'zh-CN',
   publisher: { '@type': 'Person', name: 'Licat' },
@@ -70,8 +70,8 @@ const breadcrumbSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: lang === 'en' ? 'Home' : '首页', item: 'https://licat233.github.io' + localeUrl(lang, 'home') },
-    { '@type': 'ListItem', position: 2, name: lang === 'en' ? 'Resources' : '资源导航', item: 'https://licat233.github.io' + canonical },
+    { '@type': 'ListItem', position: 1, name: lang === 'en' ? 'Home' : '首页', item: 'https://licat.xyz' + localeUrl(lang, 'home') },
+    { '@type': 'ListItem', position: 2, name: lang === 'en' ? 'Resources' : '资源导航', item: 'https://licat.xyz' + canonical },
   ],
 }).replace(/</g, '\\u003c');
 const itemListSchema = JSON.stringify({

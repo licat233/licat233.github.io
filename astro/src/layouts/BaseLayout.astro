@@ -38,7 +38,7 @@ const alternateZh = Astro.props.alternateZh !== undefined
   ? Astro.props.alternateZh : (zhHref || (lang === 'zh' ? canonical : null));
 const alternateEn = Astro.props.alternateEn !== undefined
   ? Astro.props.alternateEn : (enHref || (lang === 'en' ? canonical : null));
-const origin = 'https://licat233.github.io';
+const origin = 'https://licat.xyz';
 const fullTitle = exactTitle ? title : `${title} · Licat`;
 if (Astro.currentLocale !== lang) {
   throw new Error('Unexpected i18n locale for '+Astro.url.pathname+

@@ -2,9 +2,9 @@
 
 This directory hosts the independent Liquid Glass study for browser review.
 
-- Live: https://licat233.github.io/demo/ (Chinese by default)
-- Chinese: https://licat233.github.io/demo/zh/
-- English: https://licat233.github.io/demo/en/
+- Live: https://licat.xyz/demo/ (Chinese by default)
+- Chinese: https://licat.xyz/demo/zh/
+- English: https://licat.xyz/demo/en/
 - Production homepage /, /zh/, /en/ remains unchanged.
 - Search indexing disabled with noindex,follow.
 - Base styling: demo/portfolio.css (isolated snapshot).

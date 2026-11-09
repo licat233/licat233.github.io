@@ -1,6 +1,6 @@
 # Licat · AI Prompt Library
 
-公开页面：**https://licat233.github.io/prompts/**
+公开页面：**https://licat.xyz/prompts/**
 
 这里收录个人收集、总结和整理的 AI 提示词，以中文原文为主。每条提示词包含标题、分类、用途介绍、标签与完整 Markdown 正文。
 

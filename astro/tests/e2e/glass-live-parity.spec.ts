@@ -43,7 +43,7 @@ test('shared GlassSurface preserves live site card/header geometry and optics',a
  try{
   for(const c of cases){
    const [a,b]=await Promise.all([
-    live.goto('https://licat233.github.io'+c.url,{waitUntil:'domcontentloaded',timeout:30000}),
+    live.goto('https://licat.xyz'+c.url,{waitUntil:'domcontentloaded',timeout:30000}),
     page.goto('http://127.0.0.1:4321'+c.url,{waitUntil:'domcontentloaded',timeout:30000})
    ]);
    expect(a?.status()).toBe(200);expect(b?.status()).toBe(200);

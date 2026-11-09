@@ -3,8 +3,8 @@
 **This is an implementation history, not a rule that every web site must copy
 this design.** Inspect current source and user approval before making changes.
 
-- Case: bilingual portfolio, `https://licat233.github.io/`
-  and isolated `https://licat233.github.io/demo/`.
+- Case: bilingual portfolio, `https://licat.xyz/`
+  and isolated `https://licat.xyz/demo/`.
 - Reference implementation in repo: `assets/portfolio-liquid-glass.css`,
   `assets/portfolio.css`, `index.html` / `zh/index.html` / `en/index.html`.
 - Exact style tested on Demo: `demo/portfolio-liquid-glass.css`.

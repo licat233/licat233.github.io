@@ -6,7 +6,7 @@ the formal Licat homepage. Both remain independent public studies.
 
 - V1 source archive (immutable commit): <https://github.com/licat233/licat233.github.io/tree/91d2dd46192c322784759998e17e08c8d8177cc6/motion-preview/gsap-journey>
 - V2 source archive (immutable commit): <https://github.com/licat233/licat233.github.io/tree/754493a5be24f8034580cc16b4ede119a1f8c79f/motion-preview/gsap-journey-v2>
-- Approved production implementation: <https://licat233.github.io/#journey>
+- Approved production implementation: <https://licat.xyz/#journey>
 - **Housekeeping:** The short-lived public \`/motion-preview/\` review pages were deliberately retired once production integration passed. These immutable Git history links preserve the implementation evidence; do not recreate disposable public demos as permanent site navigation.
 - GSAP official Skill snapshot consulted:
   `greensock/gsap-skills@aed9cfd3277740755f6bfc1155c7aa645403b760`.

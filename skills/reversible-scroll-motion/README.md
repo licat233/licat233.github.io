@@ -24,7 +24,7 @@ then apply this Skill's meaning, readability and visual-acceptance gates.
 - [GSAP official-first guide](references/GSAP-OFFICIAL-FIRST.md)
 - [Licat journey V1 → V2 evidence](references/licat-journey-v1-v2.md)
 - [V2 implementation archive (immutable commit)](https://github.com/licat233/licat233.github.io/tree/754493a5be24f8034580cc16b4ede119a1f8c79f/motion-preview/gsap-journey-v2) — preview site retired after homepage integration.
-- [Live production journey](https://licat233.github.io/#journey) — the approved implementation.
+- [Live production journey](https://licat.xyz/#journey) — the approved implementation.
 
 Positive feedback on V2 did **not** authorize changing the production
 homepage. Reuse the process, not the brand-specific design.
@@ -73,7 +73,7 @@ Run browser validation *only if Puppeteer is already available*, e.g. from a pro
 node skills/reversible-scroll-motion/scripts/qa_browser.mjs http://127.0.0.1:8000/skills/reversible-scroll-motion/assets/example.html
 ```
 
-The linked [production example](https://licat233.github.io/zh/) provides a real, complete website; it is not a visual template to copy wholesale.
+The linked [production example](https://licat.xyz/zh/) provides a real, complete website; it is not a visual template to copy wholesale.
 
 ## Motion ambition: design judgement before code
 

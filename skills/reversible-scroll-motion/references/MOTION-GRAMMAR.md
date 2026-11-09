@@ -77,7 +77,7 @@ These are **starting proposals**, not hard-coded standards. The footer may have 
 - [GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)
 - [GSAP matchMedia](https://gsap.com/docs/v3/GSAP/gsap.matchMedia/)
 - [GSAP SplitText](https://gsap.com/docs/v3/Plugins/SplitText/)
-- [Production page](https://licat233.github.io/zh/)
+- [Production page](https://licat.xyz/zh/)
 
 *Apple product pages are a source of inspiration for visible choreography and phase pacing, not a license to copy their assets, proprietary source or exact design.*
 
