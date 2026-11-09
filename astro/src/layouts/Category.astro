@@ -15,8 +15,8 @@ const title=item.title;
 const heading=item.heading;
 const description=item.description;
 const path=localeUrl(lang,kind);
-// Keep original stylesheet URLs and copy identical during framework cutover.
-const styles=['/assets/vendor/open-props/open-props-core-1.7.23.min.css','/assets/portfolio.css?v=20261008-glass1','/assets/site-header.css?v=20261028-ai-glass1','/assets/portfolio-liquid-glass.css?v=20261028-ai-active-group1','/assets/site-sections.css?v=20261027-ia1'];
+// Original section CSS is included in this build-generated bundle in cascade order.
+const styles = ['/assets/bundle-content.css?v=20261109-seo1'];
 ---
 <BaseLayout {lang} active={kind} {title} {description} canonical={path} zhHref={localeUrl('zh',kind)} enHref={localeUrl('en',kind)} {styles} pageClass="site-section-page">
  <main id="content" class="site-section-main">

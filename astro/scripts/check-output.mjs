@@ -97,7 +97,7 @@ for (const route of ['resources/index.html', 'en/resources/index.html']) {
     'Resources search/directory controls missing: ' + route);
   assert(html.includes('id="resource-favorites-toggle"') && html.includes('id="resource-export"') &&
     html.includes('id="resource-import-trigger"'), 'Local favorites controls missing: ' + route);
-  assert(html.includes('/assets/resources.css'), 'Resources styles missing: ' + route);
+  assert(html.includes('/assets/bundle-resources.css'), 'Resources styles missing: ' + route);
   assert(!/name="robots" content="[^"]*noindex/i.test(html), 'Resources index must be indexable: ' + route);
   for (const type of ['WebSite', 'BreadcrumbList', 'ItemList']) {
     assert(html.includes('"@type":"' + type + '"'), 'Missing ' + type + ' JSON-LD: ' + route);
@@ -333,7 +333,7 @@ console.log('ASTRO_DEMO_PRESERVED: public demos remain noindex and reachable');
 for(const route of ['blog/index.html','en/blog/index.html','blog/website-seo-geo-basics/index.html']){
  const html=await read(route);
  assert(html.includes('class="blog-footer"'),'Jekyll Blog footer missing from '+route);
- assert(html.includes('/assets/blog.css?v=20261027'),'Original blog stylesheet URL changed in '+route);
+ assert(html.includes('/assets/bundle-blog.css?v=20261109-seo1'),'Original blog stylesheet URL changed in '+route);
 }
 console.log('ASTRO_BLOG_SHELL_PARITY_PASS: original footer and styles present');
 
@@ -395,7 +395,7 @@ await inspectAstroTemplates(sourceDir);
 for(const route of ['index.html','en/index.html','projects/index.html','en/projects/index.html',
                     'skills/index.html','en/skills/index.html','ai/index.html','en/ai/index.html','blog/index.html','prompts/index.html']){
  const html=await read(route);
- assert(html.includes('/assets/portfolio-liquid-glass.css?v=20261028-ai-active-group1'),
+ assert(/\/assets\/bundle-(home|prompts|content|blog|resources)\.css\?v=20261109-seo1/.test(html),
    'Glass material stylesheet missing from '+route);
 }
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');

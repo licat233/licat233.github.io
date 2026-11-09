@@ -43,7 +43,7 @@
     });
   }
 
-  if (!gsap) return;
+  if (!gsap || matchMedia('(max-width: 760px), (prefers-reduced-motion: reduce)').matches) return;
 
   const mm = gsap.matchMedia();
 
@@ -633,13 +633,12 @@
     }
   );
 
-  window.addEventListener(
-    "load",
-    () => {
-      const active = navPills.find((pill) => pill.classList.contains("active")) || navPills[0];
-      moveNavIndicator(active, { instant: true, center: false });
-      if (ScrollTrigger) ScrollTrigger.refresh();
-    },
-    { once: true }
-  );
+  const syncNavigationAfterLoad = () => {
+    const active = navPills.find((pill) => pill.classList.contains("active")) || navPills[0];
+    moveNavIndicator(active, { instant: true, center: false });
+    if (ScrollTrigger) ScrollTrigger.refresh();
+  };
+  // The optional animation loader may finish after the load event.
+  if (document.readyState === "complete") syncNavigationAfterLoad();
+  else window.addEventListener("load", syncNavigationAfterLoad, { once: true });
 })();
