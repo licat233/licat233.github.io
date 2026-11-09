@@ -39,11 +39,17 @@ Do not hand-edit the generated `dist/` directory or introduce another CMS or dep
 | Shared header | `src/components/SiteHeader.astro` |
 | Projects and Skills | `src/content/projects/*.yaml`, `src/content/skills/*.yaml` (glob loaders and Zod schemas) |
 | Prompts catalogue | `src/data/prompts.json` |
+| Resources catalogue and taxonomy | `src/data/resources.json`, `src/data/resource-categories.json`, `src/data/resource-collections.json`, validated by `src/lib/resources.ts` |
+| Resources UI and local search | `src/components/resources/`, `src/client/resources.js`, `../assets/resources.css` |
+| Resources favorites | Browser `localStorage` only; JSON import/export, no account or server storage |
+| Sitemap and robots | `scripts/generate-sitemap.mjs` runs automatically after the Astro build and includes canonical indexable pages only |
 | Localized prompt detail route | `src/pages/[...locale]/prompts/[id].astro` (one shared template) |
 | Published standalone microsites and demos | `../public-sites/` → `scripts/prepare-public.mjs` → original URLs (e.g. `/eao/`, `/demo/`) |
 | Shared public files and Skill sources | `../assets/`, `../prompts/`, `../en/prompts/content/`, `../skills/` |
 
-All localized pages use the eight `src/pages/[...locale]/` page-type routes and the same layouts/components, not separate `src/pages/en/` trees. The home component reads `dictionary(lang).home`, and homepage project links resolve from the `projects` content collection. Do not restore per-language page wrappers or copies.
+All localized pages use the nine `src/pages/[...locale]/` page-type routes and the same layouts/components, not separate `src/pages/en/` trees. The home component reads `dictionary(lang).home`, and homepage project links resolve from the `projects` content collection. Do not restore per-language page wrappers or copies.
+
+Resources uses the shared `/resources/` and `/en/resources/` routes. `src/data/resources.json` is the single bilingual resource database; only records with `status: "published"` enter page HTML, client search, structured data or the sitemap. Candidate and review states remain excluded from public output. Import a Chrome export with `npm run resources:import -- --input /path/to/bookmarks.html`; candidate JSON and the review CSV are written to the git-ignored `astro/.local/resources-review/` folder. Keep this private review workspace out of Git and copy only manually verified, safe records into `src/data/resources.json`. Resource favorites stay in the visitor's browser and are never sent to a server.
 
 Adding a locale means configuring it in `astro.config.mjs`, providing a complete dictionary `src/i18n/<locale>.json` and translating applicable content. No per-language page files are needed. `src/lib/locale-routes.ts` reads official Astro configuration and rejects missing dictionaries. The default Chinese homepage is `/`; there is no `/zh/` alias.
 
@@ -65,7 +71,8 @@ For a practical publishing tutorial, see the repository-root [PUBLISHING.md](../
 
 - `.github/workflows/astro-ui-regression.yml` runs PR build and browser checks.
 - `.github/workflows/deploy-astro-pages.yml` runs on `main`, checks the Jekyll recovery branch, builds and validates Astro output, runs browser tests, and publishes `dist/` to GitHub Pages when `ASTRO_PAGES_ACTIVE=true`.
-- `scripts/check-output.mjs` checks core pages, Blog and Prompt URLs, localized metadata, navigation and static assets.
+- `scripts/check-output.mjs` checks core pages, Blog, Prompt and Resources URLs, localized metadata, navigation, Resources schema/payload and static assets.
+- `scripts/generate-sitemap.mjs` runs as the build's `postbuild` step, writes `sitemap.xml` and `robots.txt`, and excludes pages marked `noindex`.
 - `scripts/check-legacy-routes.mjs` prevents loss of historical standalone HTML routes.
 
 New projects and Skills belong in individual `.yaml` files under their matching `src/content/` folders. Each entry has a unique file name, `order` preserves directory display order, and `src/content.config.ts` validates fields during the build. Existing `skills/<slug>/SKILL.md` auto-discovery remains in place. Public URLs are not derived from content file locations.

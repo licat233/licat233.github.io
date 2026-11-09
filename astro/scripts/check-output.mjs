@@ -8,6 +8,7 @@ const core=[
  ['skills/index.html','zh','skills'],['en/skills/index.html','en','skills'],
  ['ai/index.html','zh','ai'],['en/ai/index.html','en','ai'],
  ['blog/index.html','zh','blog'],['en/blog/index.html','en','blog'],
+ ['resources/index.html','zh','resources'],['en/resources/index.html','en','resources'],
  ['prompts/index.html','zh','prompts'],['en/prompts/index.html','en','prompts'],
  ['blog/website-seo-geo-basics/index.html','zh','blog'],
  ['blog/advanced-seo-geo-guide/index.html','zh','blog'],
@@ -35,7 +36,7 @@ for(const [filename,lang,active] of core){
  assert(current[0].includes('href="'+wanted+'"'),'Wrong active '+active+' for '+filename);
  for(const url of routes(lang))assert(nav.includes('href="'+url+'"'),'Missing '+url+' on '+filename);
  assert((nav.match(/class="nav-pill(?: active)?"/g)||[]).length===primaryKeys.length,
-  'Primary nav must have four links on '+filename);
+  'Primary nav count differs from navigation.json on '+filename);
  assert(nav.includes('class="ai-subnav') && nav.includes('aria-controls="ai-subnav"'),
   'AI sub-navigation is missing on '+filename);
  if(active==='skills'||active==='prompts'){
@@ -76,7 +77,7 @@ for(const filename of independent){
  }
 }
 for(const asset of [
- 'assets/portfolio.css','assets/portfolio-liquid-glass.css','assets/site-header.css',
+ 'assets/portfolio.css','assets/portfolio-liquid-glass.css','assets/site-header.css','assets/resources.css',
  'assets/portfolio-motion.js','assets/licat-logo.svg',
  'prompts/prompt-library.css','prompts/prompt-library.js',
  'prompts/content/ai-natural-communication-v1.3.1.md',
@@ -87,6 +88,42 @@ for(const asset of [
 ])await stat(path.join(root,asset));
 assert((await read('blog/advanced-seo-geo-guide/index.html')).includes('独立站 SEO/GEO'),
        'Long-form Chinese Markdown body missing');
+
+for (const route of ['resources/index.html', 'en/resources/index.html']) {
+  const html = await read(route);
+  assert(html.includes('id="resource-catalogue"'), 'Resources catalogue payload missing: ' + route);
+  assert(html.includes('id="resource-taxonomy"'), 'Resources taxonomy payload missing: ' + route);
+  assert(html.includes('id="resource-search"') && html.includes('id="resource-results"'),
+    'Resources search/directory controls missing: ' + route);
+  assert(html.includes('id="resource-favorites-toggle"') && html.includes('id="resource-export"') &&
+    html.includes('id="resource-import-trigger"'), 'Local favorites controls missing: ' + route);
+  assert(html.includes('/assets/resources.css'), 'Resources styles missing: ' + route);
+  assert(!/name="robots" content="[^"]*noindex/i.test(html), 'Resources index must be indexable: ' + route);
+  for (const type of ['WebSite', 'BreadcrumbList', 'ItemList']) {
+    assert(html.includes('"@type":"' + type + '"'), 'Missing ' + type + ' JSON-LD: ' + route);
+  }
+  const catalogueAt = html.indexOf('id="resource-catalogue"');
+  const catalogueStart = html.indexOf('>', catalogueAt) + 1;
+  const catalogueEnd = html.indexOf('</script>', catalogueStart);
+  const catalogue = JSON.parse(html.slice(catalogueStart, catalogueEnd));
+  assert(Array.isArray(catalogue), 'Public resource catalogue must be an array: ' + route);
+  assert(catalogue.every(item => !Object.hasOwn(item, 'status')),
+    'Internal review status leaked into public search data: ' + route);
+  const taxonomyAt = html.indexOf('id="resource-taxonomy"');
+  const taxonomyStart = html.indexOf('>', taxonomyAt) + 1;
+  const taxonomyEnd = html.indexOf('</script>', taxonomyStart);
+  const taxonomy = JSON.parse(html.slice(taxonomyStart, taxonomyEnd));
+  assert(taxonomy.length === 7, 'Expected seven Resources top-level categories: ' + route);
+}
+const sitemap = await read('sitemap.xml');
+assert(sitemap.includes('https://licat233.github.io/resources/'), 'Chinese Resources URL missing from sitemap');
+assert(sitemap.includes('https://licat233.github.io/en/resources/'), 'English Resources URL missing from sitemap');
+assert(sitemap.includes('hreflang="zh-CN"') && sitemap.includes('hreflang="en"'),
+  'Sitemap alternate-language links missing');
+assert(!sitemap.includes('https://licat233.github.io/demo/'), 'Noindex demo must not enter sitemap');
+const robots = await read('robots.txt');
+assert(robots.includes('Sitemap: https://licat233.github.io/sitemap.xml'),
+  'robots.txt must reference the generated sitemap');
 // The default Chinese locale is served only at /, never by a duplicate /zh/ page.
 try {await stat(path.join(root,'zh/index.html'));throw Error('Obsolete /zh/ redirect must not be generated')}
 catch(error){if(error?.code!=='ENOENT')throw error}
@@ -119,9 +156,9 @@ for (const removed of ['src/lib/legacy.ts','src/layouts/LegacyPage.astro']) {
   try { await access(new URL('../'+removed,import.meta.url)); throw new Error('Obsolete adapter reintroduced: '+removed); }
   catch(error) { if(error?.code!=='ENOENT') throw error; }
 }
-for(const page of ['src/pages/[...locale]/index.astro','src/pages/[...locale]/prompts/index.astro']){
+for(const page of ['src/pages/[...locale]/index.astro','src/pages/[...locale]/resources/index.astro','src/pages/[...locale]/prompts/index.astro']){
  const markup=await readFile(new URL('../'+page,import.meta.url),'utf8');
- assert(markup.includes('PortfolioShell')&&markup.includes('localePaths()'),'Shared Astro route missing: '+page);
+ assert(markup.includes('localePaths()') && (markup.includes('PortfolioShell') || markup.includes('ResourcesPage')),'Shared Astro route missing: '+page);
 }
 console.log('ASTRO_NATIVE_COMPONENTS_PASS: one route per page type, all locales share layouts');
 
@@ -144,11 +181,14 @@ assert(!/<html\b|<!doctype/i.test(portfolioShell),'Portfolio wrapper must not du
 const home=await source('src/components/home/Home.astro');
 const homeData=await source('src/i18n/zh.json');
 const enData=await source('src/i18n/en.json');
-assert(home.includes('<FeaturedProjects')&&home.includes('<HomeSkills'),
- 'Shared homepage must use project and Skill card components');
+assert(home.includes('<FeaturedProjects')&&home.includes('<HomeSkills')&&home.includes('<SiteFooter'),
+ 'Shared homepage must use project, Skill and Footer components');
+const siteFooter=await source('src/components/SiteFooter.astro');
+assert(siteFooter.includes("localeUrl(lang, 'resources')")&&siteFooter.includes('footer-links'),
+ 'Shared Footer must expose the localized Resources route');
 const zhDictionary=JSON.parse(homeData);
 const enDictionary=JSON.parse(enData);
-for(const section of ['home','navigation','prompts','header','blog','categories','homeSkills','portfolio','aiHub']){
+for(const section of ['home','navigation','prompts','header','blog','categories','homeSkills','portfolio','aiHub','resources']){
  assert(zhDictionary[section]&&enDictionary[section],
   'Missing '+section+' translation section in locale dictionaries');
  assert(Object.keys(zhDictionary[section]).sort().join('|')===Object.keys(enDictionary[section]).sort().join('|'),
@@ -166,7 +206,7 @@ for(const dir of ['en','de','fr']){
  catch(error){if(error?.code!=='ENOENT')throw error}
 }
 for(const page of ['index.astro','ai/index.astro','blog/index.astro','blog/[slug].astro',
-                   'projects/index.astro','skills/index.astro','prompts/index.astro','prompts/[id].astro']){
+                   'projects/index.astro','skills/index.astro','resources/index.astro','prompts/index.astro','prompts/[id].astro']){
  const sourceFile=await source('src/pages/[...locale]/'+page);
  assert(sourceFile.includes('localePaths'),'Route must come from shared locale data: '+page);
 }

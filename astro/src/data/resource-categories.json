@@ -1,0 +1,345 @@
+[
+  {
+    "id": "ai-automation",
+    "name": {
+      "en": "AI & Automation",
+      "zh-CN": "AI 与自动化"
+    },
+    "description": {
+      "en": "AI products, agents and workflow automation that help turn ideas into useful output.",
+      "zh-CN": "帮助把想法转化为实际成果的 AI 产品、智能体与自动化工作流。"
+    },
+    "subcategories": [
+      {
+        "id": "ai-assistants",
+        "name": {
+          "en": "AI Assistants",
+          "zh-CN": "AI 助手"
+        }
+      },
+      {
+        "id": "ai-agents",
+        "name": {
+          "en": "AI Agents",
+          "zh-CN": "AI 智能体"
+        }
+      },
+      {
+        "id": "models-apis",
+        "name": {
+          "en": "Models & APIs",
+          "zh-CN": "模型与 API"
+        }
+      },
+      {
+        "id": "workflow-automation",
+        "name": {
+          "en": "Workflow Automation",
+          "zh-CN": "工作流自动化"
+        }
+      },
+      {
+        "id": "prompting-evaluation",
+        "name": {
+          "en": "Prompting & Evaluation",
+          "zh-CN": "提示词与评测"
+        }
+      }
+    ]
+  },
+  {
+    "id": "development-engineering",
+    "name": {
+      "en": "Development & Engineering",
+      "zh-CN": "开发与工程"
+    },
+    "description": {
+      "en": "Tools and technical references for building, shipping and maintaining software.",
+      "zh-CN": "用于构建、交付和维护软件的开发工具与技术资料。"
+    },
+    "subcategories": [
+      {
+        "id": "code-editors",
+        "name": {
+          "en": "Code Editors & IDEs",
+          "zh-CN": "代码编辑器与 IDE"
+        }
+      },
+      {
+        "id": "frontend-ui",
+        "name": {
+          "en": "Frontend & UI",
+          "zh-CN": "前端与界面"
+        }
+      },
+      {
+        "id": "backend-apis",
+        "name": {
+          "en": "Backend & APIs",
+          "zh-CN": "后端与 API"
+        }
+      },
+      {
+        "id": "devops-cloud",
+        "name": {
+          "en": "DevOps & Cloud",
+          "zh-CN": "DevOps 与云服务"
+        }
+      },
+      {
+        "id": "data-databases",
+        "name": {
+          "en": "Data & Databases",
+          "zh-CN": "数据与数据库"
+        }
+      },
+      {
+        "id": "testing-debugging",
+        "name": {
+          "en": "Testing & Debugging",
+          "zh-CN": "测试与调试"
+        }
+      }
+    ]
+  },
+  {
+    "id": "marketing-growth",
+    "name": {
+      "en": "Marketing & Growth",
+      "zh-CN": "营销与增长"
+    },
+    "description": {
+      "en": "Research, measurement and execution tools for sustainable audience and business growth.",
+      "zh-CN": "支持市场研究、效果衡量与业务增长的营销工具。"
+    },
+    "subcategories": [
+      {
+        "id": "seo-geo",
+        "name": {
+          "en": "SEO & GEO",
+          "zh-CN": "SEO 与 GEO"
+        }
+      },
+      {
+        "id": "analytics-measurement",
+        "name": {
+          "en": "Analytics & Measurement",
+          "zh-CN": "分析与衡量"
+        }
+      },
+      {
+        "id": "content-social",
+        "name": {
+          "en": "Content & Social",
+          "zh-CN": "内容与社交媒体"
+        }
+      },
+      {
+        "id": "email-crm",
+        "name": {
+          "en": "Email & CRM",
+          "zh-CN": "邮件与客户关系管理"
+        }
+      },
+      {
+        "id": "conversion-experimentation",
+        "name": {
+          "en": "Conversion & Experimentation",
+          "zh-CN": "转化与实验"
+        }
+      }
+    ]
+  },
+  {
+    "id": "design-creative",
+    "name": {
+      "en": "Design & Creative",
+      "zh-CN": "设计与创意"
+    },
+    "description": {
+      "en": "Creative software, visual assets and practical resources for digital experiences.",
+      "zh-CN": "用于打造数字体验的创意软件、视觉素材与设计资源。"
+    },
+    "subcategories": [
+      {
+        "id": "ui-ux-prototyping",
+        "name": {
+          "en": "UI/UX & Prototyping",
+          "zh-CN": "UI/UX 与原型设计"
+        }
+      },
+      {
+        "id": "graphic-illustration",
+        "name": {
+          "en": "Graphic & Illustration",
+          "zh-CN": "平面设计与插画"
+        }
+      },
+      {
+        "id": "image-video",
+        "name": {
+          "en": "Image & Video",
+          "zh-CN": "图像与视频"
+        }
+      },
+      {
+        "id": "3d-motion",
+        "name": {
+          "en": "3D & Motion",
+          "zh-CN": "3D 与动态设计"
+        }
+      },
+      {
+        "id": "fonts-assets",
+        "name": {
+          "en": "Fonts & Assets",
+          "zh-CN": "字体与设计素材"
+        }
+      }
+    ]
+  },
+  {
+    "id": "productivity-utilities",
+    "name": {
+      "en": "Productivity & Utilities",
+      "zh-CN": "效率与实用工具"
+    },
+    "description": {
+      "en": "Everyday tools for organizing knowledge, coordinating work and removing friction.",
+      "zh-CN": "用于整理知识、协同工作和减少日常操作摩擦的工具。"
+    },
+    "subcategories": [
+      {
+        "id": "notes-knowledge",
+        "name": {
+          "en": "Notes & Knowledge",
+          "zh-CN": "笔记与知识管理"
+        }
+      },
+      {
+        "id": "project-task-management",
+        "name": {
+          "en": "Project & Task Management",
+          "zh-CN": "项目与任务管理"
+        }
+      },
+      {
+        "id": "collaboration",
+        "name": {
+          "en": "Collaboration",
+          "zh-CN": "协作工具"
+        }
+      },
+      {
+        "id": "file-workflow",
+        "name": {
+          "en": "File & Workflow Utilities",
+          "zh-CN": "文件与流程工具"
+        }
+      },
+      {
+        "id": "browser-system",
+        "name": {
+          "en": "Browser & System Utilities",
+          "zh-CN": "浏览器与系统工具"
+        }
+      }
+    ]
+  },
+  {
+    "id": "research-market-intelligence",
+    "name": {
+      "en": "Research & Market Intelligence",
+      "zh-CN": "研究与市场情报"
+    },
+    "description": {
+      "en": "Sources and tools for understanding markets, competitors, trends and audiences.",
+      "zh-CN": "用于理解市场、竞争对手、行业趋势与用户群体的信息源和研究工具。"
+    },
+    "subcategories": [
+      {
+        "id": "market-research",
+        "name": {
+          "en": "Market Research",
+          "zh-CN": "市场研究"
+        }
+      },
+      {
+        "id": "competitive-intelligence",
+        "name": {
+          "en": "Competitive Intelligence",
+          "zh-CN": "竞争情报"
+        }
+      },
+      {
+        "id": "trend-news",
+        "name": {
+          "en": "Trend & News Tracking",
+          "zh-CN": "趋势与新闻追踪"
+        }
+      },
+      {
+        "id": "data-reports",
+        "name": {
+          "en": "Data & Reports",
+          "zh-CN": "数据与行业报告"
+        }
+      },
+      {
+        "id": "audience-insights",
+        "name": {
+          "en": "Audience Insights",
+          "zh-CN": "受众洞察"
+        }
+      }
+    ]
+  },
+  {
+    "id": "learning-knowledge",
+    "name": {
+      "en": "Learning & Knowledge",
+      "zh-CN": "学习与知识"
+    },
+    "description": {
+      "en": "High-quality courses, documentation and reference material for continuous learning.",
+      "zh-CN": "支持持续学习的优质课程、文档与参考资料。"
+    },
+    "subcategories": [
+      {
+        "id": "courses-tutorials",
+        "name": {
+          "en": "Courses & Tutorials",
+          "zh-CN": "课程与教程"
+        }
+      },
+      {
+        "id": "documentation-reference",
+        "name": {
+          "en": "Documentation & References",
+          "zh-CN": "文档与参考资料"
+        }
+      },
+      {
+        "id": "books-reading",
+        "name": {
+          "en": "Books & Reading",
+          "zh-CN": "书籍与阅读"
+        }
+      },
+      {
+        "id": "communities",
+        "name": {
+          "en": "Communities",
+          "zh-CN": "社区"
+        }
+      },
+      {
+        "id": "practice-exercises",
+        "name": {
+          "en": "Practice & Exercises",
+          "zh-CN": "练习与实践"
+        }
+      }
+    ]
+  }
+]

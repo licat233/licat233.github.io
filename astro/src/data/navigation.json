@@ -16,6 +16,9 @@
     "key": "blog"
   },
   {
+    "key": "resources"
+  },
+  {
     "key": "prompts",
     "parent": "ai"
   }

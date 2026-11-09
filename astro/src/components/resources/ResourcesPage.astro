@@ -1,0 +1,272 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GlassSurface from '../GlassSurface.astro';
+import SiteFooter from '../SiteFooter.astro';
+import ResourceCard from './ResourceCard.astro';
+import { localeUrl, type Lang } from '../../lib/site';
+import { dictionary } from '../../lib/translation';
+import { getPublishedCollections, getPublishedResources, resourceCategories } from '../../lib/resources';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = dictionary(lang).resources;
+const locale = lang === 'en' ? 'en' : 'zh-CN';
+const resources = getPublishedResources();
+const categories = resourceCategories;
+const categoryCounts = Object.fromEntries(categories.map(category => [
+  category.id, resources.filter(item => item.category === category.id).length,
+]));
+const featured = resources.filter(item => item.featured).slice(0, 6);
+const recent = [...resources]
+  .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+  .slice(0, 6);
+const collections = getPublishedCollections(resources);
+const tags = [...new Set(resources.flatMap(item => item.tags))].sort((a, b) => a.localeCompare(b));
+const platforms = [...new Set(resources.flatMap(item => item.platforms))].sort((a, b) => a.localeCompare(b));
+const categoryLabel = (id: string | null) =>
+  categories.find(category => category.id === id)?.name[locale] ?? t.category;
+const pricingLabel = (pricing: string) =>
+  (t.pricingLabels as Record<string, string>)[pricing] ?? t.pricingLabels.unknown;
+const cardProps = (item: (typeof resources)[number], prefix: string, isResult = false) => ({
+  item, lang, cardId: prefix + item.id, categoryLabel: categoryLabel(item.category),
+  pricingLabel: pricingLabel(item.pricing), visitLabel: t.visit,
+  saveLabel: t.save, savedLabel: t.saved, removeSavedLabel: t.removeSaved,
+  isResult,
+});
+const canonical = localeUrl(lang, 'resources');
+const styles = [
+  '/assets/vendor/open-props/open-props-core-1.7.23.min.css',
+  '/assets/portfolio.css?v=20261008-glass1',
+  '/assets/site-header.css?v=20261028-ai-glass1',
+  '/assets/portfolio-liquid-glass.css?v=20261028-ai-active-group1',
+  '/assets/site-sections.css?v=20261027-ia1',
+  '/assets/resources.css?v=20261109-1',
+];
+const publicCatalogue = resources.map(item => ({
+  id: item.id, slug: item.slug, name: item.name, aliases: item.aliases,
+  description: item.description, url: item.url, category: item.category,
+  subcategory: item.subcategory, tags: item.tags, resourceType: item.resourceType,
+  pricing: item.pricing, platforms: item.platforms,
+  interfaceLanguages: item.interfaceLanguages, availability: item.availability,
+  featured: item.featured, createdAt: item.createdAt,
+}));
+const resourcePayload = JSON.stringify(publicCatalogue).replace(/</g, '\\u003c');
+const taxonomyPayload = JSON.stringify(categories.map(category => ({
+  id: category.id,
+  name: category.name[locale],
+  subcategories: category.subcategories.map(item => ({ id: item.id, name: item.name[locale] })),
+}))).replace(/</g, '\\u003c');
+const uiPayload = JSON.stringify(t).replace(/</g, '\\u003c');
+const websiteSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Licat',
+  url: 'https://licat233.github.io/',
+  description: t.metaDescription,
+  inLanguage: lang === 'en' ? 'en' : 'zh-CN',
+  publisher: { '@type': 'Person', name: 'Licat' },
+}).replace(/</g, '\\u003c');
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: lang === 'en' ? 'Home' : '首页', item: 'https://licat233.github.io' + localeUrl(lang, 'home') },
+    { '@type': 'ListItem', position: 2, name: lang === 'en' ? 'Resources' : '资源导航', item: 'https://licat233.github.io' + canonical },
+  ],
+}).replace(/</g, '\\u003c');
+const itemListSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: lang === 'en' ? 'Licat curated digital resources' : 'Licat 全球精选数字资源',
+  numberOfItems: resources.length,
+  itemListElement: resources.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: {
+      '@type': 'Thing',
+      name: item.name[locale],
+      description: item.description[locale],
+      url: item.url,
+    },
+  })),
+}).replace(/</g, '\\u003c');
+---
+<BaseLayout {lang} active="resources" title={t.metaTitle} description={t.metaDescription}
+  {canonical} zhHref={localeUrl('zh', 'resources')} enHref={localeUrl('en', 'resources')}
+  {styles} pageClass="resources-page" includeLensFilter={false}>
+  <script slot="head" type="application/ld+json" set:html={websiteSchema}></script>
+  <script slot="head" type="application/ld+json" set:html={breadcrumbSchema}></script>
+  <script slot="head" type="application/ld+json" set:html={itemListSchema}></script>
+  <script type="application/json" id="resource-catalogue" set:html={resourcePayload}></script>
+  <script type="application/json" id="resource-taxonomy" set:html={taxonomyPayload}></script>
+  <script type="application/json" id="resource-ui-copy" set:html={uiPayload}></script>
+
+  <main id="resources-main">
+    <section class="resources-hero">
+      <div class="shell resources-hero__grid">
+        <div class="resources-hero__copy">
+          <p class="resources-eyebrow"><span></span>{t.eyebrow}</p>
+          <h1>{t.title}</h1>
+          <p class="resources-hero__lead">{t.lead}</p>
+          <div class="resources-hero__stats">
+            <span><strong>{resources.length}</strong> {t.published}</span>
+            <i aria-hidden="true"></i>
+            <span><strong>{categories.length}</strong> {t.categoriesCount}</span>
+          </div>
+        </div>
+        <div class="resources-search-panel">
+          <label for="resource-search">{t.searchLabel}</label>
+          <div class="resources-search-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.6" cy="10.6" r="6.1"></circle>
+              <path d="m15.5 15.5 5.2 5.2"></path>
+            </svg>
+            <input id="resource-search" type="search" placeholder={t.searchPlaceholder}
+              autocomplete="off" spellcheck="false" aria-controls="resource-results"
+              aria-describedby="resource-search-hint" />
+            <kbd>⌘ / Ctrl K</kbd>
+          </div>
+          <p id="resource-search-hint">{t.searchHint}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="resources-section resources-categories" id="explore-categories">
+      <div class="shell">
+        <div class="resources-section-head">
+          <div><p class="resources-kicker">DISCOVER BY TOPIC</p><h2>{t.exploreCategories}</h2></div>
+          <p>{t.categoryIntro}</p>
+        </div>
+        <div class="resources-category-grid">
+          {categories.map((category, index) => <GlassSurface as="button" class="resource-category-card"
+            material="regular" type="button" data-category-card={category.id}>
+            <span class="resource-category-card__index">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{category.name[locale]}</h3>
+            <p>{category.description[locale]}</p>
+            <span class="resource-category-card__count">{categoryCounts[category.id] ?? 0} {t.categoryResources}</span>
+          </GlassSurface>)}
+        </div>
+      </div>
+    </section>
+
+    {featured.length > 0 && <section class="resources-section resources-featured" id="featured-resources">
+      <div class="shell">
+        <div class="resources-section-head">
+          <div><p class="resources-kicker">EDITOR'S SELECTION</p><h2>{t.featured}</h2></div>
+          <p>{t.featuredIntro}</p>
+        </div>
+        <div class="resources-card-grid resources-card-grid--featured">
+          {featured.map(item => <ResourceCard {...cardProps(item, 'featured-')} />)}
+        </div>
+      </div>
+    </section>}
+
+    {collections.length > 0 && <section class="resources-section resources-collections" id="featured-collections">
+      <div class="shell">
+        <div class="resources-section-head">
+          <div><p class="resources-kicker">CURATED SHORTLISTS</p><h2>{t.collections}</h2></div>
+          <p>{t.collectionsIntro}</p>
+        </div>
+        <div class="resources-collection-grid">
+          {collections.map((collection, index) => <GlassSurface as="button"
+            class="resource-collection-card" material="regular" type="button"
+            data-collection-ids={collection.resourceIds.join('|')}>
+            <span class="resource-collection-card__index">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{collection.name[locale]}</h3>
+            <p>{collection.description[locale]}</p>
+            <span>{collection.resources.length} {t.categoryResources} <b aria-hidden="true">↗</b></span>
+          </GlassSurface>)}
+        </div>
+      </div>
+    </section>}
+
+    {recent.length > 0 && <section class="resources-section resources-recent" id="recently-added">
+      <div class="shell">
+        <div class="resources-section-head">
+          <div><p class="resources-kicker">FRESHLY REVIEWED</p><h2>{t.recent}</h2></div>
+          <p>{t.recentIntro}</p>
+        </div>
+        <div class="resources-card-grid">
+          {recent.map(item => <ResourceCard {...cardProps(item, 'recent-')} />)}
+        </div>
+      </div>
+    </section>}
+
+    <section class="resources-section resources-directory" id="resource-directory">
+      <div class="shell">
+        <div class="resources-section-head resources-directory__head">
+          <div><p class="resources-kicker">THE DIRECTORY</p><h2>{t.browseAll}</h2><p>{t.browseIntro}</p></div>
+          <button class="resources-favorites-toggle" id="resource-favorites-toggle"
+            type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.75h11a1 1 0 0 1 1 1v14l-6.5-3.9-6.5 3.9v-14a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linejoin="round"/></svg>
+            {t.savedResources} <span id="resource-favorite-count">0</span>
+          </button>
+        </div>
+
+        <div class="resources-filter-panel">
+          <label><span>{t.category}</span>
+            <select id="resource-category">
+              <option value="">{t.allCategories}</option>
+              {categories.map(category => <option value={category.id}>{category.name[locale]}</option>)}
+            </select>
+          </label>
+          <label><span>{t.subcategory}</span>
+            <select id="resource-subcategory" disabled><option value="">{t.allSubcategories}</option></select>
+          </label>
+          <label><span>{t.tag}</span>
+            <select id="resource-tag">
+              <option value="">{t.allTags}</option>
+              {tags.map(tag => <option value={tag}>{tag}</option>)}
+            </select>
+          </label>
+          <label><span>{t.pricing}</span>
+            <select id="resource-pricing">
+              <option value="">{t.allPricing}</option>
+              {Object.entries(t.pricingLabels).filter(([key]) => key !== 'unknown').map(([key, value]) =>
+                <option value={key}>{value}</option>)}
+            </select>
+          </label>
+          <label><span>{t.platform}</span>
+            <select id="resource-platform">
+              <option value="">{t.allPlatforms}</option>
+              {platforms.map(platform => <option value={platform}>{platform}</option>)}
+            </select>
+          </label>
+          <label><span>{t.sort}</span>
+            <select id="resource-sort">
+              <option value="featured">{t.sortFeatured}</option>
+              <option value="newest">{t.sortNewest}</option>
+              <option value="name">{t.sortName}</option>
+            </select>
+          </label>
+          <button class="resources-clear" id="resource-clear-filters" type="button">{t.clearFilters}</button>
+        </div>
+
+        <div class="resources-results-toolbar">
+          <p id="resource-result-status" aria-live="polite">{t.resultCount.replace('{count}', String(resources.length))}</p>
+          <div class="resources-data-actions">
+            <button type="button" id="resource-export">{t.export}</button>
+            <button type="button" id="resource-import-trigger">{t.import}</button>
+            <input type="file" id="resource-import-file" accept="application/json,.json" hidden />
+          </div>
+        </div>
+
+        <div class="resources-card-grid resources-results-grid" id="resource-results">
+          {resources.map(item => <ResourceCard {...cardProps(item, 'result-', true)} />)}
+        </div>
+        <div class="resources-empty" id="resource-empty" hidden>
+          <span aria-hidden="true">⌕</span>
+          <h3>{resources.length > 0 ? t.noResults : t.emptyCatalog}</h3>
+          <p>{resources.length > 0 ? t.noResultsHelp : t.emptyCatalogHelp}</p>
+          <button type="button" id="resource-reset">{t.clearFilters}</button>
+        </div>
+        <div class="resources-toast" id="resource-toast" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter {lang} />
+  <script>
+    import '../../client/resources.js';
+  </script>
+</BaseLayout>

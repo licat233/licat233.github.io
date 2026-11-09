@@ -1,0 +1,4093 @@
+[
+  {
+    "id": "res-5b9104641783",
+    "slug": "chatgpt-641783",
+    "name": {
+      "en": "ChatGPT",
+      "zh-CN": "ChatGPT"
+    },
+    "aliases": [],
+    "url": "https://chatgpt.com/",
+    "description": {
+      "en": "An AI assistant for research, writing, analysis, coding and multimodal work.",
+      "zh-CN": "面向研究、写作、分析、编程与多模态工作的 AI 助手。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "research",
+      "writing",
+      "coding"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android",
+      "macOS",
+      "Windows"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": true,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-ba699d2c1dc3",
+    "slug": "claude-2c1dc3",
+    "name": {
+      "en": "Claude",
+      "zh-CN": "Claude"
+    },
+    "aliases": [],
+    "url": "https://claude.ai/",
+    "description": {
+      "en": "Anthropic’s AI assistant for writing, research, analysis and software development.",
+      "zh-CN": "Anthropic 推出的 AI 助手，适用于写作、研究、分析与软件开发。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "writing",
+      "coding"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android",
+      "macOS",
+      "Windows"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": true,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-8144531927cc",
+    "slug": "gemini-1927cc",
+    "name": {
+      "en": "Gemini",
+      "zh-CN": "Google Gemini"
+    },
+    "aliases": [],
+    "url": "https://gemini.google.com/",
+    "description": {
+      "en": "Google’s AI assistant for everyday tasks, research and creative work.",
+      "zh-CN": "Google 推出的 AI 助手，可用于日常任务、研究与创意工作。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "Google",
+      "research"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "Android",
+      "iOS"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-a6ccc5087842",
+    "slug": "qwen-087842",
+    "name": {
+      "en": "Qwen",
+      "zh-CN": "通义千问 Qwen"
+    },
+    "aliases": [],
+    "url": "https://qwen.ai/home",
+    "description": {
+      "en": "Alibaba’s multilingual AI assistant for reasoning, research and content creation.",
+      "zh-CN": "阿里巴巴推出的多语言 AI 助手，支持推理、研究与内容创作。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "Alibaba",
+      "multimodal"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android",
+      "macOS",
+      "Windows"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-e7031039a5db",
+    "slug": "deepseek-39a5db",
+    "name": {
+      "en": "DeepSeek",
+      "zh-CN": "DeepSeek 深度求索"
+    },
+    "aliases": [],
+    "url": "https://chat.deepseek.com/",
+    "description": {
+      "en": "An AI chat assistant with reasoning, search and file-understanding capabilities.",
+      "zh-CN": "提供对话、深度思考、联网搜索与文件理解能力的 AI 助手。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "reasoning",
+      "search"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-a18a347123f0",
+    "slug": "kimi-7123f0",
+    "name": {
+      "en": "Kimi",
+      "zh-CN": "Kimi"
+    },
+    "aliases": [],
+    "url": "https://www.kimi.com/",
+    "description": {
+      "en": "Moonshot AI’s assistant for long-context reading, research and everyday productivity.",
+      "zh-CN": "月之暗面推出的 AI 助手，适用于长文档阅读、研究与日常办公。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "long context",
+      "research"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-4e8c8b1809a9",
+    "slug": "doubao-1809a9",
+    "name": {
+      "en": "Doubao",
+      "zh-CN": "豆包"
+    },
+    "aliases": [],
+    "url": "https://www.doubao.com/chat/",
+    "description": {
+      "en": "ByteDance’s AI assistant for conversation, writing, learning and creative tasks.",
+      "zh-CN": "字节跳动推出的 AI 助手，支持对话、写作、学习与创意任务。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "ByteDance",
+      "Chinese"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-0ce638205f87",
+    "slug": "tongyi-205f87",
+    "name": {
+      "en": "Tongyi",
+      "zh-CN": "通义"
+    },
+    "aliases": [],
+    "url": "https://www.qianwen.com/chat",
+    "description": {
+      "en": "Alibaba’s Chinese-language AI assistant for questions, writing and productivity.",
+      "zh-CN": "阿里巴巴推出的中文 AI 助手，可用于问答、写作与效率提升。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "Alibaba",
+      "Chinese"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-b152ad1f1d40",
+    "slug": "grok-1f1d40",
+    "name": {
+      "en": "Grok",
+      "zh-CN": "Grok"
+    },
+    "aliases": [],
+    "url": "https://grok.com/",
+    "description": {
+      "en": "An AI assistant from xAI for conversation, research and image generation.",
+      "zh-CN": "xAI 推出的 AI 助手，可用于对话、信息研究与图像生成。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "xAI",
+      "research"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-47918b4f3238",
+    "slug": "longcat-4f3238",
+    "name": {
+      "en": "LongCat",
+      "zh-CN": "LongCat"
+    },
+    "aliases": [],
+    "url": "https://longcat.chat/",
+    "description": {
+      "en": "Meituan’s AI assistant for conversational tasks and general-purpose problem solving.",
+      "zh-CN": "美团推出的通用 AI 助手，可用于日常对话与问题解决。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI assistant",
+      "Meituan",
+      "Chinese"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-f59a45f243f9",
+    "slug": "notebooklm-f243f9",
+    "name": {
+      "en": "NotebookLM",
+      "zh-CN": "NotebookLM"
+    },
+    "aliases": [],
+    "url": "https://notebooklm.google.com/notebook/",
+    "description": {
+      "en": "A source-grounded research assistant for exploring and synthesizing your documents.",
+      "zh-CN": "基于用户提供资料开展问答、梳理与综合分析的研究助手。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "research",
+      "documents",
+      "Google"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-02f878820000",
+    "slug": "suno-820000",
+    "name": {
+      "en": "Suno",
+      "zh-CN": "Suno AI 音乐生成"
+    },
+    "aliases": [],
+    "url": "https://suno.com/onboarding",
+    "description": {
+      "en": "An AI music creation platform for generating songs from text prompts.",
+      "zh-CN": "通过文字描述生成歌曲的 AI 音乐创作平台。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI music",
+      "audio generation"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-5c1354f79ecb",
+    "slug": "kling-ai-f79ecb",
+    "name": {
+      "en": "Kling AI",
+      "zh-CN": "可灵 AI"
+    },
+    "aliases": [],
+    "url": "https://klingai.com/app",
+    "description": {
+      "en": "An AI creative platform for generating and editing video and images.",
+      "zh-CN": "用于生成与编辑视频、图像的 AI 创意平台。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-assistants",
+    "tags": [
+      "AI video",
+      "AI image",
+      "creative"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-f33f9ef971c3",
+    "slug": "openai-api-platform-f971c3",
+    "name": {
+      "en": "OpenAI API Platform",
+      "zh-CN": "OpenAI API 开发平台"
+    },
+    "aliases": [],
+    "url": "https://platform.openai.com/home",
+    "description": {
+      "en": "Developer platform for integrating OpenAI models and tools into applications.",
+      "zh-CN": "将 OpenAI 模型与工具集成到应用程序中的开发者平台。"
+    },
+    "category": "ai-automation",
+    "subcategory": "models-apis",
+    "tags": [
+      "API",
+      "LLM",
+      "developer tools"
+    ],
+    "resourceType": "api",
+    "pricing": "paid",
+    "platforms": [
+      "Web",
+      "API"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-5a5d63627da5",
+    "slug": "google-ai-studio-627da5",
+    "name": {
+      "en": "Google AI Studio",
+      "zh-CN": "Google AI Studio"
+    },
+    "aliases": [],
+    "url": "https://aistudio.google.com/prompts/new_chat",
+    "description": {
+      "en": "A browser-based workspace for prototyping with Google AI models and APIs.",
+      "zh-CN": "在浏览器中体验 Google AI 模型并构建 API 原型的开发环境。"
+    },
+    "category": "ai-automation",
+    "subcategory": "models-apis",
+    "tags": [
+      "Google",
+      "model playground",
+      "API"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "API"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-c18521f0ea38",
+    "slug": "hugging-face-f0ea38",
+    "name": {
+      "en": "Hugging Face",
+      "zh-CN": "Hugging Face 模型社区"
+    },
+    "aliases": [],
+    "url": "https://huggingface.co/",
+    "description": {
+      "en": "A community hub for discovering, sharing and running machine-learning models and datasets.",
+      "zh-CN": "发现、分享与运行机器学习模型和数据集的开放社区。"
+    },
+    "category": "ai-automation",
+    "subcategory": "models-apis",
+    "tags": [
+      "models",
+      "datasets",
+      "open source"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "API",
+      "CLI"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-58ff3562d5e4",
+    "slug": "openrouter-62d5e4",
+    "name": {
+      "en": "OpenRouter",
+      "zh-CN": "OpenRouter 模型 API 路由"
+    },
+    "aliases": [],
+    "url": "https://openrouter.ai/",
+    "description": {
+      "en": "A unified API gateway for accessing models from multiple AI providers.",
+      "zh-CN": "通过统一 API 接入多个 AI 服务商模型的平台。"
+    },
+    "category": "ai-automation",
+    "subcategory": "models-apis",
+    "tags": [
+      "API",
+      "model routing",
+      "LLM"
+    ],
+    "resourceType": "api",
+    "pricing": "paid",
+    "platforms": [
+      "Web",
+      "API"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-88785a12ea72",
+    "slug": "dify-12ea72",
+    "name": {
+      "en": "Dify",
+      "zh-CN": "Dify AI 应用开发平台"
+    },
+    "aliases": [],
+    "url": "https://dify.ai/",
+    "description": {
+      "en": "An open-source platform for building LLM applications, agents and RAG workflows.",
+      "zh-CN": "用于构建大语言模型应用、智能体与 RAG 工作流的开源平台。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-agents",
+    "tags": [
+      "AI agents",
+      "RAG",
+      "workflow"
+    ],
+    "resourceType": "open-source-project",
+    "pricing": "open-source",
+    "platforms": [
+      "Web",
+      "Docker",
+      "Linux"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": true,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-68e52a1b258c",
+    "slug": "n8n-1b258c",
+    "name": {
+      "en": "n8n",
+      "zh-CN": "n8n 工作流自动化"
+    },
+    "aliases": [],
+    "url": "https://docs.n8n.io/",
+    "description": {
+      "en": "Workflow automation documentation for connecting apps, APIs and AI services.",
+      "zh-CN": "连接应用、API 与 AI 服务的工作流自动化平台文档。"
+    },
+    "category": "ai-automation",
+    "subcategory": "workflow-automation",
+    "tags": [
+      "automation",
+      "workflow",
+      "integrations"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web",
+      "Docker",
+      "Linux"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-34c58b5909e1",
+    "slug": "ollama-5909e1",
+    "name": {
+      "en": "Ollama",
+      "zh-CN": "Ollama 本地模型运行工具"
+    },
+    "aliases": [],
+    "url": "https://ollama.com/",
+    "description": {
+      "en": "A local runtime for downloading and running open models on personal computers.",
+      "zh-CN": "在个人电脑上下载并运行开源模型的本地运行环境。"
+    },
+    "category": "ai-automation",
+    "subcategory": "models-apis",
+    "tags": [
+      "local AI",
+      "open models",
+      "runtime"
+    ],
+    "resourceType": "open-source-project",
+    "pricing": "open-source",
+    "platforms": [
+      "macOS",
+      "Windows",
+      "Linux",
+      "CLI"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-b39b11ba05b7",
+    "slug": "coze-ba05b7",
+    "name": {
+      "en": "Coze",
+      "zh-CN": "扣子 Coze"
+    },
+    "aliases": [],
+    "url": "https://www.coze.cn/",
+    "description": {
+      "en": "A visual platform for creating AI bots, agents and connected workflows.",
+      "zh-CN": "通过可视化方式创建 AI 机器人、智能体与工作流的平台。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-agents",
+    "tags": [
+      "AI agents",
+      "no-code",
+      "workflow"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-a2cb8840a156",
+    "slug": "mineru-40a156",
+    "name": {
+      "en": "MinerU",
+      "zh-CN": "MinerU 智能文档解析"
+    },
+    "aliases": [],
+    "url": "https://mineru.net/",
+    "description": {
+      "en": "A document parsing tool designed for extracting structured content for AI and RAG.",
+      "zh-CN": "面向 AI 与 RAG 场景的文档解析工具，可提取结构化内容。"
+    },
+    "category": "ai-automation",
+    "subcategory": "workflow-automation",
+    "tags": [
+      "document parsing",
+      "RAG",
+      "PDF"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "API"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-a961a58c8c95",
+    "slug": "openclaw-documentation-8c8c95",
+    "name": {
+      "en": "OpenClaw Documentation",
+      "zh-CN": "OpenClaw 官方文档"
+    },
+    "aliases": [],
+    "url": "https://docs.openclaw.ai/zh-CN",
+    "description": {
+      "en": "Documentation for an open-source personal AI assistant and agent framework.",
+      "zh-CN": "开源个人 AI 助手与智能体框架的使用和开发文档。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-agents",
+    "tags": [
+      "AI agents",
+      "open source",
+      "self-hosted"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web",
+      "CLI"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-019f12519365",
+    "slug": "hermes-agent-519365",
+    "name": {
+      "en": "Hermes Agent",
+      "zh-CN": "Hermes Agent 智能体"
+    },
+    "aliases": [],
+    "url": "https://hermes-agent.nousresearch.com/",
+    "description": {
+      "en": "An open-source agent that combines tools, memory and reusable skills.",
+      "zh-CN": "结合工具、记忆与可复用技能的开源智能体项目。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-agents",
+    "tags": [
+      "AI agents",
+      "open source",
+      "skills"
+    ],
+    "resourceType": "open-source-project",
+    "pricing": "open-source",
+    "platforms": [
+      "Web",
+      "CLI",
+      "Linux"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-7b452dab37d1",
+    "slug": "desktop-commander-ab37d1",
+    "name": {
+      "en": "Desktop Commander",
+      "zh-CN": "Desktop Commander"
+    },
+    "aliases": [],
+    "url": "https://desktopcommander.app/",
+    "description": {
+      "en": "A desktop-control and file-workflow tool that connects AI assistants with local environments.",
+      "zh-CN": "连接 AI 助手与本地电脑环境的桌面控制及文件工作流工具。"
+    },
+    "category": "ai-automation",
+    "subcategory": "ai-agents",
+    "tags": [
+      "MCP",
+      "desktop automation",
+      "AI agents"
+    ],
+    "resourceType": "open-source-project",
+    "pricing": "open-source",
+    "platforms": [
+      "macOS",
+      "Windows",
+      "Linux"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-057c1eee543c",
+    "slug": "mdn-web-docs-ee543c",
+    "name": {
+      "en": "MDN Web Docs",
+      "zh-CN": "MDN Web 开发文档"
+    },
+    "aliases": [],
+    "url": "https://developer.mozilla.org/zh-CN/docs/Web",
+    "description": {
+      "en": "A comprehensive reference for web standards, HTML, CSS and JavaScript.",
+      "zh-CN": "涵盖 Web 标准、HTML、CSS 与 JavaScript 的综合开发参考文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "web standards",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "resourceType": "documentation",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-cff7ac23e67e",
+    "slug": "react-23e67e",
+    "name": {
+      "en": "React",
+      "zh-CN": "React 官方文档"
+    },
+    "aliases": [],
+    "url": "https://zh-hans.react.dev/",
+    "description": {
+      "en": "Official documentation for building component-based user interfaces with React.",
+      "zh-CN": "使用 React 构建组件化用户界面的官方文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "React",
+      "JavaScript",
+      "frontend"
+    ],
+    "resourceType": "documentation",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-0857e8e738db",
+    "slug": "vue-js-e738db",
+    "name": {
+      "en": "Vue.js",
+      "zh-CN": "Vue.js 官方文档"
+    },
+    "aliases": [],
+    "url": "https://cn.vuejs.org/",
+    "description": {
+      "en": "Official guide and API reference for the progressive Vue JavaScript framework.",
+      "zh-CN": "渐进式 JavaScript 框架 Vue 的官方指南与 API 参考。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "Vue",
+      "JavaScript",
+      "frontend"
+    ],
+    "resourceType": "documentation",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-fe7b5597177b",
+    "slug": "astro-documentation-97177b",
+    "name": {
+      "en": "Astro Documentation",
+      "zh-CN": "Astro 官方文档"
+    },
+    "aliases": [],
+    "url": "https://docs.astro.build/en/getting-started/",
+    "description": {
+      "en": "Official documentation for building fast, content-focused websites with Astro.",
+      "zh-CN": "使用 Astro 构建高性能内容型网站的官方文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "Astro",
+      "static sites",
+      "web framework"
+    ],
+    "resourceType": "documentation",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": true,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-a5612b5babf2",
+    "slug": "vite-5babf2",
+    "name": {
+      "en": "Vite",
+      "zh-CN": "Vite 前端构建工具"
+    },
+    "aliases": [],
+    "url": "https://vitejs.cn/",
+    "description": {
+      "en": "A fast frontend build tool with a modern development server and bundling workflow.",
+      "zh-CN": "提供现代开发服务器与打包流程的高性能前端构建工具。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "build tool",
+      "JavaScript",
+      "frontend"
+    ],
+    "resourceType": "open-source-project",
+    "pricing": "open-source",
+    "platforms": [
+      "Web",
+      "CLI"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-04c308572dcc",
+    "slug": "tailwind-css-572dcc",
+    "name": {
+      "en": "Tailwind CSS",
+      "zh-CN": "Tailwind CSS"
+    },
+    "aliases": [],
+    "url": "https://tailwindcss.com/",
+    "description": {
+      "en": "A utility-first CSS framework for building custom user interfaces.",
+      "zh-CN": "通过原子化工具类快速构建定制化用户界面的 CSS 框架。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "CSS",
+      "Tailwind",
+      "UI"
+    ],
+    "resourceType": "documentation",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-1d1a26b30947",
+    "slug": "ant-design-b30947",
+    "name": {
+      "en": "Ant Design",
+      "zh-CN": "Ant Design 组件库"
+    },
+    "aliases": [],
+    "url": "https://ant.design/index-cn/",
+    "description": {
+      "en": "A design system and React component library for enterprise applications.",
+      "zh-CN": "面向企业级应用的设计体系与 React 组件库。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "React",
+      "UI library",
+      "design system"
+    ],
+    "resourceType": "library",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-144b6fe335b0",
+    "slug": "element-plus-e335b0",
+    "name": {
+      "en": "Element Plus",
+      "zh-CN": "Element Plus 组件库"
+    },
+    "aliases": [],
+    "url": "https://element-plus.org/zh-CN/#/zh-CN",
+    "description": {
+      "en": "A Vue 3 component library for building consistent web interfaces.",
+      "zh-CN": "用于构建一致性 Web 界面的 Vue 3 组件库。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "Vue",
+      "UI library",
+      "components"
+    ],
+    "resourceType": "library",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-e35fe6869089",
+    "slug": "gsap-869089",
+    "name": {
+      "en": "GSAP",
+      "zh-CN": "GSAP 动画平台"
+    },
+    "aliases": [],
+    "url": "https://gsap.com/",
+    "description": {
+      "en": "A JavaScript animation platform for creating high-performance web motion.",
+      "zh-CN": "用于创建高性能网页动效的 JavaScript 动画平台。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "animation",
+      "JavaScript",
+      "motion"
+    ],
+    "resourceType": "library",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-993099a09640",
+    "slug": "swiper-a09640",
+    "name": {
+      "en": "Swiper",
+      "zh-CN": "Swiper 轮播组件"
+    },
+    "aliases": [],
+    "url": "https://swiperjs.com/demos",
+    "description": {
+      "en": "A touch-enabled slider library with responsive demos and framework integrations.",
+      "zh-CN": "支持触控交互、响应式布局与多框架集成的轮播组件库。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "slider",
+      "JavaScript",
+      "UI"
+    ],
+    "resourceType": "library",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-78ba16657ef0",
+    "slug": "axios-657ef0",
+    "name": {
+      "en": "Axios",
+      "zh-CN": "Axios HTTP 请求库"
+    },
+    "aliases": [],
+    "url": "https://www.axios-http.cn/",
+    "description": {
+      "en": "A promise-based HTTP client for browsers and Node.js.",
+      "zh-CN": "适用于浏览器与 Node.js 的 Promise HTTP 请求库。"
+    },
+    "category": "development-engineering",
+    "subcategory": "frontend-ui",
+    "tags": [
+      "HTTP",
+      "JavaScript",
+      "API"
+    ],
+    "resourceType": "library",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-4eb9b8f199fd",
+    "slug": "codepen-f199fd",
+    "name": {
+      "en": "CodePen",
+      "zh-CN": "CodePen 前端实验场"
+    },
+    "aliases": [],
+    "url": "https://codepen.io/",
+    "description": {
+      "en": "An online playground for creating, testing and sharing frontend code.",
+      "zh-CN": "在线编写、测试与分享前端代码的实验场。"
+    },
+    "category": "development-engineering",
+    "subcategory": "testing-debugging",
+    "tags": [
+      "playground",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-a230d6a9d693",
+    "slug": "npm-a9d693",
+    "name": {
+      "en": "npm",
+      "zh-CN": "npm 包管理平台"
+    },
+    "aliases": [],
+    "url": "https://www.npmjs.com/",
+    "description": {
+      "en": "The package registry and discovery platform for JavaScript and Node.js packages.",
+      "zh-CN": "JavaScript 与 Node.js 软件包的注册、分发与发现平台。"
+    },
+    "category": "development-engineering",
+    "subcategory": "code-editors",
+    "tags": [
+      "packages",
+      "JavaScript",
+      "Node.js"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "CLI"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-5aa9155ac24b",
+    "slug": "socket-io-5ac24b",
+    "name": {
+      "en": "Socket.IO",
+      "zh-CN": "Socket.IO 实时通信库"
+    },
+    "aliases": [],
+    "url": "https://socket.io/zh-CN/",
+    "description": {
+      "en": "A library for real-time, bidirectional communication between clients and servers.",
+      "zh-CN": "实现客户端与服务器双向实时通信的开发库。"
+    },
+    "category": "development-engineering",
+    "subcategory": "backend-apis",
+    "tags": [
+      "WebSocket",
+      "real-time",
+      "Node.js"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-69c760422453",
+    "slug": "github-422453",
+    "name": {
+      "en": "GitHub",
+      "zh-CN": "GitHub 代码托管与协作"
+    },
+    "aliases": [],
+    "url": "https://github.com/",
+    "description": {
+      "en": "A platform for hosting code, reviewing changes and collaborating on software.",
+      "zh-CN": "用于托管代码、审查变更与协作开发软件的平台。"
+    },
+    "category": "development-engineering",
+    "subcategory": "code-editors",
+    "tags": [
+      "Git",
+      "repositories",
+      "collaboration"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-aef268f6aee3",
+    "slug": "docker-f6aee3",
+    "name": {
+      "en": "Docker",
+      "zh-CN": "Docker 容器平台"
+    },
+    "aliases": [],
+    "url": "https://www.docker.com/",
+    "description": {
+      "en": "A platform and toolchain for building, shipping and running containerized applications.",
+      "zh-CN": "用于构建、交付和运行容器化应用的平台与工具链。"
+    },
+    "category": "development-engineering",
+    "subcategory": "devops-cloud",
+    "tags": [
+      "containers",
+      "DevOps",
+      "deployment"
+    ],
+    "resourceType": "documentation",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-028ee2990019",
+    "slug": "kubernetes-990019",
+    "name": {
+      "en": "Kubernetes",
+      "zh-CN": "Kubernetes 容器编排"
+    },
+    "aliases": [],
+    "url": "https://kubernetes.io/zh-cn/",
+    "description": {
+      "en": "Official documentation for automating deployment, scaling and management of containers.",
+      "zh-CN": "用于自动化容器部署、扩缩容与管理的官方文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "devops-cloud",
+    "tags": [
+      "containers",
+      "orchestration",
+      "DevOps"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-d21b55eceb55",
+    "slug": "traefik-proxy-eceb55",
+    "name": {
+      "en": "Traefik Proxy",
+      "zh-CN": "Traefik 反向代理与网关"
+    },
+    "aliases": [],
+    "url": "https://doc.traefik.io/traefik/",
+    "description": {
+      "en": "Documentation for a cloud-native reverse proxy and application gateway.",
+      "zh-CN": "云原生反向代理与应用网关 Traefik 的官方文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "devops-cloud",
+    "tags": [
+      "reverse proxy",
+      "gateway",
+      "DevOps"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-5471761e2270",
+    "slug": "prometheus-1e2270",
+    "name": {
+      "en": "Prometheus",
+      "zh-CN": "Prometheus 监控系统"
+    },
+    "aliases": [],
+    "url": "https://prometheus.io/docs/prometheus/latest/getting_started/",
+    "description": {
+      "en": "Official getting-started documentation for metrics monitoring and alerting.",
+      "zh-CN": "指标监控与告警系统 Prometheus 的官方入门文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "devops-cloud",
+    "tags": [
+      "monitoring",
+      "metrics",
+      "DevOps"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-664659015826",
+    "slug": "jsdelivr-015826",
+    "name": {
+      "en": "jsDelivr",
+      "zh-CN": "jsDelivr 开源 CDN"
+    },
+    "aliases": [],
+    "url": "https://www.jsdelivr.com/",
+    "description": {
+      "en": "A public CDN for delivering open-source npm and GitHub-hosted packages.",
+      "zh-CN": "用于分发 npm 与 GitHub 开源软件包的公共 CDN。"
+    },
+    "category": "development-engineering",
+    "subcategory": "devops-cloud",
+    "tags": [
+      "CDN",
+      "JavaScript",
+      "open source"
+    ],
+    "resourceType": "service",
+    "pricing": "free",
+    "platforms": [
+      "Web",
+      "API"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-589efac3a7c4",
+    "slug": "go-c3a7c4",
+    "name": {
+      "en": "Go",
+      "zh-CN": "Go 编程语言官网"
+    },
+    "aliases": [],
+    "url": "https://go.dev/",
+    "description": {
+      "en": "The official home for the Go programming language, downloads and documentation.",
+      "zh-CN": "Go 编程语言的官方网站，提供下载、教程与开发文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "backend-apis",
+    "tags": [
+      "Go",
+      "language",
+      "documentation"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web",
+      "CLI"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-4cdbe37d119c",
+    "slug": "gin-7d119c",
+    "name": {
+      "en": "Gin",
+      "zh-CN": "Gin Go Web 框架"
+    },
+    "aliases": [],
+    "url": "https://gin-gonic.com/zh-cn/docs/",
+    "description": {
+      "en": "Official documentation for the Gin HTTP web framework written in Go.",
+      "zh-CN": "使用 Go 编写的 Gin HTTP Web 框架官方文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "backend-apis",
+    "tags": [
+      "Go",
+      "web framework",
+      "backend"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-1d5d1f812f5e",
+    "slug": "gorm-812f5e",
+    "name": {
+      "en": "GORM",
+      "zh-CN": "GORM Go ORM"
+    },
+    "aliases": [],
+    "url": "https://gorm.io/zh_CN/docs/index.html",
+    "description": {
+      "en": "Official documentation for the developer-friendly ORM library for Go.",
+      "zh-CN": "面向 Go 开发者的 ORM 数据库操作库官方文档。"
+    },
+    "category": "development-engineering",
+    "subcategory": "data-databases",
+    "tags": [
+      "Go",
+      "ORM",
+      "database"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-44a00249de92",
+    "slug": "go-zero-49de92",
+    "name": {
+      "en": "go-zero",
+      "zh-CN": "go-zero 微服务框架"
+    },
+    "aliases": [],
+    "url": "https://go-zero.dev/zh-cn/",
+    "description": {
+      "en": "A Go framework for building web and RPC services with code-generation tooling.",
+      "zh-CN": "用于构建 Web 与 RPC 服务、并提供代码生成工具的 Go 框架。"
+    },
+    "category": "development-engineering",
+    "subcategory": "backend-apis",
+    "tags": [
+      "Go",
+      "microservices",
+      "RPC"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-5d2579445f10",
+    "slug": "grpc-for-go-445f10",
+    "name": {
+      "en": "gRPC for Go",
+      "zh-CN": "gRPC Go 开发文档"
+    },
+    "aliases": [],
+    "url": "https://grpc.io/docs/languages/go/quickstart/",
+    "description": {
+      "en": "Official quickstart for building gRPC services and clients in Go.",
+      "zh-CN": "使用 Go 构建 gRPC 服务端与客户端的官方快速入门。"
+    },
+    "category": "development-engineering",
+    "subcategory": "backend-apis",
+    "tags": [
+      "Go",
+      "gRPC",
+      "RPC"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-f0fa894cccd0",
+    "slug": "rust-4cccd0",
+    "name": {
+      "en": "Rust",
+      "zh-CN": "Rust 编程语言官网"
+    },
+    "aliases": [],
+    "url": "https://rust-lang.org/zh-CN/",
+    "description": {
+      "en": "The official website for the Rust programming language, tools and learning resources.",
+      "zh-CN": "Rust 编程语言的官方网站，提供工具与学习资料。"
+    },
+    "category": "development-engineering",
+    "subcategory": "backend-apis",
+    "tags": [
+      "Rust",
+      "systems programming"
+    ],
+    "resourceType": "documentation",
+    "pricing": "open-source",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-c26223579b6d",
+    "slug": "ahrefs-579b6d",
+    "name": {
+      "en": "Ahrefs",
+      "zh-CN": "Ahrefs SEO 与营销平台"
+    },
+    "aliases": [],
+    "url": "https://ahrefs.com/",
+    "description": {
+      "en": "An SEO and marketing platform for keyword research, backlinks and competitive analysis.",
+      "zh-CN": "用于关键词研究、外链分析与竞争对手研究的 SEO 营销平台。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "SEO",
+      "keywords",
+      "backlinks"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": true,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-e2c1bbec367c",
+    "slug": "semrush-ec367c",
+    "name": {
+      "en": "Semrush",
+      "zh-CN": "Semrush 数字营销平台"
+    },
+    "aliases": [],
+    "url": "https://www.semrush.com/",
+    "description": {
+      "en": "A digital marketing suite for SEO, competitor research and campaign planning.",
+      "zh-CN": "集 SEO、竞品研究与营销活动规划于一体的数字营销工具。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "SEO",
+      "competitor research",
+      "marketing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-2cb27ef48ed3",
+    "slug": "google-trends-f48ed3",
+    "name": {
+      "en": "Google Trends",
+      "zh-CN": "Google 趋势"
+    },
+    "aliases": [],
+    "url": "https://trends.google.com/trends/",
+    "description": {
+      "en": "Explore search-interest patterns by topic, location and time.",
+      "zh-CN": "按主题、地区与时间探索搜索兴趣变化趋势。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "trends",
+      "search demand",
+      "research"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-2860de813fab",
+    "slug": "google-search-console-813fab",
+    "name": {
+      "en": "Google Search Console",
+      "zh-CN": "Google 搜索控制台"
+    },
+    "aliases": [],
+    "url": "https://search.google.com/search-console/about",
+    "description": {
+      "en": "Monitor search performance, indexing, crawling and technical issues for websites.",
+      "zh-CN": "监测网站搜索表现、索引、抓取情况与技术问题。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "SEO",
+      "indexing",
+      "Google"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-9b91520e9014",
+    "slug": "bing-webmaster-tools-0e9014",
+    "name": {
+      "en": "Bing Webmaster Tools",
+      "zh-CN": "Bing 网站管理员工具"
+    },
+    "aliases": [],
+    "url": "https://www.bing.com/webmasters/about",
+    "description": {
+      "en": "Free tools for monitoring Bing search visibility, crawling and site health.",
+      "zh-CN": "免费监测 Bing 搜索可见度、抓取情况与网站健康状态的工具。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "SEO",
+      "Bing",
+      "indexing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-d10ff0dd4898",
+    "slug": "baidu-search-resource-platform-dd4898",
+    "name": {
+      "en": "Baidu Search Resource Platform",
+      "zh-CN": "百度搜索资源平台"
+    },
+    "aliases": [],
+    "url": "https://ziyuan.baidu.com/site/index",
+    "description": {
+      "en": "Official tools for managing site verification, indexing and search performance in Baidu.",
+      "zh-CN": "用于百度站点验证、收录管理与搜索表现监测的官方平台。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "SEO",
+      "Baidu",
+      "indexing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-be8a5f7d2a57",
+    "slug": "pagespeed-insights-7d2a57",
+    "name": {
+      "en": "PageSpeed Insights",
+      "zh-CN": "Google PageSpeed Insights"
+    },
+    "aliases": [],
+    "url": "https://pagespeed.web.dev/",
+    "description": {
+      "en": "Analyze page performance and receive optimization recommendations from Lighthouse and field data.",
+      "zh-CN": "结合 Lighthouse 与真实用户数据分析页面性能并提供优化建议。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "performance",
+      "Core Web Vitals",
+      "Google"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-193235c17fdb",
+    "slug": "gtmetrix-c17fdb",
+    "name": {
+      "en": "GTmetrix",
+      "zh-CN": "GTmetrix 网站性能检测"
+    },
+    "aliases": [],
+    "url": "https://gtmetrix.com/",
+    "description": {
+      "en": "A website performance testing service with loading diagnostics and reports.",
+      "zh-CN": "提供页面加载诊断与性能报告的网站检测服务。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "performance",
+      "speed",
+      "testing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-724ed775a233",
+    "slug": "webpagetest-75a233",
+    "name": {
+      "en": "WebPageTest",
+      "zh-CN": "WebPageTest 网页性能测试"
+    },
+    "aliases": [],
+    "url": "https://www.webpagetest.org/",
+    "description": {
+      "en": "A detailed website testing tool for measuring loading behavior across browsers and locations.",
+      "zh-CN": "跨浏览器与地区测量网页加载表现的详细测试工具。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "performance",
+      "waterfall",
+      "testing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-7e495c8a2e18",
+    "slug": "lighthouse-8a2e18",
+    "name": {
+      "en": "Lighthouse",
+      "zh-CN": "Lighthouse 网站质量审计"
+    },
+    "aliases": [],
+    "url": "https://developer.chrome.com/docs/lighthouse",
+    "description": {
+      "en": "Documentation for auditing web performance, accessibility, SEO and best practices.",
+      "zh-CN": "用于审计网页性能、无障碍、SEO 与最佳实践的官方文档。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "seo-geo",
+    "tags": [
+      "performance",
+      "accessibility",
+      "SEO"
+    ],
+    "resourceType": "documentation",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-fd8e58856850",
+    "slug": "google-analytics-856850",
+    "name": {
+      "en": "Google Analytics",
+      "zh-CN": "Google Analytics 网站分析"
+    },
+    "aliases": [],
+    "url": "https://analytics.google.com/analytics/web/",
+    "description": {
+      "en": "A web analytics platform for understanding traffic, engagement and conversion behavior.",
+      "zh-CN": "用于分析网站流量、用户互动与转化行为的数据分析平台。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "analytics-measurement",
+    "tags": [
+      "analytics",
+      "GA4",
+      "conversion"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-3ff5557f3539",
+    "slug": "google-tag-manager-7f3539",
+    "name": {
+      "en": "Google Tag Manager",
+      "zh-CN": "Google 跟踪代码管理器"
+    },
+    "aliases": [],
+    "url": "https://tagmanager.google.com/",
+    "description": {
+      "en": "Manage website and app measurement tags without editing site code for every change.",
+      "zh-CN": "无需每次修改网站代码即可管理网站与应用的衡量标签。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "analytics-measurement",
+    "tags": [
+      "GTM",
+      "tracking",
+      "analytics"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-213e868d3b2c",
+    "slug": "similarweb-8d3b2c",
+    "name": {
+      "en": "Similarweb",
+      "zh-CN": "Similarweb 网站与市场情报"
+    },
+    "aliases": [],
+    "url": "https://www.similarweb.com/",
+    "description": {
+      "en": "A digital intelligence platform for analyzing website traffic and market competition.",
+      "zh-CN": "用于分析网站流量与市场竞争情况的数字情报平台。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "analytics-measurement",
+    "tags": [
+      "traffic",
+      "market intelligence",
+      "competitors"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-10969aaa399b",
+    "slug": "mixpanel-aa399b",
+    "name": {
+      "en": "Mixpanel",
+      "zh-CN": "Mixpanel 产品分析"
+    },
+    "aliases": [],
+    "url": "https://mixpanel.com/",
+    "description": {
+      "en": "A product analytics platform for exploring user journeys, retention and conversion funnels.",
+      "zh-CN": "用于分析用户路径、留存与转化漏斗的产品分析平台。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "analytics-measurement",
+    "tags": [
+      "product analytics",
+      "funnels",
+      "retention"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-83adf325c0e2",
+    "slug": "hunter-25c0e2",
+    "name": {
+      "en": "Hunter",
+      "zh-CN": "Hunter 企业邮箱查找"
+    },
+    "aliases": [],
+    "url": "https://hunter.io/",
+    "description": {
+      "en": "A B2B prospecting tool for finding and verifying professional email addresses.",
+      "zh-CN": "用于查找和验证商务邮箱地址的 B2B 客户开发工具。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "email-crm",
+    "tags": [
+      "B2B",
+      "email",
+      "prospecting"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-ebd3076a65f2",
+    "slug": "grammarly-6a65f2",
+    "name": {
+      "en": "Grammarly",
+      "zh-CN": "Grammarly 英文写作助手"
+    },
+    "aliases": [],
+    "url": "https://www.grammarly.com/",
+    "description": {
+      "en": "An English writing assistant for grammar, clarity and tone suggestions.",
+      "zh-CN": "提供语法、表达清晰度与语气建议的英文写作助手。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "content-social",
+    "tags": [
+      "writing",
+      "grammar",
+      "editing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-861e1619d549",
+    "slug": "shopify-19d549",
+    "name": {
+      "en": "Shopify",
+      "zh-CN": "Shopify 电商平台"
+    },
+    "aliases": [],
+    "url": "https://www.shopify.com/",
+    "description": {
+      "en": "An ecommerce platform for building and managing online stores.",
+      "zh-CN": "用于搭建和管理在线商店的电子商务平台。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "conversion-experimentation",
+    "tags": [
+      "ecommerce",
+      "storefront",
+      "commerce"
+    ],
+    "resourceType": "web-app",
+    "pricing": "paid",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-cfef552a92b3",
+    "slug": "made-in-china-com-2a92b3",
+    "name": {
+      "en": "Made-in-China.com",
+      "zh-CN": "中国制造网"
+    },
+    "aliases": [],
+    "url": "https://cn.made-in-china.com/",
+    "description": {
+      "en": "A B2B sourcing marketplace connecting global buyers with Chinese suppliers.",
+      "zh-CN": "连接全球采购商与中国供应商的 B2B 采购平台。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "conversion-experimentation",
+    "tags": [
+      "B2B",
+      "sourcing",
+      "manufacturing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-dd76584cbf2c",
+    "slug": "jungle-scout-4cbf2c",
+    "name": {
+      "en": "Jungle Scout",
+      "zh-CN": "Jungle Scout 亚马逊选品"
+    },
+    "aliases": [],
+    "url": "https://www.junglescout.com/",
+    "description": {
+      "en": "An ecommerce research suite for Amazon product discovery and seller analytics.",
+      "zh-CN": "用于亚马逊产品调研与卖家数据分析的电商研究工具。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "conversion-experimentation",
+    "tags": [
+      "Amazon",
+      "product research",
+      "ecommerce"
+    ],
+    "resourceType": "web-app",
+    "pricing": "paid",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-f959106de15f",
+    "slug": "helium-10-6de15f",
+    "name": {
+      "en": "Helium 10",
+      "zh-CN": "Helium 10 亚马逊运营工具"
+    },
+    "aliases": [],
+    "url": "https://www.helium10.com/",
+    "description": {
+      "en": "A suite of tools for Amazon keyword research, listing optimization and seller operations.",
+      "zh-CN": "提供亚马逊关键词研究、Listing 优化与卖家运营工具。"
+    },
+    "category": "marketing-growth",
+    "subcategory": "conversion-experimentation",
+    "tags": [
+      "Amazon",
+      "SEO",
+      "ecommerce"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-60eab98b3182",
+    "slug": "framer-marketplace-8b3182",
+    "name": {
+      "en": "Framer Marketplace",
+      "zh-CN": "Framer 网站模板市场"
+    },
+    "aliases": [],
+    "url": "https://www.framer.com/community/marketplace/templates/",
+    "description": {
+      "en": "A marketplace for discovering Framer website templates and community-made resources.",
+      "zh-CN": "发现 Framer 网站模板与社区创作资源的模板市场。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "templates",
+      "web design",
+      "Framer"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-7ef978004408",
+    "slug": "one-page-love-004408",
+    "name": {
+      "en": "One Page Love",
+      "zh-CN": "One Page Love 单页网站灵感"
+    },
+    "aliases": [],
+    "url": "https://onepagelove.com/",
+    "description": {
+      "en": "A curated gallery of one-page websites, landing pages and templates.",
+      "zh-CN": "精选单页网站、落地页与模板的设计灵感画廊。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "landing pages",
+      "inspiration",
+      "templates"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-684625762e80",
+    "slug": "land-book-762e80",
+    "name": {
+      "en": "Land-book",
+      "zh-CN": "Land-book 网站设计灵感"
+    },
+    "aliases": [],
+    "url": "https://land-book.com/",
+    "description": {
+      "en": "A gallery of curated website designs for visual research and inspiration.",
+      "zh-CN": "用于视觉研究与设计参考的精选网站案例库。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "web design",
+      "inspiration",
+      "gallery"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-6a1ec1fa1a4c",
+    "slug": "lapa-ninja-fa1a4c",
+    "name": {
+      "en": "Lapa Ninja",
+      "zh-CN": "Lapa Ninja 落地页灵感"
+    },
+    "aliases": [],
+    "url": "https://www.lapa.ninja/",
+    "description": {
+      "en": "A collection of landing page examples for layout and conversion design research.",
+      "zh-CN": "收录落地页案例，适合研究页面布局与转化设计。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "landing pages",
+      "inspiration",
+      "conversion"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-3d9d45c776f1",
+    "slug": "awwwards-c776f1",
+    "name": {
+      "en": "Awwwards",
+      "zh-CN": "Awwwards 网页设计奖"
+    },
+    "aliases": [],
+    "url": "https://www.awwwards.com/",
+    "description": {
+      "en": "An awards platform showcasing notable web design, creativity and digital experiences.",
+      "zh-CN": "展示优秀网页设计、创意作品与数字体验的设计奖项平台。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "web design",
+      "awards",
+      "inspiration"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-e92e50819abb",
+    "slug": "mobbin-819abb",
+    "name": {
+      "en": "Mobbin",
+      "zh-CN": "Mobbin 产品界面灵感库"
+    },
+    "aliases": [],
+    "url": "https://mobbin.com/",
+    "description": {
+      "en": "A reference library of real mobile and web product interfaces and flows.",
+      "zh-CN": "收录真实移动端与 Web 产品界面及交互流程的参考库。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "UI",
+      "UX",
+      "product design"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-f5566567da81",
+    "slug": "siteinspire-67da81",
+    "name": {
+      "en": "Siteinspire",
+      "zh-CN": "Siteinspire 网站案例库"
+    },
+    "aliases": [],
+    "url": "https://www.siteinspire.com/",
+    "description": {
+      "en": "A curated showcase of websites organized for visual discovery.",
+      "zh-CN": "按视觉风格整理的网站设计案例展示库。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "web design",
+      "gallery",
+      "inspiration"
+    ],
+    "resourceType": "service",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-df7db67a5300",
+    "slug": "dribbble-7a5300",
+    "name": {
+      "en": "Dribbble",
+      "zh-CN": "Dribbble 设计作品社区"
+    },
+    "aliases": [],
+    "url": "https://dribbble.com/",
+    "description": {
+      "en": "A creative community for sharing and discovering interface and visual design work.",
+      "zh-CN": "分享与发现界面设计和视觉创作作品的设计社区。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "UI",
+      "visual design",
+      "community"
+    ],
+    "resourceType": "community",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-bf616e6666e0",
+    "slug": "behance-6666e0",
+    "name": {
+      "en": "Behance",
+      "zh-CN": "Behance 创意作品社区"
+    },
+    "aliases": [],
+    "url": "https://www.behance.net/",
+    "description": {
+      "en": "A portfolio platform for discovering creative projects across design disciplines.",
+      "zh-CN": "发现不同设计领域创意项目与作品集的平台。"
+    },
+    "category": "design-creative",
+    "subcategory": "graphic-illustration",
+    "tags": [
+      "portfolio",
+      "graphic design",
+      "community"
+    ],
+    "resourceType": "community",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-28e832c0db52",
+    "slug": "figma-c0db52",
+    "name": {
+      "en": "Figma",
+      "zh-CN": "Figma 协作设计工具"
+    },
+    "aliases": [],
+    "url": "https://www.figma.com/",
+    "description": {
+      "en": "A collaborative design platform for interface design, prototyping and team workflows.",
+      "zh-CN": "用于界面设计、交互原型与团队协作的在线设计平台。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "UI",
+      "prototyping",
+      "design systems"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "macOS",
+      "Windows"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": true,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-221e8fadbd04",
+    "slug": "pixso-adbd04",
+    "name": {
+      "en": "Pixso",
+      "zh-CN": "Pixso 在线 UI 设计工具"
+    },
+    "aliases": [],
+    "url": "https://pixso.cn/",
+    "description": {
+      "en": "A collaborative interface design and prototyping tool with shared design workflows.",
+      "zh-CN": "支持协作设计与原型制作的在线界面设计工具。"
+    },
+    "category": "design-creative",
+    "subcategory": "ui-ux-prototyping",
+    "tags": [
+      "UI",
+      "prototyping",
+      "collaboration"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-d55d839119c2",
+    "slug": "huaban-9119c2",
+    "name": {
+      "en": "Huaban",
+      "zh-CN": "花瓣网"
+    },
+    "aliases": [],
+    "url": "https://huaban.com/home/",
+    "description": {
+      "en": "A visual bookmarking community for collecting design, fashion and lifestyle references.",
+      "zh-CN": "收集设计、时尚与生活方式灵感的视觉素材社区。"
+    },
+    "category": "design-creative",
+    "subcategory": "graphic-illustration",
+    "tags": [
+      "visual inspiration",
+      "design",
+      "moodboard"
+    ],
+    "resourceType": "community",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-38faeef04ee2",
+    "slug": "visual-china-group-f04ee2",
+    "name": {
+      "en": "Visual China Group",
+      "zh-CN": "视觉中国"
+    },
+    "aliases": [],
+    "url": "https://www.vcg.com/",
+    "description": {
+      "en": "A commercial library of licensed photography, illustrations, video and creative assets.",
+      "zh-CN": "提供正版摄影、插画、视频与创意素材的商业图库。"
+    },
+    "category": "design-creative",
+    "subcategory": "image-video",
+    "tags": [
+      "stock photos",
+      "licensing",
+      "video"
+    ],
+    "resourceType": "service",
+    "pricing": "paid",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-658d8829a5c7",
+    "slug": "shutterstock-29a5c7",
+    "name": {
+      "en": "Shutterstock",
+      "zh-CN": "Shutterstock 创意素材库"
+    },
+    "aliases": [],
+    "url": "https://www.shutterstock.com/",
+    "description": {
+      "en": "A commercial stock library for photos, illustrations, video and audio assets.",
+      "zh-CN": "提供照片、插画、视频与音频素材的商业图库。"
+    },
+    "category": "design-creative",
+    "subcategory": "image-video",
+    "tags": [
+      "stock photos",
+      "video",
+      "licensing"
+    ],
+    "resourceType": "service",
+    "pricing": "paid",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-68e441e21e49",
+    "slug": "pixabay-e21e49",
+    "name": {
+      "en": "Pixabay",
+      "zh-CN": "Pixabay 免费素材库"
+    },
+    "aliases": [],
+    "url": "https://pixabay.com/zh/",
+    "description": {
+      "en": "A library of free images, illustrations, videos and other creative media.",
+      "zh-CN": "提供免费图片、插画、视频等创意媒体素材的资源库。"
+    },
+    "category": "design-creative",
+    "subcategory": "image-video",
+    "tags": [
+      "free images",
+      "video",
+      "stock assets"
+    ],
+    "resourceType": "service",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-6a76bdaab6e2",
+    "slug": "pexels-aab6e2",
+    "name": {
+      "en": "Pexels",
+      "zh-CN": "Pexels 免费图片与视频"
+    },
+    "aliases": [],
+    "url": "https://www.pexels.com/",
+    "description": {
+      "en": "A free stock library for photos and videos contributed by creators.",
+      "zh-CN": "由创作者提供免费照片与视频素材的图库。"
+    },
+    "category": "design-creative",
+    "subcategory": "image-video",
+    "tags": [
+      "free photos",
+      "video",
+      "stock assets"
+    ],
+    "resourceType": "service",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-d8ae4cd3970f",
+    "slug": "unsplash-d3970f",
+    "name": {
+      "en": "Unsplash",
+      "zh-CN": "Unsplash 免费摄影图库"
+    },
+    "aliases": [],
+    "url": "https://unsplash.com/",
+    "description": {
+      "en": "A photography library for discovering and using high-quality visual imagery.",
+      "zh-CN": "发现与使用高质量摄影图片的视觉素材库。"
+    },
+    "category": "design-creative",
+    "subcategory": "image-video",
+    "tags": [
+      "photography",
+      "stock photos",
+      "visuals"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-b1f408638b2d",
+    "slug": "freepik-638b2d",
+    "name": {
+      "en": "Freepik",
+      "zh-CN": "Freepik / Magnific 素材平台"
+    },
+    "aliases": [],
+    "url": "https://www.freepik.com/",
+    "description": {
+      "en": "A creative asset platform for stock media, vectors and AI-assisted visual production.",
+      "zh-CN": "提供图库、矢量素材与 AI 视觉创作工具的创意平台。"
+    },
+    "category": "design-creative",
+    "subcategory": "image-video",
+    "tags": [
+      "stock assets",
+      "vectors",
+      "AI design"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-f2a4853ae640",
+    "slug": "iconfont-3ae640",
+    "name": {
+      "en": "Iconfont",
+      "zh-CN": "阿里巴巴 Iconfont 图标库"
+    },
+    "aliases": [],
+    "url": "https://www.iconfont.cn/",
+    "description": {
+      "en": "A large icon library for searching, collecting and using vector icons.",
+      "zh-CN": "用于搜索、收藏与使用矢量图标的大型图标库。"
+    },
+    "category": "design-creative",
+    "subcategory": "fonts-assets",
+    "tags": [
+      "icons",
+      "SVG",
+      "design assets"
+    ],
+    "resourceType": "service",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-fc994c6e1e36",
+    "slug": "font-awesome-6e1e36",
+    "name": {
+      "en": "Font Awesome",
+      "zh-CN": "Font Awesome 图标库"
+    },
+    "aliases": [],
+    "url": "https://fontawesome.com/",
+    "description": {
+      "en": "An icon and toolkit library for adding scalable icons to websites and apps.",
+      "zh-CN": "为网站与应用添加可缩放图标的图标库与工具集。"
+    },
+    "category": "design-creative",
+    "subcategory": "fonts-assets",
+    "tags": [
+      "icons",
+      "SVG",
+      "web design"
+    ],
+    "resourceType": "library",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-3622823b49dd",
+    "slug": "tinypng-3b49dd",
+    "name": {
+      "en": "TinyPNG",
+      "zh-CN": "TinyPNG 图片压缩"
+    },
+    "aliases": [],
+    "url": "https://tinypng.com/",
+    "description": {
+      "en": "A simple online tool for compressing PNG, JPEG and WebP images.",
+      "zh-CN": "用于压缩 PNG、JPEG 与 WebP 图片的在线工具。"
+    },
+    "category": "design-creative",
+    "subcategory": "image-video",
+    "tags": [
+      "image compression",
+      "optimization",
+      "WebP"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-cdf7c1dcdcad",
+    "slug": "adobe-express-dcdcad",
+    "name": {
+      "en": "Adobe Express",
+      "zh-CN": "Adobe Express 在线创作工具"
+    },
+    "aliases": [],
+    "url": "https://www.adobe.com/express/",
+    "description": {
+      "en": "A browser-based creative tool for designing graphics, social posts and simple videos.",
+      "zh-CN": "用于制作平面图形、社交媒体内容与简单视频的在线创作工具。"
+    },
+    "category": "design-creative",
+    "subcategory": "graphic-illustration",
+    "tags": [
+      "graphic design",
+      "social media",
+      "Adobe"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-ae2aab1e05b7",
+    "slug": "remove-bg-1e05b7",
+    "name": {
+      "en": "remove.bg",
+      "zh-CN": "remove.bg 在线抠图"
+    },
+    "aliases": [],
+    "url": "https://www.remove.bg/",
+    "description": {
+      "en": "An AI-powered tool for removing image backgrounds automatically.",
+      "zh-CN": "通过 AI 自动移除图片背景的在线工具。"
+    },
+    "category": "design-creative",
+    "subcategory": "image-video",
+    "tags": [
+      "background removal",
+      "AI image",
+      "editing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-812443701100",
+    "slug": "vivaldi-browser-701100",
+    "name": {
+      "en": "Vivaldi Browser",
+      "zh-CN": "Vivaldi 浏览器"
+    },
+    "aliases": [],
+    "url": "https://vivaldi.com/zh-hans/",
+    "description": {
+      "en": "A customizable web browser with built-in productivity and privacy features.",
+      "zh-CN": "兼顾个性化设置、效率功能与隐私保护的网页浏览器。"
+    },
+    "category": "productivity-utilities",
+    "subcategory": "browser-system",
+    "tags": [
+      "browser",
+      "productivity",
+      "privacy"
+    ],
+    "resourceType": "desktop-app",
+    "pricing": "free",
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Android",
+      "iOS"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-d66fe75a7f2c",
+    "slug": "homebrew-formulae-5a7f2c",
+    "name": {
+      "en": "Homebrew Formulae",
+      "zh-CN": "Homebrew 软件包目录"
+    },
+    "aliases": [],
+    "url": "https://formulae.brew.sh/",
+    "description": {
+      "en": "The searchable package catalogue for installing command-line tools with Homebrew.",
+      "zh-CN": "通过 Homebrew 安装命令行工具时使用的软件包检索目录。"
+    },
+    "category": "productivity-utilities",
+    "subcategory": "browser-system",
+    "tags": [
+      "macOS",
+      "package manager",
+      "CLI"
+    ],
+    "resourceType": "documentation",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-17691844e82f",
+    "slug": "processon-44e82f",
+    "name": {
+      "en": "ProcessOn",
+      "zh-CN": "ProcessOn 在线图表工具"
+    },
+    "aliases": [],
+    "url": "https://www.processon.com/diagrams",
+    "description": {
+      "en": "An online workspace for flowcharts, mind maps and collaborative diagrams.",
+      "zh-CN": "用于绘制流程图、思维导图与协作图表的在线工作空间。"
+    },
+    "category": "productivity-utilities",
+    "subcategory": "project-task-management",
+    "tags": [
+      "diagram",
+      "mind map",
+      "collaboration"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-d121d91fae98",
+    "slug": "deepl-translator-1fae98",
+    "name": {
+      "en": "DeepL Translator",
+      "zh-CN": "DeepL 翻译"
+    },
+    "aliases": [],
+    "url": "https://www.deepl.com/zh/translator",
+    "description": {
+      "en": "A translation service for text and documents across multiple languages.",
+      "zh-CN": "支持多种语言文本与文档翻译的在线翻译服务。"
+    },
+    "category": "productivity-utilities",
+    "subcategory": "browser-system",
+    "tags": [
+      "translation",
+      "language",
+      "writing"
+    ],
+    "resourceType": "web-app",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-c8efda7b82b0",
+    "slug": "google-translate-7b82b0",
+    "name": {
+      "en": "Google Translate",
+      "zh-CN": "Google 翻译"
+    },
+    "aliases": [],
+    "url": "https://translate.google.com/?hl=zh-cn&op=translate&sl=auto&tl=en",
+    "description": {
+      "en": "A multilingual translation service for text, documents and web pages.",
+      "zh-CN": "支持文本、文档与网页翻译的多语言翻译服务。"
+    },
+    "category": "productivity-utilities",
+    "subcategory": "browser-system",
+    "tags": [
+      "translation",
+      "language",
+      "Google"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-22b04bf711c2",
+    "slug": "wayback-machine-f711c2",
+    "name": {
+      "en": "Wayback Machine",
+      "zh-CN": "Wayback Machine 网页时光机"
+    },
+    "aliases": [],
+    "url": "https://web.archive.org/",
+    "description": {
+      "en": "Explore archived versions of websites and pages from the Internet Archive.",
+      "zh-CN": "查看 Internet Archive 保存的网站与网页历史版本。"
+    },
+    "category": "productivity-utilities",
+    "subcategory": "file-workflow",
+    "tags": [
+      "web archive",
+      "research",
+      "history"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-bcae99571439",
+    "slug": "duckduckgo-571439",
+    "name": {
+      "en": "DuckDuckGo",
+      "zh-CN": "DuckDuckGo 隐私搜索"
+    },
+    "aliases": [],
+    "url": "https://duckduckgo.com/",
+    "description": {
+      "en": "A search engine focused on private search and reduced personal tracking.",
+      "zh-CN": "注重搜索隐私并减少个人追踪的搜索引擎。"
+    },
+    "category": "productivity-utilities",
+    "subcategory": "browser-system",
+    "tags": [
+      "search",
+      "privacy"
+    ],
+    "resourceType": "web-app",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English",
+      "Chinese"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-b33c317a70e8",
+    "slug": "ipinfo-7a70e8",
+    "name": {
+      "en": "IPinfo",
+      "zh-CN": "IPinfo IP 数据查询"
+    },
+    "aliases": [],
+    "url": "https://ipinfo.io/",
+    "description": {
+      "en": "IP address intelligence for network diagnostics, geolocation and developer integrations.",
+      "zh-CN": "用于网络诊断、地理定位与开发集成的 IP 地址数据服务。"
+    },
+    "category": "productivity-utilities",
+    "subcategory": "browser-system",
+    "tags": [
+      "IP lookup",
+      "network",
+      "API"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "API"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-63f4c36cc2bc",
+    "slug": "iresearch-6cc2bc",
+    "name": {
+      "en": "iResearch",
+      "zh-CN": "艾瑞咨询"
+    },
+    "aliases": [],
+    "url": "https://www.iresearch.cn/",
+    "description": {
+      "en": "A Chinese research publisher covering digital industries, consumers and market trends.",
+      "zh-CN": "关注数字产业、消费者与市场趋势的中文研究机构。"
+    },
+    "category": "research-market-intelligence",
+    "subcategory": "data-reports",
+    "tags": [
+      "market research",
+      "industry reports",
+      "China"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-8a1c6501d1a5",
+    "slug": "trend-hunter-01d1a5",
+    "name": {
+      "en": "Trend Hunter",
+      "zh-CN": "Trend Hunter 趋势研究"
+    },
+    "aliases": [],
+    "url": "https://www.trendhunter.com/",
+    "description": {
+      "en": "A trend research platform tracking emerging products, consumer behavior and ideas.",
+      "zh-CN": "追踪新兴产品、消费者行为与创意趋势的研究平台。"
+    },
+    "category": "research-market-intelligence",
+    "subcategory": "trend-news",
+    "tags": [
+      "trends",
+      "consumer insights",
+      "innovation"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "English"
+    ],
+    "availability": "global",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-488c9c14a001",
+    "slug": "business-next-14a001",
+    "name": {
+      "en": "Business Next",
+      "zh-CN": "數位時代 Business Next"
+    },
+    "aliases": [],
+    "url": "https://www.bnext.com.tw/",
+    "description": {
+      "en": "A Taiwanese business and technology publication covering startups and digital transformation.",
+      "zh-CN": "关注新创企业、科技产业与数字转型的台湾商业媒体。"
+    },
+    "category": "research-market-intelligence",
+    "subcategory": "trend-news",
+    "tags": [
+      "technology",
+      "business",
+      "Taiwan"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-b90bcf8bf9be",
+    "slug": "commonwealth-magazine-8bf9be",
+    "name": {
+      "en": "CommonWealth Magazine",
+      "zh-CN": "天下雜誌"
+    },
+    "aliases": [],
+    "url": "https://www.cw.com.tw/",
+    "description": {
+      "en": "A business and society publication covering management, economics and industry change.",
+      "zh-CN": "关注管理、经济与产业变化的商业与社会类媒体。"
+    },
+    "category": "research-market-intelligence",
+    "subcategory": "trend-news",
+    "tags": [
+      "business",
+      "economy",
+      "Taiwan"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-04c3d5aa1a50",
+    "slug": "manager-today-aa1a50",
+    "name": {
+      "en": "Manager Today",
+      "zh-CN": "經理人"
+    },
+    "aliases": [],
+    "url": "https://www.managertoday.com.tw/",
+    "description": {
+      "en": "A publication focused on management practice, workplace trends and business leadership.",
+      "zh-CN": "关注管理实践、职场趋势与商业领导力的媒体。"
+    },
+    "category": "research-market-intelligence",
+    "subcategory": "trend-news",
+    "tags": [
+      "management",
+      "workplace",
+      "business"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-3b337194f237",
+    "slug": "elle-taiwan-94f237",
+    "name": {
+      "en": "ELLE Taiwan",
+      "zh-CN": "ELLE Taiwan"
+    },
+    "aliases": [],
+    "url": "https://www.elle.com/tw/",
+    "description": {
+      "en": "A fashion, beauty and lifestyle publication covering consumer interests and cultural trends.",
+      "zh-CN": "关注时尚、美妆与生活方式，可用于了解消费兴趣与文化趋势。"
+    },
+    "category": "research-market-intelligence",
+    "subcategory": "audience-insights",
+    "tags": [
+      "fashion",
+      "beauty",
+      "consumer trends"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-94d2cf3066d2",
+    "slug": "leetcode-3066d2",
+    "name": {
+      "en": "LeetCode",
+      "zh-CN": "力扣 LeetCode"
+    },
+    "aliases": [],
+    "url": "https://leetcode.cn/",
+    "description": {
+      "en": "A coding practice platform for algorithms, data structures and technical interviews.",
+      "zh-CN": "用于算法、数据结构与技术面试练习的编程平台。"
+    },
+    "category": "learning-knowledge",
+    "subcategory": "practice-exercises",
+    "tags": [
+      "coding practice",
+      "algorithms",
+      "interviews"
+    ],
+    "resourceType": "course",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese",
+      "English"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-39ce33f9e703",
+    "slug": "bilibili-f9e703",
+    "name": {
+      "en": "Bilibili",
+      "zh-CN": "哔哩哔哩"
+    },
+    "aliases": [],
+    "url": "https://www.bilibili.com/",
+    "description": {
+      "en": "A video platform with a broad library of technical tutorials and learning content.",
+      "zh-CN": "拥有大量技术教程与学习内容的视频平台。"
+    },
+    "category": "learning-knowledge",
+    "subcategory": "courses-tutorials",
+    "tags": [
+      "video learning",
+      "tutorials",
+      "community"
+    ],
+    "resourceType": "service",
+    "pricing": "freemium",
+    "platforms": [
+      "Web",
+      "iOS",
+      "Android"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-2a9bfe053e6e",
+    "slug": "runoob-053e6e",
+    "name": {
+      "en": "Runoob",
+      "zh-CN": "菜鸟教程"
+    },
+    "aliases": [],
+    "url": "https://www.runoob.com/",
+    "description": {
+      "en": "A Chinese tutorial library covering programming languages, web development and databases.",
+      "zh-CN": "涵盖编程语言、Web 开发与数据库知识的中文教程库。"
+    },
+    "category": "learning-knowledge",
+    "subcategory": "documentation-reference",
+    "tags": [
+      "programming",
+      "tutorials",
+      "reference"
+    ],
+    "resourceType": "course",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-dfe3589a2842",
+    "slug": "csdn-9a2842",
+    "name": {
+      "en": "CSDN",
+      "zh-CN": "CSDN 开发者社区"
+    },
+    "aliases": [],
+    "url": "https://www.csdn.net/",
+    "description": {
+      "en": "A Chinese developer community for technical articles, discussions and software resources.",
+      "zh-CN": "提供技术文章、讨论与软件资源的中文开发者社区。"
+    },
+    "category": "learning-knowledge",
+    "subcategory": "communities",
+    "tags": [
+      "developer community",
+      "articles",
+      "programming"
+    ],
+    "resourceType": "community",
+    "pricing": "freemium",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-6593947df48d",
+    "slug": "hellogithub-7df48d",
+    "name": {
+      "en": "HelloGitHub",
+      "zh-CN": "HelloGitHub 开源项目推荐"
+    },
+    "aliases": [],
+    "url": "https://hellogithub.com/",
+    "description": {
+      "en": "A curated community that introduces interesting open-source projects and practical tools.",
+      "zh-CN": "介绍有趣开源项目与实用工具的精选社区。"
+    },
+    "category": "learning-knowledge",
+    "subcategory": "communities",
+    "tags": [
+      "open source",
+      "GitHub",
+      "community"
+    ],
+    "resourceType": "community",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  },
+  {
+    "id": "res-100c77c17d3e",
+    "slug": "oschina-projects-c17d3e",
+    "name": {
+      "en": "OSCHINA Projects",
+      "zh-CN": "开源中国项目库"
+    },
+    "aliases": [],
+    "url": "https://www.oschina.net/project",
+    "description": {
+      "en": "A Chinese open-source community and directory for discovering software projects.",
+      "zh-CN": "发现软件项目与开源工具的中文开源社区及项目库。"
+    },
+    "category": "learning-knowledge",
+    "subcategory": "communities",
+    "tags": [
+      "open source",
+      "software",
+      "community"
+    ],
+    "resourceType": "community",
+    "pricing": "free",
+    "platforms": [
+      "Web"
+    ],
+    "interfaceLanguages": [
+      "Chinese"
+    ],
+    "availability": "region-limited",
+    "featured": false,
+    "status": "published",
+    "createdAt": "2026-11-09T07:42:01.529Z",
+    "updatedAt": "2026-11-09T07:42:01.529Z",
+    "verifiedAt": "2026-11-09T07:42:01.529Z"
+  }
+]
