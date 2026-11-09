@@ -510,3 +510,10 @@
   }
   .resources-search-wrap,.resources-filter-panel,.resources-search-panel { border: 1px solid CanvasText; }
 }
+
+/* Paint resource cards only as they approach the viewport. Keep every
+   crawlable link and all resource data in the static HTML. */
+.resources-results-grid > .resource-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
