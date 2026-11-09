@@ -50,13 +50,21 @@ test('shared GlassSurface preserves live site card/header geometry and optics',a
    await Promise.all([live.evaluate(()=>document.fonts.ready),page.evaluate(()=>document.fonts.ready)]);
    await Promise.all([live.waitForTimeout(120),page.waitForTimeout(120)]);
    const old=await attrs(live,c.items),cur=await attrs(page,c.items);
+   // A visible breadcrumb is an intentional new block above the category
+   // content. Preserve the cards' geometry relative to that new block.
+   const breadcrumbOffset=await page.evaluate(()=>{
+     const el=document.querySelector<HTMLElement>('.seo-breadcrumbs');
+     return el ? Math.round(el.getBoundingClientRect().height+parseFloat(getComputedStyle(el).marginTop)) : 0;
+   });
    for(const selector of c.items){
      const reference=(old as any)[selector],after=(cur as any)[selector];
      if(reference.missing||after.missing){errors.push(c.url+': missing '+selector);continue}
      if(reference.tag!==after.tag||!after.layers)errors.push(c.url+': tag/optical layer mismatch '+selector);
      for(const dim of ['top','left','width','height']){
-      if(Math.abs(reference[dim]-after[dim])>5)
-       errors.push(c.url+': layout drift '+selector+' '+dim+' old='+reference[dim]+' new='+after[dim]);
+      const expected=reference[dim]+
+       (dim==='top'&&selector==='.site-section-card'?breadcrumbOffset:0);
+      if(Math.abs(expected-after[dim])>5)
+       errors.push(c.url+': layout drift '+selector+' '+dim+' expected='+expected+' new='+after[dim]);
      }
      for(const property of ['radius','background','filter','reflection','highlight']){
       if(reference[property]!==after[property])
