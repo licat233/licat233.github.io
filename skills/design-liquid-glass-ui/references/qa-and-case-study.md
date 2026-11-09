@@ -61,7 +61,7 @@ evidence. Browser automation does not certify Safari or universal performance.
 ## EAO Homepage — documented lessons (October 2026)
 
 Context: bilingual static Enterprise AI Office homepage
-(https://licat233.github.io/eao/ and /eao/zh/),
+(https://licat.xyz/eao/ and /eao/zh/),
 Open Props / rem-based CSS and existing animations, five department cards,
 illustrations and a product UI screenshot. Review the current repository for
 facts; these historical details are examples, not instructions to reset HEAD.
