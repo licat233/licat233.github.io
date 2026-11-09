@@ -256,7 +256,7 @@ test('old shared query URLs and old ID aliases reach the permanent prompt page',
  await page.goto('/en/prompts/?p=ai-coding-minimal-defensive-v1');
  await expect(page).toHaveURL(/\/en\/prompts\/ai-coding-minimal-defensive-v1\/$/);
  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
-  'href','https://licat233.github.io/en/prompts/ai-coding-minimal-defensive-v1/');
+  'href','https://licat.xyz/en/prompts/ai-coding-minimal-defensive-v1/');
  await expect(page.locator('#prompt-article')).toContainText('Avoid repeated validation');
  await page.goto('/prompts/?p=ai-natural-communication-v1.3');
  await expect(page).toHaveURL(/\/prompts\/ai-natural-communication-v1\.3\.4\/$/);
@@ -273,9 +273,9 @@ test('prompt detail URLs contain real static HTML, SEO metadata and working copy
  const route='/en/prompts/ai-coding-minimal-defensive-v1/';
  const response=await page.goto(route);
  expect(response?.status()).toBe(200);
- await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href','https://licat233.github.io'+route);
- await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href','https://licat233.github.io/prompts/ai-coding-minimal-defensive-v1/');
- await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href','https://licat233.github.io'+route);
+ await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href','https://licat.xyz'+route);
+ await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href','https://licat.xyz/prompts/ai-coding-minimal-defensive-v1/');
+ await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href','https://licat.xyz'+route);
  await expect(page.locator('#detail-view')).toBeVisible();
  await expect(page.locator('#prompt-article h2').first()).toBeVisible();
  await expect(page.locator('#prompt-article')).toContainText('Avoid repeated validation');
