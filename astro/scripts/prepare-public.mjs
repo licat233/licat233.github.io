@@ -12,7 +12,7 @@ await mkdir(publicDir,{recursive:true});
 // URL paths remain unchanged (e.g. public-sites/eao/ -> /eao/).
 const publicSites=['eao','toolscout','ai-writing-audit','armor-memory',
  'disable-macos-auto-updates','greenram','opencore-h81',
- 'lottery-calculate','armor','demo','previews'];
+ 'lottery-calculate','demo','previews'];
 const sections=['assets','prompts','en/prompts/content','skills'];
 for(const dir of [...sections,...publicSites]){
  const dest=path.join(publicDir,dir);
