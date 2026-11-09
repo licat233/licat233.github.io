@@ -22,6 +22,7 @@ for(const dir of [...sections,...publicSites]){
 }
 // Only retained assets and independently published project pages are copied.
 await cp(path.join(root,'favicon.ico'),path.join(publicDir,'favicon.ico'));
+await cp(path.join(root,'llms.txt'),path.join(publicDir,'llms.txt'));
 // The Astro-owned JS is a pure interaction controller; SSR and client both read
 // the same single prompt catalogue from the Astro page (not legacy JS literals).
 await cp(path.join(root,'astro/src/client/prompt-library.js'),

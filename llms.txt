@@ -1,0 +1,29 @@
+# Licat
+
+> Licat's personal website: practical AI systems, developer tools, automation, reusable Agent Skills, curated digital resources, and hands-on SEO/GEO articles. Chinese is the default language; English pages use /en/.
+
+## Main sections
+
+- [Home (中文)](https://licat.xyz/): Licat's projects, development background, and practical work.
+- [Home (English)](https://licat.xyz/en/): English-language personal homepage.
+- [Projects](https://licat.xyz/projects/): Public software and systems projects.
+- [AI Tools](https://licat.xyz/ai/): Agent Skills, prompts and AI-related projects.
+- [Agent Skills](https://licat.xyz/skills/): Reusable instructions with linked source files.
+- [Prompt Library](https://licat.xyz/prompts/): Practical prompts with dedicated pages and copyable content.
+- [Resources](https://licat.xyz/resources/): Curated public digital resources across AI, development, design and other topics.
+- [Blog](https://licat.xyz/blog/): Chinese tutorials and technical writing.
+- [Blog (English)](https://licat.xyz/en/blog/): English-language tutorials.
+
+## SEO/GEO and analytics guides
+
+- [Website SEO/GEO Basics](https://licat.xyz/blog/website-seo-geo-basics/): Chinese guide to discoverability, indexing, URLs, content quality, structured data and AI search.
+- [Advanced SEO/GEO Guide](https://licat.xyz/blog/advanced-seo-geo-guide/): Chinese guide to useful B2B content and decision support.
+- [SEO Keyword Research Guide](https://licat.xyz/blog/seo-keyword-research-guide/): Chinese guide to search intent, keyword clusters and page ownership.
+- [SEO Keyword Research Guide (English)](https://licat.xyz/en/blog/seo-keyword-research-guide/): English version.
+- [GA4 Lead Tracking with GTM](https://licat.xyz/blog/ga4-gtm-lead-tracking/): Chinese inquiry conversion tracking tutorial.
+- [GA4 Lead Tracking with GTM (English)](https://licat.xyz/en/blog/ga4-gtm-lead-tracking/): English version.
+
+## Source and discovery
+
+- [GitHub](https://github.com/licat233): Public code repositories and project source.
+- [Sitemap](https://licat.xyz/sitemap.xml): Canonical public pages and available localized URLs.
