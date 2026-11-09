@@ -124,7 +124,44 @@ function addAnalytics(html) {
             .replace(/<body\b[^>]*>/i, match => match + '\n' + analyticsBody);
 }
 
-const microsites=['eao','toolscout','ai-writing-audit','armor-memory','disable-macos-auto-updates','greenram','opencore-h81'];
+
+// Social previews are independent from search indexing, but complete
+// Open Graph and Twitter cards make shared links useful. Use the same
+// existing Licat image as a stable fallback; don't manufacture project imagery.
+const defaultSocialImage = 'https://licat.xyz/assets/licat-social.jpg';
+function addSocialPreview(html) {
+ const canonical = /<link\b[^>]*rel=['"]canonical['"][^>]*href=['"]([^'"]+)['"]/i.exec(html)?.[1];
+ if (!canonical || !canonical.startsWith('https://licat.xyz/')) return html;
+ if (!/<\/head>/i.test(html)) throw new Error('Canonical project missing head close');
+ const title = /<title[^>]*>([^<]+)<\/title>/i.exec(html)?.[1]?.trim();
+ const description = /<meta\b[^>]*name=['"]description['"][^>]*content=['"]([^'"]+)['"]/i.exec(html)?.[1]?.trim();
+ if (!title || !description) throw new Error('Project social preview needs a title and description: '+canonical);
+ const escapedTitle = title.replaceAll('"', '&quot;');
+ const escapedDescription = description.replaceAll('"', '&quot;');
+ const hasProperty = name => new RegExp('<meta\\b[^>]*property=["\\x27]'+name+'["\\x27]', 'i').test(html);
+ const hasName = name => new RegExp('<meta\\b[^>]*name=["\\x27]'+name+'["\\x27]', 'i').test(html);
+ const additions = [];
+ const addProperty = (name, value) => {
+   if (!hasProperty(name)) additions.push('<meta property="'+name+'" content="'+value+'">');
+ };
+ const addName = (name, value) => {
+   if (!hasName(name)) additions.push('<meta name="'+name+'" content="'+value+'">');
+ };
+ addProperty('og:type', 'website');
+ addProperty('og:site_name', 'Licat');
+ addProperty('og:title', escapedTitle);
+ addProperty('og:description', escapedDescription);
+ addProperty('og:url', canonical);
+ addProperty('og:image', defaultSocialImage);
+ addProperty('og:image:type', 'image/jpeg');
+ addProperty('og:image:width', '1200');
+ addProperty('og:image:height', '630');
+ addProperty('og:image:alt', 'Licat: a cat overlooking a mountain lake');
+ addName('twitter:card', 'summary_large_image');
+ addName('twitter:image', defaultSocialImage);
+ return html.replace(/<\/head>/i, additions.join('\n')+'\n</head>');
+}
+const microsites=['eao','toolscout','ai-writing-audit','armor-memory','disable-macos-auto-updates','greenram','opencore-h81','lottery-calculate'];
 for(const dir of microsites){
  const pending=[path.join(publicDir,dir)];
  while(pending.length){
@@ -142,6 +179,7 @@ for(const dir of microsites){
    if(['index.html','zh/index.html','en/index.html'].includes(landing) &&
       !/<meta\b[^>]*name=['\"]robots['\"][^>]*content=['\"][^'\"]*noindex/i.test(html)) {
      html=addAnalytics(html);
+     html=addSocialPreview(html);
    }
    await writeFile(p,html);
   }

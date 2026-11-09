@@ -37,6 +37,19 @@ for (const url of urls) {
   const description = tags(head, 'meta').find(tag => attrs(tag).name === 'description');
   ensure(Boolean(description && attrs(description).content?.trim()),
     'missing meta description: ' + url);
+  const ogImages = tags(head, 'meta').filter(tag => attrs(tag).property === 'og:image');
+  const twitterImages = tags(head, 'meta').filter(tag => attrs(tag).name === 'twitter:image');
+  const twitterCards = tags(head, 'meta').filter(tag => attrs(tag).name === 'twitter:card');
+  const expectedImage = origin + '/assets/licat-social.jpg';
+  ensure(ogImages.length === 1 && attrs(ogImages[0]).content === expectedImage,
+    'missing/duplicate/wrong Open Graph image: ' + url);
+  ensure(twitterImages.length === 1 && attrs(twitterImages[0]).content === expectedImage,
+    'missing/duplicate/wrong Twitter preview image: ' + url);
+  ensure(twitterCards.length === 1 && attrs(twitterCards[0]).content === 'summary_large_image',
+    'missing/wrong Twitter card type: ' + url);
+  const ogTitles = tags(head, 'meta').filter(tag => attrs(tag).property === 'og:title');
+  ensure(ogTitles.length === 1 && Boolean(attrs(ogTitles[0]).content),
+    'Open Graph title is missing: ' + url);
   const canonicals = tags(head, 'link').filter(tag => attrs(tag).rel === 'canonical');
   ensure(canonicals.length === 1 && attrs(canonicals[0]).href === url,
     'canonical mismatch/duplicate: ' + url);
@@ -97,8 +110,11 @@ ensure(articleUrls.length === bundleUrls.length &&
   'llms-full.txt must match only the published blog URLs');
 const llms = await text('llms.txt');
 ensure(llms.includes('https://licat.xyz/llms-full.txt'), 'llms.txt full bundle link missing');
+const socialJpeg = await readFile(path.join(dist, 'assets/licat-social.jpg'));
+ensure(socialJpeg.length > 10000 && socialJpeg[0] === 0xFF && socialJpeg[1] === 0xD8,
+  'Social image is missing or not a valid JPEG');
 console.log('SEO_SITEWIDE_AUDIT_PASS ' + JSON.stringify({
-  pages: urls.length, canonical: urls.length, oneH1: urls.length,
+  pages: urls.length, canonical: urls.length, oneH1: urls.length, socialCards: urls.length,
   visibleBreadcrumbs: urls.length - 2, jsonLdScripts: structuredCount,
   imageAlts: imageCount, localLinks: linkCount, orphanPages: 0,
   publishedMarkdownArticles: bundleUrls.length,
