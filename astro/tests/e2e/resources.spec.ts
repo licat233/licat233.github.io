@@ -209,3 +209,19 @@ test('homepage keeps its existing section anchors and exposes the shared Resourc
     await expect(footer.locator('.footer-links a[href="' + route.prompts + '"]')).toBeVisible();
   }
 });
+
+test('offscreen directory cards keep crawlable HTML and render when scrolled into view', async ({ page }) => {
+  await page.goto('/resources/');
+  await page.waitForFunction(() => document.documentElement.dataset.resourcesReady === 'true');
+  const cards = page.locator('#resource-results [data-resource-card]');
+  await expect(cards).toHaveCount(114);
+  const last = cards.last();
+  await expect(last).toHaveCSS('content-visibility', 'auto');
+  const href = await last.locator('.resource-card__visit').getAttribute('href');
+  expect(href).toMatch(/^https:\/\//);
+  await last.scrollIntoViewIfNeeded();
+  await expect(last.locator('.resource-card__visit')).toBeVisible();
+  await page.locator('#resource-search').fill('Claude');
+  await page.locator('#resource-search').press('Enter');
+  await expect(page).toHaveURL(/\/resources\/$/);
+});
