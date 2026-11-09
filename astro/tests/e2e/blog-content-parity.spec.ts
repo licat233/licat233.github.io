@@ -35,7 +35,8 @@ test('Blog canonical metadata and unchanged article content survive Astro migrat
      const lengthRatio=cA.length/Math.max(1,cJ.length);
      const titleSame=j.title===a.title;
      const headingsSame=JSON.stringify(j.headings)===JSON.stringify(a.headings);
-     const canonicalSame=j.canon===a.canon;
+     // The candidate intentionally changes its canonical host during this migration.
+     const canonicalCorrect = a.canon === 'https://licat.xyz' + route;
      // This article has intentionally gained new editorial sections since the
      // currently published version. Its metadata must remain stable, and the
      // candidate must contain the new section; unchanged articles still need
@@ -47,10 +48,11 @@ test('Blog canonical metadata and unchanged article content survive Astro migrat
      const contentError=revisedGuide
        ? !hasNewGuideContent
        : (!headingsSame||lengthRatio<.96||lengthRatio>1.04);
-     const error=(!titleSame||!canonicalSame||contentError);
+     const error=(!titleSame||!canonicalCorrect||contentError);
      reports.push({route,
        jekyllChars:cJ.length,astroChars:cA.length,
-       lengthRatio:Number(lengthRatio.toFixed(4)),titleSame,headingsSame,canonicalSame,
+       lengthRatio:Number(lengthRatio.toFixed(4)),titleSame,headingsSame,
+       liveCanonical:j.canon,astroCanonical:a.canon,canonicalCorrect,
        jekyllHeadings:j.headings,astroHeadings:a.headings,jekyllAlternates:j.alts,astroAlternates:a.alts});
      if(error)failures.push(route);
    }
@@ -60,6 +62,6 @@ test('Blog canonical metadata and unchanged article content survive Astro migrat
    await writeFile(path.join(folder,'seo-text.json'),JSON.stringify(reports,null,2));
    await live.close();
  }
- console.log('ASTRO_BLOG_TEXT_PARITY',JSON.stringify(reports.map(({route,lengthRatio,titleSame,headingsSame,canonicalSame})=>({route,lengthRatio,titleSame,headingsSame,canonicalSame}))));
+ console.log('ASTRO_BLOG_TEXT_PARITY',JSON.stringify(reports.map(({route,lengthRatio,titleSame,headingsSame,canonicalCorrect})=>({route,lengthRatio,titleSame,headingsSame,canonicalCorrect}))));
  expect(failures,'Markdown content SEO parity errors; see content-parity artifact').toEqual([]);
 });
