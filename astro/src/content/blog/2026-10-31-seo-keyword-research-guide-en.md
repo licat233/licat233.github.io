@@ -199,6 +199,8 @@ At the page level, verify the actual URL, HTML title/H1, canonical, main content
 
 At the outcome level, use GSC queries and page-level impressions/clicks/CTR/position, GA4 organic landing sessions and real conversion events, plus CRM or human lead qualification if needed. Account for attribution differences, observation windows, seasonality, market differences, and data-provider methodologies.
 
+For a practical implementation of successful inquiry conversion measurement, see [GA4 Lead Conversion Tracking with GTM](/en/blog/ga4-gtm-lead-tracking/).
+
 When translating page ownership into a real procurement journey, inspect three links in sequence: **business entry point → relevant product family/solution → evidence-backed model or technical resource → correct inquiry path**. Check that links work, match the surrounding context, and lead to the right business. Do not add links merely to meet a fixed count.
 
 Page implementation, code merge, production deployment, search-engine crawling, and business outcomes are separate acceptance stages. A passing PR or CI run does not prove that the production page has been checked; a working production page does not prove indexing or qualified inquiries.
