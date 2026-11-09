@@ -62,6 +62,30 @@ test.describe('Resources directory', () => {
     });
   }
 
+  test('pressing Enter in the search field does not open the first matching resource', async ({ page }) => {
+    await page.goto('/resources/');
+    await page.waitForFunction(() => document.documentElement.dataset.resourcesReady === 'true');
+
+    const catalogue = JSON.parse((await page.locator('#resource-catalogue').textContent()) || '[]');
+    const claude = catalogue.find((item: { name?: { en?: string } }) => item.name?.en === 'Claude');
+    expect(claude).toBeTruthy();
+
+    const search = page.locator('#resource-search');
+    const claudeCard = page.locator('#resource-results [data-resource-card="' + claude.id + '"]');
+    await search.fill('Claude');
+    await expect(claudeCard).toBeVisible();
+    await expect(page.locator('#resource-results [data-resource-card]:visible').first())
+      .toHaveAttribute('data-resource-card', claude.id);
+    await expect(claudeCard.locator('.resource-card__visit')).toHaveAttribute('href', 'https://claude.ai/');
+
+    const popupPromise = page.waitForEvent('popup', { timeout: 500 }).catch(() => null);
+    await search.press('Enter');
+    expect(await popupPromise).toBeNull();
+    await expect(search).toBeFocused();
+    await expect(claudeCard).toBeVisible();
+    await expect(page).toHaveURL(/\/resources\/$/);
+  });
+
   test('category filters, local favorites and import/export work without an account', async ({ page }) => {
     await page.goto('/resources/');
     await page.waitForFunction(() => document.documentElement.dataset.resourcesReady === 'true');

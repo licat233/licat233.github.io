@@ -275,11 +275,8 @@
       event.preventDefault();
       focusResult(event.key === 'ArrowDown' ? 1 : -1);
     } else if (event.key === 'Enter') {
-      const link = visibleCards()[0]?.querySelector('.resource-card__visit');
-      if (link) {
-        event.preventDefault();
-        link.click();
-      }
+      // Confirm the query without navigating; opening a resource requires explicit activation.
+      event.preventDefault();
     } else if (event.key === 'Escape') {
       if (search.value || categorySelect.value || tagSelect.value || pricingSelect.value || platformSelect.value) {
         event.preventDefault();
