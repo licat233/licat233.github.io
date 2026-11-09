@@ -58,3 +58,32 @@ test('desktop and mobile keyboard access to global nav works',async ({page})=>{
  await page.keyboard.press('Enter');
  await expect(page).toHaveURL(/\/prompts\/$/);
 });
+
+// Motion initialization must not compete with the initial desktop render.
+// Hero animation stays active; below-the-fold timelines initialize on demand.
+test('desktop defers below-fold motion while preserving project and journey animation',async ({page})=>{
+ test.setTimeout(80000);
+ await page.setViewportSize({width:1350,height:940});
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ const errors:string[]=[];
+ const onError=(e:Error)=>errors.push(e.message);
+ page.on('pageerror',onError);
+ await page.goto('/',{waitUntil:'load',timeout:30000});
+ await expect.poll(()=>page.evaluate(()=>Boolean((window as any).gsap)),
+   {timeout:18000}).toBe(true);
+ expect(await page.evaluate(()=>Boolean((window as any).__licatScrollScenesReady))).toBe(false);
+ expect(await page.evaluate(()=>Boolean((window as any).__gsapJourneyV2))).toBe(false);
+ await page.evaluate(()=>window.scrollTo({top:450,behavior:'instant'}));
+ await expect.poll(()=>page.evaluate(()=>Boolean((window as any).__licatScrollScenesReady)),
+   {timeout:15000}).toBe(true);
+ await expect(page.locator('#projects .project').first()).toBeAttached();
+ await page.evaluate(()=>document.querySelector('#journey')?.scrollIntoView({behavior:'instant'}));
+ await expect.poll(()=>page.evaluate(()=>Boolean((window as any).__gsapJourneyV2)),
+   {timeout:15000}).toBe(true);
+ await expect(page.locator('#stage-frame')).toBeVisible();
+ await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+ await expect.poll(()=>page.evaluate(()=>window.scrollY),{timeout:10000}).toBeLessThan(80);
+ await expect(page.locator('.site-header')).toBeVisible();
+ expect(errors).toEqual([]);
+ page.off('pageerror',onError);
+});

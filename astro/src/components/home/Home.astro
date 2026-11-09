@@ -365,8 +365,24 @@ const projectHref = (name: string) => {
         await load(cdn+'gsap.min.js');
         await Promise.all(['ScrollTrigger.min.js','SplitText.min.js','MorphSVGPlugin.min.js',
           'DrawSVGPlugin.min.js','MotionPathPlugin.min.js'].map(file=>load(cdn+file)));
-        await load('/assets/portfolio-motion.js?v=20261109-seo1');
-        await load('/assets/portfolio-journey-v2.js?v=20261109-seo1');
+        await load('/assets/portfolio-motion.js?v=20261110-seo2');
+        // The SVG Journey animation is not on the first screen. Download
+        // and initialize it only when the viewer approaches that section.
+        const journey = document.querySelector('#journey');
+        const initializeJourney = () =>
+          load('/assets/portfolio-journey-v2.js?v=20261110-seo2').catch(error => {
+            console.warn('Journey animation unavailable; static artwork remains.', error);
+          });
+        if (journey && 'IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(entries => {
+            if (!entries.some(entry => entry.isIntersecting)) return;
+            observer.disconnect();
+            initializeJourney();
+          }, { rootMargin: '800px 0px', threshold: 0 });
+          observer.observe(journey);
+        } else {
+          initializeJourney();
+        }
       })().catch(error => {
         document.documentElement.classList.add('static-story');
         console.warn('Optional motion unavailable; static page remains usable.',error);
