@@ -6,10 +6,12 @@
   "scripts": {
     "prebuild": "node scripts/prepare-public.mjs",
     "build": "astro build",
+    "postbuild": "node scripts/generate-sitemap.mjs",
     "dev": "astro dev",
     "preview": "astro preview",
     "check": "node scripts/check-output.mjs",
     "test:e2e": "playwright test",
+    "resources:import": "node scripts/import-bookmarks.mjs",
     "predev": "node scripts/prepare-public.mjs"
   },
   "engines": {

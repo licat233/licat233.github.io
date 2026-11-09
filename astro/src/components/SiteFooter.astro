@@ -1,0 +1,28 @@
+---
+import GlassSurface from './GlassSurface.astro';
+import { dictionary } from '../lib/translation';
+import { localeUrl, type Lang } from '../lib/site';
+
+interface Props { lang: Lang; homeAnchors?: boolean }
+const { lang, homeAnchors = false } = Astro.props;
+const t = dictionary(lang).home;
+const labels = dictionary(lang).navigation;
+const projectsHref = homeAnchors ? '#projects' : localeUrl(lang, 'projects');
+const skillsHref = homeAnchors ? '#skills' : localeUrl(lang, 'skills');
+---
+<GlassSurface as="footer" class="site-footer" material="ultra-thin">
+  <div class="shell footer-row">
+    <div class="footer-brand">
+      <img src="/assets/licat-logo.svg" alt="" />
+      <div><strong>LICAT</strong><small>{t.motto}</small></div>
+    </div>
+    <nav class="footer-links" aria-label={lang === 'en' ? 'Footer navigation' : '页脚导航'}>
+      <a href="https://github.com/licat233" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href={projectsHref}>{t.footerProjects}</a>
+      <a href={skillsHref}>{labels.skills}</a>
+      <a href={localeUrl(lang, 'resources')}>{labels.resources}</a>
+      <a href={localeUrl(lang, 'prompts')}>{t.footerPrompts}</a>
+    </nav>
+    <div class="footer-note">{t.footerNote}</div>
+  </div>
+</GlassSurface>

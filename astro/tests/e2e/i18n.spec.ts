@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const paths = ['', 'projects/', 'ai/', 'skills/', 'blog/', 'prompts/'];
+const paths = ['', 'projects/', 'ai/', 'skills/', 'blog/', 'resources/', 'prompts/'];
 
 for (const suffix of paths) {
   test('Astro i18n URLs, nav and alternates: '+(suffix||'home'), async ({ page }) => {

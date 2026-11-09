@@ -893,7 +893,7 @@ html[lang="zh-CN"] .hero-title {
 .footer-brand img { width: 2.75rem; height: 2.75rem; object-fit: contain; }
 .footer-brand strong { display:block; font-size:.75rem; letter-spacing:.06em; }
 .footer-brand small { display:block; margin-top:var(--space-1); color:var(--muted); font-size:.6875rem; }
-.footer-links { display:flex; gap:var(--space-4); color:var(--text-2); font-size:.75rem; }
+.footer-links { display:flex; flex-wrap:wrap; gap:var(--space-4); color:var(--text-2); font-size:.75rem; }
 .footer-note { justify-self:end; max-width:17.5rem; color:var(--muted); text-align:right; font-size:.75rem; }
 
 /* Dark material */

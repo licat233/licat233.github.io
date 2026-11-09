@@ -13,7 +13,7 @@ const discoveredSkillCountPromise=(async ()=>{
 
 test('global navigation nests Skills and Prompts under AI', async ({page}) => {
  await page.goto('/');
- await expect(page.locator('.site-header .nav-pill')).toHaveCount(4);
+ await expect(page.locator('.site-header .nav-pill')).toHaveCount(5);
  await expect(page.locator('#journey')).toBeAttached();
  await expect(page.locator('.home-section-nav a[href="#journey"]')).toBeVisible();
  const trigger=page.locator('.site-header .nav-submenu-trigger');
@@ -31,6 +31,9 @@ test('global navigation nests Skills and Prompts under AI', async ({page}) => {
  await page.locator('.site-header .nav-pill[href="/en/blog/"]').click();
  await expect(page).toHaveURL(/\/en\/blog\/$/);
  await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href','/en/blog/');
+ await page.locator('.site-header .nav-pill[href="/en/resources/"]').click();
+ await expect(page).toHaveURL(/resources/);
+ await expect(page.locator('.site-header .nav-pill.active')).toHaveAttribute('href','/en/resources/');
 });
 
 test('AI active Liquid Glass pill includes the chevron in both locales and themes',async ({page})=>{

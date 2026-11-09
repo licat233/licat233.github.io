@@ -16,7 +16,7 @@ Usage:
 ### Contracts
 - `as` chooses the semantic HTML element: `div` (default), `a`, `article`, `header`, `footer`, `button`.
 - `material` selects existing background/edge tokens: `bare` (default, only `liquid-demo` for custom contexts), `regular`, `ultra-thin`, `thick`.
-- `class` preserves the existing context's unique CSS selector, e.g. `project`, `skill-card`, `site-section-card`, `hero-cta`, `phase-glass`, `principle`, `site-footer`.
+- `class` preserves the existing context's unique CSS selector, e.g. `project`, `skill-card`, `site-section-card`, `resource-card`, `resource-category-card`, `hero-cta`, `phase-glass`, `principle`, `site-footer`.
 - `href`, `id`, `type`, `aria-*`, and other element attributes pass through. Children render inside the container, after decorative layers.
 - Glass visuals remain in original `assets/portfolio-liquid-glass.css` and page-level context CSS. The wrapper is the source of HTML structure, not a duplicated design system.
 - **Don't manually add `liquid-demo`, `apple-glass-*`, or `.lg-glass-*` spans** inside Astro pages; use `GlassSurface`.

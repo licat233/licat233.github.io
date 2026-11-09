@@ -1,0 +1,163 @@
+[
+  {
+    "slug": "ai-workbench",
+    "name": {
+      "en": "AI Workbench",
+      "zh-CN": "AI 工作台"
+    },
+    "description": {
+      "en": "A practical starting set for AI research, model exploration and everyday assistant workflows.",
+      "zh-CN": "从 AI 助手、模型体验到日常研究工作流，快速找到常用入口。"
+    },
+    "resourceIds": [
+      "res-5b9104641783",
+      "res-ba699d2c1dc3",
+      "res-8144531927cc",
+      "res-a6ccc5087842",
+      "res-e7031039a5db",
+      "res-f59a45f243f9",
+      "res-c18521f0ea38",
+      "res-58ff3562d5e4"
+    ]
+  },
+  {
+    "slug": "agents-and-automation",
+    "name": {
+      "en": "Agents & Automation",
+      "zh-CN": "智能体与自动化"
+    },
+    "description": {
+      "en": "Tools for building agents, connecting services and running AI workflows.",
+      "zh-CN": "用于构建智能体、连接服务并运行 AI 工作流的工具。"
+    },
+    "resourceIds": [
+      "res-88785a12ea72",
+      "res-68e52a1b258c",
+      "res-34c58b5909e1",
+      "res-b39b11ba05b7",
+      "res-a2cb8840a156",
+      "res-a961a58c8c95",
+      "res-019f12519365",
+      "res-7b452dab37d1"
+    ]
+  },
+  {
+    "slug": "modern-web-development",
+    "name": {
+      "en": "Modern Web Development",
+      "zh-CN": "现代 Web 开发"
+    },
+    "description": {
+      "en": "Core documentation, frameworks and utilities for designing, building and shipping web products.",
+      "zh-CN": "覆盖 Web 标准、前端框架、开发工具与工程交付的常用资源。"
+    },
+    "resourceIds": [
+      "res-057c1eee543c",
+      "res-cff7ac23e67e",
+      "res-0857e8e738db",
+      "res-fe7b5597177b",
+      "res-a5612b5babf2",
+      "res-04c308572dcc",
+      "res-1d1a26b30947",
+      "res-144b6fe335b0",
+      "res-69c760422453",
+      "res-aef268f6aee3",
+      "res-028ee2990019",
+      "res-589efac3a7c4",
+      "res-4cdbe37d119c",
+      "res-1d5d1f812f5e"
+    ]
+  },
+  {
+    "slug": "seo-and-performance",
+    "name": {
+      "en": "SEO & Website Performance",
+      "zh-CN": "SEO 与网站性能"
+    },
+    "description": {
+      "en": "Search visibility, keyword research, indexing and performance measurement in one shortlist.",
+      "zh-CN": "将搜索可见度、关键词研究、收录管理与网站性能检测集中在一份清单中。"
+    },
+    "resourceIds": [
+      "res-c26223579b6d",
+      "res-e2c1bbec367c",
+      "res-2cb27ef48ed3",
+      "res-2860de813fab",
+      "res-9b91520e9014",
+      "res-d10ff0dd4898",
+      "res-be8a5f7d2a57",
+      "res-193235c17fdb",
+      "res-724ed775a233",
+      "res-7e495c8a2e18"
+    ]
+  },
+  {
+    "slug": "visual-design-and-assets",
+    "name": {
+      "en": "Visual Design & Creative Assets",
+      "zh-CN": "视觉设计与创意素材"
+    },
+    "description": {
+      "en": "Website inspiration, interface design, stock media and practical creative utilities.",
+      "zh-CN": "从网站灵感、界面设计到图库素材与创作工具，覆盖常见视觉工作流程。"
+    },
+    "resourceIds": [
+      "res-60eab98b3182",
+      "res-7ef978004408",
+      "res-684625762e80",
+      "res-3d9d45c776f1",
+      "res-e92e50819abb",
+      "res-df7db67a5300",
+      "res-bf616e6666e0",
+      "res-28e832c0db52",
+      "res-68e441e21e49",
+      "res-6a76bdaab6e2",
+      "res-d8ae4cd3970f",
+      "res-b1f408638b2d",
+      "res-f2a4853ae640",
+      "res-fc994c6e1e36",
+      "res-3622823b49dd"
+    ]
+  },
+  {
+    "slug": "b2b-commerce-research",
+    "name": {
+      "en": "B2B & Commerce Research",
+      "zh-CN": "B2B 与电商研究"
+    },
+    "description": {
+      "en": "Useful platforms for sourcing, ecommerce operations, product research and market intelligence.",
+      "zh-CN": "用于供应商采购、电商运营、产品调研与市场情报分析的平台。"
+    },
+    "resourceIds": [
+      "res-cfef552a92b3",
+      "res-861e1619d549",
+      "res-dd76584cbf2c",
+      "res-f959106de15f",
+      "res-213e868d3b2c",
+      "res-83adf325c0e2",
+      "res-8a1c6501d1a5"
+    ]
+  },
+  {
+    "slug": "learn-and-practice",
+    "name": {
+      "en": "Learn & Practice",
+      "zh-CN": "学习与实战练习"
+    },
+    "description": {
+      "en": "Practice coding, study technical topics and discover open-source projects through these learning communities.",
+      "zh-CN": "通过编程练习、技术教程与开源社区持续学习和积累实践经验。"
+    },
+    "resourceIds": [
+      "res-94d2cf3066d2",
+      "res-39ce33f9e703",
+      "res-2a9bfe053e6e",
+      "res-dfe3589a2842",
+      "res-6593947df48d",
+      "res-100c77c17d3e",
+      "res-589efac3a7c4",
+      "res-f0fa894cccd0"
+    ]
+  }
+]
