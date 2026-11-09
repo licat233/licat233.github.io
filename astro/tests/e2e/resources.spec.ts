@@ -214,7 +214,8 @@ test('offscreen directory cards keep crawlable HTML and render when scrolled int
   await page.goto('/resources/');
   await page.waitForFunction(() => document.documentElement.dataset.resourcesReady === 'true');
   const cards = page.locator('#resource-results [data-resource-card]');
-  await expect(cards).toHaveCount(114);
+  const catalogue = JSON.parse((await page.locator('#resource-catalogue').textContent()) || '[]');
+  await expect(cards).toHaveCount(catalogue.length);
   const last = cards.last();
   await expect(last).toHaveCSS('content-visibility', 'auto');
   const href = await last.locator('.resource-card__visit').getAttribute('href');
