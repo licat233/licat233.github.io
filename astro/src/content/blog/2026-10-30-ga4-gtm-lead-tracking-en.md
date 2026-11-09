@@ -204,6 +204,8 @@ In GA4 reports, select a date range and analyze metrics and dimensions such as:
 
 Remember: **a successfully submitted inquiry is not a completed sale.** Repeat submissions, test messages, and spam inquiries can also be counted. Use your business or CRM system to assess actual lead quality.
 
+To connect organic search queries, landing pages, and inquiry outcomes, use the page ownership approach in the [SEO Keyword Research Guide](/en/blog/seo-keyword-research-guide/).
+
 ## 10. Frequently Asked Questions
 
 ### The Form Was Submitted. Why Is There No Conversion?
