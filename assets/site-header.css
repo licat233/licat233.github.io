@@ -3,6 +3,8 @@
  --max:77.5rem;
  --text-2:var(--ink2);
  --nav-active-fg:#fff;--cyan:#49c9f2;--radius-pill:var(--radius-round);
+ /* The language selection and GitHub arrow use paired foreground/background colors. */
+ --header-control-bg:#0b1014;--header-control-fg:#fff;
  --space-1:var(--size-1);--space-2:var(--size-2);--space-3:var(--size-3);--space-4:var(--size-4);
  --apple-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
  --apple-glass-blur:18px;--apple-glass-saturate:145%;
@@ -18,6 +20,7 @@
  --apple-glass-sheen:rgba(245,253,255,.12);
  --apple-glass-inner-rim:inset 0 1px 0 rgba(240,250,255,.21),inset 0 -1px 0 rgba(0,0,0,.22);
  --apple-glass-shadow:0 16px 36px rgba(0,0,0,.27),0 3px 10px rgba(0,0,0,.13);
+ --header-control-bg:#f5f5f7;--header-control-fg:#111;
 }
 .apple-glass-base {
   border: 1px solid var(--apple-glass-border);
@@ -287,8 +290,8 @@
   font-weight: 750;
 }
 .site-header .lang a[aria-current="page"] {
-  color: #fff;
-  background: var(--text);
+  color: var(--header-control-fg);
+  background: var(--header-control-bg);
   box-shadow: 0 3px 10px rgba(18,34,47,.19), inset 0 1px 0 rgba(255,255,255,.25);
 }
 .site-header .github-cta {
@@ -312,8 +315,8 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  color: #fff;
-  background: var(--text);
+  color: var(--header-control-fg);
+  background: var(--header-control-bg);
   font-size: var(--space-3);
 }
 
