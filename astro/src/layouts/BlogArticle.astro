@@ -23,6 +23,7 @@ const articleSchema = JSON.stringify({
   '@type': 'BlogPosting',
   '@id': pageUrl + '#article',
   headline: post.data.title,
+  image: 'https://licat.xyz/assets/licat-social.jpg',
   description: post.data.description || post.data.title,
   inLanguage: en ? 'en' : 'zh-CN',
   datePublished: post.data.date.toISOString(),
