@@ -11,10 +11,10 @@ const en=lang==='en';
 const t=dictionary(lang).blog;
 const posts=(await getCollection('blog', ({data})=>data.lang===lang)).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
 const date=(d:Date)=>new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Taipei'}).format(d).replaceAll('-','.');
-const title = en ? 'SEO/GEO & Analytics Guides' : 'SEO/GEO 与网站分析实战指南';
+const title = en ? 'Digital Marketing & Operations Guides' : '数字营销与运营实战指南';
 const desc = en
-  ? 'Practical SEO/GEO, keyword research and GA4/GTM conversion tracking guides from Licat.'
-  : 'Licat 的 SEO/GEO、关键词研究及 GA4/GTM 询盘追踪实战教程，分享搜索可见性与网站数据分析方法。';
+  ? 'Practical notes on SEO/GEO, overseas B2B social media operations, keyword research, GA4/GTM measurement, and digital workflows from Licat.'
+  : 'Licat 分享 SEO/GEO、海外 B2B 社媒运营、关键词研究、GA4/GTM 转化追踪与数字化工作流的实战经验。';
 const blogSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Blog',
