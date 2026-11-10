@@ -93,10 +93,13 @@ for (const route of ['resources/index.html', 'en/resources/index.html']) {
   const html = await read(route);
   assert(html.includes('id="resource-catalogue"'), 'Resources catalogue payload missing: ' + route);
   assert(html.includes('id="resource-taxonomy"'), 'Resources taxonomy payload missing: ' + route);
-  assert(html.includes('id="resource-search"') && html.includes('id="resource-results"'),
-    'Resources search/directory controls missing: ' + route);
-  assert(html.includes('id="resource-favorites-toggle"') && html.includes('id="resource-export"') &&
-    html.includes('id="resource-import-trigger"'), 'Local favorites controls missing: ' + route);
+  assert(html.includes('id="rd-search"') && html.includes('id="rd-results"'),
+    'Compact Resources search/directory controls missing: ' + route);
+  assert(html.includes('id="resource-collections"') && html.includes('id="rd-favorites-button"') &&
+    html.includes('id="rd-collections-button"') && html.includes('id="rd-export"') &&
+    html.includes('id="rd-import-trigger"'), 'Local Resources library controls missing: ' + route);
+  assert(html.includes('class="rd-card is-near-viewport"') && html.includes('data-favicon-origin=') && html.includes('fetchpriority="low"'),
+    'Compact bookmark cards or progressive favicon avatars missing: ' + route);
   assert(html.includes('/assets/bundle-resources.css'), 'Resources styles missing: ' + route);
   assert(!/name="robots" content="[^"]*noindex/i.test(html), 'Resources index must be indexable: ' + route);
   for (const type of ['WebSite', 'BreadcrumbList', 'ItemList']) {

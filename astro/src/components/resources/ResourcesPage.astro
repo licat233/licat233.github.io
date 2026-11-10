@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import GlassSurface from '../GlassSurface.astro';
 import SiteFooter from '../SiteFooter.astro';
 import ResourceCard from './ResourceCard.astro';
 import { localeUrl, type Lang } from '../../lib/site';
@@ -13,28 +12,69 @@ const t = dictionary(lang).resources;
 const locale = lang === 'en' ? 'en' : 'zh-CN';
 const resources = getPublishedResources();
 const categories = resourceCategories;
-const categoryCounts = Object.fromEntries(categories.map(category => [
-  category.id, resources.filter(item => item.category === category.id).length,
-]));
-const featured = resources.filter(item => item.featured).slice(0, 6);
-const recent = [...resources]
-  .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
-  .slice(0, 6);
 const collections = getPublishedCollections(resources);
-const tags = [...new Set(resources.flatMap(item => item.tags))].sort((a, b) => a.localeCompare(b));
-const platforms = [...new Set(resources.flatMap(item => item.platforms))].sort((a, b) => a.localeCompare(b));
-const categoryLabel = (id: string | null) =>
-  categories.find(category => category.id === id)?.name[locale] ?? t.category;
+const categoryLabel = (item: (typeof resources)[number]) => {
+  const category = categories.find(entry => entry.id === item.category);
+  const subcategory = category?.subcategories.find(entry => entry.id === item.subcategory);
+  return subcategory?.name[locale] ?? category?.name[locale] ?? t.category;
+};
 const pricingLabel = (pricing: string) =>
   (t.pricingLabels as Record<string, string>)[pricing] ?? t.pricingLabels.unknown;
-const cardProps = (item: (typeof resources)[number], prefix: string, isResult = false) => ({
-  item, lang, cardId: prefix + item.id, categoryLabel: categoryLabel(item.category),
-  pricingLabel: pricingLabel(item.pricing), visitLabel: t.visit,
+const uiCopy = {
+  pageTitle: t.title,
+  pageSubtitle: lang === 'en' ? 'Find what you need by task, category or keyword.' : '按用途、分类或关键词，快速找到需要的资源。',
+  searchHint: t.searchHint,
+  quickTitle: lang === 'en' ? 'Explore by topic' : '按主题快速查找',
+  quickNote: lang === 'en' ? 'Choose a specific area' : '选择具体用途领域',
+  browseLabel: lang === 'en' ? 'Browse' : '浏览',
+  personalLabel: lang === 'en' ? 'Your library' : '个人收藏',
+  collections: lang === 'en' ? 'Collections' : t.collections,
+  saved: t.savedResources,
+  savedShort: t.saved,
+  export: t.export,
+  import: t.import,
+  clear: t.clearFilters,
+  all: t.allResources,
+  noResults: t.noResults,
+  noResultsHelp: t.noResultsHelp,
+  resultSuffix: t.categoryResources,
+  searchResults: t.searchResults,
+  featured: lang === 'en' ? 'Featured' : '精选',
+  open: t.visit,
+  free: t.pricingLabels.free,
+  freemium: t.pricingLabels.freemium,
+  paid: t.pricingLabels.paid,
+  'free-trial': t.pricingLabels['free-trial'],
+  'open-source': t.pricingLabels['open-source'],
+  unknown: t.pricingLabels.unknown,
+  allTags: t.allTags,
+  anyPricing: t.allPricing,
+  anyPlatform: t.allPlatforms,
+  sortFeatured: t.sortFeatured,
+  sortNewest: t.sortNewest,
+  sortName: t.sortName,
+  collectionSubtitle: t.collectionsIntro,
+  savedSubtitle: t.favoritesOnly,
+  clearCollection: t.clearFilters,
+  importSuccess: t.importSuccess,
+  importError: t.importError,
+  importSkipped: t.importSkipped,
+  exportEmpty: t.exportEmpty,
+  storageError: lang === 'en' ? 'Browser storage is unavailable.' : '浏览器本地存储不可用。',
+  noFavorites: t.noFavorites,
+  noFavoritesHelp: t.noFavoritesHelp,
+};
+const cardProps = (item: (typeof resources)[number]) => ({
+  item, lang, cardId: 'result-' + item.id,
+  categoryLabel: categoryLabel(item), pricingLabel: pricingLabel(item.pricing),
+  featuredLabel: uiCopy.featured,
   saveLabel: t.save, savedLabel: t.saved, removeSavedLabel: t.removeSaved,
-  isResult,
+  isResult: true,
 });
+const directoryResources = [...resources].sort((a, b) =>
+  Number(b.featured) - Number(a.featured) || a.name[locale].localeCompare(b.name[locale]));
 const canonical = localeUrl(lang, 'resources');
-const styles = ['/assets/bundle-resources.css?v=20261110-nav-bookmark-perf1'];
+const styles = ['/assets/bundle-resources.css?v=20261110-render-perf1'];
 const publicCatalogue = resources.map(item => ({
   id: item.id, slug: item.slug, name: item.name, aliases: item.aliases,
   description: item.description, url: item.url, category: item.category,
@@ -44,12 +84,11 @@ const publicCatalogue = resources.map(item => ({
   featured: item.featured, createdAt: item.createdAt,
 }));
 const resourcePayload = JSON.stringify(publicCatalogue).replace(/</g, '\\u003c');
-const taxonomyPayload = JSON.stringify(categories.map(category => ({
-  id: category.id,
-  name: category.name[locale],
-  subcategories: category.subcategories.map(item => ({ id: item.id, name: item.name[locale] })),
+const taxonomyPayload = JSON.stringify(categories).replace(/</g, '\\u003c');
+const collectionPayload = JSON.stringify(collections.map(({ slug, name, description, resourceIds }) => ({
+  slug, name, description, resourceIds,
 }))).replace(/</g, '\\u003c');
-const uiPayload = JSON.stringify(t).replace(/</g, '\\u003c');
+const uiPayload = JSON.stringify(uiCopy).replace(/</g, '\\u003c');
 const websiteSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -78,175 +117,86 @@ const itemListSchema = JSON.stringify({
 ---
 <BaseLayout {lang} active="resources" title={t.metaTitle} description={t.metaDescription}
   {canonical} zhHref={localeUrl('zh', 'resources')} enHref={localeUrl('en', 'resources')}
-  {styles} pageClass="resources-page" includeLensFilter={false}>
+  {styles} pageClass="resources-page rd-prototype" includeLensFilter={false}>
   <script slot="head" type="application/ld+json" set:html={websiteSchema}></script>
   <script slot="head" type="application/ld+json" set:html={itemListSchema}></script>
   <script type="application/json" id="resource-catalogue" set:html={resourcePayload}></script>
   <script type="application/json" id="resource-taxonomy" set:html={taxonomyPayload}></script>
+  <script type="application/json" id="resource-collections" set:html={collectionPayload}></script>
   <script type="application/json" id="resource-ui-copy" set:html={uiPayload}></script>
 
-  <main id="resources-main">
-    <section class="resources-hero">
-      <div class="shell resources-hero__grid">
-        <div class="resources-hero__copy">
-          <p class="resources-eyebrow"><span></span>{t.eyebrow}</p>
-          <h1>{t.title}</h1>
-          <p class="resources-hero__lead">{t.lead}</p>
-          <div class="resources-hero__stats">
-            <span><strong>{resources.length}</strong> {t.published}</span>
-            <i aria-hidden="true"></i>
-            <span><strong>{categories.length}</strong> {t.categoriesCount}</span>
-          </div>
-        </div>
-        <div class="resources-search-panel">
-          <label for="resource-search">{t.searchLabel}</label>
-          <div class="resources-search-wrap">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="10.6" cy="10.6" r="6.1"></circle>
-              <path d="m15.5 15.5 5.2 5.2"></path>
-            </svg>
-            <input id="resource-search" type="search" placeholder={t.searchPlaceholder}
-              autocomplete="off" spellcheck="false" aria-controls="resource-results"
-              aria-describedby="resource-search-hint" />
-            <kbd>⌘ / Ctrl K</kbd>
-          </div>
-          <p id="resource-search-hint">{t.searchHint}</p>
-        </div>
+  <main id="resources-main" class="rd-main-shell">
+    <section class="rd-page-head">
+      <div>
+        <p class="rd-page-kicker">LICAT / CURATED DIGITAL RESOURCES</p>
+        <h1 class="rd-page-title"><span>{uiCopy.pageTitle}</span><small>{uiCopy.pageSubtitle}</small></h1>
+      </div>
+      <div>
+        <label class="rd-search-panel" for="rd-search">
+          <svg class="rd-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.6" cy="10.6" r="6.1"></circle><path d="m15.5 15.5 5.2 5.2"></path></svg>
+          <input id="rd-search" type="search" autocomplete="off" spellcheck="false" placeholder={lang === 'en' ? 'Search by tool, task, feature or keyword…' : '搜索工具、用途、功能或关键词…'} aria-controls="rd-results" />
+          <kbd>⌘ K</kbd>
+        </label>
+        <p class="rd-search-hint">{uiCopy.searchHint}</p>
       </div>
     </section>
 
-    <section class="resources-section resources-categories" id="explore-categories">
-      <div class="shell">
-        <div class="resources-section-head">
-          <div><p class="resources-kicker">DISCOVER BY TOPIC</p><h2>{t.exploreCategories}</h2></div>
-          <p>{t.categoryIntro}</p>
-        </div>
-        <div class="resources-category-grid">
-          {categories.map((category, index) => <GlassSurface as="button" class="resource-category-card"
-            material="regular" type="button" data-category-card={category.id}>
-            <span class="resource-category-card__index">{String(index + 1).padStart(2, '0')}</span>
-            <h3>{category.name[locale]}</h3>
-            <p>{category.description[locale]}</p>
-            <span class="resource-category-card__count">{categoryCounts[category.id] ?? 0} {t.categoryResources}</span>
-          </GlassSurface>)}
+    <section class="rd-quick" aria-label={lang === 'en' ? 'Quick paths' : '快速入口'}>
+      <div class="rd-quick-label">
+        <div class="rd-quick-title"><strong>{uiCopy.quickTitle}</strong><span>{uiCopy.quickNote}</span></div>
+        <div class="rd-quick-actions">
+          <button class="rd-chip" id="rd-mobile-collections" type="button">▦ <span>{uiCopy.collections}</span> <small id="rd-mobile-collection-count">{collections.length}</small></button>
+          <button class="rd-chip" id="rd-mobile-favorites" type="button">♡ <span>{uiCopy.savedShort}</span> <small id="rd-mobile-favorite-count">0</small></button>
         </div>
       </div>
+      <div class="rd-quick-list" id="rd-quick-list"></div>
     </section>
 
-    {featured.length > 0 && <section class="resources-section resources-featured" id="featured-resources">
-      <div class="shell">
-        <div class="resources-section-head">
-          <div><p class="resources-kicker">EDITOR'S SELECTION</p><h2>{t.featured}</h2></div>
-          <p>{t.featuredIntro}</p>
-        </div>
-        <div class="resources-card-grid resources-card-grid--featured">
-          {featured.map(item => <ResourceCard {...cardProps(item, 'featured-')} />)}
-        </div>
-      </div>
-    </section>}
-
-    {collections.length > 0 && <section class="resources-section resources-collections" id="featured-collections">
-      <div class="shell">
-        <div class="resources-section-head">
-          <div><p class="resources-kicker">CURATED SHORTLISTS</p><h2>{t.collections}</h2></div>
-          <p>{t.collectionsIntro}</p>
-        </div>
-        <div class="resources-collection-grid">
-          {collections.map((collection, index) => <GlassSurface as="button"
-            class="resource-collection-card" material="regular" type="button"
-            data-collection-ids={collection.resourceIds.join('|')}>
-            <span class="resource-collection-card__index">{String(index + 1).padStart(2, '0')}</span>
-            <h3>{collection.name[locale]}</h3>
-            <p>{collection.description[locale]}</p>
-            <span>{collection.resources.length} {t.categoryResources} <b aria-hidden="true">↗</b></span>
-          </GlassSurface>)}
-        </div>
-      </div>
-    </section>}
-
-    {recent.length > 0 && <section class="resources-section resources-recent" id="recently-added">
-      <div class="shell">
-        <div class="resources-section-head">
-          <div><p class="resources-kicker">FRESHLY REVIEWED</p><h2>{t.recent}</h2></div>
-          <p>{t.recentIntro}</p>
-        </div>
-        <div class="resources-card-grid">
-          {recent.map(item => <ResourceCard {...cardProps(item, 'recent-')} />)}
-        </div>
-      </div>
-    </section>}
-
-    <section class="resources-section resources-directory" id="resource-directory">
-      <div class="shell">
-        <div class="resources-section-head resources-directory__head">
-          <div><p class="resources-kicker">THE DIRECTORY</p><h2>{t.browseAll}</h2><p>{t.browseIntro}</p></div>
-          <button class="resources-favorites-toggle" id="resource-favorites-toggle"
-            type="button" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.75h11a1 1 0 0 1 1 1v14l-6.5-3.9-6.5 3.9v-14a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linejoin="round"/></svg>
-            {t.savedResources} <span id="resource-favorite-count">0</span>
+    <div class="rd-workspace">
+      <aside class="rd-sidebar" aria-label={lang === 'en' ? 'Resource categories' : '资源分类'}>
+        <p class="rd-side-label">{uiCopy.browseLabel}</p>
+        <nav id="rd-category-nav"></nav>
+        <div class="rd-side-divider"></div>
+        <p class="rd-side-label">{uiCopy.personalLabel}</p>
+        <div class="rd-side-actions">
+          <button class="rd-side-action" id="rd-collections-button" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="4" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="4" width="7" height="7" rx="1.5"></rect><rect x="3.5" y="13" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="13" width="7" height="7" rx="1.5"></rect></svg>
+            <span>{uiCopy.collections}</span><span id="rd-collection-count">{collections.length}</span>
+          </button>
+          <button class="rd-side-action" id="rd-favorites-button" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 4.75h11a1 1 0 0 1 1 1v14l-6.5-3.9-6.5 3.9v-14a1 1 0 0 1 1-1Z"></path></svg>
+            <span>{uiCopy.saved}</span><span id="rd-favorite-count">0</span>
           </button>
         </div>
+        <div class="rd-side-file-actions">
+          <button id="rd-export" type="button">{uiCopy.export}</button>
+          <button id="rd-import-trigger" type="button">{uiCopy.import}</button>
+          <input id="rd-import-file" type="file" accept="application/json,.json" hidden />
+        </div>
+      </aside>
 
-        <div class="resources-filter-panel">
-          <label><span>{t.category}</span>
-            <select id="resource-category">
-              <option value="">{t.allCategories}</option>
-              {categories.map(category => <option value={category.id}>{category.name[locale]}</option>)}
-            </select>
-          </label>
-          <label><span>{t.subcategory}</span>
-            <select id="resource-subcategory" disabled><option value="">{t.allSubcategories}</option></select>
-          </label>
-          <label><span>{t.tag}</span>
-            <select id="resource-tag">
-              <option value="">{t.allTags}</option>
-              {tags.map(tag => <option value={tag}>{tag}</option>)}
-            </select>
-          </label>
-          <label><span>{t.pricing}</span>
-            <select id="resource-pricing">
-              <option value="">{t.allPricing}</option>
-              {Object.entries(t.pricingLabels).filter(([key]) => key !== 'unknown').map(([key, value]) =>
-                <option value={key}>{value}</option>)}
-            </select>
-          </label>
-          <label><span>{t.platform}</span>
-            <select id="resource-platform">
-              <option value="">{t.allPlatforms}</option>
-              {platforms.map(platform => <option value={platform}>{platform}</option>)}
-            </select>
-          </label>
-          <label><span>{t.sort}</span>
-            <select id="resource-sort">
-              <option value="featured">{t.sortFeatured}</option>
-              <option value="newest">{t.sortNewest}</option>
-              <option value="name">{t.sortName}</option>
-            </select>
-          </label>
-          <button class="resources-clear" id="resource-clear-filters" type="button">{t.clearFilters}</button>
+      <section class="rd-content">
+        <div class="rd-content-head">
+          <div><h2 id="rd-results-title">{uiCopy.all}</h2><p id="rd-results-subtitle">{uiCopy.collectionSubtitle}</p></div>
+          <div class="rd-content-meta"><span id="rd-result-count">{resources.length} {uiCopy.resultSuffix}</span></div>
         </div>
-
-        <div class="resources-results-toolbar">
-          <p id="resource-result-status" aria-live="polite">{t.resultCount.replace('{count}', String(resources.length))}</p>
-          <div class="resources-data-actions">
-            <button type="button" id="resource-export">{t.export}</button>
-            <button type="button" id="resource-import-trigger">{t.import}</button>
-            <input type="file" id="resource-import-file" accept="application/json,.json" hidden />
-          </div>
+        <div class="rd-filter-row">
+          <select id="rd-tag" aria-label={lang === 'en' ? 'Filter by tag' : '按标签筛选'}><option value="">{uiCopy.allTags}</option></select>
+          <select id="rd-pricing" aria-label={lang === 'en' ? 'Filter by pricing' : '按价格模式筛选'}><option value="">{uiCopy.anyPricing}</option></select>
+          <select id="rd-platform" aria-label={lang === 'en' ? 'Filter by platform' : '按平台筛选'}><option value="">{uiCopy.anyPlatform}</option></select>
+          <select id="rd-sort" aria-label={lang === 'en' ? 'Sort resources' : '资源排序'}>
+            <option value="featured">{uiCopy.sortFeatured}</option><option value="newest">{uiCopy.sortNewest}</option><option value="name">{uiCopy.sortName}</option>
+          </select>
+          <button id="rd-clear" type="button">{uiCopy.clear}</button>
         </div>
-
-        <div class="resources-card-grid resources-results-grid" id="resource-results">
-          {resources.map(item => <ResourceCard {...cardProps(item, 'result-', true)} />)}
+        <div class="rd-results-grid" id="rd-results" aria-live="polite">
+          {directoryResources.map((item, index) => <ResourceCard {...cardProps(item)} isInitiallyNearViewport={index < 15} />)}
         </div>
-        <div class="resources-empty" id="resource-empty" hidden>
-          <span aria-hidden="true">⌕</span>
-          <h3>{resources.length > 0 ? t.noResults : t.emptyCatalog}</h3>
-          <p>{resources.length > 0 ? t.noResultsHelp : t.emptyCatalogHelp}</p>
-          <button type="button" id="resource-reset">{t.clearFilters}</button>
-        </div>
-        <div class="resources-toast" id="resource-toast" role="status" aria-live="polite"></div>
-      </div>
-    </section>
+        <div class="rd-collections" id="rd-collections" hidden></div>
+        <div class="rd-empty" id="rd-empty" hidden><strong>{uiCopy.noResults}</strong><p>{uiCopy.noResultsHelp}</p></div>
+      </section>
+    </div>
+    <div class="rd-toast" id="rd-toast" role="status" aria-live="polite"></div>
   </main>
 
   <SiteFooter {lang} />
