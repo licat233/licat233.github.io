@@ -174,3 +174,58 @@ html:has(body.blog-page) { scroll-behavior: smooth; }
   html:has(body.blog-page) { scroll-behavior: auto; }
   .blog-page .blog-toc-link { transition: none; }
 }
+
+/* H2 chapters stay visible; H3 knowledge points live in a single-open accordion. */
+.blog-page .blog-toc-item { margin: .12rem 0; }
+.blog-page .blog-toc-item__row {
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+}
+.blog-page .blog-toc-link--chapter { flex: 1 1 auto; min-width: 0; }
+.blog-page .blog-toc-toggle {
+  display: grid;
+  place-items: center;
+  flex: 0 0 1.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0;
+  border: 0;
+  border-radius: .4rem;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .18s ease, background-color .18s ease;
+}
+.blog-page .blog-toc-toggle::before {
+  content: '';
+  width: .42rem;
+  height: .42rem;
+  border-right: 1.7px solid currentColor;
+  border-bottom: 1.7px solid currentColor;
+  transform: rotate(45deg) translateY(-.08rem);
+  transition: transform .18s ease;
+}
+.blog-page .blog-toc-item.is-expanded > .blog-toc-item__row .blog-toc-toggle::before {
+  transform: rotate(225deg) translateY(-.08rem);
+}
+.blog-page .blog-toc-toggle:hover {
+  color: var(--blue);
+  background: var(--bg-2);
+}
+.blog-page .blog-toc-toggle:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+.blog-page .blog-toc-children {
+  margin: .1rem 0 .45rem .55rem !important;
+  padding: .08rem 0 .08rem .55rem !important;
+  border-left: 1px solid var(--line);
+}
+.blog-page .blog-toc-children[hidden] { display: none !important; }
+.blog-page .blog-toc-children > li { margin: .06rem 0; }
+.blog-page .blog-toc-link--sub { padding-top: .28rem; padding-bottom: .28rem; }
+@media (prefers-reduced-motion: reduce) {
+  .blog-page .blog-toc-toggle,
+  .blog-page .blog-toc-toggle::before { transition: none; }
+}

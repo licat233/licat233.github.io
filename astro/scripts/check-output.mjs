@@ -333,7 +333,7 @@ console.log('ASTRO_DEMO_PRESERVED: public demos remain noindex and reachable');
 for(const route of ['blog/index.html','en/blog/index.html','blog/website-seo-geo-basics/index.html']){
  const html=await read(route);
  assert(html.includes('class="blog-footer"'),'Jekyll Blog footer missing from '+route);
- assert(html.includes('/assets/bundle-blog.css?v=20261110-blog-toc1'),'Blog stylesheet URL missing or stale in '+route);
+ assert(html.includes('/assets/bundle-blog.css?v=20261110-blog-toc2'),'Blog stylesheet URL missing or stale in '+route);
 }
 console.log('ASTRO_BLOG_SHELL_PARITY_PASS: original footer and styles present');
 
@@ -344,7 +344,17 @@ assert(articleHeadingIds.length > 1, 'TOC fixture needs multiple H2/H3 headings'
 assert(articleHeadingIds.every(id => tocHeadingIds.has(id)), 'Blog TOC does not cover every H2/H3 heading');
 assert(tocArticle.includes('class="blog-toc-desktop"') && tocArticle.includes('class="blog-toc-mobile"'),
   'Blog TOC must render desktop and mobile navigation');
-console.log('ASTRO_BLOG_TOC_PASS: desktop/mobile navigation covers every H2/H3 anchor');
+const tocToggleCount = [...tocArticle.matchAll(/data-blog-toc-toggle="([^"]+)"/g)].length;
+const collapsedChildListCount = [...tocArticle.matchAll(/<ol\b(?=[^>]*class="blog-toc-children")(?=[^>]*hidden)[^>]*>/g)].length;
+const collapsedToggleCount = [...tocArticle.matchAll(/<button\b(?=[^>]*class="blog-toc-toggle")(?=[^>]*aria-expanded="false")[^>]*>/g)].length;
+assert(tocToggleCount > 0, 'Blog TOC must provide accordion controls for H2 chapters');
+assert(collapsedChildListCount === tocToggleCount,
+  'Every H2 accordion control must own one initially collapsed H3 list');
+assert(collapsedToggleCount === tocToggleCount,
+  'Every H2 accordion control must start with aria-expanded=false');
+assert((tocArticle.match(/data-blog-toc-item=/g) || []).length >= tocToggleCount,
+  'Blog TOC must retain its top-level chapter structure');
+console.log('ASTRO_BLOG_TOC_PASS: every H2/H3 anchor covered; child sections collapsed by default');
 
 
 const {readdir:readDirectories}=await import('node:fs/promises');
@@ -405,7 +415,7 @@ await inspectAstroTemplates(sourceDir);
 for(const route of ['index.html','en/index.html','projects/index.html','en/projects/index.html',
                     'skills/index.html','en/skills/index.html','ai/index.html','en/ai/index.html','blog/index.html','prompts/index.html']){
  const html=await read(route);
- assert(/\/assets\/bundle-blog\.css\?v=20261110-blog-toc1/.test(html) ||
+ assert(/\/assets\/bundle-blog\.css\?v=20261110-blog-toc2/.test(html) ||
         /\/assets\/bundle-(home|prompts|content|resources)\.css\?v=20261110-nav-bookmark-perf1/.test(html),
    'Glass material stylesheet missing from '+route);
 }

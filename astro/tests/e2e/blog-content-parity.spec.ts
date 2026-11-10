@@ -56,7 +56,7 @@ test('Blog articles keep canonical SEO metadata and readable content after updat
 });
 
 
-test('Blog table of contents follows article headings on desktop and mobile', async ({ page }) => {
+test('Blog table of contents uses a single-open H2/H3 accordion on desktop and mobile', async ({ page }) => {
   const route = '/blog/seo-keyword-research-guide/';
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('http://127.0.0.1:4321' + route, { waitUntil: 'domcontentloaded' });
@@ -64,34 +64,79 @@ test('Blog table of contents follows article headings on desktop and mobile', as
   const headings = page.locator('.blog-prose h2[id], .blog-prose h3[id]');
   const desktopToc = page.locator('.blog-toc-desktop');
   const desktopLinks = desktopToc.locator('[data-blog-toc-link]');
+  const toggles = desktopToc.locator('[data-blog-toc-toggle]');
   await expect(desktopToc).toBeVisible();
   expect(await desktopToc.evaluate(element => getComputedStyle(element).position)).toBe('sticky');
   expect(await desktopLinks.count()).toBe(await headings.count());
+  expect(await toggles.count()).toBeGreaterThan(0);
+  await expect(desktopToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
 
-  const firstLink = desktopLinks.first();
-  const targetId = await firstLink.getAttribute('data-blog-toc-link');
-  expect(targetId).toBeTruthy();
-  await firstLink.click();
-  await expect.poll(() => page.evaluate(() => location.hash)).not.toBe('');
+  for (let i = 0; i < await toggles.count(); i++) {
+    await expect(toggles.nth(i)).toHaveAttribute('aria-expanded', 'false');
+  }
+
+  const firstToggle = toggles.nth(0);
+  const firstSlug = await firstToggle.getAttribute('data-blog-toc-toggle');
+  const firstChildrenId = await firstToggle.getAttribute('aria-controls');
+  const firstChildren = desktopToc.locator('[id="' + firstChildrenId + '"]');
+  await firstToggle.click();
+  await expect(firstToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(firstChildren).toBeVisible();
+
+  if (await toggles.count() > 1) {
+    const secondToggle = toggles.nth(1);
+    const secondChildrenId = await secondToggle.getAttribute('aria-controls');
+    const secondChildren = desktopToc.locator('[id="' + secondChildrenId + '"]');
+    await secondToggle.click();
+    await expect(secondToggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(secondChildren).toBeVisible();
+    await expect(firstToggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(firstChildren).toBeHidden();
+  }
+
+  // The chapter title navigates; the separate chevron controls expansion.
+  const chapterLink = desktopToc.locator('.blog-toc-link--chapter').first();
+  const targetId = await chapterLink.getAttribute('data-blog-toc-link');
+  await chapterLink.click();
+  await expect.poll(() => page.evaluate(() => decodeURIComponent(location.hash.slice(1)))).toBe(targetId);
   await expect.poll(() =>
     desktopToc.locator('[data-blog-toc-link][aria-current="location"]').getAttribute('data-blog-toc-link')
   ).toBe(targetId);
 
-  // Long articles must keep the active entry visible inside the independently
-  // scrollable sticky TOC, rather than highlighting an off-screen item.
+  // A long article stays compact initially: only H2 chapters are visible.
   await page.goto('http://127.0.0.1:4321/blog/overseas-b2b-social-media-infrastructure-guide/', {
     waitUntil: 'domcontentloaded',
   });
   const longToc = page.locator('.blog-toc-desktop');
-  const lastHeading = page.locator('.blog-prose h2[id], .blog-prose h3[id]').last();
-  const lastHeadingId = await lastHeading.getAttribute('id');
+  const longHeadings = page.locator('.blog-prose h2[id], .blog-prose h3[id]');
+  const lastHeading = longHeadings.last();
+  const lastHeadingInfo = await lastHeading.evaluate(element => {
+    let chapter = element;
+    while (chapter && chapter.tagName !== 'H2') chapter = chapter.previousElementSibling;
+    return { id: element.id, tag: element.tagName, chapterId: chapter?.id ?? element.id };
+  });
+  expect(await longToc.locator('.blog-toc-item').count()).toBeLessThan(await longHeadings.count());
+  await expect(longToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
+
   await lastHeading.scrollIntoViewIfNeeded();
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  const collapsedActiveId = lastHeadingInfo.tag === 'H3' ? lastHeadingInfo.chapterId : lastHeadingInfo.id;
   await expect.poll(() =>
     longToc.locator('[data-blog-toc-link][aria-current="location"]').getAttribute('data-blog-toc-link')
-  ).toBe(lastHeadingId);
-  await expect.poll(() => longToc.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+  ).toBe(collapsedActiveId);
 
+  if (lastHeadingInfo.tag === 'H3') {
+    const activeChapterToggle = longToc.locator('[data-blog-toc-toggle="' + lastHeadingInfo.chapterId + '"]');
+    const activeChapterChildrenId = await activeChapterToggle.getAttribute('aria-controls');
+    await activeChapterToggle.click();
+    await expect(longToc.locator('[id="' + activeChapterChildrenId + '"]')).toBeVisible();
+    await expect.poll(() =>
+      longToc.locator('[data-blog-toc-link][aria-current="location"]').getAttribute('data-blog-toc-link')
+    ).toBe(lastHeadingInfo.id);
+    await expect.poll(() => longToc.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+  }
+
+  // Mobile keeps its outer TOC disclosure and uses the same inner accordion.
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('http://127.0.0.1:4321' + route, { waitUntil: 'domcontentloaded' });
   const mobileToc = page.locator('.blog-toc-mobile');
@@ -100,7 +145,17 @@ test('Blog table of contents follows article headings on desktop and mobile', as
 
   await mobileToc.locator('summary').click();
   await expect(mobileToc).toHaveAttribute('open', '');
-  await mobileToc.locator('[data-blog-toc-link]').first().click();
-  await expect.poll(() => page.evaluate(() => location.hash)).not.toBe('');
+  await expect(mobileToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
+
+  const mobileToggle = mobileToc.locator('[data-blog-toc-toggle]').first();
+  const mobileChildrenId = await mobileToggle.getAttribute('aria-controls');
+  await mobileToggle.click();
+  await expect(mobileToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(mobileToc.locator('[id="' + mobileChildrenId + '"]')).toBeVisible();
+
+  const mobileChildLink = mobileToc.locator('.blog-toc-children a[data-blog-toc-link]').first();
+  const mobileTargetId = await mobileChildLink.getAttribute('data-blog-toc-link');
+  await mobileChildLink.click();
+  await expect.poll(() => page.evaluate(() => decodeURIComponent(location.hash.slice(1)))).toBe(mobileTargetId);
   await expect(mobileToc).not.toHaveAttribute('open', '');
 });
