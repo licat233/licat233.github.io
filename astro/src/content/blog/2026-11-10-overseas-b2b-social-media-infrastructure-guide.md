@@ -6,8 +6,6 @@ description: "面向中国出口企业与 B2B 团队的海外社媒运营指南�
 translation_url: /en/blog/overseas-b2b-social-media-infrastructure-guide/
 ---
 
-# 海外 B2B 社媒运营基础设施搭建指南
-
 > **适用对象：** 中国出口制造企业、外贸团队、B2B 企业海外市场团队  
 > **适用平台：** LinkedIn、Facebook、Instagram、YouTube、TikTok、WhatsApp 等  
 > **目标：** 建立一套稳定、简单、低维护、可交接、企业可控的海外社媒运营基础设施，使品牌官方账号与 Sales 个人账号能够长期稳定运营。  
