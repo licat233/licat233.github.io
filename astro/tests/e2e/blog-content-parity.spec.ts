@@ -65,10 +65,12 @@ test('Blog table of contents uses a single-open H2/H3 accordion on desktop and m
   const desktopToc = page.locator('.blog-toc-desktop');
   const desktopLinks = desktopToc.locator('[data-blog-toc-link]');
   const toggles = desktopToc.locator('[data-blog-toc-toggle]');
+  const globalToggle = desktopToc.locator('[data-blog-toc-global-toggle]');
   await expect(desktopToc).toBeVisible();
   expect(await desktopToc.evaluate(element => getComputedStyle(element).position)).toBe('sticky');
   expect(await desktopLinks.count()).toBe(await headings.count());
   expect(await toggles.count()).toBeGreaterThan(0);
+  await expect(globalToggle).toHaveText('全部展开');
   await expect(desktopToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
 
   for (let i = 0; i < await toggles.count(); i++) {
@@ -82,6 +84,7 @@ test('Blog table of contents uses a single-open H2/H3 accordion on desktop and m
   await firstToggle.click();
   await expect(firstToggle).toHaveAttribute('aria-expanded', 'true');
   await expect(firstChildren).toBeVisible();
+  await expect(globalToggle).toHaveText('全部收起');
 
   if (await toggles.count() > 1) {
     const secondToggle = toggles.nth(1);
@@ -93,6 +96,26 @@ test('Blog table of contents uses a single-open H2/H3 accordion on desktop and m
     await expect(firstToggle).toHaveAttribute('aria-expanded', 'false');
     await expect(firstChildren).toBeHidden();
   }
+
+  // The global action opens every H3 list, then closes them all in one click.
+  await globalToggle.click();
+  await expect(globalToggle).toHaveText('全部展开');
+  await expect(desktopToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
+  await globalToggle.click();
+  await expect(globalToggle).toHaveText('全部收起');
+  await expect(desktopToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(await toggles.count());
+  for (let i = 0; i < await toggles.count(); i++) {
+    await expect(toggles.nth(i)).toHaveAttribute('aria-expanded', 'true');
+  }
+  // After a global expand, an individual arrow can close only its own chapter.
+  await firstToggle.click();
+  await expect(firstToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(firstChildren).toBeHidden();
+  await expect(desktopToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(await toggles.count() - 1);
+  await expect(globalToggle).toHaveText('全部收起');
+  await globalToggle.click();
+  await expect(globalToggle).toHaveText('全部展开');
+  await expect(desktopToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
 
   // The chapter title navigates; the separate chevron controls expansion.
   const chapterLink = desktopToc.locator('.blog-toc-link--chapter').first();
@@ -147,15 +170,42 @@ test('Blog table of contents uses a single-open H2/H3 accordion on desktop and m
   await expect(mobileToc).toHaveAttribute('open', '');
   await expect(mobileToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
 
-  const mobileToggle = mobileToc.locator('[data-blog-toc-toggle]').first();
+  const mobileGlobalToggle = mobileToc.locator('[data-blog-toc-global-toggle]');
+  const mobileToggles = mobileToc.locator('[data-blog-toc-toggle]');
+  await expect(mobileGlobalToggle).toHaveText('全部展开');
+  await mobileGlobalToggle.click();
+  await expect(mobileGlobalToggle).toHaveText('全部收起');
+  await expect(mobileToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(await mobileToggles.count());
+  await mobileGlobalToggle.click();
+  await expect(mobileGlobalToggle).toHaveText('全部展开');
+  await expect(mobileToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
+
+  const mobileToggle = mobileToggles.first();
   const mobileChildrenId = await mobileToggle.getAttribute('aria-controls');
   await mobileToggle.click();
   await expect(mobileToggle).toHaveAttribute('aria-expanded', 'true');
   await expect(mobileToc.locator('[id="' + mobileChildrenId + '"]')).toBeVisible();
+  await expect(mobileGlobalToggle).toHaveText('全部收起');
+  await mobileGlobalToggle.click();
+  await expect(mobileGlobalToggle).toHaveText('全部展开');
+  await expect(mobileToc.locator('.blog-toc-children:not([hidden])')).toHaveCount(0);
 
+  await mobileToggle.click();
   const mobileChildLink = mobileToc.locator('.blog-toc-children a[data-blog-toc-link]').first();
   const mobileTargetId = await mobileChildLink.getAttribute('data-blog-toc-link');
   await mobileChildLink.click();
   await expect.poll(() => page.evaluate(() => decodeURIComponent(location.hash.slice(1)))).toBe(mobileTargetId);
   await expect(mobileToc).not.toHaveAttribute('open', '');
+
+  // English pages use the same global behavior with localized control labels.
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('http://127.0.0.1:4321/en/blog/seo-keyword-research-guide/', {
+    waitUntil: 'domcontentloaded',
+  });
+  const englishGlobalToggle = page.locator('.blog-toc-desktop [data-blog-toc-global-toggle]');
+  await expect(englishGlobalToggle).toHaveText('Expand all');
+  await englishGlobalToggle.click();
+  await expect(englishGlobalToggle).toHaveText('Collapse all');
+  await expect(page.locator('.blog-toc-desktop .blog-toc-children:not([hidden])'))
+    .toHaveCount(await page.locator('.blog-toc-desktop [data-blog-toc-toggle]').count());
 });
