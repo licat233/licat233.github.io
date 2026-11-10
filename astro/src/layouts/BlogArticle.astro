@@ -5,18 +5,28 @@ import { blogStyles } from '../lib/blog';
 import { dictionary } from '../lib/translation';
 import type { CollectionEntry } from 'astro:content';
 import { localeUrl, type Lang } from '../lib/site';
-interface Props { post:CollectionEntry<'blog'>; lang:Lang; canonical:string }
-const {post,lang,canonical}=Astro.props;
-const en=lang==='en';
-const t=dictionary(lang).blog;
-const zhHref=en?(post.data.translation_url||localeUrl('zh','blog')):canonical;
-const enHref=en?canonical:(post.data.translation_url||localeUrl('en','blog'));
+
+type TocHeading = { depth: number; slug: string; text: string };
+type TocItem = { slug: string; text: string; children: TocHeading[] };
+interface Props {
+  post: CollectionEntry<'blog'>;
+  lang: Lang;
+  canonical: string;
+  headings: TocHeading[];
+}
+const { post, lang, canonical, headings } = Astro.props;
+const en = lang === 'en';
+const t = dictionary(lang).blog;
+const zhHref = en ? (post.data.translation_url || localeUrl('zh', 'blog')) : canonical;
+const enHref = en ? canonical : (post.data.translation_url || localeUrl('en', 'blog'));
 const hasTranslation = Boolean(post.data.translation_url);
 // On untranslated posts, the language toggle can open the other archive,
 // but hreflang must never claim that the archive is a translated article.
 const alternateZh = hasTranslation ? zhHref : (en ? null : canonical);
 const alternateEn = hasTranslation ? enHref : (en ? canonical : null);
-const date=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'Asia/Taipei'}).format(post.data.date).replaceAll('-','.');
+const date = new Intl.DateTimeFormat('en-CA', {
+  year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Taipei',
+}).format(post.data.date).replaceAll('-', '.');
 const pageUrl = 'https://licat.xyz' + canonical;
 const articleSchema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -32,27 +42,150 @@ const articleSchema = JSON.stringify({
   publisher: { '@type': 'Person', '@id': 'https://licat.xyz/#person', name: 'Licat', url: 'https://licat.xyz/' },
 }).replace(/</g, '\\u003c');
 
+const tocHeadings = headings.filter(heading =>
+  (heading.depth === 2 || heading.depth === 3) && heading.slug && heading.text.trim()
+);
+const tocItems: TocItem[] = [];
+for (const heading of tocHeadings) {
+  if (heading.depth === 2 || tocItems.length === 0) {
+    tocItems.push({ slug: heading.slug, text: heading.text, children: [] });
+  } else {
+    tocItems[tocItems.length - 1].children.push(heading);
+  }
+}
+const hasToc = tocHeadings.length > 1;
+const tocLabel = en ? 'On this page' : '文章目录';
+const tocCount = en ? tocHeadings.length + ' sections' : tocHeadings.length + ' 个章节';
 ---
-<BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description||post.data.title} {canonical} {zhHref} {enHref} {alternateZh} {alternateEn} styles={blogStyles} ogType="article" pageClass="blog-page">
+
+<BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description || post.data.title} {canonical} {zhHref} {enHref} {alternateZh} {alternateEn} styles={blogStyles} ogType="article" pageClass="blog-page">
   <meta slot="head" property="article:published_time" content={post.data.date.toISOString()} />
   <script slot="head" type="application/ld+json" set:html={articleSchema}></script>
-<main id="content" class="blog-main"><article class="blog-article">
-  <a class="blog-back" href={localeUrl(lang,'blog')}>← {t.back}</a>
-  <header class="blog-article-header">
-    <time datetime={post.data.date.toISOString().slice(0,10)}>{date}</time>
-    <h1>{post.data.title}</h1>{post.data.description&&<p>{post.data.description}</p>}
-  </header>
-  <div class="blog-prose"><slot /></div>
-  <div class="blog-article-end"><a href={localeUrl(lang,'blog')}>← {t.backAll}</a></div>
-</article></main>
-<BlogFooter {lang} />
-<script is:inline>
-  // Markdown task-list checkboxes are read-only but still need accessible names.
-  document.querySelectorAll('.blog-prose li.task-list-item').forEach(item => {
-    const checkbox = item.querySelector('input[type="checkbox"]');
-    if (checkbox && !checkbox.hasAttribute('aria-label')) {
-      checkbox.setAttribute('aria-label', item.textContent.trim());
-    }
-  });
-</script>
+  <main id="content" class="blog-main">
+    <div class="blog-article-layout">
+      <article class="blog-article">
+        <a class="blog-back" href={localeUrl(lang, 'blog')}>← {t.back}</a>
+        <header class="blog-article-header">
+          <time datetime={post.data.date.toISOString().slice(0, 10)}>{date}</time>
+          <h1>{post.data.title}</h1>
+          {post.data.description && <p>{post.data.description}</p>}
+        </header>
+
+        {hasToc && (
+          <details class="blog-toc-mobile">
+            <summary>
+              <span>{tocLabel}</span>
+              <span class="blog-toc-mobile__count">{tocCount}</span>
+            </summary>
+            <nav aria-label={tocLabel}>
+              <ol class="blog-toc-list">
+                {tocItems.map(item => (
+                  <li>
+                    <a class="blog-toc-link" href={'#' + item.slug} data-blog-toc-link={item.slug}>{item.text}</a>
+                    {item.children.length > 0 && (
+                      <ol>
+                        {item.children.map(child => (
+                          <li>
+                            <a class="blog-toc-link blog-toc-link--sub" href={'#' + child.slug} data-blog-toc-link={child.slug}>{child.text}</a>
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </details>
+        )}
+
+        <div class="blog-prose"><slot /></div>
+        <div class="blog-article-end"><a href={localeUrl(lang, 'blog')}>← {t.backAll}</a></div>
+      </article>
+
+      {hasToc && (
+        <aside class="blog-toc-desktop">
+          <p class="blog-toc-title">{tocLabel}</p>
+          <nav aria-label={tocLabel}>
+            <ol class="blog-toc-list">
+              {tocItems.map(item => (
+                <li>
+                  <a class="blog-toc-link" href={'#' + item.slug} data-blog-toc-link={item.slug}>{item.text}</a>
+                  {item.children.length > 0 && (
+                    <ol>
+                      {item.children.map(child => (
+                        <li>
+                          <a class="blog-toc-link blog-toc-link--sub" href={'#' + child.slug} data-blog-toc-link={child.slug}>{child.text}</a>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+      )}
+    </div>
+  </main>
+  <BlogFooter {lang} />
+  <script is:inline>
+    // Markdown task-list checkboxes are read-only but still need accessible names.
+    document.querySelectorAll('.blog-prose li.task-list-item').forEach(item => {
+      const checkbox = item.querySelector('input[type="checkbox"]');
+      if (checkbox && !checkbox.hasAttribute('aria-label')) {
+        checkbox.setAttribute('aria-label', item.textContent.trim());
+      }
+    });
+
+    // Keep both desktop and mobile TOCs synchronized with the section in view.
+    (() => {
+      const links = [...document.querySelectorAll('[data-blog-toc-link]')];
+      const headings = [...document.querySelectorAll('.blog-prose h2[id], .blog-prose h3[id]')];
+      if (!links.length || !headings.length) return;
+
+      let scheduled = false;
+      let lastActiveId = '';
+      const updateActiveHeading = () => {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(() => {
+          let activeHeading = headings[0];
+          for (const heading of headings) {
+            if (heading.getBoundingClientRect().top <= 150) activeHeading = heading;
+            else break;
+          }
+          // The final section can remain below the reading line when the page
+          // reaches its scroll limit, so explicitly activate it at page end.
+          if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+            activeHeading = headings[headings.length - 1];
+          }
+          for (const link of links) {
+            const active = link.getAttribute('data-blog-toc-link') === activeHeading.id;
+            link.classList.toggle('is-active', active);
+            if (active) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+          }
+          if (activeHeading.id !== lastActiveId) {
+            lastActiveId = activeHeading.id;
+            const visibleActiveLink = links.find(link =>
+              link.getAttribute('data-blog-toc-link') === activeHeading.id && link.getClientRects().length > 0
+            );
+            visibleActiveLink?.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+          }
+          scheduled = false;
+        });
+      };
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          const details = link.closest('details');
+          if (details) details.open = false;
+        });
+      });
+      window.addEventListener('scroll', updateActiveHeading, { passive: true });
+      window.addEventListener('resize', updateActiveHeading);
+      window.addEventListener('hashchange', updateActiveHeading);
+      updateActiveHeading();
+    })();
+  </script>
 </BaseLayout>

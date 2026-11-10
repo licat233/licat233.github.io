@@ -54,3 +54,53 @@ test('Blog articles keep canonical SEO metadata and readable content after updat
     expect(data.articleUrl, route).toBe('https://licat.xyz' + route);
   }
 });
+
+
+test('Blog table of contents follows article headings on desktop and mobile', async ({ page }) => {
+  const route = '/blog/seo-keyword-research-guide/';
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('http://127.0.0.1:4321' + route, { waitUntil: 'domcontentloaded' });
+
+  const headings = page.locator('.blog-prose h2[id], .blog-prose h3[id]');
+  const desktopToc = page.locator('.blog-toc-desktop');
+  const desktopLinks = desktopToc.locator('[data-blog-toc-link]');
+  await expect(desktopToc).toBeVisible();
+  expect(await desktopToc.evaluate(element => getComputedStyle(element).position)).toBe('sticky');
+  expect(await desktopLinks.count()).toBe(await headings.count());
+
+  const firstLink = desktopLinks.first();
+  const targetId = await firstLink.getAttribute('data-blog-toc-link');
+  expect(targetId).toBeTruthy();
+  await firstLink.click();
+  await expect.poll(() => page.evaluate(() => location.hash)).not.toBe('');
+  await expect.poll(() =>
+    desktopToc.locator('[data-blog-toc-link][aria-current="location"]').getAttribute('data-blog-toc-link')
+  ).toBe(targetId);
+
+  // Long articles must keep the active entry visible inside the independently
+  // scrollable sticky TOC, rather than highlighting an off-screen item.
+  await page.goto('http://127.0.0.1:4321/blog/overseas-b2b-social-media-infrastructure-guide/', {
+    waitUntil: 'domcontentloaded',
+  });
+  const longToc = page.locator('.blog-toc-desktop');
+  const lastHeading = page.locator('.blog-prose h2[id], .blog-prose h3[id]').last();
+  const lastHeadingId = await lastHeading.getAttribute('id');
+  await lastHeading.scrollIntoViewIfNeeded();
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await expect.poll(() =>
+    longToc.locator('[data-blog-toc-link][aria-current="location"]').getAttribute('data-blog-toc-link')
+  ).toBe(lastHeadingId);
+  await expect.poll(() => longToc.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('http://127.0.0.1:4321' + route, { waitUntil: 'domcontentloaded' });
+  const mobileToc = page.locator('.blog-toc-mobile');
+  await expect(mobileToc).toBeVisible();
+  expect(await mobileToc.evaluate(element => element.open)).toBe(false);
+
+  await mobileToc.locator('summary').click();
+  await expect(mobileToc).toHaveAttribute('open', '');
+  await mobileToc.locator('[data-blog-toc-link]').first().click();
+  await expect.poll(() => page.evaluate(() => location.hash)).not.toBe('');
+  await expect(mobileToc).not.toHaveAttribute('open', '');
+});
