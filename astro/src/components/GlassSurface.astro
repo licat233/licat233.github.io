@@ -1,19 +1,20 @@
 ---
 /**
  * Shared, semantic surface for the site's existing three-layer Liquid Glass.
- * This is the ONLY Astro component that emits the decorative spans. All glass
- * CSS, context-specific styling and accessible fallbacks stay in their original
- * stylesheet, so this refactor does not redesign the site's appearance.
+ * This is the ONLY Astro component that emits the decorative spans. Repeated
+ * surfaces may disable live backdrop blur while retaining static tint/highlights.
+ * Context-specific styling and accessible fallbacks stay in their own stylesheets.
  */
 type ElementName = 'a' | 'article' | 'button' | 'div' | 'footer' | 'header';
 type Material = 'bare' | 'regular' | 'ultra-thin' | 'thick';
 interface Props {
   as?: ElementName;
   material?: Material;
+  backdropBlur?: boolean;
   class?: string;
   [attribute: string]: unknown;
 }
-const { as = 'div', material = 'bare', class: extraClass = '', ...attrs } = Astro.props;
+const { as = 'div', material = 'bare', backdropBlur = true, class: extraClass = '', ...attrs } = Astro.props;
 const Tag = as;
 const materialClasses = {
   'bare': '',
@@ -24,7 +25,7 @@ const materialClasses = {
 const classes = [extraClass, 'liquid-demo', materialClasses[material]].filter(Boolean).join(' ');
 ---
 <Tag {...attrs} class={classes}>
-  <span class="lg-glass-filter" aria-hidden="true"></span>
+  {backdropBlur && <span class="lg-glass-filter" aria-hidden="true"></span>}
   <span class="lg-glass-overlay" aria-hidden="true"></span>
   <span class="lg-glass-specular" aria-hidden="true"></span>
   <slot />

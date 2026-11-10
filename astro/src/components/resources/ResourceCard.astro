@@ -24,7 +24,7 @@ const locale = lang === 'en' ? 'en' : 'zh-CN';
 const name = item.name[locale];
 const description = item.description[locale];
 ---
-<GlassSurface as="article" class="resource-card" material="regular"
+<GlassSurface as="article" class="resource-card" backdropBlur={false}
   id={cardId} data-resource-id={item.id} data-resource-card={isResult ? item.id : undefined}
   data-category={item.category ?? ''} data-subcategory={item.subcategory ?? ''}
   data-pricing={item.pricing} data-tags={item.tags.join('|')}

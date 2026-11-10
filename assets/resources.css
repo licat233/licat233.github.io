@@ -240,6 +240,13 @@
   box-shadow: var(--apple-glass-shadow);
   transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
+/* Directory cards are numerous: retain the glass tint and highlights without
+   compositing a live backdrop blur for every card. */
+.resource-card.liquid-demo > .lg-glass-overlay {
+  background:
+    linear-gradient(130deg, var(--lg-demo-reflection), transparent 53%),
+    var(--apple-glass-bg-regular);
+}
 .resource-card.liquid-demo > :not(.lg-glass-filter):not(.lg-glass-overlay):not(.lg-glass-specular) {
   position: relative;
   z-index: 3;
@@ -500,6 +507,14 @@
 @media (prefers-reduced-motion: reduce) {
   .resource-category-card,.resource-collection-card,.resource-card,.resources-toast,
   .resource-card__visit span { transition: none !important; }
+}
+@supports not ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
+  .resource-card.liquid-demo > .lg-glass-overlay { background: rgba(248, 252, 255, .96); }
+  :root[data-theme="dark"] .resource-card.liquid-demo > .lg-glass-overlay { background: rgba(31, 43, 52, .96); }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .resource-card.liquid-demo > .lg-glass-overlay { background: #f5f9fc; }
+  :root[data-theme="dark"] .resource-card.liquid-demo > .lg-glass-overlay { background: #202d35; }
 }
 @media (forced-colors: active) {
   .resource-category-card.liquid-demo,.resource-collection-card.liquid-demo,.resource-card.liquid-demo {

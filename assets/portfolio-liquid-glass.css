@@ -265,7 +265,7 @@
   color: #173240;
   font-weight: 730;
 }
-.site-header .nav-pill.active > span {
+.site-header .nav-pill.active > span:first-child {
   background: #168aab;
   box-shadow: 0 0 0 2px rgba(22, 138, 171, .12);
   opacity: 1;
@@ -308,7 +308,7 @@
   background: linear-gradient(150deg, rgba(237, 250, 255, .21), transparent 58%);
 }
 :root[data-theme="dark"] .site-header .nav-pill.active { color: #f1fbff; }
-:root[data-theme="dark"] .site-header .nav-pill.active > span {
+:root[data-theme="dark"] .site-header .nav-pill.active > span:first-child {
   background: #68cadb;
   box-shadow: 0 0 0 2px rgba(104, 202, 219, .12);
 }
@@ -349,7 +349,7 @@
   }
   .site-header .nav-pill.active { color: HighlightText; }
   .site-header .nav-group:has(.nav-pill.active) .nav-submenu-trigger { color: HighlightText; }
-  .site-header .nav-pill.active > span { background: HighlightText; box-shadow: none; }
+  .site-header .nav-pill.active > span:first-child { background: HighlightText; box-shadow: none; }
   .site-header .nav-links:not(.nav-ready) .nav-pill.active,
   .site-header .nav-links:not(.nav-ready) .nav-group:has(.nav-pill.active) {
     background: Highlight;

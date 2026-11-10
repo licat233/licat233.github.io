@@ -138,7 +138,7 @@
     transform .25s ease,
     opacity .25s ease;
 }
-.site-header .nav-pill > span {
+.site-header .nav-pill > span:first-child {
   width: var(--space-1);
   height: var(--space-1);
   border-radius: 50%;
@@ -148,7 +148,7 @@
 }
 .site-header .nav-pill:hover { transform: translateY(-1px); }
 .site-header .nav-pill.active { color: var(--nav-active-fg); }
-.site-header .nav-pill.active > span {
+.site-header .nav-pill.active > span:first-child {
   opacity: 1;
   background: var(--cyan);
   transform: scale(1.15);
@@ -329,8 +329,9 @@
  .site-header{top:.625rem;width:calc(100% - 1.25rem);border-radius:1.5rem}
  .site-header .nav{min-height:3.875rem;padding:.4375rem .5rem .5625rem .6875rem;row-gap:var(--space-1)}
  .site-header .brand img{width:2.125rem;height:2.125rem}
- .site-header .nav-links{margin-top:.125rem;padding-inline:.1875rem;scroll-padding-inline:34%}
- .site-header .nav-pill{padding:.5625rem .8125rem;font-size:.75rem}
+ .site-header .nav-links{margin-top:.125rem;padding-inline:.1875rem;gap:.125rem;justify-content:flex-start;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-padding-inline:34%}
+ .site-header .nav-links:has(.nav-submenu-trigger[aria-expanded="true"]){overflow:visible}
+ .site-header .nav-pill{padding:.5rem .5rem;font-size:.75rem}
  .site-header .theme-toggle{width:2.375rem;height:2.375rem;flex-basis:2.375rem}
  .site-header .theme-toggle-track,.site-header .theme-icon{width:1.0625rem;height:1.0625rem}
  .site-header .github-cta span,.site-header .github-mark{display:none}

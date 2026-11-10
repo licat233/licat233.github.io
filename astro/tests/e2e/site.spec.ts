@@ -80,12 +80,22 @@ test('AI active Liquid Glass pill includes the chevron in both locales and theme
 });
 
 test('AI subnavigation supports Escape, keyboard and mobile click without clipping',async ({page})=>{
+ await page.setViewportSize({width:320,height:844});
  await page.goto('/en/skills/');
+ const navLinks=page.locator('.site-header .nav-links');
+ const mobileNav=await navLinks.evaluate(el=>({
+  overflowX:getComputedStyle(el).overflowX,
+  scrollWidth:el.scrollWidth,
+  clientWidth:el.clientWidth,
+ }));
+ expect(mobileNav.overflowX).toBe('auto');
+ expect(mobileNav.scrollWidth).toBeGreaterThan(mobileNav.clientWidth);
  const trigger=page.locator('.site-header .nav-submenu-trigger');
  await trigger.click();
  await expect(trigger).toHaveAttribute('aria-expanded','true');
  const menu=page.locator('.site-header .ai-subnav');
  await expect(menu).toBeVisible();
+ await expect.poll(()=>navLinks.evaluate(el=>getComputedStyle(el).overflow)).toBe('visible');
  const position=await menu.evaluate(el=>{
   const menu=el.getBoundingClientRect();
   const header=document.querySelector('.site-header')!.getBoundingClientRect();

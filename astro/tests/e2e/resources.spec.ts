@@ -213,6 +213,20 @@ test('homepage keeps its existing section anchors and exposes the shared Resourc
 test('offscreen directory cards keep crawlable HTML and render when scrolled into view', async ({ page }) => {
   await page.goto('/resources/');
   await page.waitForFunction(() => document.documentElement.dataset.resourcesReady === 'true');
+  const allCards = page.locator('.resource-card');
+  const rendering = await allCards.evaluateAll(elements => ({
+    count: elements.length,
+    blurLayers: elements.filter(element => element.querySelector(':scope > .lg-glass-filter')).length,
+    materialBlur: elements.filter(element => element.classList.contains('apple-glass-base')).length,
+    overlays: elements.filter(element => element.querySelector(':scope > .lg-glass-overlay')).length,
+    highlights: elements.filter(element => element.querySelector(':scope > .lg-glass-specular')).length,
+  }));
+  expect(rendering.count).toBeGreaterThan(0);
+  expect(rendering.blurLayers).toBe(0);
+  expect(rendering.materialBlur).toBe(0);
+  expect(rendering.overlays).toBe(rendering.count);
+  expect(rendering.highlights).toBe(rendering.count);
+
   const cards = page.locator('#resource-results [data-resource-card]');
   const catalogue = JSON.parse((await page.locator('#resource-catalogue').textContent()) || '[]');
   await expect(cards).toHaveCount(catalogue.length);

@@ -203,7 +203,7 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
     transform .25s ease,
     opacity .25s ease;
 }
-.nav-pill > span {
+.nav-pill > span:first-child {
   width: var(--space-1);
   height: var(--space-1);
   border-radius: 50%;
@@ -213,7 +213,7 @@ a:focus-visible { outline: 3px solid rgba(0,119,200,.26); outline-offset: 4px; }
 }
 .nav-pill:hover { transform: translateY(-1px); }
 .nav-pill.active { color: var(--nav-active-fg); }
-.nav-pill.active > span {
+.nav-pill.active > span:first-child {
   opacity: 1;
   background: var(--cyan);
   transform: scale(1.15);
