@@ -10,6 +10,8 @@ test('Blog articles keep canonical SEO metadata and readable content after updat
     '/blog/ga4-gtm-lead-tracking/',
     '/en/blog/seo-keyword-research-guide/',
     '/en/blog/ga4-gtm-lead-tracking/',
+    '/blog/overseas-b2b-social-media-infrastructure-guide/',
+    '/en/blog/overseas-b2b-social-media-infrastructure-guide/',
   ];
 
   for (const route of routes) {
