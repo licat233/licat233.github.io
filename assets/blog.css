@@ -229,3 +229,41 @@ html:has(body.blog-page) { scroll-behavior: smooth; }
   .blog-page .blog-toc-toggle,
   .blog-page .blog-toc-toggle::before { transition: none; }
 }
+
+/* One-click control for all H2/H3 sections. */
+.blog-page .blog-toc-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .45rem;
+  margin-bottom: .55rem;
+}
+.blog-page .blog-toc-heading .blog-toc-title { margin: 0; }
+.blog-page .blog-toc-global-toggle {
+  flex: 0 0 auto;
+  padding: .32rem .48rem;
+  border: 0;
+  border-radius: .4rem;
+  background: transparent;
+  color: var(--blue);
+  font: inherit;
+  font-size: .7rem;
+  font-weight: 680;
+  line-height: 1.25;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease;
+}
+.blog-page .blog-toc-global-toggle:hover {
+  color: var(--blue);
+  background: var(--bg-2);
+}
+.blog-page .blog-toc-global-toggle:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+.blog-page .blog-toc-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 .35rem;
+}
