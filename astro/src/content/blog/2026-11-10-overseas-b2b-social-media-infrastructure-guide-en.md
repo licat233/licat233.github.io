@@ -6,8 +6,6 @@ description: "A practical guide for export manufacturers and B2B teams covering 
 translation_url: /blog/overseas-b2b-social-media-infrastructure-guide/
 ---
 
-# Overseas B2B Social Media Operations Infrastructure: A Practical Guide
-
 > **Audience:** Export manufacturers, international sales teams, and B2B marketing teams  
 > **Platforms:** LinkedIn, Facebook, Instagram, YouTube, TikTok, WhatsApp, and related services  
 > **Goal:** Build a stable, simple, low-maintenance, transferable, and company-controlled operating environment for official brand accounts and individual Sales profiles.  
