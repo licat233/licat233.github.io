@@ -15,7 +15,7 @@ export async function getStaticPaths(){
 }
 interface Props {post:CollectionEntry<'blog'>;lang:Lang}
 const {post,lang}=Astro.props;
-const {Content}=await render(post);
+const {Content,headings}=await render(post);
 const canonical=localizedPath(lang,'blog',blogSlug(post.id));
 ---
-<BlogArticle {lang} {post} {canonical}><Content /></BlogArticle>
+<BlogArticle {lang} {post} {canonical} {headings}><Content /></BlogArticle>
