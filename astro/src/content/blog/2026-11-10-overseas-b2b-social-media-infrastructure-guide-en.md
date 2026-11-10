@@ -794,6 +794,8 @@ Marketing Content Hub
 
 The content strategy is coordinated, but the voice, account ownership, and publishing environment remain distinct.
 
+For a more systematic approach to topic research, search intent, and content ownership, see the [SEO Keyword Research Guide](/en/blog/seo-keyword-research-guide/) and connect search-demand research with social content planning.
+
 ## 6. Corporate Overseas SIMs and Phone Numbers
 
 > **Scope of this chapter:** The operator examples focus mainly on businesses operating from mainland China and compare Hong Kong, UK, US, and German products. Companies elsewhere should rebuild the candidate list around their actual operating location, local registration rules, roaming policies, number validity, and recovery options.
