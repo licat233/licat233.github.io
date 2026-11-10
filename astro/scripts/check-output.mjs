@@ -333,9 +333,19 @@ console.log('ASTRO_DEMO_PRESERVED: public demos remain noindex and reachable');
 for(const route of ['blog/index.html','en/blog/index.html','blog/website-seo-geo-basics/index.html']){
  const html=await read(route);
  assert(html.includes('class="blog-footer"'),'Jekyll Blog footer missing from '+route);
- assert(html.includes('/assets/bundle-blog.css?v=20261110-nav-bookmark-perf1'),'Original blog stylesheet URL changed in '+route);
+ assert(html.includes('/assets/bundle-blog.css?v=20261110-blog-toc1'),'Blog stylesheet URL missing or stale in '+route);
 }
 console.log('ASTRO_BLOG_SHELL_PARITY_PASS: original footer and styles present');
+
+const tocArticle = await read('blog/website-seo-geo-basics/index.html');
+const articleHeadingIds = [...tocArticle.matchAll(/<h[23]\b[^>]*id="([^"]+)"/g)].map(match => match[1]);
+const tocHeadingIds = new Set([...tocArticle.matchAll(/data-blog-toc-link="([^"]+)"/g)].map(match => match[1]));
+assert(articleHeadingIds.length > 1, 'TOC fixture needs multiple H2/H3 headings');
+assert(articleHeadingIds.every(id => tocHeadingIds.has(id)), 'Blog TOC does not cover every H2/H3 heading');
+assert(tocArticle.includes('class="blog-toc-desktop"') && tocArticle.includes('class="blog-toc-mobile"'),
+  'Blog TOC must render desktop and mobile navigation');
+console.log('ASTRO_BLOG_TOC_PASS: desktop/mobile navigation covers every H2/H3 anchor');
+
 
 const {readdir:readDirectories}=await import('node:fs/promises');
 const skillFolders=(await readDirectories(new URL('../../skills/',import.meta.url),{withFileTypes:true}))
@@ -395,7 +405,8 @@ await inspectAstroTemplates(sourceDir);
 for(const route of ['index.html','en/index.html','projects/index.html','en/projects/index.html',
                     'skills/index.html','en/skills/index.html','ai/index.html','en/ai/index.html','blog/index.html','prompts/index.html']){
  const html=await read(route);
- assert(/\/assets\/bundle-(home|prompts|content|blog|resources)\.css\?v=20261110-nav-bookmark-perf1/.test(html),
+ assert(/\/assets\/bundle-blog\.css\?v=20261110-blog-toc1/.test(html) ||
+        /\/assets\/bundle-(home|prompts|content|resources)\.css\?v=20261110-nav-bookmark-perf1/.test(html),
    'Glass material stylesheet missing from '+route);
 }
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');
