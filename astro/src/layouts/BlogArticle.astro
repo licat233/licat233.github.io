@@ -78,7 +78,18 @@ const tocCount = en ? tocItems.length + ' chapters' : tocItems.length + ' 个章
               <span class="blog-toc-mobile__count">{tocCount}</span>
             </summary>
             <nav aria-label={tocLabel}>
-              <ol class="blog-toc-list">
+              <div class="blog-toc-toolbar">
+                <button
+                  class="blog-toc-global-toggle"
+                  type="button"
+                  data-blog-toc-global-toggle
+                  data-expand-label={en ? 'Expand all' : '全部展开'}
+                  data-collapse-label={en ? 'Collapse all' : '全部收起'}
+                  aria-label={en ? 'Expand all' : '全部展开'}
+                  aria-controls="blog-toc-list-mobile"
+                >{en ? 'Expand all' : '全部展开'}</button>
+              </div>
+              <ol class="blog-toc-list" id="blog-toc-list-mobile">
                 {tocItems.map(item => (
                   <li class="blog-toc-item" data-blog-toc-item={item.slug}>
                     <div class="blog-toc-item__row">
@@ -124,9 +135,20 @@ const tocCount = en ? tocItems.length + ' chapters' : tocItems.length + ' 个章
 
       {hasToc && (
         <aside class="blog-toc-desktop">
-          <p class="blog-toc-title">{tocLabel}</p>
+          <div class="blog-toc-heading">
+            <p class="blog-toc-title">{tocLabel}</p>
+            <button
+              class="blog-toc-global-toggle"
+              type="button"
+              data-blog-toc-global-toggle
+              data-expand-label={en ? 'Expand all' : '全部展开'}
+              data-collapse-label={en ? 'Collapse all' : '全部收起'}
+              aria-label={en ? 'Expand all' : '全部展开'}
+              aria-controls="blog-toc-list-desktop"
+            >{en ? 'Expand all' : '全部展开'}</button>
+          </div>
           <nav aria-label={tocLabel}>
-            <ol class="blog-toc-list">
+            <ol class="blog-toc-list" id="blog-toc-list-desktop">
               {tocItems.map(item => (
                 <li class="blog-toc-item" data-blog-toc-item={item.slug}>
                   <div class="blog-toc-item__row">
@@ -177,16 +199,19 @@ const tocCount = en ? tocItems.length + ' chapters' : tocItems.length + ' 个章
       }
     });
 
-    // Keep both responsive TOCs synchronized, with one H2 chapter expanded at a time.
+    // Keep both responsive TOCs synchronized. Normal use is single-open; after "Expand all", sections can be closed independently.
     (() => {
       const links = [...document.querySelectorAll('[data-blog-toc-link]')];
       const toggleButtons = [...document.querySelectorAll('[data-blog-toc-toggle]')];
+      const globalToggleButtons = [...document.querySelectorAll('[data-blog-toc-global-toggle]')];
+      const toggleSlugs = [...new Set(toggleButtons.map(button => button.getAttribute('data-blog-toc-toggle')).filter(Boolean))];
       const headings = [...document.querySelectorAll('.blog-prose h2[id], .blog-prose h3[id]')];
       if (!links.length || !headings.length) return;
 
-      const syncAccordion = (openSlug) => {
+      let openSlugs = new Set();
+      const syncAccordion = (expandedSlugs) => {
         for (const button of toggleButtons) {
-          const expanded = button.getAttribute('data-blog-toc-toggle') === openSlug;
+          const expanded = expandedSlugs.has(button.getAttribute('data-blog-toc-toggle'));
           const children = document.getElementById(button.getAttribute('aria-controls'));
           const label = button.getAttribute('data-section-label') || '';
           button.setAttribute('aria-expanded', String(expanded));
@@ -197,6 +222,12 @@ const tocCount = en ? tocItems.length + ' chapters' : tocItems.length + ' 个章
           button.closest('.blog-toc-item')?.classList.toggle('is-expanded', expanded);
           if (children) children.hidden = !expanded;
         }
+        const globalLabel = expandedSlugs.size > 0 ? 'data-collapse-label' : 'data-expand-label';
+        globalToggleButtons.forEach(button => {
+          const label = button.getAttribute(globalLabel) || '';
+          button.textContent = label;
+          button.setAttribute('aria-label', label);
+        });
       };
 
       let scheduled = false;
@@ -254,9 +285,23 @@ const tocCount = en ? tocItems.length + ' chapters' : tocItems.length + ' 个章
 
       toggleButtons.forEach(button => {
         button.addEventListener('click', () => {
-          const isExpanded = button.getAttribute('aria-expanded') === 'true';
           const slug = button.getAttribute('data-blog-toc-toggle');
-          syncAccordion(isExpanded ? '' : slug);
+          if (openSlugs.has(slug)) {
+            const nextOpenSlugs = new Set(openSlugs);
+            nextOpenSlugs.delete(slug);
+            openSlugs = nextOpenSlugs;
+          } else {
+            openSlugs = openSlugs.size > 1 ? new Set([...openSlugs, slug]) : new Set([slug]);
+          }
+          syncAccordion(openSlugs);
+          updateActiveHeading();
+        });
+      });
+
+      globalToggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          openSlugs = openSlugs.size > 0 ? new Set() : new Set(toggleSlugs);
+          syncAccordion(openSlugs);
           updateActiveHeading();
         });
       });
