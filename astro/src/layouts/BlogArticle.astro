@@ -55,7 +55,7 @@ for (const heading of tocHeadings) {
 }
 const hasToc = tocHeadings.length > 1;
 const tocLabel = en ? 'On this page' : '文章目录';
-const tocCount = en ? tocHeadings.length + ' sections' : tocHeadings.length + ' 个章节';
+const tocCount = en ? tocItems.length + ' chapters' : tocItems.length + ' 个章节';
 ---
 
 <BaseLayout {lang} active="blog" title={post.data.title} description={post.data.description || post.data.title} {canonical} {zhHref} {enHref} {alternateZh} {alternateEn} styles={blogStyles} ogType="article" pageClass="blog-page">
@@ -80,10 +80,30 @@ const tocCount = en ? tocHeadings.length + ' sections' : tocHeadings.length + ' 
             <nav aria-label={tocLabel}>
               <ol class="blog-toc-list">
                 {tocItems.map(item => (
-                  <li>
-                    <a class="blog-toc-link" href={'#' + item.slug} data-blog-toc-link={item.slug}>{item.text}</a>
+                  <li class="blog-toc-item" data-blog-toc-item={item.slug}>
+                    <div class="blog-toc-item__row">
+                      <a class="blog-toc-link blog-toc-link--chapter" href={'#' + item.slug} data-blog-toc-link={item.slug}>{item.text}</a>
+                      {item.children.length > 0 && (
+                        <button
+                          class="blog-toc-toggle"
+                          type="button"
+                          aria-label={(en ? 'Expand section: ' : '展开章节：') + item.text}
+                          aria-expanded="false"
+                          aria-controls={'blog-toc-children-mobile-' + item.slug}
+                          data-blog-toc-toggle={item.slug}
+                          data-expand-label={en ? 'Expand section' : '展开章节'}
+                          data-collapse-label={en ? 'Collapse section' : '收起章节'}
+                          data-section-label={item.text}
+                        ></button>
+                      )}
+                    </div>
                     {item.children.length > 0 && (
-                      <ol>
+                      <ol
+                        class="blog-toc-children"
+                        id={'blog-toc-children-mobile-' + item.slug}
+                        data-blog-toc-children={item.slug}
+                        hidden
+                      >
                         {item.children.map(child => (
                           <li>
                             <a class="blog-toc-link blog-toc-link--sub" href={'#' + child.slug} data-blog-toc-link={child.slug}>{child.text}</a>
@@ -108,10 +128,30 @@ const tocCount = en ? tocHeadings.length + ' sections' : tocHeadings.length + ' 
           <nav aria-label={tocLabel}>
             <ol class="blog-toc-list">
               {tocItems.map(item => (
-                <li>
-                  <a class="blog-toc-link" href={'#' + item.slug} data-blog-toc-link={item.slug}>{item.text}</a>
+                <li class="blog-toc-item" data-blog-toc-item={item.slug}>
+                  <div class="blog-toc-item__row">
+                    <a class="blog-toc-link blog-toc-link--chapter" href={'#' + item.slug} data-blog-toc-link={item.slug}>{item.text}</a>
+                    {item.children.length > 0 && (
+                      <button
+                        class="blog-toc-toggle"
+                        type="button"
+                        aria-label={(en ? 'Expand section: ' : '展开章节：') + item.text}
+                        aria-expanded="false"
+                        aria-controls={'blog-toc-children-desktop-' + item.slug}
+                        data-blog-toc-toggle={item.slug}
+                        data-expand-label={en ? 'Expand section' : '展开章节'}
+                        data-collapse-label={en ? 'Collapse section' : '收起章节'}
+                        data-section-label={item.text}
+                      ></button>
+                    )}
+                  </div>
                   {item.children.length > 0 && (
-                    <ol>
+                    <ol
+                      class="blog-toc-children"
+                      id={'blog-toc-children-desktop-' + item.slug}
+                      data-blog-toc-children={item.slug}
+                      hidden
+                    >
                       {item.children.map(child => (
                         <li>
                           <a class="blog-toc-link blog-toc-link--sub" href={'#' + child.slug} data-blog-toc-link={child.slug}>{child.text}</a>
@@ -137,11 +177,27 @@ const tocCount = en ? tocHeadings.length + ' sections' : tocHeadings.length + ' 
       }
     });
 
-    // Keep both desktop and mobile TOCs synchronized with the section in view.
+    // Keep both responsive TOCs synchronized, with one H2 chapter expanded at a time.
     (() => {
       const links = [...document.querySelectorAll('[data-blog-toc-link]')];
+      const toggleButtons = [...document.querySelectorAll('[data-blog-toc-toggle]')];
       const headings = [...document.querySelectorAll('.blog-prose h2[id], .blog-prose h3[id]')];
       if (!links.length || !headings.length) return;
+
+      const syncAccordion = (openSlug) => {
+        for (const button of toggleButtons) {
+          const expanded = button.getAttribute('data-blog-toc-toggle') === openSlug;
+          const children = document.getElementById(button.getAttribute('aria-controls'));
+          const label = button.getAttribute('data-section-label') || '';
+          button.setAttribute('aria-expanded', String(expanded));
+          button.setAttribute(
+            'aria-label',
+            (expanded ? button.getAttribute('data-collapse-label') : button.getAttribute('data-expand-label')) + ': ' + label
+          );
+          button.closest('.blog-toc-item')?.classList.toggle('is-expanded', expanded);
+          if (children) children.hidden = !expanded;
+        }
+      };
 
       let scheduled = false;
       let lastActiveId = '';
@@ -159,16 +215,36 @@ const tocCount = en ? tocHeadings.length + ' sections' : tocHeadings.length + ' 
           if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
             activeHeading = headings[headings.length - 1];
           }
+
+          // When an H3 is folded away, highlight its visible H2 parent instead.
+          let activeChapter = activeHeading;
+          const activeIndex = headings.indexOf(activeHeading);
+          for (let i = activeIndex; i >= 0; i--) {
+            if (headings[i].tagName === 'H2') {
+              activeChapter = headings[i];
+              break;
+            }
+          }
+          const activeSubheadingIsVisible = activeHeading.tagName === 'H3' &&
+            links.some(link =>
+              link.getAttribute('data-blog-toc-link') === activeHeading.id &&
+              link.getClientRects().length > 0
+            );
+          const activeLinkId = activeSubheadingIsVisible ? activeHeading.id : activeChapter.id;
+
           for (const link of links) {
-            const active = link.getAttribute('data-blog-toc-link') === activeHeading.id;
+            const active = link.getAttribute('data-blog-toc-link') === activeLinkId &&
+              link.getClientRects().length > 0;
             link.classList.toggle('is-active', active);
             if (active) link.setAttribute('aria-current', 'location');
             else link.removeAttribute('aria-current');
           }
-          if (activeHeading.id !== lastActiveId) {
-            lastActiveId = activeHeading.id;
+
+          if (activeLinkId !== lastActiveId) {
+            lastActiveId = activeLinkId;
             const visibleActiveLink = links.find(link =>
-              link.getAttribute('data-blog-toc-link') === activeHeading.id && link.getClientRects().length > 0
+              link.getAttribute('data-blog-toc-link') === activeLinkId &&
+              link.getClientRects().length > 0
             );
             visibleActiveLink?.scrollIntoView({ block: 'nearest', behavior: 'auto' });
           }
@@ -176,10 +252,26 @@ const tocCount = en ? tocHeadings.length + ' sections' : tocHeadings.length + ' 
         });
       };
 
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const isExpanded = button.getAttribute('aria-expanded') === 'true';
+          const slug = button.getAttribute('data-blog-toc-toggle');
+          syncAccordion(isExpanded ? '' : slug);
+          updateActiveHeading();
+        });
+      });
+
       links.forEach(link => {
         link.addEventListener('click', () => {
           const details = link.closest('details');
           if (details) details.open = false;
+        });
+      });
+
+      document.querySelectorAll('.blog-toc-mobile').forEach(details => {
+        details.addEventListener('toggle', () => {
+          lastActiveId = '';
+          updateActiveHeading();
         });
       });
       window.addEventListener('scroll', updateActiveHeading, { passive: true });
