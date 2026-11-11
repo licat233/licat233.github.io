@@ -126,7 +126,10 @@ const projectHref = (name: string) => {
       <div class="hero-ghost" aria-hidden="true">LICAT&nbsp;/&nbsp;SYSTEMS</div>
 
       <figure class="hero-scene" aria-hidden="true">
-        <img src="/assets/licat-hero.webp" alt="">
+        <picture>
+          <source media="(max-width: 760px)" srcset="/assets/licat-hero-mobile.webp" />
+          <img src="/assets/licat-hero.webp" alt="">
+        </picture>
       </figure>
 
       <div class="shell hero">
