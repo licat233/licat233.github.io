@@ -15,11 +15,12 @@ const description=home?t.homeDescription:prompt?prompt[lang].summary:
 const canonical=prompt ? localizedPath(lang,'prompts',prompt.id) : localeUrl(lang,kind);
 const zhHref=prompt ? localizedPath('zh','prompts',prompt.id) : localeUrl('zh',kind);
 const enHref=prompt ? localizedPath('en','prompts',prompt.id) : localeUrl('en',kind);
-const styles=home?['/assets/bundle-home.css?v=20261110-nav-bookmark-perf1']:
+const styles=home?['/assets/bundle-home.css?v=20261111-home-css1']:
   ['/assets/bundle-prompts.css?v=20261110-nav-bookmark-perf1'];
+const deferredStyles=home?['/assets/bundle-home-deferred.css?v=20261111-home-css1']:[];
 ---
 <BaseLayout {lang} active={kind} {title} {description} {canonical} {zhHref} {enHref}
-            {styles} exactTitle={true} includeSiteNavScript={false} includeLensFilter={false}
+            {styles} {deferredStyles} exactTitle={true} includeSiteNavScript={false} includeLensFilter={false}
             pageClass={home?'':'prompts-page'}>
   {!home && <script slot="head" is:inline defer src="/prompts/prompt-library.js?v=20261028-routes1"></script>}
   <slot />

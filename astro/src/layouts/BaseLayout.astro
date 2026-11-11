@@ -15,6 +15,7 @@ interface Props {
   alternateEn?: string | null;
   exactTitle?: boolean;
   styles?: readonly string[];
+  deferredStyles?: readonly string[];
   includeSiteNavScript?: boolean;
   includeLensFilter?: boolean;
   ogType?: 'website' | 'article';
@@ -28,6 +29,7 @@ const {
 } = Astro.props;
 const defaultStyles = ['/assets/bundle-content.css?v=20261110-nav-bookmark-perf1'];
 const styles = Astro.props.styles ?? defaultStyles;
+const deferredStyles = Astro.props.deferredStyles ?? [];
 const alternateZh = Astro.props.alternateZh !== undefined
   ? Astro.props.alternateZh : (zhHref || (lang === 'zh' ? canonical : null));
 const alternateEn = Astro.props.alternateEn !== undefined
@@ -118,7 +120,10 @@ if (Astro.currentLocale !== lang) {
   <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="/favicon.ico" />
   <script is:inline>(()=>{try{const t=localStorage.getItem('licat-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(_){document.documentElement.dataset.theme='light'}})();</script>
+  {active === 'home' && <link rel="preload" as="image" href="/assets/licat-hero.webp" fetchpriority="high" />}
   {styles.map(href => <link rel="stylesheet" href={href} />)}
+  {deferredStyles.map(href => <link rel="stylesheet" href={href} media="print" onload="this.media='all'" />)}
+  {deferredStyles.map(href => <noscript><link rel="stylesheet" href={href} /></noscript>)}
   {homeSchema && <script type="application/ld+json" set:html={homeSchema}></script>}
   {breadcrumbSchema && <script type="application/ld+json" set:html={breadcrumbSchema}></script>}
 

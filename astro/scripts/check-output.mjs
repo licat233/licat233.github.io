@@ -427,7 +427,8 @@ for(const route of ['index.html','en/index.html','projects/index.html','en/proje
                     'skills/index.html','en/skills/index.html','ai/index.html','en/ai/index.html','blog/index.html','prompts/index.html']){
  const html=await read(route);
  assert(/\/assets\/bundle-blog\.css\?v=20261110-blog-toc3/.test(html) ||
-        /\/assets\/bundle-(home|prompts|content|resources)\.css\?v=20261110-nav-bookmark-perf1/.test(html),
+        /\/assets\/bundle-home\.css\?v=20261111-home-css1/.test(html) ||
+        /\/assets\/bundle-(prompts|content|resources)\.css\?v=20261110-nav-bookmark-perf1/.test(html),
    'Glass material stylesheet missing from '+route);
 }
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');
