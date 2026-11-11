@@ -2,6 +2,7 @@
  * Does not build Jekyll. Later replace raw microsites with Astro layouts one by one. */
 import { cp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
+import { transform as minifyCss } from 'lightningcss';
 import { fileURLToPath } from 'node:url';
 const here=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(here,'../..');
@@ -24,8 +25,11 @@ for(const dir of [...sections,...publicSites]){
 // One CSS request per page family, preserving the original cascade order.
 // Bundled from existing public assets at build time; no dependency or visual rewrite.
 const styleBundles = {
+  // Hero, navigation, shared materials and their original cascade order.
   'home': ['vendor/open-props/open-props-core-1.7.23.min.css','portfolio.css','site-header.css',
-    'portfolio-liquid-glass.css','portfolio-entrances.css','portfolio-skills.css',
+    'portfolio-liquid-glass.css'],
+  // Only below-the-fold sections use these rules. Load them without blocking the Hero.
+  'home-deferred': ['portfolio-entrances.css','portfolio-skills.css',
     'portfolio-journey-v2.css','portfolio-prompts.css','site-sections.css'],
   'prompts': ['vendor/open-props/open-props-core-1.7.23.min.css','prompt-library.css',
     'site-header.css','portfolio-liquid-glass.css'],
@@ -40,7 +44,12 @@ for (const [name, files] of Object.entries(styleBundles)) {
   const chunks = await Promise.all(files.map(async file =>
     '/* Source: '+file+' */\n'+await readFile(path.join(publicDir,
       file === 'prompt-library.css' ? 'prompts/prompt-library.css':'assets/'+file),'utf8')));
-  await writeFile(path.join(publicDir,'assets','bundle-'+name+'.css'),chunks.join('\n'));
+  const css = chunks.join('\n');
+  // Limit this optimization to the homepage. Other page bundles remain byte-for-byte unchanged.
+  const output = name === 'home' || name === 'home-deferred'
+    ? minifyCss({ filename: 'bundle-'+name+'.css', code: Buffer.from(css), minify: true }).code
+    : css;
+  await writeFile(path.join(publicDir,'assets','bundle-'+name+'.css'),output);
 }
 
 // Only retained assets and independently published project pages are copied.
