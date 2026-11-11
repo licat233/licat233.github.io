@@ -11,7 +11,7 @@ concurrency:
 jobs:
   build:
     if: ${{ github.ref == 'refs/heads/main' && vars.ASTRO_PAGES_ACTIVE == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: astro
@@ -42,7 +42,7 @@ jobs:
   deploy:
     if: ${{ github.ref == 'refs/heads/main' && vars.ASTRO_PAGES_ACTIVE == 'true' }}
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       pages: write
