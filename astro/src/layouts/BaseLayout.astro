@@ -120,7 +120,8 @@ if (Astro.currentLocale !== lang) {
   <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="/favicon.ico" />
   <script is:inline>(()=>{try{const t=localStorage.getItem('licat-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(_){document.documentElement.dataset.theme='light'}})();</script>
-  {active === 'home' && <link rel="preload" as="image" href="/assets/licat-hero.webp" fetchpriority="high" />}
+  {active === 'home' && <link rel="preload" as="image" href="/assets/licat-hero-mobile.webp" media="(max-width: 760px)" fetchpriority="high" />}
+  {active === 'home' && <link rel="preload" as="image" href="/assets/licat-hero.webp" media="(min-width: 761px)" fetchpriority="high" />}
   {styles.map(href => <link rel="stylesheet" href={href} />)}
   {deferredStyles.map(href => <link rel="stylesheet" href={href} media="print" onload="this.media='all'" />)}
   {deferredStyles.map(href => <noscript><link rel="stylesheet" href={href} /></noscript>)}

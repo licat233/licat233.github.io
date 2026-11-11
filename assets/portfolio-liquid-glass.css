@@ -840,6 +840,19 @@ body > .site-footer {
     linear-gradient(rgba(8, 17, 24, .68), rgba(8, 19, 27, .70)),
     url("/assets/licat-hero.webp") 58% center / cover no-repeat;
 }
+/* The same landscape in a smaller mobile WebP; preserve opacity, crop and dark tint. */
+@media (max-width: 760px) {
+  body:where(.home-page)::before {
+    background-image:
+      linear-gradient(rgba(230, 240, 245, .30), rgba(227, 237, 242, .29)),
+      url("/assets/licat-hero-mobile.webp");
+  }
+  :root[data-theme="dark"] body:where(.home-page)::before {
+    background-image:
+      linear-gradient(rgba(8, 17, 24, .68), rgba(8, 19, 27, .70)),
+      url("/assets/licat-hero-mobile.webp");
+  }
+}
 :root[data-theme="dark"] .hero-wrap {
   background:
     radial-gradient(circle at 14% 22%, rgba(20,38,48,.28), transparent 33%),
