@@ -1,20 +1,5 @@
 name: Astro UI regression — build and browser
 on:
-  pull_request:
-    paths:
-      - 'astro/**'
-      - 'public-sites/**'
-      - 'assets/**'
-      - '_data/**'
-      - '.github/workflows/astro-ui-regression.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'astro/**'
-      - 'public-sites/**'
-      - 'assets/**'
-      - '_data/**'
-      - '.github/workflows/astro-ui-regression.yml'
   workflow_dispatch:
 permissions:
   contents: read
