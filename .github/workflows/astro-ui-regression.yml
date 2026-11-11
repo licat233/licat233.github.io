@@ -35,7 +35,7 @@ jobs:
       - run: npm run build
       - run: npm run check
       - run: node scripts/check-legacy-routes.mjs
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install chromium
       - name: Verify desktop/mobile styles and interactions
         run: npx playwright test --grep-invert "compare live Jekyll"
       - name: Attach browser traces on failure

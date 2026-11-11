@@ -32,7 +32,7 @@ jobs:
       - run: npm run build
       - run: npm run check
       - run: node scripts/check-legacy-routes.mjs
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install chromium
       - name: Run candidate-only browser tests (no live Jekyll dependency)
         run: npx playwright test --grep-invert "compare live Jekyll"
       - uses: actions/configure-pages@v5
