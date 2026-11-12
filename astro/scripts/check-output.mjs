@@ -302,7 +302,7 @@ for(const [kind,expected] of [['projects',8],['skills',2]]){
 console.log('ASTRO_ARCHITECTURE_PASS: one bilingual home component, shared cards and prompt templates');
 
 const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));
-assert(prompts.length===17 && new Set(prompts.map(x=>x.id)).size===17,
+assert(prompts.length===16 && new Set(prompts.map(x=>x.id)).size===16,
  'Prompt metadata must contain 17 unique records');
 assert(prompts.some(x=>x.id==='ai-coding-minimal-defensive-v1' && x.category==='design' && x.translatedEnglish===true),
  'Missing AI coding guideline in Astro prompt catalogue');
@@ -321,13 +321,13 @@ for(const lang of ['','en/']){
 // Prompt detail pages are real, crawlable HTML with stable bilingual SEO URLs.
 for(const item of prompts){
  for(const [lang,prefix] of [['zh',''],['en','en/']]){
-  const route=prefix+'prompts/'+item.id+'/';
+  const route=prefix+'prompts/'+item.slug+'/';
   const html=await read(route+'index.html');
   const base='https://licat.xyz/';
   assert(html.includes('rel="canonical" href="'+base+route+'"'),
    'Prompt has wrong canonical: '+route);
-  assert(html.includes('hreflang="zh-CN" href="'+base+'prompts/'+item.id+'/"') &&
-         html.includes('hreflang="en" href="'+base+'en/prompts/'+item.id+'/"'),
+  assert(html.includes('hreflang="zh-CN" href="'+base+'prompts/'+item.slug+'/"') &&
+         html.includes('hreflang="en" href="'+base+'en/prompts/'+item.slug+'/"'),
    'Prompt translations are not paired: '+route);
   assert(html.includes('id="prompt-initial-content"') &&
          html.includes('id="detail-title"') &&
@@ -340,7 +340,7 @@ for(const item of prompts){
 for(const prefix of ['','en/']){
  const html=await read(prefix+'prompts/index.html');
  assert(!/href="\?p=/.test(html),'Catalogue still links to query-param SPA: '+prefix);
- for(const item of prompts)assert(html.includes('href="/'+prefix+'prompts/'+item.id+'/"'),
+ for(const item of prompts)assert(html.includes('href="/'+prefix+'prompts/'+item.slug+'/"'),
   'Prompt missing crawlable list link: '+prefix+item.id);
 }
 console.log('ASTRO_PROMPT_DETAIL_ROUTES_PASS: 32 static localized articles with canonical, hreflang and SSR body');
@@ -379,7 +379,7 @@ for(const id of ['ai-natural-communication-v1.3.1','ai-high-value-writing-audit-
  const body=file.split('<!-- prompt:begin -->')[1].split('<!-- prompt:end -->')[0];
  assert(!/[\u3400-\u9fff]/.test(body),'New English prompt still contains Chinese body text: '+id);
 }
-console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 17 localized records, 17 real English prompt files, SSR/client parity');
+console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 16 localized records, 16 real English prompt files, SSR/client parity');
 
 const preservedDemo=await read('demo/index.html');
 assert(preservedDemo.includes('name="robots" content="noindex,follow"'),
