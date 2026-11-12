@@ -11,9 +11,9 @@ export function getStaticPaths(){
    params:{...route.params,id},
    props:{id,lang:route.props.lang}
   })),
-  ...['ai-natural-communication-v1.3.1','ai-natural-communication-v1.3.2','ai-natural-communication-v1.3.3'].map(id=>({
+  ...['ai-natural-communication-v1.3.1','ai-natural-communication-v1.3.2','ai-natural-communication-v1.3.3','ai-natural-communication-v1.3.4'].map(id=>({
    params:{...route.params,id},
-   props:{id,lang:route.props.lang,redirectId:'ai-natural-communication-v1.3.4'}
+   props:{id,lang:route.props.lang,redirectId:'ai-natural-communication-v1.4.0'}
   }))
  ]);
 }
