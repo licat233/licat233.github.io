@@ -7,7 +7,7 @@
 ## 结构（Astro 生产版）
 
 - `content/*.md`：中文提示词原文；`../en/prompts/content/*.md`：对应英文正文。
-- `../astro/src/data/prompts.json`：中英文条目的标题、分类、摘要、标签和对应关系，唯一目录数据源。
+- `../astro/src/data/prompts.json`：中英文条目的标题、分类、摘要、标签和对应关系，唯一目录数据源；`id` 对应 Markdown 源文件，`slug` 是永久公开 URL。
 - `../astro/src/components/prompts/PromptLibrary.astro`：中英文共用页面结构。
 - `../astro/src/client/prompt-library.js`：搜索、分类、阅读和复制交互。
 - `prompt-library.css`：共用样式，由 Astro 构建复制到发布目录。
@@ -28,18 +28,30 @@
 
 ## 《AI 说人话指南》版本
 
-- **当前正式使用版：** [V1.4.0](content/ai-natural-communication-v1.4.0.md)；中英文网页列表显示此版本。
-- **历史正式使用版：** [V1.3.4](content/ai-natural-communication-v1.3.4.md)；原文保留，旧详情页跳转至 V1.4.0。
+- **当前正式使用版：** [V1.4.0](content/ai-natural-communication-v1.4.0.md)；永久网页地址为 `/prompts/ai-natural-communication/` 和 `/en/prompts/ai-natural-communication/`。
+- **历史正式使用版：** [V1.3.4](content/ai-natural-communication-v1.3.4.md)；原文保留，旧详情 URL 跳转至永久地址。
 - **历史正式使用版：** [V1.3.3](content/ai-natural-communication-v1.3.3.md)；原文保留，旧详情页跳转至 V1.4.0。
 - **历史正式使用版：** [V1.3.2](content/ai-natural-communication-v1.3.2.md)；原文保留，旧详情页跳转至 V1.4.0。
 - **历史正式使用版：** [V1.3.1](content/ai-natural-communication-v1.3.1.md)；原文保留，旧详情页跳转至 V1.4.0。
 - **历史研究总结版：** [V1.3](content/ai-natural-communication-v1.3.md)；保留原文，方便比对、引用与追溯。
-- 旧分享链接 `?p=ai-natural-communication-v1.3` 会在网页端指向最新正式使用版，不会失效。
+- 旧版详情 URL 和分享链接（包括 `?p=ai-natural-communication-v1.3`）均指向上述永久地址，不会因版本升级而失效。
 - V1.3.1 新增执行优先级、内容生成与自审机制，保留作为历史版本。
 - V1.3.2 新增「能省就省」原则：上下文能表达的逻辑不重复标注，连接词用于强调、转折和澄清；加入句子层面的用词自审，保留必要事实与条件。
 - V1.3.3 纠正过度约束：区分行为底线与风格建议，允许语气缓冲、自然重复及长短句自由变化；自审只针对实质问题，避免反向机械化。
 - V1.3.4 强化「以理解为中心」：允许语境省略、不刻意修复病句；防止为了语言完整而擅自补全事实。工程技术写作优先用段落和因果自然推进，编号与小标题仅在确有步骤、对照或导航价值时使用。
 - V1.4.0 强化「读者理解优先」：默认面向聪明的普通读者，把专业知识转换成清楚易懂的语言；增加读者背景判断、术语解释、难读句重写和可读性验收，同时保留技术深度与事实准确性。
+
+## AI Agent 高效执行版本
+
+- **当前正式版：** [V3.0](content/agent-efficient-execution-v3.md)，永久网页地址为 `/prompts/agent-efficient-execution/` 和 `/en/prompts/agent-efficient-execution/`。
+- **历史版本：** [V2.0](content/agent-efficient-execution.md) 的中英文 Markdown 原文继续保留，作为版本追溯资料，不再作为独立目录条目。
+- 原来已使用的 `/prompts/agent-efficient-execution/` 地址继续保留，但页面内容以正式升级版 V3.0 为准；旧的 V3 版本号 URL 跳转到该地址。
+
+## 永久 URL 规则
+
+- 每条提示词在目录中必须有独立的 `slug`，不包含版本号。
+- 更新内容、标题和版本信息时，不得更改已有 `slug`。
+- 旧版本 URL 使用即时静态跳转指向永久 URL；Sitemap 只收录永久 URL。
 
 ## 配套提示词
 
@@ -100,6 +112,6 @@
 ## English version
 
 - English catalogue: [English Prompt Library](../en/prompts/).
-- All 17 currently listed entries have independent Chinese and English Markdown files. Both language pages use the shared Astro component and catalogue.
+- All 16 currently listed entries have independent Chinese and English Markdown files. Both language pages use the shared Astro component and catalogue.
 - Historical `?p=slug` share links redirect to the new path-based detail pages while preserving language selection.
 - Chinese files under `prompts/content/` remain the original texts. Do not silently overwrite originals during translation.

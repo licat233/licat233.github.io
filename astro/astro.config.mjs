@@ -7,6 +7,7 @@ export default defineConfig({
     defaultLocale: 'zh',
     routing: { prefixDefaultLocale: false },
   },
+  experimental: { redirectPage: true },
   trailingSlash: 'always',
   build: { format: 'directory' },
 });

@@ -14,14 +14,24 @@
   const routesNode=document.getElementById('prompt-locale-routes');
   if(!routesNode)throw new Error('Astro localized URLs missing');
   const localeRoutes=JSON.parse(routesNode.textContent);
-  const promptUrl=(lang,id)=>localeRoutes[lang]+encodeURIComponent(id)+'/';
+  const bySlug=new Map(catalogue.map(item=>[item.slug,item]));
+  const promptUrl=(lang,id)=>{
+    const item=byId.get(id)||bySlug.get(id);
+    return localeRoutes[lang]+encodeURIComponent(item?.slug||id)+'/';
+  };
   const ownLang=isEnglish?'en':'zh';
   const ssrNode=document.getElementById('prompt-initial-content');
   const ssrPrompt=ssrNode?JSON.parse(ssrNode.textContent):null;
   const categoryLabel=isEnglish?{agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration'}:{agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索'};
   const byId=new Map(catalogue.map(item=>[item.id,item]));
-  const legacyIds={'ai-natural-communication-v1.3':'ai-natural-communication-v1.4.0','ai-natural-communication-v1.3.1':'ai-natural-communication-v1.4.0','ai-natural-communication-v1.3.2':'ai-natural-communication-v1.4.0','ai-natural-communication-v1.3.3':'ai-natural-communication-v1.4.0','ai-natural-communication-v1.3.4':'ai-natural-communication-v1.4.0'};
-  const resolveId=id=>legacyIds[id]||id;
+  const legacyIds={
+    'ai-natural-communication-v1.3':'ai-natural-communication-v1.4.0',
+    'ai-natural-communication-v1.3.1':'ai-natural-communication-v1.4.0',
+    'ai-natural-communication-v1.3.2':'ai-natural-communication-v1.4.0',
+    'ai-natural-communication-v1.3.3':'ai-natural-communication-v1.4.0',
+    'ai-natural-communication-v1.3.4':'ai-natural-communication-v1.4.0'
+  };
+  const resolveId=id=>legacyIds[id]||bySlug.get(id)?.id||id;
   const $=selector=>document.querySelector(selector);
   const root=document.documentElement;
   const grid=$('#prompt-grid');
