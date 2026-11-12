@@ -42,7 +42,7 @@ Do not hand-edit the generated `dist/` directory or introduce another CMS or dep
 | Resources catalogue and taxonomy | `src/data/resources.json`, `src/data/resource-categories.json`, `src/data/resource-collections.json`, validated by `src/lib/resources.ts` |
 | Resources UI and local search | `src/components/resources/`, `src/client/resources.js`, `../assets/resources.css` |
 | Resources favorites | Browser `localStorage` only; JSON import/export, no account or server storage |
-| Sitemap and robots | `scripts/generate-sitemap.mjs` runs automatically after the Astro build and includes canonical indexable pages only |
+| Sitemap and robots | `@astrojs/sitemap` generates the Sitemap Index; `astro.config.mjs` registers public microsites and filters noncanonical/noindex pages; `scripts/prepare-public.mjs` writes `robots.txt` |
 | Localized prompt detail route | `src/pages/[...locale]/prompts/[id].astro` (one shared template) |
 | Published standalone microsites and demos | `../public-sites/` → `scripts/prepare-public.mjs` → original URLs (e.g. `/eao/`, `/demo/`) |
 | Shared public files and Skill sources | `../assets/`, `../prompts/`, `../en/prompts/content/`, `../skills/` |
@@ -72,7 +72,8 @@ For a practical publishing tutorial, see the repository-root [PUBLISHING.md](../
 - `.github/workflows/astro-ui-regression.yml` runs PR build and browser checks.
 - `.github/workflows/deploy-astro-pages.yml` runs on `main`, checks the Jekyll recovery branch, builds and validates Astro output, runs browser tests, and publishes `dist/` to GitHub Pages when `ASTRO_PAGES_ACTIVE=true`.
 - `scripts/check-output.mjs` checks core pages, Blog, Prompt and Resources URLs, localized metadata, navigation, Resources schema/payload and static assets.
-- `scripts/generate-sitemap.mjs` runs as the build's `postbuild` step, writes `sitemap.xml` and `robots.txt`, and excludes pages marked `noindex`.
+- `@astrojs/sitemap` generates `sitemap-index.xml` and `sitemap-0.xml`. The integration discovers Astro routes; its documented `customPages` option registers indexable standalone pages copied into `public/`, and its `filter` option excludes missing, noncanonical and `noindex` output. Real hreflang relationships remain in each page's HTML head; they are not duplicated in the Sitemap XML.
+- `scripts/prepare-public.mjs` writes `robots.txt` with the official Sitemap Index URL after preparing the public assets.
 - `scripts/check-legacy-routes.mjs` prevents loss of historical standalone HTML routes.
 
 New projects and Skills belong in individual `.yaml` files under their matching `src/content/` folders. Each entry has a unique file name, `order` preserves directory display order, and `src/content.config.ts` validates fields during the build. Existing `skills/<slug>/SKILL.md` auto-discovery remains in place. Public URLs are not derived from content file locations.
