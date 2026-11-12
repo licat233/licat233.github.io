@@ -180,5 +180,3 @@
     moveNavIndicator
   };
 })();
-
-[executed on device: MacStudio.local (bb8ee9cf-36aa-42f2-b79d-5364cd4dc2d0)]
