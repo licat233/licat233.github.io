@@ -6,6 +6,7 @@ interface Props {
   lang: Lang;
   active: NavKey;
   title: string;
+  breadcrumbTitle?: string;
   description: string;
   canonical: string;
   zhHref?: string;
@@ -21,7 +22,7 @@ interface Props {
   ogType?: 'website' | 'article';
 }
 const {
-  lang, active, title, description, canonical, zhHref, enHref, pageClass = '',
+  lang, active, title, breadcrumbTitle, description, canonical, zhHref, enHref, pageClass = '',
   exactTitle = false,
   includeSiteNavScript = true,
   includeLensFilter = true,
@@ -46,7 +47,7 @@ const breadcrumbItems = active === 'home' ? [] : [
   ...(['skills','prompts'].includes(active) ? [{name:labels.ai,url:localeUrl(lang,'ai')}] : []),
   ...(active === 'blog' && !isSectionIndex ? [{name:labels.blog,url:localeUrl(lang,'blog')}] : []),
   ...(active === 'prompts' && !isSectionIndex ? [{name:labels.prompts,url:localeUrl(lang,'prompts')}] : []),
-  {name:isSectionIndex ? labels[active] : title.replace(/ — Licat Prompts$/, ''),url:canonical},
+  {name:isSectionIndex ? labels[active] : (breadcrumbTitle || title.replace(/ — Licat Prompts$/, '')),url:canonical},
 ];
 const breadcrumbSchema = breadcrumbItems.length ? JSON.stringify({
   '@context':'https://schema.org','@type':'BreadcrumbList',

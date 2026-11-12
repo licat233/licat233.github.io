@@ -18,7 +18,8 @@
         "可读性",
         "独立判断",
         "内容自审"
-      ]
+      ],
+      "seoTitle": "AI 自然表达指南：让 AI 清晰、准确地表达 | Licat"
     },
     "en": {
       "title": "Making AI Sound Natural — Guide V1.4.0",
@@ -32,7 +33,8 @@
         "technical writing",
         "self-review"
       ],
-      "label": "Writing & Thinking"
+      "label": "Writing & Thinking",
+      "seoTitle": "Natural AI Writing: Clear, Reader-First | Licat"
     }
   },
   {
@@ -51,7 +53,8 @@
         "事实核实",
         "SEO",
         "AI 说人话指南"
-      ]
+      ],
+      "seoTitle": "AI 高价值内容写作与自审指南 | Licat"
     },
     "en": {
       "title": "High-Value AI Writing and Self-Review V1.1",
@@ -62,7 +65,8 @@
         "editing",
         "verification"
       ],
-      "label": "Writing & Thinking"
+      "label": "Writing & Thinking",
+      "seoTitle": "High-Value AI Writing & Self-Review | Licat"
     }
   },
   {
@@ -82,7 +86,8 @@
         "反过度设计",
         "最小验证",
         "完成即停"
-      ]
+      ],
+      "seoTitle": "AI Agent 最小必要执行原则 | Licat"
     },
     "en": {
       "title": "Minimum Necessary Execution Principles for AI Agents V1.0",
@@ -96,7 +101,8 @@
         "overengineering",
         "verification",
         "stop when done"
-      ]
+      ],
+      "seoTitle": "Minimum Necessary Execution for AI Agents | Licat"
     }
   },
   {
@@ -115,7 +121,8 @@
         "防漂移",
         "连续执行",
         "长任务"
-      ]
+      ],
+      "seoTitle": "AI Agent 高效执行与任务防漂移指南 | Licat"
     },
     "en": {
       "title": "AI Agent Execution and Anti-Drift V3.0",
@@ -126,7 +133,8 @@
         "execution",
         "focus"
       ],
-      "label": "Agents & Workflows"
+      "label": "Agents & Workflows",
+      "seoTitle": "AI Agent Execution: Focus & Anti-Drift | Licat"
     }
   },
   {
@@ -144,7 +152,8 @@
         "电商设计",
         "产品真实性",
         "长文"
-      ]
+      ],
+      "seoTitle": "DetailFlow：八屏电商详情页设计工作流 | Licat"
     },
     "en": {
       "title": "DetailFlow: Eight-Panel Ecommerce Design Workflow",
@@ -155,7 +164,8 @@
         "ecommerce",
         "products"
       ],
-      "label": "Development & Design"
+      "label": "Development & Design",
+      "seoTitle": "DetailFlow: 8-Panel Ecommerce Design Workflow | Licat"
     }
   },
   {
@@ -176,7 +186,8 @@
         "最小实现",
         "最小验证",
         "代码质量"
-      ]
+      ],
+      "seoTitle": "AI 编程最小实现与反过度防御指南 | Licat"
     },
     "en": {
       "title": "Minimal, Practical AI Coding — V1.0",
@@ -190,7 +201,8 @@
         "simplicity",
         "minimal implementation",
         "testing"
-      ]
+      ],
+      "seoTitle": "Minimal AI Coding: Practical Implementation | Licat"
     }
   },
   {
@@ -211,7 +223,8 @@
         "代码校验",
         "SEO",
         "Meta Description"
-      ]
+      ],
+      "seoTitle": "Python 字符数校验：精准控制 AI 文本长度 | Licat"
     },
     "en": {
       "title": "Exact AI Character Counts with Python",
@@ -222,7 +235,8 @@
         "character counts",
         "SEO"
       ],
-      "label": "Agents & Workflows"
+      "label": "Agents & Workflows",
+      "seoTitle": "Python Character Counting for AI Text | Licat"
     }
   },
   {
@@ -239,7 +253,8 @@
         "反迎合",
         "事实核查",
         "批判性思维"
-      ]
+      ],
+      "seoTitle": "AI 独立判断提示词：减少迎合与盲目赞同 | Licat"
     },
     "en": {
       "title": "Independent Judgment: Stop AI from Just Agreeing",
@@ -250,7 +265,8 @@
         "bias",
         "critical thinking"
       ],
-      "label": "Writing & Thinking"
+      "label": "Writing & Thinking",
+      "seoTitle": "AI Independent Judgment: Anti-Sycophancy Prompt | Licat"
     }
   },
   {
@@ -267,7 +283,8 @@
         "协作",
         "问题拆解",
         "需求澄清"
-      ]
+      ],
+      "seoTitle": "AI 四象限协作框架：发现问题与认知盲区 | Licat"
     },
     "en": {
       "title": "Four-Quadrant Collaboration: Identify Blind Spots",
@@ -278,7 +295,8 @@
         "discovery",
         "questions"
       ],
-      "label": "Agents & Workflows"
+      "label": "Agents & Workflows",
+      "seoTitle": "Four-Quadrant AI Collaboration Framework | Licat"
     }
   },
   {
@@ -295,7 +313,8 @@
         "第一性原理",
         "推理",
         "决策"
-      ]
+      ],
+      "seoTitle": "第一性原理提示词：事实与约束审查 | Licat"
     },
     "en": {
       "title": "First Principles: Facts and Constraints",
@@ -306,7 +325,8 @@
         "reasoning",
         "decision"
       ],
-      "label": "Writing & Thinking"
+      "label": "Writing & Thinking",
+      "seoTitle": "First-Principles Reasoning: Facts & Constraints | Licat"
     }
   },
   {
@@ -323,7 +343,8 @@
         "Prompt Engineering",
         "角色设定",
         "优化"
-      ]
+      ],
+      "seoTitle": "AI 提示词优化器：双层提示词生成 | Licat"
     },
     "en": {
       "title": "Prompt Engineering: Two-Level Generator",
@@ -333,7 +354,8 @@
         "prompt engineering",
         "optimization"
       ],
-      "label": "Agents & Workflows"
+      "label": "Agents & Workflows",
+      "seoTitle": "AI Prompt Optimizer: Two-Level Generator | Licat"
     }
   },
   {
@@ -350,7 +372,8 @@
         "Codex",
         "开发效率",
         "Skills"
-      ]
+      ],
+      "seoTitle": "Codex 使用技巧：提升 AI 编程效率 | Licat"
     },
     "en": {
       "title": "10 Tips for Using Codex Efficiently",
@@ -361,7 +384,8 @@
         "development",
         "skills"
       ],
-      "label": "Development & Design"
+      "label": "Development & Design",
+      "seoTitle": "Codex Tips for More Efficient AI Coding | Licat"
     }
   },
   {
@@ -378,7 +402,8 @@
         "网页设计",
         "Awwwards",
         "视觉质量"
-      ]
+      ],
+      "seoTitle": "网站设计提示词：提升视觉品质与体验 | Licat"
     },
     "en": {
       "title": "Award-Quality Website Design Prompt",
@@ -388,7 +413,8 @@
         "web design",
         "visual quality"
       ],
-      "label": "Development & Design"
+      "label": "Development & Design",
+      "seoTitle": "Website Design Prompt: Visual Quality & UX | Licat"
     }
   },
   {
@@ -405,7 +431,8 @@
         "Logo",
         "动画",
         "视频生成"
-      ]
+      ],
+      "seoTitle": "AI Logo 动画提示词：制作品牌开场动画 | Licat"
     },
     "en": {
       "title": "Six-Second Brand Logo Animation",
@@ -416,7 +443,8 @@
         "motion",
         "video"
       ],
-      "label": "Development & Design"
+      "label": "Development & Design",
+      "seoTitle": "AI Logo Animation Prompt: 6-Second Intro | Licat"
     }
   },
   {
@@ -433,7 +461,8 @@
         "学习",
         "寓言",
         "知识探索"
-      ]
+      ],
+      "seoTitle": "寓言式学习提示词：理解复杂知识概念 | Licat"
     },
     "en": {
       "title": "Learn Advanced Concepts Through Fables",
@@ -444,7 +473,8 @@
         "fables",
         "concepts"
       ],
-      "label": "Learning & Exploration"
+      "label": "Learning & Exploration",
+      "seoTitle": "Learn Complex Ideas Through Fable-Based Learning | Licat"
     }
   },
   {
@@ -462,7 +492,8 @@
         "复盘",
         "Skill",
         "工作优化"
-      ]
+      ],
+      "seoTitle": "AI 对话复盘：发现洞察与 Skill 封装机会 | Licat"
     },
     "en": {
       "title": "Find Insights and Reusable Skills in Past Conversations",
@@ -473,7 +504,8 @@
         "insights",
         "skills"
       ],
-      "label": "Agents & Workflows"
+      "label": "Agents & Workflows",
+      "seoTitle": "AI Conversation Review: Insights & Reusable Skills | Licat"
     }
   }
 ]

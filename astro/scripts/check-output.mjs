@@ -20,6 +20,7 @@ const childKeys=allNav.filter(x=>x.parent==='ai').map(x=>x.key);
 const routes=(lang)=>[lang==='en'?'/en/':'/',...siteKeys.slice(1).map(k=>(lang==='en'?'/en/':'/')+k+'/')];
 function read(rel){return readFile(path.join(root,rel),'utf8');}
 function assert(ok,message){if(!ok)throw Error(message)}
+function htmlText(value){return value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function hrefs(block){return [...block.matchAll(/<a\s[^>]*href="([^"]+)"[^>]*class="[^"]*nav-pill[^"]*"|<a\s[^>]*class="[^"]*nav-pill[^"]*"[^>]*href="([^"]+)"/g)].map(m=>m[1]||m[2]);}
 for(const [filename,lang,active] of core){
  const html=await read(filename);
@@ -335,6 +336,18 @@ for(const item of prompts){
          /<article\s[^>]*id="prompt-article"[^>]*>\s*<(?:p|h[1-6]|ul|ol|blockquote)\b/.test(html),
    'Prompt detail missing actual SSR content: '+route);
   assert(html.includes('name="description"'), 'Prompt missing description: '+route);
+  const seoTitle=item[lang]?.seoTitle;
+  assert(typeof seoTitle==='string' && seoTitle.endsWith(' | Licat'),
+   'Prompt missing localized permanent SEO title: '+route);
+  assert(!/\\bV\\d+(?:\\.\\d+)*\\b/i.test(seoTitle),
+   'Prompt SEO title must not contain a version number: '+route);
+  const escapedSeoTitle=htmlText(seoTitle);
+  assert(html.includes('<title>'+escapedSeoTitle+'</title>'),
+   'Prompt document title does not match its fixed SEO title: '+route);
+  assert(html.includes('property="og:title" content="'+escapedSeoTitle+'"'),
+   'Prompt Open Graph title does not match its fixed SEO title: '+route);
+  assert(html.includes('aria-current="page">'+htmlText(item[lang].title)+'</span>'),
+   'Prompt breadcrumb must keep the reader-facing versioned title: '+route);
  }
 }
 for(const prefix of ['','en/']){

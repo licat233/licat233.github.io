@@ -9,7 +9,8 @@ const prompt=promptId ? promptCatalogue.find(item=>item.id===promptId) : undefin
 if(promptId && !prompt) throw new Error('Unknown prompt ID: '+promptId);
 const home=kind==='home';
 const t=dictionary(lang).portfolio;
-const title=home?t.homeTitle:prompt?(prompt[lang].title+' — Licat Prompts'):t.promptsTitle;
+const title=home?t.homeTitle:prompt?prompt[lang].seoTitle:t.promptsTitle;
+const breadcrumbTitle=prompt?.[lang].title;
 const description=home?t.homeDescription:prompt?prompt[lang].summary:
  `${t.promptsDescriptionBefore}${promptCatalogue.length}${t.promptsDescriptionAfter}`;
 const canonical=prompt ? localizedPath(lang,'prompts',prompt.slug) : localeUrl(lang,kind);
@@ -19,7 +20,7 @@ const styles=home?['/assets/bundle-home.css?v=20261111-mobile-image1']:
   ['/assets/bundle-prompts.css?v=20261110-nav-bookmark-perf1'];
 const deferredStyles=home?['/assets/bundle-home-deferred.css?v=20261111-home-css1']:[];
 ---
-<BaseLayout {lang} active={kind} {title} {description} {canonical} {zhHref} {enHref}
+<BaseLayout {lang} active={kind} {title} {breadcrumbTitle} {description} {canonical} {zhHref} {enHref}
             {styles} {deferredStyles} exactTitle={true} includeSiteNavScript={false} includeLensFilter={false}
             pageClass={home?'home-page':'prompts-page'}>
   {!home && <script slot="head" is:inline defer src="/prompts/prompt-library.js?v=20261028-routes1"></script>}
