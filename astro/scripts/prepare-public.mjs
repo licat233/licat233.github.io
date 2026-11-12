@@ -194,4 +194,7 @@ for(const dir of microsites){
   }
  }
 }
+await writeFile(path.join(publicDir,'robots.txt'),
+  'User-agent: *\nAllow: /\n\nSitemap: https://licat.xyz/sitemap-index.xml\n', 'utf8');
+
 console.log('Prepared compatibility assets and independent project pages (Ruby/Jekyll not used).');

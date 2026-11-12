@@ -18,7 +18,12 @@ function attrs(markup) {
   return Object.fromEntries([...markup.matchAll(/([\w:-]+)\s*=\s*(["'])(.*?)\2/g)]
     .map(match => [match[1].toLowerCase(), match[3]]));
 }
-const xml = await text('sitemap.xml');
+const sitemapIndex = await text('sitemap-index.xml');
+ensure(sitemapIndex.includes('<loc>https://licat.xyz/sitemap-0.xml</loc>'),
+  'Official Sitemap Index does not reference sitemap-0.xml');
+const xml = await text('sitemap-0.xml');
+ensure(!/<xhtml:link\b/.test(xml),
+  'Sitemap should keep hreflang in page HTML rather than duplicate it in XML');
 const urls = [...xml.matchAll(/<loc>(https:\/\/licat\.xyz\/[^<]*)<\/loc>/g)]
   .map(match => match[1].replaceAll('&amp;', '&'));
 ensure(urls.length >= 60, 'Sitemap unexpectedly short');

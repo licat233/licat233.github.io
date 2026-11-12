@@ -119,7 +119,12 @@ for (const route of ['resources/index.html', 'en/resources/index.html']) {
   const taxonomy = JSON.parse(html.slice(taxonomyStart, taxonomyEnd));
   assert(taxonomy.length === 7, 'Expected seven Resources top-level categories: ' + route);
 }
-const sitemap = await read('sitemap.xml');
+const sitemapIndex = await read('sitemap-index.xml');
+const sitemap = await read('sitemap-0.xml');
+assert(sitemapIndex.includes('<loc>https://licat.xyz/sitemap-0.xml</loc>'),
+  'Official Sitemap Index must reference sitemap-0.xml');
+assert(!/<xhtml:link\b/.test(sitemap),
+  'Sitemap should not duplicate hreflang declarations already present in page HTML');
 const promptCatalogue = JSON.parse(await readFile(new URL('../src/data/prompts.json', import.meta.url), 'utf8'));
 assert(promptCatalogue.length === 16, 'Expected 16 unique prompt pages after merging Agent V2 into V3');
 const promptSlugs = promptCatalogue.map(item => item.slug);
@@ -175,12 +180,17 @@ const historicalV2 = await readFile(new URL('../../prompts/content/agent-efficie
 assert(historicalV2.includes('V2.0'), 'Historical Agent V2.0 source must remain available');
 assert(sitemap.includes('https://licat.xyz/resources/'), 'Chinese Resources URL missing from sitemap');
 assert(sitemap.includes('https://licat.xyz/en/resources/'), 'English Resources URL missing from sitemap');
-assert(sitemap.includes('hreflang="zh-CN"') && sitemap.includes('hreflang="en"'),
-  'Sitemap alternate-language links missing');
+const zhHome = await read('index.html');
+const enHome = await read('en/index.html');
+assert(zhHome.includes('hreflang="zh-CN" href="https://licat.xyz/"') &&
+  zhHome.includes('hreflang="en" href="https://licat.xyz/en/"') &&
+  enHome.includes('hreflang="zh-CN" href="https://licat.xyz/"') &&
+  enHome.includes('hreflang="en" href="https://licat.xyz/en/"'),
+  'Reciprocal homepage hreflang declarations must remain in page HTML');
 assert(!sitemap.includes('https://licat.xyz/demo/'), 'Noindex demo must not enter sitemap');
 const robots = await read('robots.txt');
-assert(robots.includes('Sitemap: https://licat.xyz/sitemap.xml'),
-  'robots.txt must reference the generated sitemap');
+assert(robots.includes('Sitemap: https://licat.xyz/sitemap-index.xml'),
+  'robots.txt must reference the official Sitemap Index');
 // The default Chinese locale is served only at /, never by a duplicate /zh/ page.
 try {await stat(path.join(root,'zh/index.html'));throw Error('Obsolete /zh/ redirect must not be generated')}
 catch(error){if(error?.code!=='ENOENT')throw error}
