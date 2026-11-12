@@ -180,19 +180,19 @@ test('prompt library search, detail and share deep links work', async ({page}) =
  await expect(page.locator('#library-view')).toBeVisible();
 });
 test('minimal necessary agent prompt has six rules and a working dedicated URL', async ({page}) => {
- await page.goto('/prompts/ai-agent-minimal-necessary-execution-v1/');
+ await page.goto('/prompts/ai-agent-minimal-necessary-execution/');
  await expect(page.locator('#detail-title')).toHaveText('AI Agent 最小必要执行原则 V1.0');
  await expect(page.locator('#prompt-article')).toContainText('任务完成立即停止');
  await expect(page.locator('#prompt-article')).toContainText('以下是强制执行约束');
  await expect(page.locator('#prompt-article')).not.toContainText('适用：约束 AI Agent');
  await expect(page.locator('#copy-btn')).toBeEnabled();
- await page.goto('/en/prompts/ai-agent-minimal-necessary-execution-v1/');
+ await page.goto('/en/prompts/ai-agent-minimal-necessary-execution/');
  await expect(page.locator('#detail-title')).toContainText('Minimum Necessary Execution Principles');
  await expect(page.locator('#prompt-article')).toContainText('Stop immediately when the task is complete');
 });
 
 test('new coding guideline survives Astro catalogue, deep link and copy boundaries', async ({page}) => {
- await page.goto('/prompts/ai-coding-minimal-defensive-v1/');
+ await page.goto('/prompts/ai-coding-minimal-defensive/');
  await expect(page.locator('#detail-view')).toBeVisible();
  await expect(page.locator('#detail-title')).toHaveText('AI 编程反过度防御与最小实现指令 V1.0');
  await expect(page.locator('#prompt-article')).toContainText('九、必要的安全与正确性边界');
@@ -205,13 +205,13 @@ test('new coding guideline survives Astro catalogue, deep link and copy boundari
 
 test('four newly localized prompts show English instructions and preserve language deep links', async ({page}) => {
  const cases = [
-  ['ai-natural-communication-v1.3.4', 'Understand the purpose'],
-  ['ai-high-value-writing-audit-v1.1', 'what is worth saying'],
-  ['detailflow-ecommerce', 'Approval Gate 2'],
-  ['ai-coding-minimal-defensive-v1', 'Avoid repeated validation'],
+  ['ai-natural-communication-v1.4.0', 'ai-natural-communication', 'The purpose of writing is not to display knowledge'],
+  ['ai-high-value-writing-audit-v1.1', 'ai-high-value-writing-audit', 'what is worth saying'],
+  ['detailflow-ecommerce', 'detailflow-ecommerce', 'Approval Gate 2'],
+  ['ai-coding-minimal-defensive-v1', 'ai-coding-minimal-defensive', 'Avoid repeated validation'],
  ] as const;
- for (const [id,phrase] of cases) {
-  await page.goto('/en/prompts/'+id+'/');
+ for (const [id,slug,phrase] of cases) {
+  await page.goto('/en/prompts/'+slug+'/');
   await expect(page.locator('#detail-view')).toBeVisible();
   await expect(page.locator('#prompt-article')).toContainText(phrase);
   await expect(page.locator('#prompt-article')).not.toContainText('Original Chinese prompt.');
@@ -224,17 +224,17 @@ test('four newly localized prompts show English instructions and preserve langua
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.visualViewport.width+3);
   expect(overflow,'Prompt content must not widen mobile viewport: '+id).toBe(false);
   await page.locator('.site-header .lang a[data-locale="zh"]').click();
-  await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/'+id+'/');
+  await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/'+slug+'/');
   await expect(page.locator('#copy-btn')).toBeEnabled();
   await page.locator('.site-header .lang a[data-locale="en"]').click();
-  await expect(page).toHaveURL('http://127.0.0.1:4321/en/prompts/'+id+'/');
+  await expect(page).toHaveURL('http://127.0.0.1:4321/en/prompts/'+slug+'/');
   await expect(page.locator('#prompt-article')).toContainText(phrase);
  }
 });
 
 test('writing review guide links the current natural communication guide without a pinned version',async ({page})=>{
  for(const prefix of ['/','/en/']){
-  await page.goto(prefix+'prompts/ai-high-value-writing-audit-v1.1/');
+  await page.goto(prefix+'prompts/ai-high-value-writing-audit/');
   const guideHref=await page.locator('#prompt-grid a[data-open^="ai-natural-communication-v"]').getAttribute('href');
   const companion=page.locator('#detail-tags a.detail-tag');
   await expect(companion).toHaveAttribute('href',guideHref!);
@@ -243,56 +243,81 @@ test('writing review guide links the current natural communication guide without
  }
 });
 
-test('natural communication V1.3.4 is readable in both languages and preserves copy boundaries',async ({page})=>{
- await page.goto('/prompts/ai-natural-communication-v1.3.4/');
- await expect(page.locator('#detail-title')).toHaveText('AI 说人话指南 V1.3.4');
- await expect(page.locator('#prompt-article')).toContainText('让段落承接推理，不要用编号代替逻辑');
- await expect(page.locator('#prompt-article')).toContainText('允许句子不完整，不等于允许事实不准确');
+test('natural communication V1.4.0 is readable at its permanent URL in both languages',async ({page})=>{
+ await page.goto('/prompts/ai-natural-communication/');
+ await expect(page.locator('#detail-title')).toHaveText('AI 说人话指南 V1.4.0');
+ await expect(page.locator('#prompt-article')).toContainText('写作的目的不是展示知识，而是让读者理解知识');
  await expect(page.locator('#prompt-article')).not.toContainText('副标题：');
- await page.goto('/en/prompts/ai-natural-communication-v1.3.4/');
- await expect(page.locator('#detail-title')).toContainText('V1.3.4');
- await expect(page.locator('#prompt-article')).toContainText('Let paragraphs carry the reasoning');
+ await page.goto('/en/prompts/ai-natural-communication/');
+ await expect(page.locator('#detail-title')).toContainText('V1.4.0');
+ await expect(page.locator('#prompt-article')).toContainText('The purpose of writing is not to display knowledge');
  await expect(page.locator('#prompt-article')).not.toContainText('Subtitle:');
 });
 
+test('Agent V3 replaces V2 at the existing permanent URL',async ({page})=>{
+ await page.goto('/prompts/agent-efficient-execution/');
+ await expect(page.locator('#detail-title')).toHaveText('AI Agent 高效执行与防漂移指令 V3.0');
+ await expect(page.locator('#prompt-article')).toContainText('任务锚定');
+ await page.goto('/prompts/agent-efficient-execution-v3/');
+ await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/agent-efficient-execution/');
+ await expect(page.locator('#detail-title')).toHaveText('AI Agent 高效执行与防漂移指令 V3.0');
+ await page.goto('/prompts/?p=agent-efficient-execution');
+ await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/agent-efficient-execution/');
+ await expect(page.locator('#detail-title')).toHaveText('AI Agent 高效执行与防漂移指令 V3.0');
+});
+
 test('English prompt library displays its translated copy', async ({page}) => {
- await page.goto('/en/prompts/agent-efficient-execution-v3/');
+ await page.goto('/en/prompts/agent-efficient-execution/');
  await expect(page.locator('#detail-view')).toBeVisible();
  await expect(page.locator('#prompt-article')).toContainText(/execution agent/i);
  await expect(page.locator('#copy-btn')).toBeEnabled();
 });
 
 test('prompt URLs expose exactly one H1 for their visible page', async ({page}) => {
- for (const route of ['/prompts/','/en/prompts/','/prompts/ai-natural-communication-v1.3.4/','/en/prompts/ai-natural-communication-v1.3.4/']) {
+ for (const route of ['/prompts/','/en/prompts/','/prompts/ai-natural-communication/','/en/prompts/ai-natural-communication/']) {
   await page.goto(route);
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('h1')).toBeVisible();
  }
 });
 
-test('old shared query URLs and old ID aliases reach the permanent prompt page',async ({page})=>{
+test('old shared query URLs and versioned detail URLs reach permanent prompt pages',async ({page})=>{
  await page.goto('/en/prompts/?p=ai-coding-minimal-defensive-v1');
- await expect(page).toHaveURL(/\/en\/prompts\/ai-coding-minimal-defensive-v1\/$/);
+ await expect(page).toHaveURL('http://127.0.0.1:4321/en/prompts/ai-coding-minimal-defensive/');
  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
-  'href','https://licat.xyz/en/prompts/ai-coding-minimal-defensive-v1/');
+  'href','https://licat.xyz/en/prompts/ai-coding-minimal-defensive/');
  await expect(page.locator('#prompt-article')).toContainText('Avoid repeated validation');
  await page.goto('/prompts/?p=ai-natural-communication-v1.3');
- await expect(page).toHaveURL(/\/prompts\/ai-natural-communication-v1\.3\.4\/$/);
- await page.goto('/prompts/ai-natural-communication-v1.3.1/');
- await expect(page).toHaveURL(/\/prompts\/ai-natural-communication-v1\.3\.4\/$/);
- await page.goto('/en/prompts/ai-natural-communication-v1.3.2/');
- await expect(page).toHaveURL(/\/en\/prompts\/ai-natural-communication-v1\.3\.4\/$/);
- await page.goto('/prompts/ai-natural-communication-v1.3.3/');
- await expect(page).toHaveURL(/\/prompts\/ai-natural-communication-v1\.3\.4\/$/);
+ await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/ai-natural-communication/');
+ for (const oldSlug of [
+  'ai-natural-communication-v1.3',
+  'ai-natural-communication-v1.3.1',
+  'ai-natural-communication-v1.3.2',
+  'ai-natural-communication-v1.3.3',
+  'ai-natural-communication-v1.3.4',
+  'ai-natural-communication-v1.4.0'
+ ]) {
+  await page.goto('/prompts/'+oldSlug+'/');
+  await expect(page).toHaveURL('http://127.0.0.1:4321/prompts/ai-natural-communication/');
+ }
+ for (const [oldSlug,newSlug] of [
+  ['ai-high-value-writing-audit-v1.1','ai-high-value-writing-audit'],
+  ['ai-agent-minimal-necessary-execution-v1','ai-agent-minimal-necessary-execution'],
+  ['agent-efficient-execution-v3','agent-efficient-execution'],
+  ['ai-coding-minimal-defensive-v1','ai-coding-minimal-defensive']
+ ]) {
+  await page.goto('/en/prompts/'+oldSlug+'/');
+  await expect(page).toHaveURL('http://127.0.0.1:4321/en/prompts/'+newSlug+'/');
+ }
 });
 
 test('prompt detail URLs contain real static HTML, SEO metadata and working copy/share',async ({page,context})=>{
  await context.grantPermissions(['clipboard-read','clipboard-write'],{origin:'http://127.0.0.1:4321'});
- const route='/en/prompts/ai-coding-minimal-defensive-v1/';
+ const route='/en/prompts/ai-coding-minimal-defensive/';
  const response=await page.goto(route);
  expect(response?.status()).toBe(200);
  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href','https://licat.xyz'+route);
- await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href','https://licat.xyz/prompts/ai-coding-minimal-defensive-v1/');
+ await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href','https://licat.xyz/prompts/ai-coding-minimal-defensive/');
  await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href','https://licat.xyz'+route);
  await expect(page.locator('#detail-view')).toBeVisible();
  await expect(page.locator('#prompt-article h2').first()).toBeVisible();
@@ -375,10 +400,10 @@ test('homepage project and Skill previews share one bilingual data structure',as
  }
 });
 
-test('both prompt languages render the shared catalog UI and all 17 items',async ({page})=>{
+test('both prompt languages render the shared catalog UI and all 16 items',async ({page})=>{
  for(const url of ['/prompts/','/en/prompts/']){
    await page.goto(url);
-   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(17);
+   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(16);
    await expect(page.locator('#filters [data-filter]')).toHaveCount(5);
    await expect(page.locator('#copy-btn')).toBeAttached();
    await expect(page.locator('#share-btn')).toBeAttached();
@@ -390,9 +415,9 @@ test('single Astro prompt catalogue powers SSR cards and search without second J
    await page.goto('/'+lang+'prompts/');
    const data=await page.locator('#prompt-catalogue').textContent();
    const payload=JSON.parse(data!);
-   expect(payload.items).toHaveLength(17);
-   expect(payload.translatedEnglish).toHaveLength(17);
-   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(17);
+   expect(payload.items).toHaveLength(16);
+   expect(payload.translatedEnglish).toHaveLength(16);
+   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(16);
    await page.locator('#search').fill(lang?'memory':'记忆');
    await expect(page.locator('#prompt-grid [data-open]').first()).toBeVisible();
    await page.locator('#search').fill('');
@@ -550,7 +575,7 @@ test('AI toolkit links real published sources in both languages and preserves gl
 
 
 test('visible breadcrumbs match their BreadcrumbList JSON-LD on public content routes', async ({ page }) => {
-  for (const route of ['/blog/website-seo-geo-basics/','/resources/','/projects/','/skills/','/ai/','/en/blog/ga4-gtm-lead-tracking/','/en/prompts/ai-natural-communication-v1.3.4/']) {
+  for (const route of ['/blog/website-seo-geo-basics/','/resources/','/projects/','/skills/','/ai/','/en/blog/ga4-gtm-lead-tracking/','/en/prompts/ai-natural-communication/']) {
     await page.goto(route);
     const nav = page.locator('nav.seo-breadcrumbs');
     await expect(nav).toBeVisible();

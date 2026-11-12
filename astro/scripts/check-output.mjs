@@ -119,6 +119,59 @@ for (const route of ['resources/index.html', 'en/resources/index.html']) {
   assert(taxonomy.length === 7, 'Expected seven Resources top-level categories: ' + route);
 }
 const sitemap = await read('sitemap.xml');
+const promptCatalogue = JSON.parse(await readFile(new URL('../src/data/prompts.json', import.meta.url), 'utf8'));
+assert(promptCatalogue.length === 16, 'Expected 16 unique prompt pages after merging Agent V2 into V3');
+const promptSlugs = promptCatalogue.map(item => item.slug);
+assert(promptSlugs.every(slug => typeof slug === 'string' && slug && !/-v[0-9]/i.test(slug)),
+  'Every prompt must have a permanent version-free slug');
+assert(new Set(promptSlugs).size === promptSlugs.length, 'Prompt slugs must be unique');
+const agentExecution = promptCatalogue.find(item => item.slug === 'agent-efficient-execution');
+assert(agentExecution?.id === 'agent-efficient-execution-v3',
+  'The existing Agent execution permalink must serve V3.0');
+assert(!promptCatalogue.some(item => item.id === 'agent-efficient-execution'),
+  'Historical V2.0 must not appear as a duplicate current catalogue entry');
+for (const item of promptCatalogue) {
+  for (const [prefix, locale] of [['', 'zh-CN'], ['en/', 'en']]) {
+    const route = '/' + prefix + 'prompts/' + item.slug + '/';
+    const html = await read(prefix + 'prompts/' + item.slug + '/index.html');
+    assert(html.includes('rel="canonical" href="https://licat.xyz' + route + '"'),
+      'Prompt canonical must use its permanent slug: ' + route);
+    assert(html.includes('hreflang="zh-CN" href="https://licat.xyz/prompts/' + item.slug + '/"'),
+      'Chinese hreflang missing or unstable: ' + route);
+    assert(html.includes('hreflang="en" href="https://licat.xyz/en/prompts/' + item.slug + '/"'),
+      'English hreflang missing or unstable: ' + route);
+    assert(html.includes('lang="' + locale + '"'), 'Wrong language on prompt page: ' + route);
+    assert(sitemap.includes('https://licat.xyz' + route), 'Permanent prompt URL missing from sitemap: ' + route);
+  }
+}
+const promptAliases = [
+  ['ai-natural-communication-v1.3', 'ai-natural-communication'],
+  ['ai-natural-communication-v1.3.1', 'ai-natural-communication'],
+  ['ai-natural-communication-v1.3.2', 'ai-natural-communication'],
+  ['ai-natural-communication-v1.3.3', 'ai-natural-communication'],
+  ['ai-natural-communication-v1.3.4', 'ai-natural-communication'],
+  ['ai-natural-communication-v1.4.0', 'ai-natural-communication'],
+  ['ai-high-value-writing-audit-v1.1', 'ai-high-value-writing-audit'],
+  ['ai-agent-minimal-necessary-execution-v1', 'ai-agent-minimal-necessary-execution'],
+  ['agent-efficient-execution-v3', 'agent-efficient-execution'],
+  ['ai-coding-minimal-defensive-v1', 'ai-coding-minimal-defensive'],
+];
+for (const [oldSlug, newSlug] of promptAliases) {
+  for (const prefix of ['', 'en/']) {
+    const target = '/' + prefix + 'prompts/' + newSlug + '/';
+    const oldUrl = 'https://licat.xyz/' + prefix + 'prompts/' + oldSlug + '/';
+    const html = await read(prefix + 'prompts/' + oldSlug + '/index.html');
+    assert(html.includes('http-equiv="refresh" content="0;url=' + target + '"'),
+      'Legacy prompt URL must redirect immediately: ' + oldUrl);
+    assert(html.includes('rel="canonical" href="https://licat.xyz' + target + '"'),
+      'Legacy prompt redirect canonical is wrong: ' + oldUrl);
+    assert(html.includes('name="robots" content="noindex"'),
+      'Legacy prompt redirect must be noindex: ' + oldUrl);
+    assert(!sitemap.includes(oldUrl), 'Legacy prompt URL must not enter Sitemap: ' + oldUrl);
+  }
+}
+const historicalV2 = await readFile(new URL('../../prompts/content/agent-efficient-execution.md', import.meta.url), 'utf8');
+assert(historicalV2.includes('V2.0'), 'Historical Agent V2.0 source must remain available');
 assert(sitemap.includes('https://licat.xyz/resources/'), 'Chinese Resources URL missing from sitemap');
 assert(sitemap.includes('https://licat.xyz/en/resources/'), 'English Resources URL missing from sitemap');
 assert(sitemap.includes('hreflang="zh-CN"') && sitemap.includes('hreflang="en"'),
@@ -136,8 +189,8 @@ const publicNamePages=[
  ...core.map(([filename])=>filename),
  ...independent,
  ...['demo/index.html','demo/zh/index.html','demo/en/index.html'],
- 'prompts/ai-coding-minimal-defensive-v1/index.html',
- 'en/prompts/ai-coding-minimal-defensive-v1/index.html',
+ 'prompts/ai-coding-minimal-defensive/index.html',
+ 'en/prompts/ai-coding-minimal-defensive/index.html',
 ];
 for(const filename of publicNamePages){
  const html=await read(filename);

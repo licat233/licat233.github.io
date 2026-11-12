@@ -1,0 +1,23 @@
+---
+import type { RedirectPageProps } from 'astro';
+const { to, delay } = Astro.props as Partial<RedirectPageProps>;
+const destination = to || '/';
+const refreshDelay = typeof delay === 'number' ? delay : 0;
+const canonical = new URL(destination, 'https://licat.xyz').href;
+const lang = destination.startsWith('/en/') ? 'en' : 'zh-CN';
+const isRedirect = Boolean(to);
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  {isRedirect && <link rel="canonical" href={canonical} />}
+  {isRedirect && <meta http-equiv="refresh" content={`${refreshDelay};url=${destination}`} />}
+  <title>{lang === 'en' ? 'Page moved · Licat' : '页面已迁移 · Licat'}</title>
+</head>
+<body>
+  <p>{lang === 'en' ? 'This page has moved.' : '此页面已迁移。'}</p>
+  <a href={destination}>{lang === 'en' ? 'Continue to the current page' : '前往当前页面'}</a>
+</body>
+</html>

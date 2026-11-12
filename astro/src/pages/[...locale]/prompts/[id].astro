@@ -5,20 +5,34 @@ import catalogue from '../../../data/prompts.json';
 import { localePaths } from '../../../lib/locale-routes';
 import { localizedPath, type Lang } from '../../../lib/site';
 
+const legacyRoutes: [string, string][] = [
+ ['ai-natural-communication-v1.3', 'ai-natural-communication'],
+ ['ai-natural-communication-v1.3.1', 'ai-natural-communication'],
+ ['ai-natural-communication-v1.3.2', 'ai-natural-communication'],
+ ['ai-natural-communication-v1.3.3', 'ai-natural-communication'],
+ ['ai-natural-communication-v1.3.4', 'ai-natural-communication'],
+ ['ai-natural-communication-v1.4.0', 'ai-natural-communication'],
+ ['ai-high-value-writing-audit-v1.1', 'ai-high-value-writing-audit'],
+ ['ai-agent-minimal-necessary-execution-v1', 'ai-agent-minimal-necessary-execution'],
+ ['agent-efficient-execution-v3', 'agent-efficient-execution'],
+ ['ai-coding-minimal-defensive-v1', 'ai-coding-minimal-defensive'],
+];
+
 export function getStaticPaths(){
  return localePaths().flatMap(route=>[
-  ...catalogue.map(({id})=>({
-   params:{...route.params,id},
+  ...catalogue.map(({id,slug})=>({
+   params:{...route.params,id:slug},
    props:{id,lang:route.props.lang}
   })),
-  ...['ai-natural-communication-v1.3.1','ai-natural-communication-v1.3.2','ai-natural-communication-v1.3.3','ai-natural-communication-v1.3.4'].map(id=>({
+  ...legacyRoutes.map(([id,slug])=>({
    params:{...route.params,id},
-   props:{id,lang:route.props.lang,redirectId:'ai-natural-communication-v1.4.0'}
+   props:{lang:route.props.lang,redirectSlug:slug}
   }))
  ]);
 }
-interface Props {id:string;lang:Lang;redirectId?:string}
-const {id,lang,redirectId}=Astro.props;
-if(redirectId)return Astro.redirect(localizedPath(lang,'prompts',redirectId));
+interface Props {id?:string;lang:Lang;redirectSlug?:string}
+const {id,lang,redirectSlug}=Astro.props;
+if(redirectSlug)return Astro.redirect(localizedPath(lang,'prompts',redirectSlug),301);
+if(!id)throw new Error('Prompt content ID missing for route: '+Astro.params.id);
 ---
 <PortfolioShell {lang} kind="prompts" promptId={id}><PromptLibrary {lang} initialId={id} /></PortfolioShell>

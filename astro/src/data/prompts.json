@@ -1,6 +1,7 @@
 [
   {
     "id": "ai-natural-communication-v1.4.0",
+    "slug": "ai-natural-communication",
     "category": "thinking",
     "companion": "ai-high-value-writing-audit-v1.1",
     "translatedEnglish": true,
@@ -36,6 +37,7 @@
   },
   {
     "id": "ai-high-value-writing-audit-v1.1",
+    "slug": "ai-high-value-writing-audit",
     "category": "thinking",
     "translatedEnglish": true,
     "zh": {
@@ -65,6 +67,7 @@
   },
   {
     "id": "ai-agent-minimal-necessary-execution-v1",
+    "slug": "ai-agent-minimal-necessary-execution",
     "category": "agent",
     "translatedEnglish": true,
     "zh": {
@@ -98,6 +101,7 @@
   },
   {
     "id": "agent-efficient-execution-v3",
+    "slug": "agent-efficient-execution",
     "category": "agent",
     "translatedEnglish": true,
     "zh": {
@@ -126,35 +130,8 @@
     }
   },
   {
-    "id": "agent-efficient-execution",
-    "category": "agent",
-    "translatedEnglish": true,
-    "zh": {
-      "title": "AI Agent 高效执行指令 V2.0",
-      "label": "Agent 与工作流",
-      "type": "执行规范 · V2.0",
-      "summary": "交付优先、连续执行、最小验证、控制成本和任务漂移，适合复杂工作中的执行型 Agent。",
-      "tags": [
-        "Agent",
-        "交付",
-        "效率",
-        "工作流"
-      ]
-    },
-    "en": {
-      "title": "Efficient AI Agent Execution V2.0",
-      "summary": "A lightweight instruction set for delivery-first agents and cost-conscious task execution.",
-      "type": "Agent workflow · V2.0",
-      "tags": [
-        "agents",
-        "delivery",
-        "efficiency"
-      ],
-      "label": "Agents & Workflows"
-    }
-  },
-  {
     "id": "detailflow-ecommerce",
+    "slug": "detailflow-ecommerce",
     "category": "design",
     "translatedEnglish": true,
     "zh": {
@@ -183,6 +160,7 @@
   },
   {
     "id": "ai-coding-minimal-defensive-v1",
+    "slug": "ai-coding-minimal-defensive",
     "category": "design",
     "translatedEnglish": true,
     "zh": {
@@ -217,6 +195,7 @@
   },
   {
     "id": "seo-python-character-validation",
+    "slug": "seo-python-character-validation",
     "category": "agent",
     "translatedEnglish": true,
     "zh": {
@@ -248,6 +227,7 @@
   },
   {
     "id": "anti-sycophancy",
+    "slug": "anti-sycophancy",
     "category": "thinking",
     "translatedEnglish": true,
     "zh": {
@@ -275,6 +255,7 @@
   },
   {
     "id": "four-quadrant-assistance",
+    "slug": "four-quadrant-assistance",
     "category": "agent",
     "translatedEnglish": true,
     "zh": {
@@ -302,6 +283,7 @@
   },
   {
     "id": "first-principles-reasoning",
+    "slug": "first-principles-reasoning",
     "category": "thinking",
     "translatedEnglish": true,
     "zh": {
@@ -329,6 +311,7 @@
   },
   {
     "id": "prompt-engineer",
+    "slug": "prompt-engineer",
     "category": "agent",
     "translatedEnglish": true,
     "zh": {
@@ -355,6 +338,7 @@
   },
   {
     "id": "codex-workflow-tips",
+    "slug": "codex-workflow-tips",
     "category": "design",
     "translatedEnglish": true,
     "zh": {
@@ -382,6 +366,7 @@
   },
   {
     "id": "award-level-web-design",
+    "slug": "award-level-web-design",
     "category": "design",
     "translatedEnglish": true,
     "zh": {
@@ -408,6 +393,7 @@
   },
   {
     "id": "logo-motion",
+    "slug": "logo-motion",
     "category": "design",
     "translatedEnglish": true,
     "zh": {
@@ -435,6 +421,7 @@
   },
   {
     "id": "daily-fable-learning",
+    "slug": "daily-fable-learning",
     "category": "learning",
     "translatedEnglish": true,
     "zh": {
@@ -462,6 +449,7 @@
   },
   {
     "id": "memory-insight-skills",
+    "slug": "memory-insight-skills",
     "category": "agent",
     "translatedEnglish": true,
     "zh": {
