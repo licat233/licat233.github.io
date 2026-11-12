@@ -161,6 +161,8 @@ if (Astro.currentLocale !== lang) {
   )}
   <slot />
   {includeLensFilter && <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden"><filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="12" result="edgeFade"/><feDisplacementMap in="SourceGraphic" in2="edgeFade" scale="12" xChannelSelector="A" yChannelSelector="A"/></filter></svg>}
-  {includeSiteNavScript && <script is:inline src="/assets/site-nav.js?v=20261028-ai-active-group1"></script>}
+  {includeSiteNavScript && <script is:inline defer src="/assets/site-nav.js?v=20261112-nav-defer1"></script>}
 </body>
 </html>
+
+[executed on device: MacStudio.local (bb8ee9cf-36aa-42f2-b79d-5364cd4dc2d0)]

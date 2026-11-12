@@ -349,7 +349,7 @@ const projectHref = (name: string) => {
     </filter>
   </svg>
   <!-- Navigation must work immediately on all devices, even when motion scripts are skipped. -->
-  <script is:inline src="/assets/site-nav.js?v=20261028-ai-active-group1"></script>
+  <script is:inline defer src="/assets/site-nav.js?v=20261112-nav-defer1"></script>
   <script is:inline>
     (() => {
       // Mobile and reduced-motion visitors see the complete static design.
@@ -358,6 +358,10 @@ const projectHref = (name: string) => {
         document.documentElement.classList.add('static-story');
         return;
       }
+      const navReady = new Promise(resolve => {
+        if (window.LicatSiteNav) resolve();
+        else document.addEventListener('DOMContentLoaded', resolve, { once: true });
+      });
       const load = src => new Promise((resolve,reject) => {
         const script = document.createElement('script');
         script.src=src; script.onload=resolve; script.onerror=()=>reject(new Error('Could not load '+src));
@@ -368,6 +372,7 @@ const projectHref = (name: string) => {
         await load(cdn+'gsap.min.js');
         await Promise.all(['ScrollTrigger.min.js','SplitText.min.js','MorphSVGPlugin.min.js',
           'DrawSVGPlugin.min.js','MotionPathPlugin.min.js'].map(file=>load(cdn+file)));
+        await navReady;
         await load('/assets/portfolio-motion.js?v=20261110-seo2');
         // The SVG Journey animation is not on the first screen. Download
         // and initialize it only when the viewer approaches that section.
@@ -393,3 +398,5 @@ const projectHref = (name: string) => {
     })();
   </script>
   
+
+[executed on device: MacStudio.local (bb8ee9cf-36aa-42f2-b79d-5364cd4dc2d0)]
