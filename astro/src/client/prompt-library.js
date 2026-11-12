@@ -14,6 +14,7 @@
   const routesNode=document.getElementById('prompt-locale-routes');
   if(!routesNode)throw new Error('Astro localized URLs missing');
   const localeRoutes=JSON.parse(routesNode.textContent);
+  const byId=new Map(catalogue.map(item=>[item.id,item]));
   const bySlug=new Map(catalogue.map(item=>[item.slug,item]));
   const promptUrl=(lang,id)=>{
     const item=byId.get(id)||bySlug.get(id);
@@ -23,7 +24,6 @@
   const ssrNode=document.getElementById('prompt-initial-content');
   const ssrPrompt=ssrNode?JSON.parse(ssrNode.textContent):null;
   const categoryLabel=isEnglish?{agent:'Agents & Workflows',thinking:'Writing & Thinking',design:'Development & Design',learning:'Learning & Exploration'}:{agent:'Agent 与工作流',thinking:'表达与思考',design:'开发与设计',learning:'学习与探索'};
-  const byId=new Map(catalogue.map(item=>[item.id,item]));
   const legacyIds={
     'ai-natural-communication-v1.3':'ai-natural-communication-v1.4.0',
     'ai-natural-communication-v1.3.1':'ai-natural-communication-v1.4.0',

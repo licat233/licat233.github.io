@@ -30,9 +30,9 @@
 
 - **当前正式使用版：** [V1.4.0](content/ai-natural-communication-v1.4.0.md)；永久网页地址为 `/prompts/ai-natural-communication/` 和 `/en/prompts/ai-natural-communication/`。
 - **历史正式使用版：** [V1.3.4](content/ai-natural-communication-v1.3.4.md)；原文保留，旧详情 URL 跳转至永久地址。
-- **历史正式使用版：** [V1.3.3](content/ai-natural-communication-v1.3.3.md)；原文保留，旧详情页跳转至 V1.4.0。
-- **历史正式使用版：** [V1.3.2](content/ai-natural-communication-v1.3.2.md)；原文保留，旧详情页跳转至 V1.4.0。
-- **历史正式使用版：** [V1.3.1](content/ai-natural-communication-v1.3.1.md)；原文保留，旧详情页跳转至 V1.4.0。
+- **历史正式使用版：** [V1.3.3](content/ai-natural-communication-v1.3.3.md)；原文保留，旧详情 URL 跳转至永久地址。
+- **历史正式使用版：** [V1.3.2](content/ai-natural-communication-v1.3.2.md)；原文保留，旧详情 URL 跳转至永久地址。
+- **历史正式使用版：** [V1.3.1](content/ai-natural-communication-v1.3.1.md)；原文保留，旧详情 URL 跳转至永久地址。
 - **历史研究总结版：** [V1.3](content/ai-natural-communication-v1.3.md)；保留原文，方便比对、引用与追溯。
 - 旧版详情 URL 和分享链接（包括 `?p=ai-natural-communication-v1.3`）均指向上述永久地址，不会因版本升级而失效。
 - V1.3.1 新增执行优先级、内容生成与自审机制，保留作为历史版本。
@@ -44,7 +44,7 @@
 ## AI Agent 高效执行版本
 
 - **当前正式版：** [V3.0](content/agent-efficient-execution-v3.md)，永久网页地址为 `/prompts/agent-efficient-execution/` 和 `/en/prompts/agent-efficient-execution/`。
-- **历史版本：** [V2.0](content/agent-efficient-execution.md) 的中英文 Markdown 原文继续保留，作为版本追溯资料，不再作为独立目录条目。
+- **历史版本：** [中文 V2.0](content/agent-efficient-execution.md) 与 [英文 V2.0](../en/prompts/content/agent-efficient-execution.md) 原文继续保留，作为版本追溯资料，不再作为独立目录条目。
 - 原来已使用的 `/prompts/agent-efficient-execution/` 地址继续保留，但页面内容以正式升级版 V3.0 为准；旧的 V3 版本号 URL 跳转到该地址。
 
 ## 永久 URL 规则
