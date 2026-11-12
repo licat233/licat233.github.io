@@ -5,6 +5,8 @@ import catalogue from '../../../data/prompts.json';
 import { localePaths } from '../../../lib/locale-routes';
 import { localizedPath, type Lang } from '../../../lib/site';
 
+
+export function getStaticPaths(){
 const legacyRoutes: [string, string][] = [
  ['ai-natural-communication-v1.3', 'ai-natural-communication'],
  ['ai-natural-communication-v1.3.1', 'ai-natural-communication'],
@@ -17,8 +19,6 @@ const legacyRoutes: [string, string][] = [
  ['agent-efficient-execution-v3', 'agent-efficient-execution'],
  ['ai-coding-minimal-defensive-v1', 'ai-coding-minimal-defensive'],
 ];
-
-export function getStaticPaths(){
  return localePaths().flatMap(route=>[
   ...catalogue.map(({id,slug})=>({
    params:{...route.params,id:slug},
