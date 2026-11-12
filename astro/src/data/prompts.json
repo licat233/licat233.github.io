@@ -1,31 +1,33 @@
 [
   {
-    "id": "ai-natural-communication-v1.3.4",
+    "id": "ai-natural-communication-v1.4.0",
     "category": "thinking",
     "companion": "ai-high-value-writing-audit-v1.1",
     "translatedEnglish": true,
     "zh": {
-      "title": "AI 说人话指南 V1.3.4",
+      "title": "AI 说人话指南 V1.4.0",
       "label": "表达与思考",
-      "type": "正式使用版 · V1.3.4",
-      "summary": "让语言服务于理解：依靠语境自然省略，避免过度编号和机械小标题，同时守住事实准确性。",
+      "type": "正式使用版 · V1.4.0",
+      "summary": "以读者理解为中心，把复杂知识讲清楚：默认面向聪明的普通读者，减少晦涩表达，同时保留专业深度与事实准确性。",
       "tags": [
         "自然表达",
-        "语境省略",
-        "段落流转",
-        "内容逻辑",
+        "读者理解",
+        "通俗解释",
+        "专业写作",
+        "可读性",
         "独立判断",
         "内容自审"
       ]
     },
     "en": {
-      "title": "Making AI Sound Natural — Guide V1.3.4",
-      "summary": "Write for understanding: context-aware omission, natural paragraph flow, and fewer forced lists without losing accuracy.",
-      "type": "Main guide · V1.3.4",
+      "title": "Making AI Sound Natural — Guide V1.4.0",
+      "summary": "Write for readers, not to display expertise: explain complex ideas in plain language while preserving accuracy and depth.",
+      "type": "Main guide · V1.4.0",
       "tags": [
         "communication",
-        "context",
-        "natural flow",
+        "reader-first writing",
+        "plain language",
+        "readability",
         "technical writing",
         "self-review"
       ],
