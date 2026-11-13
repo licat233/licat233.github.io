@@ -17,6 +17,7 @@ const skillsHref = homeAnchors ? '#skills' : localeUrl(lang, 'skills');
       <div><strong>LICAT</strong><small>{t.motto}</small></div>
     </div>
     <nav class="footer-links" aria-label={lang === 'en' ? 'Footer navigation' : '页脚导航'}>
+      <a href={homeAnchors ? '#contact' : localeUrl(lang, 'home') + '#contact'}>{t.contactTitle}</a>
       <a href="https://github.com/licat233" target="_blank" rel="noreferrer">GitHub ↗</a>
       <a href={projectsHref}>{t.footerProjects}</a>
       <a href={skillsHref}>{labels.skills}</a>
