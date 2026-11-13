@@ -36,6 +36,11 @@ const deferredStyles=home?['/assets/bundle-home-deferred.css?v=20261111-home-css
         link.rel = 'stylesheet';
         link.href = href;
         link.dataset.contactStyle = 'true';
+        // Motion is optional and attaches only after the real contact geometry
+        // is available. A stylesheet failure leaves all form content readable.
+        link.addEventListener('load', () => {
+          window.dispatchEvent(new Event('licat:contact-style-ready'));
+        }, { once: true });
         document.head.appendChild(link);
       };
       if (location.hash.startsWith('#contact')) { load(); return; }
