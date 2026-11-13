@@ -27,7 +27,7 @@ const deferredStyles=home?['/assets/bundle-home-deferred.css?v=20261111-home-css
     (() => {
       // Contact is far below the Hero; keep its CSS entirely off the LCP request path.
       // Direct #contact visits receive the styles as soon as the head is parsed.
-      const href = '/assets/bundle-contact.css?v=20261113-contact-perf1';
+      const href = '/assets/bundle-contact.css?v=20261113-contact-motion1';
       let loaded = false;
       const load = () => {
         if (loaded) return;
@@ -65,7 +65,7 @@ const deferredStyles=home?['/assets/bundle-home-deferred.css?v=20261111-home-css
       } else watch();
     })();
   </script>}
-  {home && <noscript slot="head"><link rel="stylesheet" href="/assets/bundle-contact.css?v=20261113-contact-perf1" /></noscript>}
+  {home && <noscript slot="head"><link rel="stylesheet" href="/assets/bundle-contact.css?v=20261113-contact-motion1" /></noscript>}
   {!home && <script slot="head" is:inline defer src="/prompts/prompt-library.js?v=20261028-routes1"></script>}
   <slot />
 </BaseLayout>
