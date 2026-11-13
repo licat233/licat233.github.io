@@ -43,6 +43,8 @@
     "maintenanceTitle": "可维护性",
     "maintenanceDescription": "部署、升级、回滚和后续维护不是收尾工作，而是产品本身的一部分。",
     "motto": "把复杂问题做成系统。",
+    "contactTitle": "联系我",
+    "contactNote": "有项目想交流，或想提出建议？可以发邮件给我，也欢迎在 GitHub 查看我的公开项目。",
     "footerProjects": "精选项目",
     "footerPrompts": "提示词",
     "footerNote": "更好的工具，更高效的工作，也更自由的生活。"

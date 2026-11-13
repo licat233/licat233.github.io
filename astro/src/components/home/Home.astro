@@ -333,6 +333,27 @@ const projectHref = (name: string) => {
         </div>
       </div>
     </section>
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="shell contact-layout">
+        <div class="contact-copy">
+          <p class="kicker">CONTACT / LICAT</p>
+          <h2 id="contact-title">{t.contactTitle}</h2>
+          <p class="contact-intro">{t.contactNote}</p>
+        </div>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:licat233@gmail.com">
+            <span class="contact-link-label">EMAIL</span>
+            <strong>licat233@gmail.com</strong>
+            <span class="contact-link-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="contact-link" href="https://github.com/licat233" target="_blank" rel="noopener noreferrer">
+            <span class="contact-link-label">GITHUB</span>
+            <strong>github.com/licat233</strong>
+            <span class="contact-link-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <SiteFooter {lang} homeAnchors />
