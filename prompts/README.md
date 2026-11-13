@@ -73,7 +73,7 @@
 - Logo 动画提示词补全首尾帧、动画参考素材的明确占位符。
 - 记忆与历史对话提示词补充「仅分析真实可访问的内容」条件，防止虚构来源。
 - Codex 使用技巧附加版本与客户端差异提醒；功能名称并非所有版本通用。
-- DetailFlow 工作流保留上游 Skill 链接：https://github.com/AJbeckliy/detail-flow
+- DetailFlow 工作流使用最新上游 Skill：https://github.com/AJbeckliy/detail-flow-V2-Ajie
 
 以上为个人整理与经验分享，并不代表所有提示词均原创，或适用于每个模型与版本。正式使用前仍应根据实际场景核对。
 
