@@ -1,501 +1,605 @@
-# DetailFlow Ecommerce Product Detail Page Prompt V2.0
+# DetailFlow — Continuous Eight-Panel Ecommerce Product Detail Page Workflow
 
 <!-- prompt:begin -->
 
-Use the DetailFlow Skill strictly to create a professional ecommerce product detail page.
+Use the DetailFlow workflow strictly to create my product detail page.
 
-**Official DetailFlow Skill repository (use this current URL):**
-https://github.com/AJbeckliy/detail-flow-V2-Ajie
+**DetailFlow Skill:** https://github.com/AJbeckliy/detail-flow-V2-Ajie
 
-## 1. Before execution: load the latest Skill
+Before starting, read and follow the latest rules in that Skill, especially:
 
-Before starting, you must:
+- Image Generation Workflow
+- Ecommerce 8-screen product detail page
+- Continuity Rules
+- Revision Routing
+- Post-generation Audit
 
-1. Read the complete SKILL.md of the currently installed DetailFlow Skill.
-2. Confirm that the locally installed version matches the current official version. If it is outdated, update it according to the official installation instructions, then verify the actual installation path and version.
-3. Read the latest reference documents relevant to this task, especially:
-   - references/reviewed-workflow.md
-   - references/visual-planning.md
-   - references/copy-review-editor.md
-   - references/unified-executor.md
-   - references/starcanvas-execution.md
-4. Strictly follow the workflow, data structures, executor, image-generation process, and revision methods currently specified by the Skill.
+This is a production ecommerce detail-page assignment, not concept art, a PPT, brochure, infographic, moodboard, or visual experiment.
 
-Rule priority:
+## 1. Core objective
 
-- The DetailFlow Skill governs workflow, technical execution, review mechanisms, image generation, revisions, and file management.
-- This prompt defines product authenticity, commercial accuracy, content requirements, visual preferences, approval authority, and delivery requirements.
-- If the two conflict, do not combine old and new rules arbitrarily. Follow the current Skill for workflow and the facts confirmed by the user for product information.
+Create one **eight-panel ecommerce product detail page**.
 
-Do not continue using obsolete workflows, outdated task packages, or deprecated generation procedures.
+The eight panels must look like:
 
-## 2. Core task
+> Eight consecutive slices of one continuous, long ecommerce product page.
 
-Create a complete **8-screen ecommerce product detail page**.
+They must NOT look like:
 
-Default settings:
-
-- Number of screens: 8
-- Aspect ratio: 9:16
-- Final copy: English
-- Target market: international markets
-- Visual positioning: professional, authentic, commercial-grade ecommerce detail pages
-
-Use these defaults unless I explicitly specify otherwise.
-
-### Overall page requirements
-
-All eight screens must belong to one coherent visual system, with consistent:
-
-- Brand visual language
-- Color system
-- Lighting and material treatment
-- Typography
-- Information hierarchy
-- Page margins
-- Visual rhythm
-
-However, each screen is an independent content panel. Pixel-perfect continuity between the top and bottom edges is not required. Do not add repeated edge decorations just to create the illusion of a continuous long image.
-
-Do not turn the eight screens into:
-
-- Eight unrelated promotional posters
+- Eight independent advertising posters
 - Eight PowerPoint slides
 - Eight infographics
-- Eight social media ads
-- Eight product images that mechanically reuse the same template
+- Eight social-media ads
+- One overview image cut into eight parts
 
-Keep one coherent visual system, but let each screen's content determine its composition.
+All final images must be commercially suitable for direct use on a real product listing.
 
-## 3. Product information and factual accuracy
+## 2. Information and source-material priority
 
-Product authenticity and commercial accuracy take priority over visual creativity.
+Always apply the following order, from highest to lowest:
 
-Handle information in this order:
+1. Facts explicitly confirmed by the user
+2. Official product specifications, packaging data, manuals, listings, and other documents supplied by the user
+3. Authentic product photographs and video frames supplied by the user
+4. The approved Blueprint
+5. The approved Text Master, Visual Master, and Style Reference
+6. Facts reasonably observable in the images
+7. Reasonable AI inferences
+8. Free AI creativity
 
-1. Product facts explicitly confirmed by the user.
-2. Official product specifications, manuals, packaging information, and other formal documents supplied by the user.
-3. Authentic product photos, videos, and physical product materials supplied by the user.
-4. Product information and copy already confirmed by the user.
-5. Information that can be directly observed in authentic product photos.
-6. Reasonable creative suggestions proposed by AI based on the product category, images, and buyer needs.
+A lower-priority source must never override a higher-priority fact.
 
-Classify the analysis results into four categories:
+When sources conflict:
 
-**A. Confirmed Facts**
+- Identify the conflict explicitly.
+- Do not arbitrarily select one version as fact.
+- Prefer conservative wording.
+- Record the uncertainty under risk_unknowns.
+- If it materially affects commercial accuracy, obtain confirmation before using the claim.
 
-Facts explicitly confirmed by the user or formal documentation.
+## 3. Analyze Inputs
 
-**B. Observed Facts**
+After receiving product materials, do not immediately generate the final images.
 
-Facts directly observable from authentic product images.
+First analyze all supplied materials, where available:
 
-**C. Reasonable Creative Inferences**
+- Real product photographs
+- Product photographs on white backgrounds
+- Close-up product details
+- Packaging photographs
+- Accessories
+- Usage, installation, and application photographs
+- Technical specifications
+- Product pages
+- Manuals and documents
+- Brand assets
+- Style-reference images
+- Competitor references
+- Requirements for content that must be preserved or excluded
 
-Reasonable selling points, scenarios, and creative expressions proposed by AI based on the product category, appearance, and buyer needs.
+Separate findings strictly into four categories:
 
-These inferences may inform creative planning, but must never be presented as verified product functions or technical facts.
+**A. Confirmed Facts** — Facts explicitly confirmed by the user or official materials.
 
-**D. Unknown / Do Not Invent**
+**B. Observed Facts** — Facts directly visible in supplied imagery.
 
-Information that cannot be confirmed, conflicts across sources, or lacks supporting evidence.
+**C. Reasonable Inferences** — Reasonable interpretations based on product category, construction, and visible evidence.
 
-If sources conflict:
+**D. Unknown / Do Not Invent** — Missing, conflicting, or unverified information that may not be fabricated.
 
-- Identify the conflict clearly.
-- Do not arbitrarily choose one version as fact.
-- Record the issue in risk_unknowns.
-- Do not put information that affects product authenticity or commercial accuracy into final copy until it is confirmed.
+Never invent any of the following without confirmation:
 
-Never invent:
-
-- Technical specifications, performance figures, or test results
-- Unconfirmed materials, functions, or product construction
+- Technical specifications or materials
+- Features or functions
 - Certifications, awards, or patents
-- Medical or efficacy claims
-- Sales figures, conversion rates, or market rankings
+- Tests, performance results, or durability data
+- Sales volume or conversion figures
+- Medical, efficacy, or protection-rating claims
 - Brand partnerships
-- Discounts or promotional commitments
-- Warranty, MOQ, lead-time, or shipping commitments
-- Package contents or accessory quantities
-
-You may propose reasonable marketing ideas, but must not disguise creative ideas as verified product facts.
+- Discounts, warranties, or minimum order quantities (MOQ)
+- Lead times or shipping commitments
+- Package contents
 
 ## 4. Product Identity Lock
 
-Once authentic product images are provided, establish a Product Identity Lock.
+If authentic product images were supplied, establish a **Product Identity Lock**.
 
-Lock the characteristics relevant to the specific product, including:
+Record the product's immutable visual characteristics wherever relevant:
 
-- Overall shape and proportions
-- Length, width, and thickness
-- Actual color
-- Material and surface texture
+- Overall shape, proportions, thickness, and color
+- Materials, surface texture, and patterns
 - Logo and brand marks
-- Packaging and printed graphics
-- Buttons, openings, and ports
-- Screens, knobs, and connection structures
-- Accessories, brackets, and special components
-- Product quantity and spatial relationships between components
+- Packaging design and packaging text
+- Buttons, openings, ports, and screens
+- Knobs, zippers, handles, and brackets
+- Connectors and joining structures
+- Accessories and distinctive forms
+- Number of products and components
+- Spatial relationships among components
 
-Do not require the complete product to appear on every screen.
+Lock only characteristics that genuinely apply to this particular product.
 
-For each screen, explicitly choose how the product is represented:
+> Product authenticity takes priority over making an image look prettier.
 
-- **primary**: the product is the main visual subject of the screen.
-- **secondary**: the product appears as a supporting recognition element.
-- **absent**: the complete product is not shown on this screen; product materials are used only to verify identity.
+Reject any enhancement that turns the product into a different SKU, structure, color, or material.
 
-A real-product detail screen must show the corresponding authentic details. Do not replace them with AI-invented internal structures or nonexistent components.
+When sufficient authentic images are available, prefer **real product assets + AI-generated environment/scene + professional layout**, not asking AI to redraw a vaguely similar product.
 
-When authentic product assets are sufficient, prioritize:
+## 5. Style Reference Analysis
 
-Authentic product assets + AI-generated settings and environments + professional layout.
+If style references are supplied, analyze more than their colors. Extract:
 
-Never change the product's SKU identity to make an image look more attractive.
+- palette
+- lighting
+- contrast
+- camera angle
+- lens language
+- depth of field
+- composition
+- negative space
+- product scale
+- typography
+- information hierarchy
+- icon language
+- label / badge style
+- material treatment
+- scene density
+- visual rhythm
+- background world
+- recurring motifs
+- transition language
+- commercial photography level
 
-## 5. Reference image analysis
+Extract the reference's **Style DNA**.
 
-Product images, people images, style references, and composition references must be treated as different reference roles.
+Do not copy a reference image's brand, identifiable people, text, products, or trademarks.
 
-Follow DetailFlow's reference-asset management rules. Define each image's role, intended use, and elements that must not be transferred.
+When the user explicitly approves a particular reference or visual master, treat it as a binding visual constraint for subsequent panels, not merely inspiration.
 
-If style references are provided, focus on the visual characteristics that genuinely affect this set of pages:
+## 6. Eight-screen Detail Page Blueprint
 
-- Color and tonal relationships
-- Lighting direction
-- Material treatment
-- Camera angles and shot types
-- Composition and spatial depth
-- Product scale within the frame
-- Typography and information hierarchy
-- Information density and negative space
-- Visual variation between screens
+**Stage one:** Deliver a complete **8-screen Detail Page Blueprint**.
 
-Do not mechanically copy reference-page layouts. Do not place headlines, images, and text boxes in the same positions on every screen.
+Each screen must include, at minimum:
 
-Do not copy other brands, trademarks, original products, text, or personal identities from reference images.
-
-By default, translate style references into a written visual specification first. Use selected and approved style or composition reference images only when they genuinely help.
-
-If no style reference is supplied, propose a visual direction based on the product, target buyers, and screen content. Clearly identify it as an AI design proposal.
-
-## 6. Eight-screen Blueprint
-
-Create eight screens by default.
-
-Each screen must clearly define:
-
+- slice_id
 - buyer_question
+- module_type
+- module_label
+- claim_seed
 - screen_job
-- Main information
-- Product presentation method
-- Evidence source
-- Copy structure
-- Visual composition
-- Information hierarchy
+- evidence_type
+- content_density
+- layout_archetype
+- copy_module_type
+- copy_structure_pattern
+- primary_module
+- secondary_modules
+- text_exact
+- hierarchy_strategy
+- composition_shift
+- top_edge_anchor
+- bottom_edge_anchor
+- visual_composition
+- reference_style_notes
+- risk_unknowns
 
-Use the Blueprint Schema currently specified by the DetailFlow Skill. Do not reuse deprecated fields or create a duplicate planning system.
+## 7. Claim Seed rules
 
-Follow the Skill's current 19 planning fields and provide layout.blocks in the same Blueprint as required for layout review and the HTML editor.
+Establish **2–4 core claim seeds in Screen 01** before developing later screens.
 
-### Claim Seeds
+Each seed must:
 
-Screen 01 must establish 2–4 core Claim Seeds first.
+- Matter to the overall purchasing decision.
+- Be specific enough to substantiate in later screens.
+- Not be an empty adjective.
+- Not assert unverified technical or commercial claims.
 
-All subsequent selling-point screens must develop these core claims through:
+Screens 02–08 must develop these seeds by explaining, demonstrating, substantiating, comparing, showing details, placing them in context, building trust, and guiding the buying decision.
 
-- Explanation
-- Demonstration
-- Proof
-- Scenarios
-- Comparison
-- Trust building
+Do not invent a new unrelated selling point on every screen.
 
-Do not invent a new selling point on every screen.
+If a later screen cannot be traced back to a seed in Screen 01, revise the seed or the screen.
 
-Buyer-service information such as size charts, usage instructions, and care instructions may have its own buyer_question. Do not force it into a marketing claim.
+## 8. Screen differentiation
 
-### Screen differentiation
+Every screen must address a different buyer_question.
 
-Every screen must have its own information task.
+Adjacent screens must not mechanically repeat the same:
 
-Choose compositions according to the content. Do not prescribe eight fixed templates in advance.
+- screen_job
+- evidence_type
+- composition
+- headline structure
+- "headline + subtitle + three icons" template
+- product hero scale
+- information-card layout
 
-Avoid mechanical repetition of:
+Vary information density and visual organization across the eight screens.
 
-- Headline + subtitle + three icons
-- A centered product hero
-- The same card layout
-- The same camera angle
-- The same information density
-- The same copy rhythm
+Potential modules include:
 
-Create meaningful variation through shot scale, camera angle, visual focus, text placement, information density, and the relationship between the product and its setting.
+- hero
+- macro detail
+- feature proof
+- mechanism
+- comparison
+- step sequence
+- scenario
+- annotation map
+- specification proof
+- trust section
+- configuration
+- closing CTA
 
-Do not force meaningless variation just to make screens look different. Pages suited to product comparison may deliberately use a consistent layout.
+All modules must still belong to one consistent visual system.
 
-## 7. Final copy requirements
+## 9. Internal fields must not appear in the delivered imagery
 
-During planning, explain the design proposal to me in Chinese.
-
-By default, use English copy in the final images for international buyers.
-
-Final copy must be:
-
-- Specific, concise, and easy to understand
-- Written in natural commercial English
-- Free from generic AI marketing language
-- Free from exaggerated or empty adjectives
-- Free from unnecessary technical jargon
-- Focused on the product's actual value
-
-text_exact is the sole authoritative source for final copy.
-
-Product names, model numbers, specifications, dimensions, units, parameters, steps, and CTAs must be accurate.
-
-Do not let the image-generation model freely rewrite copy that has already been confirmed.
-
-Final images must not display internal workflow fields such as:
+These Blueprint/workflow fields are for internal use only:
 
 - slice_id
 - module_type
+- module_label
 - screen_job
 - claim_seed
 - evidence_type
-- Blueprint
+- content_density
+- risk_unknowns
+
+Unless the user explicitly requests otherwise, never put any of these internal labels into buyer-visible graphics:
+
+- 01 / 02 / 03 / 04 / 05 / 06 / 07 / 08
+- Screen 01
 - Product Overview
 - Feature Breakdown
 - Parameter Trust
+- FAQ
+- Module
+- Section
+- Blueprint-style labels
 
-### Prohibition on sequential screen numbers
+A filename may be product_screen_01.png, but the image itself must not automatically display "01".
 
-Do not display sequential screen numbers in buyer-visible final images, including:
+Numbering that describes actual product instructions, such as steps 1, 2, and 3, is permitted.
 
-- 01 / 02 / 03
-- Screen 01
-- 01 Product Overview
-- 02 Features
-- 03 Applications
+## 10. Approval Gate 1
 
-Screen numbers are only for file management and internal workflows.
+**Stop after completing the Blueprint. Wait for the user's first approval.**
 
-Numbering required by the actual content, such as instructional steps, specification references, model numbers, and quantities, is allowed.
+Without that approval:
 
-## 8. Design review and approval
+- Do not generate final detail images.
+- Do not produce formal slices.
+- Do not advance to final visual production.
 
-After completing Analyze Inputs, continue with the planning and design-review workflow required by the latest Skill.
+## 11. Master stage after the first approval
 
-The first and only routine design approval must include:
+Once the Blueprint is approved, establish:
 
-1. Product-asset analysis.
-2. The complete eight-screen Blueprint.
-3. The overall visual specification (visual_master_spec; this is a written specification, not an image master).
-4. Accurate English copy for every screen.
-5. The layout and composition plan for every screen.
-6. Layout sketches required by the Skill.
-7. An editable HTML review page.
+1. Text Master
+2. Visual Style DNA
+3. Visual Master Spec
+4. Product Identity Lock
+5. Structure Blueprint
+6. If appropriate, a continuous 1:3 long-page visual master
 
-### HTML review requirements
+The Visual Master Spec must establish, at minimum:
 
-The HTML page must support:
+- palette
+- lighting direction
+- background world
+- product rendering strategy
+- typography
+- spacing system
+- information hierarchy
+- material language
+- icon language
+- camera language
+- product scale rhythm
+- section rhythm
+- transition logic
+- recurring motifs
+- negative space rules
 
-- Editing page copy
-- Adjusting text positions
-- Resizing text boxes
-- Adjusting layouts
-- Adding or removing necessary modules
-- Exporting the revised result
+## 12. Rules for the 1:3 Visual Master
 
-Actually build the review HTML and try to present it through an available browser or file-opening method.
+The 1:3 master is a **visual continuity reference only**, not a finished product.
 
-Provide an HTML link or file path that I can actually access.
+Never:
 
-Do not present a written proposal or static PNG as a substitute for an editable review page.
+- Deliver it as the final detail page.
+- Cut it directly into eight final slices.
+- Enlarge it to produce final-resolution imagery.
+- Take screenshots of it to use as finished slices.
+- Treat it as a contact sheet.
+- Split it into a final package for convenience.
 
-If the current environment genuinely cannot provide the review capabilities required by the Skill, state exactly what is missing and pause for resolution. Do not pretend the requirement has been met.
+Use the master only to establish a shared background world, space, lighting, color, product scale, visual rhythm, typography, hierarchy, page continuity, and transitions between upper and lower portions.
 
-Exporting the review page does not mean I have approved image generation.
+Reject a master if:
 
-After presenting the review materials, stop and wait for my explicit approval.
+- It looks like eight separate posters, slides, brochure pages, an infographic grid, or a contact sheet.
+- The product's identity or construction drifts.
+- The style diverges from the reference.
+- There is no spatial continuity across the long page.
+- The information hierarchy conflicts with the Blueprint.
 
-## 9. Final image production
+A failed master must not be used for final slice production.
 
-Only after receiving my explicit approval may you begin final image generation.
+## 13. Production rules for final slices
 
-Strictly use the current DetailFlow execution process:
+Once the master passes review, produce:
 
-- Prioritize Starcanvas MCP.
-- Use the Unified Executor built into the Skill.
-- Use the approved product assets with their correct reference roles.
-- Use the approved Blueprint and text_exact.
-- Follow the model, aspect ratio, parameters, and task-execution method specified by the current Skill.
-- By default, submit the complete eight-screen final-image task in one batch.
-- Respect actual service concurrency limits.
+- Slice 01
+- Slice 02
 
-Do not write another image-generation executor or reimplement capabilities already provided by the Skill.
+The default final aspect ratio is **9:21 vertical**, unless the user specifies otherwise.
 
-If Starcanvas encounters a genuine blocking issue:
+**Create every final slice independently.**
 
-- Explain the specific error.
-- Preserve existing work.
-- Pause tasks that depend on the blocked capability.
-- Do not silently switch to another image-generation tool.
-- Obtain my explicit approval before using another generation backend.
+Do not directly turn any of the following into a finished slice:
 
-### Processes that must not be added by default
+- The 1:3 master
+- An overview graphic
+- A contact sheet
+- A moodboard
+- A Blueprint illustration
+- A low-resolution sketch
+- A preview image
 
-Unless I explicitly request them:
+If the existing composition does not match the final aspect ratio, use proper recomposition, layout adjustments, a regenerated environment, sensible outpainting, and repositioned product/copy modules.
 
-- Do not generate a 1:3 image master.
-- Do not generate two formal images as a preliminary test.
-- Do not add a second visual approval stage.
-- Do not require approval of each image before generating the next one.
-- Do not generate extra paid preview images for internal inspection.
+Do not force the ratio through Gaussian-blurred padding, mirrored padding, stretching, arbitrary enlargement, low-resolution crops, background blur filler, or oversized borders.
 
-If I explicitly ask to see a visual preview first, use the optional preview workflow provided by the Skill. A preview cannot replace a formal image or serve as a substitute for final image review.
+## 14. Authentic product asset usage
 
-## 10. Final image quality audit
+When real product photographs are supplied, retain the authentic product as faithfully as possible.
 
-After all eight screens have been generated, inspect every original image and review the complete set in vertical order.
+AI may work on the environment, setting, props, lighting, extended space, backgrounds, atmosphere, and nonessential decorative elements.
 
-### 1. Product Identity
+Reject any generated result that changes the product's SKU identity, including:
 
-- Is the product shape correct?
-- Is the SKU consistent?
-- Have color or material characteristics drifted?
-- Is the logo correct?
-- Are any key components missing or added?
-- Are the packaging and accessories correct?
+- Shape or color changes
+- Logo, material, or pattern changes
+- Different ports or component counts
+- Altered construction
+- Incorrect packaging text
+- Missing or newly invented key parts
 
-### 2. Text Accuracy
+## 15. Text rules
+
+The Blueprint's **text_exact** is authoritative for all final copy.
+
+Important text includes:
+
+- headline
+- subtitle
+- specifications
+- dimensions
+- model
+- feature names
+- steps
+- CTA
+- warnings
+- certification text
+
+Do not let an image-generation model freely rewrite this content.
+
+Prefer reserving areas for copy, applying typography after image generation, and using deterministic text composition with controllable fonts.
+
+Correct any spelling mistakes, incorrect numbers or units, garbled characters, omissions, or unauthorized copy rewrites in generated imagery.
+
+Never overlook incorrect text merely because the overall image looks good.
+
+## 16. Internal audit of Slices 01–02
+
+After generating the first two slices, audit each separately.
+
+### Product Identity
+
+- Is the product authentic and consistent?
+- Did the SKU, shape, color, or material drift?
+- Are the logo and construction correct?
+
+### Copy
 
 - Does the copy match text_exact?
-- Is the spelling correct?
-- Are parameters, numbers, and units accurate?
-- Are there garbled or missing characters?
-- Are there unwanted sequential screen numbers?
-- Are any internal workflow fields visible?
+- Are spelling, technical specifications, and units correct?
+- Are there garbled characters, internal fields, or unwanted screen numbers?
 
-### 3. Claim Safety
+### Claim Safety
 
-- Have any product functions been invented?
-- Have any technical specifications been invented?
-- Are there unconfirmed certifications?
-- Are there unconfirmed performance or commercial claims?
-- Have inferences been presented as verified facts?
+- Were unverified parameters, certifications, performance figures, commercial claims, awards, or brand partnerships added?
 
-### 4. Visual Quality
+### Commercial Quality
 
-- Does the work follow the approved overall visual specification?
-- Does it have the quality of professional commercial photography?
-- Is the product sufficiently clear?
-- Is the information hierarchy reasonable?
-- Is the copy easy to read?
-- Are there obvious AI-generation artifacts?
-- Does it look like a low-quality promotional poster or templated infographic?
+- Does the image look like a real ecommerce detail page?
+- Does it look obviously AI-generated, sketch-like, slide-based, infographic-like, or like a cheap promotional poster?
+- Is the product sufficiently sharp, with professional visual hierarchy?
 
-### 5. Set Coherence
+### Continuity
 
-- Are color and tonal relationships consistent across the set?
-- Are typography, spacing, and margins consistent?
-- Is the product identity consistent?
-- Is the information sequence reasonable?
-- Is there obvious composition repetition?
-- Has the visual style drifted?
-- Does every screen genuinely serve a different buyer question?
+- Do Slices 01 and 02 look like parts of the same long page?
+- Are lighting, typography, product depiction, and background world consistent?
+- Is the vertical transition convincing?
+- Do the screens avoid using two full-size heroes in succession?
 
-### Quality decision
+**If any critical check fails, revise before proceeding to the approval stage.**
 
-Inspect the technical quality, copy, product identity, and composition of each image separately. Also review the consistency of the complete set.
+## 17. Two-Slice Preview
 
-When an issue is found, record:
+After both slices pass their internal audits, create a **2-slice concat preview**.
 
-- Which screen contains the issue
-- The specific error
-- The level or category of the issue
-- The smallest effective revision
+The preview serves only to evaluate continuity. Creating it must not alter the final slices through:
 
-Do not treat successful image generation as proof that image quality has passed.
+- Added blurred backgrounds
+- Added borders
+- Re-layout
+- Product changes
+- Copy changes
+- Ratio changes
 
-## 11. Revision rules
+The preview should simply concatenate the actual finished images as they are.
 
-Follow the current DetailFlow original-canvas revision mechanism.
+## 18. Approval Gate 2
 
-Fix the smallest responsible scope first:
+Present together:
 
-- Copy error: correct the copy layer.
-- Product error: correct the product reference and product representation.
-- Background error: revise only the background or setting.
-- Single-screen composition issue: revise only the affected screen.
-- Multi-screen style drift: revise the affected screens.
-- Selling-point logic issue: return to the Blueprint.
+- The 1:3 Visual Master (if used)
+- Slice 01
+- Slice 02
+- The 2-Slice Preview
+- A brief audit
 
-You must:
+Then **stop and wait for the user's second approval**.
 
-- Preserve the original images.
-- Preserve historical generation prompts.
-- Add revision nodes to the original canvas.
-- Preserve revision reasons and source records.
-- Never overwrite images that have already passed review.
+## 19. After the second approval
 
-Obtain my approval before any additional paid generation or revisions beyond the already authorized revision allowance.
+Only after the second approval may you generate **Slices 03–08**.
 
-Do not conceal problems by blurring, stretching, mirroring, arbitrarily enlarging, or cropping away the incorrect area.
+Continue following the approved Blueprint, Text Master, Product Identity Lock, Visual Style DNA, and Visual Master.
 
-## 12. Final delivery
+Do not redesign the visual system halfway through.
 
-After all reviews pass, deliver:
+## 20. Full-page Audit
 
-1. Eight separate high-resolution final images.
-2. A complete vertically concatenated long image (concatenate the panels in order as they are; pixel-perfect seamless continuity is not required).
-3. A lightweight long-image preview.
-4. A complete ZIP delivery package.
+After completing all eight slices, create a full concatenated preview and check:
 
-File names:
+### Product Consistency
+
+Does the product retain the same identity throughout?
+
+### Text Accuracy
+
+Are all copy, technical specifications, numbers, and units accurate?
+
+### Claim Continuity
+
+Can every central selling point be traced back to a claim seed established on Screen 01?
+
+### Visual Continuity
+
+Does it read as one continuous long page?
+
+### Composition Variety
+
+Do successive screens avoid repeating the same layout?
+
+### Unsupported Claims
+
+Is there any assertion the user has not confirmed?
+
+### Commercial Readiness
+
+Ask:
+
+> Could I place these eight images directly on a real product page without explaining the production process to a customer?
+
+If not, the work does not pass final acceptance.
+
+## 21. Failure criteria
+
+Stop production rather than continuing if any of these occurs:
+
+- AI changes the product into a different product.
+- Product construction is clearly wrong.
+- Logo, packaging, or patterns are wrong.
+- Important copy or specifications are incorrect.
+- Unverified certifications or claims appear.
+- Visual style differs materially from the approved reference.
+- Every screen looks like an independent poster.
+- The long-page continuity disappears.
+- Final images are cut out of a low-resolution overview.
+- Blurred padding is used to force the aspect ratio.
+- Results are obviously only sketch-quality.
+
+**"Generated" does not mean "approved for quality."**
+
+## 22. Revision principles
+
+Prefer the smallest effective revision:
+
+- Copy error → repair only the text layer.
+- Product error → repair only the product layer.
+- Background error → repair only the setting/background.
+- One-screen composition issue → revise only that slice.
+- Transition between adjacent screens → fix the neighboring transition.
+- Widespread style drift → return to the Visual Master.
+- Incorrect selling-point logic → return to the Blueprint.
+
+Do not regenerate the entire set by default.
+
+Do not conceal failures with blur, mirroring, forced enlargement, borders, cropping out the problem, excessive filler icons, or recutting an overview.
+
+## 23. Final deliverables
+
+Deliver:
+
+- Approved Visual Master, if used
+- High-resolution final Slices 01–08
+- 2-Slice Preview
+- Full-resolution Long-page Concat
+- Lightweight Long-page Preview
+- ZIP Package
+
+File names may use:
 
 - product_screen_01.png
 - product_screen_02.png
-- product_screen_03.png
-- product_screen_04.png
-- product_screen_05.png
-- product_screen_06.png
-- product_screen_07.png
+- ...
 - product_screen_08.png
 
-Also:
+File numbering does not imply that the number must appear inside the artwork.
 
-- Preserve the original resolution of the final images.
-- Never substitute preview images for final images.
-- Do not include discarded versions in the final package.
-- Confirm that every delivered file actually exists.
-- Provide the delivery directory and file links.
-- Briefly report the audit result, image count, and unresolved issues.
+## 24. Default international-market requirements
 
-The long image is only a vertical combination of eight independent content panels. Do not claim that they form a seamless continuous scene.
+Unless I explicitly specify otherwise:
 
-## 13. Final commercial standard
+- Use English for all buyer-visible copy.
+- Follow international B2B/ecommerce visual conventions.
+- Keep claims specific, restrained, and credible.
+- Avoid cheap promotional styling.
+- Avoid generic AI marketing language.
+- Avoid slide, infographic-template, or brochure aesthetics.
+- Invent no technical or commercial claims.
+- Never sacrifice product authenticity for visual impact.
+- Do not add irrelevant selling points to fill empty space.
 
-The final result must be:
+## 25. Prohibition on sequential screen numbering
 
-Professional, authentic, clear, credible, and ready to use on a real ecommerce product page.
+Do not display sequential screen numbers in the final buyer-visible artwork, for example:
 
-Visual impact must never take priority over product authenticity.
+- Screen 1 showing "1", "01", "Screen 1", or "01 Product Overview"
+- Screen 2 showing "2", "02", or "Screen 2"
+- Screen 3 showing "3" or "03"
+- ...
+- Screen 8 showing "8" or "08"
 
-Marketing creativity must never take priority over commercial facts.
+"Eight-screen" describes the internal production and slicing process, **not** a buyer-visible numbering system.
 
-Visual appeal must not come at the expense of information efficiency.
+Allowed:
 
-Do not add irrelevant selling points just to fill the layout.
+- Filename: product_screen_01.png
+- Blueprint field: slice_id: 01
+- Production-management label: Screen 01 / Slice 01
+- Actual instructional steps: 1 / 2 / 3 / 4
+- Real specification, model, or quantity numbers
 
-Do not add elements or production steps that have no practical value merely to demonstrate AI capabilities.
+Not allowed:
 
-Generation does not mean completion. The task is complete only when the quality audit has passed and all deliverables have been provided.
+- Sequentially labeling all eight buyer-visible panels 01–08
+- Decorating the top-left corner with large page numbers
+- Using "01 / PRODUCT OVERVIEW" as a decorative headline
+- Using "02 / FEATURES" or "03 / APPLICATIONS" as artificial section numbers
+- Displaying eight sequential numbers just because this is an eight-screen workflow
 
-I will now provide product images, specification materials, and possible style references.
+Unless I explicitly request numbered sections, no final detail image should carry a sequential page-number motif.
 
-Start with DetailFlow's Analyze Inputs stage. First analyze the authentic product materials, then follow the latest Skill to complete page planning and the editable HTML review.
+The goal is a **professional, authentic, continuous ecommerce product detail page ready to publish**.
 
-Do not generate final product-detail images without my explicit approval.
+I will now provide the product photographs and product information.
+
+**Begin strictly with DetailFlow's Analyze Inputs stage.**
 
 <!-- prompt:end -->

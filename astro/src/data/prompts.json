@@ -143,32 +143,63 @@
     "category": "design",
     "translatedEnglish": true,
     "zh": {
-      "title": "DetailFlow｜八屏电商产品详情页制作提示词 V2.0",
+      "title": "DetailFlow｜八屏电商详情图工作流",
+      "label": "开发与设计",
+      "type": "完整工作流 · 25 节",
+      "summary": "从真实产品素材到连续式八屏详情页：蓝图、视觉母版、审核、确认节点与最终交付。",
+      "tags": [
+        "DetailFlow",
+        "电商设计",
+        "产品真实性",
+        "长文"
+      ],
+      "seoTitle": "DetailFlow：八屏电商详情页设计工作流 | Licat"
+    },
+    "en": {
+      "title": "DetailFlow: Eight-Panel Ecommerce Design Workflow",
+      "summary": "A structured product-detail design workflow based on authentic assets, reviews, and consistent visuals.",
+      "type": "Design workflow · 25 sections",
+      "tags": [
+        "design",
+        "ecommerce",
+        "products"
+      ],
+      "label": "Development & Design",
+      "seoTitle": "DetailFlow: 8-Panel Ecommerce Design Workflow | Licat"
+    }
+  },
+  {
+    "id": "detailflow-ecommerce-production",
+    "slug": "detailflow-ecommerce-production",
+    "category": "design",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "DetailFlow｜电商产品详情页制作提示词 V2.0",
       "label": "开发与设计",
       "type": "完整制作工作流 · V2.0",
-      "summary": "从真实产品资料分析、8 屏蓝图与可编辑 HTML 审核，到批量生成、质量审查和最终交付，按最新 DetailFlow Skill 制作专业、可信的电商产品详情页。",
+      "summary": "依据最新 DetailFlow Skill，从真实产品资料分析、八屏蓝图与可编辑 HTML 审核，到正式图片生成、质量审核、返修和最终交付。",
       "tags": [
         "DetailFlow",
         "电商设计",
         "产品详情页",
         "产品真实性",
-        "8 屏工作流"
+        "8 屏制作"
       ],
       "seoTitle": "DetailFlow 电商产品详情页制作提示词 | Licat"
     },
     "en": {
-      "title": "DetailFlow: Eight-Screen Ecommerce Product Detail Prompt V2.0",
-      "summary": "A practical workflow for building eight-screen ecommerce product pages: analyze authentic assets, plan with the latest Blueprint schema, review in editable HTML, generate, audit, and deliver.",
-      "type": "Production workflow · V2.0",
+      "title": "DetailFlow: Ecommerce Product Detail Prompt V2.0",
+      "label": "Development & Design",
+      "type": "Complete production workflow · V2.0",
+      "summary": "A current DetailFlow workflow covering authentic product analysis, an eight-screen Blueprint, editable HTML review, image production, quality audits, revisions, and delivery.",
       "tags": [
         "DetailFlow",
         "ecommerce",
         "product detail page",
         "product authenticity",
-        "8-screen workflow"
+        "8-screen production"
       ],
-      "label": "Development & Design",
-      "seoTitle": "DetailFlow Ecommerce Product Detail Page Prompt | Licat"
+      "seoTitle": "DetailFlow Ecommerce Product Detail Prompt | Licat"
     }
   },
   {
