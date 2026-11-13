@@ -1024,6 +1024,8 @@ html[lang="zh-CN"] .hero-title {
 .contact-submit:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
 .contact-sent { display: none; margin-bottom: 1.5rem; padding: 1rem 1.2rem; border: 1px solid var(--blue); border-radius: .375rem; color: var(--text); }
 .contact-sent:target { display: block; scroll-margin-top: 10rem; }
+.contact-failed { border-color: #c87052; }
+.contact-form .cf-turnstile { min-height: 65px; margin-bottom: 1rem; }
 .contact-sent-icon { margin-right: .45rem; color: var(--blue); font-weight: 850; }
 .contact-sent strong { font-size: .875rem; }
 .contact-sent p { margin: .5rem 0 0; color: var(--muted); font-size: .8125rem; line-height: 1.6; }
