@@ -508,7 +508,7 @@ for(const route of ['index.html','en/index.html','projects/index.html','en/proje
    'Glass material stylesheet missing from '+route);
 }
 const homeStyle = await read('assets/bundle-home.css');
-assert(homeStyle.includes('.contact-layout') && homeStyle.includes('.contact-link'),
+assert(homeStyle.includes('.contact-layout') && homeStyle.includes('.contact-direct-link'),
  'Home contact layout is missing from the compiled CSS bundle');
 // A static GitHub Pages contact form needs a real submission endpoint, not a mailto-only mockup.
 for (const [route,successUrl] of [
