@@ -876,6 +876,9 @@ html[lang="zh-CN"] .hero-title {
 .principle h3 { margin: var(--space-1) 0 var(--space-2); font-size: var(--space-4); letter-spacing: -.02em; }
 .principle p { margin: 0; color: #75848d; font-size: .8125rem; line-height: 1.65; }
 
+/* Keep contact links in the mobile viewport before on-demand styles arrive. */
+#contact .contact-direct-link { overflow-wrap: anywhere; }
+
 /* Footer */
 .site-footer {
   border-left: 0;
