@@ -169,6 +169,40 @@
     }
   },
   {
+    "id": "detailflow-ecommerce-production",
+    "slug": "detailflow-ecommerce-production",
+    "category": "design",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "DetailFlow｜电商产品详情页制作提示词 V2.0",
+      "label": "开发与设计",
+      "type": "完整制作工作流 · V2.0",
+      "summary": "依据最新 DetailFlow Skill，从真实产品资料分析、八屏蓝图与可编辑 HTML 审核，到正式图片生成、质量审核、返修和最终交付。",
+      "tags": [
+        "DetailFlow",
+        "电商设计",
+        "产品详情页",
+        "产品真实性",
+        "8 屏制作"
+      ],
+      "seoTitle": "DetailFlow 电商产品详情页制作提示词 | Licat"
+    },
+    "en": {
+      "title": "DetailFlow: Ecommerce Product Detail Prompt V2.0",
+      "label": "Development & Design",
+      "type": "Complete production workflow · V2.0",
+      "summary": "A current DetailFlow workflow covering authentic product analysis, an eight-screen Blueprint, editable HTML review, image production, quality audits, revisions, and delivery.",
+      "tags": [
+        "DetailFlow",
+        "ecommerce",
+        "product detail page",
+        "product authenticity",
+        "8-screen production"
+      ],
+      "seoTitle": "DetailFlow Ecommerce Product Detail Prompt | Licat"
+    }
+  },
+  {
     "id": "ai-coding-minimal-defensive-v1",
     "slug": "ai-coding-minimal-defensive",
     "category": "design",
