@@ -597,6 +597,90 @@
             }
           }
 
+
+          // Contact choreography (L3): two ways of reaching out converge.
+          // The left invitation/links come from the reading side; the right
+          // message sheet pivots into place. Form controls never fade or move
+          // independently, and the three passive glass layers stay untouched.
+          // Register AFTER the separately loaded contact CSS defines real
+          // geometry, so neither its layout nor GSAP work enters the Hero LCP.
+          const contact = document.querySelector('#contact');
+          let contactRegistered = false;
+          const registerContactScene = () => {
+            if (!desktop || !contact || contactRegistered ||
+                !document.querySelector('link[data-contact-style]')?.sheet) return;
+            const title = contact.querySelector('h2');
+            const kicker = contact.querySelector('.kicker');
+            const intro = contact.querySelector('.contact-intro');
+            const channelsLabel = contact.querySelector('.contact-direct-title');
+            const channels = [...contact.querySelectorAll('.contact-direct-link')];
+            const panel = contact.querySelector('.contact-form-panel');
+            const panelHeading = contact.querySelector('.contact-form-head');
+            if (!title || !panel) return;
+            contactRegistered = true;
+            const animated = [title, kicker, intro, channelsLabel, ...channels,
+                              panel, panelHeading].filter(Boolean);
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: contact,
+                ...createRange(contact, .89, .54, 30),
+                scrub: true,
+                onUpdate: synchronizeScene,
+                invalidateOnRefresh: true
+              }
+            });
+            tl.addLabel('invitation', 0);
+            if (kicker) tl.fromTo(kicker,
+              { x: -45 }, { x: 0, duration: .42, ease: 'power1.inOut' }, 'invitation');
+            tl.fromTo(title,
+              { x: -80, rotationY: -14, scale: .955, transformOrigin: '0% 50%' },
+              { x: 0, rotationY: 0, scale: 1, duration: 1.08, ease: 'power1.inOut' },
+              'invitation+=.08');
+            if (intro) tl.fromTo(intro,
+              { x: -60 }, { x: 0, duration: .77, ease: 'power2.out' },
+              'invitation+=.33');
+
+            tl.addLabel('message', .12);
+            tl.fromTo(panel,
+              { x: 70, y: 24, rotationY: 17, scale: .935,
+                transformOrigin: '85% 42%' },
+              { x: 0, y: 0, rotationY: 0, scale: 1,
+                duration: 1.40, ease: 'power1.inOut' }, 'message');
+            if (panelHeading) tl.fromTo(panelHeading,
+              { x: 34 }, { x: 0, duration: .64, ease: 'power1.out' },
+              'message+=.55');
+
+            tl.addLabel('direct', .57);
+            if (channelsLabel) tl.fromTo(channelsLabel,
+              { x: -30 }, { x: 0, duration: .50, ease: 'power1.out' }, 'direct');
+            channels.forEach((link, index) => {
+              tl.fromTo(link,
+                { x: -70, rotationY: -7, transformOrigin: '0% 50%' },
+                { x: 0, rotationY: 0, duration: .70, ease: 'power2.out' },
+                .73 + index * .25);
+            });
+            appendHold(tl);
+            // A visible, incomplete contact panel settles while the reader
+            // pauses; the shared controller re-anchors reverse scrolling.
+            registerIdleScene(tl,
+              () => layoutTop(contact) - window.scrollY,
+              () => contact.offsetHeight, 1.05);
+            ScrollTrigger.refresh();
+            cleanups.push(() => {
+              tl.scrollTrigger?.kill();
+              tl.kill();
+              gsap.set(animated, { clearProps: 'transform' });
+            });
+          };
+          if (contact && desktop) {
+            window.addEventListener('licat:contact-style-ready', registerContactScene);
+            cleanups.push(() => {
+              window.removeEventListener('licat:contact-style-ready',
+                registerContactScene);
+            });
+            registerContactScene();
+          }
+
           // The small footer also participates, while its links remain clickable
           // once in view. The short range is reachable near the bottom of the page.
           const footer = document.querySelector(".site-footer");

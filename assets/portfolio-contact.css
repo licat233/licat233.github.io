@@ -29,6 +29,8 @@
   background: linear-gradient(90deg, var(--blue), var(--teal));
 }
 .contact-layout {
+  /* Transform-only two-route choreography reuses this natural grid. */
+  perspective: 1400px;
   display: grid;
   grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
   align-items: start;
@@ -134,6 +136,7 @@
 
 /* One glass rim/blur/tint stack supplied by the shared GlassSurface component. */
 .contact-form-panel.liquid-demo {
+  transform-origin: 85% 42%;
   position: relative;
   isolation: isolate;
   overflow: hidden;

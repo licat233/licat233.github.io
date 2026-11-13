@@ -543,6 +543,13 @@ for (const route of ['index.html','en/index.html']) {
          html.includes("location.hash.startsWith('#contact')"),
          'Contact CSS must load on approach or direct contact deep-link for '+route);
 }
+const contactMotionSource = await read('assets/portfolio-motion.js');
+assert(contactMotionSource.includes('licat:contact-style-ready') &&
+       contactMotionSource.includes("registerContactScene") &&
+       contactMotionSource.includes("scrub: true") &&
+       contactMotionSource.includes("registerIdleScene(tl,") &&
+       !contactMotionSource.includes('contact-form-panel > .lg-glass-filter'),
+       'Contact reversible choreography must reuse GSAP and preserve the optical layers');
 console.log('ASTRO_CONTACT_FORM_PASS: Cloudflare endpoint and Turnstile wired');
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');
 const headerGlass=await read('assets/site-header.css');
