@@ -313,7 +313,7 @@ for(const [kind,expected] of [['projects',8],['skills',2]]){
 console.log('ASTRO_ARCHITECTURE_PASS: one bilingual home component, shared cards and prompt templates');
 
 const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));
-assert(prompts.length===16 && new Set(prompts.map(x=>x.id)).size===16,
+assert(prompts.length===17 && new Set(prompts.map(x=>x.id)).size===17,
  'Prompt metadata must contain 17 unique records');
 assert(prompts.some(x=>x.id==='ai-coding-minimal-defensive-v1' && x.category==='design' && x.translatedEnglish===true),
  'Missing AI coding guideline in Astro prompt catalogue');
