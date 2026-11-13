@@ -631,31 +631,31 @@
             });
             tl.addLabel('invitation', 0);
             if (kicker) tl.fromTo(kicker,
-              { x: -55 }, { x: 0, duration: .42, ease: 'power1.inOut' }, 'invitation');
+              { x: -45 }, { x: 0, duration: .42, ease: 'power1.inOut' }, 'invitation');
             tl.fromTo(title,
-              { x: -105, rotationY: -14, scale: .955, transformOrigin: '0% 50%' },
-              { x: 0, rotationY: 0, scale: 1, duration: 1.08, ease: 'power2.out' },
+              { x: -80, rotationY: -14, scale: .955, transformOrigin: '0% 50%' },
+              { x: 0, rotationY: 0, scale: 1, duration: 1.08, ease: 'power1.inOut' },
               'invitation+=.08');
             if (intro) tl.fromTo(intro,
-              { x: -74 }, { x: 0, duration: .77, ease: 'power2.out' },
+              { x: -60 }, { x: 0, duration: .77, ease: 'power2.out' },
               'invitation+=.33');
 
             tl.addLabel('message', .12);
             tl.fromTo(panel,
-              { x: 150, y: 24, rotationY: 17, scale: .935,
+              { x: 70, y: 24, rotationY: 17, scale: .935,
                 transformOrigin: '85% 42%' },
               { x: 0, y: 0, rotationY: 0, scale: 1,
-                duration: 1.40, ease: 'power2.out' }, 'message');
+                duration: 1.40, ease: 'power1.inOut' }, 'message');
             if (panelHeading) tl.fromTo(panelHeading,
               { x: 34 }, { x: 0, duration: .64, ease: 'power1.out' },
               'message+=.55');
 
             tl.addLabel('direct', .57);
             if (channelsLabel) tl.fromTo(channelsLabel,
-              { x: -40 }, { x: 0, duration: .50, ease: 'power1.out' }, 'direct');
+              { x: -30 }, { x: 0, duration: .50, ease: 'power1.out' }, 'direct');
             channels.forEach((link, index) => {
               tl.fromTo(link,
-                { x: -82, rotationY: -7, transformOrigin: '0% 50%' },
+                { x: -70, rotationY: -7, transformOrigin: '0% 50%' },
                 { x: 0, rotationY: 0, duration: .70, ease: 'power2.out' },
                 .73 + index * .25);
             });
