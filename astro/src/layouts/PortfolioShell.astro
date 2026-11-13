@@ -16,7 +16,7 @@ const description=home?t.homeDescription:prompt?prompt[lang].summary:
 const canonical=prompt ? localizedPath(lang,'prompts',prompt.slug) : localeUrl(lang,kind);
 const zhHref=prompt ? localizedPath('zh','prompts',prompt.slug) : localeUrl('zh',kind);
 const enHref=prompt ? localizedPath('en','prompts',prompt.slug) : localeUrl('en',kind);
-const styles=home?['/assets/bundle-home.css?v=20261113-contact-form1']:
+const styles=home?['/assets/bundle-home.css?v=20261113-cloudflare-email1']:
   ['/assets/bundle-prompts.css?v=20261110-nav-bookmark-perf1'];
 const deferredStyles=home?['/assets/bundle-home-deferred.css?v=20261111-home-css1']:[];
 ---

@@ -354,6 +354,10 @@ const projectHref = (name: string) => {
           </div>
         </div>
         <div class="contact-form-panel">
+          <div id="contact-error" class="contact-sent contact-failed" role="alert">
+            <strong>{t.contactErrorTitle}</strong>
+            <p>{t.contactErrorNote}</p>
+          </div>
           <div id="contact-sent" class="contact-sent" role="status">
             <span class="contact-sent-icon" aria-hidden="true">✓</span>
             <strong>{t.contactSuccessTitle}</strong>
@@ -364,13 +368,11 @@ const projectHref = (name: string) => {
             <h3>{t.contactFormTitle}</h3>
             <p>{t.contactFormIntro}</p>
           </div>
-          <form class="contact-form" action="https://formsubmit.co/licat233@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="Licat.xyz · Website Contact Message" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_next" value={lang === 'en' ? 'https://licat.xyz/en/#contact-sent' : 'https://licat.xyz/#contact-sent'} />
+          <form class="contact-form" action="https://contact-api.licat.xyz/submit" method="POST">
+            <input type="hidden" name="lang" value={lang} />
             <div class="contact-botcheck" aria-hidden="true">
               <label for={`contact-extra-${lang}`}>Leave this field empty</label>
-              <input type="text" id={`contact-extra-${lang}`} name="_honey" tabindex="-1" autocomplete="off" />
+              <input type="text" id={`contact-extra-${lang}`} name="website" tabindex="-1" autocomplete="off" />
             </div>
             <div class="contact-field-row">
               <div class="contact-field">
@@ -389,6 +391,7 @@ const projectHref = (name: string) => {
               <textarea id={`contact-message-${lang}`} name="message" rows="5"
                         placeholder={t.contactMessagePlaceholder} minlength="5" maxlength="5000" required></textarea>
             </div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAF_iQKhRftrl-h0o" data-theme="auto"></div>
             <div class="contact-form-bottom">
               <p class="contact-form-privacy">{t.contactPrivacy}</p>
               <button class="contact-submit" type="submit"><span>{t.contactSubmit}</span><span aria-hidden="true">↗</span></button>
@@ -399,7 +402,31 @@ const projectHref = (name: string) => {
     </section>
   </main>
 
-  <SiteFooter {lang} homeAnchors />
+  <script is:inline>
+    (() => {
+      const panel = document.querySelector('#contact .cf-turnstile');
+      if (!panel) return;
+      const loadTurnstile = () => {
+        if (document.querySelector('script[data-contact-turnstile]')) return;
+        const script = document.createElement('script');
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+        script.async = true;
+        script.defer = true;
+        script.dataset.contactTurnstile = 'true';
+        document.head.appendChild(script);
+      };
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            observer.disconnect();
+            loadTurnstile();
+          }
+        }, { rootMargin: '900px 0px' });
+        observer.observe(panel);
+      } else loadTurnstile();
+    })();
+  </script>
+    <SiteFooter {lang} homeAnchors />
   <!-- Narrow optical distortion is borrowed from the MIT-licensed CodePen demo. -->
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">
     <filter id="portfolioLensFilter" x="-6%" y="-15%" width="112%" height="130%" color-interpolation-filters="sRGB">
