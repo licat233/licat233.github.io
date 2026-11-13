@@ -464,7 +464,7 @@ const projectHref = (name: string) => {
         await Promise.all(['ScrollTrigger.min.js','SplitText.min.js','MorphSVGPlugin.min.js',
           'DrawSVGPlugin.min.js','MotionPathPlugin.min.js'].map(file=>load(cdn+file)));
         await navReady;
-        await load('/assets/portfolio-motion.js?v=20261110-seo2');
+        await load('/assets/portfolio-motion.js?v=20261113-contact-motion1');
         // The SVG Journey animation is not on the first screen. Download
         // and initialize it only when the viewer approaches that section.
         const journey = document.querySelector('#journey');
