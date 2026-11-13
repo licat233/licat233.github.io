@@ -524,6 +524,15 @@ for(const [route,lang] of [['index.html','zh'],['en/index.html','en']]){
 }
 assert(homeStyle.includes('.contact-form-panel') && homeStyle.includes('.cf-turnstile'),
  'Contact form styling absent from built homepage stylesheet');
+for (const route of ['index.html', 'en/index.html']) {
+  const html=await read(route);
+  assert(/class="[^"]*contact-form-panel[^"]*liquid-demo/.test(html) &&
+         html.includes('lg-glass-filter') && html.includes('lg-glass-overlay') && html.includes('lg-glass-specular'),
+         'Contact form must reuse the shared three-layer GlassSurface on '+route);
+}
+assert(homeStyle.includes('.contact-form-panel.liquid-demo') &&
+       homeStyle.includes('--contact-control-fill'),
+       'Liquid Glass contact materials missing from compiled stylesheet');
 console.log('ASTRO_CONTACT_FORM_PASS: Cloudflare endpoint and Turnstile wired');
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');
 const headerGlass=await read('assets/site-header.css');
