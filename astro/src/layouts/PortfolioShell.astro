@@ -16,13 +16,51 @@ const description=home?t.homeDescription:prompt?prompt[lang].summary:
 const canonical=prompt ? localizedPath(lang,'prompts',prompt.slug) : localeUrl(lang,kind);
 const zhHref=prompt ? localizedPath('zh','prompts',prompt.slug) : localeUrl('zh',kind);
 const enHref=prompt ? localizedPath('en','prompts',prompt.slug) : localeUrl('en',kind);
-const styles=home?['/assets/bundle-home.css?v=20261113-contact-liquidglass1']:
+const styles=home?['/assets/bundle-home.css?v=20261113-contact-perf1']:
   ['/assets/bundle-prompts.css?v=20261110-nav-bookmark-perf1'];
 const deferredStyles=home?['/assets/bundle-home-deferred.css?v=20261111-home-css1']:[];
 ---
 <BaseLayout {lang} active={kind} {title} {breadcrumbTitle} {description} {canonical} {zhHref} {enHref}
             {styles} {deferredStyles} exactTitle={true} includeSiteNavScript={false} includeLensFilter={false}
             pageClass={home?'home-page':'prompts-page'}>
+  {home && <script slot="head" is:inline>
+    (() => {
+      // Contact is far below the Hero; keep its CSS entirely off the LCP request path.
+      // Direct #contact visits receive the styles as soon as the head is parsed.
+      const href = '/assets/bundle-contact.css?v=20261113-contact-perf1';
+      let loaded = false;
+      const load = () => {
+        if (loaded) return;
+        loaded = true;
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        link.dataset.contactStyle = 'true';
+        document.head.appendChild(link);
+      };
+      if (location.hash.startsWith('#contact')) { load(); return; }
+      const watch = () => {
+        const target = document.getElementById('contact');
+        if (!target || !('IntersectionObserver' in window)) { load(); return; }
+        const observer = new IntersectionObserver(entries => {
+          if (!entries.some(entry => entry.isIntersecting)) return;
+          observer.disconnect();
+          load();
+        }, { rootMargin: '1600px 0px', threshold: 0 });
+        observer.observe(target);
+        window.addEventListener('hashchange', () => {
+          if (location.hash.startsWith('#contact')) {
+            observer.disconnect();
+            load();
+          }
+        });
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', watch, { once: true });
+      } else watch();
+    })();
+  </script>}
+  {home && <noscript slot="head"><link rel="stylesheet" href="/assets/bundle-contact.css?v=20261113-contact-perf1" /></noscript>}
   {!home && <script slot="head" is:inline defer src="/prompts/prompt-library.js?v=20261028-routes1"></script>}
   <slot />
 </BaseLayout>
