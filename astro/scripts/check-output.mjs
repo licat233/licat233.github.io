@@ -126,7 +126,7 @@ assert(sitemapIndex.includes('<loc>https://licat.xyz/sitemap-0.xml</loc>'),
 assert(!/<xhtml:link\b/.test(sitemap),
   'Sitemap should not duplicate hreflang declarations already present in page HTML');
 const promptCatalogue = JSON.parse(await readFile(new URL('../src/data/prompts.json', import.meta.url), 'utf8'));
-assert(promptCatalogue.length === 16, 'Expected 16 unique prompt pages after merging Agent V2 into V3');
+assert(promptCatalogue.length === 17, 'Expected 17 unique prompt pages including both original and V2.0 DetailFlow prompts');
 const promptSlugs = promptCatalogue.map(item => item.slug);
 assert(promptSlugs.every(slug => typeof slug === 'string' && slug && !/-v[0-9]/i.test(slug)),
   'Every prompt must have a permanent version-free slug');
