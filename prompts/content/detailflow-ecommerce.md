@@ -2,11 +2,19 @@
 
 <!-- prompt:begin -->
 
-接下来请严格使用 DetailFlow 工作流帮我制作产品详情页。
+接下来请严格使用 DetailFlow 工作流帮我制作产品详情页。本提示词用于 ChatGPT 的普通 Chat 会话窗口，不要求安装 Mac 本地 Skill。
 
-**DetailFlow Skill：** https://github.com/AJbeckliy/detail-flow-V2-Ajie
+**DetailFlow Skill（固定历史版本，不自动跟随上游更新）：**
+- 仓库：https://github.com/AJbeckliy/detail-flow-V2-Ajie
+- 固定 Commit：`64c9cb12eb1d925faa01d38db47a4066d37df69b`
+- `SKILL.md`：https://raw.githubusercontent.com/AJbeckliy/detail-flow-V2-Ajie/64c9cb12eb1d925faa01d38db47a4066d37df69b/SKILL.md
+- 必需参考文件：https://raw.githubusercontent.com/AJbeckliy/detail-flow-V2-Ajie/64c9cb12eb1d925faa01d38db47a4066d37df69b/references/detail-page-patterns.md
 
-开始任务前，请先读取并遵循该 Skill 的最新规则，尤其是：
+开始任务前，必须完整读取以上固定 Commit 中的 `SKILL.md` 和 `references/detail-page-patterns.md`，并严格遵循该版本规则。禁止读取 `main`、最新分支、浮动链接或后续 Commit。若固定版本或文件无法读取，立即停止并说明，不得悄悄切换新版。
+
+同时先确认当前 ChatGPT 会话实际具备可调用的图像生成能力；若没有，停止在 Blueprint 之前，不要假装生成图片。
+
+重点执行：
 
 - Image Generation Workflow
 - Ecommerce 8-screen product detail page
