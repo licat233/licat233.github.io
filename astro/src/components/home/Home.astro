@@ -353,7 +353,7 @@ const projectHref = (name: string) => {
             </a>
           </div>
         </div>
-        <div class="contact-form-panel">
+        <GlassSurface as="div" class="contact-form-panel" material="regular">
           <div id="contact-error" class="contact-sent contact-failed" role="alert">
             <strong>{t.contactErrorTitle}</strong>
             <p>{t.contactErrorNote}</p>
@@ -397,7 +397,7 @@ const projectHref = (name: string) => {
               <button class="contact-submit" type="submit"><span>{t.contactSubmit}</span><span aria-hidden="true">↗</span></button>
             </div>
           </form>
-        </div>
+        </GlassSurface>
       </div>
     </section>
   </main>
