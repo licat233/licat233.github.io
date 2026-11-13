@@ -73,7 +73,7 @@
 - Logo 动画提示词补全首尾帧、动画参考素材的明确占位符。
 - 记忆与历史对话提示词补充「仅分析真实可访问的内容」条件，防止虚构来源。
 - Codex 使用技巧附加版本与客户端差异提醒；功能名称并非所有版本通用。
-- DetailFlow 工作流使用最新上游 Skill：https://github.com/AJbeckliy/detail-flow-V2-Ajie
+- DetailFlow 的 ChatGPT 使用版本固定为 `AJbeckliy/detail-flow-V2-Ajie` 的 Commit `64c9cb12eb1d925faa01d38db47a4066d37df69b`；启动提示词必须读取该 Commit 的 `SKILL.md` 与 `references/detail-page-patterns.md`，禁止自动跟随 `main` 或上游新版。
 
 以上为个人整理与经验分享，并不代表所有提示词均原创，或适用于每个模型与版本。正式使用前仍应根据实际场景核对。
 

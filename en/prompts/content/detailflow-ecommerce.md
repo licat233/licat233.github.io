@@ -2,11 +2,19 @@
 
 <!-- prompt:begin -->
 
-Use the DetailFlow workflow strictly to create my product detail page.
+Use the DetailFlow workflow strictly to create my product detail page. This prompt is designed for the standard ChatGPT chat window and does not require a locally installed Skill on a Mac.
 
-**DetailFlow Skill:** https://github.com/AJbeckliy/detail-flow-V2-Ajie
+**DetailFlow Skill (pinned historical version; no automatic upstream updates):**
+- Repository: https://github.com/AJbeckliy/detail-flow-V2-Ajie
+- Pinned commit: `64c9cb12eb1d925faa01d38db47a4066d37df69b`
+- `SKILL.md`: https://raw.githubusercontent.com/AJbeckliy/detail-flow-V2-Ajie/64c9cb12eb1d925faa01d38db47a4066d37df69b/SKILL.md
+- Required reference: https://raw.githubusercontent.com/AJbeckliy/detail-flow-V2-Ajie/64c9cb12eb1d925faa01d38db47a4066d37df69b/references/detail-page-patterns.md
 
-Before starting, read and follow the latest rules in that Skill, especially:
+Before starting, read both `SKILL.md` and `references/detail-page-patterns.md` completely from this exact commit, then follow that version's rules. Do not read `main`, the latest branch, a floating URL, or any later commit. If the pinned commit or either file is unavailable, stop and report the failure; never silently switch to a newer version.
+
+First verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, stop before producing the Blueprint and do not pretend to generate images.
+
+Pay particular attention to:
 
 - Image Generation Workflow
 - Ecommerce 8-screen product detail page
