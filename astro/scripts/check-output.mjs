@@ -538,7 +538,7 @@ assert(contactStyle.includes('.contact-form-panel.liquid-demo') &&
        'Liquid Glass contact materials missing from deferred stylesheet');
 for (const route of ['index.html','en/index.html']) {
   const html=await read(route);
-  assert(html.includes("bundle-contact.css?v=20261113-contact-perf1") &&
+  assert(html.includes("bundle-contact.css?v=20261113-contact-motion1") &&
          html.includes("IntersectionObserver") &&
          html.includes("location.hash.startsWith('#contact')"),
          'Contact CSS must load on approach or direct contact deep-link for '+route);
