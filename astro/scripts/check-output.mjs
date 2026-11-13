@@ -510,6 +510,24 @@ for(const route of ['index.html','en/index.html','projects/index.html','en/proje
 const homeStyle = await read('assets/bundle-home.css');
 assert(homeStyle.includes('.contact-layout') && homeStyle.includes('.contact-link'),
  'Home contact layout is missing from the compiled CSS bundle');
+// A static GitHub Pages contact form needs a real submission endpoint, not a mailto-only mockup.
+for (const [route,successUrl] of [
+  ['index.html','https://licat.xyz/#contact-sent'],
+  ['en/index.html','https://licat.xyz/en/#contact-sent'],
+]) {
+  const html=await read(route);
+  assert(html.includes('action="https://formsubmit.co/licat233@gmail.com"') &&
+         html.includes('method="POST"'), 'Contact mail backend missing on '+route);
+  for(const field of ['name','email','message','_honey','_next']){
+    assert(html.includes('name="'+field+'"'), 'Contact field '+field+' missing on '+route);
+  }
+  assert(html.includes('value="'+successUrl+'"'), 'Contact return URL missing on '+route);
+  assert(html.includes('class="contact-submit"') && html.includes('type="submit"'),
+    'Contact submit control missing on '+route);
+}
+assert(homeStyle.includes('.contact-form-panel') && homeStyle.includes('.contact-field'),
+ 'Contact form styling absent from built homepage stylesheet');
+console.log('ASTRO_CONTACT_FORM_PASS: bilingual form endpoints, fields, anti-spam and CSS verified');
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');
 const headerGlass=await read('assets/site-header.css');
 const liquidGlass=await read('assets/portfolio-liquid-glass.css');
