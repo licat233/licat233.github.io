@@ -508,8 +508,11 @@ for(const route of ['index.html','en/index.html','projects/index.html','en/proje
    'Glass material stylesheet missing from '+route);
 }
 const homeStyle = await read('assets/bundle-home.css');
-assert(homeStyle.includes('.contact-layout') && homeStyle.includes('.contact-direct-link'),
- 'Home contact layout is missing from the compiled CSS bundle');
+const contactStyle = await read('assets/bundle-contact.css');
+assert(contactStyle.includes('.contact-layout') && contactStyle.includes('.contact-direct-link'),
+ 'On-demand contact layout missing from the contact CSS bundle');
+assert(!homeStyle.includes('.contact-form-panel.liquid-demo'),
+ 'Contact-only glass styles must not be render-blocking on the homepage');
 // Static pages submit to a dedicated Cloudflare Worker, not to FormSubmit.
 for(const [route,lang] of [['index.html','zh'],['en/index.html','en']]){
  const html=await read(route);
@@ -522,17 +525,24 @@ for(const [route,lang] of [['index.html','zh'],['en/index.html','en']]){
    'Turnstile site key missing on '+route);
  assert(html.includes('value="'+lang+'"'),'Contact language missing on '+route);
 }
-assert(homeStyle.includes('.contact-form-panel') && homeStyle.includes('.cf-turnstile'),
- 'Contact form styling absent from built homepage stylesheet');
+assert(contactStyle.includes('.contact-form-panel') && contactStyle.includes('.cf-turnstile'),
+ 'Contact form styling absent from lazy-loaded stylesheet');
 for (const route of ['index.html', 'en/index.html']) {
   const html=await read(route);
   assert(/class="[^"]*contact-form-panel[^"]*liquid-demo/.test(html) &&
          html.includes('lg-glass-filter') && html.includes('lg-glass-overlay') && html.includes('lg-glass-specular'),
          'Contact form must reuse the shared three-layer GlassSurface on '+route);
 }
-assert(homeStyle.includes('.contact-form-panel.liquid-demo') &&
-       homeStyle.includes('--contact-control-fill'),
-       'Liquid Glass contact materials missing from compiled stylesheet');
+assert(contactStyle.includes('.contact-form-panel.liquid-demo') &&
+       contactStyle.includes('--contact-control-fill'),
+       'Liquid Glass contact materials missing from deferred stylesheet');
+for (const route of ['index.html','en/index.html']) {
+  const html=await read(route);
+  assert(html.includes("bundle-contact.css?v=20261113-contact-perf1") &&
+         html.includes("IntersectionObserver") &&
+         html.includes("location.hash.startsWith('#contact')"),
+         'Contact CSS must load on approach or direct contact deep-link for '+route);
+}
 console.log('ASTRO_CONTACT_FORM_PASS: Cloudflare endpoint and Turnstile wired');
 console.log('ASTRO_GLASS_SINGLE_COMPONENT_PASS: no duplicate optical markup; material CSS linked on all owned pages');
 const headerGlass=await read('assets/site-header.css');

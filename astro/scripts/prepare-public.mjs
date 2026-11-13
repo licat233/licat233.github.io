@@ -29,6 +29,7 @@ const styleBundles = {
   'home': ['vendor/open-props/open-props-core-1.7.23.min.css','portfolio.css','site-header.css',
     'portfolio-liquid-glass.css'],
   // Only below-the-fold sections use these rules. Load them without blocking the Hero.
+  'contact': ['portfolio-contact.css'],
   'home-deferred': ['portfolio-entrances.css','portfolio-skills.css',
     'portfolio-journey-v2.css','portfolio-prompts.css','site-sections.css'],
   'prompts': ['vendor/open-props/open-props-core-1.7.23.min.css','prompt-library.css',
@@ -46,7 +47,7 @@ for (const [name, files] of Object.entries(styleBundles)) {
       file === 'prompt-library.css' ? 'prompts/prompt-library.css':'assets/'+file),'utf8')));
   const css = chunks.join('\n');
   // Limit this optimization to the homepage. Other page bundles remain byte-for-byte unchanged.
-  const output = name === 'home' || name === 'home-deferred'
+  const output = ['home','home-deferred','contact'].includes(name)
     ? minifyCss({ filename: 'bundle-'+name+'.css', code: Buffer.from(css), minify: true }).code
     : css;
   await writeFile(path.join(publicDir,'assets','bundle-'+name+'.css'),output);
