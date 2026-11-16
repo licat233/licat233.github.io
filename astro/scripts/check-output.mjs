@@ -126,7 +126,7 @@ assert(sitemapIndex.includes('<loc>https://licat.xyz/sitemap-0.xml</loc>'),
 assert(!/<xhtml:link\b/.test(sitemap),
   'Sitemap should not duplicate hreflang declarations already present in page HTML');
 const promptCatalogue = JSON.parse(await readFile(new URL('../src/data/prompts.json', import.meta.url), 'utf8'));
-assert(promptCatalogue.length === 17, 'Expected 17 unique prompt pages including both original and V2.0 DetailFlow prompts');
+assert(promptCatalogue.length === 18, 'Expected 18 unique prompt pages including both original and V2.0 DetailFlow prompts');
 const promptSlugs = promptCatalogue.map(item => item.slug);
 assert(promptSlugs.every(slug => typeof slug === 'string' && slug && !/-v[0-9]/i.test(slug)),
   'Every prompt must have a permanent version-free slug');
@@ -313,10 +313,12 @@ for(const [kind,expected] of [['projects',8],['skills',2]]){
 console.log('ASTRO_ARCHITECTURE_PASS: one bilingual home component, shared cards and prompt templates');
 
 const prompts=JSON.parse(await readFile(new URL('../src/data/prompts.json',import.meta.url),'utf8'));
-assert(prompts.length===17 && new Set(prompts.map(x=>x.id)).size===17,
- 'Prompt metadata must contain 17 unique records');
+assert(prompts.length===18 && new Set(prompts.map(x=>x.id)).size===18,
+ 'Prompt metadata must contain 18 unique records');
 assert(prompts.some(x=>x.id==='ai-coding-minimal-defensive-v1' && x.category==='design' && x.translatedEnglish===true),
  'Missing AI coding guideline in Astro prompt catalogue');
+assert(prompts.some(x=>x.id==='ai-normal-working-principles-v1' && x.slug==='ai-normal-working-principles' && x.category==='agent' && x.translatedEnglish===true),
+ 'Missing AI normal working principles in Astro prompt catalogue');
 assert(prompts.filter(x=>x.translatedEnglish).length===prompts.length,
  'English prompt-content coverage changed');
 for(const lang of ['','en/']){
@@ -366,7 +368,7 @@ for(const prefix of ['','en/']){
  for(const item of prompts)assert(html.includes('href="/'+prefix+'prompts/'+item.slug+'/"'),
   'Prompt missing crawlable list link: '+prefix+item.id);
 }
-console.log('ASTRO_PROMPT_DETAIL_ROUTES_PASS: 32 static localized articles with canonical, hreflang and SSR body');
+console.log('ASTRO_PROMPT_DETAIL_ROUTES_PASS: 36 static localized articles with canonical, hreflang and SSR body');
 
 for(const [prefix,lead] of [['','以下是强制执行约束'],['en/','The following are mandatory execution constraints']]){
  const text=await read(prefix+'prompts/content/ai-agent-minimal-necessary-execution-v1.md');
@@ -397,12 +399,12 @@ for(const item of prompts){
         'English prompt copy boundaries missing or ambiguous: '+item.id);
 }
 for(const id of ['ai-natural-communication-v1.3.1','ai-high-value-writing-audit-v1.1',
-                 'detailflow-ecommerce','ai-coding-minimal-defensive-v1']){
+                 'detailflow-ecommerce','ai-coding-minimal-defensive-v1','ai-normal-working-principles-v1']){
  const file=await read('en/prompts/content/'+id+'.md');
  const body=file.split('<!-- prompt:begin -->')[1].split('<!-- prompt:end -->')[0];
  assert(!/[\u3400-\u9fff]/.test(body),'New English prompt still contains Chinese body text: '+id);
 }
-console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 16 localized records, 16 real English prompt files, SSR/client parity');
+console.log('ASTRO_PROMPT_SINGLE_SOURCE_PASS: 18 localized records, 18 real English prompt files, SSR/client parity');
 
 const preservedDemo=await read('demo/index.html');
 assert(preservedDemo.includes('name="robots" content="noindex,follow"'),

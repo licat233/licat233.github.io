@@ -41,6 +41,11 @@
 - V1.3.4 强化「以理解为中心」：允许语境省略、不刻意修复病句；防止为了语言完整而擅自补全事实。工程技术写作优先用段落和因果自然推进，编号与小标题仅在确有步骤、对照或导航价值时使用。
 - V1.4.0 强化「读者理解优先」：默认面向聪明的普通读者，把专业知识转换成清楚易懂的语言；增加读者背景判断、术语解释、难读句重写和可读性验收，同时保留技术深度与事实准确性。
 
+## AI 正常工作原则
+
+- **当前正式版：** [V1.0](content/ai-normal-working-principles-v1.md)，永久网页地址为 `/prompts/ai-normal-working-principles/` 和 `/en/prompts/ai-normal-working-principles/`。
+- 作为 AI 会话的通用工作原则，强调正常运用知识、独立判断、自主决策、主动获取信息、高效执行和人机协作总成本；与《AI Agent 高效执行与防漂移指令》配套使用。
+
 ## AI Agent 高效执行版本
 
 - **当前正式版：** [V3.0](content/agent-efficient-execution-v3.md)，永久网页地址为 `/prompts/agent-efficient-execution/` 和 `/en/prompts/agent-efficient-execution/`。
@@ -112,6 +117,6 @@
 ## English version
 
 - English catalogue: [English Prompt Library](../en/prompts/).
-- All 16 currently listed entries have independent Chinese and English Markdown files. Both language pages use the shared Astro component and catalogue.
+- All 18 currently listed entries have independent Chinese and English Markdown files. Both language pages use the shared Astro component and catalogue.
 - Historical `?p=slug` share links redirect to the new path-based detail pages while preserving language selection.
 - Chinese files under `prompts/content/` remain the original texts. Do not silently overwrite originals during translation.

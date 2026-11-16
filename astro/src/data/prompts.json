@@ -1,5 +1,44 @@
 [
   {
+    "id": "ai-normal-working-principles-v1",
+    "slug": "ai-normal-working-principles",
+    "category": "agent",
+    "companion": "agent-efficient-execution-v3",
+    "translatedEnglish": true,
+    "zh": {
+      "title": "AI 正常工作原则",
+      "label": "Agent 与工作流",
+      "type": "通用工作规范 · V1.0",
+      "summary": "让 AI 正常运用知识、独立判断、自主决策并主动获取信息，以更低的人机协作总成本完成任务。",
+      "tags": [
+        "AI 工作原则",
+        "独立判断",
+        "主动检索",
+        "自主决策",
+        "知识运用",
+        "高效执行",
+        "人机协作"
+      ],
+      "seoTitle": "AI 正常工作原则：让 AI 主动判断并高效工作 | Licat"
+    },
+    "en": {
+      "title": "AI Normal Working Principles",
+      "label": "Agents & Workflows",
+      "type": "General working principles · V1.0",
+      "summary": "Help AI apply knowledge confidently, make independent decisions, seek information proactively, and complete tasks at the lowest combined human-AI cost.",
+      "tags": [
+        "AI operating principles",
+        "independent judgment",
+        "proactive research",
+        "autonomous decisions",
+        "knowledge application",
+        "efficient execution",
+        "human-AI collaboration"
+      ],
+      "seoTitle": "AI Working Principles: Clear Judgment & Action | Licat"
+    }
+  },
+  {
     "id": "ai-natural-communication-v1.4.0",
     "slug": "ai-natural-communication",
     "category": "thinking",
