@@ -43,7 +43,7 @@
   const filters=[...document.querySelectorAll('[data-filter]')];
   let filter='all';
   let currentId=null;
-  let currentContent='';
+  let currentCopyContent='';
   let loadToken=0;
   let toastTimer;
 
@@ -61,21 +61,29 @@
     s=s.replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g,(_,label,url)=>'<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+label+'</a>');
     return s;
   }
-  // Source markdown may include a display title, preface, or editorial notes.
-  // Copy and reader view use only the explicitly delimited executable prompt.
+  // Assemble a standalone prompt from the original Markdown title,
+  // an existing version line when it is not already in the title, and the
+  // explicitly delimited prompt body. Editorial notes stay out of the copy.
   function extractPrompt(src){
     const begin='<!-- prompt:begin -->';
     const end='<!-- prompt:end -->';
+    const starts=src.split(begin).length-1;
+    const ends=src.split(end).length-1;
     const start=src.indexOf(begin);
     const stop=src.indexOf(end);
-    if(start<0 || stop<start+begin.length ||
-       src.indexOf(begin,start+begin.length)!==-1 ||
-       src.indexOf(end,stop+end.length)!==-1){
+    if(starts!==1 || ends!==1 || start<0 || stop<start+begin.length){
       throw new Error('Prompt content boundary missing or ambiguous');
     }
     const body=src.slice(start+begin.length,stop).trim();
     if(!body)throw new Error('Prompt body is empty');
-    return body;
+    const headerLines=src.slice(0,start).replace(/\r/g,'').split('\n');
+    const title=headerLines.find(line=>/^#\s+\S/.test(line.trim()))?.trim();
+    if(!title)throw new Error('Prompt Markdown title is missing');
+    const titleHasVersion=/\bV\d+(?:\.\d+)*\b/i.test(title);
+    const versionLinePattern=/^(?:\*\*[^*\n]*\bV\d+(?:\.\d+)*[^*\n]*\*\*|\*\*(?:版本|Version)\s*[:：]\*\*\s*V?\d+(?:\.\d+)*|(?:版本|Version)\s*[:：]\s*V?\d+(?:\.\d+)*)$/i;
+    const versionLine=titleHasVersion?'':(headerLines.find(line=>versionLinePattern.test(line.trim()))||'').trim();
+    const header=[title,versionLine].filter(Boolean).join('\n\n');
+    return {body,copyContent:[header,body].join('\n\n')};
   }
 
   function renderMarkdown(src){
@@ -138,7 +146,7 @@
   function showLibrary(){
     loadToken++;
     currentId=null;
-    currentContent='';
+    currentCopyContent='';
     setLocaleLinks(null);
     detail.hidden=true;
     library.hidden=false;
@@ -151,7 +159,7 @@
     const item=byId.get(resolvedId);
     if(!item){showLibrary();return;}
     id=resolvedId;
-    currentId=id;currentContent='';
+    currentId=id;currentCopyContent='';
     setLocaleLinks(id);
     const token=++loadToken;
     library.hidden=true;
@@ -170,10 +178,10 @@
     if(ssrPrompt?.id!==id)article.innerHTML='<p>'+t('正在载入完整内容…','Loading full prompt…')+'</p>';
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
     document.title=item.title+' — Licat Prompts';
-    // Detail routes contain prerendered HTML; reuse the exact Markdown body
-    // for copy without flashing "Loading" or fetching the same file again.
+    // Detail routes contain prerendered HTML; reuse the server-assembled copy
+    // payload without flashing "Loading" or fetching the same file again.
     if(ssrPrompt?.id===id){
-      currentContent=ssrPrompt.content;
+      currentCopyContent=ssrPrompt.copyContent||ssrPrompt.content;
       $('#copy-btn').disabled=false;$('#copy-bottom').disabled=false;
       return;
     }
@@ -184,8 +192,9 @@
       if(!response.ok)throw new Error('HTTP '+response.status);
       const text=await response.text();
       if(token!==loadToken)return;
-      currentContent=extractPrompt(text);
-      article.innerHTML=(isEnglish&&!translatedEnglish.has(id)?'<p class="lang-note"><strong>Original Chinese prompt.</strong> An English translation of this longer instruction is not yet available. Copy preserves the original Chinese text.</p>':'')+renderMarkdown(currentContent);
+      const extracted=extractPrompt(text);
+      currentCopyContent=extracted.copyContent;
+      article.innerHTML=(isEnglish&&!translatedEnglish.has(id)?'<p class="lang-note"><strong>Original Chinese prompt.</strong> An English translation of this longer instruction is not yet available. Copy preserves the original Chinese text.</p>':'')+renderMarkdown(extracted.body);
       $('#copy-btn').disabled=false;$('#copy-bottom').disabled=false;
     }catch(error){
       if(token!==loadToken)return;
@@ -225,8 +234,8 @@
   $('#reset-search').addEventListener('click',()=>{search.value='';changeFilter('all');search.focus();});
   $('#back-link').addEventListener('click',()=>location.assign(localeRoutes[ownLang]));
   $('#back-bottom').addEventListener('click',()=>location.assign(localeRoutes[ownLang]));
-  $('#copy-btn').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Full prompt copied')));
-  $('#copy-bottom').addEventListener('click',()=>copy(currentContent,t('完整提示词已复制','Full prompt copied')));
+  $('#copy-btn').addEventListener('click',()=>copy(currentCopyContent,t('完整提示词已复制','Full prompt copied')));
+  $('#copy-bottom').addEventListener('click',()=>copy(currentCopyContent,t('完整提示词已复制','Full prompt copied')));
   $('#share-btn').addEventListener('click',()=>copy(location.origin+promptUrl(ownLang,currentId),t('独立分享链接已复制','Share link copied')));
   document.addEventListener('keydown',event=>{
     if(event.key!=='/'||event.ctrlKey||event.metaKey||event.altKey||library.hidden)return;

@@ -12,13 +12,30 @@ if(initialId && !selected) throw new Error('Unknown prompt ID: '+initialId);
 const initialBody=selected ? await readFile(path.resolve(process.cwd(),'../',
  lang==='en'?'en/prompts/content':'prompts/content',selected.id+'.md'),'utf8') : '';
 const begin='<!-- prompt:begin -->',end='<!-- prompt:end -->';
-const copyText=selected ? initialBody.split(begin)[1]?.split(end)[0]?.trim() : '';
-if(selected && (!copyText || initialBody.split(begin).length!==2 || initialBody.split(end).length!==2))
- throw new Error('Invalid prompt copy boundaries: '+selected.id);
+function extractPrompt(markdown: string) {
+ const starts=markdown.split(begin).length-1;
+ const ends=markdown.split(end).length-1;
+ const start=markdown.indexOf(begin),stop=markdown.indexOf(end);
+ if(starts!==1 || ends!==1 || start<0 || stop<start+begin.length)
+  throw new Error('Invalid prompt copy boundaries');
+ const body=markdown.slice(start+begin.length,stop).trim();
+ if(!body)throw new Error('Prompt body is empty');
+ const headerLines=markdown.slice(0,start).replace(/\r/g,'').split('\n');
+ const title=headerLines.find(line=>/^#\s+\S/.test(line.trim()))?.trim();
+ if(!title)throw new Error('Prompt Markdown title is missing');
+ const titleHasVersion=/\bV\d+(?:\.\d+)*\b/i.test(title);
+ const versionLinePattern=/^(?:\*\*[^*\n]*\bV\d+(?:\.\d+)*[^*\n]*\*\*|\*\*(?:版本|Version)\s*[:：]\*\*\s*V?\d+(?:\.\d+)*|(?:版本|Version)\s*[:：]\s*V?\d+(?:\.\d+)*)$/i;
+ const versionLine=titleHasVersion?'':(headerLines.find(line=>versionLinePattern.test(line.trim()))||'').trim();
+ const header=[title,versionLine].filter(Boolean).join('\n\n');
+ return {body,copyContent:[header,body].join('\n\n')};
+}
+const extracted=selected ? extractPrompt(initialBody) : {body:'',copyContent:''};
+const promptBody=extracted.body;
+const copyText=extracted.copyContent;
 // Preserve the catalogue's horizontal-scroll table treatment on static detail pages.
-const rendered=copyText ? (await (await createSatteriMarkdownProcessor({syntaxHighlight:false})).render(copyText)).code
+const rendered=promptBody ? (await (await createSatteriMarkdownProcessor({syntaxHighlight:false})).render(promptBody)).code
   .replace(/<table\b[\s\S]*?<\/table>/g, html=>'<div class="table-scroll">'+html+'</div>') : '';
-const initialPayload=JSON.stringify({id:initialId,content:copyText}).replace(/</g,'\u003c');
+const initialPayload=JSON.stringify({id:initialId,copyContent:copyText}).replace(/</g,'\u003c');
 const selectedMeta=selected?.[lang];
 const en=lang==='en';
 const t=dictionary(lang).prompts;

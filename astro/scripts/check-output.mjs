@@ -347,6 +347,22 @@ for(const item of prompts){
          html.includes('id="prompt-article"') &&
          /<article\s[^>]*id="prompt-article"[^>]*>\s*<(?:p|h[1-6]|ul|ol|blockquote)\b/.test(html),
    'Prompt detail missing actual SSR content: '+route);
+  const initialMatch=html.match(/<script\b[^>]*id="prompt-initial-content"[^>]*>([\s\S]*?)<\/script>/);
+  assert(initialMatch,'Prompt initial payload missing: '+route);
+  const initial=JSON.parse(initialMatch[1]);
+  const markdown=await read(prefix+'prompts/content/'+item.id+'.md');
+  const begin='<!-- prompt:begin -->',end='<!-- prompt:end -->';
+  const start=markdown.indexOf(begin),stop=markdown.indexOf(end);
+  const body=markdown.slice(start+begin.length,stop).trim();
+  const headerLines=markdown.slice(0,start).replace(/\r/g,'').split('\n');
+  const title=headerLines.find(line=>/^#\s+\S/.test(line.trim()))?.trim();
+  assert(title,'Prompt Markdown H1 missing: '+route);
+  const titleHasVersion=/\bV\d+(?:\.\d+)*\b/i.test(title);
+  const versionLinePattern=/^(?:\*\*[^*\n]*\bV\d+(?:\.\d+)*[^*\n]*\*\*|\*\*(?:版本|Version)\s*[:：]\*\*\s*V?\d+(?:\.\d+)*|(?:版本|Version)\s*[:：]\s*V?\d+(?:\.\d+)*)$/i;
+  const versionLine=titleHasVersion?'':(headerLines.find(line=>versionLinePattern.test(line.trim()))||'').trim();
+  const expectedCopy=[title,versionLine,body].filter(Boolean).join('\n\n');
+  assert(initial.content===undefined,'Do not duplicate the full prompt body in the SSR JSON payload: '+route);
+  assert(initial.copyContent===expectedCopy,'Copy must contain only the original title, non-duplicated version, and prompt body: '+route);
   assert(html.includes('name="description"'), 'Prompt missing description: '+route);
   const seoTitle=item[lang]?.seoTitle;
   assert(typeof seoTitle==='string' && seoTitle.endsWith(' | Licat'),
@@ -383,6 +399,8 @@ assert(codingPrompt.includes('<!-- prompt:begin -->') && codingPrompt.includes('
 const promptClient=await read('prompts/prompt-library.js');
 assert(promptClient.includes("getElementById('prompt-catalogue')") && !promptClient.includes('const enItems='),
  'Browser prompt data must come only from Astro JSON');
+assert(promptClient.includes('ssrPrompt.copyContent') && promptClient.includes('const versionLinePattern='),
+ 'Prompt copy must include the original Markdown title and optional version metadata');
 try {
  await access(new URL('../src/data/prompt-previews.ts',import.meta.url));
  throw new Error('Redundant prompt-previews.ts reappeared');
