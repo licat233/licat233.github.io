@@ -361,7 +361,7 @@ for(const item of prompts){
   const versionLinePattern=/^(?:\*\*[^*\n]*\bV\d+(?:\.\d+)*[^*\n]*\*\*|\*\*(?:版本|Version)\s*[:：]\*\*\s*V?\d+(?:\.\d+)*|(?:版本|Version)\s*[:：]\s*V?\d+(?:\.\d+)*)$/i;
   const versionLine=titleHasVersion?'':(headerLines.find(line=>versionLinePattern.test(line.trim()))||'').trim();
   const expectedCopy=[title,versionLine,body].filter(Boolean).join('\n\n');
-  assert(initial.content===body,'Reader body changed while preparing copy: '+route);
+  assert(initial.content===undefined,'Do not duplicate the full prompt body in the SSR JSON payload: '+route);
   assert(initial.copyContent===expectedCopy,'Copy must contain only the original title, non-duplicated version, and prompt body: '+route);
   assert(html.includes('name="description"'), 'Prompt missing description: '+route);
   const seoTitle=item[lang]?.seoTitle;

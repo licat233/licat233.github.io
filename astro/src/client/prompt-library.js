@@ -178,8 +178,8 @@
     if(ssrPrompt?.id!==id)article.innerHTML='<p>'+t('正在载入完整内容…','Loading full prompt…')+'</p>';
     $('#copy-btn').disabled=true;$('#copy-bottom').disabled=true;
     document.title=item.title+' — Licat Prompts';
-    // Detail routes contain prerendered HTML; reuse the exact Markdown body
-    // for copy without flashing "Loading" or fetching the same file again.
+    // Detail routes contain prerendered HTML; reuse the server-assembled copy
+    // payload without flashing "Loading" or fetching the same file again.
     if(ssrPrompt?.id===id){
       currentCopyContent=ssrPrompt.copyContent||ssrPrompt.content;
       $('#copy-btn').disabled=false;$('#copy-bottom').disabled=false;

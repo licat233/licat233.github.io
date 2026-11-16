@@ -35,7 +35,7 @@ const copyText=extracted.copyContent;
 // Preserve the catalogue's horizontal-scroll table treatment on static detail pages.
 const rendered=promptBody ? (await (await createSatteriMarkdownProcessor({syntaxHighlight:false})).render(promptBody)).code
   .replace(/<table\b[\s\S]*?<\/table>/g, html=>'<div class="table-scroll">'+html+'</div>') : '';
-const initialPayload=JSON.stringify({id:initialId,content:promptBody,copyContent:copyText}).replace(/</g,'\u003c');
+const initialPayload=JSON.stringify({id:initialId,copyContent:copyText}).replace(/</g,'\u003c');
 const selectedMeta=selected?.[lang];
 const en=lang==='en';
 const t=dictionary(lang).prompts;
