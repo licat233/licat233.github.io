@@ -39,16 +39,16 @@
     }
   },
   {
-    "id": "ai-natural-communication-v1.4.0",
+    "id": "ai-natural-communication-v1.5.0",
     "slug": "ai-natural-communication",
     "category": "thinking",
     "companion": "ai-high-value-writing-audit-v1.1",
     "translatedEnglish": true,
     "zh": {
-      "title": "AI 说人话指南 V1.4.0",
+      "title": "AI 说人话指南 V1.5.0",
       "label": "表达与思考",
-      "type": "正式使用版 · V1.4.0",
-      "summary": "以读者理解为中心，把复杂知识讲清楚：默认面向聪明的普通读者，减少晦涩表达，同时保留专业深度与事实准确性。",
+      "type": "正式使用版 · V1.5.0",
+      "summary": "以读者理解为中心，把复杂知识讲清楚；减少过度防御、习惯性否定与无意义纠偏，给出有依据的明确判断，同时保留专业深度与事实准确性。",
       "tags": [
         "自然表达",
         "读者理解",
@@ -61,9 +61,9 @@
       "seoTitle": "AI 自然表达指南：让 AI 清晰、准确地表达 | Licat"
     },
     "en": {
-      "title": "Making AI Sound Natural — Guide V1.4.0",
-      "summary": "Write for readers, not to display expertise: explain complex ideas in plain language while preserving accuracy and depth.",
-      "type": "Main guide · V1.4.0",
+      "title": "Making AI Sound Natural — Guide V1.5.0",
+      "summary": "Explain complex ideas plainly and directly. Reduce excessive defensiveness and habitual correction while preserving accuracy, depth, and sound judgment.",
+      "type": "Main guide · V1.5.0",
       "tags": [
         "communication",
         "reader-first writing",

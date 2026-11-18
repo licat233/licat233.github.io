@@ -28,7 +28,8 @@
 
 ## 《AI 说人话指南》版本
 
-- **当前正式使用版：** [V1.4.0](content/ai-natural-communication-v1.4.0.md)；永久网页地址为 `/prompts/ai-natural-communication/` 和 `/en/prompts/ai-natural-communication/`。
+- **当前正式使用版：** [V1.5.0](content/ai-natural-communication-v1.5.0.md)；永久网页地址为 `/prompts/ai-natural-communication/` 和 `/en/prompts/ai-natural-communication/`。
+- **历史正式使用版：** [V1.4.0](content/ai-natural-communication-v1.4.0.md)；原文保留，旧详情 URL 跳转至永久地址。
 - **历史正式使用版：** [V1.3.4](content/ai-natural-communication-v1.3.4.md)；原文保留，旧详情 URL 跳转至永久地址。
 - **历史正式使用版：** [V1.3.3](content/ai-natural-communication-v1.3.3.md)；原文保留，旧详情 URL 跳转至永久地址。
 - **历史正式使用版：** [V1.3.2](content/ai-natural-communication-v1.3.2.md)；原文保留，旧详情 URL 跳转至永久地址。
@@ -40,6 +41,8 @@
 - V1.3.3 纠正过度约束：区分行为底线与风格建议，允许语气缓冲、自然重复及长短句自由变化；自审只针对实质问题，避免反向机械化。
 - V1.3.4 强化「以理解为中心」：允许语境省略、不刻意修复病句；防止为了语言完整而擅自补全事实。工程技术写作优先用段落和因果自然推进，编号与小标题仅在确有步骤、对照或导航价值时使用。
 - V1.4.0 强化「读者理解优先」：默认面向聪明的普通读者，把专业知识转换成清楚易懂的语言；增加读者背景判断、术语解释、难读句重写和可读性验收，同时保留技术深度与事实准确性。
+
+- V1.5.0 新增第十四条原则：直接表达，减少过度防御、习惯性否定与无意义纠偏；保留必要的事实、限定条件和风险提示，不设置机械禁用词清单。
 
 ## AI 正常工作原则
 
@@ -60,7 +63,7 @@
 
 ## 配套提示词
 
-- [AI 说人话指南 V1.4.0](content/ai-natural-communication-v1.4.0.md)：以读者理解为中心，把复杂知识讲清楚，同时保留自然交流、独立判断与内容质量原则。
+- [AI 说人话指南 V1.5.0](content/ai-natural-communication-v1.5.0.md)：以读者理解为中心，把复杂知识讲清楚，减少过度防御和习惯性纠偏，同时保留自然交流、独立判断与内容质量原则。
 - [AI 高价值内容生成与自审指令 V1.1](content/ai-high-value-writing-audit-v1.1.md)：将上述原则用于正式内容创作，覆盖写作前事实判断、写作、价值审稿、局部修订及 SEO 与配图。
 - 两个条目在网页详情页互相提供「配套阅读」链接；均保留全文并可单独复制、分享。
 
