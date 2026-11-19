@@ -10,6 +10,8 @@ if(promptId && !prompt) throw new Error('Unknown prompt ID: '+promptId);
 const home=kind==='home';
 const t=dictionary(lang).portfolio;
 const title=home?t.homeTitle:prompt?prompt[lang].seoTitle:t.promptsTitle;
+const socialTitle=home?t.homeSocialTitle:title;
+const socialDescription=home?t.homeSocialDescription:undefined;
 const breadcrumbTitle=prompt?.[lang].title;
 const description=home?t.homeDescription:prompt?prompt[lang].summary:
  `${t.promptsDescriptionBefore}${promptCatalogue.length}${t.promptsDescriptionAfter}`;
@@ -20,7 +22,7 @@ const styles=home?['/assets/bundle-home.css?v=20261113-contact-perf1']:
   ['/assets/bundle-prompts.css?v=20261110-nav-bookmark-perf1'];
 const deferredStyles=home?['/assets/bundle-home-deferred.css?v=20261111-home-css1']:[];
 ---
-<BaseLayout {lang} active={kind} {title} {breadcrumbTitle} {description} {canonical} {zhHref} {enHref}
+<BaseLayout {lang} active={kind} {title} {breadcrumbTitle} {description} {canonical} {zhHref} {enHref} {socialTitle} {socialDescription}
             {styles} {deferredStyles} exactTitle={true} includeSiteNavScript={false} includeLensFilter={false}
             pageClass={home?'home-page':'prompts-page'}>
   {home && <script slot="head" is:inline>

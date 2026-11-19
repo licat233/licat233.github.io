@@ -41,7 +41,7 @@
     "minimalDescription": "Reuse mature capabilities when possible; if a smaller solution is enough, don't introduce a larger system.",
     "maintenanceTitle": "Maintainability",
     "maintenanceDescription": "Deployment, upgrades, rollback and long-term maintenance are part of the product, not afterthoughts.",
-    "motto": "Turn complex problems into systems.",
+    "motto": "Lighter tools for a freer path.",
     "contactTitle": "Get in touch",
     "contactAlternative": "Or reach me directly",
     "contactFormTitle": "Send a message",
@@ -155,8 +155,10 @@
     "browseAll": "Browse all Skills on GitHub"
   },
   "portfolio": {
-    "homeTitle": "Licat — Builder & Developer",
-    "homeDescription": "Licat — developer building practical AI systems, developer tools and automation.",
+    "homeTitle": "Licat | Open-Source Tools, AI Skills & Automation",
+    "homeDescription": "The personal site of Licat, featuring open-source tools, AI Skills, agent workflows and practical prompts for solving real problems and reducing repetitive work.",
+    "homeSocialTitle": "Licat — Lighter Tools for a Freer Path",
+    "homeSocialDescription": "Unbound by fixed titles or tech stacks. I build tools, automation, and AI workflows to free myself from repetitive friction.",
     "promptsTitle": "AI Prompt Library — Licat",
     "promptsDescriptionBefore": "",
     "promptsDescriptionAfter": " curated AI prompts covering agents, writing, development, design, and critical thinking."

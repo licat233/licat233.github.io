@@ -41,7 +41,7 @@
     "minimalDescription": "能复用成熟能力就不重造，能用更小的方案解决，就不引入更大的系统。",
     "maintenanceTitle": "可维护性",
     "maintenanceDescription": "部署、升级、回滚和后续维护不是收尾工作，而是产品本身的一部分。",
-    "motto": "把复杂问题做成系统。",
+    "motto": "轻装造物，自由前行。",
     "contactTitle": "联系我",
     "contactAlternative": "或者直接联系",
     "contactFormTitle": "给我留言",
@@ -155,8 +155,10 @@
     "browseAll": "查看 GitHub Skills 目录"
   },
   "portfolio": {
-    "homeTitle": "Licat — 开发者与系统构建者",
-    "homeDescription": "Licat — 构建实用 AI 系统、开发者工具与自动化。",
+    "homeTitle": "Licat｜开源工具、AI Skills 与自动化实践",
+    "homeDescription": "Licat 的个人主页，分享开源工具、AI Skills、Agent 工作流与实用提示词，记录如何用轻量方案解决真实问题、减少重复劳动。",
+    "homeSocialTitle": "Licat — 轻装造物，自由前行",
+    "homeSocialDescription": "不被固定的头衔与技术栈限制。造工具、写自动化、搭 AI 工作流，只为把自己从重复和繁琐里解放出来。",
     "promptsTitle": "AI 提示词库 · Prompt Library — Licat",
     "promptsDescriptionBefore": "Licat 的 AI 提示词库：",
     "promptsDescriptionAfter": " 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与工作流。支持分类搜索、一键复制和独立分享。"

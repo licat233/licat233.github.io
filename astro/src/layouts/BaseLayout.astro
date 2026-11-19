@@ -20,6 +20,8 @@ interface Props {
   includeSiteNavScript?: boolean;
   includeLensFilter?: boolean;
   ogType?: 'website' | 'article';
+  socialTitle?: string;
+  socialDescription?: string;
 }
 const {
   lang, active, title, breadcrumbTitle, description, canonical, zhHref, enHref, pageClass = '',
@@ -56,6 +58,8 @@ const breadcrumbSchema = breadcrumbItems.length ? JSON.stringify({
   })),
 }).replace(/</g,'\\u003c') : null;
 const fullTitle = exactTitle ? title : `${title} · Licat`;
+const resolvedSocialTitle = Astro.props.socialTitle ?? fullTitle;
+const resolvedSocialDescription = Astro.props.socialDescription ?? description;
 const homeSchema = active === 'home' ? JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
@@ -100,14 +104,16 @@ if (Astro.currentLocale !== lang) {
   <meta name="description" content={description} />
   <meta name="author" content="Licat" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={resolvedSocialTitle} />
+  <meta name="twitter:description" content={resolvedSocialDescription} />
   <meta name="twitter:image" content={socialImage} />
   <meta name="twitter:image:alt" content={socialImageAlt} />
   <title>{fullTitle}</title>
   <meta property="og:type" content={ogType} />
   <meta property="og:site_name" content="Licat" />
   <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'zh_CN'} />
-  <meta property="og:title" content={fullTitle} />
-  <meta property="og:description" content={description} />
+  <meta property="og:title" content={resolvedSocialTitle} />
+  <meta property="og:description" content={resolvedSocialDescription} />
   <meta property="og:url" content={origin + canonical} />
   <meta property="og:image" content={socialImage} />
   <meta property="og:image:type" content="image/jpeg" />
