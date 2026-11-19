@@ -1261,22 +1261,20 @@ html[lang="zh-CN"] .hero-title {
   animation-timing-function: cubic-bezier(.16,1,.3,1);
 }
 
-/* Home hero: two semantic title lines and a readable, independent subtitle. */
-.hero-wrap .hero-title { line-height: 1.08; }
-.hero-wrap .hero-line { min-height: 1.08em; }
-.hero-wrap .hero-word { white-space: nowrap; }
-.hero-wrap .hero-inline-note {
+/* Home hero subtitle. Keep the original hero-title typography and responsive sizing. */
+.hero-wrap .hero-subtitle {
   position: relative;
   z-index: 6;
   width: auto;
   max-width: min(42rem, 100%);
   margin: clamp(1rem, 2.5vh, 1.75rem) 0 0;
+  color: var(--text-2);
   font-size: clamp(.9375rem, 1.25vw, 1.125rem);
+  font-weight: 440;
   line-height: 1.65;
+  letter-spacing: 0;
 }
 .hero-wrap .hero-badge { left: auto; right: 7%; top: 53%; pointer-events: none; }
 @media (max-width: 760px) {
-  .hero-wrap .hero-title { font-size: clamp(1.875rem, 9.6vw, 4.5rem); }
-  html[lang="zh-CN"] .hero-wrap .hero-title { font-size: clamp(1.75rem, 9.6vw, 4.5rem); line-height: 1.08; }
-  .hero-wrap .hero-inline-note { max-width: 100%; margin: 1rem 0 0; font-size: .9375rem; line-height: 1.65; }
+  .hero-wrap .hero-subtitle { max-width: 100%; margin: 1rem 0 0; font-size: .9375rem; line-height: 1.65; }
 }

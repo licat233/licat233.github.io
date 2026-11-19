@@ -60,7 +60,7 @@
 
       if (reduceMotion) {
         gsap.set(
-          ".site-header, .system-flow, .flow-glow, .hero-ghost, .hero-scene, .eyebrow, .hero-word, .hero-inline-note, .hero-badge, .hero-actions, .hero-resource",
+          ".site-header, .system-flow, .flow-glow, .hero-ghost, .hero-scene, .eyebrow, .hero-word, .hero-subtitle, .hero-badge, .hero-actions, .hero-resource",
           { clearProps: "all" }
         );
         return;
@@ -73,7 +73,7 @@
       gsap.set(".hero-scene", { autoAlpha: 0, scale: 1.08 });
       gsap.set(".eyebrow", { y: 12, autoAlpha: 0 });
       gsap.set(".hero-word", { yPercent: 112, autoAlpha: 0 });
-      gsap.set(".hero-inline-note", { x: -14, autoAlpha: 0 });
+      gsap.set(".hero-subtitle", { x: -14, autoAlpha: 0 });
       gsap.set(".hero-badge", { scale: 0, rotation: -80, autoAlpha: 0 });
       gsap.set(".hero-actions", { y: 16, autoAlpha: 0 });
       gsap.set(".hero-resource", { y: 14, autoAlpha: 0 });
@@ -101,7 +101,7 @@
           },
           "-=.56"
         )
-        .to(".hero-inline-note", { x: 0, autoAlpha: 1, duration: 0.48 }, "-=.44")
+        .to(".hero-subtitle", { x: 0, autoAlpha: 1, duration: 0.48 }, "-=.44")
         .to(
           ".hero-badge",
           { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.68, ease: "back.out(1.55)" },
