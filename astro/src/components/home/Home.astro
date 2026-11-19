@@ -123,7 +123,7 @@ const projectHref = (name: string) => {
         </svg>
       </div>
 
-      <div class="hero-ghost" aria-hidden="true">LICAT&nbsp;/&nbsp;SYSTEMS</div>
+      <div class="hero-ghost" aria-hidden="true">LICAT&nbsp;/&nbsp;EXPLORE</div>
 
       <figure class="hero-scene" aria-hidden="true">
         <picture>
@@ -133,27 +133,20 @@ const projectHref = (name: string) => {
       </figure>
 
       <div class="shell hero">
-        <p class="eyebrow">BUILD SYSTEMS · REAL PROBLEMS · 2026</p>
+        <p class="eyebrow">LICAT · EXPLORE & SIMPLIFY</p>
 
         <h1 class="hero-title">
           <span class="hero-line"><span class="hero-word">{t.heroFirst}</span></span>
-          <span class="hero-line hero-line-mixed">
-            <span class="hero-inline-note">{t.heroNote}</span>
-            <span class="hero-paren">(</span>
-            <span class="hero-logo-token"><img src="/assets/licat-logo.svg" alt=""></span>
-            <span class="hero-signal">AI / SYSTEM</span>
-            <span class="hero-paren">)</span>
-            <span class="hero-word">{t.heroMiddle}</span>
-          </span>
           <span class="hero-line"><span class="hero-word hero-accent">{t.heroLast}</span></span>
         </h1>
+        <p class="hero-inline-note">{t.heroNote}</p>
 
         <div class="hero-badge" aria-hidden="true">
           <svg viewBox="0 0 120 120">
             <defs>
               <path id={`ring-${lang}`} d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/>
             </defs>
-            <text><textPath href={`#ring-${lang}`}>BUILD · SYSTEMS · REAL PROBLEMS · </textPath></text>
+            <text><textPath href={`#ring-${lang}`}>LICAT · EXPLORE · SIMPLIFY · </textPath></text>
           </svg>
           <span><img src="/assets/licat-logo.svg" alt=""></span>
         </div>
@@ -464,7 +457,7 @@ const projectHref = (name: string) => {
         await Promise.all(['ScrollTrigger.min.js','SplitText.min.js','MorphSVGPlugin.min.js',
           'DrawSVGPlugin.min.js','MotionPathPlugin.min.js'].map(file=>load(cdn+file)));
         await navReady;
-        await load('/assets/portfolio-motion.js?v=20261113-contact-motion1');
+        await load('/assets/portfolio-motion.js?v=20261119-hero');
         // The SVG Journey animation is not on the first screen. Download
         // and initialize it only when the viewer approaches that section.
         const journey = document.querySelector('#journey');
