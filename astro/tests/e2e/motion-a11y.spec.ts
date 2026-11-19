@@ -62,133 +62,57 @@ test('desktop and mobile keyboard access to global nav works',async ({page})=>{
 // Motion initialization must not compete with the initial desktop render.
 // Hero animation stays active; below-the-fold timelines initialize on demand.
 
-test('Hero starts invisible, reveals each line from depth, then scans only the second line', async ({page})=>{
+test('Hero starts without third-party libraries and never re-hides its static shell',async ({page})=>{
  test.setTimeout(90000);
- for(const route of ['/', '/en/']){
+ for(const route of ['/en/','/']){
   for(const viewport of [{width:1350,height:940},{width:390,height:844}]){
    await page.setViewportSize(viewport);
    await page.emulateMedia({reducedMotion:'no-preference'});
    const errors:string[]=[];
-   const onError=(error:Error)=>errors.push(error.message);
+   const onError=(e:Error)=>errors.push(e.message);
    page.on('pageerror',onError);
-
-   let releaseGsap!:()=>void;
-   const gsapGate=new Promise<void>(resolve=>{releaseGsap=resolve;});
-   await page.route('**/gsap@3.15.0/dist/gsap.min.js',async route=>{
-    await gsapGate;
-    await route.continue();
+   // Cold-load the hero even when all optional animation dependencies fail.
+   await page.route('**/assets/vendor/gsap/**',r=>r.abort());
+   await page.addInitScript(()=>{
+     const state={hidden:false,frames:0};
+     (window as any).__heroShell=state;
+     const observe=()=>{
+       const nodes=['.site-header','.system-flow','.eyebrow','.hero-subtitle','.hero-actions','.hero-resources'].map(s=>document.querySelector(s));
+       if(nodes.every(Boolean)){
+         state.frames++;
+         if(nodes.some(n=>{const c=getComputedStyle(n!);return Number(c.opacity)<=.1||c.visibility==='hidden'}))state.hidden=true;
+       }
+       if(document.querySelector('.hero-title')?.getAttribute('data-motion-state')!=='complete')requestAnimationFrame(observe);
+     };
+     requestAnimationFrame(observe);
    });
    await page.goto(route,{waitUntil:'domcontentloaded',timeout:30000});
-
-   // Freeze the optional animation loader to inspect the true first frame.
-   await expect(page.locator('html')).toHaveClass(/hero-motion-pending/);
-   await expect(page.locator('.hero-title')).toHaveCSS('visibility','hidden');
-   releaseGsap();
-
-   await expect(page.locator('.hero-title')).toHaveAttribute('data-motion-state','first-line',{timeout:30000});
-   await page.waitForTimeout(120);
-   const firstFlight=await page.evaluate(()=>{
-    const inspect=(el:Element)=>{
-     const style=getComputedStyle(el);
-     return {opacity:Number(style.opacity),y:new DOMMatrixReadOnly(style.transform).m42};
-    };
-    return {
-     first:[...document.querySelectorAll('.hero-word-primary .hero-char')].map(inspect),
-     second:[...document.querySelectorAll('.hero-word-source .hero-char')].map(inspect)
-    };
-   });
-   expect(firstFlight.first.some(g=>g.opacity>.05&&g.y < -2)).toBe(true);
-   expect(firstFlight.second.every(g=>g.opacity<.01)).toBe(true);
-
-   await expect(page.locator('.hero-title')).toHaveAttribute('data-motion-state','second-line',{timeout:15000});
-   await page.waitForTimeout(220);
-   const secondFlight=await page.evaluate(()=>{
-    const inspect=(el:Element)=>{
-     const style=getComputedStyle(el);
-     return {opacity:Number(style.opacity),y:new DOMMatrixReadOnly(style.transform).m42};
-    };
-    return {
-     first:[...document.querySelectorAll('.hero-word-primary .hero-char')].map(inspect),
-     second:[...document.querySelectorAll('.hero-word-source .hero-char')].map(inspect),
-     secondColors:[...document.querySelectorAll('.hero-word-source .hero-char')].map(el=>getComputedStyle(el).color),
-     baseColor:getComputedStyle(document.querySelector('.hero-word-source .hero-char')!).color,
-     blueColor:getComputedStyle(document.querySelector('.hero-word-secondary')!).color
-    };
-   });
-   expect(secondFlight.first.every(g=>g.opacity>.99&&Math.abs(g.y)<1.5)).toBe(true);
-   expect(secondFlight.baseColor).not.toBe(secondFlight.blueColor);
-   expect(secondFlight.secondColors.every(color=>color===secondFlight.baseColor)).toBe(true);
-
-   await expect(page.locator('.hero-title')).toHaveAttribute('data-motion-state','scanning',{timeout:15000});
-   await page.waitForFunction(()=>Number(getComputedStyle(document.querySelector('.hero-scan-line')!).opacity)>.8,{timeout:5000});
-   const scanStart=await page.evaluate(()=>{
-    const accent=document.querySelector<HTMLElement>('.hero-word-secondary')!;
-    const scan=document.querySelector<HTMLElement>('.hero-scan-line')!;
-    const second=[...document.querySelectorAll('.hero-word-source .hero-char')];
-    return {
-     allSecondSettled:second.every(el=>{
-      const style=getComputedStyle(el);
-      return Number(style.opacity)>.99&&Math.abs(new DOMMatrixReadOnly(style.transform).m42)<1.5;
-     }),
-     secondColors:[...document.querySelectorAll('.hero-word-source .hero-char')].map(el=>getComputedStyle(el).color),
-     baseColor:getComputedStyle(document.querySelector('.hero-word-source .hero-char')!).color,
-     scanOpacity:Number(getComputedStyle(scan).opacity)
-    };
-   });
-   expect(scanStart.allSecondSettled).toBe(true);
-   expect(scanStart.scanOpacity).toBeGreaterThan(.8);
-
-   await page.waitForFunction(()=>{
-    const accent=document.querySelector<HTMLElement>('.hero-word-secondary')!;
-    const scan=document.querySelector<HTMLElement>('.hero-scan-line')!;
-    const a=accent.getBoundingClientRect(),s=scan.getBoundingClientRect();
-    const progress=(s.left+s.width/2-a.left)/a.width;
-    return progress>=.2&&progress<=.8;
-   },{timeout:10000});
-   const midScan=await page.evaluate(()=>{
-    const accent=document.querySelector<HTMLElement>('.hero-word-secondary')!;
-    const scan=document.querySelector<HTMLElement>('.hero-scan-line')!;
-    const a=accent.getBoundingClientRect();
-    const s=scan.getBoundingClientRect();
-    return {
-     scanProgress:(s.left+s.width/2-a.left)/a.width,
-     colors:[...document.querySelectorAll('.hero-word-source .hero-char')].map(el=>getComputedStyle(el).color),
-     blueColor:getComputedStyle(accent).color,
-     baseColor:getComputedStyle(document.querySelector('.hero-word-source .hero-char')!).color,
-     scanOpacity:Number(getComputedStyle(scan).opacity),
-     scanInside:s.left>=a.left-1&&s.right<=a.right+1,
-     scanHeightMatches:Math.abs(s.height-a.height)<2,
-     overflowX:document.documentElement.scrollWidth-innerWidth
-    };
-   });
-   expect(midScan.scanProgress).toBeGreaterThan(.2);
-   expect(midScan.scanProgress).toBeLessThan(.8);
-   expect(midScan.colors.some(color=>color===midScan.blueColor)).toBe(true);
-   expect(midScan.colors.some(color=>color!==midScan.blueColor)).toBe(true);
-   expect(midScan.scanOpacity).toBeGreaterThan(.8);
-   expect(midScan.scanInside).toBe(true);
-   expect(midScan.scanHeightMatches).toBe(true);
-   expect(midScan.overflowX).toBeLessThanOrEqual(2);
-
-   await expect(page.locator('.hero-title')).toHaveAttribute('data-motion-state','complete',{timeout:15000});
-   const final=await page.evaluate(()=>{
-    const accent=document.querySelector<HTMLElement>('.hero-word-secondary')!;
-    const scan=document.querySelector<HTMLElement>('.hero-scan-line')!;
-    const colors=[...document.querySelectorAll('.hero-word-source .hero-char')].map(el=>getComputedStyle(el).color);
-    return {
-     colors,
-     finalColor:getComputedStyle(accent).color,
-     scanOpacity:Number(getComputedStyle(scan).opacity),
-     accessibleTitle:document.querySelector('.hero-title')?.getAttribute('aria-label'),
-     overflowX:document.documentElement.scrollWidth-innerWidth
-    };
-   });
-   expect(final.colors.every(color=>color===final.finalColor)).toBe(true);
-   expect(final.scanOpacity).toBeLessThan(.01);
-   expect(final.accessibleTitle).toBeTruthy();
-   expect(final.overflowX).toBeLessThanOrEqual(2);
+   const title=page.locator('.hero-title');
+   await expect(title).toHaveClass(/hero-native-motion/);
+   await expect(title).toHaveCSS('visibility','visible');
+   expect(await title.locator('.hero-word-primary .hero-char').count()).toBeGreaterThan(0);
+   if(route==='/en/'){
+     const second=title.locator('.hero-word-source .hero-char');
+     const frames=await second.first().evaluate(el=>el.getAnimations().flatMap(a=>(a.effect as KeyframeEffect).getKeyframes()).map(k=>k.transform));
+     expect(frames.some(v=>typeof v==='string'&&v.includes('translateY'))).toBe(true);
+     await expect(title.locator('.hero-scan-line')).toHaveCount(1);
+   }else{
+     await expect(title.locator('.hero-script-art path[data-glyph]')).toHaveCount(5);
+     await expect(title.locator('.hero-writing-stroke')).toHaveCount(28);
+     await expect(title.locator('.hero-script-scan')).toHaveCount(0);
+   }
+   await expect(title).toHaveAttribute('data-motion-state','complete',{timeout:15000});
+   expect(await page.evaluate(()=>(window as any).__heroShell.hidden)).toBe(false);
+   expect(await page.evaluate(()=>Boolean((window as any).gsap))).toBe(false);
+   expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(2);
+   if(route==='/en/'){
+      const settled=await title.locator('.hero-word-source .hero-char').evaluateAll(els=>els.every(el=>getComputedStyle(el).opacity==='1'&&getComputedStyle(el).color===getComputedStyle(el.closest('.hero-word-secondary')!).color));
+      expect(settled).toBe(true);
+      await expect(title.locator('.hero-scan-line')).toHaveCSS('opacity','0');
+   }else await expect(title.locator('.hero-script-art')).toHaveCSS('mask-image','none');
    expect(errors).toEqual([]);
    page.off('pageerror',onError);
+   await page.unroute('**/assets/vendor/gsap/**');
   }
  }
 });
@@ -201,11 +125,10 @@ test('desktop defers below-fold motion while preserving project and journey anim
  const onError=(e:Error)=>errors.push(e.message);
  page.on('pageerror',onError);
  await page.goto('/',{waitUntil:'load',timeout:30000});
- await expect.poll(()=>page.evaluate(()=>Boolean((window as any).gsap)),
-   {timeout:18000}).toBe(true);
+ expect(await page.evaluate(()=>Boolean((window as any).gsap))).toBe(false);
  expect(await page.evaluate(()=>Boolean((window as any).__licatScrollScenesReady))).toBe(false);
  expect(await page.evaluate(()=>Boolean((window as any).__gsapJourneyV2))).toBe(false);
- await page.evaluate(()=>window.scrollTo({top:450,behavior:'instant'}));
+ await page.evaluate(()=>document.querySelector('#projects')?.scrollIntoView({behavior:'instant'}));
  await expect.poll(()=>page.evaluate(()=>Boolean((window as any).__licatScrollScenesReady)),
    {timeout:15000}).toBe(true);
  await expect(page.locator('#projects .project').first()).toBeAttached();
