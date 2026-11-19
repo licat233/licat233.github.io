@@ -457,14 +457,19 @@ const projectHref = (name: string) => {
       });
       (async () => {
         const cdn='https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/';
-        await load(cdn+'gsap.min.js');
         if (isMobile) {
+          // Let the initial page load finish before fetching animation code.
+          if (document.readyState !== 'complete') {
+            await new Promise(resolve => window.addEventListener('load', resolve, { once: true }));
+          }
           // Mobile Hero uses only GSAP core and SplitText; no scroll plugins are needed.
+          await load(cdn+'gsap.min.js');
           await load(cdn+'SplitText.min.js');
           await navReady;
           await load('/assets/portfolio-motion.js?v=20261119-kinetic-hero');
           return;
         }
+        await load(cdn+'gsap.min.js');
         await Promise.all(['ScrollTrigger.min.js','SplitText.min.js','MorphSVGPlugin.min.js',
           'DrawSVGPlugin.min.js','MotionPathPlugin.min.js'].map(file=>load(cdn+file)));
         await navReady;
