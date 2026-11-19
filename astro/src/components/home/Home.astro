@@ -18,6 +18,14 @@ const projectHref = (name: string) => {
   return lang === 'en' ? project.en_url : project.zh_url;
 };
 ---
+<script is:inline>
+  (() => {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('hero-motion-pending');
+    }
+  })();
+</script>
+
 <main id="top">
     <section class="hero-wrap">
       <div class="flow-glow flow-glow-a" aria-hidden="true"></div>
@@ -138,8 +146,9 @@ const projectHref = (name: string) => {
         <h1 class="hero-title" aria-label={lang === 'en' ? t.heroFirst + ' ' + t.heroLast : t.heroFirst + t.heroLast}>
           <span class="hero-line" aria-hidden="true"><span class="hero-word hero-word-primary">{t.heroFirst}</span></span>
           <span class="hero-line" aria-hidden="true">
-            <span class="hero-word hero-word-secondary" data-hero-text={t.heroLast}>
+            <span class="hero-word hero-word-secondary">
               <span class="hero-word-source">{t.heroLast}</span>
+            <span class="hero-scan-line" aria-hidden="true"></span>
             </span>
           </span>
         </h1>
@@ -466,14 +475,14 @@ const projectHref = (name: string) => {
           await load(cdn+'gsap.min.js');
           await load(cdn+'SplitText.min.js');
           await navReady;
-          await load('/assets/portfolio-motion.js?v=20261119-kinetic-hero');
+          await load('/assets/portfolio-motion.js?v=20261119-kinetic-hero-v2');
           return;
         }
         await load(cdn+'gsap.min.js');
         await Promise.all(['ScrollTrigger.min.js','SplitText.min.js','MorphSVGPlugin.min.js',
           'DrawSVGPlugin.min.js','MotionPathPlugin.min.js'].map(file=>load(cdn+file)));
         await navReady;
-        await load('/assets/portfolio-motion.js?v=20261119-kinetic-hero');
+        await load('/assets/portfolio-motion.js?v=20261119-kinetic-hero-v2');
         // The SVG Journey animation is not on the first screen. Download
         // and initialize it only when the viewer approaches that section.
         const journey = document.querySelector('#journey');
@@ -492,6 +501,7 @@ const projectHref = (name: string) => {
           initializeJourney();
         }
       })().catch(error => {
+        document.documentElement.classList.remove('hero-motion-pending');
         document.documentElement.classList.add('static-story');
         console.warn('Optional motion unavailable; static page remains usable.',error);
       });

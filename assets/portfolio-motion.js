@@ -53,71 +53,156 @@
     const first = document.querySelector(".hero-word-primary");
     const second = document.querySelector(".hero-word-source");
     const accent = document.querySelector(".hero-word-secondary");
-    if (!first || !second || !accent) return null;
+    const scanLine = document.querySelector(".hero-scan-line");
+    const title = document.querySelector(".hero-title");
+
+    if (!first || !second || !accent || !scanLine || !title || !Split) {
+      root.classList.remove("hero-motion-pending");
+      return null;
+    }
 
     const splits = [];
-    const splitChars = (element) => {
-      if (!Split) return [element];
-      try {
-        const split = Split.create(element, {
-          type: "chars",
-          charsClass: "hero-char",
-          smartWrap: true,
-          tag: "span",
-          aria: "none"
-        });
-        splits.push(split);
-        return split.chars;
-      } catch (error) {
-        console.warn("Hero SplitText unavailable; using line-level motion.", error);
-        return [element];
-      }
-    };
+    let firstChars;
+    let secondChars;
+    try {
+      const splitOptions = {
+        type: "chars",
+        charsClass: "hero-char",
+        smartWrap: true,
+        tag: "span",
+        aria: "none"
+      };
+      const firstSplit = Split.create(first, splitOptions);
+      const secondSplit = Split.create(second, splitOptions);
+      splits.push(firstSplit, secondSplit);
+      firstChars = firstSplit.chars;
+      secondChars = secondSplit.chars;
+    } catch (error) {
+      splits.forEach(split => split.revert());
+      root.classList.remove("hero-motion-pending");
+      console.warn("Hero SplitText unavailable; keeping the complete static title.", error);
+      return null;
+    }
 
-    const firstChars = splitChars(first);
-    const secondChars = splitChars(second);
+    // Measure each glyph before applying its entrance transform. The scan line
+    // uses these exact text positions to recolor each glyph as it passes.
+    const accentRect = accent.getBoundingClientRect();
+    const scanStops = secondChars.map(char => {
+      const rect = char.getBoundingClientRect();
+      return Math.max(0, Math.min(1,
+        (rect.left + rect.width / 2 - accentRect.left) / accentRect.width
+      ));
+    });
+    const baseColor = getComputedStyle(accent).getPropertyValue("--hero-base-color").trim();
+    const blueColor = getComputedStyle(accent).color;
     const fontSize = parseFloat(getComputedStyle(first).fontSize) || 80;
-    const travel = Math.min(isMobile ? 54 : 96, fontSize * (isMobile ? .78 : .84));
+    const travel = Math.min(isMobile ? 58 : 104, fontSize * (isMobile ? .88 : .92));
+
     gsap.set([...firstChars, ...secondChars], {
       y: -travel,
-      rotationX: -58,
-      z: -34,
-      scale: .9,
-      autoAlpha: .48,
+      z: -150,
+      rotationX: -68,
+      scale: .74,
+      autoAlpha: 0,
       transformPerspective: 1000,
       transformOrigin: "50% 0%"
     });
-    gsap.set(accent, {
-      "--hero-reveal": "0%",
-      "--hero-sweep-opacity": 1
-    });
-    return { firstChars, secondChars, accent, splits };
+    gsap.set(secondChars, { color: baseColor });
+    gsap.set(scanLine, { x: 0, autoAlpha: 0 });
+
+    title.dataset.motionState = "ready";
+    root.classList.remove("hero-motion-pending");
+
+    return { firstChars, secondChars, accent, scanLine, scanStops, baseColor, blueColor, splits, title };
   };
 
   const addHeroTitleSequence = (timeline, motion, at = 0) => {
     if (!motion) return;
-    const glyphMotion = {
-      y: 0,
-      rotationX: 0,
-      z: 0,
-      scale: 1,
-      autoAlpha: 1,
-      duration: .68,
-      ease: "power3.out",
-      stagger: { each: .038, from: "start" }
+
+    const sequence = gsap.timeline();
+    const addGlyphLine = (chars, startAt) => {
+      const stagger = Math.min(.055, .78 / Math.max(1, chars.length - 1));
+
+      chars.forEach((char, index) => {
+        const glyph = gsap.timeline();
+        // Each character first emerges above the baseline, then falls into place.
+        glyph
+          .to(char, {
+            autoAlpha: 1,
+            z: -48,
+            rotationX: -38,
+            scale: .92,
+            duration: .24,
+            ease: "power2.out"
+          })
+          .to(char, {
+            y: 0,
+            z: 0,
+            rotationX: 0,
+            scale: 1,
+            duration: .52,
+            ease: "power3.out"
+          });
+        sequence.add(glyph, startAt + index * stagger);
+      });
+
+      return .76 + Math.max(0, chars.length - 1) * stagger;
     };
-    timeline.to(motion.firstChars, { ...glyphMotion }, at);
-    timeline.to(motion.secondChars, { ...glyphMotion }, ">-=.08");
-    timeline.to(motion.accent, {
-      "--hero-reveal": "100%",
-      duration: .72,
-      ease: "power2.inOut"
-    }, ">-.02");
-    timeline.to(motion.accent, {
-      "--hero-sweep-opacity": 0,
-      duration: .2,
+
+    const firstLineDuration = addGlyphLine(motion.firstChars, 0);
+    const secondLineStart = firstLineDuration + .10;
+    const secondLineDuration = addGlyphLine(motion.secondChars, secondLineStart);
+    const scanStart = secondLineStart + secondLineDuration + .08;
+    const scanDuration = 1.2;
+    const scanLead = .10;
+    const colorDuration = .14;
+
+    sequence.eventCallback("onStart", () => {
+      motion.title.dataset.motionState = "first-line";
+    });
+    sequence.call(() => {
+      motion.title.dataset.motionState = "second-line";
+    }, [], secondLineStart);
+    sequence.call(() => {
+      motion.title.dataset.motionState = "scanning";
+    }, [], scanStart);
+
+    sequence
+      .to(motion.scanLine, {
+        autoAlpha: 1,
+        duration: scanLead,
+        ease: "power1.out"
+      }, scanStart)
+      .to(motion.scanLine, {
+        x: () => motion.accent.getBoundingClientRect().width,
+        duration: scanDuration,
+        ease: "none"
+      }, scanStart + scanLead);
+
+    motion.secondChars.forEach((char, index) => {
+      sequence.to(char, {
+        color: motion.blueColor,
+        duration: colorDuration,
+        ease: "power1.out"
+      }, scanStart + scanLead + motion.scanStops[index] * scanDuration);
+    });
+
+    const finalGlyphColorEnd = Math.max(...motion.scanStops) * scanDuration + colorDuration;
+    sequence.to(motion.scanLine, {
+      autoAlpha: 0,
+      duration: .18,
       ease: "power1.out"
-    }, "<+=.52");
+    }, scanStart + scanLead + Math.max(scanDuration, finalGlyphColorEnd));
+
+    sequence.eventCallback("onComplete", () => {
+      motion.title.dataset.motionState = "complete";
+      gsap.set([...motion.firstChars, ...motion.secondChars], {
+        clearProps: "transform,opacity,visibility"
+      });
+    });
+
+    timeline.add(sequence, at);
+    return sequence;
   };
 
   const syncNavigationAfterLoad = () => {
@@ -134,7 +219,7 @@
       if (!heroMotion) return;
       const intro = gsap.timeline({
         defaults: { ease: "power3.out" },
-        delay: .08
+        delay: .24
       });
       intro.fromTo(".eyebrow",
         { y: 14, autoAlpha: 0 },
@@ -226,17 +311,13 @@
         const Morph = window.MorphSVGPlugin;
         if (Morph) gsap.registerPlugin(Morph);
 
-        // GSAP's MorphSVG interpolates SVG path points, not opacity or CSS transforms.
-        // The hero ribbon first grows from a thin line into its actual curved silhouette.
+        // Reveal the existing curved ribbon in place; avoid a full-width
+        // horizontal line that could compete with the title's text-bound scan.
         const ribbon = document.querySelector(".flow-ribbon-main");
-        if (Morph && ribbon) {
-          const finalShape = ribbon.getAttribute("d");
-          const lineShape =
-            "M-160 256 C270 257 590 253 858 250 C1200 248 1500 250 1880 250 " +
-            "L1880 255 C1510 255 1210 255 858 255 C580 255 265 260 -160 262 Z";
-          gsap.set(ribbon, { morphSVG: lineShape });
+        if (ribbon) {
+          gsap.set(ribbon, { scaleY: .025, transformOrigin: "50% 50%" });
           intro.to(ribbon, {
-            morphSVG: finalShape, duration: 1.7, ease: "expo.inOut"
+            scaleY: 1, duration: 1.45, ease: "expo.inOut"
           }, .46);
         }
 
