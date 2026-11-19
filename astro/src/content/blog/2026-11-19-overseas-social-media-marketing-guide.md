@@ -2,6 +2,7 @@
 title: "海外社交媒体平台运营与投放指南"
 date: 2026-11-19
 lang: zh
+translation_url: /en/blog/overseas-social-media-marketing-guide/
 description: "面向外贸 B2B 企业的海外社媒实战手册，涵盖 Facebook、Instagram、YouTube、TikTok、LinkedIn、X 平台运营、视频营销、账号矩阵、广告投放、数据复盘与询盘转化。"
 ---
 
