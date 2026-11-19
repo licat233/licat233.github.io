@@ -135,9 +135,13 @@ const projectHref = (name: string) => {
       <div class="shell hero">
         <p class="eyebrow">LICAT · EXPLORE & SIMPLIFY</p>
 
-        <h1 class="hero-title">
-          <span class="hero-line"><span class="hero-word">{t.heroFirst}</span></span>
-          <span class="hero-line"><span class="hero-word hero-accent">{t.heroLast}</span></span>
+        <h1 class="hero-title" aria-label={lang === 'en' ? t.heroFirst + ' ' + t.heroLast : t.heroFirst + t.heroLast}>
+          <span class="hero-line" aria-hidden="true"><span class="hero-word hero-word-primary">{t.heroFirst}</span></span>
+          <span class="hero-line" aria-hidden="true">
+            <span class="hero-word hero-word-secondary" data-hero-text={t.heroLast}>
+              <span class="hero-word-source">{t.heroLast}</span>
+            </span>
+          </span>
         </h1>
         <p class="hero-subtitle">{t.heroNote}</p>
 
@@ -436,12 +440,12 @@ const projectHref = (name: string) => {
   <script is:inline defer src="/assets/site-nav.js?v=20261112-nav-defer1"></script>
   <script is:inline>
     (() => {
-      // Mobile and reduced-motion visitors see the complete static design.
-      // Skip expensive GSAP/ScrollTrigger setup where it harms responsiveness.
-      if (matchMedia('(max-width: 760px), (prefers-reduced-motion: reduce)').matches) {
+      // Reduced-motion visitors keep the complete static design.
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.classList.add('static-story');
         return;
       }
+      const isMobile = matchMedia('(max-width: 760px)').matches;
       const navReady = new Promise(resolve => {
         if (window.LicatSiteNav) resolve();
         else document.addEventListener('DOMContentLoaded', resolve, { once: true });
@@ -454,10 +458,17 @@ const projectHref = (name: string) => {
       (async () => {
         const cdn='https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/';
         await load(cdn+'gsap.min.js');
+        if (isMobile) {
+          // Mobile Hero uses only GSAP core and SplitText; no scroll plugins are needed.
+          await load(cdn+'SplitText.min.js');
+          await navReady;
+          await load('/assets/portfolio-motion.js?v=20261119-kinetic-hero');
+          return;
+        }
         await Promise.all(['ScrollTrigger.min.js','SplitText.min.js','MorphSVGPlugin.min.js',
           'DrawSVGPlugin.min.js','MotionPathPlugin.min.js'].map(file=>load(cdn+file)));
         await navReady;
-        await load('/assets/portfolio-motion.js?v=20261119-hero');
+        await load('/assets/portfolio-motion.js?v=20261119-kinetic-hero');
         // The SVG Journey animation is not on the first screen. Download
         // and initialize it only when the viewer approaches that section.
         const journey = document.querySelector('#journey');

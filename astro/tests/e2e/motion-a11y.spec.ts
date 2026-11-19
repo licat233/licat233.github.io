@@ -61,6 +61,44 @@ test('desktop and mobile keyboard access to global nav works',async ({page})=>{
 
 // Motion initialization must not compete with the initial desktop render.
 // Hero animation stays active; below-the-fold timelines initialize on demand.
+
+test('Hero kinetic typography settles on desktop and mobile', async ({page})=>{
+ test.setTimeout(60000);
+ for(const viewport of [{width:1350,height:940},{width:390,height:844}]){
+  await page.setViewportSize(viewport);
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  const errors:string[]=[];
+  const onError=(error:Error)=>errors.push(error.message);
+  page.on('pageerror',onError);
+  await page.goto('/',{waitUntil:'load',timeout:30000});
+  await expect.poll(()=>page.locator('.hero-char').count(),{timeout:20000}).toBeGreaterThan(6);
+  await expect.poll(()=>page.locator('.hero-word-secondary').evaluate(el=>
+   getComputedStyle(el).getPropertyValue('--hero-reveal').trim()),{timeout:15000}).toBe('100%');
+  const state=await page.evaluate(()=>{
+   const title=document.querySelector<HTMLElement>('.hero-title')!;
+   const accent=document.querySelector<HTMLElement>('.hero-word-secondary')!;
+   return {
+    accessibleTitle:title.getAttribute('aria-label'),
+    firstGlyphs:document.querySelectorAll('.hero-word-primary .hero-char').length,
+    secondGlyphs:document.querySelectorAll('.hero-word-source .hero-char').length,
+    reveal:getComputedStyle(accent).getPropertyValue('--hero-reveal').trim(),
+    sweepOpacity:Number(getComputedStyle(accent).getPropertyValue('--hero-sweep-opacity')),
+    overflowX:document.documentElement.scrollWidth-window.innerWidth,
+    subtitleOpacity:Number(getComputedStyle(document.querySelector('.hero-subtitle')!).opacity)
+   };
+  });
+  expect(state.accessibleTitle).toBeTruthy();
+  expect(state.firstGlyphs).toBeGreaterThan(3);
+  expect(state.secondGlyphs).toBeGreaterThan(3);
+  expect(state.reveal).toBe('100%');
+  expect(state.sweepOpacity).toBeLessThan(.05);
+  expect(state.subtitleOpacity).toBeGreaterThan(.9);
+  expect(state.overflowX).toBeLessThanOrEqual(2);
+  expect(errors).toEqual([]);
+  page.off('pageerror',onError);
+ }
+});
+
 test('desktop defers below-fold motion while preserving project and journey animation',async ({page})=>{
  test.setTimeout(80000);
  await page.setViewportSize({width:1350,height:940});

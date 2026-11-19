@@ -43,7 +43,117 @@
     });
   }
 
-  if (!gsap || matchMedia('(max-width: 760px), (prefers-reduced-motion: reduce)').matches) return;
+  if (!gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const isMobile = matchMedia('(max-width: 760px)').matches;
+  const Split = window.SplitText;
+  if (Split) gsap.registerPlugin(Split);
+
+  const createHeroTitleMotion = () => {
+    const first = document.querySelector(".hero-word-primary");
+    const second = document.querySelector(".hero-word-source");
+    const accent = document.querySelector(".hero-word-secondary");
+    if (!first || !second || !accent) return null;
+
+    const splits = [];
+    const splitChars = (element) => {
+      if (!Split) return [element];
+      try {
+        const split = Split.create(element, {
+          type: "chars",
+          charsClass: "hero-char",
+          smartWrap: true,
+          tag: "span",
+          aria: "none"
+        });
+        splits.push(split);
+        return split.chars;
+      } catch (error) {
+        console.warn("Hero SplitText unavailable; using line-level motion.", error);
+        return [element];
+      }
+    };
+
+    const firstChars = splitChars(first);
+    const secondChars = splitChars(second);
+    const fontSize = parseFloat(getComputedStyle(first).fontSize) || 80;
+    const travel = Math.min(isMobile ? 54 : 96, fontSize * (isMobile ? .78 : .84));
+    gsap.set([...firstChars, ...secondChars], {
+      y: -travel,
+      rotationX: -58,
+      z: -34,
+      scale: .9,
+      autoAlpha: .48,
+      transformPerspective: 1000,
+      transformOrigin: "50% 0%"
+    });
+    gsap.set(accent, {
+      "--hero-reveal": "0%",
+      "--hero-sweep-opacity": 1
+    });
+    return { firstChars, secondChars, accent, splits };
+  };
+
+  const addHeroTitleSequence = (timeline, motion, at = 0) => {
+    if (!motion) return;
+    const glyphMotion = {
+      y: 0,
+      rotationX: 0,
+      z: 0,
+      scale: 1,
+      autoAlpha: 1,
+      duration: .68,
+      ease: "power3.out",
+      stagger: { each: .038, from: "start" }
+    };
+    timeline.to(motion.firstChars, { ...glyphMotion }, at);
+    timeline.to(motion.secondChars, { ...glyphMotion }, ">-=.08");
+    timeline.to(motion.accent, {
+      "--hero-reveal": "100%",
+      duration: .72,
+      ease: "power2.inOut"
+    }, ">-.02");
+    timeline.to(motion.accent, {
+      "--hero-sweep-opacity": 0,
+      duration: .2,
+      ease: "power1.out"
+    }, "<+=.52");
+  };
+
+  const syncNavigationAfterLoad = () => {
+    const active = navPills.find((pill) => pill.classList.contains("active")) || navPills[0];
+    moveNavIndicator(active, { instant: true, center: false });
+    if (ScrollTrigger) ScrollTrigger.refresh();
+  };
+  if (document.readyState === "complete") syncNavigationAfterLoad();
+  else window.addEventListener("load", syncNavigationAfterLoad, { once: true });
+
+  if (isMobile) {
+    const mobileContext = gsap.context(() => {
+      const heroMotion = createHeroTitleMotion();
+      if (!heroMotion) return;
+      const intro = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        delay: .08
+      });
+      intro.fromTo(".eyebrow",
+        { y: 14, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: .42 }, 0);
+      addHeroTitleSequence(intro, heroMotion, .12);
+      intro
+        .fromTo(".hero-subtitle",
+          { x: -12, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: .48 }, ">-=.14")
+        .fromTo(".hero-actions",
+          { y: 14, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: .42 }, ">-=.16")
+        .fromTo(".hero-resource",
+          { y: 12, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: .4, stagger: .07 }, ">-=.18");
+    }, document.querySelector(".hero-wrap"));
+    window.addEventListener("pagehide", () => mobileContext.revert(), { once: true });
+    return;
+  }
 
   const mm = gsap.matchMedia();
 
@@ -66,13 +176,15 @@
         return;
       }
 
+      const heroMotion = createHeroTitleMotion();
+      if (heroMotion) cleanups.push(() => heroMotion.splits.forEach(split => split.revert()));
+
       gsap.set(".site-header", { y: -22, autoAlpha: 0 });
       gsap.set(".system-flow", { x: 150, autoAlpha: 0 });
       gsap.set(".flow-glow", { autoAlpha: 0 });
       gsap.set(".hero-ghost", { autoAlpha: 0, scale: 1.08 });
       gsap.set(".hero-scene", { autoAlpha: 0, scale: 1.08 });
       gsap.set(".eyebrow", { y: 12, autoAlpha: 0 });
-      gsap.set(".hero-word", { yPercent: 112, autoAlpha: 0 });
       gsap.set(".hero-subtitle", { x: -14, autoAlpha: 0 });
       gsap.set(".hero-badge", { scale: 0, rotation: -80, autoAlpha: 0 });
       gsap.set(".hero-actions", { y: 16, autoAlpha: 0 });
@@ -89,19 +201,12 @@
         .to(".system-flow", { x: 0, autoAlpha: 1, duration: 1.25 }, "-=.92")
         .to(".hero-ghost", { autoAlpha: 1, scale: 1, duration: 1.15 }, "-=1.02")
         .to(".hero-scene", { autoAlpha: 1, scale: 1, duration: 1.0 }, "-=.92")
-        .to(".eyebrow", { y: 0, autoAlpha: 1, duration: 0.42 }, "-=.72")
-        .to(
-          ".hero-word",
-          {
-            yPercent: 0,
-            autoAlpha: 1,
-            duration: 0.82,
-            stagger: 0.09,
-            ease: "power4.out"
-          },
-          "-=.56"
-        )
-        .to(".hero-subtitle", { x: 0, autoAlpha: 1, duration: 0.48 }, "-=.44")
+        .to(".eyebrow", { y: 0, autoAlpha: 1, duration: 0.42 }, "-=.72");
+
+      addHeroTitleSequence(intro, heroMotion, "-=.56");
+
+      intro
+        .to(".hero-subtitle", { x: 0, autoAlpha: 1, duration: 0.48 }, ">-=.18")
         .to(
           ".hero-badge",
           { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.68, ease: "back.out(1.55)" },
@@ -118,9 +223,7 @@
          Official patterns: directional off-screen flights, SplitText masks,
          MorphSVG path morph. All scroll entrances reversible; no pin. */
       if (ScrollTrigger) {
-        const Split = window.SplitText;
         const Morph = window.MorphSVGPlugin;
-        if (Split) gsap.registerPlugin(Split);
         if (Morph) gsap.registerPlugin(Morph);
 
         // GSAP's MorphSVG interpolates SVG path points, not opacity or CSS transforms.
@@ -724,12 +827,5 @@
     }
   );
 
-  const syncNavigationAfterLoad = () => {
-    const active = navPills.find((pill) => pill.classList.contains("active")) || navPills[0];
-    moveNavIndicator(active, { instant: true, center: false });
-    if (ScrollTrigger) ScrollTrigger.refresh();
-  };
-  // The optional animation loader may finish after the load event.
-  if (document.readyState === "complete") syncNavigationAfterLoad();
-  else window.addEventListener("load", syncNavigationAfterLoad, { once: true });
+  // Navigation was synchronized before the responsive Hero branch above.
 })();
