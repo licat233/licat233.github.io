@@ -2,6 +2,7 @@
 title: "付费广告入门与实操指南：零基础看懂投放逻辑、后台数据与主流平台"
 date: 2026-11-19 15:10:00 +0800
 lang: zh
+translation_url: /en/blog/paid-advertising-guide/
 description: "从 CPT、CPM、CPC、CPA 到 oCPM、eCPM，讲清广告计价、出价与优化目标的区别，并梳理 SEM、信息流、网盟、DSP、六大广告类型、后台指标和渠道选型。"
 ---
 
