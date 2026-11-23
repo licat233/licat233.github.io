@@ -775,7 +775,7 @@ html[lang="zh-CN"] .hero-title {
 }
 .hero-resource {
   display: grid;
-  grid-template-columns: 5.125rem 1fr auto;
+  grid-template-columns: max-content minmax(0, 1fr) auto;
   align-items: center;
   gap: .75rem;
   padding: .75rem var(--space-1);
@@ -783,7 +783,7 @@ html[lang="zh-CN"] .hero-title {
   color: var(--muted);
   transition: color .22s ease, padding .22s ease;
 }
-.hero-resource span { font-size: .625rem; font-weight: 760; letter-spacing: .06em; text-transform: uppercase; }
+.hero-resource span { font-size: .625rem; font-weight: 760; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
 .hero-resource strong { color: currentColor; font-size: .8125rem; font-weight: 680; }
 .hero-resource b { font-size: .9375rem; }
 .hero-resource:hover,
@@ -1326,7 +1326,6 @@ html[lang="zh-CN"] .hero-title {
   .hero-signal { min-height:2.375rem; padding:0 .5625rem; }
   .hero-actions { width:100%; }
   .hero-cta { flex:1; justify-content:space-between; }
-  .hero-resource { grid-template-columns:4.5rem 1fr auto; }
 }
 
 #projects,
