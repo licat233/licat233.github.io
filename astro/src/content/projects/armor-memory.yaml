@@ -3,10 +3,10 @@ order: 6
 featured_rank: 5
 featured_zh_url: "/armor-memory/zh/"
 featured_en_url: "/armor-memory/"
-featured_zh_description: "为 Codex、Claude Code 与 Hermes Agent 探索的确定性共享记忆架构，代表了一段投入较深的多 Agent 记忆工程实践。"
-featured_en_description: "A deterministic shared-memory architecture explored for Codex, Claude Code and Hermes Agent, representing a substantial multi-agent memory engineering effort."
+featured_zh_description: "为 Codex、Claude Code 与 Hermes Agent 提供统一的共享记忆架构。Shared Skill 统一记忆行为与路由规则，Router 确定存储位置，独立 Vault 保存持久业务记忆，并提供显式、只读的知识质量检查。"
+featured_en_description: "A shared memory architecture for Codex, Claude Code and Hermes Agent. The shared Skill defines memory behavior and routing, a deterministic Router resolves destinations, and a separate Vault stores durable business memory, supported by explicit read-only knowledge-quality checks."
 featured_tags: ["Agent Memory","Multi-Agent","Architecture"]
-featured_meta: ["Python","★ 1","Last push · 2026-09-05"]
+featured_meta: ["Python","Production / Stable"]
 zh_url: "/armor-memory/zh/"
 en_url: "/armor-memory/"
 zh_description: "多 Agent 共享记忆与路由纪律的历史实验项目。"
