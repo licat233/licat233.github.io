@@ -10,4 +10,4 @@ featured_meta: ["Python","Production / Stable"]
 zh_url: "/armor-memory/zh/"
 en_url: "/armor-memory/"
 zh_description: "多 Agent 共享记忆与路由纪律的历史实验项目。"
-en_description: "An earlier project exploring shared memory for Codex, Claude Code and Hermes Agent, with consistent routing rules and a separate vault for durable business knowledge."
+en_description: "A shared-memory architecture experiment for Codex, Claude Code and Hermes Agent, with consistent routing and a separate vault for lasting business knowledge."
