@@ -10,4 +10,4 @@ featured_meta: ["Python","Last push · 2026-09-30"]
 zh_url: "/ai-writing-audit/zh/"
 en_url: "/ai-writing-audit/"
 zh_description: "可追溯的 AI 写作风格审阅与修订辅助工具。"
-en_description: "Traceable writing-style audit and editorial repair workflow."
+en_description: "A local Skill that checks AI-style writing risks, traces findings to source passages and guides full-article editing through a structured review workflow."
