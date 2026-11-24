@@ -10,4 +10,4 @@ featured_meta: ["Swift","Last push · 2026-08-07"]
 zh_url: "/greenram/zh/"
 en_url: "/greenram/"
 zh_description: "依据 macOS 内存压力和规则管理空闲应用。"
-en_description: "Rule-driven macOS memory utility for idle background apps."
+en_description: "A macOS menu bar utility that monitors Memory Pressure, Swap and process activity, then asks eligible idle background apps to quit under user-defined rules."

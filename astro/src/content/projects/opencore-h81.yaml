@@ -10,4 +10,4 @@ featured_meta: ["Shell","★ 26 · Fork 5","Last push · 2023-02-02"]
 zh_url: "/opencore-h81/zh/"
 en_url: "/opencore-h81/"
 zh_description: "针对 Haswell H81 设备的精简 OpenCore EFI。"
-en_description: "A focused OpenCore EFI for Haswell H81 hardware."
+en_description: "A compact OpenCore EFI for 4th-generation Haswell systems with Intel H81, HD4400–HD4600 graphics and ALC662 audio, focused on stability and minimal patches."
