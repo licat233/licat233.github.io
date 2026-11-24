@@ -116,7 +116,7 @@ window.dataLayer.push({
 
 GA4 使用“关键事件”来标记对业务有重要价值的用户行为。
 
-1. 打开 [Google Analytics](https://analytics.google.com/)。
+1. 打开 [Google Analytics](https://analytics.google.com/analytics/web/)。
 2. 选择对应网站的 GA4 媒体资源。
 3. 进入 **管理 → 数据显示 → 事件**。
 4. 如果列表中已经出现 `generate_lead`，将它标记为**关键事件**。
@@ -135,7 +135,7 @@ GA4 使用“关键事件”来标记对业务有重要价值的用户行为。
 3. 输入网站询盘页面的网址并连接。
 4. 网站会在新页面打开，Tag Assistant 显示连接状态。
 
-GTM 预览模式可在发布前测试工作区配置，并显示标签何时触发。[Google：预览和调试容器](https://support.google.com/tagmanager/answer/6107056?hl=zh-CN)
+GTM 预览模式可在发布前测试工作区配置，并显示标签何时触发。[Google：预览和调试容器](https://support.google.com/tagmanager/answer/6107056?hl=en)
 
 ### 2. 提交一条测试询盘
 
@@ -161,7 +161,7 @@ GTM 预览模式可在发布前测试工作区配置，并显示标签何时触�
 2. 选择对应的调试设备。
 3. 在事件时间线中查找 `generate_lead`。
 
-如果 Tag Assistant 显示标签触发，但 DebugView 中暂时看不到事件，可以检查调试连接、衡量 ID、浏览器拦截设置以及网站的隐私和同意设置。[Google：使用 DebugView 监控事件](https://support.google.com/analytics/answer/7201382?hl=zh-CN)
+如果 Tag Assistant 显示标签触发，但 DebugView 中暂时看不到事件，可以检查调试连接、衡量 ID、浏览器拦截设置以及网站的隐私和同意设置。[Google：使用 DebugView 监控事件](https://support.google.com/analytics/answer/7201382?hl=en)
 
 ## 八、发布 GTM 容器
 
@@ -190,7 +190,7 @@ GTM 预览模式可在发布前测试工作区配置，并显示标签何时触�
 2. 进入 **报告 → 实时概览**。
 3. 在按事件名称划分的事件列表中查找 `generate_lead`。
 
-实时报告适合确认近期是否收到事件；DebugView 适合检查调试设备的具体事件。[Google：查看关键事件报告](https://support.google.com/analytics/answer/12571843?hl=zh-CN)
+实时报告适合确认近期是否收到事件；DebugView 适合检查调试设备的具体事件。[Google：查看关键事件报告](https://support.google.com/analytics/answer/12571843?hl=en)
 
 ### 查看长期趋势和流量来源
 
