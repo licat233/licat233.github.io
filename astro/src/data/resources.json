@@ -425,7 +425,7 @@
       "zh-CN": "Suno AI 音乐生成"
     },
     "aliases": [],
-    "url": "https://suno.com/onboarding",
+    "url": "https://suno.com/sign-in?redirect_url=/onboarding",
     "description": {
       "en": "An AI music creation platform for generating songs from text prompts.",
       "zh-CN": "通过文字描述生成歌曲的 AI 音乐创作平台。"
