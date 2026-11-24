@@ -3,7 +3,7 @@ title: "付费广告入门与实操指南：零基础看懂投放逻辑、后台
 date: 2026-11-19 15:10:00 +0800
 lang: zh
 translation_url: /en/blog/paid-advertising-guide/
-description: "从 CPT、CPM、CPC、CPA 到 oCPM、eCPM，讲清广告计价、出价与优化目标的区别，并梳理 SEM、信息流、网盟、DSP、六大广告类型、后台指标和渠道选型。"
+description: "这篇付费广告入门指南从常见计费方式讲起，解释 CPT、CPM、CPC、CPA、oCPM 和 eCPM 的区别，并介绍 SEM、信息流、广告联盟、DSP 等渠道。文章还梳理后台数据指标、投放目标和渠道选择方法，帮助初学者理解广告预算如何转化为有效客户。"
 ---
 
 > **核心一句话：** 付费广告的本质，是向流量平台（如 Google、抖音、Facebook、新闻网站）购买触达用户的机会，再通过广告素材、落地页和后续销售承接，把注意力转化为客户或订单。
