@@ -2,7 +2,7 @@
 title: "Paid Advertising From Scratch: A Practical Guide to Media Buying, Ad Data & Major Platforms"
 date: 2026-11-19 15:10:00 +0800
 lang: en
-description: "A practical beginner's guide to paid advertising, covering pricing models, campaign metrics, SEM, in-feed ads, ad networks, DSPs, six major ad channels, and channel selection."
+description: "A beginner-friendly guide to paid advertising, explaining pricing models, campaign metrics, search and feed ads, ad networks, DSPs, major platforms and how to choose channels."
 translation_url: /blog/paid-advertising-guide/
 ---
 
