@@ -2,7 +2,7 @@
 title: "Overseas B2B Social Media Operations Infrastructure: A Practical Guide"
 date: 2026-11-10 12:00:00 +0800
 lang: en
-description: "A practical setup guide for export manufacturers and B2B teams, covering account ownership, devices, networks, publishing workflows, phone numbers, platform permissions, security, recovery and team access."
+description: "A setup guide for B2B teams covering social accounts, devices, networks, publishing, phone numbers, permissions, security, recovery and team access."
 translation_url: /blog/overseas-b2b-social-media-infrastructure-guide/
 ---
 
