@@ -161,7 +161,7 @@
     "homeSocialDescription": "不被固定的头衔与技术栈限制。造工具、写自动化、搭 AI 工作流，只为把自己从重复和繁琐里解放出来。",
     "promptsTitle": "AI 提示词库 · Prompt Library — Licat",
     "promptsDescriptionBefore": "Licat 的 AI 提示词库：",
-    "promptsDescriptionAfter": " 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与学习方法。每条提示词均提供用途说明和完整内容，支持按主题搜索、查看、复制与独立分享，方便在不同 AI 工具中直接使用。"
+    "promptsDescriptionAfter": " 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与学习方法。每条均提供用途说明和完整正文，支持主题搜索、分类筛选、一键复制与独立分享，方便在日常工作中直接使用。"
   },
   "aiHub": {
     "title": "AI 开发工具箱",
