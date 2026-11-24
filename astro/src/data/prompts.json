@@ -230,7 +230,7 @@
       "title": "DetailFlow: Ecommerce Product Detail Prompt V2.0",
       "label": "Development & Design",
       "type": "Complete production workflow · V2.0",
-      "summary": "A practical DetailFlow prompt for analyzing real product materials, planning eight screens, reviewing editable HTML, producing images, checking quality, revising and delivering product pages.",
+      "summary": "A DetailFlow prompt for product analysis, eight-screen planning, editable HTML review, image generation, quality checks, revisions and final delivery.",
       "tags": [
         "DetailFlow",
         "ecommerce",
