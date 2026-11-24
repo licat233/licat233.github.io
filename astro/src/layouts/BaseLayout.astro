@@ -123,7 +123,7 @@ if (Astro.currentLocale !== lang) {
   <link rel="canonical" href={origin + canonical} />
   {alternateZh && <link rel="alternate" hreflang="zh-CN" href={origin + alternateZh} />}
   {alternateEn && <link rel="alternate" hreflang="en" href={origin + alternateEn} />}
-  {active === 'home' && <link rel="alternate" hreflang="x-default" href={origin + '/'} />}
+  <link rel="alternate" hreflang="x-default" href={origin + (alternateZh || canonical)} />
   <link rel="icon" href="/assets/licat-logo.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="/favicon.ico" />
   <script is:inline>(()=>{try{const t=localStorage.getItem('licat-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(_){document.documentElement.dataset.theme='light'}})();</script>
