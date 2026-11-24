@@ -140,18 +140,18 @@ function addAnalytics(html) {
 // existing Licat image as a stable fallback; don't manufacture project imagery.
 const defaultSocialImage = 'https://licat.xyz/assets/licat-social.jpg';
 function addXDefaultHreflang(html) {
- const canonical = /<link\\b[^>]*rel=['"]canonical['"][^>]*href=['"]([^'"]+)['"]/i.exec(html)?.[1];
+ const canonical = /<link\b[^>]*rel=['"]canonical['"][^>]*href=['"]([^'"]+)['"]/i.exec(html)?.[1];
  if (!canonical || !canonical.startsWith('https://licat.xyz/')) return html;
- if (/<link\\b(?=[^>]*rel=['"]alternate['"])(?=[^>]*hreflang=['"]x-default['"])[^>]*>/i.test(html)) return html;
- const languageLinks = [...html.matchAll(/<link\\b[^>]*>/gi)].map(match => match[0]);
+ if (/<link\b(?=[^>]*rel=['"]alternate['"])(?=[^>]*hreflang=['"]x-default['"])[^>]*>/i.test(html)) return html;
+ const languageLinks = [...html.matchAll(/<link\b[^>]*>/gi)].map(match => match[0]);
  const chineseAlternate = languageLinks.find(tag =>
    /hreflang=['"]zh-CN['"]/i.test(tag) && /rel=['"]alternate['"]/i.test(tag));
  const defaultUrl = chineseAlternate
    ? /href=['"]([^'"]+)['"]/i.exec(chineseAlternate)?.[1]
    : canonical;
  if (!defaultUrl) return html;
- return html.replace(/<\\/head>/i,
-   '<link rel="alternate" hreflang="x-default" href="'+defaultUrl+'">\\n</head>');
+ return html.replace(/<\/head>/i,
+   '<link rel="alternate" hreflang="x-default" href="'+defaultUrl+'">\n</head>');
 }
 
 function addSocialPreview(html) {
