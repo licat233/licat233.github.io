@@ -9,9 +9,9 @@ lang: zh
   <meta name='color-scheme' content='light dark'>
   <meta name='theme-color' content='#f4f1ea' media='(prefers-color-scheme: light)'>
   <meta name='theme-color' content='#111315' media='(prefers-color-scheme: dark)'>
-  <meta name='description' content='ToolScout：AI Agent 写临时代码前的工具优先门卫，帮助 Agent 优先发现成熟工具、MCP 能力和历史工具经验。'>
+  <meta name='description' content="ToolScout 是面向 AI Agent 的工具优先门卫，帮助 Agent 在编写临时代码之前，先发现本机已有工具、成熟 CLI、MCP 服务和历史使用经验。项目提供 Rust CLI、MCP 接口与 Skill 规则层，减少重复造轮子，让 Agent 优先复用可靠能力。">
   <meta property='og:title' content='ToolScout — AI Agent 的工具优先门卫'>
-  <meta property='og:description' content='Rust runtime core + SKILL.md rule layer + shared tool-memory。'>
+  <meta property='og:description' content="ToolScout 是面向 AI Agent 的工具优先门卫，帮助 Agent 在编写临时代码之前，先发现本机已有工具、成熟 CLI、MCP 服务和历史使用经验。项目提供 Rust CLI、MCP 接口与 Skill 规则层，减少重复造轮子，让 Agent 优先复用可靠能力。">
   <meta property='og:type' content='website'>
   <meta property='og:url' content='https://licat.xyz/toolscout/zh/'>
   <link rel='canonical' href='https://licat.xyz/toolscout/zh/'>
@@ -35,7 +35,7 @@ lang: zh
 {% include site-context.html lang='zh' project='ToolScout' %}
 <main><div class='shell'>
   <section class='hero'>
-    <div><p class='eyebrow'>Rust CLI · MCP Server · Agent Skill</p><h1>ToolScout <em>工具优先门卫。</em></h1><p class='lead'>AI Agent 很容易在本来应该调用成熟工具的时候，顺手写一段临时代码。ToolScout 的目标很简单：在 Agent 重复造轮子之前，先检查本机已有工具、候选工具和历史经验。</p><div class='hero-actions'><a class='button primary' href='#install'>快速安装 ↓</a><a class='button' href='#architecture'>查看架构</a><a class='button' href='https://github.com/licat233/toolscout/releases/latest' target='_blank' rel='noreferrer'>最新版本 v1.0.1 ↗</a></div></div>
+    <div><p class='eyebrow'>Rust CLI · MCP Server · Agent Skill</p><h1>ToolScout <em>工具优先门卫。</em></h1><p class='lead'>AI Agent 很容易在本来应该调用成熟工具的时候，顺手写一段临时代码。ToolScout 的目标很简单：在 Agent 重复造轮子之前，先检查本机已有工具、候选工具和历史经验。</p><div class='hero-actions'><a class='button primary' href='#install'>快速安装 ↓</a><a class='button' href='#architecture'>查看架构</a><a class='button' href='https://github.com/licat233/toolscout/releases/tag/v1.0.1' target='_blank' rel='noreferrer'>最新版本 v1.0.1 ↗</a></div></div>
     <aside class='terminal'><div class='terminal-top'><i></i><i></i><i></i></div><pre><span class='dim'># 写临时代码前，先问 ToolScout</span>
 <b>toolscout advise</b> \
   --task 'extract text from a docx file' \

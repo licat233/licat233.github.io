@@ -1,7 +1,7 @@
 ---
 title: "独立站 SEO/GEO 进阶指南：从搜索合规到客户决策工作台"
 date: 2026-10-30 12:00:00 +0800
-description: "从客户任务、专业事实和选型支持出发，详解信息增益、决策档案、技术资料、GEO、询盘质量及轻量实施路径。"
+description: "这篇进阶指南面向已经具备 SEO 基础的网站运营者，进一步讨论如何围绕客户任务组织内容、提升信息增益并支持选型决策。文章涵盖技术资料、决策档案、GEO、询盘质量和轻量实施路径，帮助企业把搜索流量转化为更有价值的业务机会。"
 ---
 
 **副标题：** 从搜索合规到 Specification & Decision Workbench——专业事实、采购避险与商业价值
@@ -673,7 +673,6 @@ Google 已公开讨论可通过 DOM、截图和无障碍树使用网站的代理
 - [QTL 官方网站](https://www.qtl.lighting/) — 建筑照明领域的产品体系与专业呈现。
 - [QTL — Q-LINK](https://www.qtl.lighting/products/q-link/) — 可观察型号技术资料与文件支持。
 - [QTL — Fixture Length Calculator](https://www.qtl.lighting/products/calculators.aspx) — 客户长度决策支持实例。
-- [QTL — Product Configurators](https://explore.qtl.lighting/resources/product-configurators/) — 配置器与技术资料工作流实例。
 - [QTL — Fort Worth City Hall](https://www.qtl.lighting/case-studies/fort-worth-city-hall-architectural-lighting-that-connects-a-city-to-citizens/) — 项目问题、现场测试与工程取舍的公开案例。
 
 

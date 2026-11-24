@@ -75,7 +75,7 @@
   "prompts": {
     "heroLead": "Better prompts.",
     "heroEm": "Better results.",
-    "description": "A collection of prompts refined through real use—from clearer communication and independent judgment to complex workflows. Browse, read, and copy what is useful.",
+    "description": "Browse practical AI prompts for communication, independent judgment, agent execution, Codex, design and learning. Search, read, copy and share each prompt.",
     "items": "curated prompts",
     "topics": "topics",
     "updating": "Updated over time",
@@ -118,7 +118,7 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "Notes on AI, engineering, websites and practical problem-solving.",
+    "description": "Read practical guides on SEO/GEO, overseas B2B social media, paid ads, keyword research, GA4/GTM tracking and AI workflows, with methods you can apply.",
     "intro": "Notes on building useful systems, design, and technical work.",
     "listLabel": "Articles",
     "all": "All articles",
@@ -132,14 +132,14 @@
     "projects": {
       "title": "Projects",
       "heading": "Projects & tools",
-      "description": "A curated view of published work: enterprise AI systems, developer tools, and macOS utilities.",
+      "description": "Explore published enterprise AI systems, agent tools, developer utilities and macOS apps. Project pages explain their purpose, implementation and usage.",
       "meta": "Selected projects and independent tools",
       "explore": "Explore project"
     },
     "skills": {
       "title": "Agent Skills",
       "heading": "Reusable Agent Skills",
-      "description": "Published design and motion workflows packaged as readable, reusable Agent Skills.",
+      "description": "Browse reusable Agent Skills for interface design, visual standards and scroll animation. Read original instructions and use cases for your own workflows.",
       "metaTwo": "Two maintained Skills with source instructions",
       "metaPrefix": "",
       "metaSuffix": " maintained Skills with source instructions",
@@ -156,16 +156,16 @@
   },
   "portfolio": {
     "homeTitle": "Licat | Open-Source Tools, AI Skills & Automation",
-    "homeDescription": "Licat shares open-source tools, AI Skills, agent workflows and practical prompts, plus projects that simplify everyday work and reduce repetitive tasks.",
+    "homeDescription": "Licat shares open-source tools, AI Skills, agent workflows and practical prompts, plus real projects in design, development and automation.",
     "homeSocialTitle": "Licat — Lighter Tools for a Freer Path",
     "homeSocialDescription": "Unbound by fixed titles or tech stacks. I build tools, automation, and AI workflows to free myself from repetitive friction.",
     "promptsTitle": "AI Prompt Library — Licat",
     "promptsDescriptionBefore": "",
-    "promptsDescriptionAfter": " curated AI prompts covering agents, writing, development, design, and critical thinking."
+    "promptsDescriptionAfter": " curated prompts for AI agents, writing, Codex, design and critical thinking. Read, search, copy and share each full prompt."
   },
   "aiHub": {
     "title": "AI Developer Toolkit",
-    "description": "A public index of Licat’s Agent Skills, reusable prompts, MCP tooling, AI systems and memory experiments.",
+    "description": "Explore public Agent Skills, AI prompts, MCP tools, enterprise AI systems and memory experiments, with links to real projects and practical resources.",
     "lead": "An entry point to things I have actually published and worked on: skills, prompts, tools and systems.",
     "meta": "Explore published work; no accounts, private notes or unfinished product listings.",
     "aria": "AI toolkit collections",
@@ -181,7 +181,7 @@
   },
   "resources": {
     "metaTitle": "Global Directory of Curated Digital Resources",
-    "metaDescription": "Curated AI, development, marketing, design, productivity and research links. Search in English or Chinese, filter by category and save useful resources locally.",
+    "metaDescription": "Find reviewed AI, development, marketing, design, productivity and research resources. Search in English or Chinese, filter by category and save useful links.",
     "eyebrow": "LICAT / CURATED DIGITAL RESOURCES",
     "title": "Good resources are worth keeping.",
     "lead": "From AI and engineering tools to marketing intelligence, creative work and learning. Fewer forgotten bookmarks. More resources that genuinely help you get things done.",
