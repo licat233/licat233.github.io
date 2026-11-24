@@ -75,7 +75,7 @@
   "prompts": {
     "heroLead": "好的提示词，",
     "heroEm": "值得反复使用。",
-    "description": "这里收录我在真实使用中收集、总结和打磨的 AI 提示词。从表达方式，到独立判断，再到复杂任务的执行。找到适合的，复制，开始使用。",
+    "description": "这里收录在真实使用中收集、总结和打磨的 AI 提示词，涵盖自然表达、独立判断、Agent 执行、Codex 开发、视觉设计与学习方法。每条内容都可以查看用途和完整正文，支持搜索、分类筛选、一键复制与独立分享，方便在日常任务中直接使用。",
     "items": "条精选",
     "topics": "个主题",
     "updating": "持续整理中",
@@ -118,7 +118,7 @@
   },
   "blog": {
     "title": "博客",
-    "description": "技术笔记、实践记录与个人思考。",
+    "description": "这里分享网站 SEO/GEO、海外 B2B 社媒运营、数字广告、关键词研究、GA4/GTM 转化追踪和 AI 工作流等实践内容。文章从实际问题出发，说明背景、操作方法、判断依据与注意事项，帮助读者理解并应用到自己的工作中。",
     "intro": "技术笔记、实践记录与个人思考。",
     "listLabel": "文章列表",
     "all": "全部文章",
@@ -132,14 +132,14 @@
     "projects": {
       "title": "项目",
       "heading": "项目与作品",
-      "description": "从企业 AI 系统、开发者工具到 macOS 实用工具，查看已公开的项目及实现细节。",
+      "description": "这里展示已经公开的项目与实际作品，范围包括企业 AI 系统、Agent 工具、开发辅助程序和 macOS 实用工具。你可以查看每个项目的用途、技术实现、使用方式及相关资料，了解它解决了什么问题，以及目前公开到什么程度，也能继续查看项目详情。",
       "meta": "精选项目与独立工具",
       "explore": "查看项目"
     },
     "skills": {
       "title": "Agent Skills",
       "heading": "可复用的 Agent Skills",
-      "description": "把经过实践的界面设计和滚动动画规范整理为可阅读、可复用的 Skill。",
+      "description": "这里收录从真实项目中整理出来的可复用 Agent Skills，主要涉及界面设计、视觉规范和滚动动画。每项 Skill 都提供原始说明文件，方便阅读适用场景、执行要求和具体工作方法，并在自己的 AI Agent 工作流中复用。",
       "metaTwo": "两项公开维护的 Skill 与原始规范",
       "metaPrefix": "",
       "metaSuffix": " 项公开维护的 Skill 与原始规范",
@@ -156,16 +156,16 @@
   },
   "portfolio": {
     "homeTitle": "Licat｜开源工具、AI Skills 与自动化实践",
-    "homeDescription": "Licat 的个人主页，分享开源工具、AI Skills、Agent 工作流与实用提示词，记录如何用轻量方案解决真实问题、减少重复劳动。",
+    "homeDescription": "Licat 的个人主页，分享开源工具、AI Skills、Agent 工作流与实用提示词，也记录真实项目中的设计、开发和自动化实践。这里关注如何复用成熟工具、简化复杂流程、解决实际问题，并减少日常工作中的重复劳动。欢迎浏览项目与文章，了解具体做法。",
     "homeSocialTitle": "Licat — 轻装造物，自由前行",
     "homeSocialDescription": "不被固定的头衔与技术栈限制。造工具、写自动化、搭 AI 工作流，只为把自己从重复和繁琐里解放出来。",
     "promptsTitle": "AI 提示词库 · Prompt Library — Licat",
     "promptsDescriptionBefore": "Licat 的 AI 提示词库：",
-    "promptsDescriptionAfter": " 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与工作流。支持分类搜索、一键复制和独立分享。"
+    "promptsDescriptionAfter": " 条经过整理的实用提示词，涵盖 Agent 执行、AI 自然交流、Codex、视觉设计、独立思考与学习方法。每条均提供用途说明和完整正文，支持主题搜索、分类筛选、一键复制与独立分享，方便在日常工作中直接使用。"
   },
   "aiHub": {
     "title": "AI 开发工具箱",
-    "description": "整理公开的 Agent Skills、提示词、MCP 工具、AI 系统与记忆实验；内容来自真实项目，而不是未实现的产品清单。",
+    "description": "这里集中整理已经公开的 Agent Skills、AI 提示词、MCP 工具、企业 AI 系统和记忆架构实践。每个入口都对应真实项目或可阅读的资料，帮助你了解工具用途、查看实现内容，并找到适合自己工作流程的资源，也可直接访问相关公开资料。",
     "lead": "把已经公开、真正做过的 Skills、提示词、工具和系统实践整理到一个入口。",
     "meta": "只收录已公开内容，不设置登录、私人笔记或尚未实现的功能占位。",
     "aria": "AI 工具箱分类",
@@ -181,7 +181,7 @@
   },
   "resources": {
     "metaTitle": "全球精选数字资源导航",
-    "metaDescription": "Licat Resources 精选经过审核的 AI、开发、营销、设计、效率、研究与学习资源。支持中英文搜索、分类筛选和本地收藏。",
+    "metaDescription": "Licat Resources 收录经过筛选和核实的 AI、开发、营销、设计、效率、研究与学习资源。你可以按名称、用途、标签和主题查找工具，使用中英文搜索、分类筛选及本地收藏，逐步整理自己的数字工作资源清单，减少无效搜索时间。",
     "eyebrow": "LICAT / CURATED DIGITAL RESOURCES",
     "title": "值得收藏的数字资源。",
     "lead": "从 AI 与开发工具，到营销研究、设计创作和知识学习。少一些无效收藏，多一些真正能解决问题的好资源。",

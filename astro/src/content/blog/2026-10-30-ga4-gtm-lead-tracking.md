@@ -2,7 +2,7 @@
 title: "GA4 询盘转化追踪教程：使用 GTM 衡量成功提交的表单"
 date: 2026-10-31 12:00:00 +0800
 lang: zh
-description: "使用 GTM 和 GA4 追踪成功提交的询盘：从 dataLayer 成功事件、generate_lead 标签及关键事件配置，到 DebugView 验证和转化报表。"
+description: "本教程介绍如何使用 Google Tag Manager 和 GA4 追踪网站询盘表单的成功提交，而不是把按钮点击误认为转化。内容涵盖 dataLayer 成功事件、generate_lead 标签、GA4 关键事件配置、DebugView 调试和转化报表检查，帮助验证数据是否真实可靠。"
 translation_url: /en/blog/ga4-gtm-lead-tracking/
 ---
 

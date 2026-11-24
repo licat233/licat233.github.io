@@ -3,7 +3,7 @@ title: "海外社交媒体平台运营与投放指南"
 date: 2026-11-19
 lang: zh
 translation_url: /en/blog/overseas-social-media-marketing-guide/
-description: "面向外贸 B2B 企业的海外社媒实战手册，涵盖 Facebook、Instagram、YouTube、TikTok、LinkedIn、X 平台运营、视频营销、账号矩阵、广告投放、数据复盘与询盘转化。"
+description: "这份海外社交媒体运营与投放指南面向外贸 B2B 企业，系统介绍 Facebook、Instagram、YouTube、TikTok、LinkedIn 和 X 等平台的运营方式。内容涵盖账号矩阵、内容规划、视频营销、付费广告、数据复盘与询盘转化，帮助团队建立可执行的海外获客流程。"
 ---
 
 **外贸 B2B 企业从零开始的社媒运营、视频营销与广告投放实战手册**
