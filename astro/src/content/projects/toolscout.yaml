@@ -10,4 +10,4 @@ featured_meta: ["Rust","Last push · 2026-09-22"]
 zh_url: "/toolscout/zh/"
 en_url: "/toolscout/en/"
 zh_description: "AI Agent 编写临时代码之前的工具发现与复用。"
-en_description: "A tool-first gate helping agents reuse mature tools before writing code."
+en_description: "ToolScout helps AI agents find existing local tools, MCP integrations and saved tool experience before spending time writing temporary code."
