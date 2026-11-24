@@ -75,7 +75,7 @@
   "prompts": {
     "heroLead": "Better prompts.",
     "heroEm": "Better results.",
-    "description": "Browse AI prompts refined through real use, covering natural communication, independent judgment, agent execution, Codex development, visual design and learning. Each entry includes its purpose and full text, with search, topic filters, one-click copying and shareable pages.",
+    "description": "Browse practical AI prompts for communication, independent judgment, agent execution, Codex, design and learning. Search, read, copy and share each prompt.",
     "items": "curated prompts",
     "topics": "topics",
     "updating": "Updated over time",
@@ -118,7 +118,7 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "Practical articles on website SEO/GEO, overseas B2B social media, paid advertising, keyword research, GA4/GTM lead tracking and AI workflows. Each guide explains the real-world context, working methods, reasoning and key considerations so readers can apply the lessons to their own work.",
+    "description": "Read practical guides on SEO/GEO, overseas B2B social media, paid ads, keyword research, GA4/GTM tracking and AI workflows, with methods you can apply.",
     "intro": "Notes on building useful systems, design, and technical work.",
     "listLabel": "Articles",
     "all": "All articles",
@@ -132,14 +132,14 @@
     "projects": {
       "title": "Projects",
       "heading": "Projects & tools",
-      "description": "Explore published projects and working software, from enterprise AI systems and agent tools to developer utilities and macOS apps. Each project page explains its purpose, implementation, usage and available resources, showing the problem it addresses and what has actually been released.",
+      "description": "Explore published enterprise AI systems, agent tools, developer utilities and macOS apps. Project pages explain their purpose, implementation and usage.",
       "meta": "Selected projects and independent tools",
       "explore": "Explore project"
     },
     "skills": {
       "title": "Agent Skills",
       "heading": "Reusable Agent Skills",
-      "description": "Browse reusable Agent Skills drawn from real projects, covering interface design, visual standards and scroll animation. Each entry links to its original instructions, including its use cases, requirements and working methods, so you can review and reuse it in your own agent workflows.",
+      "description": "Browse reusable Agent Skills for interface design, visual standards and scroll animation. Read original instructions and use cases for your own workflows.",
       "metaTwo": "Two maintained Skills with source instructions",
       "metaPrefix": "",
       "metaSuffix": " maintained Skills with source instructions",
@@ -156,7 +156,7 @@
   },
   "portfolio": {
     "homeTitle": "Licat | Open-Source Tools, AI Skills & Automation",
-    "homeDescription": "Licat's personal site shares open-source tools, AI Skills, agent workflows and practical prompts, alongside design, development and automation lessons from real projects. Explore ways to reuse mature tools, simplify complex processes, solve practical problems and reduce repetitive work.",
+    "homeDescription": "Licat shares open-source tools, AI Skills, agent workflows and practical prompts, plus real projects in design, development and automation.",
     "homeSocialTitle": "Licat — Lighter Tools for a Freer Path",
     "homeSocialDescription": "Unbound by fixed titles or tech stacks. I build tools, automation, and AI workflows to free myself from repetitive friction.",
     "promptsTitle": "AI Prompt Library — Licat",
@@ -165,7 +165,7 @@
   },
   "aiHub": {
     "title": "AI Developer Toolkit",
-    "description": "Explore public Agent Skills, AI prompts, MCP tools, enterprise AI systems and memory architecture experiments in one place. Each entry links to a real project or readable resource, so you can understand its purpose, review implementation details and find tools that fit your own workflow.",
+    "description": "Explore public Agent Skills, AI prompts, MCP tools, enterprise AI systems and memory experiments, with links to real projects and practical resources.",
     "lead": "An entry point to things I have actually published and worked on: skills, prompts, tools and systems.",
     "meta": "Explore published work; no accounts, private notes or unfinished product listings.",
     "aria": "AI toolkit collections",
@@ -181,7 +181,7 @@
   },
   "resources": {
     "metaTitle": "Global Directory of Curated Digital Resources",
-    "metaDescription": "Licat Resources curates reviewed tools and references for AI, development, marketing, design, productivity, research and learning. Search by name, purpose or tag in English or Chinese, filter by category and save useful links locally to build a practical directory for your work.",
+    "metaDescription": "Find reviewed AI, development, marketing, design, productivity and research resources. Search in English or Chinese, filter by category and save useful links.",
     "eyebrow": "LICAT / CURATED DIGITAL RESOURCES",
     "title": "Good resources are worth keeping.",
     "lead": "From AI and engineering tools to marketing intelligence, creative work and learning. Fewer forgotten bookmarks. More resources that genuinely help you get things done.",
