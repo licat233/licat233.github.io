@@ -425,7 +425,7 @@
       "zh-CN": "Suno AI 音乐生成"
     },
     "aliases": [],
-    "url": "https://suno.com/onboarding",
+    "url": "https://suno.com/sign-in?redirect_url=/onboarding",
     "description": {
       "en": "An AI music creation platform for generating songs from text prompts.",
       "zh-CN": "通过文字描述生成歌曲的 AI 音乐创作平台。"
@@ -2329,7 +2329,7 @@
       "zh-CN": "Mixpanel 产品分析"
     },
     "aliases": [],
-    "url": "https://mixpanel.com/",
+    "url": "https://mixpanel.com/home/",
     "description": {
       "en": "A product analytics platform for exploring user journeys, retention and conversion funnels.",
       "zh-CN": "用于分析用户路径、留存与转化漏斗的产品分析平台。"
@@ -2576,7 +2576,7 @@
       "zh-CN": "Framer 网站模板市场"
     },
     "aliases": [],
-    "url": "https://www.framer.com/community/marketplace/templates/",
+    "url": "https://www.framer.com/marketplace/templates/",
     "description": {
       "en": "A marketplace for discovering Framer website templates and community-made resources.",
       "zh-CN": "发现 Framer 网站模板与社区创作资源的模板市场。"
@@ -3171,11 +3171,11 @@
     "id": "res-b1f408638b2d",
     "slug": "freepik-638b2d",
     "name": {
-      "en": "Freepik",
-      "zh-CN": "Freepik / Magnific 素材平台"
+      "en": "Magnific",
+      "zh-CN": "Magnific AI 创意平台"
     },
     "aliases": [],
-    "url": "https://www.freepik.com/",
+    "url": "https://www.magnific.com/",
     "description": {
       "en": "A creative asset platform for stock media, vectors and AI-assisted visual production.",
       "zh-CN": "提供图库、矢量素材与 AI 视觉创作工具的创意平台。"

@@ -673,7 +673,6 @@ Google 已公开讨论可通过 DOM、截图和无障碍树使用网站的代理
 - [QTL 官方网站](https://www.qtl.lighting/) — 建筑照明领域的产品体系与专业呈现。
 - [QTL — Q-LINK](https://www.qtl.lighting/products/q-link/) — 可观察型号技术资料与文件支持。
 - [QTL — Fixture Length Calculator](https://www.qtl.lighting/products/calculators.aspx) — 客户长度决策支持实例。
-- [QTL — Product Configurators](https://explore.qtl.lighting/resources/product-configurators/) — 配置器与技术资料工作流实例。
 - [QTL — Fort Worth City Hall](https://www.qtl.lighting/case-studies/fort-worth-city-hall-architectural-lighting-that-connects-a-city-to-citizens/) — 项目问题、现场测试与工程取舍的公开案例。
 
 

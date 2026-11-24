@@ -116,7 +116,7 @@ The event name must match the `event` value pushed by your website to the data l
 
 GA4 uses **key events** to identify user actions that are important to your business.
 
-1. Open [Google Analytics](https://analytics.google.com/).
+1. Open [Google Analytics](https://analytics.google.com/analytics/web/).
 2. Select the relevant GA4 property.
 3. Go to **Admin → Data display → Events**.
 4. If `generate_lead` already appears in the event list, mark it as a **key event**.
