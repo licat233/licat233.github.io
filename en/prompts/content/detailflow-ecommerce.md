@@ -2,17 +2,18 @@
 
 <!-- prompt:begin -->
 
-Use the DetailFlow workflow strictly to create my product detail page. This prompt is designed for the standard ChatGPT chat window and does not require a locally installed Skill on a Mac.
+Use the Product Detail Designer Skill to create my product detail page. This prompt is designed for the standard ChatGPT chat window.
 
-**DetailFlow Skill (pinned historical version; no automatic upstream updates):**
-- Repository: https://github.com/AJbeckliy/detail-flow-V2-Ajie
-- Pinned commit: `64c9cb12eb1d925faa01d38db47a4066d37df69b`
-- `SKILL.md`: https://raw.githubusercontent.com/AJbeckliy/detail-flow-V2-Ajie/64c9cb12eb1d925faa01d38db47a4066d37df69b/SKILL.md
-- Required reference: https://raw.githubusercontent.com/AJbeckliy/detail-flow-V2-Ajie/64c9cb12eb1d925faa01d38db47a4066d37df69b/references/detail-page-patterns.md
+**Product Detail Designer Skill v1.0.0 (pinned open-source release):**
+- GitHub repository: https://github.com/licat233/product-detail-designer
+- Pinned version: `v1.0.0`
+- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.0/SKILL.md
 
-Before starting, read both `SKILL.md` and `references/detail-page-patterns.md` completely from this exact commit, then follow that version's rules. Do not read `main`, the latest branch, a floating URL, or any later commit. If the pinned commit or either file is unavailable, stop and report the failure; never silently switch to a newer version.
+Read the `SKILL.md` from this exact release and follow its general execution rules.
 
-First verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, stop before producing the Blueprint and do not pretend to generate images.
+**This prompt is the authoritative production brief and takes precedence over the Skill's generic defaults.** The requested page count, blueprint, 1:3 visual master, approval gates, final image ratio, and deliverables are defined by this prompt. The Skill provides general safeguards for product identity, factual accuracy, visual consistency, image generation, and quality review. Do not add dependencies, separate background assets, HTML, scripts, extra approval gates, or other intermediate steps that this prompt does not request.
+
+Also verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, state the limitation plainly and do not pretend to generate images.
 
 Pay particular attention to:
 

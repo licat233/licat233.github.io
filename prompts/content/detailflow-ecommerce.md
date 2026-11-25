@@ -2,17 +2,18 @@
 
 <!-- prompt:begin -->
 
-接下来请严格使用 DetailFlow 工作流帮我制作产品详情页。本提示词用于 ChatGPT 的普通 Chat 会话窗口，不要求安装 Mac 本地 Skill。
+接下来请使用 Product Detail Designer Skill 帮我制作产品详情页。本提示词用于 ChatGPT 普通 Chat 会话窗口。
 
-**DetailFlow Skill（固定历史版本，不自动跟随上游更新）：**
-- 仓库：https://github.com/AJbeckliy/detail-flow-V2-Ajie
-- 固定 Commit：`64c9cb12eb1d925faa01d38db47a4066d37df69b`
-- `SKILL.md`：https://raw.githubusercontent.com/AJbeckliy/detail-flow-V2-Ajie/64c9cb12eb1d925faa01d38db47a4066d37df69b/SKILL.md
-- 必需参考文件：https://raw.githubusercontent.com/AJbeckliy/detail-flow-V2-Ajie/64c9cb12eb1d925faa01d38db47a4066d37df69b/references/detail-page-patterns.md
+**Product Detail Designer Skill v1.0.0（固定开源版本）：**
+- GitHub 仓库：https://github.com/licat233/product-detail-designer
+- 固定版本：`v1.0.0`
+- Skill 文件：https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.0/SKILL.md
 
-开始任务前，必须完整读取以上固定 Commit 中的 `SKILL.md` 和 `references/detail-page-patterns.md`，并严格遵循该版本规则。禁止读取 `main`、最新分支、浮动链接或后续 Commit。若固定版本或文件无法读取，立即停止并说明，不得悄悄切换新版。
+开始任务前，读取以上固定版本的 `SKILL.md` 并遵循其中的通用执行规则。
 
-同时先确认当前 ChatGPT 会话实际具备可调用的图像生成能力；若没有，停止在 Blueprint 之前，不要假装生成图片。
+**本提示词是本次生产任务的具体执行规范，优先级高于 Skill 的通用默认值。** 页面数量、Blueprint、1:3 视觉母版、审批节点、正式图片比例、交付内容等，均以本提示词为准。Skill 负责通用的产品身份保护、事实准确性、视觉一致性、图像生成与质量审核；不得擅自增加本提示词没有要求的安装依赖、独立背景素材、HTML、脚本、额外审批或其他中间步骤。
+
+同时确认当前 ChatGPT 会话实际具备可调用的图像生成能力；若没有，明确说明能力限制，不要假装生成图片。
 
 重点执行：
 
