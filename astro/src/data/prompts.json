@@ -185,7 +185,7 @@
       "title": "Product Detail Designer｜八屏电商详情页提示词",
       "label": "开发与设计",
       "type": "电商详情页提示词 · 8 屏",
-      "summary": "使用自建的 Product Detail Designer v1.0.1 制作连续、统一的八屏电商产品详情页。正式制作前先确认输出语言、图片尺寸、平台与展示位置、销售地区；随后按照真实产品资料规划页面、生成图片并完成质量审核。",
+      "summary": "使用自建的 Product Detail Designer v1.0.2 制作连续、统一的八屏电商产品详情页。正式制作前确认输出语言、图片尺寸、平台与展示位置、销售地区；产品 PDF 只用于核实事实，最终详情页必须独立策划和设计，不得照搬宣传册 UI。",
       "tags": [
         "Product Detail Designer",
         "电商设计",
@@ -196,7 +196,7 @@
     },
     "en": {
       "title": "Product Detail Designer: 8-Screen Ecommerce Detail Page Prompt",
-      "summary": "Create a coherent eight-screen ecommerce detail page with Product Detail Designer v1.0.1. Confirm the output language, image size, platform placement, and sales market before planning and image generation.",
+      "summary": "Create a coherent eight-screen ecommerce detail page with Product Detail Designer v1.0.2. Confirm the output language, image size, platform placement, and sales market first. Use product PDFs as factual sources, never as default visual templates; independently design the final ecommerce page.",
       "type": "Ecommerce prompt · 8 screens",
       "tags": [
         "design",
