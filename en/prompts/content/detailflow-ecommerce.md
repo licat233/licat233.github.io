@@ -1,4 +1,4 @@
-# DetailFlow — Continuous Eight-Panel Ecommerce Product Detail Page Workflow
+# Product Detail Designer — Continuous Eight-Screen Ecommerce Product Detail Page Workflow
 
 <!-- prompt:begin -->
 
