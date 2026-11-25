@@ -4,10 +4,10 @@
 
 Use the Product Detail Designer Skill to create my product detail page. This prompt is designed for the standard ChatGPT chat window.
 
-**Product Detail Designer Skill v1.0.2 (pinned open-source release):**
+**Product Detail Designer Skill v1.0.3 (pinned open-source release):**
 - GitHub repository: https://github.com/licat233/product-detail-designer
-- Pinned version: `v1.0.2`
-- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.2/SKILL.md
+- Pinned version: `v1.0.3`
+- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.3/SKILL.md
 
 Read the `SKILL.md` from this exact release and follow its general execution rules.
 
@@ -15,7 +15,7 @@ Read the `SKILL.md` from this exact release and follow its general execution rul
 
 Also verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, state the limitation plainly and do not pretend to generate images.
 
-## Production brief confirmation (Product Detail Designer v1.0.2)
+## Production brief confirmation (Product Detail Designer v1.0.3)
 
 After reviewing the product materials and before creating the Blueprint or starting production, follow the Skill's Production Brief Confirmation checkpoint. Confirm these four items:
 
@@ -282,6 +282,41 @@ Potential modules include:
 
 All modules must still belong to one consistent visual system.
 
+## 8A. Continuous Long-Page Composition (Mandatory)
+
+**The eight images must be eight adjacent slices of one vertical ecommerce detail page—not eight independently designed posters or PowerPoint slides.** A Screen / Slice is only a production and file-delivery boundary, not a buyer-visible page boundary.
+
+### Continuity requirements
+
+1. Plan one continuous top-to-bottom reading experience first; only then divide it into eight image files. Every slice must serve the narrative and purchase journey of the complete long page.
+2. Define a `top_edge_anchor` and `bottom_edge_anchor` for every slice. The outgoing visual state at the bottom of one image must inform the incoming state at the top of the next, including background, color, lighting, texture, spatial depth, floor/wall relationships, and visual direction.
+3. Let the scene and background extend naturally to all four image edges. When the previous bottom edge meets the next top edge, there must be no obvious break, restarted background, color-temperature jump, or meaningless block of empty space.
+4. If a product, prop, line, light beam, shadow, surface, or other visual element crosses a seam, align its position, scale, direction, and shape across both images. If reliable alignment is not possible, do not let a key object cross the seam; use continuous environment and lighting instead.
+5. Content areas may transition in background, color, and information density, but the transitions must feel intentional and connected—not like a new slide starts in every image.
+6. The first slice should naturally open the long page; the last should naturally conclude it. Do not turn them into separate cover and back-cover posters unless explicitly requested.
+7. Each image may use a different content module and composition, but must read as a continuous passage within the same long page, not as a self-contained promotional poster.
+
+### Prohibited slide-style page furniture
+
+Unless I explicitly request it, do not add to the final images:
+
+- Page headers, footers, navigation bars, page borders, full-canvas card frames, or repeated top/bottom decorative bars.
+- Page numbers, Screen / Slice labels, 01–08 numbers, or any decorative numbering that indicates image order.
+- A repeated logo, brand title bar, product-name bar, or fixed section masthead on every image.
+- Decorative numbers, corner badges, color blocks, or folded-page ornaments in the corners.
+- A repeated standalone-slide structure such as “title at top + content cards in the middle + caption/logo at the bottom.”
+- Empty margins, borders, or oversized blank areas added merely to make each image look like a complete standalone page.
+
+Useful information cards, specification tables, real instructional step numbers, and feature annotations are allowed inside the content, but they must be integrated into the long-page composition. Do not wrap the entire slice as an independent presentation slide.
+
+### Separate files, continuous design
+
+The eight final images must still be generated and saved as separate high-resolution files; however, “generated separately” does not mean “designed independently.” Use one overall composition plan and pass each slice's `bottom_edge_anchor` forward as the next slice's `top_edge_anchor`. If the image tool supports references, use the adjacent slice as a continuity reference without copying its entire composition.
+
+After generation, concatenate the eight images in order at their native dimensions and inspect the joins. Repair background breaks, lighting jumps, spatial discontinuities, visible page boundaries, or slide-like styling. Never hide a failed join with blur, mirrored padding, borders, or arbitrary cropping.
+
+**Final test:** as buyers scroll from the first image to the eighth, they should experience one complete, continuous ecommerce detail page—not eight slides being flipped one by one.
+
 ## 9. Internal fields must not appear in the delivered imagery
 
 These Blueprint/workflow fields are for internal use only:
@@ -384,7 +419,7 @@ Once the master passes review, produce:
 
 The default final aspect ratio is **9:21 vertical**, unless the user specifies otherwise.
 
-**Create every final slice independently.**
+**Generate every final slice as a separate high-resolution file, but do not design it independently.** All slices must follow one overall long-page composition plan and connect through their top_edge_anchor / bottom_edge_anchor handoffs.
 
 Do not directly turn any of the following into a finished slice:
 
@@ -471,6 +506,9 @@ After generating the first two slices, audit each separately.
 - Do Slices 01 and 02 look like parts of the same long page?
 - Are lighting, typography, product depiction, and background world consistent?
 - Is the vertical transition convincing?
+- Do the previous slice's bottom edge and the next slice's top edge join naturally?
+- Are there any headers, footers, repeated logos/title bars, corner ornaments, borders, or slide-like frames?
+- Has any slice been designed as a self-contained poster?
 - Do the screens avoid using two full-size heroes in succession?
 
 **If any critical check fails, revise before proceeding to the approval stage.**
