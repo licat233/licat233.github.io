@@ -4,10 +4,10 @@
 
 Use the Product Detail Designer Skill to create my product detail page. This prompt is designed for the standard ChatGPT chat window.
 
-**Product Detail Designer Skill v1.0.1 (pinned open-source release):**
+**Product Detail Designer Skill v1.0.2 (pinned open-source release):**
 - GitHub repository: https://github.com/licat233/product-detail-designer
-- Pinned version: `v1.0.1`
-- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.1/SKILL.md
+- Pinned version: `v1.0.2`
+- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.2/SKILL.md
 
 Read the `SKILL.md` from this exact release and follow its general execution rules.
 
@@ -15,7 +15,7 @@ Read the `SKILL.md` from this exact release and follow its general execution rul
 
 Also verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, state the limitation plainly and do not pretend to generate images.
 
-## Production brief confirmation (Product Detail Designer v1.0.1)
+## Production brief confirmation (Product Detail Designer v1.0.2)
 
 After reviewing the product materials and before creating the Blueprint or starting production, follow the Skill's Production Brief Confirmation checkpoint. Confirm these four items:
 
@@ -31,6 +31,28 @@ This prompt already specifies:
 The phrase “overseas market” does not identify a specific country or region, and this prompt does not name a target ecommerce platform or placement. Ask for those missing items unless the user has already supplied them in the conversation or explicitly delegates the decisions.
 
 Combine all remaining missing items into one concise message. If the user delegates a decision, choose a sensible option and briefly state the assumption. Once resolved, continue with the existing Blueprint workflow. This is a production-parameter checkpoint, not an additional visual approval gate.
+
+## Separate product evidence from visual design (mandatory)
+
+**Content reference is not visual reference.** Product manuals, specification sheets, brochure PDFs, and technical documents are supplied to understand the product and verify facts, not to be redesigned as the ecommerce page.
+
+- PDFs / brochures / specifications: extract verified specifications, functions, features, materials, applications, limitations, and approved copy.
+- Real product photos / pack shots / close-ups / installation photos: identify and depict the actual product.
+- Engineering drawings / diagrams: understand construction, dimensions, wiring, and operation. Redraw a clear explanatory diagram only when useful, preserving its technical meaning and never inventing data.
+- Visual style references: only files I explicitly designate as design references may guide the final visual style.
+
+Unless I explicitly ask for a faithful reproduction, redesign, conversion, or use a PDF as a layout/style template, never:
+
+1. Trace, recreate, recolor, retype, translate, or rearrange the PDF's page UI or layout.
+2. Copy its page sequence, composition, title placement, text blocks, tables, icon grids, backgrounds, or information hierarchy.
+3. Use a complete PDF page or screenshot as an image-generation visual reference.
+4. Turn each PDF page into a corresponding ecommerce detail screen.
+
+You may extract verified facts, copy, and individual product images from the PDF, but must independently plan the content and visual design around the target buyer, purchase decision, market, and ecommerce platform. The final work must be a newly conceived ecommerce detail page, not a restyled brochure.
+
+If product photos exist only inside the PDF, extract an individual image only when its quality is sufficient. Never substitute an entire PDF page for a real product photo. If the product cannot be identified clearly, request a proper image or explain the limitation.
+
+**Acceptance test:** if the final images look like the source PDF with different colors, fonts, or layout, or still follow its page-by-page structure, they fail and must be independently redesigned.
 
 Pay particular attention to:
 
