@@ -1,4 +1,4 @@
-# DetailFlow｜连续式八屏电商产品详情页制作工作流
+# Product Detail Designer｜连续式八屏电商产品详情页制作工作流
 
 <!-- prompt:begin -->
 
