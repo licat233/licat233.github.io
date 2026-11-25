@@ -182,29 +182,30 @@
     "category": "design",
     "translatedEnglish": true,
     "zh": {
-      "title": "DetailFlow｜八屏电商详情图工作流",
+      "title": "Product Detail Designer｜八屏电商详情页提示词",
       "label": "开发与设计",
-      "type": "完整工作流 · 25 节",
-      "summary": "这份 DetailFlow 提示词用于制作连续、统一的八屏电商产品详情页。工作流程涵盖真实产品素材分析、页面蓝图、视觉母版、画面审核、必要的确认节点和最终交付，重点保持产品信息准确、图片一致和页面内容连贯。可直接复制使用，并根据具体任务调整输入资料与输出要求。",
+      "type": "电商详情页提示词 · 8 屏",
+      "summary": "使用自建的 Product Detail Designer v1.0.1 制作连续、统一的八屏电商产品详情页。正式制作前先确认输出语言、图片尺寸、平台与展示位置、销售地区；随后按照真实产品资料规划页面、生成图片并完成质量审核。",
       "tags": [
-        "DetailFlow",
+        "Product Detail Designer",
         "电商设计",
         "产品真实性",
-        "长文"
+        "制作需求确认"
       ],
-      "seoTitle": "DetailFlow：八屏电商详情页设计工作流 | Licat"
+      "seoTitle": "Product Detail Designer：八屏电商详情页提示词 | Licat"
     },
     "en": {
-      "title": "DetailFlow: Eight-Panel Ecommerce Design Workflow",
-      "summary": "Create a consistent eight-screen ecommerce page with DetailFlow. Plan from real product assets, review each screen and preserve accurate product information.",
-      "type": "Design workflow · 25 sections",
+      "title": "Product Detail Designer: 8-Screen Ecommerce Detail Page Prompt",
+      "summary": "Create a coherent eight-screen ecommerce detail page with Product Detail Designer v1.0.1. Confirm the output language, image size, platform placement, and sales market before planning and image generation.",
+      "type": "Ecommerce prompt · 8 screens",
       "tags": [
         "design",
         "ecommerce",
-        "products"
+        "product-detail-design",
+        "production-brief"
       ],
       "label": "Development & Design",
-      "seoTitle": "DetailFlow: 8-Panel Ecommerce Design Workflow | Licat"
+      "seoTitle": "Product Detail Designer: 8-Screen Ecommerce Prompt | Licat"
     }
   },
   {
