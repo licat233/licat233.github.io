@@ -4,16 +4,33 @@
 
 Use the Product Detail Designer Skill to create my product detail page. This prompt is designed for the standard ChatGPT chat window.
 
-**Product Detail Designer Skill v1.0.0 (pinned open-source release):**
+**Product Detail Designer Skill v1.0.1 (pinned open-source release):**
 - GitHub repository: https://github.com/licat233/product-detail-designer
-- Pinned version: `v1.0.0`
-- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.0/SKILL.md
+- Pinned version: `v1.0.1`
+- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.1/SKILL.md
 
 Read the `SKILL.md` from this exact release and follow its general execution rules.
 
 **This prompt is the authoritative production brief and takes precedence over the Skill's generic defaults.** The requested page count, blueprint, 1:3 visual master, approval gates, final image ratio, and deliverables are defined by this prompt. The Skill provides general safeguards for product identity, factual accuracy, visual consistency, image generation, and quality review. Do not add dependencies, separate background assets, HTML, scripts, extra approval gates, or other intermediate steps that this prompt does not request.
 
 Also verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, state the limitation plainly and do not pretend to generate images.
+
+## Production brief confirmation (Product Detail Designer v1.0.1)
+
+After reviewing the product materials and before creating the Blueprint or starting production, follow the Skill's Production Brief Confirmation checkpoint. Confirm these four items:
+
+1. **Output language** — the language shown in the final images.
+2. **Image dimensions / aspect ratio** — pixel dimensions or the aspect ratio for each final screen.
+3. **Ecommerce platform / placement** — for example, Amazon product images, Amazon A+ Content, Shopify product-page media, or an Alibaba.com product detail page.
+4. **Sales region / target market** — a specific country or region, or an explicit global-market scope.
+
+This prompt already specifies:
+- English as the output language. Do not ask again unless the user changes it.
+- A 9:21 vertical aspect ratio. Do not ask again about the ratio unless the user changes it. If the confirmed platform placement also requires an exact pixel size, recommend and confirm it after the placement is known.
+
+The phrase “overseas market” does not identify a specific country or region, and this prompt does not name a target ecommerce platform or placement. Ask for those missing items unless the user has already supplied them in the conversation or explicitly delegates the decisions.
+
+Combine all remaining missing items into one concise message. If the user delegates a decision, choose a sensible option and briefly state the assumption. Once resolved, continue with the existing Blueprint workflow. This is a production-parameter checkpoint, not an additional visual approval gate.
 
 Pay particular attention to:
 
