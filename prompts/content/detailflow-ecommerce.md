@@ -4,16 +4,33 @@
 
 接下来请使用 Product Detail Designer Skill 帮我制作产品详情页。本提示词用于 ChatGPT 普通 Chat 会话窗口。
 
-**Product Detail Designer Skill v1.0.0（固定开源版本）：**
+**Product Detail Designer Skill v1.0.1（固定开源版本）：**
 - GitHub 仓库：https://github.com/licat233/product-detail-designer
-- 固定版本：`v1.0.0`
-- Skill 文件：https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.0/SKILL.md
+- 固定版本：`v1.0.1`
+- Skill 文件：https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.1/SKILL.md
 
 开始任务前，读取以上固定版本的 `SKILL.md` 并遵循其中的通用执行规则。
 
 **本提示词是本次生产任务的具体执行规范，优先级高于 Skill 的通用默认值。** 页面数量、Blueprint、1:3 视觉母版、审批节点、正式图片比例、交付内容等，均以本提示词为准。Skill 负责通用的产品身份保护、事实准确性、视觉一致性、图像生成与质量审核；不得擅自增加本提示词没有要求的安装依赖、独立背景素材、HTML、脚本、额外审批或其他中间步骤。
 
 同时确认当前 ChatGPT 会话实际具备可调用的图像生成能力；若没有，明确说明能力限制，不要假装生成图片。
+
+## 制作需求确认（Product Detail Designer v1.0.1）
+
+在完成产品素材分析后、进入 Blueprint 和正式制作之前，先按照 Skill 的 Production Brief Confirmation 检查以下四项：
+
+1. **输出语言**：最终详情页图片中的文案语言。
+2. **图片尺寸 / 比例**：每屏最终图片的像素尺寸或宽高比例。
+3. **电商平台 / 展示位置**：例如 Amazon 商品图片、Amazon A+ Content、Shopify 产品页、Alibaba.com 详情页等。
+4. **销售地区 / 目标市场**：具体国家或地区，或明确说明面向全球市场。
+
+本提示词已经明确规定：
+- 输出语言为英文；除非用户另行指定，不要重复询问。
+- 最终图片比例为 9:21 竖版；除非用户另行指定，不要重复询问比例。如果确认的平台展示位置还要求明确像素尺寸，则在了解展示位置后再提出建议并确认。
+
+本提示词只写了“海外市场”，并未指定具体国家或地区；也没有指定电商平台及展示位置。因此，除非用户已经在当前对话中提供，或明确授权 AI 自行决定，否则必须询问这两项。
+
+如果还有其他必需信息缺失，将所有缺失项合并为一条简洁消息一次问完。用户明确授权 AI 决定的项目，由 AI 自行选择并简要说明。确认完成后，直接进入本提示词原有 Blueprint 流程。此处是制作参数确认，不是新增的视觉审批环节。
 
 重点执行：
 
