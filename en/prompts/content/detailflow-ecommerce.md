@@ -318,7 +318,6 @@ These Blueprint/workflow fields are for internal use only:
 - slice_id
 - module_type
 - module_label
-- screen_job (legacy internal field; no longer used)
 - claim_seed
 - evidence_type
 - content_density
@@ -391,6 +390,8 @@ Never:
 - Take screenshots of it to use as finished slices.
 - Treat it as a contact sheet.
 - Split it into a final package for convenience.
+
+The master must represent one continuous page-level composition, not a stack of independent poster panels. It may contain the page's primary title only once at the opening; do not repeat titles, logos, footers, or CTAs across its visual regions.
 
 Use the master only to establish a shared background world, space, lighting, color, product scale, visual rhythm, typography, hierarchy, page continuity, and transitions between upper and lower portions.
 
