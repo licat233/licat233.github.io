@@ -61,7 +61,13 @@
     "contactNote": "Questions, ideas, or an interesting project? Feel free to reach out.",
     "footerProjects": "Projects",
     "footerPrompts": "Prompts",
-    "footerNote": "Better tools, more effective work, and a more self-directed life."
+    "footerNote": "Better tools, more effective work, and a more self-directed life.",
+    "blogKicker": "LATEST WRITING",
+    "blogTitle": "Writing & Practice",
+    "blogNote": "Practical notes on SEO, AI, automation and product work — explained through real problems and the steps behind them.",
+    "blogLatest": "LATEST ARTICLE",
+    "blogRead": "Read article",
+    "blogAll": "View all articles"
   },
   "navigation": {
     "home": "Home",

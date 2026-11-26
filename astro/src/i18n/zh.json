@@ -61,7 +61,13 @@
     "contactNote": "想聊项目、交流想法，或只是打个招呼，欢迎来信。",
     "footerProjects": "精选项目",
     "footerPrompts": "提示词",
-    "footerNote": "更好的工具，更高效的工作，也更自由的生活。"
+    "footerNote": "更好的工具，更高效的工作，也更自由的生活。",
+    "blogKicker": "LATEST WRITING",
+    "blogTitle": "博客与实践",
+    "blogNote": "记录真实问题的解决过程，把 SEO、AI、自动化与产品实践讲清楚。",
+    "blogLatest": "最新文章",
+    "blogRead": "阅读全文",
+    "blogAll": "查看全部文章"
   },
   "navigation": {
     "home": "首页",
