@@ -1,4 +1,4 @@
-# Product Detail Designer｜连续式八屏电商产品详情页制作工作流
+# Product Detail Designer｜连续式八张图片电商详情页制作工作流
 
 <!-- prompt:begin -->
 
@@ -20,7 +20,7 @@
 在完成产品素材分析后、进入 Blueprint 和正式制作之前，先按照 Skill 的 Production Brief Confirmation 检查以下四项：
 
 1. **输出语言**：最终详情页图片中的文案语言。
-2. **图片尺寸 / 比例**：每屏最终图片的像素尺寸或宽高比例。
+2. **图片尺寸 / 比例**：每张最终图片的像素尺寸或宽高比例。
 3. **电商平台 / 展示位置**：例如 Amazon 商品图片、Amazon A+ Content、Shopify 产品页、Alibaba.com 详情页等。
 4. **销售地区 / 目标市场**：具体国家或地区，或明确说明面向全球市场。
 
@@ -57,7 +57,7 @@
 重点执行：
 
 - Image Generation Workflow
-- Ecommerce 8-screen product detail page
+- Page-first 8-slice ecommerce product detail page
 - Continuity Rules
 - Revision Routing
 - Post-generation Audit
@@ -66,7 +66,7 @@
 
 ## 一、核心目标
 
-最终需要制作一套 **8-screen ecommerce product detail page**。
+最终需要制作 **8 张分别交付、上下连续的电商详情页图片**。这 8 张图片共同构成一张完整的纵向详情页，不是 8 个独立页面。
 
 这 8 屏必须看起来像：
 
@@ -276,7 +276,7 @@ Product Identity Lock 用于记录该产品不可随意改变的真实视觉特�
 
 ## 七、Claim Seed 规则
 
-Screen 01 必须先建立 2–4 个核心 claim seeds。
+整张页面必须先建立 2–4 个核心 claim seeds。
 
 这些 seeds 应该：
 
@@ -285,7 +285,7 @@ Screen 01 必须先建立 2–4 个核心 claim seeds。
 - 不应该只是空洞形容词
 - 不应该是未经确认的技术或商业声明
 
-Screen 02–08 必须围绕这些 seeds：
+后续所有内容必须围绕这些 seeds：
 
 - 展开
 - 解释
@@ -296,9 +296,9 @@ Screen 02–08 必须围绕这些 seeds：
 - 建立信任
 - 收束购买决策
 
-不要每一屏重新发明一个卖点。
+不要为每张图片重新发明一个卖点。
 
-如果后面的页面无法追溯到 Screen 01 的 seed，要么修改 seed，要么修改该页面内容。
+如果后续内容无法追溯到整页的 claim seeds，要么修改 seed，要么修改对应内容。
 
 ## 八、整页内容节奏与构图变化
 
@@ -369,7 +369,7 @@ Screen 02–08 必须围绕这些 seeds：
 - slice_id
 - module_type
 - module_label
-- screen_job
+- screen_job（旧版内部字段，不再使用）
 - claim_seed
 - evidence_type
 - content_density
@@ -380,7 +380,7 @@ Screen 02–08 必须围绕这些 seeds：
 不要在正式详情页可见区域显示：
 
 - 01 / 02 / 03 / 04 / 05 / 06 / 07 / 08
-- Screen 01
+- Slice 01
 - Product Overview
 - Feature Breakdown
 - Parameter Trust
@@ -724,7 +724,7 @@ Preview 应该只是正式图的原样拼接预览。
 
 ### Claim Continuity
 
-所有主要卖点是否可以追溯到 Screen 01 claim seeds
+所有主要卖点是否可以追溯到整张页面的 claim seeds
 
 ### Visual Continuity
 
@@ -757,7 +757,7 @@ Preview 应该只是正式图的原样拼接预览。
 - 关键参数错误
 - 出现未经确认认证或声明
 - 与确认风格明显不同
-- 每一屏都像独立海报
+- 每张图片都像独立海报或 PPT 页面
 - 页面连续性消失
 - 正式图来自低分辨率总览图拆分
 - 使用模糊补边强行满足比例
@@ -843,7 +843,7 @@ Preview 应该只是正式图的原样拼接预览。
 
 - 文件名：product_screen_01.png
 - Blueprint 内部字段：slice_id: 01
-- 制作管理中的 Screen 01 / Slice 01
+- 制作管理中的 Slice 01
 - 实际内容中的步骤编号，例如 1 / 2 / 3 / 4
 - 参数编号、型号编号、数量编号等真实内容
 
@@ -853,13 +853,13 @@ Preview 应该只是正式图的原样拼接预览。
 - 把页面序号做成左上角大数字
 - 把 “01 / PRODUCT OVERVIEW” 作为详情页标题装饰
 - 把 “02 / FEATURES” “03 / APPLICATIONS” 等作为章节编号
-- 因为是 8-screen 工作流，就在视觉上显示 8 个序号
+- 因为是 8-slice 工作流，就在视觉上显示 8 个序号
 
 默认原则：
 
-> “8-screen” 是制作和切片概念，不是买家可见的页面编号系统。
+> “8-slice” 是文件制作和切片概念，不是买家可见的页面编号系统。
 
-除非用户明确要求章节编号，否则最终详情图不应出现任何按屏幕顺序递增的 01、02、03……视觉元素。
+除非用户明确要求章节编号，否则最终详情图不应出现任何按图片顺序递增的 01、02、03……视觉元素。
 
 最终目标：
 
