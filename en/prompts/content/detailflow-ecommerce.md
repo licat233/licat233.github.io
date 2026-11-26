@@ -569,6 +569,15 @@ Can every central selling point be traced back to the page-level claim seeds?
 
 Does it read as one continuous long page?
 
+### Page-First Integrity
+
+- Does the primary title / H1 appear exactly once, in the first image?
+- Do intermediate images avoid restarting the product introduction or hero?
+- Are all slices free of footers, repeated logos, contact bars, and independent sign-offs?
+- Does a CTA appear at most once, at the actual end of the complete page?
+- Does every image continue the previous image instead of starting with its own title and ending with its own footer?
+
+
 ### Composition Variety
 
 Do successive screens avoid repeating the same layout?
@@ -597,6 +606,8 @@ Stop production rather than continuing if any of these occurs:
 - Visual style differs materially from the approved reference.
 - Every image looks like an independent poster or PowerPoint slide.
 - The long-page continuity disappears.
+- Every image repeats its own title and footer.
+- Intermediate images restart the product introduction, hero, or an independent CTA.
 - Final images are cut out of a low-resolution overview.
 - Blurred padding is used to force the aspect ratio.
 - Results are obviously only sketch-quality.
