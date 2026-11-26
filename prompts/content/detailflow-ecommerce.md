@@ -369,7 +369,6 @@ Product Identity Lock 用于记录该产品不可随意改变的真实视觉特�
 - slice_id
 - module_type
 - module_label
-- screen_job（旧版内部字段，不再使用）
 - claim_seed
 - evidence_type
 - content_density
@@ -454,6 +453,8 @@ Visual Master Spec 至少需要锁定：
 - 从 master 截图作为正式图
 - 把 master 当 contact sheet
 - 为了省事把 master 拆成最终交付
+
+1:3 master 必须体现一张连续页面的整体视觉关系，不能把不同区域设计成一张张独立海报。它只允许在页面开头出现一次主标题，不得在每个视觉区域重复 Title、Logo、Footer 或 CTA。
 
 1:3 master 只用于统一：
 
