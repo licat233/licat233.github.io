@@ -733,9 +733,11 @@ Preview 应该只是正式图的原样拼接预览。
 
 ## 十九、第二次确认后
 
-第二次确认后才生成：
+第二次确认后才开始生成：
 
-**Slice 03–08**
+**Slice 03–08，逐张生成，不得批量生成。**
+
+每完成一张，先检查 bottom_edge_mode 是否为 open、continuity_carrier 是否确实延伸到画面之外，以及 next_slice_handoff 是否明确。通过后才能生成下一张。
 
 继续严格遵循：
 
