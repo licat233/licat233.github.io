@@ -432,7 +432,7 @@ fields = {
 }
 
 # 仅用于检查 MIC 名称中常见的标点
-mic_punctuation = re.compile(r"[,;:!?/|()[]{}]")
+mic_punctuation = set(",;:!?/|()[]{}")
 
 for name, value in fields.items():
     value = value.strip()
@@ -462,7 +462,7 @@ for name, value in fields.items():
     )
 
     if name == "MIC Product Name":
-        punctuation = mic_punctuation.findall(value)
+        punctuation = sorted(set(value) & mic_punctuation)
         print(
             "MIC punctuation:",
             ", ".join(punctuation) if punctuation else "None"
