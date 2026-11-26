@@ -184,7 +184,7 @@
     "zh": {
       "title": "Product Detail Designer｜连续式电商详情页提示词",
       "label": "开发与设计",
-      "type": "电商详情页提示词 · 8 屏",
+      "type": "电商详情页提示词 · 8 张图片切片",
       "summary": "使用自建的 Product Detail Designer v1.0.4 制作连续式电商详情页。采用 Page-first, Slice-second：先设计整张纵向页面，再分成独立图片文件；主标题只在第一张出现一次，中间图片不重新开始产品介绍，任何切片都不添加 Footer，内容可以跨越切分边界。",
       "tags": [
         "Product Detail Designer",
