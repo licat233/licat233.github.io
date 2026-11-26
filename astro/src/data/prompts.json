@@ -197,7 +197,7 @@
     "en": {
       "title": "Product Detail Designer: Page-First Ecommerce Detail Page Prompt",
       "summary": "Create a continuous ecommerce detail page with Product Detail Designer v1.0.4. Use Page first, slices second: design one complete vertical page before dividing it into image files. The primary title appears only once in the first image; intermediate images do not restart the product introduction; no image gets a footer or repeated logo. Content may continue across file boundaries. Confirm the output language, image size, platform placement, and sales market first. Treat product PDFs as factual sources, not visual templates.",
-      "type": "Ecommerce prompt · 8 screens",
+      "type": "Ecommerce prompt · 8 image slices",
       "tags": [
         "design",
         "ecommerce",
