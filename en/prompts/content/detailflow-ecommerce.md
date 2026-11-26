@@ -1,13 +1,13 @@
-# Product Detail Designer — Continuous Eight-Screen Ecommerce Product Detail Page Workflow
+# Product Detail Designer — Page-First Eight-Slice Ecommerce Detail Page Workflow
 
 <!-- prompt:begin -->
 
 Use the Product Detail Designer Skill to create my product detail page. This prompt is designed for the standard ChatGPT chat window.
 
-**Product Detail Designer Skill v1.0.3 (pinned open-source release):**
+**Product Detail Designer Skill v1.0.4 (pinned open-source release):**
 - GitHub repository: https://github.com/licat233/product-detail-designer
-- Pinned version: `v1.0.3`
-- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.3/SKILL.md
+- Pinned version: `v1.0.4`
+- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.4/SKILL.md
 
 Read the `SKILL.md` from this exact release and follow its general execution rules.
 
@@ -15,12 +15,12 @@ Read the `SKILL.md` from this exact release and follow its general execution rul
 
 Also verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, state the limitation plainly and do not pretend to generate images.
 
-## Production brief confirmation (Product Detail Designer v1.0.3)
+## Production brief confirmation (Product Detail Designer v1.0.4)
 
 After reviewing the product materials and before creating the Blueprint or starting production, follow the Skill's Production Brief Confirmation checkpoint. Confirm these four items:
 
 1. **Output language** — the language shown in the final images.
-2. **Image dimensions / aspect ratio** — pixel dimensions or the aspect ratio for each final screen.
+2. **Image dimensions / aspect ratio** — pixel dimensions or the aspect ratio for each final image.
 3. **Ecommerce platform / placement** — for example, Amazon product images, Amazon A+ Content, Shopify product-page media, or an Alibaba.com product detail page.
 4. **Sales region / target market** — a specific country or region, or an explicit global-market scope.
 
@@ -57,7 +57,7 @@ If product photos exist only inside the PDF, extract an individual image only wh
 Pay particular attention to:
 
 - Image Generation Workflow
-- Ecommerce 8-screen product detail page
+- Page-first 8-slice ecommerce product detail page
 - Continuity Rules
 - Revision Routing
 - Post-generation Audit
@@ -66,7 +66,7 @@ This is a production ecommerce detail-page assignment, not concept art, a PPT, b
 
 ## 1. Core objective
 
-Create one **eight-panel ecommerce product detail page**.
+Create **eight separate image files that together form one continuous vertical ecommerce product detail page**. They are file slices of one page, not eight independent pages.
 
 The eight panels must look like:
 
@@ -204,37 +204,37 @@ Do not copy a reference image's brand, identifiable people, text, products, or t
 
 When the user explicitly approves a particular reference or visual master, treat it as a binding visual constraint for subsequent panels, not merely inspiration.
 
-## 6. Eight-screen Detail Page Blueprint
+## 6. Page Blueprint — Plan the Complete Page First
 
-**Stage one:** Deliver a complete **8-screen Detail Page Blueprint**.
+Plan **one complete vertical ecommerce detail page** first. Only then divide it into eight image files according to the required delivery dimensions. Do not design eight independent images and try to stitch them together afterward.
 
-Each screen must include, at minimum:
+### Page-level fields (defined once for the complete page)
 
-- slice_id
-- buyer_question
-- module_type
-- module_label
-- claim_seed
-- screen_job
-- evidence_type
-- content_density
-- layout_archetype
-- copy_module_type
-- copy_structure_pattern
-- primary_module
-- secondary_modules
-- text_exact
-- hierarchy_strategy
-- composition_shift
-- top_edge_anchor
-- bottom_edge_anchor
-- visual_composition
-- reference_style_notes
-- risk_unknowns
+- `page_h1`: the single primary title, shown only in the first image.
+- `page_promise`: the central value the complete page communicates.
+- `buyer_journey`: the complete reading sequence from product introduction through value, proof, and configuration.
+- `page_claim_seeds`: 2–4 verified facts and selling points supporting the whole page.
+- `visual_style_dna`: the shared background world, lighting, palette, materials, typography, and visual flow.
+- `page_end_action`: an optional final CTA, shown once at the actual end of the complete page.
+- `footer`: default `none`; do not create a website footer or image footer.
+
+### Slice-level fields (describe only each file's position within the complete page)
+
+- `slice_id`: internal file-management identifier only.
+- `buyer_journey_role`: the role of this portion of the page; it does not need to answer a separate buyer question.
+- `content_thread`: the content carried forward from the previous image; it may be `continue`, not a new topic.
+- `modules_present`: the content modules actually visible in this portion; a module may span two or more slices.
+- `content_entry_state` / `content_exit_state`: where the content is when this slice begins and ends.
+- `slice_entry_state` / `slice_exit_state`: the visual state at the top and bottom edges.
+- `top_edge_anchor` / `bottom_edge_anchor`: concrete, reproducible descriptions of the image edges.
+- `text_exact`: the copy that genuinely belongs in this portion; do not add a headline merely to fill each image.
+- `risk_unknowns`: factual risks to avoid.
+
+**Do not assign an independent page title, product-introduction title, hero headline, summary, or footer to every slice.** A file boundary is not a content-section boundary; a content module may continue naturally into the next image.
 
 ## 7. Claim Seed rules
 
-Establish **2–4 core claim seeds in Screen 01** before developing later screens.
+Establish **2–4 page-level claim seeds** before planning the individual image slices.
 
 Each seed must:
 
@@ -243,79 +243,73 @@ Each seed must:
 - Not be an empty adjective.
 - Not assert unverified technical or commercial claims.
 
-Screens 02–08 must develop these seeds by explaining, demonstrating, substantiating, comparing, showing details, placing them in context, building trust, and guiding the buying decision.
+All later page content must develop these seeds by explaining, demonstrating, substantiating, comparing, showing details, placing them in context, building trust, and guiding the buying decision.
 
-Do not invent a new unrelated selling point on every screen.
+Do not invent a new unrelated selling point for every image.
 
-If a later screen cannot be traced back to a seed in Screen 01, revise the seed or the screen.
+If later content cannot be traced back to the page-level claim seeds, revise the seed or the relevant content.
 
-## 8. Screen differentiation
+## 8. Page-Level Content Rhythm and Composition
 
-Every screen must address a different buyer_question.
+The **complete page** answers the buyer's questions. Each image does not need to answer a different question on its own.
 
-Adjacent screens must not mechanically repeat the same:
+- Establish the complete purchase-decision journey before arranging content modules and image slices.
+- Adjacent slices may continue the same buyer question, feature explanation, or visual scene.
+- Vary the content modules, product angles, information density, and visual organization across the complete page. Do not turn every image into an independent poster just to make it look different.
+- Avoid mechanically repeating hero layouts, headline/subtitle/icon rows, or standalone feature-card grids.
+- Product close-ups, construction details, feature proof, operation, installation, applications, configurations, and specifications may flow naturally across slice boundaries.
+- If needed, show one final CTA only at the actual end of the complete page. Do not add a CTA or summary to the bottom of every image.
+- Do not invent empty sections, headlines, or repeated content just to fill eight files.
 
-- screen_job
-- evidence_type
-- composition
-- headline structure
-- "headline + subtitle + three icons" template
-- product hero scale
-- information-card layout
+## 8A. Page First, Slices Second (Mandatory Production Method)
 
-Vary information density and visual organization across the eight screens.
+**The design unit is one complete vertical ecommerce page. Image files are only slices of that page.** Do not design eight independent canvases and disguise them as one long page by reusing colors, backgrounds, or typography.
 
-Potential modules include:
+### 1. Open the page once; do not restart it in every image
 
-- hero
-- macro detail
-- feature proof
-- mechanism
-- comparison
-- step sequence
-- scenario
-- annotation map
-- specification proof
-- trust section
-- configuration
-- closing CTA
+- The complete page has **one primary title / H1 only**, placed at the beginning of Slice 01.
+- Slices 02–08 must not repeat the product-introduction title, page headline, standalone hero headline, brand title bar, or page masthead.
+- Intermediate slices may contain genuine in-flow section headings, but these must belong to the page's content—not become a repeated title area at the top of every image.
+- Do not add a website footer, contact-information bar, repeated logo, repeated product-name bar, copyright strip, or decorative sign-off to any slice.
+- The final slice may contain one CTA at the actual end of the complete page, but it is page content, not a footer repeated on every image.
 
-All modules must still belong to one consistent visual system.
+### 2. File boundaries are not section boundaries
 
-## 8A. Continuous Long-Page Composition (Mandatory)
+- Finish planning the complete page's content and composition before choosing the slice boundaries based on the target image dimensions.
+- Do not make every image begin with a new section or end with a completed module.
+- Content modules may cross slice boundaries; the same feature explanation, scene, or visual thread may continue from one image into the next.
+- An intermediate slice may enter partway through an ongoing visual scene or content module and may exit before that module is complete.
+- Images do not need to be independently complete, explain the product on their own, or independently close a sale. Together they form one continuous scrolling experience.
+- Do not let cut lines sever text, specifications, sentences, or labels. Use the background, product scene, spatial environment, lighting, and non-text visual elements to carry continuity across boundaries.
 
-**The eight images must be eight adjacent slices of one vertical ecommerce detail page—not eight independently designed posters or PowerPoint slides.** A Screen / Slice is only a production and file-delivery boundary, not a buyer-visible page boundary.
+### 3. No per-image title or footer
 
-### Continuity requirements
+The following are automatic failures:
 
-1. Plan one continuous top-to-bottom reading experience first; only then divide it into eight image files. Every slice must serve the narrative and purchase journey of the complete long page.
-2. Define a `top_edge_anchor` and `bottom_edge_anchor` for every slice. The outgoing visual state at the bottom of one image must inform the incoming state at the top of the next, including background, color, lighting, texture, spatial depth, floor/wall relationships, and visual direction.
-3. Let the scene and background extend naturally to all four image edges. When the previous bottom edge meets the next top edge, there must be no obvious break, restarted background, color-temperature jump, or meaningless block of empty space.
-4. If a product, prop, line, light beam, shadow, surface, or other visual element crosses a seam, align its position, scale, direction, and shape across both images. If reliable alignment is not possible, do not let a key object cross the seam; use continuous environment and lighting instead.
-5. Content areas may transition in background, color, and information density, but the transitions must feel intentional and connected—not like a new slide starts in every image.
-6. The first slice should naturally open the long page; the last should naturally conclude it. Do not turn them into separate cover and back-cover posters unless explicitly requested.
-7. Each image may use a different content module and composition, but must read as a continuous passage within the same long page, not as a self-contained promotional poster.
+- A large headline or product-introduction title at the top of every image.
+- A new product hero and product name repeated in every image.
+- A footer, logo, contact details, copyright text, CTA, or summary block at the bottom of every image.
+- A repeated structure of “title area at top + content area in the middle + closing area at bottom.”
+- Every image being framed as a separate card, poster, PowerPoint slide, or complete advertisement.
 
-### Prohibited slide-style page furniture
+### 4. Design the page first, then generate slices in sequence
 
-Unless I explicitly request it, do not add to the final images:
+- Slice 01 naturally opens the complete page and may contain its one H1 and opening hero.
+- Slice 02 must continue the visual and content state of Slice 01; it must not start a new page.
+- Continue Slice 03 onward in the same sequential way.
+- When generating a later slice, use the previous image as a visual reference. If the image tool supports image extension / outpainting, prefer extending downward from the previous image's bottom edge. If it does not, explicitly use the previous bottom-edge state as the next image's top-edge composition reference. Never start again from a blank canvas and independently redesign the page.
+- If the available tool cannot produce reliable continuity, state the limitation and revise; do not pass the continuity check merely because the images share a similar style.
 
-- Page headers, footers, navigation bars, page borders, full-canvas card frames, or repeated top/bottom decorative bars.
-- Page numbers, Screen / Slice labels, 01–08 numbers, or any decorative numbering that indicates image order.
-- A repeated logo, brand title bar, product-name bar, or fixed section masthead on every image.
-- Decorative numbers, corner badges, color blocks, or folded-page ornaments in the corners.
-- A repeated standalone-slide structure such as “title at top + content cards in the middle + caption/logo at the bottom.”
-- Empty margins, borders, or oversized blank areas added merely to make each image look like a complete standalone page.
+### 5. Concatenation acceptance test
 
-Useful information cards, specification tables, real instructional step numbers, and feature annotations are allowed inside the content, but they must be integrated into the long-page composition. Do not wrap the entire slice as an independent presentation slide.
+Stack the actual final images vertically in order and inspect them as one naturally scrolling page. Check especially:
 
-### Separate files, continuous design
+- Does Slice 01 end by naturally continuing the page, without a footer or a complete ending?
+- Does Slice 02 continue the previous image directly, without a new title, hero, or product introduction?
+- Do intermediate slices avoid repeated title areas, card frames, and bottom closing areas?
+- Does the page avoid the PowerPoint rhythm of “every image starts over and every image ends”?
 
-The eight final images must still be generated and saved as separate high-resolution files; however, “generated separately” does not mean “designed independently.” Use one overall composition plan and pass each slice's `bottom_edge_anchor` forward as the next slice's `top_edge_anchor`. If the image tool supports references, use the adjacent slice as a continuity reference without copying its entire composition.
-
-After generation, concatenate the eight images in order at their native dimensions and inspect the joins. Repair background breaks, lighting jumps, spatial discontinuities, visible page boundaries, or slide-like styling. Never hide a failed join with blur, mirrored padding, borders, or arbitrary cropping.
-
-**Final test:** as buyers scroll from the first image to the eighth, they should experience one complete, continuous ecommerce detail page—not eight slides being flipped one by one.
+Any repeated title/footer or standalone-page structure is a failure. Repair it before asking the user for approval.
 
 ## 9. Internal fields must not appear in the delivered imagery
 
@@ -324,7 +318,6 @@ These Blueprint/workflow fields are for internal use only:
 - slice_id
 - module_type
 - module_label
-- screen_job
 - claim_seed
 - evidence_type
 - content_density
@@ -333,7 +326,7 @@ These Blueprint/workflow fields are for internal use only:
 Unless the user explicitly requests otherwise, never put any of these internal labels into buyer-visible graphics:
 
 - 01 / 02 / 03 / 04 / 05 / 06 / 07 / 08
-- Screen 01
+- Slice 01
 - Product Overview
 - Feature Breakdown
 - Parameter Trust
@@ -398,6 +391,8 @@ Never:
 - Treat it as a contact sheet.
 - Split it into a final package for convenience.
 
+The master must represent one continuous page-level composition, not a stack of independent poster panels. It may contain the page's primary title only once at the opening; do not repeat titles, logos, footers, or CTAs across its visual regions.
+
 Use the master only to establish a shared background world, space, lighting, color, product scale, visual rhythm, typography, hierarchy, page continuity, and transitions between upper and lower portions.
 
 Reject a master if:
@@ -410,7 +405,7 @@ Reject a master if:
 
 A failed master must not be used for final slice production.
 
-## 13. Production rules for final slices
+## 13. Sequential continuation production for final slices
 
 Once the master passes review, produce:
 
@@ -419,7 +414,7 @@ Once the master passes review, produce:
 
 The default final aspect ratio is **9:21 vertical**, unless the user specifies otherwise.
 
-**Generate every final slice as a separate high-resolution file, but do not design it independently.** All slices must follow one overall long-page composition plan and connect through their top_edge_anchor / bottom_edge_anchor handoffs.
+Save the final images as separate high-resolution files, but generate them sequentially using the Page-first method. Slice 01 is the only opening of the page. Generate Slice 02 using Slice 01 as a visual reference and continue directly from its bottom scene and content; do not generate a separate title + hero + footer canvas. If the image tool supports extension / outpainting, prefer extending downward from the previous image's bottom edge. Otherwise, use the previous `bottom_edge_anchor` as the concrete composition reference for the next `top_edge_anchor`. Continue Slice 03–08 in the same sequence.
 
 Do not directly turn any of the following into a finished slice:
 
@@ -507,9 +502,15 @@ After generating the first two slices, audit each separately.
 - Are lighting, typography, product depiction, and background world consistent?
 - Is the vertical transition convincing?
 - Do the previous slice's bottom edge and the next slice's top edge join naturally?
+- Does the page-level title appear only once, in Slice 01?
+- Does Slice 02 restart with a page title, product-introduction title, or independent hero?
+- Does any slice end with a footer, repeated logo, contact information, CTA, or separate sign-off?
+- Does Slice 01 continue naturally at its bottom instead of ending like a complete page?
+- Does Slice 02 begin as a direct continuation instead of restarting the page?
+- Do content modules continue naturally across slice boundaries?
 - Are there any headers, footers, repeated logos/title bars, corner ornaments, borders, or slide-like frames?
 - Has any slice been designed as a self-contained poster?
-- Do the screens avoid using two full-size heroes in succession?
+- Does the page avoid repeating full-size heroes?
 
 **If any critical check fails, revise before proceeding to the approval stage.**
 
@@ -562,11 +563,20 @@ Are all copy, technical specifications, numbers, and units accurate?
 
 ### Claim Continuity
 
-Can every central selling point be traced back to a claim seed established on Screen 01?
+Can every central selling point be traced back to the page-level claim seeds?
 
 ### Visual Continuity
 
 Does it read as one continuous long page?
+
+### Page-First Integrity
+
+- Does the primary title / H1 appear exactly once, in the first image?
+- Do intermediate images avoid restarting the product introduction or hero?
+- Are all slices free of footers, repeated logos, contact bars, and independent sign-offs?
+- Does a CTA appear at most once, at the actual end of the complete page?
+- Does every image continue the previous image instead of starting with its own title and ending with its own footer?
+
 
 ### Composition Variety
 
@@ -594,8 +604,10 @@ Stop production rather than continuing if any of these occurs:
 - Important copy or specifications are incorrect.
 - Unverified certifications or claims appear.
 - Visual style differs materially from the approved reference.
-- Every screen looks like an independent poster.
+- Every image looks like an independent poster or PowerPoint slide.
 - The long-page continuity disappears.
+- Every image repeats its own title and footer.
+- Intermediate images restart the product introduction, hero, or an independent CTA.
 - Final images are cut out of a low-resolution overview.
 - Blurred padding is used to force the aspect ratio.
 - Results are obviously only sketch-quality.
@@ -609,8 +621,8 @@ Prefer the smallest effective revision:
 - Copy error → repair only the text layer.
 - Product error → repair only the product layer.
 - Background error → repair only the setting/background.
-- One-screen composition issue → revise only that slice.
-- Transition between adjacent screens → fix the neighboring transition.
+- One-slice composition issue → revise only that slice.
+- Transition between adjacent slices → fix the neighboring transition.
 - Widespread style drift → return to the Visual Master.
 - Incorrect selling-point logic → return to the Blueprint.
 
@@ -652,9 +664,9 @@ Unless I explicitly specify otherwise:
 - Never sacrifice product authenticity for visual impact.
 - Do not add irrelevant selling points to fill empty space.
 
-## 25. Prohibition on sequential screen numbering
+## 25. Prohibition on sequential slice numbering
 
-Do not display sequential screen numbers in the final buyer-visible artwork, for example:
+Do not display sequential slice numbers in the final buyer-visible artwork, for example:
 
 - Screen 1 showing "1", "01", "Screen 1", or "01 Product Overview"
 - Screen 2 showing "2", "02", or "Screen 2"
@@ -662,13 +674,13 @@ Do not display sequential screen numbers in the final buyer-visible artwork, for
 - ...
 - Screen 8 showing "8" or "08"
 
-"Eight-screen" describes the internal production and slicing process, **not** a buyer-visible numbering system.
+"Eight-slice" describes the internal file-production process, **not** a buyer-visible numbering system.
 
 Allowed:
 
 - Filename: product_screen_01.png
 - Blueprint field: slice_id: 01
-- Production-management label: Screen 01 / Slice 01
+- Production-management label: Slice 01
 - Actual instructional steps: 1 / 2 / 3 / 4
 - Real specification, model, or quantity numbers
 
@@ -678,7 +690,7 @@ Not allowed:
 - Decorating the top-left corner with large page numbers
 - Using "01 / PRODUCT OVERVIEW" as a decorative headline
 - Using "02 / FEATURES" or "03 / APPLICATIONS" as artificial section numbers
-- Displaying eight sequential numbers just because this is an eight-screen workflow
+- Displaying eight sequential numbers just because this is an eight-slice workflow
 
 Unless I explicitly request numbered sections, no final detail image should carry a sequential page-number motif.
 
