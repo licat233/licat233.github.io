@@ -3,6 +3,7 @@ title: "产品 SEO 命名实战指南：MIC 平台、独立站与 Google 的区�
 date: 2026-11-26 14:47:00 +0800
 lang: zh
 description: "结合中国制造网与 Google 官方资料，拆解产品名称的核心关键词、属性、用途、认证、型号及不同平台的标题规则，并提供实际案例和 Python 校验方法。"
+translation_url: /en/blog/product-seo-naming-guidelines/
 ---
 
 **Product SEO Naming in Practice · V2.0**
@@ -279,7 +280,7 @@ MIC 官方使用 **Garlics** 作为过于简单的示例，并以 **Organic Garl
 | 颜色属性 | White |
 | 主要应用 | Lightboxes |
 | 工作电压 | DC 24V |
-| 光学特点 | 约 170° 光束角 |
+| 光学特点 | 约 160° 光束角 |
 | 裁剪方式 | 每 3 颗 LED 为一个裁剪单元 |
 | 认证或专利 | 本示例没有提供可用于标题的认证或专利依据 |
 | 型号 | 本示例不以型号作为主要搜索入口 |
@@ -313,7 +314,7 @@ Google 官方并没有规定 HTML Title 必须控制在 50–60 个字符。标�
 
 ### 7.4 生成 Meta Description
 
-**A 24V LED lens strip for lightboxes with an approximately 170° beam angle and cuttable sections in groups of three LEDs.**
+**A 24V LED lens strip for lightboxes with an approximately 160° beam angle and cuttable sections in groups of three LEDs.**
 
 这段描述补充了名称中没有展开的技术信息，让买家在搜索结果中有机会进一步了解产品。
 
@@ -323,7 +324,7 @@ Google 官方并没有规定 HTML Title 必须控制在 50–60 个字符。标�
 
 商品 Feed Title 可以更具体地表达买家需要区分的属性，例如：
 
-**White LED Lens Strip for Lightboxes, 24V, Approx. 170° Beam Angle, 3-LED Cuttable Sections**
+**White LED Lens Strip for Lightboxes, 24V, Approx. 160° Beam Angle, 3-LED Cuttable Sections**
 
 Google Merchant Center 的商品标题字段上限为 150 个字符。官方要求标题准确描述落地页中的商品，并在有不同颜色、尺寸等变体时明确区分。重要信息应尽量靠前。
 
@@ -423,12 +424,12 @@ fields = {
     ),
     "Meta Description": (
         "A 24V LED lens strip for lightboxes with an "
-        "approximately 170° beam angle and cuttable "
+        "approximately 160° beam angle and cuttable "
         "sections in groups of three LEDs."
     ),
     "Merchant Center Title": (
         "White LED Lens Strip for Lightboxes, 24V, "
-        "Approx. 170° Beam Angle, 3-LED Cuttable Sections"
+        "Approx. 160° Beam Angle, 3-LED Cuttable Sections"
     ),
 }
 
