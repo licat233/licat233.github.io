@@ -1,4 +1,4 @@
-# Product Detail Designer — Continuous Eight-Screen Ecommerce Product Detail Page Workflow
+# Product Detail Designer — Page-First Eight-Slice Ecommerce Detail Page Workflow
 
 <!-- prompt:begin -->
 
@@ -20,7 +20,7 @@ Also verify that this ChatGPT session has an actually invokable image-generation
 After reviewing the product materials and before creating the Blueprint or starting production, follow the Skill's Production Brief Confirmation checkpoint. Confirm these four items:
 
 1. **Output language** — the language shown in the final images.
-2. **Image dimensions / aspect ratio** — pixel dimensions or the aspect ratio for each final screen.
+2. **Image dimensions / aspect ratio** — pixel dimensions or the aspect ratio for each final image.
 3. **Ecommerce platform / placement** — for example, Amazon product images, Amazon A+ Content, Shopify product-page media, or an Alibaba.com product detail page.
 4. **Sales region / target market** — a specific country or region, or an explicit global-market scope.
 
@@ -57,7 +57,7 @@ If product photos exist only inside the PDF, extract an individual image only wh
 Pay particular attention to:
 
 - Image Generation Workflow
-- Ecommerce 8-screen product detail page
+- Page-first 8-slice ecommerce product detail page
 - Continuity Rules
 - Revision Routing
 - Post-generation Audit
@@ -66,7 +66,7 @@ This is a production ecommerce detail-page assignment, not concept art, a PPT, b
 
 ## 1. Core objective
 
-Create one **eight-panel ecommerce product detail page**.
+Create **eight separate image files that together form one continuous vertical ecommerce product detail page**. They are file slices of one page, not eight independent pages.
 
 The eight panels must look like:
 
@@ -234,7 +234,7 @@ Plan **one complete vertical ecommerce detail page** first. Only then divide it 
 
 ## 7. Claim Seed rules
 
-Establish **2–4 core claim seeds in Screen 01** before developing later screens.
+Establish **2–4 page-level claim seeds** before planning the individual image slices.
 
 Each seed must:
 
@@ -243,11 +243,11 @@ Each seed must:
 - Not be an empty adjective.
 - Not assert unverified technical or commercial claims.
 
-Screens 02–08 must develop these seeds by explaining, demonstrating, substantiating, comparing, showing details, placing them in context, building trust, and guiding the buying decision.
+All later page content must develop these seeds by explaining, demonstrating, substantiating, comparing, showing details, placing them in context, building trust, and guiding the buying decision.
 
-Do not invent a new unrelated selling point on every screen.
+Do not invent a new unrelated selling point for every image.
 
-If a later screen cannot be traced back to a seed in Screen 01, revise the seed or the screen.
+If later content cannot be traced back to the page-level claim seeds, revise the seed or the relevant content.
 
 ## 8. Page-Level Content Rhythm and Composition
 
@@ -318,7 +318,7 @@ These Blueprint/workflow fields are for internal use only:
 - slice_id
 - module_type
 - module_label
-- screen_job
+- screen_job (legacy internal field; no longer used)
 - claim_seed
 - evidence_type
 - content_density
@@ -509,7 +509,7 @@ After generating the first two slices, audit each separately.
 - Do content modules continue naturally across slice boundaries?
 - Are there any headers, footers, repeated logos/title bars, corner ornaments, borders, or slide-like frames?
 - Has any slice been designed as a self-contained poster?
-- Do the screens avoid using two full-size heroes in succession?
+- Does the page avoid repeating full-size heroes?
 
 **If any critical check fails, revise before proceeding to the approval stage.**
 
@@ -562,7 +562,7 @@ Are all copy, technical specifications, numbers, and units accurate?
 
 ### Claim Continuity
 
-Can every central selling point be traced back to a claim seed established on Screen 01?
+Can every central selling point be traced back to the page-level claim seeds?
 
 ### Visual Continuity
 
@@ -594,7 +594,7 @@ Stop production rather than continuing if any of these occurs:
 - Important copy or specifications are incorrect.
 - Unverified certifications or claims appear.
 - Visual style differs materially from the approved reference.
-- Every screen looks like an independent poster.
+- Every image looks like an independent poster or PowerPoint slide.
 - The long-page continuity disappears.
 - Final images are cut out of a low-resolution overview.
 - Blurred padding is used to force the aspect ratio.
@@ -609,8 +609,8 @@ Prefer the smallest effective revision:
 - Copy error → repair only the text layer.
 - Product error → repair only the product layer.
 - Background error → repair only the setting/background.
-- One-screen composition issue → revise only that slice.
-- Transition between adjacent screens → fix the neighboring transition.
+- One-slice composition issue → revise only that slice.
+- Transition between adjacent slices → fix the neighboring transition.
 - Widespread style drift → return to the Visual Master.
 - Incorrect selling-point logic → return to the Blueprint.
 
@@ -662,13 +662,13 @@ Do not display sequential screen numbers in the final buyer-visible artwork, for
 - ...
 - Screen 8 showing "8" or "08"
 
-"Eight-screen" describes the internal production and slicing process, **not** a buyer-visible numbering system.
+"Eight-slice" describes the internal file-production process, **not** a buyer-visible numbering system.
 
 Allowed:
 
 - Filename: product_screen_01.png
 - Blueprint field: slice_id: 01
-- Production-management label: Screen 01 / Slice 01
+- Production-management label: Slice 01
 - Actual instructional steps: 1 / 2 / 3 / 4
 - Real specification, model, or quantity numbers
 
@@ -678,7 +678,7 @@ Not allowed:
 - Decorating the top-left corner with large page numbers
 - Using "01 / PRODUCT OVERVIEW" as a decorative headline
 - Using "02 / FEATURES" or "03 / APPLICATIONS" as artificial section numbers
-- Displaying eight sequential numbers just because this is an eight-screen workflow
+- Displaying eight sequential numbers just because this is an eight-slice workflow
 
 Unless I explicitly request numbered sections, no final detail image should carry a sequential page-number motif.
 
