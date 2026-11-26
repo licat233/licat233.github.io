@@ -185,7 +185,7 @@
       "title": "Product Detail Designer｜连续式电商详情页提示词",
       "label": "开发与设计",
       "type": "电商详情页提示词 · 8 张图片切片",
-      "summary": "使用自建的 Product Detail Designer v1.0.4 制作连续式电商详情页。采用 Page-first, Slice-second：先设计整张纵向页面，再分成独立图片文件；主标题只在第一张出现一次，中间图片不重新开始产品介绍，任何切片都不添加 Footer，内容可以跨越切分边界。",
+      "summary": "使用自建的 Product Detail Designer v1.0.5 制作连续式电商详情页。采用 Page-first, Slice-second：先设计整张纵向页面，再分成图片文件；主标题只在第一张出现一次。除最后一张外，每张图片底部必须开放，至少一个非文字视觉元素延伸到下一张；禁止中间图片留白、渐隐或完整收尾。切片必须逐张顺序生成并逐张检查。",
       "tags": [
         "Product Detail Designer",
         "电商设计",
@@ -196,7 +196,7 @@
     },
     "en": {
       "title": "Product Detail Designer: Page-First Ecommerce Detail Page Prompt",
-      "summary": "Create a continuous ecommerce detail page with Product Detail Designer v1.0.4. Use Page first, slices second: design one complete vertical page before dividing it into image files. The primary title appears only once in the first image; intermediate images do not restart the product introduction; no image gets a footer or repeated logo. Content may continue across file boundaries. Confirm the output language, image size, platform placement, and sales market first. Treat product PDFs as factual sources, not visual templates.",
+      "summary": "Create a continuous ecommerce detail page with Product Detail Designer v1.0.5. Use Page first, slices second: design one complete vertical page before dividing it into image files. The primary title appears only once. Every non-final image must keep an open bottom edge, with a non-text visual carrier continuing into the next slice; no blank endings, fades, or completed closing compositions. Generate and inspect slices one at a time.",
       "type": "Ecommerce prompt · 8 image slices",
       "tags": [
         "design",

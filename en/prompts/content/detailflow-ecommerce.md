@@ -4,10 +4,10 @@
 
 Use the Product Detail Designer Skill to create my product detail page. This prompt is designed for the standard ChatGPT chat window.
 
-**Product Detail Designer Skill v1.0.4 (pinned open-source release):**
+**Product Detail Designer Skill v1.0.5 (pinned open-source release):**
 - GitHub repository: https://github.com/licat233/product-detail-designer
-- Pinned version: `v1.0.4`
-- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.4/SKILL.md
+- Pinned version: `v1.0.5`
+- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.5/SKILL.md
 
 Read the `SKILL.md` from this exact release and follow its general execution rules.
 
@@ -15,7 +15,7 @@ Read the `SKILL.md` from this exact release and follow its general execution rul
 
 Also verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, state the limitation plainly and do not pretend to generate images.
 
-## Production brief confirmation (Product Detail Designer v1.0.4)
+## Production brief confirmation (Product Detail Designer v1.0.5)
 
 After reviewing the product materials and before creating the Blueprint or starting production, follow the Skill's Production Brief Confirmation checkpoint. Confirm these four items:
 
@@ -227,6 +227,9 @@ Plan **one complete vertical ecommerce detail page** first. Only then divide it 
 - `content_entry_state` / `content_exit_state`: where the content is when this slice begins and ends.
 - `slice_entry_state` / `slice_exit_state`: the visual state at the top and bottom edges.
 - `top_edge_anchor` / `bottom_edge_anchor`: concrete, reproducible descriptions of the image edges.
+- `top_edge_mode` / `bottom_edge_mode`: edge state; every non-final slice must be `open`, and only the final slice may be `closed`.
+- `continuity_carrier`: a non-text visual element that crosses a non-final bottom edge and continues in the next image.
+- `next_slice_handoff`: the exact position, direction, scale, perspective, lighting, and background state the next slice must continue.
 - `text_exact`: the copy that genuinely belongs in this portion; do not add a headline merely to fill each image.
 - `risk_unknowns`: factual risks to avoid.
 
@@ -304,12 +307,45 @@ The following are automatic failures:
 
 Stack the actual final images vertically in order and inspect them as one naturally scrolling page. Check especially:
 
-- Does Slice 01 end by naturally continuing the page, without a footer or a complete ending?
+- Does Slice 01 keep an open bottom edge, with a continuity carrier extending beyond the frame instead of a visual ending?
 - Does Slice 02 continue the previous image directly, without a new title, hero, or product introduction?
 - Do intermediate slices avoid repeated title areas, card frames, and bottom closing areas?
 - Does the page avoid the PowerPoint rhythm of “every image starts over and every image ends”?
 
 Any repeated title/footer or standalone-page structure is a failure. Repair it before asking the user for approval.
+
+### 6. Open-ended Slice (mandatory open bottom edge)
+
+v1.0.4 prohibited repeated titles and footers, but an image can still look finished without either through a balanced composition, empty space, a fade-out, or a completed content module. Add this stricter rule:
+
+**Every image except the final image of the complete page must have an open bottom edge. The bottom of an image is a viewport crop boundary in the middle of the page, not the end of the design.**
+
+#### Required edge states
+
+- `top_edge_mode`: `opening` for Slice 01; `continuation` for Slice 02 onward.
+- `bottom_edge_mode`: `open` for every non-final slice; `closed` only for the final slice.
+- `continuity_carrier`: at least one concrete non-text visual element that reaches or crosses the bottom edge and continues into the next slice.
+- `next_slice_handoff`: the exact scene and element the next slice must pick up, including position, direction, scale, perspective, lighting, and background state.
+
+#### Open-bottom rules for every non-final slice
+
+1. The bottom 10–15% is a **visual continuation zone**, not a closing zone. Keep headlines, body copy, specifications, and critical labels out of it.
+2. At least one concrete non-text visual element must reach or cross the bottom edge and continue into the next image at a compatible position and direction. Examples include a shelf/track, cable, supporting surface, perspective line, diagram path, light strip, shadow, or architectural plane.
+3. Matching background colors alone do not count. A recognizable visual carrier must cross the boundary.
+4. Do not place any visual ending at the bottom of an intermediate image: no large blank margin, fade-to-blank, vignette, darkening, completed card grid, bottom-aligned card row, isolated centered product composition, divider line, decorative bottom band, summary, CTA, or other closing treatment.
+5. Do not let the background, lighting environment, spatial plane, supporting surface, or perspective appear to stop at the bottom edge.
+6. Do not cut through important product geometry or text to fake an open edge. Continue the surrounding environment or a secondary visual carrier instead.
+7. The next image must continue the previous carrier and scene directly. It must not begin a new composition.
+
+**Only the final slice may use `bottom_edge_mode: closed`** and conclude the visual scene. If needed, the page's one final CTA may appear only there.
+
+#### Generation order must also change
+
+- Generate one image at a time. Never batch-generate Slices 03–08.
+- Inspect each image's bottom edge immediately after generation. If it looks finished, revise that image before using it as the reference for the next one.
+- Generate the next slice only after the current open edge and `next_slice_handoff` pass inspection.
+- The next generation must receive both the actual previous image and the next slice's planned content/handoff.
+- If the image tool cannot reliably preserve an open edge, use a supported continuous-canvas/extension workflow or state the limitation. Do not concatenate separately closed images and call them continuous.
 
 ## 9. Internal fields must not appear in the delivered imagery
 
@@ -414,7 +450,7 @@ Once the master passes review, produce:
 
 The default final aspect ratio is **9:21 vertical**, unless the user specifies otherwise.
 
-Save the final images as separate high-resolution files, but generate them sequentially using the Page-first method. Slice 01 is the only opening of the page. Generate Slice 02 using Slice 01 as a visual reference and continue directly from its bottom scene and content; do not generate a separate title + hero + footer canvas. If the image tool supports extension / outpainting, prefer extending downward from the previous image's bottom edge. Otherwise, use the previous `bottom_edge_anchor` as the concrete composition reference for the next `top_edge_anchor`. Continue Slice 03–08 in the same sequence.
+Save the final images as separate high-resolution files, but generate them **one at a time in sequence**; never batch-generate Slices 03–08. Slice 01 is the only page opening, and its bottom edge must remain open. Slice 02 onward must use the actual previous image as a visual reference and also include the next slice's planned content and `next_slice_handoff`. Every non-final slice must have `bottom_edge_mode: open`; its bottom 10–15% is a visual continuation zone, with at least one non-text `continuity_carrier` reaching or crossing the lower edge and continuing into the next image. No blank bottom margin, fade, vignette, completed card grid, decorative bottom band, divider, or other visual ending is allowed on an intermediate slice. Only the final slice may use `bottom_edge_mode: closed`. Inspect each image immediately; if its bottom looks finished, revise it before generating the next. If the image tool supports extension / outpainting, prefer extending downward from the previous image's bottom edge. Otherwise, use the previous `bottom_edge_anchor` and `next_slice_handoff` as concrete references for the next image.
 
 Do not directly turn any of the following into a finished slice:
 
@@ -472,7 +508,7 @@ Never overlook incorrect text merely because the overall image looks good.
 
 ## 16. Internal audit of Slices 01–02
 
-After generating the first two slices, audit each separately.
+After generating the first two slices, audit each separately. Neither is the final page image, so **both bottom edges must remain open**; Slice 02 must not look like the end of the page merely because it is the second image in the preview.
 
 ### Product Identity
 
@@ -506,7 +542,7 @@ After generating the first two slices, audit each separately.
 - Does Slice 02 restart with a page title, product-introduction title, or independent hero?
 - Does any slice end with a footer, repeated logo, contact information, CTA, or separate sign-off?
 - Does Slice 01 continue naturally at its bottom instead of ending like a complete page?
-- Does Slice 02 begin as a direct continuation instead of restarting the page?
+- Does Slice 02 begin as a direct continuation and keep its own bottom edge open, without blank space, fading, or a completed composition?
 - Do content modules continue naturally across slice boundaries?
 - Are there any headers, footers, repeated logos/title bars, corner ornaments, borders, or slide-like frames?
 - Has any slice been designed as a self-contained poster?
@@ -543,7 +579,9 @@ Then **stop and wait for the user's second approval**.
 
 ## 19. After the second approval
 
-Only after the second approval may you generate **Slices 03–08**.
+Only after the second approval may you begin generating **Slices 03–08, one image at a time**. Never batch-generate the remaining slices.
+
+After each image, inspect that `bottom_edge_mode` is `open`, the `continuity_carrier` visibly continues beyond the frame, and `next_slice_handoff` is concrete. Generate the next slice only after the current one passes.
 
 Continue following the approved Blueprint, Text Master, Product Identity Lock, Visual Style DNA, and Visual Master.
 
@@ -574,6 +612,8 @@ Does it read as one continuous long page?
 - Does the primary title / H1 appear exactly once, in the first image?
 - Do intermediate images avoid restarting the product introduction or hero?
 - Are all slices free of footers, repeated logos, contact bars, and independent sign-offs?
+- Does every non-final slice use `bottom_edge_mode: open`, with only the final slice set to `closed`?
+- Does every non-final slice have a concrete `continuity_carrier` and `next_slice_handoff`?
 - Does a CTA appear at most once, at the actual end of the complete page?
 - Does every image continue the previous image instead of starting with its own title and ending with its own footer?
 
@@ -608,6 +648,8 @@ Stop production rather than continuing if any of these occurs:
 - The long-page continuity disappears.
 - Every image repeats its own title and footer.
 - Intermediate images restart the product introduction, hero, or an independent CTA.
+- Any non-final image ends visually through blank space, fading, a completed card grid, or another closing composition.
+- Slices 03–08 are batch-generated instead of being generated and inspected one at a time.
 - Final images are cut out of a low-resolution overview.
 - Blurred padding is used to force the aspect ratio.
 - Results are obviously only sketch-quality.
@@ -622,6 +664,7 @@ Prefer the smallest effective revision:
 - Product error → repair only the product layer.
 - Background error → repair only the setting/background.
 - One-slice composition issue → revise only that slice.
+- A non-final slice has a closed bottom edge → revise that slice to create an open edge, then recheck the next slice's top transition.
 - Transition between adjacent slices → fix the neighboring transition.
 - Widespread style drift → return to the Visual Master.
 - Incorrect selling-point logic → return to the Blueprint.
