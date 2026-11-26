@@ -41,7 +41,7 @@ const featured = posts[0];
 
       <div class={posts.length === 1 ? 'home-blog-grid is-solo' : 'home-blog-grid'}>
         {featured && (
-          <GlassSurface as="a" class="home-blog-feature" material="bare" backdropBlur={false}
+          <GlassSurface as="a" class="home-blog-feature" material="bare"
             href={articleHref(featured)}>
             <div class="home-blog-feature__top">
               <span class="home-blog-label">{t.blogLatest}</span>

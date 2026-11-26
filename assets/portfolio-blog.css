@@ -220,6 +220,8 @@
   .home-blog-section { padding-block: 4rem; }
   .home-blog-grid { grid-template-columns: 1fr; gap: .8rem; }
   .home-blog-feature.liquid-demo { min-height: 20rem; padding: 1.4rem; border-radius: 1.35rem; }
+  .home-blog-feature.liquid-demo > .lg-glass-filter { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(249,252,255,.14); }
+  :root[data-theme="dark"] .home-blog-feature.liquid-demo > .lg-glass-filter { background: rgba(27,39,48,.22); }
   .home-blog-feature__content { padding-top: 2.25rem; }
   .home-blog-feature__content h3 { font-size: clamp(1.65rem, 7vw, 2.15rem); }
   .home-blog-list { grid-template-rows: none; grid-template-columns: 1fr; gap: .8rem; }
