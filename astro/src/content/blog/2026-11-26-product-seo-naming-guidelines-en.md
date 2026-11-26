@@ -36,7 +36,7 @@ For example, MIC's Product Name field has its own recommendations about punctuat
 
 ## 2. What Does the Official Made-in-China.com Guide Actually Say?
 
-The Made-in-China.com Help Center article, [How to Set a Product Name](https://service.made-in-china.com/help/promotionskill/product/3243.htm), provides specific recommendations for naming products.
+The Made-in-China.com Help Center article (available in Chinese), [How to Set a Product Name](https://service.made-in-china.com/help/promotionskill/product/3243.htm), provides specific recommendations for naming products.
 
 The page states that:
 
@@ -48,7 +48,7 @@ The page states that:
 
 There is one detail about the recommended length that needs to be made clear:
 
-**The MIC Help Center page that can be checked directly specifies 5–12 words.** Other marketplace operating guidance also uses **8–12 words** as a more focused working target. In practice, you can use 8–12 words as the preferred range while retaining the 5–12-word range stated on the Help Center page.
+**The MIC Help Center page that can be checked directly specifies 5–12 words.** Some additional platform-operations guidance also uses **8–12 words** as a more focused working target. In practice, you can use 8–12 words as the preferred range while retaining the 5–12-word range stated on the Help Center page.
 
 This does not mean you must add meaningless words just to reach eight. If a product's accurate name is already complete in six or seven words, do not make it less natural or less accurate just to satisfy a number.
 
@@ -403,7 +403,7 @@ Google Merchant Center also has requirements for AI-generated product titles, in
 
 AI can miscount words and characters. Whenever an exact count needs to be reported, use a program to calculate it instead of estimating by eye.
 
-The following script checks MIC Product Names, website H1s, SEO Titles, and Meta Descriptions.
+The following script checks MIC Product Names, website H1s, SEO Titles, Meta Descriptions, and Merchant Center Feed Titles.
 
 ```python
 import re
