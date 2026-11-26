@@ -406,6 +406,7 @@ AI 对字符数和单词数的估算可能出错。因此，只要需要向用�
 
 ```python
 import re
+import string
 from collections import Counter
 
 fields = {
@@ -431,8 +432,8 @@ fields = {
     ),
 }
 
-# 仅用于检查 MIC 名称中常见的标点
-mic_punctuation = set(",;:!?/|()[]{}")
+# 检查 MIC 名称中使用的 ASCII 标点
+mic_punctuation = set(string.punctuation)
 
 for name, value in fields.items():
     value = value.strip()
@@ -474,7 +475,7 @@ for name, value in fields.items():
 1. 实际字符数，包含空格和标点。
 2. 按空格分隔的英文词数。
 3. 完全重复的英文单词。
-4. MIC 产品名称中常见标点的使用情况。
+4. MIC 产品名称中 ASCII 标点的使用情况。
 
 需要注意：
 
