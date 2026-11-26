@@ -11,6 +11,29 @@ const discoveredSkillCountPromise=(async ()=>{
   return real.filter(Boolean).length;
 })();
 
+
+test('homepage surfaces the latest blog articles in the active language', async ({page}) => {
+ const locales = [
+  {route:'/',article:'/blog/product-seo-naming-guidelines/',archive:'/blog/',title:'产品 SEO 命名实战指南'},
+  {route:'/en/',article:'/en/blog/product-seo-naming-guidelines/',archive:'/en/blog/',title:'Product SEO Naming Guide'},
+ ];
+ for (const locale of locales) {
+  await page.goto(locale.route);
+  const section=page.locator('#blog');
+  await expect(section).toBeVisible();
+  await expect(section.locator('.home-blog-feature')).toHaveAttribute('href',locale.article);
+  await expect(section.locator('.home-blog-item')).toHaveCount(2);
+  await expect(section.locator('.home-blog-footer a')).toHaveAttribute('href',locale.archive);
+  await expect(section).toContainText(locale.title);
+  await expect(page.locator('.home-section-nav a[href="#blog"]')).toBeVisible();
+  const links=await section.locator('a[href*="/blog/"]').evaluateAll(elements =>
+   elements.map(element=>element.getAttribute('href')||''));
+  const prefix=locale.route==='/en/'?'/en/blog/':'/blog/';
+  expect(links.length).toBeGreaterThanOrEqual(4);
+  expect(links.every(href=>href.startsWith(prefix))).toBe(true);
+ }
+});
+
 test('global navigation nests Skills and Prompts under AI', async ({page}) => {
  await page.goto('/');
  await expect(page.locator('.site-header .nav-pill')).toHaveCount(5);

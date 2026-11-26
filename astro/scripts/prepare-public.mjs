@@ -31,7 +31,7 @@ const styleBundles = {
   // Only below-the-fold sections use these rules. Load them without blocking the Hero.
   'contact': ['portfolio-contact.css'],
   'home-deferred': ['portfolio-entrances.css','portfolio-skills.css',
-    'portfolio-journey-v2.css','portfolio-prompts.css','site-sections.css'],
+    'portfolio-journey-v2.css','portfolio-prompts.css','site-sections.css','portfolio-blog.css'],
   'prompts': ['vendor/open-props/open-props-core-1.7.23.min.css','prompt-library.css',
     'site-header.css','portfolio-liquid-glass.css'],
   'content': ['vendor/open-props/open-props-core-1.7.23.min.css','portfolio.css',

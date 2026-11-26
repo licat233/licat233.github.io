@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import GlassSurface from '../GlassSurface.astro';
+import { blogSlug, localizedPath, type Lang } from '../../lib/site';
+import { dictionary } from '../../lib/translation';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const t = dictionary(lang).home;
+
+const posts = (await getCollection('blog', ({ data }) => data.lang === lang))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const articleHref = (post: (typeof posts)[number]) =>
+  localizedPath(lang, 'blog', blogSlug(post.id));
+const formatDateValue = (date: Date) => {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit'
+  }).formatToParts(date);
+  const part = (type: string) => parts.find(item => item.type === type)?.value ?? '';
+  return `${part('year')}-${part('month')}-${part('day')}`;
+};
+const formatDate = (date: Date) => new Intl.DateTimeFormat(en ? 'en-US' : 'zh-CN', {
+  timeZone: 'Asia/Shanghai', year: 'numeric', month: 'short', day: 'numeric'
+}).format(date);
+const featured = posts[0];
+---
+
+{posts.length > 0 && (
+  <section class="section home-blog-section" id="blog" aria-labelledby="home-blog-heading">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <p class="kicker">{t.blogKicker}</p>
+          <h2 id="home-blog-heading">{t.blogTitle}</h2>
+        </div>
+        <p class="section-note">{t.blogNote}</p>
+      </div>
+
+      <div class={posts.length === 1 ? 'home-blog-grid is-solo' : 'home-blog-grid'}>
+        {featured && (
+          <GlassSurface as="a" class="home-blog-feature" material="bare"
+            href={articleHref(featured)}>
+            <div class="home-blog-feature__top">
+              <span class="home-blog-label">{t.blogLatest}</span>
+              <span class="home-blog-index">01 / {String(posts.length).padStart(2, '0')}</span>
+            </div>
+            <div class="home-blog-feature__content">
+              <time datetime={formatDateValue(featured.data.date)}>{formatDate(featured.data.date)}</time>
+              <h3>{featured.data.title}</h3>
+              {featured.data.description && <p>{featured.data.description}</p>}
+            </div>
+            <span class="home-blog-read">{t.blogRead}<span aria-hidden="true">↗</span></span>
+          </GlassSurface>
+        )}
+
+        {posts.length > 1 && (
+          <div class="home-blog-list">
+            {posts.slice(1).map((post, index) => (
+              <a class="home-blog-item" href={articleHref(post)}>
+                <div class="home-blog-item__meta">
+                  <span>{String(index + 2).padStart(2, '0')}</span>
+                  <time datetime={formatDateValue(post.data.date)}>{formatDate(post.data.date)}</time>
+                </div>
+                <h3>{post.data.title}</h3>
+                {post.data.description && <p>{post.data.description}</p>}
+                <span class="home-blog-item__arrow" aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="home-blog-footer">
+        <a href={localizedPath(lang, 'blog')}>{t.blogAll}<span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+)}

@@ -52,10 +52,13 @@ for(const [filename,lang,active] of core){
   assert(html.includes('/prompts/prompt-library.js'),'Prompt JS absent '+filename);
  }
  if(filename==='index.html'||filename==='en/index.html'){
-  for(const section of ['projects','skills','journey','principles']){
+  for(const section of ['projects','skills','prompts','blog','journey','principles']){
    assert(html.includes('id="'+section+'"'),'Missing homepage section '+section);
    assert(html.includes('href="#'+section+'"'),'Missing homepage anchor '+section);
   }
+  const latestBlogUrl = lang === 'en' ? '/en/blog/product-seo-naming-guidelines/' : '/blog/product-seo-naming-guidelines/';
+  assert(html.includes('home-blog-feature') && html.includes('home-blog-item'), 'Homepage blog cards absent '+filename);
+  assert(html.includes('href="'+latestBlogUrl+'"'), 'Latest localized blog article missing '+filename);
   assert(html.includes('/assets/portfolio-motion.js'),'GSAP entrypoint absent '+filename);
  }
 }
@@ -78,7 +81,7 @@ for(const filename of independent){
  }
 }
 for(const asset of [
- 'assets/portfolio.css','assets/portfolio-liquid-glass.css','assets/site-header.css','assets/resources.css',
+ 'assets/portfolio.css','assets/portfolio-liquid-glass.css','assets/portfolio-blog.css','assets/site-header.css','assets/resources.css',
  'assets/portfolio-motion.js','assets/licat-logo.svg',
  'prompts/prompt-library.css','prompts/prompt-library.js',
  'prompts/content/ai-natural-communication-v1.3.1.md',
@@ -87,6 +90,8 @@ for(const asset of [
  'eao/assets/eao-hero-devices-zh.webp',
  'lottery-calculate/static/js/main.974eb048.js'
 ])await stat(path.join(root,asset));
+const deferredHomeCss = await read('assets/bundle-home-deferred.css');
+assert(deferredHomeCss.includes('.home-blog-grid'), 'Homepage blog styles missing from deferred CSS bundle');
 assert((await read('blog/advanced-seo-geo-guide/index.html')).includes('独立站 SEO/GEO'),
        'Long-form Chinese Markdown body missing');
 
