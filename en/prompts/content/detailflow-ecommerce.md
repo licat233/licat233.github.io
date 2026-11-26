@@ -327,7 +327,7 @@ These Blueprint/workflow fields are for internal use only:
 Unless the user explicitly requests otherwise, never put any of these internal labels into buyer-visible graphics:
 
 - 01 / 02 / 03 / 04 / 05 / 06 / 07 / 08
-- Screen 01
+- Slice 01
 - Product Overview
 - Feature Breakdown
 - Parameter Trust
@@ -652,9 +652,9 @@ Unless I explicitly specify otherwise:
 - Never sacrifice product authenticity for visual impact.
 - Do not add irrelevant selling points to fill empty space.
 
-## 25. Prohibition on sequential screen numbering
+## 25. Prohibition on sequential slice numbering
 
-Do not display sequential screen numbers in the final buyer-visible artwork, for example:
+Do not display sequential slice numbers in the final buyer-visible artwork, for example:
 
 - Screen 1 showing "1", "01", "Screen 1", or "01 Product Overview"
 - Screen 2 showing "2", "02", or "Screen 2"
