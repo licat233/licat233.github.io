@@ -508,7 +508,7 @@ Never overlook incorrect text merely because the overall image looks good.
 
 ## 16. Internal audit of Slices 01–02
 
-After generating the first two slices, audit each separately.
+After generating the first two slices, audit each separately. Neither is the final page image, so **both bottom edges must remain open**; Slice 02 must not look like the end of the page merely because it is the second image in the preview.
 
 ### Product Identity
 
