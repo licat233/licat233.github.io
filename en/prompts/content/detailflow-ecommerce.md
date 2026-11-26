@@ -579,7 +579,9 @@ Then **stop and wait for the user's second approval**.
 
 ## 19. After the second approval
 
-Only after the second approval may you generate **Slices 03–08**.
+Only after the second approval may you begin generating **Slices 03–08, one image at a time**. Never batch-generate the remaining slices.
+
+After each image, inspect that `bottom_edge_mode` is `open`, the `continuity_carrier` visibly continues beyond the frame, and `next_slice_handoff` is concrete. Generate the next slice only after the current one passes.
 
 Continue following the approved Blueprint, Text Master, Product Identity Lock, Visual Style DNA, and Visual Master.
 
