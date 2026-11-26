@@ -182,21 +182,21 @@
     "category": "design",
     "translatedEnglish": true,
     "zh": {
-      "title": "Product Detail Designer｜八屏电商详情页提示词",
+      "title": "Product Detail Designer｜连续式电商详情页提示词",
       "label": "开发与设计",
       "type": "电商详情页提示词 · 8 屏",
-      "summary": "使用自建的 Product Detail Designer v1.0.3 制作八屏连续式电商详情页。正式制作前确认输出语言、图片尺寸、平台与展示位置、销售地区；产品 PDF 只用于核实事实，八张图片必须是同一张长页面的相邻切片，禁止 PPT 式页眉、页脚、页码、重复标题栏和独立海报构图。",
+      "summary": "使用自建的 Product Detail Designer v1.0.4 制作连续式电商详情页。采用 Page-first, Slice-second：先设计整张纵向页面，再分成独立图片文件；主标题只在第一张出现一次，中间图片不重新开始产品介绍，任何切片都不添加 Footer，内容可以跨越切分边界。",
       "tags": [
         "Product Detail Designer",
         "电商设计",
         "产品真实性",
         "制作需求确认"
       ],
-      "seoTitle": "Product Detail Designer：八屏电商详情页提示词 | Licat"
+      "seoTitle": "Product Detail Designer：连续式电商详情页提示词 | Licat"
     },
     "en": {
-      "title": "Product Detail Designer: 8-Screen Ecommerce Detail Page Prompt",
-      "summary": "Create an eight-slice continuous ecommerce detail page with Product Detail Designer v1.0.3. Confirm the output language, image size, platform placement, and sales market first. Treat product PDFs as factual sources, not visual templates. The eight images must join as one vertical page, without slide-style headers, footers, page numbers, repeated title bars, or standalone poster layouts.",
+      "title": "Product Detail Designer: Page-First Ecommerce Detail Page Prompt",
+      "summary": "Create a continuous ecommerce detail page with Product Detail Designer v1.0.4. Use Page first, slices second: design one complete vertical page before dividing it into image files. The primary title appears only once in the first image; intermediate images do not restart the product introduction; no image gets a footer or repeated logo. Content may continue across file boundaries. Confirm the output language, image size, platform placement, and sales market first. Treat product PDFs as factual sources, not visual templates.",
       "type": "Ecommerce prompt · 8 screens",
       "tags": [
         "design",
@@ -205,7 +205,7 @@
         "production-brief"
       ],
       "label": "Development & Design",
-      "seoTitle": "Product Detail Designer: 8-Screen Ecommerce Prompt | Licat"
+      "seoTitle": "Product Detail Designer: Continuous Ecommerce Detail Page Prompt | Licat"
     }
   },
   {
