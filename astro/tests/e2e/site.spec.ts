@@ -228,7 +228,7 @@ test('new coding guideline survives Astro catalogue, deep link and copy boundari
 
 test('four newly localized prompts show English instructions and preserve language deep links', async ({page}) => {
  const cases = [
-  ['ai-natural-communication-v1.4.0', 'ai-natural-communication', 'The purpose of writing is not to display knowledge'],
+  ['ai-natural-communication-v1.5.0', 'ai-natural-communication', 'The purpose of writing is not to display knowledge'],
   ['ai-high-value-writing-audit-v1.1', 'ai-high-value-writing-audit', 'what is worth saying'],
   ['detailflow-ecommerce', 'detailflow-ecommerce', 'Approval Gate 2'],
   ['ai-coding-minimal-defensive-v1', 'ai-coding-minimal-defensive', 'Avoid repeated validation'],
@@ -266,13 +266,13 @@ test('writing review guide links the current natural communication guide without
  }
 });
 
-test('natural communication V1.4.0 is readable at its permanent URL in both languages',async ({page})=>{
+test('natural communication V1.5.0 is readable at its permanent URL in both languages',async ({page})=>{
  await page.goto('/prompts/ai-natural-communication/');
- await expect(page.locator('#detail-title')).toHaveText('AI 说人话指南 V1.4.0');
+ await expect(page.locator('#detail-title')).toHaveText('AI 说人话指南 V1.5.0');
  await expect(page.locator('#prompt-article')).toContainText('写作的目的不是展示知识，而是让读者理解知识');
  await expect(page.locator('#prompt-article')).not.toContainText('副标题：');
  await page.goto('/en/prompts/ai-natural-communication/');
- await expect(page.locator('#detail-title')).toContainText('V1.4.0');
+ await expect(page.locator('#detail-title')).toContainText('V1.5.0');
  await expect(page.locator('#prompt-article')).toContainText('The purpose of writing is not to display knowledge');
  await expect(page.locator('#prompt-article')).not.toContainText('Subtitle:');
 });
@@ -423,10 +423,10 @@ test('homepage project and Skill previews share one bilingual data structure',as
  }
 });
 
-test('both prompt languages render the shared catalog UI and all 16 items',async ({page})=>{
+test('both prompt languages render the shared catalog UI and all 18 items',async ({page})=>{
  for(const url of ['/prompts/','/en/prompts/']){
    await page.goto(url);
-   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(16);
+   await expect(page.locator('#prompt-grid .prompt-card')).toHaveCount(18);
    await expect(page.locator('#filters [data-filter]')).toHaveCount(5);
    await expect(page.locator('#copy-btn')).toBeAttached();
    await expect(page.locator('#share-btn')).toBeAttached();
@@ -438,9 +438,9 @@ test('single Astro prompt catalogue powers SSR cards and search without second J
    await page.goto('/'+lang+'prompts/');
    const data=await page.locator('#prompt-catalogue').textContent();
    const payload=JSON.parse(data!);
-   expect(payload.items).toHaveLength(16);
-   expect(payload.translatedEnglish).toHaveLength(16);
-   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(16);
+   expect(payload.items).toHaveLength(18);
+   expect(payload.translatedEnglish).toHaveLength(18);
+   await expect(page.locator('#prompt-grid [data-open]')).toHaveCount(18);
    await page.locator('#search').fill(lang?'memory':'记忆');
    await expect(page.locator('#prompt-grid [data-open]').first()).toBeVisible();
    await page.locator('#search').fill('');

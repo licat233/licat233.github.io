@@ -81,7 +81,7 @@
 - Logo 动画提示词补全首尾帧、动画参考素材的明确占位符。
 - 记忆与历史对话提示词补充「仅分析真实可访问的内容」条件，防止虚构来源。
 - Codex 使用技巧附加版本与客户端差异提醒；功能名称并非所有版本通用。
-- 产品详情页提示词使用自建的通用开源 Skill：[Product Detail Designer](https://github.com/licat233/product-detail-designer)，固定使用 `v1.0.5` 的 `SKILL.md`，采用 Page-first, Slice-second：先设计完整详情页，再分割图片文件；主标题只出现一次，不重复 Footer；具体制作流程仍以各提示词正文为准。
+- 产品详情页提示词使用自建的通用开源 Skill：[Product Detail Designer](https://github.com/licat233/product-detail-designer)，指定使用 `v1.0.6` 的 `SKILL.md`。产品实拍图作为身份锚点，每张展示产品的切片都必须通过 P0 外观核验；页面连续性根据图像工具能力选择画布扩展、参考图延续或色调连续，不强制添加实体 continuity carrier 或固定底部延续区。具体制作流程仍以各提示词正文为准。
 
 以上为个人整理与经验分享，并不代表所有提示词均原创，或适用于每个模型与版本。正式使用前仍应根据实际场景核对。
 
