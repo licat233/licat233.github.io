@@ -3,7 +3,7 @@ title: "macOS SMB Auto-Mount at Startup: LaunchDaemon Guide"
 date: 2026-11-27 14:00:00 +0800
 lang: en
 description: "Learn to auto-mount NAS shares on macOS at startup with LaunchDaemon, protected SMB credentials, a dedicated user, private mount points, and automatic retries."
-translation_url: /blog/macos-smb-auto-mount-launchdaemon-guide/
+translation_url: /blog/macos-smb-auto-mount/
 ---
 
 **macOS SMB Auto-Mount with LaunchDaemon · Architecture and Troubleshooting**

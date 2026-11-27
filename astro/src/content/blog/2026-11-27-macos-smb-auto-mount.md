@@ -3,7 +3,7 @@ title: "macOS SMB 开机自动挂载 NAS：LaunchDaemon 架构与排错"
 date: 2026-11-27 14:00:00 +0800
 lang: zh
 description: "介绍如何用 macOS LaunchDaemon 在无人登录桌面时自动挂载 NAS：涵盖 SMB 凭证保护、普通用户挂载、私有目录、自动重试与故障排查。"
-translation_url: /en/blog/macos-smb-auto-mount-launchdaemon-guide/
+translation_url: /en/blog/macos-smb-auto-mount/
 ---
 
 **macOS SMB Auto-Mount with LaunchDaemon · Architecture and Troubleshooting**
