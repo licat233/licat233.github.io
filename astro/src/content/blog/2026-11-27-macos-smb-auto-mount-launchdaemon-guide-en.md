@@ -21,7 +21,7 @@ This is a generalized technical case study. It does not rely on any organization
 A manual mount command often looks like this:
 
 ```bash
-mount_smbfs //smb-user@nas-host/Share /Volumes/Share
+mount -t smbfs //smb-user@nas-host/Share /Volumes/Share
 ```
 
 That is useful for a temporary connection, but it does not guarantee that the share will be restored automatically after a system restart. A background task may fail if it depends on a user login session that does not exist yet.
@@ -81,7 +81,7 @@ Root Credential Helper
 Switch to a dedicated standard macOS user
     |
     v
-mount_smbfs
+mount -t smbfs
     |
     v
 NAS SMB Share
