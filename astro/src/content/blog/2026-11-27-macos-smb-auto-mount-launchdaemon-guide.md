@@ -56,6 +56,8 @@ LaunchDaemon 通常由 root 管理和启动，但这不意味着它启动的所�
 
 这一区分很重要：**管理系统服务的权限，不应自动变成访问共享文件的日常身份。**
 
+Apple 的归档开发者指南说明，系统级 daemon 配置位于 `/Library/LaunchDaemons`，用户 agent 则随用户登录会话启动；它也列出了 launchd 的周期触发方式。可以先阅读 [Apple《Creating Launch Daemons and Agents》](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html)，再对照目标 macOS 版本的本机手册。
+
 ## 三、最终架构：root 管理，普通用户挂载
 
 推荐把流程拆成几个边界清晰的部分：
