@@ -56,6 +56,8 @@ A LaunchDaemon is commonly managed and started by root. That does not mean every
 
 The distinction matters: **the privilege used to manage a system service should not automatically become the everyday identity used to access shared files.**
 
+Apple’s archived developer guide explains that system-level daemon jobs are installed under `/Library/LaunchDaemons`, while user agents are associated with a user login session. It also documents interval-based launch triggers. Read [Apple’s Creating Launch Daemons and Agents guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html), then check the manuals shipped with the macOS version you actually deploy.
+
 ## 3. The Architecture: Root Manages, a Standard User Mounts
 
 A useful way to separate the responsibilities is:
