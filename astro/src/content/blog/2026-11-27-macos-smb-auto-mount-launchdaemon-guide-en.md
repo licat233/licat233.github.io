@@ -1,18 +1,20 @@
 ---
-title: "macOS SMB Auto-Mount at Startup: A LaunchDaemon-Based NAS Setup"
+title: "macOS SMB Auto-Mount at Startup: LaunchDaemon Guide"
 date: 2026-11-27 14:00:00 +0800
 lang: en
-description: "A practical macOS NAS guide using a system LaunchDaemon, protected SMB credentials, a dedicated local account, and a private mount point to reconnect shares without a desktop login."
+description: "Learn to auto-mount NAS shares on macOS at startup with LaunchDaemon, protected SMB credentials, a dedicated user, private mount points, and automatic retries."
 translation_url: /blog/macos-smb-auto-mount-launchdaemon-guide/
 ---
 
-**macOS SMB Auto-Mount with LaunchDaemon · Practical Guide**
+**macOS SMB Auto-Mount with LaunchDaemon · Architecture and Troubleshooting**
 
 If a Mac serves as a file-processing server, automation node, or always-on workstation, access to a NAS should not depend on someone signing in and manually mounting a network share.
 
 The problem is that after a macOS restart, login items and other user-session automation may not run until someone signs in. The machine can be powered on while background tasks that depend on NAS files remain unable to work because the share is not mounted.
 
 This article documents an approach that has been tested after a real system restart: use a **system LaunchDaemon** to check the connection at startup, let root manage the service and protected credentials, and then switch to a dedicated, unprivileged macOS account for the actual SMB mount. The real mount point lives inside that account's private directory. A symbolic link can preserve an existing access path when needed.
+
+**Test-environment note:** The original acceptance record confirms that the share mounted after a restart without a desktop login, and that the mount identity, directory permissions, and file access were checked. However, it did not preserve a macOS version number that can be independently published. This article therefore does not claim compatibility with every macOS release.
 
 This is a generalized technical case study. It does not rely on any organization's internal network, device names, or account configuration. macOS versions, NAS settings, and security policies differ, so test the design in your own environment before deploying it.
 
@@ -24,7 +26,13 @@ A manual mount command often looks like this:
 mount -t smbfs //smb-user@nas-host/Share /Volumes/Share
 ```
 
-That is useful for a temporary connection, but it does not guarantee that the share will be restored automatically after a system restart. A background task may fail if it depends on a user login session that does not exist yet.
+That is useful for a temporary connection, but it does not guarantee that the share will be restored automatically after a system restart. A background task may fail if it depends on a user login session that does not exist yet. The macOS SMB manual shows the system `mount` command with an explicit filesystem type:
+
+```bash
+mount -t smbfs //smb-user@nas-host/Share /mountpoint
+```
+
+This example deliberately omits the password. Do not copy the manual’s illustrative `username:password@server` form into production commands or process arguments. Authentication should be handled through a controlled credential mechanism; the helper described here uses a private PTY.
 
 A reliable system-level setup should meet these requirements:
 
@@ -55,6 +63,8 @@ If the requirement is to restore NAS access after the machine starts—even when
 A LaunchDaemon is commonly managed and started by root. That does not mean every operation it coordinates must run as root. The service can check the mount, read a protected credential, and coordinate the process, then explicitly switch to a dedicated standard user for the actual SMB mount.
 
 The distinction matters: **the privilege used to manage a system service should not automatically become the everyday identity used to access shared files.**
+
+Apple’s archived developer guide explains that system-level daemon jobs are installed under `/Library/LaunchDaemons`, while user agents are associated with a user login session. It also documents interval-based launch triggers. Read [Apple’s Creating Launch Daemons and Agents guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html), then check the manuals shipped with the macOS version you actually deploy.
 
 Apple’s archived developer guide explains that system-level daemon jobs are installed under `/Library/LaunchDaemons`, while user agents are associated with a user login session. It also documents interval-based launch triggers. Read [Apple’s Creating Launch Daemons and Agents guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html), then check the manuals shipped with the macOS version you actually deploy.
 
@@ -347,7 +357,40 @@ It does not automatically provide:
 
 If you use a personal Mac to access a NAS occasionally, connecting through Finder or mounting after login may be enough. A system service and dedicated credential management are justified when the Mac must keep background work running unattended.
 
-## 12. Conclusion: Make File Access a Reliable Part of the System
+## 12. Frequently Asked Questions
+
+### Can macOS mount a NAS automatically without a desktop login?
+
+Yes. A system LaunchDaemon can run in the system context without waiting for a graphical desktop login. The actual SMB mount should still follow an explicit privilege design, and the connection must be verified rather than assumed to have succeeded.
+
+### What is the main difference between a LaunchAgent and a LaunchDaemon?
+
+A LaunchAgent is associated with a user login session, while a LaunchDaemon is a system-level job. For work that must start when nobody is signed in, a LaunchDaemon is usually the more relevant option. Follow the launchd rules for the macOS version you deploy on.
+
+### Why not put the real mount point directly under /Volumes?
+
+In the practical case described here, preparing a directory under `/Volumes` and then switching the mount identity led to access problems. Moving the real mount point into a dedicated user’s private directory and using a symlink to preserve the old path was the approach that passed testing. This is an implementation choice, not an Apple requirement for every NAS setup.
+
+### Can I put the SMB password in the LaunchDaemon plist?
+
+That is not recommended. A plist may be read, backed up, or included in configuration management, while passwords can also leak through command arguments and logs. Use tightly permissioned credential storage and a controlled input channel instead.
+
+### Does “not running” mean the LaunchDaemon failed?
+
+Not necessarily. A periodic job exits after completing its check. Evaluate whether the service is loaded, its latest exit status, the actual SMB mount, the mount owner, and whether files can be read.
+
+## 13. References and Further Reading
+
+These sources help verify the macOS launchd execution model, SMB mount syntax, and FileVault’s protection of data at rest:
+
+- [Apple: Creating Launch Daemons and Agents](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html) — launchd, system daemons, user agents, startup, and interval triggers.
+- [macOS: mount_smbfs(8) manual](https://manp.gs/mac/8/mount_smbfs) — SMB mount syntax; the manual recommends using the system `mount` command to invoke the SMB filesystem type.
+- [macOS: mount(8) manual](https://manp.gs/mac/8/mount) — the system mount command and filesystem-type option.
+- [Apple Platform Security: FileVault](https://support.apple.com/guide/security/volume-encryption-with-filevault-sec4c6dc1b6e/1/web/1) — encryption protection for data at rest.
+
+**Scope of these references:** Apple’s launchd guide is an archived developer document and is useful for explaining the basic execution model. For exact property-list keys, permissions, and system behavior, consult the `launchd.plist(5)`, `mount(8)`, and `mount_smbfs(8)` manuals shipped with the target macOS release and test on that system. The private mount directory, credential helper, and symlink combination described here is a practical architecture, not an Apple-mandated design.
+
+## 14. Conclusion: Make File Access a Reliable Part of the System
 
 The most important result of this work was not finding a more complicated mount command. It was separating several responsibilities that are easy to mix together:
 
