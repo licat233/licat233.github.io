@@ -4,10 +4,10 @@
 
 Use the Product Detail Designer Skill to create my product detail page. This prompt is designed for the standard ChatGPT chat window.
 
-**Product Detail Designer Skill v1.0.5 (pinned open-source release):**
+**Product Detail Designer Skill v1.0.6 (selected open-source release):**
 - GitHub repository: https://github.com/licat233/product-detail-designer
-- Pinned version: `v1.0.5`
-- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.5/SKILL.md
+- Selected version: `v1.0.6`
+- Skill file: https://raw.githubusercontent.com/licat233/product-detail-designer/v1.0.6/SKILL.md
 
 Read the `SKILL.md` from this exact release and follow its general execution rules.
 
@@ -15,7 +15,7 @@ Read the `SKILL.md` from this exact release and follow its general execution rul
 
 Also verify that this ChatGPT session has an actually invokable image-generation capability. If it does not, state the limitation plainly and do not pretend to generate images.
 
-## Production brief confirmation (Product Detail Designer v1.0.5)
+## Production brief confirmation (Product Detail Designer v1.0.6)
 
 After reviewing the product materials and before creating the Blueprint or starting production, follow the Skill's Production Brief Confirmation checkpoint. Confirm these four items:
 
@@ -148,30 +148,60 @@ Never invent any of the following without confirmation:
 - Lead times or shipping commitments
 - Package contents
 
-## 4. Product Identity Lock
+## 4. Product Identity Lock — P0 Product Appearance Integrity
 
-If authentic product images were supplied, establish a **Product Identity Lock**.
+The real product is the subject of the page, not a visual suggestion for the image model. Product identity is a non-negotiable P0 acceptance condition, not a weighted design score. A beautiful image that depicts a different product is a failed deliverable.
 
-Record the product's immutable visual characteristics wherever relevant:
+### Build an internal Product Identity Lock
 
-- Overall shape, proportions, thickness, and color
-- Materials, surface texture, and patterns
-- Logo and brand marks
-- Packaging design and packaging text
-- Buttons, openings, ports, and screens
-- Knobs, zippers, handles, and brackets
-- Connectors and joining structures
-- Accessories and distinctive forms
-- Number of products and components
-- Spatial relationships among components
+Before planning the page, establish a compact internal identity record from the supplied evidence. Do not turn it into a form the user must fill in or an unsolicited long report.
 
-Lock only characteristics that genuinely apply to this particular product.
+Record:
 
-> Product authenticity takes priority over making an image look prettier.
+- `product_identity`: exact product name, model, version, and visually similar variants that must not be mixed.
+- `identity_anchor_assets`: filenames or asset IDs of original, unedited product photographs. Original CAD/product renders may be identity anchors only when the user confirms they are current and exact.
+- `supporting_visual_assets`: genuine close-ups, additional views, installation photos, and application photos.
+- `identity_markers`: visible silhouette and proportions; component count and arrangement; distinctive geometry; ports, connectors, fasteners, markings, logos, and labels; color, finish, texture, material appearance, included parts, and assembly relationships.
+- `unknown_or_unseen`: sides, internal structures, hidden parts, colors, dimensions, or details that the supplied evidence does not establish.
+- `forbidden_changes`: identity markers that must not be added, removed, reshaped, recolored, relocated, or replaced.
 
-Reject any enhancement that turns the product into a different SKU, structure, color, or material.
+If the model or variant is ambiguous, or two assets appear to show different versions, ask one concise question before generating product imagery. Never silently combine them.
 
-When sufficient authentic images are available, prefer **real product assets + AI-generated environment/scene + professional layout**, not asking AI to redraw a vaguely similar product.
+### Keep the three reference roles separate
+
+1. **Product identity anchors** — Original product photos and genuine close-ups establish the real appearance. CAD/product renders may be anchors only when the user confirms they are current and exact. Engineering drawings may establish documented geometry and component relationships.
+2. **Page-continuity reference** — The previously accepted slice establishes only the page background, scene, composition, lighting, perspective, and content handoff. It is not a source of truth for product geometry, color, construction, markings, or component count.
+3. **Visual-style reference** — Design material explicitly designated by the user guides only the visual aspects the user wants it to guide; it never overrides product identity.
+
+Original product identity anchors always take precedence over generated images and page-continuity references. Never promote an AI-generated slice, Visual Master, 1:3 continuity master, moodboard, or previous AI rendering into an authoritative product reference. Any product depiction inside a Visual Master is illustrative unless it is the untouched original source photo.
+
+For every product-bearing slice, include the relevant original identity anchor(s) whenever the tool supports multiple references. If the tool accepts only one image reference, prioritize the original product identity anchor and describe page continuity through written handoff. **Product identity outranks page continuity.**
+
+### Choose a product-depiction mode for each slice
+
+Set an internal `product_depiction_mode` for every slice that shows the product:
+
+- **`original-photo` — safest default.** Use the actual supplied product photograph. Non-destructive cropping and uniform scaling are acceptable when they do not hide or distort identity-critical details.
+- **`source-photo-composite`** — Keep the original product photo or cutout as the foreground subject and create the surrounding scene separately. Use masking/layers only when the tool actually supports them and the original product pixels can remain unchanged. A reference-based redraw is not a pixel-preserving composite.
+- **`constrained-edit`** — Edit from the actual source image only when the tool supports it and the change does not require inventing a new product view. Inspect the result against the original anchor.
+- **`evidence-based-diagram`** — Build a schematic from an authoritative drawing or clearly visible structure. Preserve engineering meaning; never present an inferred diagram as a product photograph.
+- **`no-product-depiction`** — When evidence is insufficient, use copy, typography, application context, or a neutral explanatory visual rather than inventing unseen details.
+
+Prefer `original-photo` whenever it communicates the point clearly.
+
+### P0 appearance verification and recovery
+
+Compare every generated product depiction side by side with its original identity anchor(s), not merely with the previous generated slice.
+
+- **Critical — automatic fail:** wrong model or variant; changed functional structure; missing, extra, duplicated, or merged component; altered connector, port, or assembly; invented or removed identity-defining part; or any change that could make the image depict a different product.
+- **Major — fail:** clearly changed silhouette, proportions, component spacing or placement, product color/material/finish, labels, logo, model marking, or other recognisable construction detail.
+- **Minor — review:** background, surrounding props, lighting outside the product, or a crop/composition issue that does not alter or conceal an identity marker. If a reflection, shadow, or crop makes a critical feature unverifiable, it is not a minor pass.
+
+The P0 result must be **PASS / FAIL / UNVERIFIED**. Any Critical or Major discrepancy, or any unverified critical marker, means FAIL. A high visual-design score cannot override a P0 failure.
+
+When a depiction fails, reject it as a product-accurate deliverable. Prefer replacing the product region with the original photo or rebuilding the composition around the untouched source. If reliable compositing is unavailable, revert to `original-photo` or `no-product-depiction`; do not keep prompting the model to redraw inaccurate geometry. Recheck any following slice that used the rejected image as a continuity reference, and continue only from the last accepted slice. If the evidence is insufficient, request the specific missing real photo or drawing.
+
+Never pass a failed or unverified product depiction forward as an accepted reference.
 
 ## 5. Style Reference Analysis
 
@@ -227,9 +257,10 @@ Plan **one complete vertical ecommerce detail page** first. Only then divide it 
 - `content_entry_state` / `content_exit_state`: where the content is when this slice begins and ends.
 - `slice_entry_state` / `slice_exit_state`: the visual state at the top and bottom edges.
 - `top_edge_anchor` / `bottom_edge_anchor`: concrete, reproducible descriptions of the image edges.
-- `top_edge_mode` / `bottom_edge_mode`: edge state; every non-final slice must be `open`, and only the final slice may be `closed`.
-- `continuity_carrier`: a non-text visual element that crosses a non-final bottom edge and continues in the next image.
-- `next_slice_handoff`: the exact position, direction, scale, perspective, lighting, and background state the next slice must continue.
+- `top_edge_mode` / `bottom_edge_mode`: non-final slices use `open`, and only the final slice uses `closed`; open means the page content continues and does not require an object to cross the edge.
+- `continuity_strategy`: choose `canvas-extension`, `reference-continuation`, or `tonal-continuity` according to actual tool capability.
+- `continuity_intent`: how this slice relates to the preceding and following content and scene.
+- `next_slice_handoff`: the actual visual and content state the next slice should continue, derived from the previous accepted image.
 - `text_exact`: the copy that genuinely belongs in this portion; do not add a headline merely to fill each image.
 - `risk_unknowns`: factual risks to avoid.
 
@@ -266,86 +297,46 @@ The **complete page** answers the buyer's questions. Each image does not need to
 
 ## 8A. Page First, Slices Second (Mandatory Production Method)
 
-**The design unit is one complete vertical ecommerce page. Image files are only slices of that page.** Do not design eight independent canvases and disguise them as one long page by reusing colors, backgrounds, or typography.
+**The design unit is one complete vertical ecommerce page. Image files are only delivery slices of that page.** Do not design eight unrelated canvases and disguise them as one long page by reusing colors, backgrounds, or typography.
 
 ### 1. Open the page once; do not restart it in every image
 
-- The complete page has **one primary title / H1 only**, placed at the beginning of Slice 01.
+- The complete page has one primary title / H1 only, placed at the beginning of Slice 01.
 - Slices 02–08 must not repeat the product-introduction title, page headline, standalone hero headline, brand title bar, or page masthead.
-- Intermediate slices may contain genuine in-flow section headings, but these must belong to the page's content—not become a repeated title area at the top of every image.
+- Intermediate slices may contain genuine in-flow section headings, but these must not become a repeated title area.
 - Do not add a website footer, contact-information bar, repeated logo, repeated product-name bar, copyright strip, or decorative sign-off to any slice.
-- The final slice may contain one CTA at the actual end of the complete page, but it is page content, not a footer repeated on every image.
+- The final slice may contain one CTA at the actual end of the complete page, but it is page content, not a repeated footer.
 
 ### 2. File boundaries are not section boundaries
 
-- Finish planning the complete page's content and composition before choosing the slice boundaries based on the target image dimensions.
-- Do not make every image begin with a new section or end with a completed module.
-- Content modules may cross slice boundaries; the same feature explanation, scene, or visual thread may continue from one image into the next.
-- An intermediate slice may enter partway through an ongoing visual scene or content module and may exit before that module is complete.
-- Images do not need to be independently complete, explain the product on their own, or independently close a sale. Together they form one continuous scrolling experience.
-- Do not let cut lines sever text, specifications, sentences, or labels. Use the background, product scene, spatial environment, lighting, and non-text visual elements to carry continuity across boundaries.
+Plan the complete page before choosing slice boundaries. Content modules may cross boundaries, and adjacent slices may continue the same feature, scene, or visual thread. Intermediate images do not need to be independently complete, but cut lines must not sever copy, specifications, labels, or critical product details.
 
 ### 3. No per-image title or footer
 
-The following are automatic failures:
+Repeated large titles or product introductions at the top, repeated footers / logos / contact details / CTAs / summaries at the bottom, or a fixed “title + content + closing” structure on every image are failures. Do not frame each image as an independent poster, slide, or complete advertisement.
 
-- A large headline or product-introduction title at the top of every image.
-- A new product hero and product name repeated in every image.
-- A footer, logo, contact details, copyright text, CTA, or summary block at the bottom of every image.
-- A repeated structure of “title area at top + content area in the middle + closing area at bottom.”
-- Every image being framed as a separate card, poster, PowerPoint slide, or complete advertisement.
+### 4. Choose continuity strategies based on actual image-tool capability
 
-### 4. Design the page first, then generate slices in sequence
+Choose an internal `continuity_strategy` for every slice boundary:
 
-- Slice 01 naturally opens the complete page and may contain its one H1 and opening hero.
-- Slice 02 must continue the visual and content state of Slice 01; it must not start a new page.
-- Continue Slice 03 onward in the same sequential way.
-- When generating a later slice, use the previous image as a visual reference. If the image tool supports image extension / outpainting, prefer extending downward from the previous image's bottom edge. If it does not, explicitly use the previous bottom-edge state as the next image's top-edge composition reference. Never start again from a blank canvas and independently redesign the page.
-- If the available tool cannot produce reliable continuity, state the limitation and revise; do not pass the continuity check merely because the images share a similar style.
+1. **`canvas-extension`** — Use only when the current image tool explicitly supports extending the existing canvas / outpainting while preserving the original area. Do not assume this capability exists merely because the tool accepts a reference image.
+2. **`reference-continuation`** — Use when the tool can reference a previous image but does not provide verified canvas extension. Use the previously accepted image as a page-continuity reference and describe the handoff. This is visual continuation, not a promise of pixel-perfect edge matching.
+3. **`tonal-continuity`** — Use when the content naturally moves into a different scene or forcing the previous physical scene to continue would look artificial. Maintain coherent palette, lighting, material language, spatial depth, and hierarchy so the transition still feels like the same ecommerce page.
 
-### 5. Concatenation acceptance test
-
-Stack the actual final images vertically in order and inspect them as one naturally scrolling page. Check especially:
-
-- Does Slice 01 keep an open bottom edge, with a continuity carrier extending beyond the frame instead of a visual ending?
-- Does Slice 02 continue the previous image directly, without a new title, hero, or product introduction?
-- Do intermediate slices avoid repeated title areas, card frames, and bottom closing areas?
-- Does the page avoid the PowerPoint rhythm of “every image starts over and every image ends”?
-
-Any repeated title/footer or standalone-page structure is a failure. Repair it before asking the user for approval.
-
-### 6. Open-ended Slice (mandatory open bottom edge)
-
-v1.0.4 prohibited repeated titles and footers, but an image can still look finished without either through a balanced composition, empty space, a fade-out, or a completed content module. Add this stricter rule:
-
-**Every image except the final image of the complete page must have an open bottom edge. The bottom of an image is a viewport crop boundary in the middle of the page, not the end of the design.**
-
-#### Required edge states
+### 5. Continuity and boundary acceptance
 
 - `top_edge_mode`: `opening` for Slice 01; `continuation` for Slice 02 onward.
-- `bottom_edge_mode`: `open` for every non-final slice; `closed` only for the final slice.
-- `continuity_carrier`: at least one concrete non-text visual element that reaches or crosses the bottom edge and continues into the next slice.
-- `next_slice_handoff`: the exact scene and element the next slice must pick up, including position, direction, scale, perspective, lighting, and background state.
+- `bottom_edge_mode`: `open` for every non-final slice; `closed` only for the final slice. Open means the page content and visual flow continue; it does not require a physical object to cross the edge.
+- Internally record `top_edge_anchor`, `bottom_edge_anchor`, `continuity_intent`, and `next_slice_handoff`. Derive the handoff from the actual previously generated and accepted image; “same style” alone is not enough.
+- Do not force a physical object to cross every non-final bottom edge. Do not reserve a fixed 10–15% bottom strip or add artificial cables, rails, surfaces, or other objects to satisfy a mechanical seam rule.
+- A continuous surface, line, shadow, or light strip may reach an edge when it naturally belongs to the scene, but it is optional.
+- Non-final slices must avoid visual closing cues such as summaries, sign-offs, CTAs, footers, fades to blank, or completed compositions. Natural content and scene transitions are allowed; a visual page ending is not.
+- Keep important copy, specifications, labels, and critical product geometry away from crop boundaries.
+- Only the final slice may use `bottom_edge_mode: closed` and conclude the complete page.
 
-#### Open-bottom rules for every non-final slice
+### 6. Continuity capability and honesty
 
-1. The bottom 10–15% is a **visual continuation zone**, not a closing zone. Keep headlines, body copy, specifications, and critical labels out of it.
-2. At least one concrete non-text visual element must reach or cross the bottom edge and continue into the next image at a compatible position and direction. Examples include a shelf/track, cable, supporting surface, perspective line, diagram path, light strip, shadow, or architectural plane.
-3. Matching background colors alone do not count. A recognizable visual carrier must cross the boundary.
-4. Do not place any visual ending at the bottom of an intermediate image: no large blank margin, fade-to-blank, vignette, darkening, completed card grid, bottom-aligned card row, isolated centered product composition, divider line, decorative bottom band, summary, CTA, or other closing treatment.
-5. Do not let the background, lighting environment, spatial plane, supporting surface, or perspective appear to stop at the bottom edge.
-6. Do not cut through important product geometry or text to fake an open edge. Continue the surrounding environment or a secondary visual carrier instead.
-7. The next image must continue the previous carrier and scene directly. It must not begin a new composition.
-
-**Only the final slice may use `bottom_edge_mode: closed`** and conclude the visual scene. If needed, the page's one final CTA may appear only there.
-
-#### Generation order must also change
-
-- Generate one image at a time. Never batch-generate Slices 03–08.
-- Inspect each image's bottom edge immediately after generation. If it looks finished, revise that image before using it as the reference for the next one.
-- Generate the next slice only after the current open edge and `next_slice_handoff` pass inspection.
-- The next generation must receive both the actual previous image and the next slice's planned content/handoff.
-- If the image tool cannot reliably preserve an open edge, use a supported continuous-canvas/extension workflow or state the limitation. Do not concatenate separately closed images and call them continuous.
+If the user requires pixel-level continuity or seamless canvas extension and the available tool cannot reliably provide it, explain the limitation before proceeding. Never describe reference-based generation as pixel-preserving outpainting or guarantee a seamless join without verification. Generate one slice at a time; use a slice as the next page-continuity reference only after it passes review.
 
 ## 9. Internal fields must not appear in the delivered imagery
 
@@ -443,43 +434,31 @@ A failed master must not be used for final slice production.
 
 ## 13. Sequential continuation production for final slices
 
-Once the master passes review, produce:
+Once the master passes review, produce Slice 01 and Slice 02. The default final aspect ratio is **9:21 vertical**, unless the user specifies otherwise.
 
-- Slice 01
-- Slice 02
+Save the final images as separate high-resolution files, but generate them one at a time in sequence; never batch-generate Slices 03–08.
 
-The default final aspect ratio is **9:21 vertical**, unless the user specifies otherwise.
+Every product-bearing slice must include its relevant original product identity anchor(s) and pass the P0 appearance check in Section 4. The previously accepted image is only a page-continuity reference; it must not replace the original product asset. If the tool accepts only one image reference, prioritize the original identity anchor and describe the previous page state and handoff in text.
 
-Save the final images as separate high-resolution files, but generate them **one at a time in sequence**; never batch-generate Slices 03–08. Slice 01 is the only page opening, and its bottom edge must remain open. Slice 02 onward must use the actual previous image as a visual reference and also include the next slice's planned content and `next_slice_handoff`. Every non-final slice must have `bottom_edge_mode: open`; its bottom 10–15% is a visual continuation zone, with at least one non-text `continuity_carrier` reaching or crossing the lower edge and continuing into the next image. No blank bottom margin, fade, vignette, completed card grid, decorative bottom band, divider, or other visual ending is allowed on an intermediate slice. Only the final slice may use `bottom_edge_mode: closed`. Inspect each image immediately; if its bottom looks finished, revise it before generating the next. If the image tool supports extension / outpainting, prefer extending downward from the previous image's bottom edge. Otherwise, use the previous `bottom_edge_anchor` and `next_slice_handoff` as concrete references for the next image.
+Choose `canvas-extension`, `reference-continuation`, or `tonal-continuity` for each boundary according to actual tool capability. Use outpainting only when the tool explicitly supports extending the existing canvas while preserving its original area. Ordinary reference-based generation does not guarantee pixel-perfect edge matching. Do not force a physical object to cross the bottom edge or reserve a fixed 10–15% continuation strip.
 
-Do not directly turn any of the following into a finished slice:
+Every non-final slice must use `bottom_edge_mode: open`; the final slice must use `closed`. Open means the page content continues, not that an object must cross the image boundary. Intermediate images must not contain an independent sign-off, summary, CTA, footer, fade-to-blank, or completed page composition.
 
-- The 1:3 master
-- An overview graphic
-- A contact sheet
-- A moodboard
-- A Blueprint illustration
-- A low-resolution sketch
-- A preview image
+After each image, inspect P0 product identity, copy and factual accuracy, the chosen continuity strategy, and the next-slice handoff. Repair any failed check before continuing. A failed or unverified product depiction must never be used as the next image's reference. Continue only from the last accepted slice.
 
-If the existing composition does not match the final aspect ratio, use proper recomposition, layout adjustments, a regenerated environment, sensible outpainting, and repositioned product/copy modules.
+Do not directly turn the 1:3 master, an overview graphic, contact sheet, moodboard, Blueprint illustration, low-resolution sketch, or preview into a finished slice. If the composition does not match the final aspect ratio, recompose it, adjust the layout, regenerate the environment, or use canvas extension when supported. Do not force the ratio through blurred padding, mirroring, stretching, arbitrary enlargement, low-resolution crops, or oversized borders.
 
-Do not force the ratio through Gaussian-blurred padding, mirrored padding, stretching, arbitrary enlargement, low-resolution crops, background blur filler, or oversized borders.
+## 14. Authentic product asset usage — P0
 
-## 14. Authentic product asset usage
+Authentic product photos are the preferred evidence of product identity. Default to `original-photo`: use real product assets with AI-generated settings and environments plus professional layout, rather than asking the model to redraw a vaguely similar product.
 
-When real product photographs are supplied, retain the authentic product as faithfully as possible.
+- **Direct use of the original photo:** Non-destructive cropping and uniform scaling are acceptable. Do not use non-uniform stretching, perspective warping, or retouching that changes product construction.
+- **Compositing the original photo into a scene:** Use only when the tool supports masking/layers and the original product pixels can remain unchanged. Reference-image input followed by a generative redraw is not pixel-preserving compositing.
+- **Constrained editing:** Use only when the tool can edit from the actual source image and the change does not require an unseen angle or unsupported construction. Compare the result with the original anchor afterward.
+- **Technical diagrams:** Base them on authoritative engineering drawings or clearly visible structures. Distinguish a diagram from an authentic product photograph.
+- **Insufficient evidence:** Use `no-product-depiction` or request the specific real photo / engineering drawing needed. Never guess a rear view, internal structure, connector, or hidden component.
 
-AI may work on the environment, setting, props, lighting, extended space, backgrounds, atmosphere, and nonessential decorative elements.
-
-Reject any generated result that changes the product's SKU identity, including:
-
-- Shape or color changes
-- Logo, material, or pattern changes
-- Different ports or component counts
-- Altered construction
-- Incorrect packaging text
-- Missing or newly invented key parts
+Protect the product's shape, color, logo, material, pattern, ports, component count, spatial relationships, construction, and packaging text. Compare every product depiction side by side with its original identity anchor and record PASS / FAIL / UNVERIFIED. Do not excuse product drift because the overall image looks good, and never pass a failed or unverifiable depiction to a later slice.
 
 ## 15. Text rules
 
@@ -508,47 +487,48 @@ Never overlook incorrect text merely because the overall image looks good.
 
 ## 16. Internal audit of Slices 01–02
 
-After generating the first two slices, audit each separately. Neither is the final page image, so **both bottom edges must remain open**; Slice 02 must not look like the end of the page merely because it is the second image in the preview.
+After generating the first two slices, audit each separately. Every product-bearing slice must pass its own P0 appearance check; do not merely compare whether the two images look similar.
 
-### Product Identity
+### Product Identity (P0)
 
-- Is the product authentic and consistent?
-- Did the SKU, shape, color, or material drift?
-- Are the logo and construction correct?
+- Does the depiction show the exact product model / variant?
+- Was it checked against the relevant original identity anchor?
+- Are silhouette, proportions, color, material, and finish consistent?
+- Are component count, arrangement, spacing, ports, solder points, markings, and logo correct?
+- Has any unsupported angle, hidden structure, or extra component appeared?
+- Is the P0 result PASS?
+
+P0 must be marked PASS / FAIL / UNVERIFIED. Any Critical / Major discrepancy or unverified critical marker is a failure. A failed image must not enter the preview or be used as the next slice's page-continuity reference.
 
 ### Copy
 
 - Does the copy match text_exact?
-- Are spelling, technical specifications, and units correct?
+- Are spelling, specifications, numbers, and units correct?
 - Are there garbled characters, internal fields, or unwanted screen numbers?
 
 ### Claim Safety
 
-- Were unverified parameters, certifications, performance figures, commercial claims, awards, or brand partnerships added?
+- Were unconfirmed specifications, certifications, performance figures, or commercial claims added?
+- Have creative inferences been presented as verified product facts?
 
 ### Commercial Quality
 
-- Does the image look like a real ecommerce detail page?
-- Does it look obviously AI-generated, sketch-like, slide-based, infographic-like, or like a cheap promotional poster?
-- Is the product sufficiently sharp, with professional visual hierarchy?
+- Does the image look like a usable ecommerce detail page?
+- Does it look obviously AI-generated, sketch-like, slide-based, templated, or like a cheap promotional poster?
+- Is the product clear, with professional visual hierarchy?
 
 ### Continuity
 
-- Do Slices 01 and 02 look like parts of the same long page?
-- Are lighting, typography, product depiction, and background world consistent?
-- Is the vertical transition convincing?
-- Do the previous slice's bottom edge and the next slice's top edge join naturally?
-- Does the page-level title appear only once, in Slice 01?
-- Does Slice 02 restart with a page title, product-introduction title, or independent hero?
-- Does any slice end with a footer, repeated logo, contact information, CTA, or separate sign-off?
-- Does Slice 01 continue naturally at its bottom instead of ending like a complete page?
-- Does Slice 02 begin as a direct continuation and keep its own bottom edge open, without blank space, fading, or a completed composition?
-- Do content modules continue naturally across slice boundaries?
-- Are there any headers, footers, repeated logos/title bars, corner ornaments, borders, or slide-like frames?
-- Has any slice been designed as a self-contained poster?
-- Does the page avoid repeating full-size heroes?
+- Do Slices 01 and 02 belong to the same page?
+- Are lighting, typography, background world, visual direction, and content flow coherent?
+- Was the continuity strategy selected according to actual tool capability?
+- Is the handoff based on the previous image that was actually generated and accepted?
+- Is reference continuation honestly distinguished from pixel-level canvas extension?
+- Does the page avoid the PowerPoint rhythm of every image restarting and ending independently?
+- Are repeated titles, footers, contact bars, and independent sign-offs absent?
+- Were physical continuity carriers and fixed bottom strips avoided as mandatory requirements?
 
-**If any critical check fails, revise before proceeding to the approval stage.**
+Revise any failed critical check before proceeding to approval. Do not sacrifice product authenticity or natural composition to satisfy mechanical stitching rules.
 
 ## 17. Two-Slice Preview
 
@@ -579,25 +559,25 @@ Then **stop and wait for the user's second approval**.
 
 ## 19. After the second approval
 
-Only after the second approval may you begin generating **Slices 03–08, one image at a time**. Never batch-generate the remaining slices.
+Only after the second approval may you begin generating Slices 03–08, one image at a time. Never batch-generate the remaining slices.
 
-After each image, inspect that `bottom_edge_mode` is `open`, the `continuity_carrier` visibly continues beyond the frame, and `next_slice_handoff` is concrete. Generate the next slice only after the current one passes.
+For every product-bearing slice, attach the relevant original identity anchor(s) again and complete the P0 appearance check. The previously accepted slice is only a page-continuity reference. After each image, inspect P0 product appearance, copy and factual accuracy, the selected continuity strategy, `bottom_edge_mode` (open for non-final slices, closed for the final slice), and the next-slice handoff.
 
-Continue following the approved Blueprint, Text Master, Product Identity Lock, Visual Style DNA, and Visual Master.
+Generate the next slice only after these checks pass. A failed or unverifiable image must never be used as the next reference. Repair it and continue from the last accepted slice.
 
-Do not redesign the visual system halfway through.
+Continue following the approved Blueprint, Text Master, Product Identity Lock, Visual Style DNA, and Visual Master. Do not redesign the visual system halfway through.
 
 ## 20. Full-page Audit
 
-After completing all eight slices, create a full concatenated preview and check:
+After completing all eight slices, create a full concatenated preview and inspect the complete reading experience. The preview reviews page flow; it does not mean every boundary must join pixel-perfectly.
 
-### Product Consistency
+### Product Consistency (P0)
 
-Does the product retain the same identity throughout?
+Compare every product-bearing slice with its corresponding original identity anchor. Check model, variant, silhouette, proportions, color, material, component count, construction, logo, and markings. There must be no Critical / Major discrepancy or unverified critical marker, and every product depiction must have P0 PASS. If any depiction is FAIL or has an unverified critical marker, the complete page cannot pass final acceptance.
 
 ### Text Accuracy
 
-Are all copy, technical specifications, numbers, and units accurate?
+Are all copy, specifications, numbers, and units accurate and consistent with the approved text_exact?
 
 ### Claim Continuity
 
@@ -605,7 +585,7 @@ Can every central selling point be traced back to the page-level claim seeds?
 
 ### Visual Continuity
 
-Does it read as one continuous long page?
+Does the set read as one naturally scrolling ecommerce page? Natural scene changes are allowed, but the images must not become unrelated posters or slides.
 
 ### Page-First Integrity
 
@@ -613,14 +593,14 @@ Does it read as one continuous long page?
 - Do intermediate images avoid restarting the product introduction or hero?
 - Are all slices free of footers, repeated logos, contact bars, and independent sign-offs?
 - Does every non-final slice use `bottom_edge_mode: open`, with only the final slice set to `closed`?
-- Does every non-final slice have a concrete `continuity_carrier` and `next_slice_handoff`?
-- Does a CTA appear at most once, at the actual end of the complete page?
-- Does every image continue the previous image instead of starting with its own title and ending with its own footer?
-
+- Was a continuity strategy chosen for every boundary according to actual tool capability?
+- Is each handoff derived from the previous image that was actually generated and accepted?
+- Does the page avoid the PowerPoint rhythm of every image starting with its own title and ending with its own footer?
+- Were physical continuity carriers and fixed bottom strips avoided as mandatory requirements?
 
 ### Composition Variety
 
-Do successive screens avoid repeating the same layout?
+Do successive screens avoid repeating the same layout without forcing meaningless variation?
 
 ### Unsupported Claims
 
@@ -638,23 +618,24 @@ If not, the work does not pass final acceptance.
 
 Stop production rather than continuing if any of these occurs:
 
-- AI changes the product into a different product.
-- Product construction is clearly wrong.
-- Logo, packaging, or patterns are wrong.
-- Important copy or specifications are incorrect.
-- Unverified certifications or claims appear.
-- Visual style differs materially from the approved reference.
-- Every image looks like an independent poster or PowerPoint slide.
-- The long-page continuity disappears.
+- Any product-bearing slice has a P0 result of FAIL or an unverified critical identity marker.
+- The model or variant is wrong, or AI has changed the product into a different product.
+- Product construction, component count, spatial relationships, logo, packaging, or patterns are wrong.
+- A previous AI image has replaced the original product identity anchor, or a failed depiction has been passed to a later slice.
+- Important copy, specifications, or units are incorrect.
+- Unconfirmed certifications, functions, or commercial claims appear.
+- The visual style differs materially from the approved reference.
+- Every image looks like an independent poster or PowerPoint slide and page continuity disappears.
 - Every image repeats its own title and footer.
 - Intermediate images restart the product introduction, hero, or an independent CTA.
-- Any non-final image ends visually through blank space, fading, a completed card grid, or another closing composition.
+- Any non-final image ends with a clear visual sign-off, fade, blank ending, or completed page composition.
+- No continuity strategy was selected for the actual tool capability, or the next handoff contradicts the previous image.
 - Slices 03–08 are batch-generated instead of being generated and inspected one at a time.
 - Final images are cut out of a low-resolution overview.
 - Blurred padding is used to force the aspect ratio.
 - Results are obviously only sketch-quality.
 
-**"Generated" does not mean "approved for quality."**
+**“Generated” does not mean “approved for quality.” P0 product authenticity cannot be compensated for by visual polish.**
 
 ## 22. Revision principles
 
@@ -664,7 +645,7 @@ Prefer the smallest effective revision:
 - Product error → repair only the product layer.
 - Background error → repair only the setting/background.
 - One-slice composition issue → revise only that slice.
-- A non-final slice has a closed bottom edge → revise that slice to create an open edge, then recheck the next slice's top transition.
+- A non-final slice reads as a visual ending or its handoff does not match → revise it using the selected continuity strategy, then recheck the next slice's transition.
 - Transition between adjacent slices → fix the neighboring transition.
 - Widespread style drift → return to the Visual Master.
 - Incorrect selling-point logic → return to the Blueprint.
