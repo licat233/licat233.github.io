@@ -21,7 +21,7 @@ translation_url: /en/blog/macos-smb-auto-mount-launchdaemon-guide/
 常见的手动挂载方式类似：
 
 ```bash
-mount_smbfs //smb-user@nas-host/Share /Volumes/Share
+mount -t smbfs //smb-user@nas-host/Share /Volumes/Share
 ```
 
 它适合临时连接，但不等于系统启动后一定会自动恢复。尤其当任务运行在后台、机器没有用户登录桌面时，依赖登录会话的自动化就可能失效。
@@ -81,7 +81,7 @@ Root Credential Helper
 切换为专用 macOS 普通用户
     |
     v
-mount_smbfs
+mount -t smbfs
     |
     v
 NAS SMB Share
