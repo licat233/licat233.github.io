@@ -82,7 +82,7 @@ GEO, or Generative Engine Optimization, focuses on making information easier for
 
 When a company uses consistent and accurate information across its website, professional platforms, industry associations, and reputable review sites, people have more ways to verify its public identity. AI systems retrieving public web pages may also encounter those profiles.
 
-But this does not mean that submitting to a particular directory will make ChatGPT or Google AI cite your website. AI products use different data sources and retrieval methods, and directory submission is not an official guarantee of AI citations. The more dependable approach is still to maintain a useful website, original content, and accurate public business information. For a broader explanation, see [Website SEO/GEO Basics](/blog/website-seo-geo-basics/).
+But this does not mean that submitting to a particular directory will make ChatGPT or Google AI cite your website. AI products use different data sources and retrieval methods, and directory submission is not an official guarantee of AI citations. The more dependable approach is still to maintain a useful website, original content, and accurate public business information. For a related research workflow, see the [SEO Keyword Research Guide](/en/blog/seo-keyword-research-guide/).
 
 ### 3.4 Backlinks are only a possible side benefit
 
