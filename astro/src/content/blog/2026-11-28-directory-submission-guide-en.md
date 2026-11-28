@@ -1,5 +1,5 @@
 ---
-title: "Directory Submission for SEO: A Practical Guide"
+title: "Directory Submission Sites: A Practical SEO Guide"
 date: 2026-11-28 17:23:00 +0800
 lang: en
 description: "Choose relevant business and niche directories, build accurate profiles, and avoid low-quality backlinks, paid-link schemes, and bulk submissions."
