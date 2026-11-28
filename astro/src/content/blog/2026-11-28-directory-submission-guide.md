@@ -8,7 +8,7 @@ translation_url: /en/blog/directory-submission-guide/
 
 **Website Directory Submission · Practical Guide · 2026 Edition**
 
-<text>资料核验日期：2026-11-28。平台资格、费用、地区覆盖和提交入口可能变化，正式提交前请以平台官方页面为准。</text>
+> 资料核验日期：2026-11-28。平台资格、费用、地区覆盖和提交入口可能变化，正式提交前请以平台官方页面为准。
 
 网站目录提交（Directory Submission），就是把网站、企业、产品或服务资料提交到第三方目录、行业数据库或产品发现平台，让目标用户有机会通过这些平台找到你。
 
