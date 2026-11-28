@@ -16,8 +16,8 @@
 
 ## SEO/GEO and analytics guides
 
-- [Directory Submission Guide (中文)](https://licat.xyz/blog/directory-submission-guide/): Chinese guide to relevant business directories, platform selection, link-spam risks and submission workflows.
-- [Directory Submission Guide (English)](https://licat.xyz/en/blog/directory-submission-guide/): English guide to choosing useful directories, building accurate profiles and avoiding low-quality link schemes.
+- [Directory Submission Guide (中文)](https://licat.xyz/blog/directory-submission-guide/): Chinese guide to 32 web directories and discovery platforms, submission examples, selection criteria and SEO/GEO measurement.
+- [Directory Submission Guide (English)](https://licat.xyz/en/blog/directory-submission-guide/): English guide to 32 web directories and discovery platforms, submission examples, selection criteria and SEO/GEO measurement.
 
 - [Website SEO/GEO Basics](https://licat.xyz/blog/website-seo-geo-basics/): Chinese guide to discoverability, indexing, URLs, content quality, structured data and AI search.
 - [Advanced SEO/GEO Guide](https://licat.xyz/blog/advanced-seo-geo-guide/): Chinese guide to useful B2B content and decision support.
