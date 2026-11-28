@@ -2,344 +2,338 @@
 title: "Directory Submission Sites: A Practical SEO Guide"
 date: 2026-11-28 17:23:00 +0800
 lang: en
-description: "Choose relevant business and niche directories, build accurate profiles, and avoid low-quality backlinks, paid-link schemes, and bulk submissions."
+description: "Explore 32 directory and discovery platforms, choose relevant free or paid listings, follow submission examples, and measure SEO and referral results."
 translation_url: /blog/directory-submission-guide/
 ---
 
-**Website Directory Submission · Practical Guide · 2026 Edition**
+Directory submission means providing a website's name, URL, description and relevant information to a third-party directory so readers, customers or procurement teams can discover it through categories, search and comparison. A personal blog may gain new readers; a business website may gain inquiries, sourcing opportunities and brand exposure.
 
-> Information checked on November 28, 2026. Platform eligibility, fees, regional coverage, and submission procedures can change. Always confirm the current rules on the official platform before submitting.
+The key is not to list a website everywhere. It is to find directories your intended audience has a reason to use. This guide presents 32 platforms with official submission routes and explains how to find, evaluate, submit to and maintain directory listings yourself.
 
-Directory submission means adding information about a website, business, product, or service to a third-party directory, industry database, or product-discovery platform so that relevant users can find it there.
+## 1. What is website directory submission?
 
-It can still be useful, but the right approach is not to submit a website to 600 directories in the hope of collecting 600 backlinks. A better approach is to choose platforms that your target customers actually use, that are relevant to your business, and that maintain accurate, useful listings. Referral visits, qualified leads, and consistent public brand information are often more valuable than the backlink count itself.
+A web directory is like a subject-organized address book for the internet. An architecture directory might group lighting, building materials and furniture suppliers separately so buyers can locate relevant companies. A blog directory might organize personal websites by technology, travel or photography to help readers find authors worth following.
 
-This guide reviews EarningGuys' [600+ High Authority Directory Submission Sites List](https://www.earningguys.com/directory-submission-sites/), then rebuilds the topic around Google's published search policies and the official guidance of directory platforms. The list below is a categorized starting point, not a promise of high-authority backlinks.
+Unlike search engines, which primarily discover pages through automated crawling and indexing, directories generally maintain a collection of entries organized by particular rules. Editors may review submissions, or businesses may claim and improve existing listings.
 
-## 1. The Short Answer: Is Directory Submission Still Useful?
-
-Yes, but its practical value is different from what many older SEO tutorials suggest.
-
-There are four main reasons to submit a business or product to a relevant directory:
-
-1. **Help potential customers discover you.** Buyers may search for businesses in maps, local listings, B2B supplier databases, or software-review platforms.
-2. **Earn relevant referral visits.** If a platform reaches the same audience you serve, its profile pages may generate website visits, calls, inquiries, or product trials.
-3. **Make public brand information easier to verify.** Accurate company names, websites, business categories, products, and contact details across reputable platforms give people more places to confirm who you are.
-4. **Earn natural brand mentions and links.** Some platforms provide a link to your website, but you cannot assume that the link will pass ranking signals or that the listing page will be indexed.
-
-Directory submission is not a shortcut to higher rankings. Google's [Spam Policies](https://developers.google.com/search/docs/essentials/spam-policies#link-spam) explicitly include links from low-quality directory or bookmark sites as examples of link spam. The policy also identifies automated link creation and large-scale link exchanges intended to manipulate rankings as problematic practices.
-
-So the main question should not be, "Can I get a dofollow link?" It should be: **"Would my customers find this platform useful, and would my listing help them make a decision?"**
-
-## 2. Review of the Original Article: What Is Useful and What Needs Correction?
-
-The original article contains some reasonable basics. It explains the general idea of directory submission, recommends choosing relevant categories, and warns against tools that submit a website to thousands of directories in a minute. Those points are worth retaining.
-
-However, it describes the relationship between directory submissions, backlinks, and search rankings too confidently. Its list of more than 600 domains also lacks the verification details needed to use it safely. The main issues are:
-
-| Original claim | Review | More accurate explanation |
+| Aspect | Web directory | Search engine |
 |---|---|---|
-| Directory submission improves rankings and Domain Authority | Overstated | Relevant listings can generate referral visits and brand exposure. Low-quality directory links can also fall under Google's link-spam policy. Domain Authority is a third-party Moz metric, not a Google ranking score. |
-| Directory submission guarantees search-engine indexing | Incorrect | Google says it cannot guarantee that a URL will be crawled or indexed. Links may help discovery, but they are not an indexing promise. |
-| DA, Trust Flow, and Citation Flow should be the main selection criteria | Only useful as secondary references | These are metrics calculated by third-party tools. They do not replace checking relevance, editorial quality, real users, and business value. |
-| Alexa Rank is a directory-screening metric | Outdated | Alexa Internet retired Alexa.com on May 1, 2022. It is no longer a current website-traffic ranking service. |
-| StumbleUpon is a directory that can still accept submissions | Outdated | StumbleUpon closed on June 30, 2018, and transitioned toward Mix. It should not be presented as an active directory-submission platform. |
-| Dofollow directories help websites achieve high rankings | Misleading | A dofollow link is not automatically valuable. The relevance of the page, its real audience, and compliance with search policies matter much more than the link label alone. |
-| Websites should be resubmitted to directories regularly | No general need | Update an existing profile when information changes. Repeatedly creating the same listing can cause duplicates and unnecessary maintenance. |
+| Discovery | Submission, claiming and editorial inclusion | Automated discovery, sitemaps and other mechanisms |
+| Display | Categorized listings and website or business profiles | Relevant pages and other results for a query |
+| Main purpose | Discover and compare resources by topic | Find answers and relevant information |
 
-There is also a problem with the list itself. Although the title says "600+ High Authority," the article does not explain each site's topic, audience, submission route, price, review process, link attribute, or last-checked date. It also mixes traditional directories with social networks, bookmarking services, search-related websites, and services that have shut down.
+Directory submission is not the same as submitting a sitemap to Google, and it is not a prerequisite for launching a website. If readers find your writing through technical blog directories, submitting an RSS feed may be more useful than registering business profiles.
 
-That does not mean every domain in the list is invalid, and it does not mean every domain has been individually tested. The problem is that **readers cannot tell from a bare list which platforms are still active, which are relevant to their businesses, or which are worth their time or money.** It should not be treated as a verified list of 600 high-quality directories.
+## 2. What is the value of directory submission?
 
-The following primary references help clarify several of these claims:
+### 2.1 Relevant visits and potential customers
 
-- Moz's own [Guide to Domain Authority](https://moz-static.s3.amazonaws.com/products/landing-pages/announcements/Guide_to_Domain_Authority_2.0.pdf) states that DA is not a Google ranking factor.
-- The archived [Alexa Internet retirement notice](https://web.archive.org/web/20220102200605/https://support.alexa.com/hc/en-us/articles/4410503838999) says Alexa.com was retired on May 1, 2022.
-- TechCrunch's [So Long, StumbleUpon](https://techcrunch.com/2018/05/24/so-long-stumbleupon/) documents the service's closure and transition toward Mix.
-- Google's [Crawling and Indexing FAQ](https://developers.google.com/search/help/crawling-index-faq) explains that Google cannot guarantee that a URL will be crawled or indexed.
+A procurement professional browsing products and suppliers in an industry directory may visit a company's website to check specifications, download documents or send an inquiry. A personal blog listed in a directory readers regularly browse may attract new subscribers.
 
-## 3. The Real SEO and GEO Value of Directory Listings
+Referral traffic is traffic arriving at your website through links on other websites. For directory submission, relevant visits and real conversions are the most straightforward benefits to measure.
 
-### 3.1 Referral visits and potential customers
+### 2.2 Website discovery and natural links
 
-The most direct value of a directory is helping people discover your business while they are looking for a product or service.
+Google's [explanation of how search works](https://developers.google.com/search/docs/fundamentals/how-search-works) explains that search engines can discover new pages through links on known pages. A public link in a useful directory can therefore provide another route to discover a website.
 
-For example, a procurement professional may search an industrial supplier database for a manufacturer. A business owner may compare service providers on a B2B platform. A consumer may look for a nearby shop through a map or review site. When the platform matches the audience, the visitors it sends may be more relevant than general traffic.
+A backlink is a link from another website to yours. Relevant, editorially useful directory links may form part of a normal set of website references, but search engines determine whether a link is crawled, how it contributes to rankings and what its impact is. Submitting a directory listing does not equal requesting indexing. Your website still needs useful content, clear navigation, crawlable pages and a correct sitemap.
 
-However, a platform's total audience is not the same as your potential customer count. Measure actual clicks, calls, inquiries, quote requests, trials, and orders rather than relying only on the user numbers advertised by the platform.
+### 2.3 Local business information
 
-### 3.2 Local search and consistent business information
+For businesses that receive customers in person or provide on-site services, maps and local directories can display opening hours, location, phone number, service areas and reviews.
 
-Map and local-business listings are especially important for companies with storefronts, offices, or staff who visit customers.
+Google's [local ranking guidance](https://support.google.com/business/answer/7091) describes relevance, distance and prominence as the main factors. Complete and accurate information helps people find suitable businesses. This describes Google's local search system; it does not establish that every directory improves a website's organic rankings.
 
-Google explains that local results are mainly based on relevance, distance, and prominence. Complete and accurate business information helps the platform understand and display a business. The important points are truthful details, the correct category, and accurate addresses or service areas—not adding keywords to the business name.
+### 2.4 Public brand information and GEO
 
-Google Business Profile is not suitable for every website. Google requires eligible businesses to make in-person contact with customers during their stated business hours. An online-only business with no customer-facing location and no in-person service does not meet the basic eligibility requirements. Do not invent a storefront address for SEO.
+Generative Engine Optimization (GEO) concerns whether content can be discovered, understood and cited in AI-powered search and answers.
 
-### 3.3 Brand entities and GEO
+For example, an industrial company can describe its core products, manufacturing capabilities and markets on its website, publish the same facts in industry listings, and provide verifiable identity information in suitable association or certification directories. Readers or retrieval systems examining those sources can understand the same company rather than encounter conflicting names, addresses or business descriptions.
 
-GEO, or Generative Engine Optimization, focuses on making information easier for AI search and answer systems to understand, verify, and cite.
+Use the official brand name and website consistently, keep categories and contact details accurate, update obsolete products and credentials, and provide substantial product, about and contact information on your own site. If [Organization structured data](https://schema.org/Organization) is appropriate, make sure it matches visible content.
 
-When a company uses consistent and accurate information across its website, professional platforms, industry associations, and reputable review sites, people have more ways to verify its public identity. AI systems retrieving public web pages may also encounter those profiles.
+[Google's AI search guidance](https://developers.google.com/search/docs/appearance/ai-features) recommends foundational SEO, reliable content and up-to-date business information. It does not offer a formula guaranteeing AI citations based on the number of directories. Microsoft's [Bing AI Performance announcement](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/) also recommends keeping local business addresses, opening hours and contact details current in Bing Places so information remains eligible for relevant AI-generated responses. Third-party listings can supplement verifiable information, but they are not a proven universal AI ranking signal. See the [Website SEO and GEO Basics guide (Chinese)](/blog/website-seo-geo-basics/) for foundational website optimization.
 
-But this does not mean that submitting to a particular directory will make ChatGPT or Google AI cite your website. AI products use different data sources and retrieval methods, and directory submission is not an official guarantee of AI citations. The more dependable approach is still to maintain a useful website, original content, and accurate public business information. For a related research workflow, see the [SEO Keyword Research Guide](/en/blog/seo-keyword-research-guide/).
+## 3. Identify the right directory type for your website
 
-### 3.4 Backlinks are only a possible side benefit
-
-Some directories link to your website. Others use nofollow or sponsored attributes, and some free profiles do not include an external link at all.
-
-Do not ignore the quality of a directory just to get a dofollow link. Google's guidance for paid links recommends appropriate link attributes, such as `rel="sponsored"`. If you operate a directory, follow [Google's guidance on qualifying outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) when handling advertisements and paid placements.
-
-## 4. First, Identify the Type of Directory You Need
-
-"Website directory" does not describe one uniform type of platform. Different directories serve different audiences and require different submission strategies.
-
-| Type | Main audience | Suitable businesses or projects |
+| Website type | Prioritize | Why |
 |---|---|---|
-| Local business and map platforms | People looking for nearby shops or local services | Eligible storefronts, restaurants, retailers, clinics, and service-area businesses |
-| Company and B2B service directories | Businesses looking for suppliers, agencies, or professional service providers | Manufacturers, wholesalers, software developers, consultants, and marketing agencies |
-| Industry directories and association listings | Buyers and professionals in a specific industry | Businesses with a clear industry focus, relevant qualifications, or association membership |
-| Software and product directories | People comparing software, tools, or new products | B2B software, SaaS, open-source projects, and new products |
-| Review and reputation platforms | Consumers or procurement teams researching customer experiences | Brands with real customers and the ability to manage reviews |
-| General web directories | People browsing websites or resources by topic | Only directories with a clear topic, real audience, and useful editorial review |
+| Personal blogs and knowledge sites | Blog, topical resource and general directories | Readers can discover and follow writing |
+| Storefronts and local services | Maps and local business directories | Customers need locations, hours and contact information |
+| Manufacturers and traders | Industry supplier directories and company listings | Buyers search by product, region and capabilities |
+| Consulting, IT and design services | B2B service directories | Customers compare services and genuine cases |
+| SaaS and open-source projects | Software directories, product discovery and curated resources | Users compare software or look for solutions |
 
-If you run a personal blog or portfolio, you do not need to register on every business platform just to say that you have submitted your site. Look for professional directories and communities related to your subject, profession, or portfolio type.
+General and blog directories usually accept a website or content feed; local and company listings represent a business; software and sourcing platforms accept product or supplier information. They complement each other but are not identical submission mechanisms.
 
-## 5. Platforms Worth Researching First
+## 4. 32 directory and related discovery platforms
 
-The platforms below have identifiable purposes and official pages explaining their listing or claiming processes. They are not all the same kind of directory, and not every platform is suitable for every business. The intended audience matters more than a supposed Domain Authority ranking.
+Official submission routes or guidance were checked on November 28, 2026. Links lead to submission routes or official instructions from which you can start the relevant registration. Fees and review policies may change; where information is unconfirmed, check the platform's current rules. This is a purpose-based shortlist, not a domain-authority ranking or a traffic benchmark. There is no need to submit to every platform.
 
-### A. Local business and map platforms
+### 1. General web directories
 
-| Platform | Best fit | Main purpose and notes |
+For complete websites with a clear subject. Browse relevant categories and recent listings before using a free submission route; consider paid editorial services only for their audience value.
+
+| Platform / official entry | Audience and market | Fees and submission rules |
 |---|---|---|
-| [Google Business Profile](https://business.google.com/) | Eligible local storefronts and service-area businesses | Manage the business information shown in Google Search and Maps. Online-only businesses do not meet the basic eligibility requirements; use real locations and service arrangements. |
-| [Bing Places](https://www.bing.com/forbusiness/help/createYourListing?setlang=en-US) | Local businesses and small companies | Claim or create a business listing for Bing Search and Maps. Search for an existing listing before creating a new one. Some features vary by country and region. |
-| [Apple Business](https://business.apple.com/) | Companies that want to manage brand and location information across Apple's ecosystem | Manage brand and location information across Apple Maps, Mail, Wallet, Siri, and other Apple services. Apple Business, launched in 2026, brings together tools that previously included Apple Business Connect. |
-| [Yelp for Business](https://biz.yelp.com/) | Local services, restaurants, and retailers in markets where Yelp has an active user base | Claim an existing business page and manage its address, phone number, opening hours, photos, and reviews. Claiming a page is free, but its value depends on real usage in your target market. |
-| [Foursquare](https://support.foursquare.com/hc/en-us/articles/23646714300444-Claiming-a-listing) | Physical venues and local places | Find and claim an existing venue listing, then update its details. Check local coverage and actual exposure before prioritizing it. |
+| [Curlie](https://curlie.org/docs/en/add.html) | Global, multilingual; general websites | Free; volunteer review; choose one relevant category |
+| [JoeAnt](https://www.joeant.com/webmaster.htm) | English-language sites; original resources | Follow submission guidelines; editorial review; check fees at entry |
+| [SoMuch](https://www.somuch.com/submit-links/) | English-language sites; independent domains | Free basic submission, paid priority; main URL only, queued review |
+| [Jasmine Directory](https://www.jasminedirectory.com/submit.html) | Business websites; multiple industries | Paid review; inspect relevant categories and audience first; lower priority |
+| [Aviva Directory](https://www.avivadirectory.com/submit.php) | English-language original sites | Paid editorial review; non-refundable; separate blog directory; lower priority |
 
-### B. Company, B2B service, and industry directories
+### 2. Blog and independent publishing directories
 
-| Platform | Best fit | Main purpose and notes |
+Independent authors and technical publishers should prioritize collections that serve readers. RSS or Atom lets readers follow updates; do not disguise a commercial site as a personal blog.
+
+| Platform / official entry | Audience and market | Fees and submission rules |
 |---|---|---|
-| [LinkedIn Company Page](https://www.linkedin.com/help/linkedin/answer/a543852/creating-a-linkedin-page) | B2B companies, brands, and organizations | Not a traditional web directory, but a company page can centralize the organization's description, website, industry, size, and hiring information. Creating a page is free and provides a stable public company identity. |
-| [Clutch](https://clutch.co/get-listed) | B2B companies that provide services to other businesses | Covers software development, IT, design, marketing, and professional services. Clutch offers a basic company profile as well as paid enhanced offerings. Evaluate paid plans based on qualified leads and customer reach, not simply the promise of a backlink. |
-| [GoodFirms](https://help.goodfirms.co/what-information-and-details-should-i-provide-when-submitting-my-business-for-listing/) | IT providers, software development firms, digital agencies, and professional service companies | Company profiles involve service focus, experience, location, clients, and capabilities. Prepare verifiable business information and case studies before submitting. |
-| [Thomasnet](https://business.thomasnet.com/get-listed-on-thomasnet) | Manufacturers, industrial suppliers, OEMs, and distributors | A directory focused on North American industrial buyers, engineers, and supply-chain professionals. It provides a free company-profile claiming route. It is less relevant if your target market is unrelated to North American industrial sourcing. |
-| [Trustpilot](https://corporate.trustpilot.com/legal/for-businesses/guidelines-for-businesses/sep-2026) | Consumer-facing or B2B brands with genuine customer reviews | Focuses on business profiles and review management, not simply website submission. Review invitations must be fair and unbiased. Do not buy or fabricate positive reviews or offer rewards in exchange for positive feedback. |
-| [Crunchbase](https://support.crunchbase.com/hc/en-us/articles/115011823988-How-do-I-create-a-Crunchbase-profile) | Technology companies, startups, investors, and related organizations | Suitable for technology companies with real company, team, product, or funding information. The platform emphasizes accurate and unique information; it is not a general advertising directory for every small business. |
+| [indieblog.page](https://indieblog.page/suggest) | Global; personal blogs | Public suggestion form; valid RSS/Atom required; no corporate blogs; fee not stated |
+| [blogs.hn](https://blogs.hn/about) | Technical blogs; international developers | Submit a GitHub PR; maintainer approval; no paid route stated |
+| [FeedSpot](https://publisher.docs.feedspot.com/article/221-how-to-submit-a-site) | International; topical blogs and media | Form and team review; check current entry for basic costs |
+| [BlogR Directory](https://blogr.directory/submit/) | International; independent, human-written blogs | Form, GitHub or email; manual review; excludes AI-generated editorial content and primarily sales sites; no fee stated |
 
-### C. Software, digital products, and project directories
+### 3. Local business and map listings
 
-| Platform | Best fit | Main purpose and notes |
+For real storefronts and service-area businesses. Check eligibility against actual operations and service areas; never invent a storefront for an online-only business.
+
+| Platform / official entry | Audience and market | Fees and submission rules |
 |---|---|---|
-| [G2](https://sell.g2.com/create-a-profile) | B2B software and service products | Create or claim a product profile to present features, pricing, and customer reviews. G2 reviews product eligibility and duplicate profiles; B2C products may not qualify. |
-| [Capterra](https://www.capterra.com/vendors/) | Software vendors and SaaS products | Create software product listings that help buyers compare solutions. It is a software-purchasing and review platform, not a general directory for every website. |
-| [Product Hunt](https://help.producthunt.com/en/articles/479557-how-to-post-a-product) | Newly launched software, tools, and digital products | A product-launch and discovery community, not a conventional company directory. Its official guidance recommends posting from a personal account and prioritizing products that people can actually try. Do not buy fake votes. |
-| [SourceForge](https://sourceforge.net/p/forge/documentation/Promoting%20your%20project/) | Open-source software and software projects | A project page should explain what the software does, its main features, screenshots, and update activity. It is suitable for real software projects, not empty pages created only to obtain a link. |
+| [Google Business Profile](https://business.google.com/) | Supported markets; storefronts, service-area businesses | Free; claim or create and verify; [business eligibility rules](https://support.google.com/business/answer/13763036) apply |
+| [Bing Places](https://www.bing.com/forbusiness/help/createYourListing?setlang=en-US) | Supported markets; local businesses | Free basic listing; claim or create and verify; regional features vary |
+| [Apple Business](https://business.apple.com/) | Apple service markets; brands and locations | Basic brand and location management; follow account verification; check fees for other services |
+| [Yelp](https://biz.yelp.com/) | Yelp-active markets; dining and local services | Free claim; manage profiles and reviews; ads extra |
+| [Foursquare](https://support.foursquare.com/hc/en-us/articles/23646714300444-Claiming-a-listing) | Supported markets; physical venues | Claim an existing venue; confirm eligibility and fees |
+| [Hotfrog](https://support.hotfrog.com/getting-started/) | Markets with local editions; small businesses | Find or create and update a profile; check local fees |
 
-### D. Regional and industry-specific directories
+### 4. Company and B2B directories
 
-You should also look for directories maintained by organizations in your target markets, such as:
+Choose platforms based on how buyers source suppliers. Manufacturers and consulting, design or IT service firms need different directories.
 
-- Local chambers of commerce, trade associations, and professional associations.
-- Supplier directories maintained by industry trade shows, procurement organizations, or trade publications.
-- Official company databases and exporter directories in specific countries or regions.
-- Public directories maintained by professional associations, certification bodies, and industry-standard organizations.
-
-These directories may not offer a universal free submission form. Some require membership or qualification checks. Their value comes from serving a real industry, not merely providing a place to publish a website link.
-
-## 6. How to Decide Whether a Directory Is Worth Submitting To
-
-Before submitting, check these six points:
-
-| Check | Signs of a worthwhile directory | Warning signs |
+| Platform / official entry | Audience and market | Fees and submission rules |
 |---|---|---|
-| Audience fit | Its users match your customers, market, or industry | Its topic has little to do with your business |
-| Real user value | People can search, compare, contact, or learn about businesses | The site mainly displays external links and offers little user functionality |
-| Editorial quality | It has category rules, listing reviews, and duplicate handling | Any site can be published instantly, with no content maintenance |
-| Page quality | Listings are readable, accessible, and presented with useful context | Pages are full of ads, pop-ups, irrelevant links, or spam |
-| Transparent pricing | Free and paid features, placement, and contract terms are clear | It uses promises such as "guaranteed rankings" or "guaranteed dofollow links" to pressure buyers |
-| Listing and link rules | Business information can be entered accurately and link policies are clear | It requires large-scale link exchanges, keyword-rich anchor text, or automated submissions |
+| [Kompass](https://www.solutions.kompass.com/our-products-services/digital-marketing/business-listing-on-kompass/) | Global; B2B companies | Free basic registration, optional paid promotion; complete profile in the relevant country edition |
+| [europages](https://help.europages.com/en/supplier/faqs) | European and international sourcing; suppliers | Free registration available; new supplier review; paid services separate |
+| [Clutch](https://clutch.co/get-listed) | International; IT, design, marketing and business services | Basic profile and paid promotion; provide genuine service details and cases |
+| [GoodFirms](https://help.goodfirms.co/what-information-and-details-should-i-provide-when-submitting-my-business-for-listing/) | International; IT and professional services | Provide service and experience details per guidelines; check fees at entry |
 
-Third-party metrics such as DA, DR, and Trust Flow can help compare websites within the same tool's database. They should not replace the checks above. A high DA score does not make a directory useful if it has no real audience, an irrelevant topic, or poor listing pages.
+### 5. Industry directories and sourcing marketplaces
 
-### A simple screening rule
+Professional buyers often filter suppliers by specifications, certifications, capacity or capabilities. Sourcing marketplaces extend the directory concept rather than serving as general URL directories.
 
-If you would still want a profile on a directory even if it did not provide a backlink—because your customers might find you there—it is probably worth investigating.
+| Platform / official entry | Audience and market | Fees and submission rules |
+|---|---|---|
+| [Thomasnet](https://business.thomasnet.com/get-listed-on-thomasnet) | North American industrial sourcing; manufacturers, OEMs, distributors | Free basic claim route; promotion extra |
+| [GlobalSpec](https://advertising.globalspec.com/list-your-products/) | Engineering; industrial components and equipment | Contact platform to list products; request commercial pricing |
+| [DirectIndustry](https://www.directindustry.com/exhibit_on_directindustry/subscription) | Global industrial equipment; manufacturers and distributors | Exhibitor application; confirm review, pricing and services |
+| [ArchiExpo](https://www.archiexpo.com/exhibit_on_archiexpo/subscription) | International architecture and interiors; materials, furniture, lighting | Exhibitor application; confirm review, pricing and services |
+| [MedicalExpo](https://www.medicalexpo.com/exhibit_on_medicalexpo/subscription) | International medical devices; specialist equipment suppliers | Exhibitor application; confirm credentials, markets and pricing |
 
-If the only reason is that it promises a dofollow link, reconsider.
+### 6. Software and product directories
 
-## 7. A Practical Directory Submission Process
+Usable software belongs on platforms where its intended users compare alternatives; launch communities are better suited to products people can already try.
 
-### Step 1: Search for an existing company profile
+| Platform / official entry | Audience and market | Fees and submission rules |
+|---|---|---|
+| [AlternativeTo](https://alternativeto.net/faq/#add-a-new-application) | Global; software and apps | Verify email, then submit; review; paid priority does not guarantee approval |
+| [SaaSHub](https://www.saashub.com/services/submit) | Global; SaaS and software | Product submission and review; check listing and promotion fees; human submission required |
+| [G2](https://sell.g2.com/create-a-profile) | International; B2B software | Create or claim product profile; eligibility review; check package pricing |
+| [Capterra](https://www.capterra.com/vendors/) | International; software buyers | Vendor entry; confirm product eligibility and basic or promotional fees |
+| [Product Hunt](https://help.producthunt.com/en/articles/479557-how-to-post-a-product) | International tech community; new products | Launch with a personal account; follow community rules; paid promotion not required |
 
-Before creating a new listing, search the platform using your company name, brand name, address, and website domain.
+### 7. Curated resources and developer tools
 
-If the platform has already created a company page, claim and correct it rather than creating a second copy. Google, Bing, Yelp, and other platforms provide processes for claiming existing listings.
+For open-source projects, developer tools and AI tools, specialized discovery lists can reach genuine users. Ordinary company homepages are not suitable.
 
-### Step 2: Prepare a consistent business information sheet
+| Platform / official entry | Audience and market | Fees and submission rules |
+|---|---|---|
+| [Awesome Lists](https://github.com/sindresorhus/awesome/blob/main/contributing.md) | International developers; open source and specialist resources | Free contribution; find the specific topic list, follow its rules; PR review |
+| [DevHunt](https://devhunt.org/faq) | International; developer tools | Free basic listing, paid launch options; sign in to submit |
+| [Future Tools](https://futuretools.io/submit-a-tool) | International; AI tools | Tool submission form and review; check form and official guidance for fees |
 
-Prepare a reusable information sheet with:
+A personal technical blog might start with a relevant Curlie category, blogs.hn and indieblog.page. An industrial manufacturer selling to North American buyers might start by evaluating Thomasnet, Kompass and the relevant product sourcing directories. Proceed only when the platform fits your site's purpose, eligibility and target market.
 
-- Official company name and brand name.
-- Canonical website URL, preferably using the HTTPS primary domain.
-- Company description, main products, and services.
-- Industry category, target markets, and service areas.
-- Accurate address, phone number, opening hours, and contact email, where applicable.
-- Logo, company photos, product images, and case studies.
-- Verifiable qualifications, certifications, association memberships, or customer cases.
+Some established blog directories pause submissions. For example, the [Blogroll.org submission page](https://blogroll.org/submit-a-blog) currently states that new submissions are paused, so it is not counted in the shortlist above.
 
-Company names, addresses, and contact information should be genuine and consistent. Platform fields may differ, but do not invent a company name, office location, or qualification to match keywords.
+## 5. How to find more useful directories yourself
 
-### Step 3: Choose platforms based on business priorities
+### 5.1 Use Google searches
 
-Do not submit to hundreds of websites at once. Start with platforms that closely match your customer base:
+Replace the example terms below with your industry, topic or target region. When targeting international markets, searches in the local language are also useful.
 
-- Local storefronts: prioritize Google, Bing, Apple, and review platforms commonly used in the target market.
-- B2B service companies: prioritize LinkedIn, Clutch, GoodFirms, and relevant professional associations.
-- Industrial suppliers: look for procurement-oriented directories such as Thomasnet, along with industry listings in target countries.
-- SaaS and software products: prioritize the platforms that genuinely fit the product, such as G2, Capterra, Product Hunt, or SourceForge.
+| Search example | Purpose |
+|---|---|
+| `"submit a site" "photography"` | Find photography website directories |
+| `"add your website" "directory"` | Find general website submission routes |
+| `"add your blog" "technology"` | Find technical blog directories |
+| `"supplier directory" "LED lighting"` | Find lighting supplier directories |
+| `"member directory" "architecture"` | Find architecture association listings |
+| `intitle:directory "industrial automation" Germany` | Find industrial automation directories in a target market |
 
-You can start with 5–10 of the most relevant platforms as a manageable first round. This is only a practical workload suggestion—not a search-engine requirement or ranking formula.
+Quotation marks search for a specified phrase; intitle: restricts a term to page titles. These operators narrow the search, not certify the results. Open candidate directories and inspect submission rules, relevant categories and sample pages.
 
-### Step 4: Choose the right category and write a useful description
+### 5.2 Research competitors' or peers' backlinks
 
-Do not put every product, industry, and keyword into one paragraph.
+Use backlink reports in tools such as Ahrefs or Semrush. Enter three to five websites with similar activities and target markets, filter referring domains, and look for shared industry listings, associations, media resource pages or product directories.
 
-A good directory description should help readers quickly understand:
+If three peers are listed in the same industrial association directory, for example, it may be relevant. Next check its membership requirements, reader purpose and actual listing format rather than copying every peer's backlinks. Without a backlink tool, search for a peer's brand name alongside terms such as supplier directory or member directory.
 
-1. What is this company or product?
-2. Which customers does it serve?
-3. What problem does it solve?
-4. Which capabilities, products, or cases can be verified?
-5. How can a user contact the company or learn more?
+### 5.3 Find directories through industry organizations and exhibitions
 
-You can reuse the same facts, but adapt the emphasis to each platform's audience. Do not copy a keyword-stuffed description into hundreds of directories.
+Association member directories, public certification databases, exhibitor lists, regional chambers of commerce and industry media supplier guides can be more suitable than general URL directories. They commonly require genuine identity, credentials, exhibition participation or membership. Find application rules through the organization's own website rather than buying third-party promises of inclusion.
 
-### Step 5: Complete verification and inspect the public page
+## 6. How to evaluate whether a directory is worth submitting to
 
-Complete any email, phone, company, or location verification required by the platform. After approval, open the public listing and check:
+Use these six checks as a screening sheet. Browse the directory homepage, search for listings on your topic and open actual listing pages.
 
-- Whether the company name, website, and category are correct.
-- Whether the address, phone number, and opening hours are accurate.
-- Whether the logo, images, and description display correctly.
-- Whether duplicate pages or incorrect information appear.
-- Whether the website link points to the correct canonical page.
+| Check | How to evaluate |
+|---|---|
+| Audience fit | Do the readers or buyers match your intended users? |
+| Category relevance | Is there a suitable category rather than a mixture of unrelated subjects? |
+| Content quality | Are entries complete, valid and individually described? Are many links broken? |
+| Editorial maintenance | Are submission rules stated, can errors be corrected and is there evidence of maintenance? |
+| User features | Can users search and compare by industry, region, topic or product? |
+| Costs and links | Are fees transparent? Are ranking links or unrelated reciprocal links compulsory? |
 
-Do not assume a listing has been published just because the dashboard says "Submitted."
+If the first three checks clearly fail, there is no need to spend time solely for a backlink. A simple prioritization method is to score each check 0–2 (not met, partly met, met). Prioritize candidates scoring 10–12, investigate those scoring 7–9 and defer those scoring 6 or less. This is an example of an internal prioritization method, not a Google scoring system. Exclude candidates with fabricated information or link manipulation regardless of score.
 
-### Step 6: Track real visits and inquiries
+## 7. A practical directory submission tutorial
 
-If a platform allows UTM parameters in the website URL, use a distinct source tag for each directory. You can then use GA4 to review referral visits, page behavior, and conversions.
+### Step 1: Prepare website information
 
-Focus on:
+Create a reusable information sheet. The following is a fictional industrial lighting business, not a real company or an actual submission result.
 
-- Listing-page views and website clicks.
-- Referral visits and meaningful engagement from the platform.
-- Actual conversions such as calls, emails, quote requests, registrations, or purchases.
-- Lead quality, acquisition cost, and eventual sales.
+| Field | Teaching example |
+|---|---|
+| Website name | Northstar Lighting Components |
+| Website URL | https://example.com/ |
+| Category | Industrial Suppliers / LED Lighting Components |
+| Description | Manufacturer of LED lighting components for retail displays and commercial interiors, with custom product design and OEM manufacturing services. |
+| Market | International B2B customers |
+| Contact | sales@example.com (example) |
+| Supporting material | Genuine product photos, specifications, factory address and verifiable certifications, where applicable |
 
-Google Search Console can help you monitor your website's organic search impressions and clicks, but it does not replace the directory's own traffic reports and cannot by itself prove that a directory caused a ranking change. For a more complete measurement setup, see the [GA4 Lead Tracking with GTM guide](/en/blog/ga4-gtm-lead-tracking/).
+For a personal blog, the sheet should contain the blog name, topic, URL, valid RSS or Atom feed, language and a short description. You do not need company credentials and should not enter a fictitious business address.
 
-### Step 7: Maintain existing profiles instead of resubmitting them
+### Step 2: Search existing listings and select a category
 
-Update existing profiles when your company moves, changes its name, adjusts its products or services, or changes its website. Review important platforms quarterly, or whenever significant information changes.
+Search the directory using the website name, brand name and domain. If a correct entry already exists, prioritize claiming or updating it. For a new entry, choose the category that best represents the site's purpose rather than submitting to every related category.
 
-There is no need to submit the same website repeatedly just to appear active. Maintaining accurate profiles is more useful than creating duplicate listings.
+The example lighting manufacturer should choose LED Lighting Components instead of the broad Business category in an industrial directory. A blog about Linux, self-hosting and open-source software can choose a technology or developer blog category.
 
-## 8. Directory Submission Practices to Avoid
+### Step 3: Fill in the name, URL and description
 
-### 8.1 Automated bulk submissions
+Use the brand name that readers actually see, not a list of keywords. The URL should generally be the canonical HTTPS homepage; if the platform asks for a product page or RSS feed, provide that specific URL.
 
-Avoid services that promise to submit a website to hundreds or thousands of directories in a short time. They often cannot evaluate each directory's topic, review rules, or listing quality, and may submit your website to irrelevant or low-quality pages.
+Avoid descriptions such as "Best LED Lighting, Cheap LED Supplier, Top Manufacturer." They do not tell buyers what the company provides. Use the concrete products, applications and services in the information sheet and adjust the emphasis for each platform. Do not add unverifiable claims of industry leadership, certifications or client names.
 
-### 8.2 Buying dofollow links for rankings
+### Step 4: Submit and complete verification
 
-Paid promotion is not automatically a violation. A trade platform that genuinely reaches your target customers may offer valuable paid placements, advertising, or membership services.
+Follow the platform's submission process and complete email, phone, business identity or location verification. For associations, sourcing marketplaces and editorial directories, provide evidence or await review as required. Check fees, renewal, refunds and cancellation rules before submitting.
 
-However, do not buy links specifically to manipulate search rankings or purchase promises of followed ranking signals. Treat paid plans as advertising or lead-generation expenses and measure their actual exposure and lead value. Directory operators should also label paid links appropriately under Google's guidance.
+### Step 5: Inspect the public listing after approval
 
-### 8.3 Joining large-scale reciprocal link exchanges
+Open the actual public page rather than relying on a dashboard status. Check the name, category, description, contact information and URL; click the website link to confirm it reaches the intended page. Where applicable, check feed availability, photos, product details and opening hours.
 
-Be cautious if a directory requires you to add unrelated links to your own website in exchange for a listing. Google identifies large-scale link exchanges intended to manipulate rankings as link spam.
+If a submission is declined, read the reason and correct the information. If a platform excludes your website type, choose another suitable platform rather than changing facts to bypass review.
 
-### 8.4 Fabricating company information or reviews
+### A personal blog submission example
 
-Do not use fake addresses, invented branch offices, incorrect business categories, or unauthorized company information. Review platforms also prohibit purchased or fabricated reviews and incentives offered in exchange for positive reviews.
+Suppose you run a personal blog called Home Lab Notes, covering Linux, self-hosting and open-source software tutorials. Start by entering the blog homepage or RSS/Atom address in the [indieblog.page submission form](https://indieblog.page/suggest), such as https://example.com/feed.xml (a demonstration URL only). If automatic detection fails, check that the feed is valid and enter its exact URL. Then search the directory to check whether the blog is listed and the link works. If you choose Curlie instead, browse the relevant topic and language categories first and suggest the single most relevant category according to its [submission guidelines](https://curlie.org/docs/en/add.html), for editorial review. The two submission methods differ, but both start from how readers can actually discover and use the content.
 
-### 8.5 Looking only at a domain score
+## 8. Manage and maintain directory listings
 
-Even if a directory has a high third-party score, inspect the actual page where your listing will appear. That page may not be indexed, may have no real visitors, may contain no relevant context, or may no longer be maintained.
+Directory work does not end at submission. A simple tracker helps website operators avoid duplicate work and manage reviews, renewals, updates and performance in one place.
 
-### 8.6 Treating directory submission as an indexing guarantee
+Copy the following CSV header and fictional sample row into Excel or Google Sheets. No actual submission is represented.
 
-Google's automated systems decide which URLs to crawl and index. Google does not guarantee that a particular URL will be crawled, indexed, or shown in results. A directory link is only one possible discovery path, not an indexing promise. Your own website still needs accessible pages, clear internal links, and useful content.
+```csv
+Platform,Directory type,Website,Submission URL,Cost,Submission date,Status,Public listing URL,Link attribute,Referral visits,Conversions,Last checked,Notes
+Directory A,Industry directory,https://example.com/,https://example.com/submit,0,,To submit,,Unverified,,,,Teaching example
+```
 
-## 9. Frequently Asked Questions
+Useful statuses include To submit, Under review, Published, Rejected, Needs updating and Inactive. Record the public listing URL once published and check that it remains accessible and accurate.
 
-### 1. Does directory submission still have SEO value in 2026?
+Review important directories quarterly, and update profiles promptly when domains, addresses, products or contact information change. If a paid directory consistently produces no useful visits or prospects, reassess whether to renew it.
 
-Yes, but treat it as a way to distribute accurate brand information, reach relevant users, and earn referral visits—not as a way to manufacture backlinks in bulk. Platforms that are closely related to your business, actively used, and well maintained deserve priority.
+## 9. How to measure directory submission results
 
-### 2. Is it better to submit to more directories?
+### 9.1 Measure referral visits and conversions
 
-No. There is no universal ideal number of submissions for every website. A smaller set of highly relevant platforms is usually easier to maintain and more likely to reach real users than a large list of unrelated directories.
+If the platform permits UTM parameters in website links, use a URL like the following. Replace the source with the actual directory name and do not force tracking parameters into listings that require a canonical URL.
 
-### 3. Are nofollow directory listings still worth submitting to?
+```text
+https://example.com/?utm_source=directory_a&utm_medium=referral&utm_campaign=directory_listing
+```
 
-They can be, if the platform reaches your target customers and has genuine business value. Do not use dofollow status as the only selection criterion. A nofollow profile that generates qualified inquiries may be more valuable than a dofollow link that nobody visits.
+In GA4's traffic acquisition report, review session source/medium alongside relevant key events such as contact form submissions, subscriptions, sign-ups, product downloads or purchases. Google provides [campaign URL parameter guidance](https://support.google.com/analytics/answer/10917952); for conversion setup see the [GA4 lead tracking guide](/en/blog/ga4-gtm-lead-tracking/).
 
-### 4. Will Google index my website after I submit it to a directory?
+Also record listing views, clicks, calls or inquiries if the directory provides them. Some visits may not be attributed accurately due to privacy settings or in-app navigation.
 
-No guarantee. Google explicitly says it cannot guarantee that a URL will be crawled or indexed. Whether the directory page itself is crawled or indexed is also decided by the search engine.
+### 9.2 Calculate return on investment
 
-### 5. Can directory submission make ChatGPT or Google AI cite my website?
+Suppose a paid industry directory costs $300 per quarter and generates six qualified inquiries, for a cost of $50 per qualified inquiry ($300 divided by six). If two orders during the same period generate $900 in gross profit, the remainder after the directory fee is $600. This is a calculation example, not actual platform performance, and excludes labor and other costs.
 
-There is no such guarantee. Accurate company profiles on reputable platforms can help people verify a brand and may become public sources that AI systems encounter, but they do not promise AI citations or higher rankings.
+Personal blogs can instead examine new subscriptions, returning visits and readership rather than using business lead metrics.
 
-### 6. Are paid directories worth the money?
+### 9.3 Observe SEO and GEO performance
 
-It depends on whether the platform reaches the right customers, how much useful exposure and how many qualified inquiries it can generate, and whether the price makes sense. Evaluate it as a marketing channel, not as a purchase of a dofollow link.
+The Google Search Console [Links report](https://support.google.com/webmasters/answer/9049606) can help identify some external links; the search performance report shows queries, impressions and clicks. A directory submission and a coincident ranking improvement do not establish causation.
+
+For GEO, track identifiable AI referral traffic, periodically sample whether brand information is accurate in different search products, and examine the public pages actually cited. Monitoring these measures over time is more meaningful than whether a brand appears in one answer.
+
+## 10. Common misconceptions and risks
+
+Google's [spam policies](https://developers.google.com/search/docs/essentials/spam-policies#link-spam) identify links created to manipulate rankings as link spam, including low-quality directory links, automated links and excessive exchanges. Distinguish the following practices.
+
+| Misconception | Better practice |
+|---|---|
+| More submissions are always better | Prioritize relevant, genuine and maintained directories |
+| Higher DA or DR always means a better directory | DA and DR are third-party metrics, [not Google ranking scores](https://help.ahrefs.com/en/articles/907673-do-search-engines-use-domain-authority-domain-rating-as-a-ranking-factor); inspect the listing page and audience |
+| Only dofollow links are worth submitting for | Prioritize real exposure and visits; link attributes are not the sole criterion |
+| Paid directories are always prohibited or always effective | Membership, editorial review and advertising may have business value; do not buy ranking-credit links to manipulate search |
+| Reciprocal links are compulsory | Normal resource citations may be useful, but avoid large-scale unrelated link exchanges |
+| Directories guarantee Google indexing or AI citations | Directories are only potential discovery and information distribution channels |
+
+Google's [outbound link guidance](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links) recommends sponsored for advertising and paid placement links; nofollow is also accepted for such links, while ugc applies to user-generated content. Ordinary links without these qualifiers are often called dofollow links, although HTML does not require a rel="dofollow" attribute.
+
+## 11. Frequently asked questions
+
+### Should a new website submit to directories immediately?
+
+First make sure the content is complete, navigation and links work, and contact details are genuine. Prepare a valid RSS feed for a blog or company and product information for a business. Then choose the most relevant directories; you do not need to wait until the site has substantial traffic.
+
+### How long does directory submission take?
+
+Immediate publication, email verification, manual editorial review and membership checks take different amounts of time. Consult the platform's guidance; manual review can take considerable time. Record the submission date and status to avoid duplicate applications while waiting.
+
+### How should I choose between free and paid directories?
+
+Start with free routes that closely match your intended readers. For paid directories, evaluate the audience, placement, fees and renewal terms. If you cannot assess the value, do not pay yet.
+
+### Should I submit every individual blog post?
+
+Most web directories accept only the main website or RSS feed, while some specialized resource lists accept specific pages or projects. Follow each directory's rules; do not repeatedly submit individual posts to a main-site-only directory.
+
+### Can I submit the Chinese and English versions of a website separately?
+
+If the directory explicitly offers separate language categories and allows corresponding language pages, follow those rules. If only one main website entry is permitted, submit the primary URL rather than creating duplicate profiles.
 
 ## Conclusion
 
-Directory submission has not become completely useless. What has become outdated is the simple idea that more submissions automatically mean more backlinks and higher rankings.
+Directory submission is a content distribution activity for readers and customers. Choose suitable directories, create accurate profiles, inspect public pages, maintain information and measure real results. Personal website owners can begin with specialist blog directories; business operators can start with industry directories and sourcing marketplaces in their target markets, then expand based on results.
 
-A better approach today is to **find platforms your customers actually use, then build accurate, complete, and maintainable company or product profiles.** Local map services, professional B2B directories, industry-association listings, and software-review platforms serve different purposes. Choose according to your business and target market rather than copying a list of 600 domains.
+## References
 
-SEO is about helping search engines understand your website. GEO is about making public information easier to understand and verify. Both should ultimately serve real users and real business goals. Do not spend time maintaining a directory that has no audience for your business just to obtain a link.
+- [Google Search Essentials](https://developers.google.com/search/docs/essentials)
+- [Google: How Search Works](https://developers.google.com/search/docs/fundamentals/how-search-works)
+- [Google: Spam Policies — Link Spam](https://developers.google.com/search/docs/essentials/spam-policies#link-spam)
+- [Google: Qualify Your Outbound Links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links)
+- [Google Business Profile: Eligibility and Ownership](https://support.google.com/business/answer/13763036)
+- [Google Business Profile: Local Ranking](https://support.google.com/business/answer/7091)
+- [Google: AI Features and Your Website](https://developers.google.com/search/docs/appearance/ai-features)
+- [Schema.org: Organization](https://schema.org/Organization)
+- [Google Analytics: Campaign URL Parameters](https://support.google.com/analytics/answer/10917952)
+- [Google Search Console: Links Report](https://support.google.com/webmasters/answer/9049606)
 
-## References and Official Sources
-
-**Search policies and technical guidance**
-
-- [Google Search Essentials: Spam Policies — Link Spam](https://developers.google.com/search/docs/essentials/spam-policies#link-spam)
-- [Google Search Central: Qualify Your Outbound Links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links)
-- [Google Search Central: In-Depth Guide to How Google Search Works](https://developers.google.com/search/docs/fundamentals/how-search-works)
-- [Google Search Central: Crawling and Indexing FAQ](https://developers.google.com/search/help/crawling-index-faq)
-- [Google Business Profile: Business Eligibility and Ownership Guidelines](https://support.google.com/business/answer/13763036?hl=en)
-- [Google Business Profile: How Local Ranking Works](https://support.google.com/business/answer/7091?hl=en)
-- [Moz: Guide to Domain Authority 2.0](https://moz-static.s3.amazonaws.com/products/landing-pages/announcements/Guide_to_Domain_Authority_2.0.pdf)
-
-**Official platform guidance**
-
-- [Apple: Introducing Apple Business (2026)](https://www.apple.com/newsroom/2026/03/introducing-apple-business-a-new-all-in-one-platform-for-businesses-of-all-sizes/)
-- [Bing Places: Create or Claim a Business Listing](https://www.bing.com/forbusiness/help/createYourListing?setlang=en-US)
-- [LinkedIn: Create a LinkedIn Page](https://www.linkedin.com/help/linkedin/answer/a543852/creating-a-linkedin-page)
-- [Clutch: How to Get Listed](https://help.clutch.co/en/knowledge/get-listed-on-clutch)
-- [Thomas: Get Listed on Thomasnet](https://business.thomasnet.com/get-listed-on-thomasnet)
-- [G2: Create a Product Profile](https://sell.g2.com/create-a-profile)
-- [Capterra: For Software Vendors](https://www.capterra.com/vendors/)
-- [Product Hunt: How to Post a Product](https://help.producthunt.com/en/articles/479557-how-to-post-a-product)
-- [SourceForge: Promoting Your Project](https://sourceforge.net/p/forge/documentation/Promoting%20your%20project/)
-- [Trustpilot: Guidelines for Businesses](https://corporate.trustpilot.com/legal/for-businesses/guidelines-for-businesses/sep-2026)
-- [Crunchbase: How to Create a Profile](https://support.crunchbase.com/hc/en-us/articles/115011823988-How-do-I-create-a-Crunchbase-profile)
-
-**Sources used to check outdated information in the original article**
-
-- [Alexa Internet: We Will Be Retiring Alexa.com on May 1, 2022 (archived notice)](https://web.archive.org/web/20220102200605/https://support.alexa.com/hc/en-us/articles/4410503838999)
-- [TechCrunch: So Long, StumbleUpon (2018)](https://techcrunch.com/2018/05/24/so-long-stumbleupon/)
-
-*This guide distinguishes search-engine policies, platform-specific rules, and practical recommendations. Platform availability and policies may change; check the official documentation before submitting.*
+Official platform submission and review guidance is linked in the corresponding directory entries.
