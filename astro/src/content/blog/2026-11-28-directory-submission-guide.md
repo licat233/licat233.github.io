@@ -52,7 +52,7 @@ GEO（Generative Engine Optimization，生成式引擎优化）关注内容在 A
 
 具体做法是统一正式品牌名称和官网网址，保持业务类别及联系方式准确，更新过期产品与资质，并在官网提供充分的产品、关于我们和联系信息。如果网站适合使用 [Organization 结构化数据](https://schema.org/Organization)，也应保证数据与可见内容一致。
 
-[Google 的 AI 搜索说明](https://developers.google.com/search/docs/appearance/ai-features)建议继续做好基础 SEO、可靠内容及商家信息维护。它并没有给出一个通过目录数量保证 AI 引用的公式。第三方名录是补充可核实信息的一种途径，而不是已证实的通用 AI 排名信号。有关网站本身的基础优化，参见[网站 SEO/GEO 基础指南](/blog/website-seo-geo-basics/)。
+[Google 的 AI 搜索说明](https://developers.google.com/search/docs/appearance/ai-features)建议继续做好基础 SEO、可靠内容及商家信息维护。它并没有给出一个通过目录数量保证 AI 引用的公式。微软也在 [Bing AI Performance 官方公告](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/) 中建议本地企业维护 Bing Places 的地址、营业时间和联系信息，使资料符合 AI 生成回答的相关展示条件。第三方名录是补充可核实信息的一种途径，而不是已证实的通用 AI 排名信号。有关网站本身的基础优化，参见[网站 SEO/GEO 基础指南](/blog/website-seo-geo-basics/)。
 
 ## 三、先确定适合自己网站的目录类型
 
@@ -99,7 +99,7 @@ GEO（Generative Engine Optimization，生成式引擎优化）关注内容在 A
 
 | 平台及官方入口 | 适用对象与市场 | 费用及提交规则 |
 |---|---|---|
-| [Google Business Profile](https://business.google.com/) | 支持地区；门店、上门服务 | 免费；认领或创建并验证，须符合面对面服务资格 |
+| [Google Business Profile](https://business.google.com/) | 支持地区；门店、上门服务 | 免费；认领或创建并验证，须符合[商家资格要求](https://support.google.com/business/answer/13763036) |
 | [Bing Places](https://www.bing.com/forbusiness/help/createYourListing?setlang=en-US) | 支持地区；本地企业 | 基础资料免费；认领或创建并验证，地区功能不同 |
 | [Apple Business](https://business.apple.com/) | Apple 服务覆盖市场；品牌与地点 | 基础品牌与地点管理；按账户提示验证，具体服务费用另查 |
 | [Yelp](https://biz.yelp.com/) | Yelp 活跃市场；餐饮和本地服务 | 免费认领；管理资料和评价，广告另收费 |
@@ -127,7 +127,7 @@ GEO（Generative Engine Optimization，生成式引擎优化）关注内容在 A
 | [GlobalSpec](https://advertising.globalspec.com/list-your-products/) | 工程技术；工业零部件和设备 | 联系平台提交产品；商业服务费用需询价 |
 | [DirectIndustry](https://www.directindustry.com/exhibit_on_directindustry/subscription) | 全球工业设备；制造商、经销商 | 填写参展申请；联系平台确认审核、费用与服务 |
 | [ArchiExpo](https://www.archiexpo.com/exhibit_on_archiexpo/subscription) | 国际建筑与室内设计；建材、家具、照明 | 填写参展申请；联系平台确认审核、费用与服务 |
-| [MedicalExpo](https://www.medicalexpo.com/ja/exhibit_on_medicalexpo/subscription) | 国际医疗器械；专业设备供应商 | 参展申请，链接为日语入口；确认资质、市场与费用 |
+| [MedicalExpo](https://www.medicalexpo.com/exhibit_on_medicalexpo/subscription) | 国际医疗器械；专业设备供应商 | 参展申请；确认资质、市场与费用 |
 
 ### 6. 软件与产品目录
 
@@ -237,6 +237,10 @@ GEO（Generative Engine Optimization，生成式引擎优化）关注内容在 A
 
 如果提交被拒绝，先阅读原因并纠正资料。平台不允许某类网站时，应选择其他合适平台，而不是改变事实以绕过审核。
 
+### 一个个人博客提交示例
+
+假设你经营一个名为 Home Lab Notes 的个人博客，内容是 Linux、自建服务器和开源软件教程。可先在 [indieblog.page 的提交页面](https://indieblog.page/suggest) 填写博客主页或 RSS/Atom 地址，例如 https://example.com/feed.xml（仅为演示地址）。如果自动识别失败，先检查订阅源是否有效，再填写准确的订阅源 URL。随后在目录中搜索博客，确认收录状态及链接。若选择 Curlie，则先浏览对应主题和语言分类，按其[提交指南](https://curlie.org/docs/en/add.html) 建议一个最相关的分类，由编辑审核。两种提交方式不同，但都应从读者真正能够发现和使用内容的角度出发。
+
 ## 八、如何管理和维护目录提交记录？
 
 目录运营不是提交一次就结束。一个简单的记录表可以帮助网站运营者避免重复工作，并将审核、续费、信息更新和效果评估放在同一个地方。
@@ -285,7 +289,7 @@ Google 的[垃圾内容政策](https://developers.google.com/search/docs/essenti
 | 误区 | 正确做法 |
 |---|---|
 | 提交数量越多越好 | 优先选择相关、真实、有维护的目录 |
-| DA 或 DR 越高越值得提交 | DA、DR 是第三方指标，不是 Google 排名分数；还要看实际资料页和受众 |
+| DA 或 DR 越高越值得提交 | DA、DR 是第三方指标，[不是 Google 排名分数](https://help.ahrefs.com/en/articles/907673-do-search-engines-use-domain-authority-domain-rating-as-a-ranking-factor)；还要看实际资料页和受众 |
 | 只提交 dofollow 链接 | 优先考虑真实曝光和访问；不要把链接属性当成唯一标准 |
 | 付费目录一定违规或一定有效 | 付费会员、审核或广告可有商业用途；不要为操纵排名购买传递排名信号的链接 |
 | 必须互换友情链接 | 正常资源引用可以有用，但不要参与大规模无关链接交换 |

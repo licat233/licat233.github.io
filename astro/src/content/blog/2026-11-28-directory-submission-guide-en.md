@@ -52,7 +52,7 @@ For example, an industrial company can describe its core products, manufacturing
 
 Use the official brand name and website consistently, keep categories and contact details accurate, update obsolete products and credentials, and provide substantial product, about and contact information on your own site. If [Organization structured data](https://schema.org/Organization) is appropriate, make sure it matches visible content.
 
-[Google's AI search guidance](https://developers.google.com/search/docs/appearance/ai-features) recommends foundational SEO, reliable content and up-to-date business information. It does not offer a formula guaranteeing AI citations based on the number of directories. Third-party listings can supplement verifiable information, but they are not a proven universal AI ranking signal. See the [Website SEO and GEO Basics guide](/en/blog/website-seo-geo-basics/) for foundational website optimization.
+[Google's AI search guidance](https://developers.google.com/search/docs/appearance/ai-features) recommends foundational SEO, reliable content and up-to-date business information. It does not offer a formula guaranteeing AI citations based on the number of directories. Microsoft's [Bing AI Performance announcement](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/) also recommends keeping local business addresses, opening hours and contact details current in Bing Places so information remains eligible for relevant AI-generated responses. Third-party listings can supplement verifiable information, but they are not a proven universal AI ranking signal. See the [Website SEO and GEO Basics guide (Chinese)](/blog/website-seo-geo-basics/) for foundational website optimization.
 
 ## 3. Identify the right directory type for your website
 
@@ -99,7 +99,7 @@ For real storefronts and service-area businesses. Check eligibility against actu
 
 | Platform / official entry | Audience and market | Fees and submission rules |
 |---|---|---|
-| [Google Business Profile](https://business.google.com/) | Supported markets; storefronts, service-area businesses | Free; claim or create and verify; in-person contact eligibility applies |
+| [Google Business Profile](https://business.google.com/) | Supported markets; storefronts, service-area businesses | Free; claim or create and verify; [business eligibility rules](https://support.google.com/business/answer/13763036) apply |
 | [Bing Places](https://www.bing.com/forbusiness/help/createYourListing?setlang=en-US) | Supported markets; local businesses | Free basic listing; claim or create and verify; regional features vary |
 | [Apple Business](https://business.apple.com/) | Apple service markets; brands and locations | Basic brand and location management; follow account verification; check fees for other services |
 | [Yelp](https://biz.yelp.com/) | Yelp-active markets; dining and local services | Free claim; manage profiles and reviews; ads extra |
@@ -127,7 +127,7 @@ Professional buyers often filter suppliers by specifications, certifications, ca
 | [GlobalSpec](https://advertising.globalspec.com/list-your-products/) | Engineering; industrial components and equipment | Contact platform to list products; request commercial pricing |
 | [DirectIndustry](https://www.directindustry.com/exhibit_on_directindustry/subscription) | Global industrial equipment; manufacturers and distributors | Exhibitor application; confirm review, pricing and services |
 | [ArchiExpo](https://www.archiexpo.com/exhibit_on_archiexpo/subscription) | International architecture and interiors; materials, furniture, lighting | Exhibitor application; confirm review, pricing and services |
-| [MedicalExpo](https://www.medicalexpo.com/ja/exhibit_on_medicalexpo/subscription) | International medical devices; specialist equipment suppliers | Exhibitor application, Japanese entry; confirm credentials, markets and pricing |
+| [MedicalExpo](https://www.medicalexpo.com/exhibit_on_medicalexpo/subscription) | International medical devices; specialist equipment suppliers | Exhibitor application; confirm credentials, markets and pricing |
 
 ### 6. Software and product directories
 
@@ -237,6 +237,10 @@ Open the actual public page rather than relying on a dashboard status. Check the
 
 If a submission is declined, read the reason and correct the information. If a platform excludes your website type, choose another suitable platform rather than changing facts to bypass review.
 
+### A personal blog submission example
+
+Suppose you run a personal blog called Home Lab Notes, covering Linux, self-hosting and open-source software tutorials. Start by entering the blog homepage or RSS/Atom address in the [indieblog.page submission form](https://indieblog.page/suggest), such as https://example.com/feed.xml (a demonstration URL only). If automatic detection fails, check that the feed is valid and enter its exact URL. Then search the directory to check whether the blog is listed and the link works. If you choose Curlie instead, browse the relevant topic and language categories first and suggest the single most relevant category according to its [submission guidelines](https://curlie.org/docs/en/add.html), for editorial review. The two submission methods differ, but both start from how readers can actually discover and use the content.
+
 ## 8. Manage and maintain directory listings
 
 Directory work does not end at submission. A simple tracker helps website operators avoid duplicate work and manage reviews, renewals, updates and performance in one place.
@@ -285,7 +289,7 @@ Google's [spam policies](https://developers.google.com/search/docs/essentials/sp
 | Misconception | Better practice |
 |---|---|
 | More submissions are always better | Prioritize relevant, genuine and maintained directories |
-| Higher DA or DR always means a better directory | DA and DR are third-party metrics, not Google ranking scores; inspect the listing page and audience |
+| Higher DA or DR always means a better directory | DA and DR are third-party metrics, [not Google ranking scores](https://help.ahrefs.com/en/articles/907673-do-search-engines-use-domain-authority-domain-rating-as-a-ranking-factor); inspect the listing page and audience |
 | Only dofollow links are worth submitting for | Prioritize real exposure and visits; link attributes are not the sole criterion |
 | Paid directories are always prohibited or always effective | Membership, editorial review and advertising may have business value; do not buy ranking-credit links to manipulate search |
 | Reciprocal links are compulsory | Normal resource citations may be useful, but avoid large-scale unrelated link exchanges |
